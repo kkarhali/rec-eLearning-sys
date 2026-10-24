@@ -106,7 +106,7 @@ function renderRisk(o: InstructorOverview): void {
   const host = $('#risk');
   if (!o.risk) { mount(host, emptyState('لا تقدير قبل اليوم 28', 'يبدأ تقدير الاحتمال عند أول قطع للنموذج.')); setBusy(host, false); return; }
   const r = o.risk;
-  const data = r.histogram.map((b) => ({ label: `${fmt(b.lo, 1)}–${fmt(b.hi, 1)}`, value: b.count, flag: b.hi > r.threshold }));
+  const data = r.histogram.map((b) => ({ label: `\u202A${fmt(b.lo, 1)}–${fmt(b.hi, 1)}\u202C`, value: b.count, flag: b.hi > r.threshold }));
   mount(host,
     h('p', { class: 'muted' }, `تقدير Logistic L2 (قطع اليوم ${r.cut_day})، عتبة Youden المجمَّدة من 2013 = ${fmt(r.threshold)}`,
       r.provenance === 'oof_2013' ? h('span', { class: 'badge badge--warn' }, 'تطوير — خارج الطيّة (oof_2013)') : null),

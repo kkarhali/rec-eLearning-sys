@@ -158,7 +158,39 @@ def _rtl_tables(doc: Document) -> None:
                         p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
 
 
+import unicodedata
+
+_KEEP_MIRRORED = set("()[]{}«»‹›")
+_LRM = "‎"
+
+
+def _protect_mirrored_symbols(paragraph) -> None:
+    """Stop the bidi algorithm from flipping relational symbols inside Arabic text.
+
+    In an RTL paragraph, Unicode mirrors characters such as ≤ ≥ < > ⊂ ∈, so "≤ 8"
+    is displayed as "≥ 8". Surrounding each such symbol with left-to-right marks
+    makes it resolve as LTR and keeps its true glyph. Brackets keep mirroring on
+    purpose (that is how they are meant to pair in RTL text). Math (OMML) runs are
+    laid out LTR already and are left untouched.
+    """
+    for t in paragraph._p.iter(qn("w:t")):
+        text = t.text or ""
+        if not text or _LRM in text:
+            continue
+        if any(unicodedata.mirrored(c) and c not in _KEEP_MIRRORED for c in text):
+            t.text = "".join(
+                f"{_LRM}{c}{_LRM}" if (unicodedata.mirrored(c) and c not in _KEEP_MIRRORED) else c
+                for c in text
+            )
+            t.set("{http://www.w3.org/XML/1998/namespace}space", "preserve")
+
+
 def _rtl_paragraphs(doc: Document) -> None:
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for p in cell.paragraphs:
+                    _protect_mirrored_symbols(p)
     for p in doc.paragraphs:
         sname = p.style.name if p.style is not None else ""
         if sname in LTR_STYLES or p._p.find(f".//{qn('m:oMathPara')}") is not None:
@@ -167,6 +199,7 @@ def _rtl_paragraphs(doc: Document) -> None:
             p.alignment = WD_ALIGN_PARAGRAPH.LEFT if sname in LTR_STYLES else WD_ALIGN_PARAGRAPH.CENTER
             continue
         _set_bidi(p, True)
+        _protect_mirrored_symbols(p)
         # Center figure captions / images
         if sname in ("Caption", "Image Caption", "Table Caption", "Figure"):
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
