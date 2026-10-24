@@ -45,7 +45,7 @@ function buildControls(pres: Presentation): void {
   const st = readState();
   scrubber = makeScrubber(pres, st.d ?? DEFAULT_DAY, (d) => { writeState({ d }); void refresh(); });
   mount($('#controls'), h('div', { class: 'controls__row' }, presentationSelect(presList, pres.id, (id) => {
-    const np = presList.find((p) => p.id === id) as Presentation; writeState({ p: id, cl: null, r: '' }); buildControls(np); void refresh();
+    const np = presList.find((p) => p.id === id) as Presentation; writeState({ p: id, cl: null, r: '', off: null }); buildControls(np); void refresh();
   })), scrubber.el);
 }
 
@@ -99,7 +99,7 @@ function renderClusters(cs: ClusterSet): void {
   const cards = h('ul', { class: 'cards' });
   for (const c of cs.clusters) {
     const on = st.cl === c.id;
-    const b = h('button', { class: 'ccard' + (on ? ' ccard--on' : ''), type: 'button', 'aria-pressed': String(on), onclick: () => { writeState({ cl: on ? null : c.id }); renderClusters(cs); void renderTable(); } },
+    const b = h('button', { class: 'ccard' + (on ? ' ccard--on' : ''), type: 'button', 'aria-pressed': String(on), onclick: () => { writeState({ cl: on ? null : c.id, off: null }); renderClusters(cs); void renderTable(); } },
       h('span', { class: 'ccard__t' }, ClusterMarker(c.id), ' ', c.label_ar),
       h('span', { class: 'ccard__m' }, `${learnersAr(c.size)} · أعلى ملمحين: `, c.top_features.map((f) => `${f.name} (${signed(f.z, 1)})`).join('، ')));
     cards.append(h('li', {}, b));
@@ -140,7 +140,7 @@ function renderCoverage(o: InstructorOverview): void {
 async function renderTable(): Promise<void> {
   const st = readState(); const host = $('#learners'); const my = seq;
   try {
-    const page = await api.learners({ presentation: st.p, day: st.d as number, cluster: st.cl ?? undefined, risk: st.f === 'above' ? 'above' : 'all', sort: st.sort, limit: 100 });
+    const page = await api.learners({ presentation: st.p, day: st.d as number, cluster: st.cl ?? undefined, risk: st.f === 'above' ? 'above' : 'all', sort: st.sort, limit: 100, offset: st.off ?? undefined });
     if (my !== seq) return;
     let rows = page.items;
     if (st.f === 'idle') rows = rows.filter((r) => r.last_access_day === null || (st.d as number) - r.last_access_day >= 14);
@@ -159,7 +159,7 @@ async function renderTable(): Promise<void> {
     mount(host,
       h('p', { class: 'muted', 'aria-live': 'polite' }, `${learnersAr(rows.length)}` + (st.cl !== null ? ' في العنقود المختار' : '') + ' · مرتبون حسب ' + sortName(st.sort) + (st.sort.startsWith('-') ? ' تنازلياً' : ' تصاعدياً') + ' · Enter أو النقر لفتح الملف · ↑↓ للتنقل'),
       DataTable<InstructorLearnerRow>({ caption: 'جدول المتعلمين مع درجة الخطر النسبية', cols, rows, rowId: (r) => r.registration, sort: st.sort, activeId: st.r || undefined,
-        emptyText: 'لا متعلمين يطابقون التصفية الحالية.', onSort: (k) => { const cur = readState().sort; writeState({ sort: cur === '-' + k ? k : '-' + k }); void renderTable(); },
+        emptyText: 'لا متعلمين يطابقون التصفية الحالية.', onSort: (k) => { const cur = readState().sort; writeState({ sort: cur === '-' + k ? k : '-' + k, off: null }); void renderTable(); },
         onOpen: (r, el) => void openLearner(r.registration, el) }));
     setBusy(host, false);
   } catch (e) { showError(host, e, () => void renderTable()); }
@@ -174,12 +174,12 @@ function riskCell(p: number, above: boolean, thr?: number): HTMLElement {
 function filterChips(): void {
   const st = readState();
   const chip = (label: string, on: boolean, fn: () => void) => h('button', { class: 'chipbtn' + (on ? ' chipbtn--on' : ''), type: 'button', 'aria-pressed': String(on), onclick: fn }, label);
-  const set = (f: 'all' | 'above' | 'idle') => { writeState({ f, ...(f === 'all' ? { cl: null } : {}) }); filterChips(); if (clusters) renderClusters(clusters); void renderTable(); };
+  const set = (f: 'all' | 'above' | 'idle') => { writeState({ f, off: null, ...(f === 'all' ? { cl: null } : {}) }); filterChips(); if (clusters) renderClusters(clusters); void renderTable(); };
   mount($('#filters'),
     chip('الكل', st.f === 'all' && st.cl === null, () => set('all')),
     chip('≥ العتبة', st.f === 'above', () => set('above')),
     chip('بلا نشاط 14 يوماً', st.f === 'idle', () => set('idle')),
-    st.cl !== null ? chip('عنقود: ' + (clusters?.clusters.find((c) => c.id === st.cl)?.label_ar ?? st.cl) + ' ×', true, () => { writeState({ cl: null }); filterChips(); if (clusters) renderClusters(clusters); void renderTable(); }) : null);
+    st.cl !== null ? chip('عنقود: ' + (clusters?.clusters.find((c) => c.id === st.cl)?.label_ar ?? st.cl) + ' ×', true, () => { writeState({ cl: null, off: null }); filterChips(); if (clusters) renderClusters(clusters); void renderTable(); }) : null);
 }
 
 // ---------------------------------------------------------------- drawer

@@ -1,0 +1,69 @@
+{
+  "started": "2026-10-24 22:26:26",
+  "commit": "62e26519276340f54a13f4d8baaafcede2486ed0",
+  "src_dirty": true,
+  "steps": [
+    {
+      "step": "eda",
+      "returncode": 0,
+      "seconds": 41.1
+    },
+    {
+      "step": "run_baselines",
+      "returncode": 0,
+      "seconds": 479.4
+    },
+    {
+      "step": "gru_sanity",
+      "returncode": 0,
+      "seconds": 60.7
+    },
+    {
+      "step": "run_gru",
+      "returncode": 0,
+      "seconds": 938.3
+    },
+    {
+      "step": "run_ablation",
+      "returncode": 0,
+      "seconds": 1261.3
+    },
+    {
+      "step": "learner_analysis",
+      "returncode": 0,
+      "seconds": 153.3
+    },
+    {
+      "step": "run_hybrid",
+      "returncode": 0,
+      "seconds": 184.0
+    },
+    {
+      "step": "power",
+      "returncode": 0,
+      "seconds": 15.9
+    },
+    {
+      "step": "risk_final",
+      "returncode": 0,
+      "seconds": 20.2
+    },
+    {
+      "step": "build_artifacts",
+      "returncode": 0,
+      "seconds": 54.9
+    },
+    {
+      "step": "freeze_config",
+      "returncode": 0,
+      "seconds": 1.4
+    },
+    {
+      "step": "report",
+      "returncode": 0,
+      "seconds": 5.8
+    }
+  ],
+  "identical": false,
+  "wall_seconds": 3217.0
+}

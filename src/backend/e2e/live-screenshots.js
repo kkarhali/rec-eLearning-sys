@@ -15,8 +15,10 @@ async function getJson(url) { const r = await fetch(BASE + url); return r.json()
 
 async function main() {
   fs.mkdirSync(OUT, { recursive: true });
-  // D-72: متعلم الدرج والجدول (واللقطات التي تُظهر متعلماً بدرجته) = الأقرب إلى وسيط الدرجات من بين من هم دون العتبة
-  // ضمن الصفحة التي يعرضها الجدول فعلاً (أول 100 مرتبين بالتسجيل، بلا مرشّح «فوق العتبة»)؛ الوسيط من الفوج كله.
+  // D-72/D-73: متعلم الدرج والجدول (واللقطات التي تُظهر متعلماً بدرجته).
+  // مجتمع الاختيار = الصفحة المعروضة (مفروزة بالتسجيل، بلا مرشّح، أول 100 صف)؛ الشروط: دون العتبة، و≥ 5 أيام نشطة، والأقرب إلى
+  // وسيط درجات الفوج كله، والتعادل بترتيب التسجيل. يُقبل إن كان الفرق ≤ 0.05؛ وإلا يُفتح الجدول (off=) عند صفحة أقرب متعلم مؤهَّل في الفوج.
+  const PAGE = 100, MAX_GAP = 0.05;
   const all = [];
   for (let off = 0; ; off += 500) {
     const pg = await getJson(`/api/instructor/learners?presentation=${PRES}&day=${DAY}&sort=reg&limit=500&offset=${off}`);
@@ -24,12 +26,27 @@ async function main() {
   }
   const scores = all.filter((r) => r.risk).map((r) => r.risk.score).sort((x, y) => x - y);
   const n = scores.length, median = n % 2 ? scores[(n - 1) / 2] : (scores[n / 2 - 1] + scores[n / 2]) / 2;
-  const shown = all.slice(0, 100);                              // ما يعرضه الجدول عند sort=reg&limit=100
-  const mid = shown.filter((r) => r.risk && !r.risk.above_threshold && r.active_days >= 5)
-    .sort((x, y) => Math.abs(x.risk.score - median) - Math.abs(y.risk.score - median) || x.registration.localeCompare(y.registration))[0];
-  if (!mid) throw new Error('لا متعلم دون العتبة في الصفحة المعروضة');
+  const eligible = (r) => r.risk && !r.risk.above_threshold && r.active_days >= 5;
+  const gap = (r) => Math.abs(r.risk.score - median);
+  const closest = (rows) => rows.filter(eligible).sort((x, y) => gap(x) - gap(y) || x.registration.localeCompare(y.registration, 'en', { numeric: true }))[0];
+  let tableOff = 0, mid = closest(all.slice(0, PAGE));
+  if (!mid || gap(mid) > MAX_GAP) {
+    mid = closest(all);
+    if (!mid) throw new Error('D-73: لا متعلم مؤهَّل في الفوج');
+    tableOff = Math.floor(all.indexOf(mid) / PAGE) * PAGE;
+  }
+  const pageRows = all.slice(tableOff, tableOff + PAGE);
+  // تحقق صارم من القاعدة: يفشل السكربت إن خالف الاختيار أيّاً منها
+  const violations = [];
+  if (!eligible(mid)) violations.push('ليس مؤهَّلاً (دون العتبة و≥ 5 أيام نشطة)');
+  if (!pageRows.includes(mid)) violations.push('ليس ضمن الصفحة المعروضة');
+  const better = pageRows.filter(eligible).find((r) => r !== mid && (gap(r) < gap(mid) || (gap(r) === gap(mid) && r.registration.localeCompare(mid.registration, 'en', { numeric: true }) < 0)));
+  if (better) violations.push(`يوجد أقرب منه في الصفحة: ${better.registration}`);
+  if (tableOff === 0 && gap(mid) > MAX_GAP) violations.push(`الفرق ${gap(mid).toFixed(3)} > ${MAX_GAP} دون انتقال بـoffset`);
+  if (tableOff > 0 && closest(all) !== mid) violations.push('عند الانتقال بـoffset يجب أن يكون الأقرب في الفوج كله');
+  if (violations.length) throw new Error('D-73 مخالفة: ' + violations.join('؛ '));
   const reg = mid.registration;
-  console.log(`متعلم اللقطات (D-72): ${reg} · الدرجة ${mid.risk.score} (العتبة ${mid.risk.threshold}) · وسيط الفوج ${median.toFixed(3)} · الفرق ${(Math.abs(mid.risk.score - median)).toFixed(3)} · أيام نشطة ${mid.active_days}`);
+  console.log(`متعلم اللقطات (D-73): ${reg} · الدرجة ${mid.risk.score} (العتبة ${mid.risk.threshold}) · وسيط الفوج ${median.toFixed(3)} · الفرق ${gap(mid).toFixed(3)} · أيام نشطة ${mid.active_days} · offset الجدول ${tableOff}`);
   const Q = `p=${PRES}&r=${reg}&d=${DAY}`;
   const problems = [];
   let expect422 = false;   // خطوة d=30 تتوقع 422 day_before_first_snapshot ثم انتقالاً تلقائياً
@@ -94,7 +111,7 @@ async function main() {
       await shot('04-learner-before-first-cut', false);
 
       // 3) المدرّس: مؤشرات + عناقيد + مدرج + جدول + درج
-      await page.goto(`${BASE}/instructor.html?p=${PRES}&d=${DAY}&sort=reg`); await page.waitForSelector('tr.row', { timeout: 60000 }); await page.waitForTimeout(600);
+      await page.goto(`${BASE}/instructor.html?p=${PRES}&d=${DAY}&sort=reg${tableOff ? '&off=' + tableOff : ''}`); await page.waitForSelector('tr.row', { timeout: 60000 }); await page.waitForTimeout(600);
       checks.push(`${name} صفوف جدول المتعلمين: ${await page.locator('tr.row').count()}`);
       await noHScroll('instructor'); await noMockTag('instructor'); await uiChecks('instructor'); await shot('05-instructor');
       // أشرطة الملامح (قيم سالبة) داخل مساراتها وبطاقتها

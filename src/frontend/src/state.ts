@@ -1,8 +1,8 @@
 // URL state: presentation (p), registration (r), day (d), task, cluster (cl), risk filter (f), sort (sort).
 export interface AppState {
-  p: string; r: string; d: number | null; task: 'A' | 'B'; cl: number | null; f: 'all' | 'above' | 'idle'; sort: string;
+  p: string; r: string; d: number | null; task: 'A' | 'B'; cl: number | null; f: 'all' | 'above' | 'idle'; sort: string; off: number | null;
 }
-const KEYS = ['p', 'r', 'd', 'task', 'cl', 'f', 'sort'] as const;
+const KEYS = ['p', 'r', 'd', 'task', 'cl', 'f', 'sort', 'off'] as const;
 export function readState(): AppState {
   const q = new URLSearchParams(location.search);
   const num = (k: string): number | null => { const v = q.get(k); if (v === null || v === '') return null; const n = Number(v); return Number.isFinite(n) ? Math.trunc(n) : null; };
@@ -10,7 +10,7 @@ export function readState(): AppState {
   return {
     p: q.get('p') ?? '', r: q.get('r') ?? '', d: num('d'),
     task: q.get('task') === 'B' ? 'B' : 'A', cl: num('cl'),
-    f: f === 'above' || f === 'idle' ? f : 'all', sort: q.get('sort') ?? '-risk',
+    f: f === 'above' || f === 'idle' ? f : 'all', sort: q.get('sort') ?? '-risk', off: num('off'),
   };
 }
 export function writeState(patch: Partial<AppState>, push = false): AppState {

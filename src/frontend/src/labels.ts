@@ -34,6 +34,7 @@ export function countAr(n: number, one: string, two: string, few: string, many: 
   if (a === 2) return two;
   if (m >= 3 && m <= 10) return `${num} ${few}`;
   if (a === 0) return `0 ${few}`;
+  if (a >= 100 && a % 100 === 0) return `${num} ${one}`;   // المئات والآلاف الصحيحة: مفرد بلا تنوين («100 متعلم»)
   return `${num} ${many}`;
 }
 export const daysAr = (n: number): string => countAr(n, 'يوم', 'يومان', 'أيام', 'يوماً');
