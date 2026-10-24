@@ -24,7 +24,7 @@
       "c": 4.62237037644658e-09
     },
     "pass": 1.0,
-    "seconds_total": 0.06578707695007324
+    "seconds_total": 0.07462096214294434
   },
   "S2": {
     "mean_L_minus_H": 0.0012100563194053394,
@@ -33,7 +33,7 @@
     "loss_last": 0.5411344170570374,
     "unique_prefixes": true,
     "pass": true,
-    "seconds_total": 0.4994208812713623
+    "seconds_total": 0.47786688804626465
   },
   "S3": {
     "mean_TV": 0.07413289795423168,
@@ -50,7 +50,7 @@
       1.3487118256171342
     ],
     "pass": true,
-    "seconds_total": 8.019974946975708
+    "seconds_total": 8.738720655441284
   },
   "S4": {
     "presentation": "FFF_2013J",
@@ -70,18 +70,18 @@
       0.4349503567603928
     ],
     "best_epoch": 1,
-    "seconds": 12.207179069519043,
+    "seconds": 12.68192172050476,
     "epochs": 4,
-    "positions_per_second": 27101.75693466212,
+    "positions_per_second": 26087.21353839363,
     "basket_items_per_epoch": 304111,
     "pass": true,
-    "seconds_total": 12.812267065048218
+    "seconds_total": 13.26451563835144
   },
   "S6": {
     "tests_run": 7,
     "failures": 0,
     "pass": true,
-    "seconds_total": 0.06233811378479004
+    "seconds_total": 0.05833768844604492
   },
   "S5": {
     "presentation": "GGG_2013J",
@@ -100,7 +100,7 @@
     ],
     "sd": 0.011821824842600788,
     "within_0.005": false,
-    "seconds_total": 35.97172164916992
+    "seconds_total": 37.288121700286865
   },
   "gates_passed": true
 }
