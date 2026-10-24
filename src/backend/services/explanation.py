@@ -9,7 +9,7 @@ import numpy as np
 
 from ..errors import ApiError
 from ..schemas import AssessmentEvidence, CountEvidence, ExplanationDetail, ExplComponent, ItemEvidence
-from .labels import comp_id, comp_label
+from .labels import comp_id, comp_label, fix_ar
 from .replay import ReplayService
 
 ZERO_WEIGHT_SENTENCE = "وزن هذا المكوّن في نموذج هذا القطع 0؛ لا يساهم في الدرجة."
@@ -101,9 +101,9 @@ class ExplanationService:
                 evidence = self._to_evidence(m, ev, pres, student, day) if weight[m] > 0 else None
                 out.append(ExplComponent(id=comp_id(m), label=comp_label(m), weight=round(weight[m], 4),
                                          r_tilde=round(float(comp["rtilde"]), 4), contribution=round(float(comp["contribution"]), 4),
-                                         evidence=evidence, sentence=sentence))
+                                         evidence=evidence, sentence=fix_ar(sentence)))
         out.sort(key=lambda x: -x.contribution)
-        notes = [note] if note else []
+        notes = [fix_ar(note)] if note else []
         if not raw.known:
             notes.append("لا نشاط سابق لهذا التسجيل؛ الدرجات غير شخصية ولا دليل فردياً.")
         return ExplanationDetail(registration=f"{pres}-{student}", id_site=id_site, activity_type=str(item["activity_type"]),

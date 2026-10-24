@@ -253,7 +253,8 @@ class InstructorLearnerRow(Out):
 
 
 class Kpis(Out):
-    active_learners: int
+    active_learners: int              # الفوج الذي له يوم نشط واحد على الأقل حتى t
+    cohort_size: int                  # الفوج: مسجَّلون ≤ t ولم ينسحبوا ≤ t (= مجموع أحجام العناقيد)
     median_active_days: float
     catalogue_size: int
     coverage_at_10: float

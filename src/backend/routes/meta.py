@@ -34,14 +34,14 @@ def routes(sv) -> list[Route]:
                 snapshot_grid=list(SNAPSHOT_GRID), cutoffs=list(MODEL_CUTS), risk_cutoffs=list(RISK_CUTS),
                 presentations=[p.id for p in sv.replay.presentations() if p.status == "published"],
                 instructor_enabled=sv.settings.instructor_enabled, bind_host=sv.settings.host, frozen_at_commit=sv.repo.frozen_commit(),
-                risk_score={"field": "score", "label_ar": RISK_LABEL_AR, "calibrated": False, "audience": "المدرّس فقط (D-22)",
+                risk_score={"field": "score", "label_ar": RISK_LABEL_AR, "calibrated": False, "audience": "المدرّس فقط",
                             "model": "M1", "provenance": "lopo_2013", "min_day": 28,
                             "target_ar": "رسوب أو انسحاب (Fail/Withdrawn) مقابل نجاح أو امتياز (Pass/Distinction)",
                             "inputs_ar": "ملامح السلوك في سجل VLE حتى أقرب قطع (28 أو 56 أو 112)"},
                 notes=["أوزان المكوّنات المعروضة هي الأوزان الأولية المجمَّدة (منوال)؛ لكل (عرض، قطع) أوزان خاصة تظهر في كل توصية.",
-                       "إعادة تشغيل على بيانات تاريخية (OULAD 2013) بلا جمع حي؛ لا أرقام تقييم تُشتق من الخدمة (D-49).",
-                       "عرض توضيحي بلا أمان وصول: لا مصادقة؛ الربط الافتراضي 127.0.0.1، و--no-instructor يعطّل مسارات المدرّس (D-66).",
-                       "درجة الخطر للمدرّس فقط، وهي درجة نسبية غير معايَرة لترتيب الأولوية وليست احتمالاً (D-65)."])
+                       "إعادة تشغيل على بيانات تاريخية (OULAD 2013) بلا جمع حي؛ لا أرقام تقييم تُشتق من الخدمة.",
+                       "عرض توضيحي بلا أمان وصول: لا مصادقة؛ الربط الافتراضي 127.0.0.1، و--no-instructor يعطّل مسارات المدرّس.",
+                       "درجة الخطر للمدرّس فقط، وهي درجة نسبية غير معايَرة لترتيب الأولوية وليست احتمالاً."])
         return await respond(work)
 
     async def presentations(request: Request) -> Response:

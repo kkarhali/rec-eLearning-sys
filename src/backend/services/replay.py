@@ -19,7 +19,7 @@ from ..schemas import (AssessmentInfo, ComponentInfo, DailyClicks, HistoryEvent,
                        Page, Presentation, Provenance, RecContext, RecItem, RecommendationResponse,
                        RegistrationSummary)
 from ..settings import DEFAULT_DAY, LOCKED_LISTED, MODEL_CUTS, SNAPSHOT_GRID, Settings
-from .labels import comp_id, comp_label
+from .labels import comp_id, comp_label, fix_ar
 
 NOTE_NO_HISTORY = "لا نشاط سابق لهذا التسجيل حتى هذا اليوم؛ الترتيب غير شخصي (الأكثر استخداماً لدى الزملاء)."
 
@@ -192,10 +192,11 @@ class ReplayService:
             items.append(RecItem(
                 rank=n, id_site=int(it["id_site"]), activity_type=str(it["activity_type"]), score=round(float(it["score"]), 4),
                 contributions={comp_id(m): round(float(v["contribution"]), 4) for m, v in it["components"].items()},
-                reason=exp["main"]["text"], reason_secondary=(exp["secondary"][0]["text"] if exp["secondary"] else None)))
+                reason=fix_ar(exp["main"]["text"]), reason_secondary=(fix_ar(exp["secondary"][0]["text"]) if exp["secondary"] else None)))
         ev = ix.student_events(student, day)
         ctx = RecContext(week=day // 7 + 1, next_assessment=self.next_assessment(pres, day),
                          active_days_to_date=int(ev["date"].nunique()))
+        note = fix_ar(note)
         if raw.status == "no_history" and not note:
             note = NOTE_NO_HISTORY
         return RecommendationResponse(

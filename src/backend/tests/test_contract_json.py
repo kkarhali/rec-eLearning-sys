@@ -73,6 +73,25 @@ class TestSerializedContract(unittest.TestCase):
             self.assertNotIn("date_unregistration", raw)
             self.assertNotIn("final_result", raw)
 
+    def test_no_decision_ids_and_correct_plurals_in_any_text(self):
+        urls = [f"/api/recommendations?registration={self.reg}&day=40&k=20", f"/api/recommendations?registration={self.reg}&day=75&k=20",
+                f"/api/instructor/clusters?presentation={P}&day=75", f"/api/instructor/learner/{self.reg}?day=75", "/api/meta"]
+        for it in self.js(f"/api/recommendations?registration={self.reg}&day=40&k=20")["items"][:3]:
+            urls.append(f"/api/explanations/{self.reg}/{it['id_site']}?day=40")
+        for u in urls:
+            for kind, path, text in walk(self.js(u)):
+                if kind == "value":
+                    self.assertNotRegex(text, r"\bD-\d", f"{u} {path}")
+                    self.assertNotRegex(text, r"(?<!\d)(?:[3-9]|10) يوماً|\b(?:1[1-9]|[2-9]\d) أيام", f"{u} {path}: {text}")
+
+    def test_kpi_cohort_consistent_with_clusters_and_table(self):
+        o = self.js(f"/api/instructor/overview?presentation={P}&day=75")["kpis"]
+        c = self.js(f"/api/instructor/clusters?presentation={P}&day=75")
+        t = self.js(f"/api/instructor/learners?presentation={P}&day=75&limit=1")["total"]
+        self.assertEqual(o["cohort_size"], sum(x["size"] for x in c["clusters"]))
+        self.assertEqual(o["cohort_size"], t)
+        self.assertLessEqual(o["active_learners"], o["cohort_size"])
+
     def test_c7_evidence_key_renamed(self):
         top = self.js(f"/api/recommendations?registration={self.reg}&day=75&k=1")["items"][0]["id_site"]
         raw = self.c.get(f"/api/explanations/{self.reg}/{top}?day=75").text

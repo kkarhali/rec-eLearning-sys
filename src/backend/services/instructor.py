@@ -22,7 +22,7 @@ from ..schemas import (ClusterInfo, ClusterPoint, ClusterQuality, ClusterRef, Cl
                        ProfileRow, ProfileSummary, Provenance, RiskDetail, RiskFactor, RiskRow, TopFeature, TopRec,
                        TypeShare)
 from ..settings import CLUSTER_DAY, Settings
-from .labels import feature_ar, phrase
+from .labels import feature_ar, fix_ar, phrase
 from .replay import ReplayService, _LRU
 
 PROVENANCE = "lopo_2013"           # مدرَّب على العروض الثمانية الأخرى (ترك عرض خارج التدريب، D-65)
@@ -167,13 +167,13 @@ class InstructorService:
 
     @staticmethod
     def _unstable_reason(cm: ClusterModel) -> str:
-        """قاعدة D-39-ب (learners.choose_k): مستقر = k ضمن أفضل اثنين في silhouette وDBI معاً **و** ARI عبر البذور ≥ 0.8.
+        """قاعدة D-39-ب في ``learners.choose_k``: مستقر = k ضمن أفضل اثنين في silhouette وDBI معاً **و** ARI عبر البذور ≥ 0.8.
         ARI المعروض هو ثبات البذور لـk المختار؛ فقد يكون 1 والعناقيد «غير مستقرة» لأن k فشل في الشرط الأول."""
         ari = cm.quality[2]
         if ari < 0.8:
-            return f"ثبات البذور ضعيف: ARI = {ari:.2f} < 0.8 (D-39-ب)."
+            return f"ثبات البذور ضعيف: ARI = {ari:.2f} < 0.8."
         return (f"البذور مستقرة (ARI = {ari:.2f} ≥ 0.8) لكن k = {cm.k} لم يقع ضمن أفضل اثنين في silhouette وDBI معاً؛ "
-                "اعتُمد أفضل silhouette بوصفه الحالة الاحتياطية الرسمية (D-39-ب).")
+                "اعتُمد أفضل silhouette بوصفه الحالة الاحتياطية الرسمية.")
 
     def risk_model(self, pres: str, tc: int) -> RiskModel:
         key = (pres, tc)
@@ -301,7 +301,7 @@ class InstructorService:
         share = float(above[valid].mean()) if valid.any() else None
         mc = eng.model_cut(day)
         prov = Provenance(run_id=self.repo.run_id, role="dev", model_cut=None if mc is None else int(mc))
-        kpis = Kpis(active_learners=int(len(act)), median_active_days=_round(np.median(act["active_days"]) if len(act) else 0, 1),
+        kpis = Kpis(active_learners=int(len(act)), cohort_size=int(len(Fc)), median_active_days=_round(np.median(act["active_days"]) if len(act) else 0, 1),
                     catalogue_size=cat_n, coverage_at_10=coverage.at_10,
                     share_above_threshold=None if share is None else _round(share, 3))
         overview = InstructorOverview(presentation=pres, requested_day=day, snapshot_day=day, kpis=kpis, profile_summary=summary,
@@ -392,7 +392,7 @@ class InstructorService:
         top = []
         if wd is None:
             raw = self.replay.raw_recs(pres, student, day, "A")
-            top = [TopRec(rank=n, id_site=int(x["id_site"]), activity_type=str(x["activity_type"]), reason=x["explanation"]["main"]["text"])
+            top = [TopRec(rank=n, id_site=int(x["id_site"]), activity_type=str(x["activity_type"]), reason=fix_ar(x["explanation"]["main"]["text"]))
                    for n, x in enumerate(raw.items[:3], start=1)]
         return InstructorLearnerDetail(registration=f"{pres}-{student}", day=day, snapshot_day=day,
                                        cluster=ClusterRef(id=j, label=cm.labels_ar[j]), risk=risk, profile=profile,

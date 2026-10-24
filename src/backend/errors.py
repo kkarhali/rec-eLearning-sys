@@ -16,7 +16,7 @@ MESSAGES_AR = {
     "presentation_not_found": "العرض غير موجود.",
     "registration_not_found": "التسجيل غير موجود في هذا العرض.",
     "item_not_in_list": "التفسير غير متاح لهذا المورد: ليس ضمن أفضل 20 توصية لهذا التسجيل واليوم.",
-    "confirmatory_locked": "عروض 2014 مقفلة حتى يُنشر التشغيل التأكيدي بعد التجميد (D-09).",
+    "confirmatory_locked": "عروض 2014 مقفلة حتى يُنشر التشغيل التأكيدي بعد التجميد.",
     "instructor_disabled": "لوحة المدرّس معطّلة في هذا التشغيل (--no-instructor).",
     "day_before_first_snapshot": "لا تقدير للوحة المدرّس قبل أول يوم متاح.",
     "not_found": "المسار غير موجود.",

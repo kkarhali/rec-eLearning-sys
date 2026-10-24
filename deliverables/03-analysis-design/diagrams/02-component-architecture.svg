@@ -28,7 +28,7 @@
 <rect x="60" y="245" width="225" height="92" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="172.5" y="266" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">data.py</text>
 <text x="172.5" y="293" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">تحميل، تجميع، assert_allowed</text>
-<text x="172.5" y="311" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">confirmatory_ids ← access_log</text>
+<text x="172.5" y="311" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">confirmatory_ids → access_log</text>
 <rect x="300" y="245" width="225" height="92" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="412.5" y="266" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">signals.py</text>
 <text x="412.5" y="293" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">L0 ⊂ L1 ⊂ L2(τ) ⊂ L3(τ,β)</text>
@@ -96,7 +96,7 @@
 <text x="652.5" y="678" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">معاملات GRU-lite</text>
 <text x="652.5" y="696" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">غير مستعمل في HYB*</text>
 <rect x="780" y="630" width="225" height="88" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.5"/>
-<text x="892.5" y="651" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">risk_&lt;tc&gt;.json · clusters_56</text>
+<text x="892.5" y="651" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">risk_&lt;tc&gt; · clusters_56</text>
 <text x="892.5" y="678" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">M1: score وعتبة لكل tc</text>
 <text x="892.5" y="696" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">+ risk_final لـ2014 (D-65)</text>
 <rect x="30" y="745" width="1240" height="150" rx="10" fill="#DBEAFE" stroke="#7F8A9C" stroke-width="1.2"/>
@@ -106,7 +106,7 @@
 <rect x="60" y="770" width="465" height="108" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.5"/>
 <text x="292.5" y="791" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">src/ml/serving.py — Engine (موجود)</text>
 <text x="292.5" y="818" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">recommend · learner_profile · presentation_overview</text>
-<text x="292.5" y="836" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">c = أقرب قطع ‎‎≤‎ t‎؛ حالة المتعلم والخفيفة عند t (D-49)</text>
+<text x="292.5" y="836" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">أقرب قطع c لا يتجاوز t؛ وحالة المتعلم عند t (D-49)</text>
 <text x="292.5" y="854" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">تحفيظ cluster_choice عند t (D-68)</text>
 <rect x="545" y="770" width="225" height="108" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.5"/>
 <text x="657.5" y="791" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">routes/ + schemas.py</text>
@@ -149,8 +149,8 @@
 <line x1="172" y1="742" x2="892" y2="742" stroke="#B45309" stroke-width="1.8"/>
 <line x1="292" y1="742" x2="292" y2="768" stroke="#B45309" stroke-width="1.8" marker-end="url(#arra)"/>
 <path d="M1240,120 L1262,120 L1262,752 L480,752 L480,768" fill="none" stroke="#1D4ED8" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arr)"/>
-<rect x="1016.11" y="744" width="207.77999999999997" height="18" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="1120" y="757" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#1D4ED8" text-anchor="middle" direction="rtl">أحداث 2013 + data/cache/serving</text>
+<rect x="536.11" y="740" width="207.77999999999997" height="18" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="640" y="753" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#1D4ED8" text-anchor="middle" direction="rtl">أحداث 2013 + data/cache/serving</text>
 <line x1="545" y1="824" x2="527" y2="824" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
 <line x1="790" y1="824" x2="772" y2="824" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
 <line x1="892" y1="878" x2="892" y2="933" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>

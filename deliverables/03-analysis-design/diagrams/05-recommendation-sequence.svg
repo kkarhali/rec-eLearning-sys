@@ -1,34 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="1022" viewBox="0 0 1360 1022" font-family="DejaVu Sans, Arial, sans-serif"><title>تسلسل طلب توصية بنمط إعادة التشغيل (D-49) وتحفيظ D-68 عبر serving.Engine</title><defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="1058" viewBox="0 0 1360 1058" font-family="DejaVu Sans, Arial, sans-serif"><title>تسلسل طلب توصية بنمط إعادة التشغيل (D-49) وتحفيظ D-68 عبر serving.Engine</title><defs>
 <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
 <marker id="arrs" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
 <marker id="arrp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F766E"/></marker>
 <marker id="arra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B45309"/></marker>
 <marker id="open" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L11,6 L0,12" fill="none" stroke="#64748B" stroke-width="1.5"/></marker>
-</defs><rect x="0" y="0" width="1360" height="1022" fill="#ffffff"/><text x="680.0" y="32" font-family="DejaVu Sans, Arial, sans-serif" font-size="19" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">تسلسل طلب توصية بنمط إعادة التشغيل (D-49) وتحفيظ D-68 عبر serving.Engine</text>
+</defs><rect x="0" y="0" width="1360" height="1058" fill="#ffffff"/><text x="680.0" y="32" font-family="DejaVu Sans, Arial, sans-serif" font-size="19" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">تسلسل طلب توصية بنمط إعادة التشغيل (D-49) وتحفيظ D-68 عبر serving.Engine</text>
 <rect x="18.0" y="52" width="164" height="52" rx="6" fill="#CCFBF1" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="100.0" y="74" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">المتعلم</text>
 <text x="100.0" y="93" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">actor</text>
-<line x1="100.0" y1="104" x2="100.0" y2="992" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
+<line x1="100.0" y1="104" x2="100.0" y2="1028" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
 <rect x="250.0" y="52" width="164" height="52" rx="6" fill="#EDE9FE" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="332.0" y="74" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#134E4A" text-anchor="middle">learner.ts</text>
 <text x="332.0" y="93" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">المتصفح</text>
-<line x1="332.0" y1="104" x2="332.0" y2="992" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
+<line x1="332.0" y1="104" x2="332.0" y2="1028" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
 <rect x="482.0" y="52" width="164" height="52" rx="6" fill="#DBEAFE" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="564.0" y="74" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#134E4A" text-anchor="middle">routes/learner</text>
 <text x="564.0" y="93" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">starlette + pydantic</text>
-<line x1="564.0" y1="104" x2="564.0" y2="992" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
+<line x1="564.0" y1="104" x2="564.0" y2="1028" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
 <rect x="714.0" y="52" width="164" height="52" rx="6" fill="#DBEAFE" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="796.0" y="74" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#134E4A" text-anchor="middle">serving.Engine</text>
 <text x="796.0" y="93" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">src/ml/serving.py</text>
-<line x1="796.0" y1="104" x2="796.0" y2="992" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
+<line x1="796.0" y1="104" x2="796.0" y2="1028" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
 <rect x="946.0" y="52" width="164" height="52" rx="6" fill="#E2E8F0" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1028.0" y="74" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#134E4A" text-anchor="middle">train_view(day)</text>
 <text x="1028.0" y="93" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">data/cache: أحداث حتى t</text>
-<line x1="1028.0" y1="104" x2="1028.0" y2="992" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
+<line x1="1028.0" y1="104" x2="1028.0" y2="1028" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
 <rect x="1178.0" y="52" width="164" height="52" rx="6" fill="#FEF3C7" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1260.0" y="74" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#134E4A" text-anchor="middle">data/cache/serving/</text>
 <text x="1260.0" y="93" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">cluster_choice عند t</text>
-<line x1="1260.0" y1="104" x2="1260.0" y2="992" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
+<line x1="1260.0" y1="104" x2="1260.0" y2="1028" stroke="#7F8A9C" stroke-width="1.2" stroke-dasharray="5 4"/>
 <line x1="100.0" y1="140" x2="328.0" y2="140" stroke="#134E4A" stroke-width="1.5" marker-end="url(#arr)"/>
 <rect x="82.24000000000001" y="118" width="267.52" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
 <text x="216.0" y="132" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">1. يختار العرض والتسجيل واليوم t = 75</text>
@@ -37,51 +37,51 @@
 <text x="448.0" y="172" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle">2. GET /api/recommendations?registration=FFF_2013J-28400&amp;day=75&amp;k=10</text>
 <path d="M564.0,220 L604.0,220 L604.0,238 L568.0,238" fill="none" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
 <text x="612.0" y="233" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="end" direction="rtl">3. تحقق pydantic، وتحليل registration، وفحص الإتاحة</text>
-<line x1="564.0" y1="332" x2="792.0" y2="332" stroke="#134E4A" stroke-width="1.5" marker-end="url(#arr)"/>
-<rect x="514.9200000000001" y="310" width="330.15999999999997" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
-<text x="680.0" y="324" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle">4. recommend(&quot;FFF_2013J&quot;, 28400, day=75, k=10)</text>
-<path d="M796.0,372 L836.0,372 L836.0,390 L800.0,390" fill="none" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
-<text x="844.0" y="385" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="start">5. plan(): c = max{c ∈ CUTS, c ≤ 75} = 70 → weights_by_fold[c]</text>
-<line x1="796.0" y1="484" x2="1024.0" y2="484" stroke="#134E4A" stroke-width="1.5" marker-end="url(#arr)"/>
-<rect x="778.24" y="462" width="267.52" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
-<text x="912.0" y="476" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle">6. build_train(day=75): events d ≤ 75</text>
-<line x1="1028.0" y1="524" x2="800.0" y2="524" stroke="#475569" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
-<rect x="799.12" y="502" width="225.76" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
-<text x="912.0" y="516" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">7. TrainData عند 75 (lru_cache)</text>
-<line x1="796.0" y1="564" x2="1256.0" y2="564" stroke="#134E4A" stroke-width="1.5" marker-end="url(#arr)"/>
-<rect x="876.84" y="542" width="302.32" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
-<text x="1028.0" y="556" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle">8. lookup (FFF_2013J, day=75, fingerprint)</text>
-<line x1="1260.0" y1="604" x2="800.0" y2="604" stroke="#475569" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
-<rect x="908.16" y="582" width="239.67999999999998" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
-<text x="1028.0" y="596" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">9. k والوسوم لليوم 75 نفسه (D-68)</text>
-<path d="M796.0,716 L836.0,716 L836.0,734 L800.0,734" fill="none" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
-<text x="844.0" y="729" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="start">10. C7: popularity within cluster, last 7 days · B5 SKNN on session at 75</text>
-<path d="M796.0,764 L836.0,764 L836.0,782 L800.0,782" fill="none" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
-<text x="844.0" y="777" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="start">11. rank_normalize → 0.75·C7 + 0.25·SKNN → top-k + evidence + Arabic text</text>
-<line x1="796.0" y1="812" x2="568.0" y2="812" stroke="#475569" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
-<rect x="487.08000000000004" y="790" width="385.84" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
-<text x="680.0" y="804" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle">12. items[...] + model_cut = 70 + note + known_learner</text>
-<line x1="564.0" y1="852" x2="336.0" y2="852" stroke="#475569" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
-<rect x="272.48" y="830" width="351.03999999999996" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
-<text x="448.0" y="844" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">13. 200 JSON (relevance؛ بلا حقل خطر ولا cluster)</text>
-<line x1="332.0" y1="892" x2="104.0" y2="892" stroke="#475569" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
-<rect x="50.920000000000016" y="870" width="330.15999999999997" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
-<text x="216.0" y="884" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">14. 10 بطاقات + شارة «تاريخ النموذج: القطع 70»</text>
-<line x1="100.0" y1="942" x2="328.0" y2="942" stroke="#134E4A" stroke-width="1.5" marker-end="url(#arr)"/>
-<rect x="16.120000000000005" y="920" width="399.76" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
-<text x="216.0" y="934" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">15. «لماذا؟»: لوحة التفسير من الحقول نفسها (لا طلب جديد)</text>
-<rect x="504.0" y="252" width="836.0" height="64" rx="4" fill="none" stroke="#B45309" stroke-width="1.4"/>
+<line x1="564.0" y1="344" x2="792.0" y2="344" stroke="#134E4A" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="514.9200000000001" y="322" width="330.15999999999997" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
+<text x="680.0" y="336" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle">4. recommend(&quot;FFF_2013J&quot;, 28400, day=75, k=10)</text>
+<path d="M796.0,384 L836.0,384 L836.0,402 L800.0,402" fill="none" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
+<text x="844.0" y="397" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="start">5. plan(): c = max{c ∈ CUTS, c ≤ 75} = 70 → weights_by_fold[c]</text>
+<line x1="796.0" y1="508" x2="1024.0" y2="508" stroke="#134E4A" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="778.24" y="486" width="267.52" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
+<text x="912.0" y="500" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle">6. build_train(day=75): events d ≤ 75</text>
+<line x1="1028.0" y1="548" x2="800.0" y2="548" stroke="#475569" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+<rect x="799.12" y="526" width="225.76" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
+<text x="912.0" y="540" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">7. TrainData عند 75 (lru_cache)</text>
+<line x1="796.0" y1="588" x2="1256.0" y2="588" stroke="#134E4A" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="876.84" y="566" width="302.32" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
+<text x="1028.0" y="580" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle">8. lookup (FFF_2013J, day=75, fingerprint)</text>
+<line x1="1260.0" y1="628" x2="800.0" y2="628" stroke="#475569" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+<rect x="908.16" y="606" width="239.67999999999998" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
+<text x="1028.0" y="620" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">9. k والوسوم لليوم 75 نفسه (D-68)</text>
+<path d="M796.0,752 L836.0,752 L836.0,770 L800.0,770" fill="none" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
+<text x="844.0" y="765" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="start">10. C7: popularity within cluster, last 7 days · B5 SKNN on session at 75</text>
+<path d="M796.0,800 L836.0,800 L836.0,818 L800.0,818" fill="none" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
+<text x="844.0" y="813" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="start">11. rank_normalize → 0.75·C7 + 0.25·SKNN → top-k + evidence + Arabic text</text>
+<line x1="796.0" y1="848" x2="568.0" y2="848" stroke="#475569" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+<rect x="487.08000000000004" y="826" width="385.84" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
+<text x="680.0" y="840" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle">12. items[...] + model_cut = 70 + note + known_learner</text>
+<line x1="564.0" y1="888" x2="336.0" y2="888" stroke="#475569" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+<rect x="272.48" y="866" width="351.03999999999996" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
+<text x="448.0" y="880" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">13. 200 JSON (relevance؛ بلا حقل خطر ولا cluster)</text>
+<line x1="332.0" y1="928" x2="104.0" y2="928" stroke="#475569" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+<rect x="50.920000000000016" y="906" width="330.15999999999997" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
+<text x="216.0" y="920" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">14. 10 بطاقات + شارة «تاريخ النموذج: القطع 70»</text>
+<line x1="100.0" y1="978" x2="328.0" y2="978" stroke="#134E4A" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="16.120000000000005" y="956" width="399.76" height="19" rx="3" fill="#ffffff" stroke="#ffffff" stroke-width="0"/>
+<text x="216.0" y="970" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">15. «لماذا؟»: لوحة التفسير من الحقول نفسها (لا طلب جديد)</text>
+<rect x="504.0" y="252" width="836.0" height="60" rx="4" fill="none" stroke="#B45309" stroke-width="1.4"/>
 <rect x="504.0" y="252" width="230" height="22" rx="3" fill="#FEF3C7" stroke="#B45309" stroke-width="1.2"/>
-<text x="619.0" y="268" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#B45309" text-anchor="middle" direction="rtl">alt [عرض 2014 غير منشور]</text>
-<rect x="736.0" y="404" width="604.0" height="64" rx="4" fill="none" stroke="#B45309" stroke-width="1.4"/>
-<rect x="736.0" y="404" width="230" height="22" rx="3" fill="#FEF3C7" stroke="#B45309" stroke-width="1.2"/>
-<text x="851.0" y="420" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#B45309" text-anchor="middle">alt [t &lt; 70]</text>
-<rect x="736.0" y="636" width="604.0" height="64" rx="4" fill="none" stroke="#B45309" stroke-width="1.4"/>
-<rect x="736.0" y="636" width="230" height="22" rx="3" fill="#FEF3C7" stroke="#B45309" stroke-width="1.2"/>
-<text x="851.0" y="652" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#B45309" text-anchor="middle" direction="rtl">alt [miss: يوم غير مسخَّن]</text>
+<text x="619.0" y="268" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#B45309" text-anchor="middle">alt [2014 locked]</text>
+<rect x="736.0" y="416" width="604.0" height="60" rx="4" fill="none" stroke="#B45309" stroke-width="1.4"/>
+<rect x="736.0" y="416" width="230" height="22" rx="3" fill="#FEF3C7" stroke="#B45309" stroke-width="1.2"/>
+<text x="851.0" y="432" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#B45309" text-anchor="middle">alt [t &lt; 70]</text>
+<rect x="736.0" y="660" width="604.0" height="60" rx="4" fill="none" stroke="#B45309" stroke-width="1.4"/>
+<rect x="736.0" y="660" width="230" height="22" rx="3" fill="#FEF3C7" stroke="#B45309" stroke-width="1.2"/>
+<text x="851.0" y="676" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#B45309" text-anchor="middle">alt [cache miss]</text>
 <rect x="754.0" y="276" width="470" height="34" rx="4" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/>
 <text x="1214.0" y="296" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">409 confirmatory_locked ويتوقف التسلسل (D-09)</text>
-<rect x="981.0" y="428" width="330" height="34" rx="4" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/>
-<text x="1301.0" y="448" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الخفيفة وحدها بأوزان مُعاد تطبيعها + إشعار</text>
-<rect x="981.0" y="660" width="330" height="34" rx="4" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/>
-<text x="1301.0" y="680" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">choose_k (نحو 9.9 ث) ثم الحفظ؛ مؤشر تقدّم</text></svg>
+<rect x="981.0" y="440" width="330" height="34" rx="4" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/>
+<text x="1301.0" y="460" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الخفيفة وحدها بأوزان مُعاد تطبيعها + إشعار</text>
+<rect x="981.0" y="684" width="330" height="34" rx="4" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/>
+<text x="1301.0" y="704" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">choose_k (نحو 9.9 ث) ثم الحفظ؛ مؤشر تقدّم</text></svg>
