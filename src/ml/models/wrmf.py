@@ -5,8 +5,8 @@
 
 p = 1[W > 0], c = 1 + α·W (draft §3.5). Deterministic given the initialisation
 X, Y ~ N(0, 0.01²) drawn from the seed. The per-learner normal matrices
-Yᵀ diag(c_u) Y are formed for all learners at once with one GEMM
-C · (y_i ⊗ y_i) (catalogues have ≤ 530 items), then solved in float64.
+Yᵀ diag(c_u) Y are formed in chunks with one GEMM C · vec(y_i y_iᵀ)
+(catalogues have ≤ 530 items), then solved in float64.
 """
 from __future__ import annotations
 
@@ -16,25 +16,50 @@ from ..signals import ALPHA_SPACE, SignalSpec, all_signal_specs, signal_matrix, 
 from .base import Recommender, grid
 
 
-def _normal_matrices(C: np.ndarray, F: np.ndarray, reg: float, chunk: int = 512) -> np.ndarray:
-    """A_r = Fᵀ diag(C[r]) F + λI for every row r of C (C: R×N, F: N×f)."""
-    N, f = F.shape
-    FF = (F[:, :, None] * F[:, None, :]).reshape(N, f * f).astype(np.float32)
-    R = C.shape[0]
-    A = np.empty((R, f, f), dtype=np.float64)
+def _vec_outer(F32: np.ndarray) -> np.ndarray:
+    """Row-wise vec(f_n f_nᵀ) as an N×f² float32 matrix."""
+    N, f = F32.shape
+    return (F32[:, :, None] * F32[:, None, :]).reshape(N, f * f)
+
+
+def normal_matrices(C: np.ndarray, F: np.ndarray, reg: float) -> np.ndarray:
+    """A_r = Fᵀ diag(C[r]) F + λI for every row r of C (C: R×N, F: N×f). Reference/test helper."""
+    f = F.shape[1]
+    A = (C.astype(np.float64) @ _vec_outer(F.astype(np.float64))).reshape(C.shape[0], f, f)
+    return A + reg * np.eye(f)[None]
+
+
+def als_half_step(C: np.ndarray, P: np.ndarray, F: np.ndarray, reg: float, chunk: int = 128) -> np.ndarray:
+    """Closed-form solve for the factors of every row of C/P given the fixed column factors F.
+
+    A_r = Fᵀ diag(c_r) F + λI is formed as c_r · vec(f_n f_nᵀ) (one float32 GEMM per chunk of
+    rows) and solved in float64. Small row chunks keep temporaries in cache and avoid
+    page-faulting large buffers (≈ 10× faster than one big batched solve at f = 128).
+    """
+    R, N = C.shape
+    f = F.shape[1]
+    out = np.empty((R, f))
+    B = (C * P) @ F
     C32 = C.astype(np.float32)
-    for s in range(0, R, chunk):
-        e = min(R, s + chunk)
-        A[s:e] = (C32[s:e] @ FF).reshape(e - s, f, f)
-    A += reg * np.eye(f)[None]
-    return A
-
-
-def als_half_step(C: np.ndarray, P: np.ndarray, F: np.ndarray, reg: float) -> np.ndarray:
-    """Solve for the factors of the rows of C/P given the fixed factors F of the columns."""
-    A = _normal_matrices(C, F, reg)
-    b = (C * P) @ F
-    return np.linalg.solve(A, b[..., None])[..., 0]
+    eye = reg * np.eye(f)
+    if N <= 1024:
+        FF = _vec_outer(F.astype(np.float32))
+        for s in range(0, R, chunk):
+            e = min(R, s + chunk)
+            A = (C32[s:e] @ FF).reshape(e - s, f, f).astype(np.float64) + eye
+            out[s:e] = np.linalg.solve(A, B[s:e, :, None])[..., 0]
+    else:
+        acc = np.zeros((R, f * f), dtype=np.float32)
+        CT = np.ascontiguousarray(C32.T)
+        F32 = F.astype(np.float32)
+        for s in range(0, N, 256):
+            e = min(N, s + 256)
+            acc += CT[s:e].T @ _vec_outer(F32[s:e])
+        for s in range(0, R, chunk):
+            e = min(R, s + chunk)
+            A = acc[s:e].reshape(e - s, f, f).astype(np.float64) + eye
+            out[s:e] = np.linalg.solve(A, B[s:e, :, None])[..., 0]
+    return out
 
 
 def wrmf_loss(C, P, X, Y, reg) -> float:
