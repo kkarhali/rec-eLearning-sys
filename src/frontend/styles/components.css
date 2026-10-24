@@ -183,7 +183,7 @@ main > .card { margin-block-end: var(--sp-4); }
 .row { cursor: pointer; }
 .row:hover { background: #F0FDFA; }
 .row:focus-visible { outline-offset: -3px; }
-.row--active { background: var(--color-accent-soft); }
+.row--active, .row--active:hover { background: var(--color-accent-soft); box-shadow: inset 4px 0 0 var(--color-accent-text); }
 .table__empty { text-align: center !important; padding: var(--sp-5) !important; }
 .riskcell { display: inline-flex; align-items: center; gap: var(--sp-2); }
 .riskcell__n { flex: none; min-inline-size: 3.4ch; text-align: end; }

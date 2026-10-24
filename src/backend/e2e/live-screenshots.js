@@ -8,7 +8,8 @@ const BASE = process.argv[2] || 'http://127.0.0.1:8000';
 const OUT = path.resolve(__dirname, '../../../deliverables/05-user-guide/screenshots');
 const PRES = 'FFF_2013J';
 const DAY = 75;
-const CHECK_ONLY = !!process.env.CHECK_ONLY;   // يتحقق فقط ولا يكتب لقطات
+const CHECK_ONLY = !!process.env.CHECK_ONLY;
+const ONLY = process.env.SHOTS ? process.env.SHOTS.split(',') : null;   // مثلاً SHOTS=05-instructor,06-instructor-drawer   // يتحقق فقط ولا يكتب لقطات
 
 async function getJson(url) { const r = await fetch(BASE + url); return r.json(); }
 
@@ -47,7 +48,7 @@ async function main() {
         if (u.pathname.startsWith('/api/')) { apiCalls.push(`${r.status()} ${u.pathname}`); if (r.status() >= 400 && !(expect422 && r.status() === 422)) problems.push(`${name} HTTP ${r.status()} ${u.pathname}${u.search}`); }
         if (u.pathname.startsWith('/mock/')) problems.push(`${name} طلب mock: ${u.pathname}`);
       });
-      const shot = (file, full = true) => CHECK_ONLY ? Promise.resolve() : page.screenshot({ path: path.join(OUT, `live-${file}-${name}.png`), fullPage: full });
+      const shot = (file, full = true) => (CHECK_ONLY || (ONLY && !ONLY.includes(file))) ? Promise.resolve() : page.screenshot({ path: path.join(OUT, `live-${file}-${name}.png`), fullPage: full });
       const noHScroll = async (label) => {
         const w = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
         if (w > 0) problems.push(`${name} ${label}: تمرير أفقي ${w}px`);
@@ -109,6 +110,14 @@ async function main() {
       checks.push(`${name} خلايا الدرجة: ${cells.length}، مخالفة: ${badCells.length}`);
       if (!cells.length || badCells.length) problems.push(`${name} خلايا الدرجة مقصوصة/بلا خانتين: ${JSON.stringify(badCells.slice(0, 3))}`);
       await page.locator(`tr[data-id="${reg}"]`).first().click(); await page.waitForSelector('.drawer:not([hidden]) .chart', { timeout: 20000 }); await page.waitForTimeout(400);
+      await page.mouse.move(2, 2);    // لا مؤشر فوق صف (تظليل hover يُلتبس بالصف المحدد)
+      const sel = await page.evaluate((r) => ({ active: [...document.querySelectorAll('tr.row--active')].map((t) => t.dataset.id), hover: document.querySelectorAll('tr.row:hover').length, want: !!document.querySelector(`tr[data-id="${r}"]`) }), reg);
+      checks.push(`${name} الصف المظلل: ${sel.active.join(',')} (المتعلم ${reg})`);
+      if (sel.active.length !== 1 || sel.active[0] !== reg || sel.hover) problems.push(`${name} التظليل ليس على متعلم الدرج وحده: ${JSON.stringify(sel)}`);
+      const h2 = await page.locator('#t-learners').textContent();
+      const line = await page.locator('#learners p.muted').first().textContent();
+      checks.push(`${name} عنوان الجدول: «${h2.trim()}» · ${line.trim().slice(0, 60)}`);
+      if (/تنازلياً/.test(h2) && !/تنازلياً/.test(line)) problems.push(`${name} عنوان الجدول لا يعكس الفرز`);
       if (!mobile) {   // مع الدرج مفتوحاً على سطح المكتب: كل أعمدة الجدول (ومنها الدرجة 0.xx) ظاهرة بلا تمرير أفقي
         const fit = await page.evaluate(() => { const w = document.querySelector('#learners .tablewrap'), r = w.getBoundingClientRect();
           return { overflow: w.scrollWidth - w.clientWidth, outside: [...w.querySelectorAll('th')].filter((t) => { const b = t.getBoundingClientRect(); return b.left < r.left - 1 || b.right > r.right + 1; }).length }; });

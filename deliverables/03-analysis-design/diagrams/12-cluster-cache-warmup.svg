@@ -55,13 +55,14 @@
 <circle cx="980" cy="780" r="4" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
 <path d="M460,330 L460,560 A100.0,18 0 0 0 660,560 L660,330" fill="#FEF3C7" stroke="#B45309" stroke-width="1.8"/>
 <ellipse cx="560.0" cy="330" rx="100.0" ry="18" fill="#FFFBEB" stroke="#B45309" stroke-width="1.8"/>
-<text x="560.0" y="380" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">data/cache/serving/</text>
-<text x="560.0" y="397" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">&lt;pres&gt;/&lt;day&gt;.npz</text>
-<text x="560.0" y="414" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle"></text>
-<text x="560.0" y="431" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">خارج git</text>
-<text x="560.0" y="448" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">k وstable والوسوم</text>
-<text x="560.0" y="465" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">(نحو 2,300 عدد ليوم)</text>
-<text x="560.0" y="482" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">+ البصمة</text>
+<text x="560.0" y="380" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">data/cache/</text>
+<text x="560.0" y="397" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">serving_clusters/</text>
+<text x="560.0" y="414" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">&lt;pres&gt;_&lt;day&gt;.npz</text>
+<text x="560.0" y="431" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle"></text>
+<text x="560.0" y="448" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">خارج git</text>
+<text x="560.0" y="465" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">k وstable والوسوم</text>
+<text x="560.0" y="482" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">(نحو 2,300 عدد ليوم)</text>
+<text x="560.0" y="499" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">+ البصمة</text>
 <text x="560.0" y="606" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">قيمة محسوبة عند t</text>
 <text x="560.0" y="624" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">لا تُخدَم إلا لليوم t نفسه</text>
 <path d="M662,365 L705,365 L705,303 L728,303" fill="none" stroke="#15803D" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arr)"/>

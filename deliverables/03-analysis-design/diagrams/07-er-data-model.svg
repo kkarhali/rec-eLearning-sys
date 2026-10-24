@@ -180,7 +180,7 @@
 <rect x="720" y="790" width="310" height="30" rx="6" fill="#B45309"/>
 <rect x="720" y="812" width="310" height="8" fill="#B45309"/>
 <text x="875.0" y="811" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">CLUSTER_CHOICE (memo)</text>
-<text x="760" y="842" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">data/cache/serving/&lt;pres&gt;/&lt;day&gt;</text>
+<text x="760" y="842" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">cache/serving_clusters/&lt;pres&gt;_&lt;day&gt;</text>
 <text x="730" y="861" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
 <text x="760" y="861" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation, day, fingerprint</text>
 <text x="760" y="880" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">k, stable, labels (~2,300)</text>

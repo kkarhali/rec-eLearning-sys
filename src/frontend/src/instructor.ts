@@ -17,7 +17,15 @@ let scrubber: Scrubber | null = null;
 let clusters: ClusterSet | null = null;
 let overview: InstructorOverview | null = null;
 let seq = 0;
-const drawer = Drawer(() => writeState({ r: '' }));
+const drawer = Drawer(() => { writeState({ r: '' }); markActive(''); });
+/** يظلّل صف المتعلم المفتوح في الدرج وحده (aria-current) ويزيل التظليل عن غيره. */
+function markActive(reg: string): void {
+  document.querySelectorAll('tr.row').forEach((tr) => {
+    const on = reg !== '' && tr.getAttribute('data-id') === reg;
+    tr.classList.toggle('row--active', on);
+    if (on) tr.setAttribute('aria-current', 'true'); else tr.removeAttribute('aria-current');
+  });
+}
 
 async function boot(): Promise<void> {
   renderHeader('instructor');
@@ -149,7 +157,7 @@ async function renderTable(): Promise<void> {
         { key: 'factor', header: 'أبرز عامل', wrap: true, cell: (r: InstructorLearnerRow) => r.risk?.top_factor ?? '—' }]),
     ];
     mount(host,
-      h('p', { class: 'muted', 'aria-live': 'polite' }, `${learnersAr(rows.length)}` + (st.cl !== null ? ' في العنقود المختار' : '') + ' · مرتبون حسب ' + sortName(st.sort) + ' · Enter أو النقر لفتح الملف · ↑↓ للتنقل'),
+      h('p', { class: 'muted', 'aria-live': 'polite' }, `${learnersAr(rows.length)}` + (st.cl !== null ? ' في العنقود المختار' : '') + ' · مرتبون حسب ' + sortName(st.sort) + (st.sort.startsWith('-') ? ' تنازلياً' : ' تصاعدياً') + ' · Enter أو النقر لفتح الملف · ↑↓ للتنقل'),
       DataTable<InstructorLearnerRow>({ caption: 'جدول المتعلمين مع درجة الخطر النسبية', cols, rows, rowId: (r) => r.registration, sort: st.sort, activeId: st.r || undefined,
         emptyText: 'لا متعلمين يطابقون التصفية الحالية.', onSort: (k) => { const cur = readState().sort; writeState({ sort: cur === '-' + k ? k : '-' + k }); void renderTable(); },
         onOpen: (r, el) => void openLearner(r.registration, el) }));
@@ -176,7 +184,7 @@ function filterChips(): void {
 
 // ---------------------------------------------------------------- drawer
 async function openLearner(reg: string, opener: HTMLElement | null): Promise<void> {
-  const st = readState(); writeState({ r: reg });
+  const st = readState(); writeState({ r: reg }); markActive(reg);
   const op = opener ?? (document.querySelector(`tr[data-id="${reg}"]`) as HTMLElement | null) ?? document.body;
   drawer.open('ملف المتعلم ' + reg, op); showSkeleton(drawer.body, 3, 80);
   try {

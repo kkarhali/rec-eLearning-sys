@@ -22,7 +22,7 @@
 <text x="575" y="136" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#475569" text-anchor="start" direction="rtl">«file system» مستودع العمل</text>
 <rect x="95" y="155" width="470" height="52" rx="6" fill="#E2E8F0" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="550" y="177" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1F2937" text-anchor="end">data/raw/oulad/ + data/cache/</text>
-<text x="550" y="197" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">خارج git؛ أحداث 2013 + data/cache/serving</text>
+<text x="550" y="197" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">خارج git؛ أحداث 2013 + serving_clusters/</text>
 <rect x="95" y="219" width="470" height="52" rx="6" fill="#F0FDFA" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="550" y="241" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1F2937" text-anchor="end">src/ (ml, backend, frontend)</text>
 <text x="550" y="261" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">في git؛ وسم التجميد</text>

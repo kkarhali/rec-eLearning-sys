@@ -149,8 +149,8 @@
 <line x1="172" y1="742" x2="892" y2="742" stroke="#B45309" stroke-width="1.8"/>
 <line x1="292" y1="742" x2="292" y2="768" stroke="#B45309" stroke-width="1.8" marker-end="url(#arra)"/>
 <path d="M1240,120 L1262,120 L1262,752 L480,752 L480,768" fill="none" stroke="#1D4ED8" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arr)"/>
-<rect x="536.11" y="740" width="207.77999999999997" height="18" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="640" y="753" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#1D4ED8" text-anchor="middle" direction="rtl">أحداث 2013 + data/cache/serving</text>
+<rect x="542.49" y="740" width="195.01999999999998" height="18" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="640" y="753" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#1D4ED8" text-anchor="middle" direction="rtl">أحداث 2013 + serving_clusters</text>
 <line x1="545" y1="824" x2="527" y2="824" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
 <line x1="790" y1="824" x2="772" y2="824" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
 <line x1="892" y1="878" x2="892" y2="933" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
