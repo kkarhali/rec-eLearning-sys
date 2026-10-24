@@ -227,6 +227,15 @@ class TestApi(unittest.TestCase):
         self.assertEqual({p["cluster"] for p in c["points"]}, {x["id"] for x in c["clusters"] if x["size"]})
         self.assertEqual(len({x["label_ar"] for x in c["clusters"]}), c["k"])
         self.assertIsInstance(c["unstable"], bool)
+        self.assertEqual(c["cluster_day"], 56)
+        if c["unstable"]:                                   # شارة «غير مستقرة» تُفسَّر بالقاعدة التي حكمت بها (D-39-ب)
+            self.assertTrue(c["unstable_reason"])
+            if c["quality"]["ari"] >= 0.8:                 # ARI عالٍ + غير مستقر ⇒ السبب شرط أفضل اثنين، لا ثبات البذور
+                self.assertIn("أفضل اثنين", c["unstable_reason"])
+        else:
+            self.assertIsNone(c["unstable_reason"])
+        meta = self.get("/api/meta")["risk_score"]
+        self.assertIn("رسوب", meta["target_ar"])
 
     def test_learners_contract_sort_page_filter(self):
         base = f"/api/instructor/learners?presentation={P}&day={DAY}"

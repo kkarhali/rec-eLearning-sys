@@ -165,6 +165,16 @@ class InstructorService:
             pass
         return 0.0
 
+    @staticmethod
+    def _unstable_reason(cm: ClusterModel) -> str:
+        """قاعدة D-39-ب (learners.choose_k): مستقر = k ضمن أفضل اثنين في silhouette وDBI معاً **و** ARI عبر البذور ≥ 0.8.
+        ARI المعروض هو ثبات البذور لـk المختار؛ فقد يكون 1 والعناقيد «غير مستقرة» لأن k فشل في الشرط الأول."""
+        ari = cm.quality[2]
+        if ari < 0.8:
+            return f"ثبات البذور ضعيف: ARI = {ari:.2f} < 0.8 (D-39-ب)."
+        return (f"البذور مستقرة (ARI = {ari:.2f} ≥ 0.8) لكن k = {cm.k} لم يقع ضمن أفضل اثنين في silhouette وDBI معاً؛ "
+                "اعتُمد أفضل silhouette بوصفه الحالة الاحتياطية الرسمية (D-39-ب).")
+
     def risk_model(self, pres: str, tc: int) -> RiskModel:
         key = (pres, tc)
         rm = self._rm.get(key)
@@ -303,7 +313,8 @@ class InstructorService:
         P = (Zc - cm.pca_mean) @ cm.pca_V.T
         sel = np.arange(len(P)) if len(P) <= MAX_POINTS else np.linspace(0, len(P) - 1, MAX_POINTS).astype(int)
         clusters = ClusterSet(
-            presentation=pres, requested_day=day, snapshot_day=day, k=cm.k, unstable=not cm.stable,
+            presentation=pres, requested_day=day, snapshot_day=day, k=cm.k, cluster_day=CLUSTER_DAY, unstable=not cm.stable,
+            unstable_reason=None if cm.stable else self._unstable_reason(cm),
             quality=ClusterQuality(silhouette=_round(cm.quality[0]), dbi=_round(cm.quality[1]), ari=_round(cm.quality[2])),
             clusters=[ClusterInfo(id=j, label_ar=cm.labels_ar[j], size=int(sizes[j]),
                                   top_features=[TopFeature(name=n, z=z) for n, z in cm.top[j]]) for j in range(cm.k)],

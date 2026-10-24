@@ -117,3 +117,96 @@ class TestServing(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestServingContract(unittest.TestCase):
+    """D-65 (relative risk score), D-68 (persisted cluster choice), D-70 (whitelist, no cluster in evidence), FR-40."""
+
+    @classmethod
+    def setUpClass(cls):
+        from src.ml import learners as L
+        cls.tmp = tempfile.TemporaryDirectory()
+        cls.art = Path(cls.tmp.name) / "art"
+        cls.p = _augment(random_presentation(seed=12, n_students=60, n_items=30))
+        cls.p.registrations.loc[cls.p.registrations.index[:3], "date_unregistration"] = [30.0, 150.0, 250.0]
+        frozen = {"components": ["C7_ClusterPop", "B6_Markov"],
+                  "weights_by_fold": {f"{NAME}_{c}": {"C7_ClusterPop": 0.75, "B6_Markov": 0.25} for c in (70, 126, 182)},
+                  "component_configs_by_fold": {f"{NAME}_{c}": {"C7_ClusterPop": "w=7", "B6_Markov": "L=1;gamma=0.1"}
+                                                for c in (70, 126, 182)},
+                  "initial_weights_modal": {"C7_ClusterPop": 0.75, "B6_Markov": 0.25}}
+        feats = ["active_days", "gap_sd", "first_day"] + [f"share_{t}" for t in L.ALL_TYPES]
+        (cls.art / NAME).mkdir(parents=True)
+        rng = np.random.default_rng(0)
+        for tc in (28, 56, 112):
+            spec = {"features": feats, "weights": rng.normal(0, 0.3, len(feats) + 1).tolist(), "lambda": 0.01,
+                    "youden_threshold": 0.45, "threshold_source": "test"}
+            (cls.art / NAME / f"risk_{tc}.json").write_text(json.dumps({"provenance": "lopo_2013", "models": {"M1": spec}}))
+        sa = pd.DataFrame({"id_assessment": pd.Series([], dtype=int), "id_student": pd.Series([], dtype=int),
+                           "date_submitted": pd.Series([], dtype=float), "is_banked": pd.Series([], dtype=int),
+                           "score": pd.Series([], dtype=float)})
+        cls.cache = Path(cls.tmp.name) / "clusters"
+        cls.eng = serving.Engine(frozen=frozen, artifacts=cls.art, presentations={NAME: cls.p}, student_assessment=sa,
+                                 cluster_cache_dir=cls.cache)
+        cls.student = int(cls.p.registrations["id_student"].iloc[10])        # never withdrawn
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def test_registrations_whitelist(self):
+        regs = self.eng.registrations(NAME, 100)
+        self.assertTrue(all(set(r) == {"id_student", "date_registration", "date_unregistration"} for r in regs))
+        un = {r["id_student"]: r["date_unregistration"] for r in regs}
+        ids = self.p.registrations["id_student"].iloc[:3].tolist()
+        self.assertEqual(un[ids[0]], 30)          # past withdrawal is known
+        self.assertIsNone(un[ids[1]])             # future withdrawal hidden (D-70)
+        self.assertIsNone(un[ids[2]])
+        self.assertNotIn("final_result", json.dumps(regs))
+
+    def test_cluster_cache_matches_live(self):
+        from src.ml.models.context import cluster_choice
+        serving._CLUSTER_MEM.clear()
+        a = self.eng.cluster_choice_at(NAME, 100)                     # computed and written to disk
+        serving._CLUSTER_MEM.clear()
+        b = self.eng.cluster_choice_at(NAME, 100)                     # read back from disk
+        live = cluster_choice(build_train(self.p, 100, 100, "replay"))
+        self.assertTrue((self.cache / f"{NAME}_100.npz").exists())
+        for x in (a, b):
+            self.assertEqual(x.k, live.k)
+            np.testing.assert_array_equal(x.labels, live.labels)
+            for s in range(5):
+                np.testing.assert_array_equal(x.labels_by_seed[s], live.labels_by_seed[s])
+
+    def test_evidence_has_no_cluster_and_warm(self):
+        recs = self.eng.recommend(NAME, self.student, 140, k=5)
+        for r in recs:
+            for e in [r["explanation"]["main"], *r["explanation"]["secondary"]]:
+                self.assertNotIn("cluster", json.dumps(e["evidence"]).lower())
+                if e["component"] == "C7_ClusterPop":
+                    self.assertIn("similar_learners_in_window", e["evidence"])
+        t = self.eng.warm(NAME, days=[70, 77])
+        self.assertEqual(set(t), {70, 77})
+
+    def test_risk_is_relative_score(self):
+        prof = self.eng.learner_profile(NAME, self.student, 60)
+        self.assertEqual(prof["model_cut"], None)
+        r = prof["risk"]
+        self.assertNotIn("probability", r)
+        self.assertEqual(r["provenance"], "lopo_2013")
+        self.assertFalse(r["calibrated"])
+        self.assertEqual(r["risk_cut"], 56)
+        self.assertTrue(0 <= r["score"] <= 1)
+        self.assertEqual(len(r["top_factors"]), 3)
+        lt = self.eng.learner_table(NAME, 60)
+        self.assertIn("risk_score", lt.columns)
+        ov = self.eng.presentation_overview(NAME, 60)
+        self.assertIn("median_active_days", ov)
+        self.assertFalse(ov["risk_bands"]["calibrated"])
+        withdrawn = int(self.p.registrations["id_student"].iloc[0])           # withdrew on day 30 < 56
+        self.assertIsNone(self.eng.learner_profile(NAME, withdrawn, 60)["risk"]["score"])
+
+    def test_fr40_gate(self):
+        if (data.RESULTS_DIR / "conf2014" / "verdicts.csv").exists():
+            self.skipTest("confirmatory verdicts exist")
+        with self.assertRaises(data.ConfirmatoryAccessError):
+            serving.Engine(frozen=self.eng.frozen, artifacts=self.art, allow_confirmatory=True)

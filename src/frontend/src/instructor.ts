@@ -66,9 +66,9 @@ function renderKpis(o: InstructorOverview): void {
   mount($('#kpis'),
     KpiCard(`متعلمون نشطون حتى اليوم ${d}`, fmt(k.active_learners, 0), undefined, 'k1'),
     KpiCard('وسيط الأيام النشطة', fmt(k.median_active_days, 0), undefined, 'k2'),
-    KpiCard(`الكتالوج عند اللقطة ${o.snapshot_day}`, fmt(k.catalogue_size, 0) + ' مورداً', undefined, 'k3'),
+    KpiCard(`الكتالوج عند اليوم ${o.snapshot_day}`, fmt(k.catalogue_size, 0) + ' مورداً', undefined, 'k3'),
     KpiCard('Coverage@10 للتوصيات', fmt(k.coverage_at_10, 2), 'نسبة الكتالوج الموصى به', 'k4'),
-    KpiCard('درجة الخطر ≥ العتبة (نسبية)', k.share_above_threshold === null ? 'لا تقدير قبل اليوم 28' : pct(k.share_above_threshold), 'قيم توضيحية', 'k5'));
+    KpiCard('درجة الخطر ≥ العتبة (نسبية)', k.share_above_threshold === null ? 'لا تقدير قبل اليوم 28' : pct(k.share_above_threshold), 'درجة نسبية غير معايَرة، للعرض لا للتقييم', 'k5'));
   setBusy($('#kpis'), false);
 }
 function renderProfiles(o: InstructorOverview): void {
@@ -95,8 +95,9 @@ function renderClusters(cs: ClusterSet): void {
     cards.append(h('li', {}, b));
   }
   mount(host,
-    h('p', { class: 'muted' }, `k = ${cs.k} عند اللقطة ${cs.snapshot_day} · silhouette ${fmt(cs.quality.silhouette)} · DBI ${fmt(cs.quality.dbi)} · ARI ${fmt(cs.quality.ari)}`,
-      cs.unstable ? h('span', { class: 'badge badge--warn' }, 'عناقيد غير مستقرة') : null),
+    h('p', { class: 'muted' }, `k = ${cs.k} · لقطة العناقيد: اليوم ${cs.cluster_day ?? 56} · silhouette ${fmt(cs.quality.silhouette)} · DBI ${fmt(cs.quality.dbi)} · ARI (ثبات البذور) ${fmt(cs.quality.ari)}`,
+      cs.unstable ? h('span', { class: 'badge badge--warn', title: cs.unstable_reason ?? '' }, 'عناقيد غير مستقرة') : null),
+    cs.unstable && cs.unstable_reason ? h('p', { class: 'note' }, cs.unstable_reason) : null,
     h('div', { class: 'clusters__grid' },
       ClusterScatter('إسقاط PCA للملامح (للعرض فقط)', cs.points, st.cl),
       h('div', {}, SvgDonut('توزيع حجم العناقيد', cs.clusters.map((c) => ({ label: c.label_ar, value: c.size })), st.cl), cards)));
@@ -108,7 +109,7 @@ function renderRisk(o: InstructorOverview): void {
   const r = o.risk;
   const data = r.histogram.map((b) => ({ label: `\u202A${fmt(b.lo, 1)}–${fmt(b.hi, 1)}\u202C`, value: b.count, flag: b.hi > r.threshold }));
   mount(host,
-    h('p', { class: 'muted' }, `تقدير Logistic L2 (قطع اليوم ${r.cut_day})، عتبة Youden المجمَّدة من 2013 = ${fmt(r.threshold)}`,
+    h('p', { class: 'muted' }, `درجة نسبية غير معايَرة من Logistic L2 على ملامح السلوك حتى اليوم ${r.cut_day}، تميّز «رسوب أو انسحاب» عن «نجاح أو امتياز»؛ العتبة (Youden، 2013) = ${fmt(r.threshold)}`,
       r.provenance === 'oof_2013' || r.provenance === 'lopo_2013' ? h('span', { class: 'badge badge--warn' }, 'تطوير — ترك عرض خارج التدريب (' + r.provenance + ')') : null),
     SvgBarChart({ title: 'توزيع درجة الخطر النسبية', desc: 'مدرج تكراري لدرجة الخطر النسبية في 10 فئات مع خط العتبة؛ الأعمدة فوق العتبة بلون دافئ وإطار داكن.',
       data, xLabel: 'درجة الخطر النسبية غير المعايَرة (لا حكم)؛ الخط المتقطع والإطار الداكن يميّزان ما فوق العتبة لا اللون وحده', yLabel: 'عدد المتعلمين',

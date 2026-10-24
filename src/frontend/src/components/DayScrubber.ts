@@ -27,7 +27,7 @@ export function DayScrubber(o: ScrubberOpts): Scrubber {
 
   const label = () => {
     const s = snapOf(cur);
-    badge.textContent = `اليوم ${cur}` + (s !== null ? ` · لقطة ${s}` : ' · قبل أول لقطة');
+    badge.textContent = `اليوم ${cur}` + (s !== null && s !== cur ? ` · أقرب نقطة تنقل ${s}` : '');
     range.setAttribute('aria-valuetext', badge.textContent);
   };
   const commit = (d: number, immediate = false) => {
@@ -48,11 +48,11 @@ export function DayScrubber(o: ScrubberOpts): Scrubber {
     h('div', { class: 'scrub__top' },
       h('label', { class: 'scrub__lbl', for: 'scrub-num' }, 'اليوم t'),
       num, badge,
-      h('span', { class: 'scrub__steps' }, btn('›', 'اللقطة السابقة', -1), btn('‹', 'اللقطة التالية', 1))),
+      h('span', { class: 'scrub__steps' }, btn('›', 'نقطة التنقل السابقة', -1), btn('‹', 'نقطة التنقل التالية', 1))),
     h('div', { class: 'scrub__track' }, marks, range),
     h('div', { class: 'scrub__axis', 'aria-hidden': 'true' }, h('span', {}, String(o.min)), h('span', {}, String(o.max))),
     h('p', { class: 'scrub__legend', id: 'scrub-legend' },
-      h('span', { class: 'mark mark--snap mark--key' }), ' لقطة ',
+      h('span', { class: 'mark mark--snap mark--key' }), ' نقطة تنقل سريع ',
       h('span', { class: 'mark mark--cut mark--key' }), ' قطع النموذج ',
       h('span', { class: 'mark mark--assess mark--key' }), ' موعد تقييم · الأسهم تحرّك اليوم، Home وEnd للحدّين'));
   label();

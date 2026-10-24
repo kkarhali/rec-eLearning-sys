@@ -335,7 +335,9 @@ class ClusterSet(Out):
     requested_day: int
     snapshot_day: int
     k: int
+    cluster_day: int = 56            # لقطة العناقيد: تُحسب مرة واحدة عند اليوم 56 وتُطبَّق على ما بعده
     unstable: bool
+    unstable_reason: str | None = None
     quality: ClusterQuality
     clusters: list[ClusterInfo]
     points: list[ClusterPoint]

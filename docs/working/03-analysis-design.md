@@ -484,106 +484,113 @@
 
 ## 7.2 قاموس البيانات
 
-أسماء الحقول هنا هي أسماء الكود في `serving.py` و`build_artifacts.py`، وعقود API تستعملها كما هي (القسم 8).
+أسماء الحقول هنا هي أسماء الكود في `serving.py` و`build_artifacts.py`، وعقود API تستعملها كما هي (القسم 8)، إلا حيث يقرر قرار تسمية أخرى للعقد: `score` بدل `probability` (D-65)، و`similar_learners_in_window` لدليل (7) (D-70).
 
-**جدول 11: قاموس البيانات (المصدر: OULAD، وADR-001، والوثيقة 02 §3، و`src/ml/`)**
+**جدول 11: قاموس البيانات (المصدر: OULAD، وADR-001، والوثيقة 02 §3، و`src/ml/`، وD-65 إلى D-70)**
 
 | الكيان | الحقول | النوع | المصدر / التعريف |
-|--------------------|--------------------------------------|-----------------|-------------------------|
+|---|---|---|---|
 | PRESENTATION | presentation، role، length_days، status | str، enum، int، enum | `courses`؛ الدور D-09؛ الحالة: locked/frozen/evaluated/served |
-| REGISTRATION | registration، id_student، date_registration، date_unregistration، num_of_prev_attempts، studied_credits | str، int، int، int\|null، int، int | `studentRegistration` و`studentInfo` بلا السمات الحساسة ولا `final_result` |
+| REGISTRATION (عقد) | registration، id_student، date_registration، date_unregistration، num_of_prev_attempts، studied_credits | str، int، int، int\|null، int، int | قائمة بيضاء (D-70) من `studentRegistration` و`studentInfo`؛ `date_unregistration` = null إن تجاوز اليوم المطلوب؛ لا `final_result` ولا سمة حساسة |
 | RESOURCE | id_site، activity_type، in_catalogue | int، str، bool | `vle`؛ في الكتالوج = النوع خارج E5 وله وصول حتى t |
 | ASSESSMENT | id_assessment، assessment_type، date، weight | int، enum، int\|null، float | `assessments` (منشور مسبقاً، مسموح) |
 | DAILY_EVENT | (id_student، id_site، date)، sum_click | مفتاح، int | مجموع الصفوف المكررة (D-06) |
 | DAY_BASKET | (id_student، day)، items | مفتاح، set[int] | موارد الكتالوج في يوم نشط، غير مرتبة |
 | WEIGHTED_SIGNAL | level، tau، beta، W، C | enum، float، float، float، float | $W_{ui}(t)$ (ADR-002 §3.2)، و$C=1+\alpha W$؛ محسوب عند t |
-| HYBRID_FROZEN | components، weights_by_fold[pres_c]، component_configs_by_fold، initial_weights_modal | list، dict، dict، dict | `results/dev2013/hybrid_frozen.json` من `run_hybrid` |
-| MODEL_ARTIFACT | (presentation، c، kind)؛ wrmf: `Y، items، config`؛ gru: `p_*، items، config` | مفتاح؛ مصفوفات npz | `artifacts/<pres>/<c>/` من `build_artifacts` |
+| HYBRID_FROZEN | components، weights_by_fold[pres_c]، component_configs_by_fold، initial_weights_modal، floor_rule | list، dict، dict، dict، str | `results/dev2013/hybrid_frozen.json` (الحالي C7 + B5، D-51) |
+| MODEL_ARTIFACT | (presentation، c، kind)؛ wrmf: `Y، items، config`؛ gru: `p_*، items، config` | مفتاح؛ مصفوفات npz | `artifacts/<pres>/<c>/` إن كان المكوّن الثقيل في HYB* (لا شيء اليوم) |
+| CLUSTER_CHOICE (تحفيظ) | (presentation، day، fingerprint)؛ k، stable، labels | مفتاح؛ int، bool، int[] | `data/cache/serving/<pres>/<day>.npz`، محسوب عند اليوم نفسه ولا يُخدَم لغيره (D-68) |
 | LEARNER_FEATURES | active_days، total_clicks، first_day، gap_sd، share_&lt;type&gt;، on_time_ratio، mean_score | int، int، int، float، float، float، float | `learners.vle_features` + `academic_features` عند اليوم المطلوب؛ M1 = ملامح VLE وحدها |
-| CLUSTER_MODEL_56 | k، stable، centres، features، mu، sd، labels | int، bool، float[][]، str[]، float[]، float[]، int[] | `clusters_56.npz` (D-39) |
-| RISK_MODEL | tc، models[M1\|M2]: features، weights، youden_threshold | int، str[]، float[]، float | `risk_<tc>.json`؛ ومنه `risk{risk_cut, model, probability, youden_threshold, above_threshold}`، و`probability` درجة غير معايَرة |
-| RECOMMENDATION | id_site، activity_type، score، model_cut، day، note، known_learner، components{m: rtilde، weight، contribution، raw} | int، str، float، int\|null، int، str\|null، bool، dict | ناتج `serving.recommend`؛ محسوب عند الطلب |
-| EXPLANATION | main، secondary[]؛ لكل منهما component، text، contribution، evidence | dict | `TEMPLATES` و`_evidence`؛ الثانية إن تجاوزت ثلث الدرجة |
+| CLUSTER_MODEL_56 | k، stable، centres، features، mu، sd | int، bool، float[][]، str[]، float[]، float[] | `clusters_56.npz` (D-39)؛ للوحة المدرّس وحدها |
+| RISK_MODEL | tc، models[M1]: features، weights، threshold، threshold_source | int، str[]، float[]، float، str | `risk_<tc>.json` لعروض 2013 (`lopo_2013`)؛ و`results/frozen/risk_final.json` لعروض 2014 (`test_2014`) |
+| RISK (عقد) | risk_cut، model، score، threshold، threshold_source، above_threshold، provenance، factors | int، str، float، float، str، bool، enum، list | «درجة خطر نسبية (غير معايَرة)» (D-65)؛ `score` = ناتج اللوجستي (`probability` داخل `serving`) |
+| RECOMMENDATION | id_site، activity_type، relevance (`score` في الكود)، model_cut، day، note، known_learner، components{m: rtilde، weight، contribution، raw} | int، str، float، int\|null، int، str\|null، bool، dict | ناتج `serving.recommend`؛ محسوب عند الطلب |
+| EXPLANATION | main، secondary[]؛ لكل منهما component، text، contribution، evidence | dict | `TEMPLATES` و`_evidence`؛ الثانية إن **تجاوزت** مساهمتها ثلث الدرجة (`>` في الكود) |
 
-**جدول 12: مفاتيح الدليل `evidence` لكل مكوّن (من `serving._evidence`)**
+**جدول 12: مفاتيح الدليل `evidence` لكل مكوّن (من `serving._evidence` بعد بنود 8.4)**
 
 | المكوّن (المعرّف) | الجملة | مفاتيح الدليل |
-|-------------------|-----------------------------------------------|-----------------------------------|
+|---|---|---|
+| **C7_ClusterPop** (في HYB*) | «شائع لدى متعلمين بنمط مشابه لنمطك» | `similar_learners_in_window` (عدد) و`window_days`؛ بلا رقم العنقود ولا اسمه ولا حجمه (D-70) |
+| **B5_SKNN** (في HYB*)، B6_Markov | «يتبع غالباً ما زرتَه مؤخراً» | `recent_items` (حتى 5) |
 | B3_RecentPop | «يستخدمه كثير من زملائك هذا الأسبوع» | `learners_in_window`، `window_days` |
 | B7_WRMF | «زاره متعلمون بنمط مشابه لنمطك» | `closest_in_history` (id_site) |
 | B4_ItemKNN | «لأنك زرت {item}» | `because_of`، `because_of_type` |
-| B5_SKNN، B6_Markov | «يتبع غالباً ما زرتَه مؤخراً» | `recent_items` (حتى 5) |
 | GRU_lite | «يناسب تسلسل نشاطك في الأيام الأخيرة» (عام) | لا دليل (قيد معلن) |
 | B9_CBF | «من النوع الذي تستخدمه كثيراً ({type})» | `type` |
-| C6_AssessProx | «مرتبط بالتقييم القادم بعد {days} أيام» | `days` |
-| C7_ClusterPop | «شائع لدى متعلمين بنمط مشابه لنمطك» | ملاحظة عامة (بلا اسم العنقود) |
+| C6_AssessProx | «مرتبط بالتقييم القادم بعد {days}» بتمييز العدد (يوم واحد، يومين، 3–10 أيام، 11 يوماً فأكثر) | `days` |
 
-**قواعد سلامة البيانات:** (1) السمات الست الحساسة و`final_result` لا توجد في أي كيان مخزَّن أو مخدوم (`final_result` هدف تدريب أوفلاين فقط)؛ و(2) كل كيان محسوب يحمل اليوم الذي حُسب عنده، وكل مخرج مخزَّن يحمل قطعه؛ و(3) الخدمة لا تكتب شيئاً.
+**قواعد سلامة البيانات:** (1) السمات الست الحساسة و`final_result` لا توجد في أي كيان مخزَّن أو مخدوم (`final_result` هدف تدريب أوفلاين فقط)، ولا يُكشف `date_unregistration` بعد t؛ و(2) العنقود يُستعمل داخل التوصية ولا يُعرض للمتعلم (D-70)؛ و(3) كل كيان محسوب يحمل اليوم الذي حُسب عنده، وكل مخرج مخزَّن يحمل قطعه أو بصمته؛ و(4) الخدمة لا تكتب إلا تحفيظ D-68.
 
 ## 7.3 تنسيق تخزين المخرجات
 
 ```
 results/dev2013/hybrid_frozen.json     # components, weights/configs per (presentation, cut)
-artifacts/                             # git-ignored; python3 -m src.ml.experiments.build_artifacts
+results/frozen/risk_final.json         # final risk models on the nine 2013 presentations (D-58)
+results/frozen/freeze03_config.json    # frozen spaces, composition, thresholds, SHA-256 (D-62)
+artifacts/                             # git-ignored (D-70); python3 -m src.ml.experiments.build_artifacts
   <presentation>/
-    70/  wrmf.npz  gru.npz             # item factors Y + config; GRU parameters + config
-    126/ wrmf.npz  gru.npz
-    182/ wrmf.npz  gru.npz
-    risk_28.json  risk_56.json  risk_112.json   # Logistic M1/M2 + Youden (trained on the other 8)
-    clusters_56.npz                    # k-means++ centres, z-score params, labels
+    70/ 126/ 182/  wrmf.npz  gru.npz   # only if a heavy component is in HYB* (none today)
+    risk_28.json  risk_56.json  risk_112.json   # M1 (+M2) trained on the other 8; threshold_source
+    clusters_56.npz                    # k-means++ centres and z-score params (dashboard)
+data/cache/serving/<presentation>/<day>.npz     # git-ignored; cluster_choice memo (D-68)
 ```
 
-**تقدير الحجم:** `wrmf.npz` حتى 445 × 64 قيمة (نحو 0.2 MB)، و`gru.npz` نحو 82 ألف معامل (نحو 0.7 MB)؛ فلكل (عرض، قطع) أقل من 1 MB، ولعروض 2013 الـ27 نحو 25 MB، ومع 2014 أقل من 70 MB، داخل NFR-21. والتصميم السابق (لقطات كل 14 يوماً بأفضل 20 لكل متعلم) كان سيبلغ نحو 385 MB لعروض 2013 وحدها، ويُجمِّد حالة المتعلم خلافاً لـD-49؛ فأُلغي. وتقرأ الخدمة كذلك أحداث 2013 المجمَّعة من `data/cache/` (نحو 134 MB pickle) مرة واحدة عند الإقلاع.
+**الحجم:** المقيس اليوم لـ`artifacts/` نحو 0.5 MB، لأن HYB* بلا مكوّن ثقيل؛ ولو دخل مكوّن ثقيل لبلغ نحو 25 MB لعروض 2013 (نحو 1 MB لكل (عرض، قطع))، داخل NFR-21. والتصميم السابق (لقطات كل 14 يوماً بأفضل 20 لكل متعلم) كان سيبلغ نحو 385 MB ويجمّد حالة المتعلم خلافاً لـD-49، فأُلغي. وتحفيظ D-68 نحو 2,300 عدد صحيح لكل (عرض، يوم). وتقرأ الخدمة أحداث 2013 المجمَّعة من `data/cache/` (نحو 134 MB pickle) مرة واحدة عند الإقلاع.
 
 # 8. تصميم واجهة API
 
 ## 8.1 المبادئ
 
-- **قراءة فقط:** كل المسارات `GET`؛ لا حالة سوى الذاكرات المؤقتة.
-- **العقد مشتق من الكود:** حقول الاستجابة هي حقول `serving.py` نفسها (`model_cut`، و`components`، و`explanation`، و`evidence`، و`risk_cut`، و`youden_threshold`، ومعرّفات المكوّنات `B3_RecentPop`…)، تلفّها نماذج pydantic بحقول سياقية قليلة (`registration`، و`context`).
-- **الفصل:** مسارات المتعلم تحت `/api/` ومسارات المدرّس تحت `/api/instructor/` حصراً؛ وحتى حين تستدعي الخدمة `learner_profile` لمسار متعلم، تُسقط `risk` و`cluster` قبل بناء العقد.
-- **الأخطاء:** `{"error": {"code", "message", "details"}}`، والرسالة عربية والرمز ثابت.
+- **قراءة فقط:** كل المسارات `GET`؛ لا حالة سوى الذاكرات المؤقتة وتحفيظ D-68.
+- **العقد مشتق من الكود:** حقول الاستجابة هي حقول `serving.py` (`model_cut`، و`components`، و`explanation`، و`evidence`، و`risk_cut`، ومعرّفات المكوّنات `C7_ClusterPop`، و`B5_SKNN`…) مع تسمية عربية `label`، تلفّها نماذج pydantic بحقول سياقية قليلة (`registration`، و`context`)؛ والاستثناءات ثلاثة: `score` لدرجة الخطر (D-65)، و`relevance` لدرجة التوصية في عقود المتعلم، و`similar_learners_in_window` (D-70).
+- **الفصل:** مسارات المتعلم تحت `/api/` ومسارات المدرّس تحت `/api/instructor/` حصراً؛ ولا يُستدعى `learner_profile` في مسارات المتعلم إلا مع إسقاط `risk` و`cluster` قبل بناء العقد.
+- **الأخطاء:** `{"error": {"code", "message", "details"}}`، والرسالة عربية والرمز ثابت. ولا ETag ولا Cache-Control (D-66).
 
 ## 8.2 جدول المسارات وربطها بالكود
 
 **جدول 13: مسارات API ودوال `serving` التي تستدعيها**
 
 | المسار | المعاملات | دالة `serving` / المصدر | المتطلب |
-|-------------------------|--------------------|---------------------------------------|----------------|
-| `GET /api/health` | — | الخلفية | FR-28 |
-| `GET /api/meta` | — | `hybrid_frozen.json` + `run_meta.json` | FR-28 |
+|---|---|---|---|
+| `GET /api/health` | — | الخلفية (ومعها حالة التسخين) | FR-28 |
+| `GET /api/meta` | — | `hybrid_frozen.json` + `run_meta.json` + القطوع | FR-28 |
 | `GET /api/presentations` | — | `data.DEV_PRESENTATIONS` + وجود `artifacts/` + FR-40 | FR-18 |
-| `GET /api/registrations` | `presentation`، `q`، `limit` حتى 100، `offset` | `Engine.presentation(p).students` (بلا سمات حساسة) | FR-19 |
+| `GET /api/registrations` | `presentation`، `day`، `q`، `limit` حتى 100، `offset` | قائمة D-70 البيضاء من `Engine.presentation(p)` (`registrations` + `students` بعد إسقاط `final_result`) | FR-19 |
 | `GET /api/recommendations` | `registration`، `day`، `k=10` (1..20)، `task=A\|B` | `recommend(p, id, day, k, exclude_seen=(task=="A"))` | FR-20، FR-21، FR-37 |
 | `GET /api/explanations/{registration}/{id_site}` | `day`، `task` | عنصر من `recommend(…, k=20)` المخزَّن مؤقتاً | FR-22 |
-| `GET /api/learner/{registration}/history` | `day`، `window=28` | أحداث `Engine.presentation(p).events` حتى `day` + `features` من `learner_profile` | FR-23 |
-| `GET /api/instructor/overview` | `presentation`، `day` | `presentation_overview(p, day, risk_model="M1")` + وسيط الأيام من `learner_table` | FR-24 |
+| `GET /api/learner/{registration}/history` | `day`، `window=28` | أحداث `Engine.presentation(p).events` حتى `day` + `features` وحدها | FR-23 |
+| `GET /api/instructor/overview` | `presentation`، `day` | `presentation_overview(p, day, risk_model="M1")` + `median_active_days` | FR-24 |
 | `GET /api/instructor/clusters` | `presentation`، `day` | `cluster_summary(p)` * | FR-25 |
 | `GET /api/instructor/learners` | `presentation`، `day`، `cluster`، `risk=all\|above`، `sort`، `limit`، `offset` | `learner_table(p, day, risk_model="M1")` * | FR-26، FR-30 |
-| `GET /api/instructor/learner/{registration}` | `day` | `learner_profile(…, risk_model="M1")` + `recommend(k=3)` | FR-27 |
+| `GET /api/instructor/learner/{registration}` | `day` | `learner_profile(…, risk_model="M1")` (مع `model_cut`) + `recommend(k=3)` | FR-27 |
 | `GET /` و`/static/*` | — | `src/frontend/dist/` | FR-31، FR-32 |
 
-\* دالة مطلوبة في `serving.py` (القسم 8.4).
+\* في `serving.py` بعد بنود 8.4 (ونسخة مؤقتة في `src/backend/services/` باختبار تطابق).
 
 **جدول 14: صيغة `registration` ومدى `day`**
 
 | المعامل | القاعدة | الخطأ |
-|---------------|-----------------------------------|--------------------------------------------------|
+|---|---|---|
 | `registration` | `^[A-G]{3}_20(13\|14)[BJ]-\d+$`، يُحلل إلى (presentation، id_student) | 422 `validation_error`؛ 404 `registration_not_found` |
 | `day` | عدد صحيح بين أول يوم حدث في العرض وطوله | 422 `day_out_of_range` مع المدى |
-| `k` | 1..20 | 422 `validation_error` |
+| `k` | من 1 إلى 20 | 422 `validation_error` |
 
 **جدول 15: رموز الأخطاء**
 
 | HTTP | code | الحالة |
-|---------------|-------------------------------------------|------------------------------------------|
+|---|---|---|
 | 404 | `presentation_not_found`، `registration_not_found`، `item_not_in_list` | معرّف غير موجود، أو مورد خارج أفضل 20 |
 | 404 | `instructor_disabled` | التشغيل بـ`--no-instructor` |
 | 409 | `confirmatory_locked` | عرض 2014 قبل FR-40 |
 | 422 | `validation_error`، `day_out_of_range` | مدخلات غير صالحة |
 | 503 | `artifacts_missing` | `hybrid_frozen.json` أو مخرجات القطع غير موجودة (رسالة بأمر البناء) |
 
+ولا خطأ لـt < 28 أو t < 56 في لوحة المدرّس: `risk = null` و`cluster = null` مع رسالة في الواجهة.
+
 ## 8.3 أمثلة العقود
+
+**المثال الأول (بالتركيبة الحالية C7 + SKNN، قيم توضيحية):**
 
 ```json
 GET /api/recommendations?registration=FFF_2013J-28400&day=75&k=10&task=A
@@ -591,19 +598,23 @@ GET /api/recommendations?registration=FFF_2013J-28400&day=75&k=10&task=A
   "registration": "FFF_2013J-28400", "presentation": "FFF_2013J", "id_student": 28400,
   "day": 75, "model_cut": 70, "note": null, "known_learner": true, "task": "A",
   "context": {"week": 10, "next_assessment": {"type": "TMA", "date": 96, "days_ahead": 21}},
-  "components": [{"id": "B3_RecentPop", "weight": 0.33}, {"id": "B7_WRMF", "weight": 0.33},
-                 {"id": "C6_AssessProx", "weight": 0.33}],
+  "components": [{"id": "C7_ClusterPop", "label": "شعبية العنقود (7)", "weight": 0.75},
+                 {"id": "B5_SKNN", "label": "SKNN (4)", "weight": 0.25}],
   "items": [
-    {"id_site": 546712, "activity_type": "quiz", "score": 0.83,
-     "components": {"B3_RecentPop": {"rtilde": 0.61, "weight": 0.33, "contribution": 0.20, "raw": 312.0},
-                    "B7_WRMF": {"rtilde": 0.45, "weight": 0.33, "contribution": 0.15, "raw": 0.08},
-                    "C6_AssessProx": {"rtilde": 1.00, "weight": 0.33, "contribution": 0.48, "raw": 0.12}},
-     "explanation": {"main": {"component": "C6_AssessProx", "text": "مرتبط بالتقييم القادم بعد 21 أيام",
-                              "contribution": 0.48, "evidence": {"days": 21}},
+    {"id_site": 546614, "activity_type": "oucontent", "relevance": 0.95,
+     "components": {"C7_ClusterPop": {"rtilde": 1.00, "weight": 0.75, "contribution": 0.75, "raw": 41.0},
+                    "B5_SKNN": {"rtilde": 0.80, "weight": 0.25, "contribution": 0.20, "raw": 0.37}},
+     "explanation": {"main": {"component": "C7_ClusterPop", "text": "شائع لدى متعلمين بنمط مشابه لنمطك",
+                              "contribution": 0.75,
+                              "evidence": {"similar_learners_in_window": 41, "window_days": 7}},
                      "secondary": []}}
   ]
 }
 ```
+
+والجملة الثانية لا تظهر لأن 0.20 لا تتجاوز ثلث الدرجة المدمجة (0.95 ÷ 3 ≈ 0.32).
+
+**المثال الثاني (توضيحي لتركيبة افتراضية بثلاثة مكوّنات، لإظهار الحقول):** المكوّنات B3_RecentPop وB7_WRMF وC6_AssessProx بأوزان 0.33؛ ولمورد quiz رُتبه المطبَّعة 0.61 و0.45 و1.00، فمساهماته 0.20 و0.15 و0.33، ودرجته **0.68**؛ والجملة الرئيسية من C6 («مرتبط بالتقييم القادم بعد 21 يوماً»، والدليل `{"days": 21}`)، ولا جملة ثانية لأن 0.20 لا تتجاوز 0.68 ÷ 3.
 
 ```json
 GET /api/instructor/learner/FFF_2013J-28400?day=75
@@ -611,22 +622,31 @@ GET /api/instructor/learner/FFF_2013J-28400?day=75
  "features": {"active_days": 6, "total_clicks": 141, "first_day": 12, "gap_sd": 9.4,
               "last_active_day": 52, "on_time_ratio": 0.0, "mean_score": 0.0},
  "cluster": {"cluster": 3, "k": 4, "stable": true, "cluster_day": 56, "label": "منخفضو النشاط"},
- "risk": {"risk_cut": 56, "model": "M1", "probability": 0.81, "youden_threshold": 0.42,
-          "above_threshold": true, "provenance": "lopo_2013",
+ "risk": {"risk_cut": 56, "model": "M1", "score": 0.81, "threshold": 0.4557,
+          "threshold_source": "D-58 (frozen, day 56)", "above_threshold": true, "provenance": "lopo_2013",
           "factors": [{"feature": "active_days", "wz": 1.4}, {"feature": "first_day", "wz": 0.9}]},
  "recommendations": ["… 3 عناصر بالشكل نفسه أعلاه …"]}
 ```
 
-ويفحص `test_contract_no_risk.py` تكرارياً كل نماذج pydantic لمسارات المتعلم ويفشل إن ظهر حقل من {risk، probability، cluster، final_result، gender، disability، imd_band، age_band، region، highest_education}، ويفحص عقود المدرّس بقائمة بيضاء لا تحوي السمات الحساسة ولا `final_result`.
+**اختبار العقد (D-70):** يعمل `test_contract_no_risk.py` على **JSON المسلسَل فعلياً** لطلبات عيّنة من كل مسارات المتعلم: لا مفتاح (تكرارياً، ومنها مفاتيح `evidence` الحرة) ولا قيمة نصية تحتوي {risk، score، probability، cluster، final_result، gender، disability، imd_band، age_band، region، highest_education}؛ ومسارات المدرّس تُفحص بقائمة بيضاء للمفاتيح تكرارياً. ولأن `score` اسم درجة الخطر، تُسمّى درجة التوصية المدمجة في عقود المتعلم `relevance` (الحقل `score` في `serving.recommend` يحوّله `schemas.py`)، فلا يحتاج الاختبار استثناءً.
 
-## 8.4 ما يلزم إضافته إلى `serving.py` (طلب عمل لمهندس ML)
+## 8.4 ما يلزم إضافته إلى `serving.py` (معتمد من المشرف، بمواعيده)
 
-1. **`learner_table(name, day, risk_model="M1")`:** صفوف كل التسجيلات (الأيام النشطة، وآخر يوم نشط، و`on_time_ratio`، والعنقود، والدرجة، وأبرز عامل) **محسوبة متجهياً** لكل (عرض، يوم) ومخزَّنة في `lru_cache`؛ فالحلقة الحالية في `presentation_overview` تستدعي `_risk` لكل متعلم وتعيد التطبيع في كل نداء، وهي أكبر خطر على NFR-01.
-2. **توحيد M1:** تمرير `risk_model` في الدوال العامة الثلاث (الافتراضي الحالي M2)، وتستدعيها الخدمة بـM1 (D-27).
-3. **`factors` و`provenance` في ناتج `_risk`:** $w_jz_j$ لكل ملمح، ومصدر التقدير (`lopo_2013` أو `test_2014`).
-4. **`cluster_summary(name)`:** k، والاستقرار، والأحجام، والمراكز بمقياس z، ووصف عربي بقاعدة حتمية (أعلى ملمحين انحرافاً بالقيمة المطلقة)، وإسقاط ثنائي (PCA بـnumpy) للرسم.
-5. **FR-40:** معامل `allow_confirmatory` في `Engine` لا يُفعَّل إلا بعد التحقق من وجود `results/conf2014/verdicts.csv` ومخرجات قطوع العرض.
-6. **`median_active_days`** في ناتج النظرة العامة (من `learner_table`).
+**جدول 15-أ: بنود العمل على `serving.py` و`build_artifacts.py` (خارج نطاق التجميد بشرط D-69)**
+
+| # | البند | الحكم والمواصفة | الموعد |
+|---|---|---|---|
+| 1 | `learner_table(name, day, risk_model="M1")` متجهي مع `lru_cache` | يُطبَّع داخل العرض مرة واحدة لكل (عرض، tc)؛ النظرة العامة والجدول أقل من ثانية دافئاً | 1 ت2 |
+| 2 | توحيد M1 | `risk_model` في الدوال العامة الثلاث، والافتراضي M1 (D-56) | قبل الوسم (30 ت1) |
+| 3 | `factors` و`provenance` | `provenance` ∈ {lopo_2013، test_2014}، والحقل في العقد `score` (D-65) | 1 ت2 |
+| 4 | `cluster_summary(name)` | الأحجام، والمراكز بمقياس z، ووصف حتمي من أعلى ملمحين، وPCA بـSVD على عيّنة حتى 500 نقطة | 1 ت2 |
+| 5 | `allow_confirmatory` (FR-40) | ثلاثة شروط: `verdicts.csv`، وقفل SHA-256، و`ui_open.json`؛ ويُختبر بعرض 2013 متنكر بدور تأكيدي | 1 ت2 |
+| 6 | `median_active_days` | في ناتج النظرة العامة | 1 ت2 |
+| 7 | `model_cut` في `learner_profile` | D-49 (6) | قبل الوسم |
+| 8 | إعادة تسمية دليل C7 | `same_cluster_learners_in_window` ← `similar_learners_in_window` (D-70) | قبل الوسم |
+| 9 | تحفيظ `cluster_choice` والتسخين | D-68 مع اختبار التطابق الحي/المحفوظ والبصمة | 1 ت2 |
+| 10 | عتبات العرض لكل tc وخطر 2014 من `risk_final.json` | في `build_artifacts` لا في `learners.py` (D-65، D-69) | قبل الوسم |
+| 11 | تمييز العدد في قالب C6 | «يوم واحد/يومين/أيام/يوماً» | 1 ت2 (ثانوي) |
 
 # 9. تصميم الواجهات
 
@@ -661,11 +681,11 @@ GET /api/instructor/learner/FFF_2013J-28400?day=75
 
 أربع صفحات بشريط تنقل ثابت: **الرئيسية** (اختيار الدور مع شرح نمط إعادة التشغيل)، و**المتعلم**، و**المدرّس**، و**عن النظام**؛ والحالة المشتركة (العرض واليوم) تنتقل عبر URL. والمكوّنات الموجودة في `src/frontend/src/components/`: DayScrubber، وRecCard، وWhyPanel، وKpiCard، والرسوم SVG، وDataTable، وDrawer، والتنبيهات.
 
-يعرض الشكل 10 صفحة المتعلم: (1) شريط التحكم وشريط اليوم بالقطوع الثلاثة وقطوع الخطر والتقييمات، و(2) شريط السياق بتاريخ النموذج، و(3) أفضل 10 بطاقات، و(4) حصص المساهمة، و(5) لوحة «لماذا؟» بمساهمات تجمع إلى الدرجة والدليل، و(6) نشاط آخر 28 يوماً حتى t.
+يعرض الشكل 10 صفحة المتعلم بالتركيبة الحالية (C7 + SKNN): (1) شريط التحكم وشريط اليوم بالقطوع الثلاثة وقطوع الخطر والتقييمات ومؤشر الطلب البارد، و(2) شريط السياق بتاريخ النموذج، و(3) أفضل 10 بطاقات، و(4) حصص المساهمة، و(5) لوحة «لماذا؟» بمساهمات تجمع إلى الدرجة المدمجة ودليل بمفاتيح الجدول 12، و(6) نشاط آخر 28 يوماً حتى t. وكل ما فيه توضيحي ولا يدخل الرسالة رقماً (D-67).
 
 ![الشكل 10: الإطار السلكي لصفحة المتعلم (إعداد الباحث؛ قيم توضيحية)](deliverables/03-analysis-design/diagrams/09-wireframe-learner.png){width=100%}
 
-ويعرض الشكل 11 لوحة المدرّس: (1) شريط «درجة خطر غير معايَرة، للمدرّس فقط»، و(2) خمس بطاقات مؤشرات، و(3) عناقيد اليوم 56، و(4) مدرج الدرجة بأربع فئات وعتبة Youden، و(5) جدول المتعلمين، و(6) درج الملف بعوامل $w\cdot z$ (الموجب يرفع الدرجة).
+ويعرض الشكل 11 لوحة المدرّس: (1) شريط «درجة خطر نسبية (غير معايَرة)، للمدرّس فقط»، و(2) خمس بطاقات مؤشرات منها «فوق العتبة» حصةً عدداً ونسبة، و(3) عناقيد اليوم 56، و(4) مدرج الدرجة بأربع فئات والعتبة 0.4557 (D-58)، و(5) جدول المتعلمين بتصفية «فوق العتبة»، و(6) درج الملف بعوامل $w\cdot z$ (الموجب يرفع الدرجة).
 
 ![الشكل 11: الإطار السلكي للوحة المدرّس (إعداد الباحث؛ قيم توضيحية)](deliverables/03-analysis-design/diagrams/10-wireframe-instructor.png){width=100%}
 
@@ -673,7 +693,7 @@ GET /api/instructor/learner/FFF_2013J-28400?day=75
 
 1. `<html lang="ar" dir="rtl">`، وخصائص CSS المنطقية وحدها (`padding-inline-start`).
 2. **المعرّفات اللاتينية** (`FFF_2013J`، `#546712`، `E7أ`) داخل `<bdi>`.
-3. **رموز المقارنة والصيغ** (≤ ≥ < > ⊂) تنعكس بصرياً في سياق RTL بحسب Unicode، فتُكتب داخل عزل LTR: `<bdi dir="ltr">` أو `<span dir="ltr">` في HTML، و`<tspan direction="ltr" unicode-bidi="isolate">` في SVG، وعلامات LRM في Word (يضيفها `scripts/build_docx.py` آلياً).
+3. **رموز المقارنة والصيغ** (≤ ≥ < > ⊂) محارف مرآتية تنعكس بصرياً في سياق RTL، فتُعزل: في HTML بـ`<bdi dir="ltr">` أو `<span dir="ltr">`؛ وفي SVG بعلامة LRM (U+200E) قبل الرمز وبعده داخل النص نفسه، أو بصياغة لفظية («على الأكثر»، «فوق العتبة»)، لأن Chromium يتجاهل `unicode-bidi` على `<tspan>`؛ وفي Word بعلامات LRM يضيفها `scripts/build_docx.py` آلياً. ويُفحص كل SVG آلياً: أي رمز من [≤≥<>] غير محاط بعلامة اتجاه يُفشل البناء.
 4. **اتجاه المحاور موحَّد:** محور **الزمن** RTL في كل الرسوم والشرائط (اليوم 0 يميناً، كما في شريط اليوم والشكل 7)؛ ومحاور **القيم العددية** LTR (الصفر يساراً: مدرج الدرجة، وأشرطة المساهمة والعوامل، والموجب يميناً).
 5. الأسهم الاتجاهية معكوسة، والدرج يفتح من بداية السطر (اليمين).
 6. أسماء الموارد «نوع النشاط بالعربية + id_site» لأن OULAD بلا عناوين؛ والأرقام لاتينية 0–9.
@@ -693,15 +713,15 @@ GET /api/instructor/learner/FFF_2013J-28400?day=75
 
 ## 9.4 مبادئ تفسير التوصية للمتعلم
 
-1. **الصدق بالبناء:** الجملة من المكوّن صاحب أكبر $w_m\tilde r_m$، والثانية إن تجاوزت ثلث الدرجة (كما في `serving.recommend`)؛ والمساهمات المعروضة تجمع إلى الدرجة.
-2. **الدليل الملموس:** «أقرب مورد في تاريخك: محتوى #546652» لا «تشابه عالٍ».
+1. **الصدق بالبناء:** الجملة من المكوّن صاحب أكبر $w_m\tilde r_m$، والثانية إن تجاوزت ثلث الدرجة (كما في `serving.recommend`)؛ والمساهمات المعروضة تجمع إلى الدرجة. وبالتركيبة الحالية تتكرر جملتا C7 وSKNN غالباً، وهذا صادق: يقول ما حسبه النموذج المقبول.
+2. **الدليل الملموس:** «شائع لدى 41 متعلماً بنمط مشابه في آخر 7 أيام» أو «يتبع ما زرتَه مؤخراً» لا «تشابه عالٍ»؛ وبلا رقم العنقود أو اسمه (D-70).
 3. **لا حكم ولا مقارنة:** لا خطر ولا عنقود ولا «أنت متأخر عن زملائك».
 4. **الشفافية:** تفسير GRU-lite عام ومعلن؛ والتفسير مطابق للحساب لا للسبب، وغير مقيَّم بمستخدمين؛ وتاريخ النموذج ظاهر.
 5. **الإيجاز:** جملة في البطاقة، والتفاصيل عند الطلب. وقوالب الجمل ومفاتيح الدليل في الجدول 12.
 
 # 10. مصفوفة التتبّع
 
-يلخّص الشكل 12 المسار من سؤال البحث أو القرار إلى المتطلب فالمكوّن فالملف فالاختبار، ويغطي الجدول 19 **كل المتطلبات النشطة الـ61** (FR-29 محذوف). والنجمة (*) ملف أو اختبار مخطط؛ والبقية موجودة في المستودع في 2026-10-24. ورموز «ش» و«ف» إشارات إلى معايير الفجوة وفقراتها في الدراسة المرجعية (القسم 7 من الوثيقة 01).
+يلخّص الشكل 12 المسار من سؤال البحث أو القرار إلى المتطلب فالمكوّن فالملف فالاختبار، ويغطي الجدول 19 **كل المتطلبات النشطة الـ61** (FR-29 محذوف). والنجمة (*) ملف أو اختبار مخطط؛ والبقية موجودة في المستودع في 2026-10-24 (96 اختباراً في `src/ml/tests/`، و34 في `src/backend/tests/`). ورموز «ش» و«ف» إشارات إلى معايير الفجوة وفقراتها في الدراسة المرجعية (القسم 7 من الوثيقة 01).
 
 ![الشكل 12: مسار التتبّع من سؤال البحث إلى الاختبار (إعداد الباحث)](deliverables/03-analysis-design/diagrams/11-traceability.png){width=100%}
 
@@ -710,7 +730,7 @@ GET /api/instructor/learner/FFF_2013J-28400?day=75
 | السؤال / الفرضية | الفجوة | المتطلبات الأساسية |
 |---------------------------------|---------------|----------------------------------------------------|
 | RQ1 · H1 | ف2 (ش6، ش10) | FR-05، FR-07، FR-10، FR-14 |
-| RQ2 · H2-أ، H2-ب | ف1 (ش3، ش9) | FR-04، FR-05 |
+| RQ2 · H2-أ (H2-ب غير منطبقة بالبناء، D-59) | ف1 (ش3، ش9) | FR-04، FR-05 |
 | RQ3 · H3 | ف3 | FR-06 |
 | RQ4 · H4-أ / H4-ب | ف4 / ف2 | FR-08، FR-09، FR-36 / FR-07، FR-10 |
 | الحكم والقوة | ج5 | FR-11، FR-13، FR-14، FR-39 |
@@ -719,66 +739,66 @@ GET /api/instructor/learner/FFF_2013J-28400?day=75
 **جدول 19: مصفوفة التتبّع الكاملة (المتطلب ← المصدر ← المكوّن والملف ← التحقق)**
 
 | المتطلب | المصدر | المكوّن · الملف | التحقق |
-|------------|------------|-----------------------------------|-----------------------------------------|
+|----------|-------------|-----------------------------------|-----------------------------------------|
 | FR-01 | D-08 | data/verify\_oulad.py | تشغيل قبل كل تجربة؛ البصمة في run\_meta.json |
 | FR-02 | D-09 | data.py (assert\_allowed) | test\_splits (الحارس) |
 | FR-03 | D-06، D-07، D-38 | data.py | test\_splits، test\_signals |
-| FR-04 | RQ2 · H2 | signals.py | test\_signals |
-| FR-05 | RQ1، RQ2 · D-10 | models/، harness.py، run\_baselines.py | test\_models؛ results/dev2013/ |
-| FR-06 | RQ3 · H3 | models/gru\_lite.py، gru\_sanity.py، run\_gru.py | test\_gru؛ gru\_sanity.json (S1–S6) |
-| FR-07 | RQ1، RQ4 · H4-ب | models/context.py | test\_models |
+| FR-04 | RQ2 · H2-أ | signals.py، run\_ablation.py | test\_signals؛ ablation\_signals.csv |
+| FR-05 | RQ1، RQ2 · D-10 | models/، harness.py، run\_baselines.py | test\_models؛ results/dev2013/baselines.csv |
+| FR-06 | RQ3 · H3، D-53 | models/gru\_lite.py، gru\_sanity.py، run\_gru.py | test\_gru؛ gru\_sanity.json (S1–S6) |
+| FR-07 | RQ1، RQ4 · H4-ب، D-55 | models/context.py | test\_models |
 | FR-08 | RQ4 · H4-أ | learners.py | test\_learners |
-| FR-09 | RQ4 · D-27 | learners.py، learner\_analysis.py | test\_learners |
-| FR-10 | RQ1 · H1 | hybrid.py، components.py، run\_hybrid.py | test\_hybrid\_stats |
-| FR-11 | D-23…D-26 | stats.py | test\_hybrid\_stats |
+| FR-09 | RQ4 · D-27، D-58 | learners.py، learner\_analysis.py، risk\_final.py | test\_learners؛ results/frozen/risk\_final.json |
+| FR-10 | RQ1 · H1، D-51 | hybrid.py، components.py، run\_hybrid.py | test\_hybrid\_stats؛ hybrid\_frozen.json |
+| FR-11 | D-23…D-26، D-52 | stats.py | test\_hybrid\_stats |
 | FR-12 | D-34 | harness.py؛ ملخص الميزانية\* | test\_budget\* |
-| FR-13 | D-36، D-47 | experiments/freeze.py\* | test\_freeze\* |
-| FR-14 | D-09، D-15 | experiments/run\_confirmatory.py\* | test\_freeze\* (رفض التشغيل الثاني) |
+| FR-13 | D-62، D-47 | freeze\_config.py؛ freeze\_checklist.md\* | freeze03\_config.json؛ توقيع ش10 |
+| FR-14 | D-63، D-57 | experiments/run\_confirmatory.py\* | التشغيل الجاف على 2013 (results/dryrun2013/\*)؛ test\_confirmatory\_guards\* |
 | FR-15 | D-21 · RQ4 | learner\_analysis.py، run\_fairness.py\*، run\_sensitivity.py\* | مراجعة الجداول |
-| FR-16 | D-49 | build\_artifacts.py | test\_serving (wrmf\_foldin\_uses\_artifact\_items) |
+| FR-16 | D-49، D-65 | build\_artifacts.py | test\_serving (wrmf\_foldin\_uses\_artifact\_items)؛ عتبات tc\* |
 | FR-17 | D-22 · ش7 | serving.py (TEMPLATES، \_evidence) | test\_serving (recommend\_structure\_and\_unseen) |
-| FR-18 | D-09، D-22 | backend/routes/meta.py\* | test\_api\_learner\*، test\_locked\* |
-| FR-19 | D-04، D-21 | backend/routes/learner.py\* | test\_api\_learner\*، test\_contract\_no\_risk\* |
-| FR-20 | D-49 | serving.Engine.plan، routes/learner.py\* | test\_serving (no\_future\_data\_used) |
-| FR-21 | D-14، D-42 | serving.recommend، routes/learner.py\* | test\_serving، test\_api\_learner\* |
-| FR-22 | D-22 | serving.recommend (explanation) | test\_api\_learner\* |
-| FR-23 | D-22 | routes/learner.py\* | test\_api\_learner\* |
-| FR-24 | D-22 | serving.presentation\_overview، routes/instructor.py\* | test\_serving (profile\_and\_overview)، test\_api\_instructor\* |
-| FR-25 | D-13، D-39 | serving.cluster\_summary\* | test\_serving\* |
-| FR-26 | D-22، D-27 | serving.\_risk، learner\_table\* | test\_serving\*، test\_api\_instructor\* |
-| FR-27 | D-22 | serving.learner\_profile | test\_serving، test\_api\_instructor\* |
-| FR-28 | ADR-002 §3.6.12 | routes/meta.py\* | test\_api\_learner\* |
+| FR-18 | D-09، D-22 | backend/routes/meta.py | test\_api\_live؛ test\_locked\* |
+| FR-19 | D-04، D-21، D-70 | backend/routes/learner.py، schemas.py | test\_contract\_no\_risk (على JSON، يُوسَّع)؛ test\_api\_live |
+| FR-20 | D-49 | serving.Engine.plan، backend/routes/learner.py | test\_serving (no\_future\_data\_used)؛ test\_api\_live |
+| FR-21 | D-14، D-42 | serving.recommend، backend/services/replay.py | test\_serving، test\_api\_live |
+| FR-22 | D-22 | serving.recommend (explanation)، services/explanation.py | test\_api\_live |
+| FR-23 | D-22 | backend/routes/learner.py | test\_api\_live |
+| FR-24 | D-22 | serving.presentation\_overview، services/instructor.py | test\_serving (profile\_and\_overview)، test\_api\_live |
+| FR-25 | D-13، D-39 | serving.cluster\_summary\* (مؤقتاً services/instructor.py) | test\_cluster\_matches\_engine؛ test\_serving\* |
+| FR-26 | D-56، D-65 | serving.\_risk، learner\_table\* | test\_risk\_matches\_engine\_m1؛ test\_serving\* |
+| FR-27 | D-22 | serving.learner\_profile | test\_serving، test\_api\_live |
+| FR-28 | ADR-002 §3.6.12 | backend/routes/meta.py | test\_api\_live |
 | FR-30 | D-22 | frontend/src/instructor.ts | e2e.spec.js\* |
 | FR-31 | D-22، D-49 | learner.html، learner.ts، components/ | tsc --noEmit، e2e.spec.js\* |
 | FR-32 | D-22 | instructor.html، instructor.ts | tsc --noEmit، e2e.spec.js\* |
 | FR-33 | NFR-04 | state.ts | e2e.spec.js\* |
 | FR-34 | D-49 | components/DayScrubber | e2e.spec.js\* |
-| FR-35 | D-08 | about.html | قائمة تفحّص |
-| FR-36 | D-47 | data.confirmatory\_student\_ids | test\_splits (D-47)؛ results/access\_log.jsonl |
+| FR-35 | D-08، D-65، D-66 | about.html | قائمة تفحّص |
+| FR-36 | D-47 | data.confirmatory\_student\_ids | test\_splits (test\_columns\_and\_log)؛ results/access\_log.jsonl |
 | FR-37 | D-49 (5) | serving.Engine.plan، learner.ts | test\_serving (plan\_before\_first\_cut) |
-| FR-38 | ADR-002 §3.6.12 | scripts/run\_all.sh\* | تشغيل من الصفر على نسخة نظيفة |
-| FR-39 | D-46، D-48 | power.py، run\_confirmatory.py\* | results/dev2013/mde80.md؛ test\_hybrid\_stats (mde80) |
-| FR-40 | D-09 | serving.Engine (allow\_confirmatory)\* | test\_locked\* |
-| NFR-01 | D-22 | backend/bench.py\* | results/ui/latency.csv\* |
-| NFR-02 | آلة الفريق | backend/app.py\* | قياس RSS في bench.py\* |
+| FR-38 | D-62 (ش5) | experiments/reproduce\_dev.py\* | results/dev2013/repro\_diff.md\* بلا فرق غير مفسَّر |
+| FR-39 | D-46، D-48، D-61 | power.py، run\_confirmatory.py\* | results/dev2013/mde80.md؛ test\_hybrid\_stats (test\_margin\_and\_power) |
+| FR-40 | D-09، D-63، D-67 | serving.Engine (allow\_confirmatory)\* | test\_locked\* (عرض 2013 متنكر بدور تأكيدي) |
+| NFR-01 | D-22، D-68 | backend/bench.py، تحفيظ cluster\_choice\* | results/ui/latency.csv\*؛ test\_latency\_after\_warmup |
+| NFR-02 | آلة الفريق | backend/app.py | قياس RSS في bench.py |
 | NFR-03 | D-34 | harness.py | timing.csv + ملخص الميزانية\* |
-| NFR-04 | ADR-002 §3.6.12 | run\_meta.json، splits.tiebreak\_keys | test\_splits؛ test\_api\_learner\* (تكرار الطلب) |
-| NFR-05 | ADR-002 §5، D-49 | results/، report.py | مراجعة الزميل قبل كل وثيقة |
-| NFR-06 | §5.9، D-49 | splits.py، serving.py | test\_splits (no\_leakage\_into\_models)، test\_serving (no\_future\_data\_used) |
+| NFR-04 | ADR-002 §3.6.12 | run\_meta.json، splits.tiebreak\_keys | test\_splits؛ test\_api\_live (تكرار الطلب) |
+| NFR-05 | ADR-002 §5، D-49، D-67 | results/، report.py | مراجعة الزميل قبل كل وثيقة |
+| NFR-06 | §5.9، D-49، D-68 | splits.py، serving.py | test\_splits (no\_leakage\_into\_models)، test\_serving (no\_future\_data\_used)، test\_memo\_matches\_live\* |
 | NFR-07 | D-09 | data.assert\_allowed، FR-40 | test\_serving (2014\_refused)، test\_locked\* |
-| NFR-08 | D-21 | data.load\_student\_info، build\_artifacts.py، schemas.py\* | test\_contract\_no\_risk\* |
-| NFR-09 | D-22 | backend/schemas.py\* | test\_contract\_no\_risk\* |
-| NFR-10 | D-08 | .gitignore | git status نظيف بعد التشغيل |
+| NFR-08 | D-21، D-70 | data.load\_student\_info، build\_artifacts.py، schemas.py | test\_contract\_no\_risk (على JSON) |
+| NFR-09 | D-22، D-70 | backend/schemas.py | test\_contract\_no\_risk (على JSON، والقائمة البيضاء للمدرّس) |
+| NFR-10 | D-08، D-70 | .gitignore | git ls-files artifacts فارغ |
 | NFR-11 | thesis-context | src/ كلها | فحص الاستيرادات |
 | NFR-12 | D-22 | الواجهة | قائمة تفحّص يدوية |
-| NFR-13 | القيد | styles/، components/ | e2e.spec.js\* (لقطات RTL) |
+| NFR-13 | القيد | styles/، components/، المخططات | e2e.spec.js\* (لقطات RTL)؛ فحص رموز SVG\* |
 | NFR-14 | WCAG 2.2 | الواجهة | الجدول 17 |
 | NFR-15 | WCAG 1.4.10 | styles/base.css | e2e.spec.js\* عند 360 و1440 |
-| NFR-16 | لائحة (د) | schemas.py\*، types.ts | test\_types\_match\* |
-| NFR-17 | القيد | backend/tests/\*، src/ml/tests/ | مرور كل الاختبارات |
-| NFR-18 | D-22، D-49 | labels.ts، about.html | قائمة تفحّص |
-| NFR-19 | NFR-17 | backend/errors.py\* | test\_api\_learner\* |
-| NFR-20 | D-22 | backend/\_\_main\_\_.py\* | test\_api\_instructor\* (no-instructor) |
+| NFR-16 | لائحة (د) | schemas.py، types.ts | test\_types\_match\* |
+| NFR-17 | القيد | backend/tests/، src/ml/tests/ | مرور كل الاختبارات |
+| NFR-18 | D-22، D-65، D-67 | labels.ts، about.html | قائمة تفحّص |
+| NFR-19 | NFR-17 | backend/errors.py | test\_static\_errors |
+| NFR-20 | D-22، D-66 | backend/\_\_main\_\_.py | test\_static\_errors (instructor\_disabled) |
 | NFR-21 | NFR-10 | build\_artifacts.py | du -sh artifacts/ |
 | NFR-22 | NFR-14 | scripts/check\_contrast.py\* | تشغيله قبل كل بناء للواجهة |
 

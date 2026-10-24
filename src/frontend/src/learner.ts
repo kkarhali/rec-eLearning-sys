@@ -71,7 +71,7 @@ async function refresh(): Promise<void> {
     if (my !== seq) return;
     if (e instanceof ApiError && e.code === 'day_before_first_snapshot') {
       const first = Number(e.details['first_day'] ?? presList.find((p) => p.id === st.p)?.snapshots[0] ?? 28);
-      toast(`لا لقطة قبل اليوم ${first}؛ نُقل الشريط إلى أول يوم متاح.`, 'info');
+      toast(`لا توصيات قبل اليوم ${first}؛ نُقل الشريط إلى أول يوم متاح.`, 'info');
       scrubber?.set(first); writeState({ d: first }); void refresh(); return;
     }
     showError(res, e, () => void refresh());
@@ -82,7 +82,7 @@ function contextBar(r: RecommendationResponse): HTMLElement {
   const c = r.context, na = c.next_assessment, cut = r.provenance.model_cut;
   return h('section', { class: 'ctxbar', 'aria-live': 'polite', 'aria-label': 'سياق التوصية' },
     h('p', { class: 'ctxbar__main' },
-      `اليوم ${r.requested_day} (محسوب عند لقطة ${r.snapshot_day}) · الأسبوع ${c.week} · `,
+      `اليوم ${r.requested_day} (${r.snapshot_day === r.requested_day ? 'الحساب عند اليوم t نفسه' : 'محسوب عند اليوم ' + r.snapshot_day}) · الأسبوع ${c.week} · `,
       na ? `التقييم القادم: ${na.type} بعد ${na.days_ahead} يوماً` : 'لا تقييم قادم', ` · أيامك النشطة حتى الآن: ${c.active_days_to_date}`),
     cut !== undefined ? h('p', { class: 'ctxbar__model' },
       h('span', { class: 'badge', title: 'النموذج المستعمل دُرّب عند أقرب قطع ≤ t (D-49)' },

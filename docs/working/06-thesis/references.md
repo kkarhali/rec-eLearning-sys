@@ -1,6 +1,6 @@
 # المراجع
 
-تتبع القائمة نمط IEEE الرقمي، وتحافظ على الترقيم الموحّد المعتمد في كل وثائق الرسالة: المراجع [1]–[38] هي المراجع المحللة في الدراسة المرجعية، و[39]–[51] مراجع داعمة من خارجها، و[52]–[62] مراجع منهجية للخوارزميات والمقاييس والاستدلال الإحصائي. ولا تتضمن القائمة إلا البيانات البيبليوغرافية المؤكَّدة، أما ملاحظات التحقق فمكانها الملحق أ (الجدول أ-4).
+تتبع القائمة نمط IEEE الرقمي، وتحافظ على الترقيم الموحّد المعتمد في كل وثائق الرسالة: المراجع [1]–[38] هي المراجع المحللة في الدراسة المرجعية، و[39]–[51] مراجع داعمة من خارجها، و[52]–[62] مراجع منهجية للخوارزميات والمقاييس والاستدلال الإحصائي، و[63]–[64] مراجع التحليل والتصميم. ولا تتضمن القائمة إلا البيانات البيبليوغرافية المؤكَّدة، أما ملاحظات التحقق فمكانها الملحق أ (الجدول أ-4).
 
 [1] C. Kumar, M. Kumar, and A. Jindal, "Session-based song recommendation using recurrent neural network," 2022.
 
@@ -125,3 +125,7 @@
 [61] D. P. Kingma and J. Ba, "Adam: A method for stochastic optimization," in *Proc. 3rd Int. Conf. Learning Representations (ICLR)*, San Diego, CA, USA, 2015.
 
 [62] H. Steck, "Embarrassingly shallow autoencoders for sparse data," in *Proc. World Wide Web Conf. (WWW)*, San Francisco, CA, USA, 2019, pp. 3251–3257, doi: 10.1145/3308558.3313710.
+
+[63] World Wide Web Consortium (W3C), *Web Content Accessibility Guidelines (WCAG) 2.2*, W3C Recommendation, Oct. 5, 2023. [Online]. Available: https://www.w3.org/TR/WCAG22/
+
+[64] D. Clegg and R. Barker, *Case Method Fast-Track: A RAD Approach*. Wokingham, U.K.: Addison-Wesley, 1994.

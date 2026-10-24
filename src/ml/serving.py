@@ -22,15 +22,19 @@ teacher dashboard only (D-22); no risk label is shown to learners.
 """
 from __future__ import annotations
 
+import hashlib
 import json
+import time
 from functools import lru_cache
 
 import numpy as np
+import pandas as pd
 
 from . import components as CP, data, hybrid, learners as L
 from .metrics import rank_order
 from .models import BASELINES, COMPONENTS
 from .models.baskets import last_days_query
+from .models.context import cluster_choice
 from .models.gru_lite import Sequences, forward_states
 from .models.simple import recent_popularity
 from .models.wrmf import als_half_step
@@ -40,6 +44,13 @@ from .splits import CUTS, build_train
 ART = data.REPO_ROOT / "artifacts"
 FROZEN = data.RESULTS_DIR / "dev2013" / "hybrid_frozen.json"
 HEAVY = {"B7_WRMF", "GRU_lite"}
+CLUSTER_CACHE_VERSION = 1
+_CLUSTER_MEM: dict = {}
+FEATURE_LABELS = {"active_days": "الأيام النشطة", "gap_sd": "عدم انتظام النشاط", "first_day": "تأخر أول وصول",
+                  "total_clicks": "مجموع النقرات", "date_registration": "يوم التسجيل",
+                  "on_time_ratio": "الالتزام بالمواعيد", "mean_score": "متوسط الدرجات", "no_score": "غياب الدرجات",
+                  "num_of_prev_attempts": "محاولات سابقة", "studied_credits": "الساعات المسجلة"}
+FEATURE_LABELS.update({f"share_{t}": f"حصة نقرات {t}" for t in L.ALL_TYPES})
 TEMPLATES = {
     "B3_RecentPop": "يستخدمه كثير من زملائك هذا الأسبوع",
     "B7_WRMF": "زاره متعلمون بنمط مشابه لنمطك",
@@ -48,26 +59,78 @@ TEMPLATES = {
     "B6_Markov": "يتبع غالباً ما زرتَه مؤخراً",
     "GRU_lite": "يناسب تسلسل نشاطك في الأيام الأخيرة",
     "B9_CBF": "من النوع الذي تستخدمه كثيراً ({type})",
-    "C6_AssessProx": "مرتبط بالتقييم القادم بعد {days} أيام",
+    "C6_AssessProx": "مرتبط بالتقييم القادم بعد \u2066{days}\u2069 أيام",
     "C7_ClusterPop": "شائع لدى متعلمين بنمط مشابه لنمطك",
 }
 
 
 class Engine:
-    def __init__(self, frozen=FROZEN, artifacts=ART, presentations: dict | None = None, student_assessment=None):
+    def __init__(self, frozen=FROZEN, artifacts=ART, presentations: dict | None = None, student_assessment=None,
+                 allow_confirmatory: bool = False, cluster_cache_dir=None):
         """``frozen``: path to hybrid_frozen.json or the dict itself; ``presentations``/``student_assessment``
-        may be injected (unit tests)."""
+        may be injected (unit tests). ``allow_confirmatory`` (FR-40) is honoured only once the confirmatory verdicts
+        and their lock exist (results/conf2014/verdicts.csv and LOCK, D-63/D-67)."""
         self.frozen = frozen if isinstance(frozen, dict) else json.loads(frozen.read_text())
         self.art = artifacts
         self._pres = dict(presentations or {})
         self._sa = student_assessment
+        conf = data.RESULTS_DIR / "conf2014"
+        if allow_confirmatory and not ((conf / "verdicts.csv").exists() and (conf / "LOCK").exists()):
+            raise data.ConfirmatoryAccessError("2014 replay opens only after results/conf2014/verdicts.csv and LOCK exist")
+        self.allow_confirmatory = allow_confirmatory
+        self.cluster_cache_dir = cluster_cache_dir or (data.CACHE_DIR / "serving_clusters")
 
     # ---------------------------------------------------------------- data
     def presentation(self, name):
-        data.assert_allowed([name])                       # D-09: 2014 refused
+        data.assert_allowed([name], self.allow_confirmatory)       # D-09: 2014 refused before verdicts (FR-40)
         if name not in self._pres:
-            self._pres[name] = data.load_presentation(name)
+            self._pres[name] = data.load_presentation(name, allow_confirmatory=self.allow_confirmatory)
         return self._pres[name]
+
+    # ---------------------------------------------------------------- D-68: persisted cluster choice per (presentation, day)
+    def _cluster_fingerprint(self, tr) -> str:
+        h = hashlib.sha256()
+        h.update(f"{tr.pres}|{tr.t0}|{CLUSTER_CACHE_VERSION}".encode())
+        h.update(np.ascontiguousarray(tr.users).tobytes())
+        h.update(np.ascontiguousarray(tr.ev_d).tobytes())
+        h.update(np.ascontiguousarray(tr.ev_i).tobytes())
+        return h.hexdigest()
+
+    def cluster_choice_at(self, name, day):
+        """k-means++ choice computed at day t itself (features ≤ t), cached in memory and on disk under (presentation,
+        day) with a fingerprint of the training view; served only for that day (D-68). Same n_init/seeds/k as live."""
+        key = (name, int(day))
+        if key in _CLUSTER_MEM:
+            return _CLUSTER_MEM[key]
+        tr = self.train_view(name, int(day))
+        fp = self._cluster_fingerprint(tr)
+        f = self.cluster_cache_dir / f"{name}_{int(day)}.npz"
+        ch = None
+        if f.exists():
+            a = np.load(f, allow_pickle=False)
+            if str(a["fingerprint"]) == fp:
+                ch = L.ClusterChoice(int(a["k"]), a["labels"], a["centres"], bool(a["stable"]), None,
+                                     {s: a[f"labels_s{s}"] for s in range(5)})
+        if ch is None:
+            ch = cluster_choice(tr)
+            f.parent.mkdir(parents=True, exist_ok=True)
+            np.savez(f, fingerprint=fp, k=ch.k, labels=ch.labels, centres=ch.centres, stable=ch.stable,
+                     **{f"labels_s{s}": v for s, v in ch.labels_by_seed.items()})
+        _CLUSTER_MEM[key] = ch
+        return ch
+
+    def warm(self, name, days=None):
+        """Pre-compute the cluster choice and all component scores for a weekly grid of days plus the cuts (D-68)."""
+        p = self.presentation(name)
+        days = sorted(set(days if days is not None else list(range(7, p.length + 1, 7)) + list(CUTS)))
+        timings = {}
+        for d in days:
+            t = time.time()
+            c, comps, _, cfgs, _ = self.plan(name, d)
+            for m in comps:
+                self.component_scores(name, d, m, c, cfgs[m])
+            timings[d] = round(time.time() - t, 2)
+        return timings
 
     def model_cut(self, day: int):
         cs = [c for c in CUTS if c <= day]
@@ -106,6 +169,8 @@ class Engine:
             return self._wrmf_foldin(tr, name, c, cfg)
         if comp == "GRU_lite":
             return self._gru_forward(tr, name, c)
+        if comp == "C7_ClusterPop":
+            return COMPONENTS[comp](seed=0, **cfg, precomputed=self.cluster_choice_at(name, day)).fit(tr).score()
         cls = COMPONENTS.get(comp) or BASELINES[comp]
         return cls(seed=0, **cfg).fit(tr).score()
 
@@ -221,13 +286,13 @@ class Engine:
             expl = []
             for m in shown:
                 ev = self._evidence(m, tr, u, j, CP.parse_config(cfgs[m]), name, int(day), c) if u is not None else {}
-                if m == "C7_ClusterPop":
-                    ev = {"same_cluster_learners_in_window": int(raw[m][j]),
+                if m == "C7_ClusterPop":            # D-70: the cluster is used, not shown
+                    ev = {"similar_learners_in_window": int(raw[m][j]),
                           "window_days": int(CP.parse_config(cfgs[m]).get("w", 7))}
-                expl.append({"component": m, "text": TEMPLATES[m].format(item=ev.get("item", "?"),
-                                                                         type=ev.get("type", "?"),
-                                                                         days=ev.get("days", "?")),
-                             "contribution": contrib[m], "evidence": ev})
+                text = TEMPLATES[m].format(item=ev.get("item", "?"), type=ev.get("type", "?"), days=ev.get("days", "?"))
+                if m == "C6_AssessProx" and ev.get("days") is None:
+                    text = "مرتبط بأنماط الوصول قبل التقييمات (لا تقييم قادم معروف)"
+                expl.append({"component": m, "text": text, "contribution": contrib[m], "evidence": ev})
             out.append({"id_site": int(tr.items[j]), "activity_type": str(tr.item_type[j]), "score": float(fused[j]),
                         "components": {m: {"rtilde": float(rt[m][j]), "weight": float(wi), "contribution": contrib[m],
                                            "raw": float(raw[m][j])} for wi, m in zip(w, comps)},
@@ -248,27 +313,65 @@ class Engine:
             self._sa = data.load_student_assessment("dev")
         return self._sa
 
+    # ---------------------------------------------------------------- risk (teacher only; D-22, D-56, D-65)
+    def _risk_spec(self, name, tc, model):
+        if name in data.CONF_PRESENTATIONS:                 # 2014: the frozen final models (D-58)
+            r = json.loads((data.RESULTS_DIR / "frozen" / "risk_final.json").read_text())
+            spec = dict(r["cuts"][str(tc)]["models"][model])
+            thr = r["youden_thresholds_day56_full_precision"].get(model) if tc == 56 else None
+            spec.update(youden_threshold=thr, threshold_source="D-58 frozen (day 56)" if tc == 56 else None)
+            return spec, "test_2014"
+        f = self.art / name / f"risk_{tc}.json"
+        if not f.exists():
+            return None, None
+        return json.loads(f.read_text())["models"][model], "lopo_2013"
+
+    @lru_cache(maxsize=32)
+    def _risk_table(self, name, tc, model="M1"):
+        """Vectorised relative risk score for every registration at cut tc (z within presentation)."""
+        spec, prov = self._risk_spec(name, tc, model)
+        if spec is None:
+            return None
+        p = self.presentation(name)
+        unreg = p.registrations.set_index("id_student")["date_unregistration"]
+        F = self._features_at(name, tc)
+        withdrawn = (unreg.reindex(F.index) < tc).fillna(False).to_numpy()
+        cols = spec["features"]
+        X = F[cols].to_numpy(dtype=float)
+        mu, sd = X[~withdrawn].mean(axis=0), X[~withdrawn].std(axis=0)
+        Z = (X - mu) / np.where(sd > 0, sd, 1.0)
+        w = np.array(spec["weights"])
+        contrib = Z * w[1:][None, :]
+        score = 1.0 / (1.0 + np.exp(-(w[0] + contrib.sum(axis=1))))
+        score[withdrawn] = np.nan
+        top = np.array(cols)[np.argmax(contrib, axis=1)]
+        return {"index": F.index.to_numpy(), "score": score, "contrib": contrib, "cols": cols, "top": top,
+                "withdrawn": withdrawn, "threshold": spec.get("youden_threshold"),
+                "threshold_source": spec.get("threshold_source"), "provenance": prov}
+
     def _risk(self, name, registration, day, model="M1"):
         tcs = [t for t in (28, 56, 112) if t <= day]
         if not tcs:
-            return None
+            return None                                    # no estimate before day 28 (D-65)
         tc = max(tcs)
-        f = self.art / name / f"risk_{tc}.json"
-        if not f.exists():
+        tab = self._risk_table(name, tc, model)
+        if tab is None:
             return None
-        spec = json.loads(f.read_text())["models"][model]
-        p = self.presentation(name)
-        unreg = p.registrations.set_index("id_student")["date_unregistration"]
-        if registration in unreg.index and unreg.get(registration) < tc:
-            return {"risk_cut": tc, "probability": None, "note": "withdrawn before the cut"}
-        F = self._features_at(name, tc)
-        keep = ~(unreg.reindex(F.index) < tc).fillna(False).to_numpy()
-        X = F.loc[keep, spec["features"]].to_numpy(dtype=float)
-        mu, sd = X.mean(axis=0), X.std(axis=0)
-        x = (F.loc[registration, spec["features"]].to_numpy(dtype=float) - mu) / np.where(sd > 0, sd, 1)
-        prob = float(L.logistic_predict(np.array(spec["weights"]), x[None, :])[0])
-        return {"risk_cut": tc, "model": model, "probability": prob, "youden_threshold": spec["youden_threshold"],
-                "above_threshold": prob >= spec["youden_threshold"], "audience": "teacher only (D-22)"}
+        i = int(np.searchsorted(tab["index"], registration))
+        if i >= len(tab["index"]) or tab["index"][i] != registration:
+            return None
+        base = {"risk_cut": tc, "model": model, "provenance": tab["provenance"], "calibrated": False,
+                "audience": "teacher only (D-22)"}
+        if tab["withdrawn"][i]:
+            return {**base, "score": None, "note": "withdrawn before the cut"}
+        sc = float(tab["score"][i])
+        thr = tab["threshold"]
+        factors = {c: float(v) for c, v in zip(tab["cols"], tab["contrib"][i])}
+        top = sorted(factors, key=factors.get, reverse=True)[:3]
+        return {**base, "score": sc, "threshold": thr, "threshold_source": tab["threshold_source"],
+                "above_threshold": (sc >= thr) if thr is not None else None,
+                "factors": factors, "top_factors": [{"feature": f, "label": FEATURE_LABELS.get(f, f), "w_z": factors[f]}
+                                                    for f in top]}
 
     def _cluster(self, name, registration, day):
         if day < 56:
@@ -293,6 +396,7 @@ class Engine:
         p = self.presentation(name)
         ev = p.events[(p.events["id_student"] == registration) & (p.events["date"] <= day)]
         return {"presentation": name, "registration": int(registration), "day": int(day),
+                "model_cut": self.model_cut(int(day)),
                 "features": {"active_days": int(r["active_days"]), "total_clicks": int(r["total_clicks"]),
                              "first_day": int(r["first_day"]), "gap_sd": float(r["gap_sd"]),
                              "last_active_day": int(ev["date"].max()) if len(ev) else None,
@@ -300,6 +404,75 @@ class Engine:
                              "on_time_ratio": float(r["on_time_ratio"]), "mean_score": float(r["mean_score"])},
                 "cluster": self._cluster(name, registration, int(day)),
                 "risk": self._risk(name, registration, int(day), risk_model)}
+
+    @lru_cache(maxsize=32)
+    def learner_table(self, name, day, risk_model="M1"):
+        """Teacher table: one row per registration, computed vectorially and cached per (presentation, day) (§8.4)."""
+        p = self.presentation(name)
+        F = self._features_at(name, int(day))
+        ev = p.events[p.events["date"] <= day]
+        last = ev.groupby("id_student")["date"].max()
+        rows = pd.DataFrame({"id_student": F.index.to_numpy(), "active_days": F["active_days"].to_numpy(),
+                             "last_active_day": last.reindex(F.index).to_numpy(),
+                             "on_time_ratio": F["on_time_ratio"].to_numpy()})
+        tcs = [t for t in (28, 56, 112) if t <= day]
+        rows["risk_score"], rows["risk_top_factor"], rows["risk_cut"] = np.nan, None, None
+        if tcs:
+            tab = self._risk_table(name, max(tcs), risk_model)
+            if tab is not None:
+                pos = pd.Series(np.arange(len(tab["index"])), index=tab["index"]).reindex(rows["id_student"]).to_numpy()
+                ok = ~np.isnan(pos)
+                pi = pos[ok].astype(int)
+                rows.loc[ok, "risk_score"] = tab["score"][pi]
+                rows.loc[ok, "risk_top_factor"] = [FEATURE_LABELS.get(x, x) for x in tab["top"][pi]]
+                rows["risk_cut"] = max(tcs)
+        f = self.art / name / "clusters_56.npz"
+        rows["cluster"] = None
+        if day >= 56 and f.exists():
+            a = np.load(f)
+            cmap = pd.Series(a["labels"], index=a["students"])
+            rows["cluster"] = cmap.reindex(rows["id_student"]).to_numpy()
+        return rows
+
+    @lru_cache(maxsize=16)
+    def cluster_summary(self, name):
+        """Day-56 clusters for the teacher dashboard (D-39-c): k, stability, sizes, z-centres, a deterministic
+        Arabic description (two features with the largest |z|), and a 2-D PCA projection (numpy SVD)."""
+        f = self.art / name / "clusters_56.npz"
+        if not f.exists():
+            return None
+        a = np.load(f)
+        cols = [str(x) for x in a["features"]]
+        F = self._features_at(name, 56)
+        Z = (F.loc[a["students"], cols].to_numpy(dtype=float) - a["mu"]) / a["sd"]
+        Zc = Z - Z.mean(axis=0)
+        _, _, Vt = np.linalg.svd(Zc, full_matrices=False)
+        proj = Zc @ Vt[:2].T
+        cproj = (a["centres"] - Z.mean(axis=0)) @ Vt[:2].T
+        clusters = []
+        for c in range(int(a["k"])):
+            z = a["centres"][c]
+            top = np.argsort(-np.abs(z))[:2]
+            desc = "، ".join(f"{FEATURE_LABELS.get(cols[i], cols[i])} {'أعلى' if z[i] > 0 else 'أدنى'} من المتوسط" for i in top)
+            clusters.append({"cluster": c, "size": int((a["labels"] == c).sum()), "description": desc,
+                             "centre_z": dict(zip(cols, map(float, z))), "centre_2d": list(map(float, cproj[c]))})
+        return {"presentation": name, "cluster_day": 56, "k": int(a["k"]), "stable": bool(a["stable"]),
+                "clusters": clusters,
+                "points_2d": [{"id_student": int(s), "x": float(x), "y": float(y), "cluster": int(l)}
+                              for s, (x, y), l in zip(a["students"], proj, a["labels"])]}
+
+    def registrations(self, name, day):
+        """Whitelisted registration list for the interface (D-70): no final_result; date_unregistration is null
+        when it lies after the request day (it would reveal the future)."""
+        p = self.presentation(name)
+        reg = p.registrations[["id_student", "date_registration", "date_unregistration"]].copy()
+        reg["date_unregistration"] = reg["date_unregistration"].where(reg["date_unregistration"] <= day)
+        out = []
+        for r in reg.itertuples():
+            out.append({"id_student": int(r.id_student),
+                        "date_registration": None if pd.isna(r.date_registration) else int(r.date_registration),
+                        "date_unregistration": None if pd.isna(r.date_unregistration) else int(r.date_unregistration)})
+        return out
 
     def presentation_overview(self, name, day, risk_model="M1"):
         p = self.presentation(name)
@@ -309,9 +482,10 @@ class Engine:
         recent = p.events[(p.events["date"] > day - 7) & (p.events["date"] <= day)]
         asm = p.assessments.dropna(subset=["date"])
         nxt = asm[asm["date"] >= day].sort_values("date").head(3)
+        lt = self.learner_table(name, int(day), risk_model)
         out = {"presentation": name, "day": int(day), "model_cut": self.model_cut(int(day)),
                "registrations": int(len(p.students)), "active_learners_7d": int(recent["id_student"].nunique()),
-               "catalogue_size": int(tr.n_items),
+               "median_active_days": float(np.median(lt["active_days"])), "catalogue_size": int(tr.n_items),
                "top_resources_7d": [{"id_site": int(tr.items[j]), "activity_type": str(tr.item_type[j]),
                                      "learners": int(rp[j])} for j in top],
                "next_assessments": [{"id_assessment": int(r.id_assessment), "type": r.assessment_type,
@@ -321,16 +495,12 @@ class Engine:
             a = np.load(f)
             out["clusters_56"] = {"k": int(a["k"]), "stable": bool(a["stable"]),
                                   "sizes": np.bincount(a["labels"], minlength=int(a["k"])).tolist()}
-        if day >= 28:
-            probs = []
-            for s in p.students["id_student"].to_numpy():
-                r = self._risk(name, int(s), int(day), risk_model)
-                if r and r.get("probability") is not None:
-                    probs.append(r["probability"])
-            if probs:
-                bands = np.histogram(probs, bins=[0, 0.25, 0.5, 0.75, 1.0001])[0]
-                out["risk_bands"] = {"0-0.25": int(bands[0]), "0.25-0.5": int(bands[1]), "0.5-0.75": int(bands[2]),
-                                     "0.75-1": int(bands[3]), "audience": "teacher only (D-22)"}
+        sc = lt["risk_score"].dropna().to_numpy()
+        if len(sc):
+            bands = np.histogram(sc, bins=[0, 0.25, 0.5, 0.75, 1.0001])[0]
+            out["risk_bands"] = {"0-0.25": int(bands[0]), "0.25-0.5": int(bands[1]), "0.5-0.75": int(bands[2]),
+                                 "0.75-1": int(bands[3]), "risk_cut": lt["risk_cut"].iloc[0], "model": risk_model,
+                                 "calibrated": False, "audience": "teacher only (D-22)"}
         return out
 
 
@@ -354,3 +524,19 @@ def learner_profile(presentation, registration, day):
 
 def presentation_overview(presentation, day):
     return engine().presentation_overview(presentation, day)
+
+
+def learner_table(presentation, day):
+    return engine().learner_table(presentation, day).to_dict(orient="records")
+
+
+def cluster_summary(presentation):
+    return engine().cluster_summary(presentation)
+
+
+def registrations(presentation, day):
+    return engine().registrations(presentation, day)
+
+
+def warm(presentation, days=None):
+    return engine().warm(presentation, days)
