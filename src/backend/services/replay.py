@@ -182,6 +182,9 @@ class ReplayService:
         _, comps, w, _, _ = plan
         return [ComponentInfo(id=comp_id(m), label=comp_label(m), weight=round(float(x), 4)) for m, x in zip(comps, w)]
 
+    def provenance(self, cut) -> Provenance:
+        return Provenance(run_id=self.repo.run_id, role="dev", model_cut=None if cut is None else int(cut))
+
     def recommendation(self, pres: str, student: int, day: int, k: int, task: str) -> RecommendationResponse:
         raw = self.raw_recs(pres, student, day, task)
         ix = self.repo.index(pres)
@@ -220,4 +223,5 @@ class ReplayService:
         recent = [HistoryEvent(day=int(r.date), id_site=int(r.id_site), activity_type=str(r.activity_type), clicks=int(r.clicks))
                   for r in rec.itertuples()]
         return LearnerHistory(registration=f"{pres}-{student}", day=day, window=window,
-                              active_days=int(ev["date"].nunique()), daily=daily, recent=recent)
+                              active_days=int(ev["date"].nunique()), daily=daily, recent=recent,
+                              provenance=self.provenance(self.repo.engine.model_cut(day)))

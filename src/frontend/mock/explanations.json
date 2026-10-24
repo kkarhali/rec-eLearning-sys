@@ -65,7 +65,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-28400|547058": {
   "registration": "BBB_2013J-28400",
@@ -133,7 +138,12 @@
     "sentence": "يستخدمه 328 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-28400|546868": {
   "registration": "BBB_2013J-28400",
@@ -201,7 +211,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-28400|546982": {
   "registration": "BBB_2013J-28400",
@@ -269,7 +284,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-28400|547010": {
   "registration": "BBB_2013J-28400",
@@ -337,7 +357,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-28400|546742": {
   "registration": "BBB_2013J-28400",
@@ -405,7 +430,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-28400|547070": {
   "registration": "BBB_2013J-28400",
@@ -473,7 +503,12 @@
     "sentence": "يستخدمه 116 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-28400|546843": {
   "registration": "BBB_2013J-28400",
@@ -541,7 +576,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-28400|546876": {
   "registration": "BBB_2013J-28400",
@@ -609,7 +649,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-28400|546813": {
   "registration": "BBB_2013J-28400",
@@ -677,7 +722,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31092|546831": {
   "registration": "BBB_2013J-31092",
@@ -745,7 +795,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31092|546892": {
   "registration": "BBB_2013J-31092",
@@ -813,7 +868,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31092|547058": {
   "registration": "BBB_2013J-31092",
@@ -881,7 +941,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31092|546868": {
   "registration": "BBB_2013J-31092",
@@ -949,7 +1014,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31092|547089": {
   "registration": "BBB_2013J-31092",
@@ -1017,7 +1087,12 @@
     "sentence": "يستخدمه 138 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31092|546802": {
   "registration": "BBB_2013J-31092",
@@ -1085,7 +1160,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31092|546803": {
   "registration": "BBB_2013J-31092",
@@ -1153,7 +1233,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31092|546985": {
   "registration": "BBB_2013J-31092",
@@ -1221,7 +1306,12 @@
     "sentence": "يستخدمه 410 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31092|546963": {
   "registration": "BBB_2013J-31092",
@@ -1289,7 +1379,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31092|546974": {
   "registration": "BBB_2013J-31092",
@@ -1357,7 +1452,12 @@
     "sentence": "يستخدمه 135 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27711|547058": {
   "registration": "BBB_2013J-27711",
@@ -1425,7 +1525,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27711|546964": {
   "registration": "BBB_2013J-27711",
@@ -1493,7 +1598,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27711|547001": {
   "registration": "BBB_2013J-27711",
@@ -1561,7 +1671,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27711|546876": {
   "registration": "BBB_2013J-27711",
@@ -1629,7 +1744,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27711|547010": {
   "registration": "BBB_2013J-27711",
@@ -1697,7 +1817,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27711|546783": {
   "registration": "BBB_2013J-27711",
@@ -1765,7 +1890,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27711|546843": {
   "registration": "BBB_2013J-27711",
@@ -1833,7 +1963,12 @@
     "sentence": "يستخدمه 232 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27711|546845": {
   "registration": "BBB_2013J-27711",
@@ -1901,7 +2036,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27711|546985": {
   "registration": "BBB_2013J-27711",
@@ -1969,7 +2109,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27711|547031": {
   "registration": "BBB_2013J-27711",
@@ -2037,7 +2182,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30455|547043": {
   "registration": "BBB_2013J-30455",
@@ -2105,7 +2255,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30455|547063": {
   "registration": "BBB_2013J-30455",
@@ -2173,7 +2328,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30455|547058": {
   "registration": "BBB_2013J-30455",
@@ -2241,7 +2401,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30455|546904": {
   "registration": "BBB_2013J-30455",
@@ -2309,7 +2474,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30455|547078": {
   "registration": "BBB_2013J-30455",
@@ -2377,7 +2547,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30455|546813": {
   "registration": "BBB_2013J-30455",
@@ -2445,7 +2620,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30455|546964": {
   "registration": "BBB_2013J-30455",
@@ -2513,7 +2693,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30455|546622": {
   "registration": "BBB_2013J-30455",
@@ -2581,7 +2766,12 @@
     "sentence": "يستخدمه 169 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30455|546876": {
   "registration": "BBB_2013J-30455",
@@ -2649,7 +2839,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30455|546936": {
   "registration": "BBB_2013J-30455",
@@ -2717,7 +2912,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29903|547089": {
   "registration": "BBB_2013J-29903",
@@ -2785,7 +2985,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29903|546824": {
   "registration": "BBB_2013J-29903",
@@ -2853,7 +3058,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29903|546919": {
   "registration": "BBB_2013J-29903",
@@ -2921,7 +3131,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29903|546853": {
   "registration": "BBB_2013J-29903",
@@ -2989,7 +3204,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29903|546956": {
   "registration": "BBB_2013J-29903",
@@ -3057,7 +3277,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29903|546876": {
   "registration": "BBB_2013J-29903",
@@ -3125,7 +3350,12 @@
     "sentence": "يستخدمه 223 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29903|547063": {
   "registration": "BBB_2013J-29903",
@@ -3193,7 +3423,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29903|546927": {
   "registration": "BBB_2013J-29903",
@@ -3246,7 +3481,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29903|546813": {
   "registration": "BBB_2013J-29903",
@@ -3314,7 +3554,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33001|546904": {
   "registration": "BBB_2013J-33001",
@@ -3382,7 +3627,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33001|546803": {
   "registration": "BBB_2013J-33001",
@@ -3450,7 +3700,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33001|546777": {
   "registration": "BBB_2013J-33001",
@@ -3518,7 +3773,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33001|547089": {
   "registration": "BBB_2013J-33001",
@@ -3586,7 +3846,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33001|547078": {
   "registration": "BBB_2013J-33001",
@@ -3654,7 +3919,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33001|547015": {
   "registration": "BBB_2013J-33001",
@@ -3722,7 +3992,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33001|547058": {
   "registration": "BBB_2013J-33001",
@@ -3790,7 +4065,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33001|547010": {
   "registration": "BBB_2013J-33001",
@@ -3858,7 +4138,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33001|546982": {
   "registration": "BBB_2013J-33001",
@@ -3926,7 +4211,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33001|546876": {
   "registration": "BBB_2013J-33001",
@@ -3994,7 +4284,12 @@
     "sentence": "يستخدمه 346 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27087|547034": {
   "registration": "BBB_2013J-27087",
@@ -4062,7 +4357,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27087|547043": {
   "registration": "BBB_2013J-27087",
@@ -4130,7 +4430,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27087|546880": {
   "registration": "BBB_2013J-27087",
@@ -4198,7 +4503,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27087|546932": {
   "registration": "BBB_2013J-27087",
@@ -4266,7 +4576,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27087|546985": {
   "registration": "BBB_2013J-27087",
@@ -4334,7 +4649,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27087|546944": {
   "registration": "BBB_2013J-27087",
@@ -4402,7 +4722,12 @@
     "sentence": "يستخدمه 325 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27087|547078": {
   "registration": "BBB_2013J-27087",
@@ -4470,7 +4795,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27087|547015": {
   "registration": "BBB_2013J-27087",
@@ -4538,7 +4868,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27087|546803": {
   "registration": "BBB_2013J-27087",
@@ -4606,7 +4941,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27087|546974": {
   "registration": "BBB_2013J-27087",
@@ -4674,7 +5014,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26109|546944": {
   "registration": "BBB_2013J-26109",
@@ -4712,7 +5057,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26109|546919": {
   "registration": "BBB_2013J-26109",
@@ -4750,7 +5100,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26109|546956": {
   "registration": "BBB_2013J-26109",
@@ -4788,7 +5143,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26109|546618": {
   "registration": "BBB_2013J-26109",
@@ -4826,7 +5186,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26109|546639": {
   "registration": "BBB_2013J-26109",
@@ -4864,7 +5229,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26109|546803": {
   "registration": "BBB_2013J-26109",
@@ -4902,7 +5272,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26109|547089": {
   "registration": "BBB_2013J-26109",
@@ -4940,7 +5315,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26109|546668": {
   "registration": "BBB_2013J-26109",
@@ -4978,7 +5358,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26109|546927": {
   "registration": "BBB_2013J-26109",
@@ -5016,7 +5401,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26109|546843": {
   "registration": "BBB_2013J-26109",
@@ -5054,7 +5444,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25596|546789": {
   "registration": "BBB_2013J-25596",
@@ -5122,7 +5517,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25596|546932": {
   "registration": "BBB_2013J-25596",
@@ -5190,7 +5590,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25596|546845": {
   "registration": "BBB_2013J-25596",
@@ -5258,7 +5663,12 @@
     "sentence": "يستخدمه 351 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25596|546919": {
   "registration": "BBB_2013J-25596",
@@ -5326,7 +5736,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25596|547049": {
   "registration": "BBB_2013J-25596",
@@ -5394,7 +5809,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25596|546912": {
   "registration": "BBB_2013J-25596",
@@ -5462,7 +5882,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25596|546843": {
   "registration": "BBB_2013J-25596",
@@ -5530,7 +5955,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25596|546824": {
   "registration": "BBB_2013J-25596",
@@ -5598,7 +6028,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25596|546894": {
   "registration": "BBB_2013J-25596",
@@ -5666,7 +6101,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25596|546944": {
   "registration": "BBB_2013J-25596",
@@ -5734,7 +6174,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33305|546963": {
   "registration": "BBB_2013J-33305",
@@ -5802,7 +6247,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33305|546777": {
   "registration": "BBB_2013J-33305",
@@ -5870,7 +6320,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33305|546803": {
   "registration": "BBB_2013J-33305",
@@ -5938,7 +6393,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33305|546813": {
   "registration": "BBB_2013J-33305",
@@ -6006,7 +6466,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33305|547031": {
   "registration": "BBB_2013J-33305",
@@ -6074,7 +6539,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33305|546868": {
   "registration": "BBB_2013J-33305",
@@ -6142,7 +6612,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33305|546802": {
   "registration": "BBB_2013J-33305",
@@ -6195,7 +6670,12 @@
     "sentence": "يستخدمه 149 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33305|546843": {
   "registration": "BBB_2013J-33305",
@@ -6263,7 +6743,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33305|546964": {
   "registration": "BBB_2013J-33305",
@@ -6331,7 +6816,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33305|547049": {
   "registration": "BBB_2013J-33305",
@@ -6399,7 +6889,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32075|547001": {
   "registration": "BBB_2013J-32075",
@@ -6467,7 +6962,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32075|546964": {
   "registration": "BBB_2013J-32075",
@@ -6535,7 +7035,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32075|546927": {
   "registration": "BBB_2013J-32075",
@@ -6603,7 +7108,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32075|546783": {
   "registration": "BBB_2013J-32075",
@@ -6671,7 +7181,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32075|546789": {
   "registration": "BBB_2013J-32075",
@@ -6739,7 +7254,12 @@
     "sentence": "يستخدمه 321 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32075|547049": {
   "registration": "BBB_2013J-32075",
@@ -6807,7 +7327,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32075|547043": {
   "registration": "BBB_2013J-32075",
@@ -6875,7 +7400,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32075|547010": {
   "registration": "BBB_2013J-32075",
@@ -6943,7 +7473,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32075|546831": {
   "registration": "BBB_2013J-32075",
@@ -7011,7 +7546,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32075|546813": {
   "registration": "BBB_2013J-32075",
@@ -7079,7 +7619,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29360|546845": {
   "registration": "BBB_2013J-29360",
@@ -7147,7 +7692,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29360|546964": {
   "registration": "BBB_2013J-29360",
@@ -7215,7 +7765,12 @@
     "sentence": "يستخدمه 399 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29360|547010": {
   "registration": "BBB_2013J-29360",
@@ -7283,7 +7838,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29360|546737": {
   "registration": "BBB_2013J-29360",
@@ -7351,7 +7911,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29360|546861": {
   "registration": "BBB_2013J-29360",
@@ -7419,7 +7984,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29360|546927": {
   "registration": "BBB_2013J-29360",
@@ -7487,7 +8057,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29360|546936": {
   "registration": "BBB_2013J-29360",
@@ -7555,7 +8130,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29360|546993": {
   "registration": "BBB_2013J-29360",
@@ -7623,7 +8203,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29360|547031": {
   "registration": "BBB_2013J-29360",
@@ -7691,7 +8276,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29360|546853": {
   "registration": "BBB_2013J-29360",
@@ -7759,7 +8349,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30905|547089": {
   "registration": "BBB_2013J-30905",
@@ -7827,7 +8422,12 @@
     "sentence": "يستخدمه 152 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30905|547070": {
   "registration": "BBB_2013J-30905",
@@ -7895,7 +8495,12 @@
     "sentence": "يستخدمه 358 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30905|547034": {
   "registration": "BBB_2013J-30905",
@@ -7963,7 +8568,12 @@
     "sentence": "يستخدمه 116 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30905|547001": {
   "registration": "BBB_2013J-30905",
@@ -8031,7 +8641,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30905|547049": {
   "registration": "BBB_2013J-30905",
@@ -8099,7 +8714,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30905|546824": {
   "registration": "BBB_2013J-30905",
@@ -8167,7 +8787,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30905|546985": {
   "registration": "BBB_2013J-30905",
@@ -8235,7 +8860,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30905|546936": {
   "registration": "BBB_2013J-30905",
@@ -8303,7 +8933,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30905|546964": {
   "registration": "BBB_2013J-30905",
@@ -8371,7 +9006,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30905|546876": {
   "registration": "BBB_2013J-30905",
@@ -8439,7 +9079,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32888|547049": {
   "registration": "BBB_2013J-32888",
@@ -8507,7 +9152,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32888|546956": {
   "registration": "BBB_2013J-32888",
@@ -8575,7 +9225,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32888|546868": {
   "registration": "BBB_2013J-32888",
@@ -8643,7 +9298,12 @@
     "sentence": "يستخدمه 359 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32888|546974": {
   "registration": "BBB_2013J-32888",
@@ -8711,7 +9371,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32888|546963": {
   "registration": "BBB_2013J-32888",
@@ -8779,7 +9444,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32888|546853": {
   "registration": "BBB_2013J-32888",
@@ -8847,7 +9517,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32888|547089": {
   "registration": "BBB_2013J-32888",
@@ -8915,7 +9590,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32888|546944": {
   "registration": "BBB_2013J-32888",
@@ -8983,7 +9663,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32888|547034": {
   "registration": "BBB_2013J-32888",
@@ -9051,7 +9736,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32888|547015": {
   "registration": "BBB_2013J-32888",
@@ -9119,7 +9809,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24286|546789": {
   "registration": "BBB_2013J-24286",
@@ -9187,7 +9882,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24286|546904": {
   "registration": "BBB_2013J-24286",
@@ -9255,7 +9955,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24286|547070": {
   "registration": "BBB_2013J-24286",
@@ -9323,7 +10028,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24286|546964": {
   "registration": "BBB_2013J-24286",
@@ -9391,7 +10101,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24286|547001": {
   "registration": "BBB_2013J-24286",
@@ -9459,7 +10174,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24286|546831": {
   "registration": "BBB_2013J-24286",
@@ -9527,7 +10247,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24286|546993": {
   "registration": "BBB_2013J-24286",
@@ -9595,7 +10320,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24286|546861": {
   "registration": "BBB_2013J-24286",
@@ -9663,7 +10393,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24286|546912": {
   "registration": "BBB_2013J-24286",
@@ -9731,7 +10466,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24286|546892": {
   "registration": "BBB_2013J-24286",
@@ -9799,7 +10539,12 @@
     "sentence": "يستخدمه 250 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29905|546824": {
   "registration": "BBB_2013J-29905",
@@ -9867,7 +10612,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29905|547034": {
   "registration": "BBB_2013J-29905",
@@ -9935,7 +10685,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29905|547015": {
   "registration": "BBB_2013J-29905",
@@ -10003,7 +10758,12 @@
     "sentence": "يستخدمه 161 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29905|546904": {
   "registration": "BBB_2013J-29905",
@@ -10071,7 +10831,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29905|547089": {
   "registration": "BBB_2013J-29905",
@@ -10139,7 +10904,12 @@
     "sentence": "يستخدمه 265 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29905|546982": {
   "registration": "BBB_2013J-29905",
@@ -10207,7 +10977,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29905|547020": {
   "registration": "BBB_2013J-29905",
@@ -10275,7 +11050,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29905|546831": {
   "registration": "BBB_2013J-29905",
@@ -10343,7 +11123,12 @@
     "sentence": "يستخدمه 111 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29905|546932": {
   "registration": "BBB_2013J-29905",
@@ -10411,7 +11196,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23776|546817": {
   "registration": "BBB_2013J-23776",
@@ -10479,7 +11269,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23776|546919": {
   "registration": "BBB_2013J-23776",
@@ -10547,7 +11342,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23776|546944": {
   "registration": "BBB_2013J-23776",
@@ -10615,7 +11415,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23776|547010": {
   "registration": "BBB_2013J-23776",
@@ -10683,7 +11488,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23776|546974": {
   "registration": "BBB_2013J-23776",
@@ -10751,7 +11561,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23776|546904": {
   "registration": "BBB_2013J-23776",
@@ -10819,7 +11634,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23776|546868": {
   "registration": "BBB_2013J-23776",
@@ -10887,7 +11707,12 @@
     "sentence": "يستخدمه 122 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23776|547070": {
   "registration": "BBB_2013J-23776",
@@ -10955,7 +11780,12 @@
     "sentence": "يستخدمه 350 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23776|547020": {
   "registration": "BBB_2013J-23776",
@@ -11023,7 +11853,12 @@
     "sentence": "يستخدمه 128 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23776|546802": {
   "registration": "BBB_2013J-23776",
@@ -11091,7 +11926,12 @@
     "sentence": "يستخدمه 226 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24701|546932": {
   "registration": "BBB_2013J-24701",
@@ -11159,7 +11999,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24701|546831": {
   "registration": "BBB_2013J-24701",
@@ -11227,7 +12072,12 @@
     "sentence": "يستخدمه 406 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24701|546993": {
   "registration": "BBB_2013J-24701",
@@ -11295,7 +12145,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24701|547034": {
   "registration": "BBB_2013J-24701",
@@ -11363,7 +12218,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24701|547049": {
   "registration": "BBB_2013J-24701",
@@ -11431,7 +12291,12 @@
     "sentence": "يستخدمه 352 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24701|546824": {
   "registration": "BBB_2013J-24701",
@@ -11499,7 +12364,12 @@
     "sentence": "يستخدمه 203 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24701|546936": {
   "registration": "BBB_2013J-24701",
@@ -11567,7 +12437,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24701|547020": {
   "registration": "BBB_2013J-24701",
@@ -11635,7 +12510,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24701|547078": {
   "registration": "BBB_2013J-24701",
@@ -11703,7 +12583,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24701|547070": {
   "registration": "BBB_2013J-24701",
@@ -11771,7 +12656,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24786|546904": {
   "registration": "BBB_2013J-24786",
@@ -11839,7 +12729,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24786|546892": {
   "registration": "BBB_2013J-24786",
@@ -11907,7 +12802,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24786|546817": {
   "registration": "BBB_2013J-24786",
@@ -11975,7 +12875,12 @@
     "sentence": "يستخدمه 417 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24786|546789": {
   "registration": "BBB_2013J-24786",
@@ -12043,7 +12948,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24786|546936": {
   "registration": "BBB_2013J-24786",
@@ -12111,7 +13021,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24786|547049": {
   "registration": "BBB_2013J-24786",
@@ -12179,7 +13094,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24786|547078": {
   "registration": "BBB_2013J-24786",
@@ -12247,7 +13167,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24786|547015": {
   "registration": "BBB_2013J-24786",
@@ -12300,7 +13225,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24786|546963": {
   "registration": "BBB_2013J-24786",
@@ -12368,7 +13298,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24786|546777": {
   "registration": "BBB_2013J-24786",
@@ -12436,7 +13371,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23634|546912": {
   "registration": "BBB_2013J-23634",
@@ -12504,7 +13444,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23634|546927": {
   "registration": "BBB_2013J-23634",
@@ -12572,7 +13517,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23634|547001": {
   "registration": "BBB_2013J-23634",
@@ -12640,7 +13590,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23634|546845": {
   "registration": "BBB_2013J-23634",
@@ -12708,7 +13663,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23634|546777": {
   "registration": "BBB_2013J-23634",
@@ -12776,7 +13736,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23634|546783": {
   "registration": "BBB_2013J-23634",
@@ -12844,7 +13809,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23634|546936": {
   "registration": "BBB_2013J-23634",
@@ -12912,7 +13882,12 @@
     "sentence": "يستخدمه 353 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23634|546993": {
   "registration": "BBB_2013J-23634",
@@ -12980,7 +13955,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23634|546894": {
   "registration": "BBB_2013J-23634",
@@ -13048,7 +14028,12 @@
     "sentence": "يستخدمه 363 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-23634|547078": {
   "registration": "BBB_2013J-23634",
@@ -13086,7 +14071,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31394|546944": {
   "registration": "BBB_2013J-31394",
@@ -13154,7 +14144,12 @@
     "sentence": "يستخدمه 321 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31394|546993": {
   "registration": "BBB_2013J-31394",
@@ -13222,7 +14217,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31394|546853": {
   "registration": "BBB_2013J-31394",
@@ -13290,7 +14290,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31394|546824": {
   "registration": "BBB_2013J-31394",
@@ -13358,7 +14363,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31394|546982": {
   "registration": "BBB_2013J-31394",
@@ -13426,7 +14436,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31394|546845": {
   "registration": "BBB_2013J-31394",
@@ -13494,7 +14509,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31394|546843": {
   "registration": "BBB_2013J-31394",
@@ -13562,7 +14582,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31394|546876": {
   "registration": "BBB_2013J-31394",
@@ -13630,7 +14655,12 @@
     "sentence": "يستخدمه 376 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31394|547010": {
   "registration": "BBB_2013J-31394",
@@ -13698,7 +14728,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31394|547034": {
   "registration": "BBB_2013J-31394",
@@ -13766,7 +14801,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27180|546912": {
   "registration": "BBB_2013J-27180",
@@ -13834,7 +14874,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27180|547034": {
   "registration": "BBB_2013J-27180",
@@ -13889,7 +14934,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27180|546927": {
   "registration": "BBB_2013J-27180",
@@ -13957,7 +15007,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27180|546783": {
   "registration": "BBB_2013J-27180",
@@ -14025,7 +15080,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27180|546944": {
   "registration": "BBB_2013J-27180",
@@ -14078,7 +15138,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27180|546963": {
   "registration": "BBB_2013J-27180",
@@ -14146,7 +15211,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27180|546876": {
   "registration": "BBB_2013J-27180",
@@ -14214,7 +15284,12 @@
     "sentence": "يستخدمه 303 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27180|546894": {
   "registration": "BBB_2013J-27180",
@@ -14282,7 +15357,12 @@
     "sentence": "يستخدمه 286 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27180|546919": {
   "registration": "BBB_2013J-27180",
@@ -14350,7 +15430,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27180|546956": {
   "registration": "BBB_2013J-27180",
@@ -14418,7 +15503,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26906|546912": {
   "registration": "BBB_2013J-26906",
@@ -14486,7 +15576,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26906|546803": {
   "registration": "BBB_2013J-26906",
@@ -14554,7 +15649,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26906|546944": {
   "registration": "BBB_2013J-26906",
@@ -14622,7 +15722,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26906|547070": {
   "registration": "BBB_2013J-26906",
@@ -14690,7 +15795,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26906|546824": {
   "registration": "BBB_2013J-26906",
@@ -14758,7 +15868,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26906|547078": {
   "registration": "BBB_2013J-26906",
@@ -14826,7 +15941,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26906|546974": {
   "registration": "BBB_2013J-26906",
@@ -14894,7 +16014,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26906|546880": {
   "registration": "BBB_2013J-26906",
@@ -14962,7 +16087,12 @@
     "sentence": "يستخدمه 338 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26906|546868": {
   "registration": "BBB_2013J-26906",
@@ -15030,7 +16160,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26906|547063": {
   "registration": "BBB_2013J-26906",
@@ -15098,7 +16233,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29416|546956": {
   "registration": "BBB_2013J-29416",
@@ -15166,7 +16306,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29416|546993": {
   "registration": "BBB_2013J-29416",
@@ -15234,7 +16379,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29416|546936": {
   "registration": "BBB_2013J-29416",
@@ -15302,7 +16452,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29416|547015": {
   "registration": "BBB_2013J-29416",
@@ -15370,7 +16525,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29416|546845": {
   "registration": "BBB_2013J-29416",
@@ -15438,7 +16598,12 @@
     "sentence": "يستخدمه 210 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29416|546974": {
   "registration": "BBB_2013J-29416",
@@ -15506,7 +16671,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29416|546964": {
   "registration": "BBB_2013J-29416",
@@ -15574,7 +16744,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29416|546927": {
   "registration": "BBB_2013J-29416",
@@ -15642,7 +16817,12 @@
     "sentence": "يستخدمه 324 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29416|546876": {
   "registration": "BBB_2013J-29416",
@@ -15710,7 +16890,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29416|546880": {
   "registration": "BBB_2013J-29416",
@@ -15778,7 +16963,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27210|546845": {
   "registration": "BBB_2013J-27210",
@@ -15846,7 +17036,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27210|546668": {
   "registration": "BBB_2013J-27210",
@@ -15914,7 +17109,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27210|546892": {
   "registration": "BBB_2013J-27210",
@@ -15982,7 +17182,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27210|546963": {
   "registration": "BBB_2013J-27210",
@@ -16050,7 +17255,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27210|547078": {
   "registration": "BBB_2013J-27210",
@@ -16118,7 +17328,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27210|547031": {
   "registration": "BBB_2013J-27210",
@@ -16186,7 +17401,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27210|546824": {
   "registration": "BBB_2013J-27210",
@@ -16254,7 +17474,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27210|546974": {
   "registration": "BBB_2013J-27210",
@@ -16322,7 +17547,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27210|546843": {
   "registration": "BBB_2013J-27210",
@@ -16390,7 +17620,12 @@
     "sentence": "يستخدمه 196 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27210|546831": {
   "registration": "BBB_2013J-27210",
@@ -16458,7 +17693,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29894|546876": {
   "registration": "BBB_2013J-29894",
@@ -16526,7 +17766,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29894|546919": {
   "registration": "BBB_2013J-29894",
@@ -16594,7 +17839,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29894|546861": {
   "registration": "BBB_2013J-29894",
@@ -16662,7 +17912,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29894|547063": {
   "registration": "BBB_2013J-29894",
@@ -16730,7 +17985,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29894|546880": {
   "registration": "BBB_2013J-29894",
@@ -16798,7 +18058,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29894|546993": {
   "registration": "BBB_2013J-29894",
@@ -16866,7 +18131,12 @@
     "sentence": "يستخدمه 142 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29894|546985": {
   "registration": "BBB_2013J-29894",
@@ -16934,7 +18204,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29894|547020": {
   "registration": "BBB_2013J-29894",
@@ -17002,7 +18277,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29894|546845": {
   "registration": "BBB_2013J-29894",
@@ -17070,7 +18350,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-29894|546802": {
   "registration": "BBB_2013J-29894",
@@ -17138,7 +18423,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32772|546789": {
   "registration": "BBB_2013J-32772",
@@ -17206,7 +18496,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32772|546956": {
   "registration": "BBB_2013J-32772",
@@ -17274,7 +18569,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32772|546912": {
   "registration": "BBB_2013J-32772",
@@ -17342,7 +18642,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32772|546932": {
   "registration": "BBB_2013J-32772",
@@ -17410,7 +18715,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32772|546802": {
   "registration": "BBB_2013J-32772",
@@ -17478,7 +18788,12 @@
     "sentence": "يستخدمه 372 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32772|546843": {
   "registration": "BBB_2013J-32772",
@@ -17546,7 +18861,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32772|546974": {
   "registration": "BBB_2013J-32772",
@@ -17614,7 +18934,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32772|546892": {
   "registration": "BBB_2013J-32772",
@@ -17682,7 +19007,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32772|546927": {
   "registration": "BBB_2013J-32772",
@@ -17750,7 +19080,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32772|547043": {
   "registration": "BBB_2013J-32772",
@@ -17818,7 +19153,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31044|546845": {
   "registration": "BBB_2013J-31044",
@@ -17886,7 +19226,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31044|546783": {
   "registration": "BBB_2013J-31044",
@@ -17954,7 +19299,12 @@
     "sentence": "يستخدمه 176 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31044|546956": {
   "registration": "BBB_2013J-31044",
@@ -18022,7 +19372,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31044|547031": {
   "registration": "BBB_2013J-31044",
@@ -18090,7 +19445,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31044|547058": {
   "registration": "BBB_2013J-31044",
@@ -18158,7 +19518,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31044|547001": {
   "registration": "BBB_2013J-31044",
@@ -18226,7 +19591,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31044|547049": {
   "registration": "BBB_2013J-31044",
@@ -18294,7 +19664,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31044|546843": {
   "registration": "BBB_2013J-31044",
@@ -18362,7 +19737,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31044|546831": {
   "registration": "BBB_2013J-31044",
@@ -18430,7 +19810,12 @@
     "sentence": "يستخدمه 274 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31044|547063": {
   "registration": "BBB_2013J-31044",
@@ -18498,7 +19883,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27807|546985": {
   "registration": "BBB_2013J-27807",
@@ -18566,7 +19956,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27807|547049": {
   "registration": "BBB_2013J-27807",
@@ -18634,7 +20029,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27807|546974": {
   "registration": "BBB_2013J-27807",
@@ -18702,7 +20102,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27807|547010": {
   "registration": "BBB_2013J-27807",
@@ -18770,7 +20175,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27807|547089": {
   "registration": "BBB_2013J-27807",
@@ -18838,7 +20248,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27807|546853": {
   "registration": "BBB_2013J-27807",
@@ -18906,7 +20321,12 @@
     "sentence": "يستخدمه 198 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27807|546803": {
   "registration": "BBB_2013J-27807",
@@ -18974,7 +20394,12 @@
     "sentence": "يستخدمه 356 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27807|547043": {
   "registration": "BBB_2013J-27807",
@@ -19042,7 +20467,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27807|546845": {
   "registration": "BBB_2013J-27807",
@@ -19110,7 +20540,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-27807|546944": {
   "registration": "BBB_2013J-27807",
@@ -19178,7 +20613,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31520|547078": {
   "registration": "BBB_2013J-31520",
@@ -19246,7 +20686,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31520|547031": {
   "registration": "BBB_2013J-31520",
@@ -19314,7 +20759,12 @@
     "sentence": "يستخدمه 381 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31520|547043": {
   "registration": "BBB_2013J-31520",
@@ -19382,7 +20832,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31520|546845": {
   "registration": "BBB_2013J-31520",
@@ -19450,7 +20905,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31520|546982": {
   "registration": "BBB_2013J-31520",
@@ -19518,7 +20978,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31520|546880": {
   "registration": "BBB_2013J-31520",
@@ -19586,7 +21051,12 @@
     "sentence": "يستخدمه 96 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31520|546803": {
   "registration": "BBB_2013J-31520",
@@ -19654,7 +21124,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31520|546919": {
   "registration": "BBB_2013J-31520",
@@ -19722,7 +21197,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31520|547063": {
   "registration": "BBB_2013J-31520",
@@ -19790,7 +21270,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-31520|546932": {
   "registration": "BBB_2013J-31520",
@@ -19858,7 +21343,12 @@
     "sentence": "يستخدمه 95 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25874|546927": {
   "registration": "BBB_2013J-25874",
@@ -19926,7 +21416,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25874|546843": {
   "registration": "BBB_2013J-25874",
@@ -19994,7 +21489,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25874|546936": {
   "registration": "BBB_2013J-25874",
@@ -20062,7 +21562,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25874|546944": {
   "registration": "BBB_2013J-25874",
@@ -20130,7 +21635,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25874|546892": {
   "registration": "BBB_2013J-25874",
@@ -20198,7 +21708,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25874|547063": {
   "registration": "BBB_2013J-25874",
@@ -20266,7 +21781,12 @@
     "sentence": "يستخدمه 201 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25874|546802": {
   "registration": "BBB_2013J-25874",
@@ -20334,7 +21854,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25874|547015": {
   "registration": "BBB_2013J-25874",
@@ -20402,7 +21927,12 @@
     "sentence": "يستخدمه 133 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25874|547078": {
   "registration": "BBB_2013J-25874",
@@ -20470,7 +22000,12 @@
     "sentence": "يستخدمه 180 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25874|546868": {
   "registration": "BBB_2013J-25874",
@@ -20538,7 +22073,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24126|546813": {
   "registration": "BBB_2013J-24126",
@@ -20606,7 +22146,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24126|546817": {
   "registration": "BBB_2013J-24126",
@@ -20674,7 +22219,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24126|547031": {
   "registration": "BBB_2013J-24126",
@@ -20742,7 +22292,12 @@
     "sentence": "يستخدمه 347 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24126|546982": {
   "registration": "BBB_2013J-24126",
@@ -20810,7 +22365,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24126|547070": {
   "registration": "BBB_2013J-24126",
@@ -20878,7 +22438,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24126|546894": {
   "registration": "BBB_2013J-24126",
@@ -20946,7 +22511,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24126|546904": {
   "registration": "BBB_2013J-24126",
@@ -21014,7 +22584,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24126|546803": {
   "registration": "BBB_2013J-24126",
@@ -21082,7 +22657,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24126|546868": {
   "registration": "BBB_2013J-24126",
@@ -21150,7 +22730,12 @@
     "sentence": "يستخدمه 393 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-24126|547020": {
   "registration": "BBB_2013J-24126",
@@ -21218,7 +22803,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25070|547043": {
   "registration": "BBB_2013J-25070",
@@ -21286,7 +22876,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25070|546803": {
   "registration": "BBB_2013J-25070",
@@ -21354,7 +22949,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25070|547089": {
   "registration": "BBB_2013J-25070",
@@ -21422,7 +23022,12 @@
     "sentence": "يستخدمه 117 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25070|546861": {
   "registration": "BBB_2013J-25070",
@@ -21490,7 +23095,12 @@
     "sentence": "يستخدمه 93 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25070|547049": {
   "registration": "BBB_2013J-25070",
@@ -21558,7 +23168,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25070|546783": {
   "registration": "BBB_2013J-25070",
@@ -21626,7 +23241,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25070|546932": {
   "registration": "BBB_2013J-25070",
@@ -21694,7 +23314,12 @@
     "sentence": "يستخدمه 333 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25070|547015": {
   "registration": "BBB_2013J-25070",
@@ -21762,7 +23387,12 @@
     "sentence": "يستخدمه 300 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25070|546880": {
   "registration": "BBB_2013J-25070",
@@ -21830,7 +23460,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-25070|547001": {
   "registration": "BBB_2013J-25070",
@@ -21898,7 +23533,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26742|546932": {
   "registration": "BBB_2013J-26742",
@@ -21966,7 +23606,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26742|546845": {
   "registration": "BBB_2013J-26742",
@@ -22034,7 +23679,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26742|546789": {
   "registration": "BBB_2013J-26742",
@@ -22102,7 +23752,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26742|546880": {
   "registration": "BBB_2013J-26742",
@@ -22170,7 +23825,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26742|547049": {
   "registration": "BBB_2013J-26742",
@@ -22238,7 +23898,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26742|546912": {
   "registration": "BBB_2013J-26742",
@@ -22306,7 +23971,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26742|546919": {
   "registration": "BBB_2013J-26742",
@@ -22374,7 +24044,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26742|546817": {
   "registration": "BBB_2013J-26742",
@@ -22442,7 +24117,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26742|546982": {
   "registration": "BBB_2013J-26742",
@@ -22510,7 +24190,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-26742|546985": {
   "registration": "BBB_2013J-26742",
@@ -22578,7 +24263,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30852|546956": {
   "registration": "BBB_2013J-30852",
@@ -22646,7 +24336,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30852|546919": {
   "registration": "BBB_2013J-30852",
@@ -22714,7 +24409,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30852|546904": {
   "registration": "BBB_2013J-30852",
@@ -22782,7 +24482,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30852|546845": {
   "registration": "BBB_2013J-30852",
@@ -22850,7 +24555,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30852|546892": {
   "registration": "BBB_2013J-30852",
@@ -22918,7 +24628,12 @@
     "sentence": "يستخدمه 214 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30852|546789": {
   "registration": "BBB_2013J-30852",
@@ -22986,7 +24701,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30852|547015": {
   "registration": "BBB_2013J-30852",
@@ -23054,7 +24774,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30852|546880": {
   "registration": "BBB_2013J-30852",
@@ -23122,7 +24847,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30852|546944": {
   "registration": "BBB_2013J-30852",
@@ -23190,7 +24920,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-30852|547001": {
   "registration": "BBB_2013J-30852",
@@ -23258,7 +24993,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32164|547010": {
   "registration": "BBB_2013J-32164",
@@ -23326,7 +25066,12 @@
     "sentence": "يستخدمه 310 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32164|546861": {
   "registration": "BBB_2013J-32164",
@@ -23394,7 +25139,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32164|546831": {
   "registration": "BBB_2013J-32164",
@@ -23462,7 +25212,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32164|546963": {
   "registration": "BBB_2013J-32164",
@@ -23530,7 +25285,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32164|546853": {
   "registration": "BBB_2013J-32164",
@@ -23598,7 +25358,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32164|546964": {
   "registration": "BBB_2013J-32164",
@@ -23666,7 +25431,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32164|546912": {
   "registration": "BBB_2013J-32164",
@@ -23734,7 +25504,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32164|547063": {
   "registration": "BBB_2013J-32164",
@@ -23802,7 +25577,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32164|547058": {
   "registration": "BBB_2013J-32164",
@@ -23870,7 +25650,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-32164|546985": {
   "registration": "BBB_2013J-32164",
@@ -23938,7 +25723,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33707|546783": {
   "registration": "BBB_2013J-33707",
@@ -24006,7 +25796,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33707|546813": {
   "registration": "BBB_2013J-33707",
@@ -24074,7 +25869,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33707|546777": {
   "registration": "BBB_2013J-33707",
@@ -24142,7 +25942,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33707|546843": {
   "registration": "BBB_2013J-33707",
@@ -24210,7 +26015,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33707|546618": {
   "registration": "BBB_2013J-33707",
@@ -24278,7 +26088,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33707|546789": {
   "registration": "BBB_2013J-33707",
@@ -24346,7 +26161,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33707|546936": {
   "registration": "BBB_2013J-33707",
@@ -24414,7 +26234,12 @@
     "sentence": "يستخدمه 347 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33707|546803": {
   "registration": "BBB_2013J-33707",
@@ -24482,7 +26307,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33707|546993": {
   "registration": "BBB_2013J-33707",
@@ -24550,7 +26380,12 @@
     "sentence": "يستخدمه 410 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33707|546632": {
   "registration": "BBB_2013J-33707",
@@ -24618,7 +26453,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33090|546845": {
   "registration": "BBB_2013J-33090",
@@ -24686,7 +26526,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33090|546706": {
   "registration": "BBB_2013J-33090",
@@ -24754,7 +26599,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33090|546912": {
   "registration": "BBB_2013J-33090",
@@ -24822,7 +26672,12 @@
     "sentence": "يستخدمه 306 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33090|546985": {
   "registration": "BBB_2013J-33090",
@@ -24890,7 +26745,12 @@
     "sentence": "يستخدمه 412 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33090|547010": {
   "registration": "BBB_2013J-33090",
@@ -24958,7 +26818,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33090|546982": {
   "registration": "BBB_2013J-33090",
@@ -25026,7 +26891,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33090|546936": {
   "registration": "BBB_2013J-33090",
@@ -25094,7 +26964,12 @@
     "sentence": "يستخدمه 289 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33090|547031": {
   "registration": "BBB_2013J-33090",
@@ -25162,7 +27037,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33090|546843": {
   "registration": "BBB_2013J-33090",
@@ -25230,7 +27110,12 @@
     "sentence": "يستخدمه 107 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33090|547043": {
   "registration": "BBB_2013J-33090",
@@ -25298,7 +27183,12 @@
     "sentence": "يستخدمه 412 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33064|546927": {
   "registration": "BBB_2013J-33064",
@@ -25366,7 +27256,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33064|546892": {
   "registration": "BBB_2013J-33064",
@@ -25434,7 +27329,12 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33064|547001": {
   "registration": "BBB_2013J-33064",
@@ -25502,7 +27402,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33064|546880": {
   "registration": "BBB_2013J-33064",
@@ -25570,7 +27475,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33064|546817": {
   "registration": "BBB_2013J-33064",
@@ -25638,7 +27548,12 @@
     "sentence": "يستخدمه 260 من زملائك في آخر 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33064|546868": {
   "registration": "BBB_2013J-33064",
@@ -25706,7 +27621,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33064|546974": {
   "registration": "BBB_2013J-33064",
@@ -25774,7 +27694,12 @@
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33064|547070": {
   "registration": "BBB_2013J-33064",
@@ -25842,7 +27767,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33064|547015": {
   "registration": "BBB_2013J-33064",
@@ -25910,7 +27840,12 @@
     "sentence": "زاره متعلمون بنمط مشابه لنمطك"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  },
  "BBB_2013J-33064|546876": {
   "registration": "BBB_2013J-33064",
@@ -25978,6 +27913,11 @@
     "sentence": "مرتبط بالتقييم القادم بعد 14 يوماً"
    }
   ],
-  "notes": []
+  "notes": [],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  }
  }
 }

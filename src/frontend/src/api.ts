@@ -130,7 +130,8 @@ const mock = {
     const daily: { day: number; clicks: number }[] = [];
     for (let d = Math.max(0, p.day - win + 1); d <= p.day; d++) daily.push({ day: d, clicks: ev.filter((e) => e.day === d).reduce((a, e) => a + e.clicks, 0) });
     const recent = [...ev].sort((a, b) => b.day - a.day).slice(0, 3);
-    return { registration: p.registration, day: p.day, window: win, active_days: new Set(ev.map((e) => e.day)).size, daily, recent };
+    return { registration: p.registration, day: p.day, window: win, active_days: new Set(ev.map((e) => e.day)).size, daily, recent,
+      provenance: { run_id: 'mock', role: 'dev', model_cut: modelCut(p.day, [28, 56, 112]) } };
   },
   async overview(p: { presentation: string; day: number }): Promise<InstructorOverview> {
     const { snap } = await mockCheckDay(p.presentation, p.day);

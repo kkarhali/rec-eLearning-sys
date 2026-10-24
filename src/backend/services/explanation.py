@@ -108,4 +108,4 @@ class ExplanationService:
             notes.append("لا نشاط سابق لهذا التسجيل؛ الدرجات غير شخصية ولا دليل فردياً.")
         return ExplanationDetail(registration=f"{pres}-{student}", id_site=id_site, activity_type=str(item["activity_type"]),
                                  task=task, day=day, snapshot_day=day, relevance=round(float(item["score"]), 4),
-                                 components=out, notes=notes)
+                                 components=out, notes=notes, provenance=self.replay.provenance(c))

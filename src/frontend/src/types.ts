@@ -41,12 +41,12 @@ export interface ExplComponent {
 }
 export interface ExplanationDetail {
   registration: string; id_site: number; activity_type: string; task: string; day: number;
-  snapshot_day: number; relevance: number; components: ExplComponent[]; notes?: string[];
+  snapshot_day: number; relevance: number; components: ExplComponent[]; notes?: string[]; provenance?: Provenance;
 }
 export interface HistoryEvent { day: number; id_site: number; activity_type: string; clicks: number }
 export interface LearnerHistory {
   registration: string; day: number; window: number; active_days: number;
-  daily: { day: number; clicks: number }[]; recent: HistoryEvent[];
+  daily: { day: number; clicks: number }[]; recent: HistoryEvent[]; provenance?: Provenance;
 }
 
 export interface RiskRow {

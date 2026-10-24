@@ -293,8 +293,11 @@ class TestApi(unittest.TestCase):
         reg = self.reg
         for day, cut in ((DAY, 70), (130, 126)):
             urls = [f"/api/recommendations?registration={reg}&day={day}",
+                    f"/api/learner/{reg}/history?day={day}",
                     f"/api/instructor/overview?presentation={P}&day={day}", f"/api/instructor/clusters?presentation={P}&day={day}",
                     f"/api/instructor/learners?presentation={P}&day={day}&limit=3", f"/api/instructor/learner/{reg}?day={day}"]
+            top = self.get(urls[0])["items"][0]["id_site"]
+            urls.append(f"/api/explanations/{reg}/{top}?day={day}")
             for u in urls:
                 pv = self.get(u)["provenance"]
                 self.assertEqual(set(pv), {"run_id", "role", "model_cut"}, u)

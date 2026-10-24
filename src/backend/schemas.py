@@ -195,6 +195,7 @@ class ExplanationDetail(Out):
     relevance: float
     components: list[ExplComponent]
     notes: list[str] = []
+    provenance: Provenance            # D-49 (6)
 
 
 class HistoryEvent(Out):
@@ -216,6 +217,7 @@ class LearnerHistory(Out):
     active_days: int
     daily: list[DailyClicks]
     recent: list[HistoryEvent]
+    provenance: Provenance            # D-49 (6)
 
 
 # ------------------------------------------------------------------ مسارات المدرّس
@@ -379,7 +381,7 @@ LEARNER_MODELS = (Health, Meta, Presentation, RegistrationSummary, Recommendatio
                   LearnerHistory)
 INSTRUCTOR_MODELS = (InstructorOverview, ClusterSet, LearnersPage, InstructorLearnerRow, InstructorLearnerDetail)
 # D-49 (6): كل استجابة تعتمد على اليوم t وناتج النموذج تحمل provenance.model_cut
-PROVENANCE_MODELS = (RecommendationResponse, InstructorOverview, ClusterSet, LearnersPage, InstructorLearnerDetail)
+PROVENANCE_MODELS = (RecommendationResponse, ExplanationDetail, LearnerHistory, InstructorOverview, ClusterSet, LearnersPage, InstructorLearnerDetail)
 
 # ------------------------------------------------------------------ مدخلات (استعلامات)
 LEARNER_SORTS = ("risk", "reg", "cluster", "active_days", "last_access", "on_time")
