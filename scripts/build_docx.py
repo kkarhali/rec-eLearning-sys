@@ -72,15 +72,13 @@ def _ensure(parent, tag: str):
 
 
 def _set_bidi(paragraph, rtl: bool = True) -> None:
+    """Set paragraph direction explicitly (val=0 is needed to override an RTL base style)."""
     ppr = paragraph._p.get_or_add_pPr()
     bidi = ppr.find(qn("w:bidi"))
-    if rtl:
-        if bidi is None:
-            bidi = OxmlElement("w:bidi")
-            ppr.append(bidi)
-        bidi.set(qn("w:val"), "1")
-    elif bidi is not None:
-        ppr.remove(bidi)
+    if bidi is None:
+        bidi = OxmlElement("w:bidi")
+        ppr.append(bidi)
+    bidi.set(qn("w:val"), "1" if rtl else "0")
 
 
 def _style_fonts(doc: Document, latin: str, arabic: str, body_pt: int) -> None:
@@ -98,6 +96,12 @@ def _style_fonts(doc: Document, latin: str, arabic: str, body_pt: int) -> None:
         name = style.name or ""
         if name in LTR_STYLES:
             _set_rfonts(rpr, "Consolas", "Consolas")
+            ppr = el.find(qn("w:pPr"))
+            if ppr is None:
+                ppr = OxmlElement("w:pPr")
+                el.insert(list(el).index(rpr), ppr)
+            bidi = _ensure(ppr, "w:bidi"); bidi.set(qn("w:val"), "0")
+            jc = _ensure(ppr, "w:jc"); jc.set(qn("w:val"), "left")
             continue
         _set_rfonts(rpr, latin, arabic)
         size = heading_sizes.get(name)
@@ -157,9 +161,10 @@ def _rtl_tables(doc: Document) -> None:
 def _rtl_paragraphs(doc: Document) -> None:
     for p in doc.paragraphs:
         sname = p.style.name if p.style is not None else ""
-        if sname in LTR_STYLES:
+        if sname in LTR_STYLES or p._p.find(f".//{qn('m:oMathPara')}") is not None:
+            # code blocks and display equations read left-to-right
             _set_bidi(p, False)
-            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+            p.alignment = WD_ALIGN_PARAGRAPH.LEFT if sname in LTR_STYLES else WD_ALIGN_PARAGRAPH.CENTER
             continue
         _set_bidi(p, True)
         # Center figure captions / images
@@ -276,6 +281,15 @@ def build(args: argparse.Namespace) -> Path:
         core.author = args.author or ""
         core.language = "ar-SY"
         doc.save(str(out))
+    has_math = False
+    import zipfile
+    with zipfile.ZipFile(out) as z:
+        has_math = b"<m:oMath" in z.read("word/document.xml")
+    if has_math and not args.no_toc and not args.no_update_toc:
+        # This LibreOffice build has no Math module: a round-trip would drop every
+        # OMML equation. Keep the TOC as a dirty field instead; Word fills it on open.
+        print("note: document contains equations; TOC page numbers will be filled by Word on open")
+        args.no_update_toc = True
     if not args.no_toc and not args.no_update_toc:
         # Write real page numbers into the TOC via headless LibreOffice (see lo_update_toc.py).
         helper = Path(__file__).with_name("lo_update_toc.py")
