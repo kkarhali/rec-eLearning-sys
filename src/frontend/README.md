@@ -8,7 +8,7 @@ cd src/frontend
 ./build.sh                      # tsc -> dist/js ، نسخ html/css/mock -> dist/
 tsc --noEmit -p tsconfig.json   # فحص الأنواع (strict) بلا إخراج
 python3 -m http.server 8000 -d dist   # ثم افتح http://127.0.0.1:8000/  (وضع المحاكاة تلقائياً)
-NODE_PATH=$(npm root -g) node screenshots.js   # لقطات إلى deliverables/05-user-guide/screenshots/
+NODE_PATH=$(npm root -g) node screenshots.js   # لقطات وضع mock إلى src/frontend/screenshots/mock/ (لقطات الدليل الحية: src/backend/e2e/live-screenshots.js)
 ```
 مع الـbackend: يخدم Starlette StaticFiles المجلد `src/frontend/dist` من `/`، وتُستهلك المسارات `/api/*`.
 `dist/` مُدرَج في `.gitignore` (يُعاد بناؤه بـ`build.sh`).

@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs');
 
 const ROOT = __dirname;
-const OUT = path.resolve(ROOT, '../../deliverables/05-user-guide/screenshots');
+const OUT = path.resolve(ROOT, 'screenshots/mock');
 const PORT = 8765;
 const BASE = `http://127.0.0.1:${PORT}`;
 const Q = 'p=BBB_2013J&r=BBB_2013J-28400&d=75';
