@@ -511,7 +511,7 @@
 
 | المكوّن (المعرّف) | الجملة | مفاتيح الدليل |
 |------------------------|----------------------------------------|------------------------------------|
-| **C7_ClusterPop** (في HYB*؛ `C7_SimilarPop` في عقود المتعلم) | «شائع لدى متعلمين بنمط مشابه لنمطك» | `similar_learners_in_window` (عدد) و`window_days`؛ بلا رقم العنقود ولا اسمه ولا حجمه (D-70) |
+| **C7** (في HYB*): يُسمّى داخلياً `C7_ClusterPop` ويُعرض عبر API باسم `similar_pop` | «شائع لدى متعلمين بنمط مشابه لنمطك» | `similar_learners_in_window` (عدد) و`window_days`؛ بلا رقم العنقود ولا اسمه ولا حجمه (D-70) |
 | **B5_SKNN** (في HYB*)، B6_Markov | «يتبع غالباً ما زرتَه مؤخراً» | `recent_items` (حتى 5) |
 | B3_RecentPop | «يستخدمه كثير من زملائك هذا الأسبوع» | `learners_in_window`، `window_days` |
 | B7_WRMF | «زاره متعلمون بنمط مشابه لنمطك» | `closest_in_history` (id_site) |
@@ -543,7 +543,7 @@ data/cache/serving_clusters/<pres>_<day>.npz       # git-ignored; cluster_choice
 ## 8.1 المبادئ
 
 - **قراءة فقط:** كل المسارات `GET`؛ لا حالة سوى الذاكرات المؤقتة وتحفيظ D-68.
-- **العقد مشتق من الكود:** حقول الاستجابة هي حقول `serving.py` (`model_cut`، و`components`، و`explanation`، و`evidence`، و`risk_cut`، ومعرّفات المكوّنات `C7_ClusterPop`، و`B5_SKNN`…) مع تسمية عربية `label`، تلفّها نماذج pydantic بحقول سياقية قليلة (`registration`، و`context`)؛ والاستثناءات أربعة: `score` لدرجة الخطر (D-65)، و`relevance` لدرجة التوصية في عقود المتعلم، و`similar_learners_in_window` (D-70)، والمعرّف العام `C7_SimilarPop` بتسمية «شعبية لدى المتشابهين (7)» بدل `C7_ClusterPop` في عقود المتعلم وحدها، لأن اختبار D-70 يرفض أي مفتاح أو قيمة نصية تحتوي «cluster»؛ ويحوّله `schemas.py`، ويبقى `C7_ClusterPop` في `serving` وعقود المدرّس.
+- **العقد مشتق من الكود:** حقول الاستجابة هي حقول `serving.py` (`model_cut`، و`components`، و`explanation`، و`evidence`، و`risk_cut`، ومعرّفات المكوّنات `C7_ClusterPop`، و`B5_SKNN`…) مع تسمية عربية `label`، تلفّها نماذج pydantic بحقول سياقية قليلة (`registration`، و`context`)؛ والاستثناءات أربعة: `score` لدرجة الخطر (D-65)، و`relevance` لدرجة التوصية في عقود المتعلم، و`similar_learners_in_window` (D-70)، ومعرّف المكوّن (7) `similar_pop` بوسم «شعبية الأنماط المشابهة» في عقود المتعلم (D-70).
 - **الفصل:** مسارات المتعلم تحت `/api/` ومسارات المدرّس تحت `/api/instructor/` حصراً؛ ولا يُستدعى `learner_profile` في مسارات المتعلم إلا مع إسقاط `risk` و`cluster` قبل بناء العقد.
 - **الأخطاء:** `{"error": {"code", "message", "details"}}`، والرسالة عربية والرمز ثابت. ولا ETag ولا Cache-Control (D-66).
 
@@ -598,13 +598,13 @@ GET /api/recommendations?registration=FFF_2013J-28400&day=75&k=10&task=A
   "registration": "FFF_2013J-28400", "presentation": "FFF_2013J", "id_student": 28400,
   "day": 75, "model_cut": 70, "note": null, "known_learner": true, "task": "A",
   "context": {"week": 10, "next_assessment": {"type": "TMA", "date": 96, "days_ahead": 21}},
-  "components": [{"id": "C7_SimilarPop", "label": "شعبية لدى المتشابهين (7)", "weight": 0.75},
+  "components": [{"id": "similar_pop", "label": "شعبية الأنماط المشابهة", "weight": 0.75},
                  {"id": "B5_SKNN", "label": "SKNN (4)", "weight": 0.25}],
   "items": [
     {"id_site": 546614, "activity_type": "oucontent", "relevance": 0.95,
-     "components": {"C7_SimilarPop": {"rtilde": 1.00, "weight": 0.75, "contribution": 0.75, "raw": 41.0},
+     "components": {"similar_pop": {"rtilde": 1.00, "weight": 0.75, "contribution": 0.75, "raw": 41.0},
                     "B5_SKNN": {"rtilde": 0.80, "weight": 0.25, "contribution": 0.20, "raw": 0.37}},
-     "explanation": {"main": {"component": "C7_SimilarPop", "text": "شائع لدى متعلمين بنمط مشابه لنمطك",
+     "explanation": {"main": {"component": "similar_pop", "text": "شائع لدى متعلمين بنمط مشابه لنمطك",
                               "contribution": 0.75,
                               "evidence": {"similar_learners_in_window": 41, "window_days": 7}},
                      "secondary": []}}
