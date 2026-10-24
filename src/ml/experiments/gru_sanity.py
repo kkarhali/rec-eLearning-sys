@@ -67,11 +67,20 @@ def s1_gradient_check(seed: int = 0) -> dict:
     return {"max_rel_err": worst, "per_param": per, "pass": worst < 1e-4}
 
 
-def s2_overfit(seed: int = 0) -> dict:
+def s2_overfit(seed: int = 0, unique_prefixes: bool = True) -> dict:
+    """Overfit test. The batch must be memorisable: with ``unique_prefixes`` every sequence starts with a
+    distinct first basket, otherwise identical inputs with different targets impose an irreducible
+    (Bayes) floor on L − H(y) (first run: 4 colliding prefixes, floor ≈ 0.055 nat; see gru_sanity.md)."""
     rng = np.random.default_rng(seed)
     I, n_seq, n_bask = 50, 32, 6
     seqs_l = [[list(rng.choice(I, size=rng.integers(1, 4), replace=False)) for _ in range(n_bask)]
               for _ in range(n_seq)]
+    if unique_prefixes:
+        used = set()
+        for sq in seqs_l:
+            while tuple(sorted(sq[0])) in used:
+                sq[0] = list(rng.choice(I, size=rng.integers(1, 4), replace=False))
+            used.add(tuple(sorted(sq[0])))
     seqs = G.Sequences.from_lists(seqs_l, I)
     A, Y, m, tm = seqs.dense_batch(np.arange(n_seq), "next", dtype=np.float32)
     p = G.init_params(I, seed=seed)
@@ -101,7 +110,8 @@ def s2_overfit(seed: int = 0) -> dict:
                 n += 1
         h = h_next
     return {"mean_L_minus_H": gap / n, "train_HR@10": hits / n, "loss_first": losses[0],
-            "loss_last": losses[-1], "pass": gap / n <= 0.05 and hits / n >= 0.99}
+            "loss_last": losses[-1], "unique_prefixes": unique_prefixes,
+            "pass": gap / n <= 0.05 and hits / n >= 0.99}
 
 
 def s3_markov(seed: int = 0, n_states: int = 50, n_succ: int = 5, n_train: int = 5000, n_test: int = 500,
@@ -208,6 +218,7 @@ def s6_unit_tests() -> dict:
 def main():
     t0 = time.time()
     res = {}
+    res["S2_first_run_colliding_prefixes"] = s2_overfit(unique_prefixes=False)
     for name, fn in (("S1", s1_gradient_check), ("S2", s2_overfit), ("S3", s3_markov),
                      ("S4", s4_real_curve), ("S6", s6_unit_tests), ("S5", s5_seeds)):
         t = time.time()
@@ -238,6 +249,11 @@ def main():
           "## تفاصيل",
           f"- S1 لكل معامل: " + "، ".join(f"{k} {v:.1e}" for k, v in res["S1"]["per_param"].items()),
           f"- S2 الخسارة: {fmt(res['S2']['loss_first'])} → {fmt(res['S2']['loss_last'])} بعد 300 خطوة.",
+          f"- **S2، التشغيل الأول (موثَّق):** كانت بيانات الدفعة تحوي 4 تسلسلات تبدأ بسلة مطابقة لسلة تسلسل آخر "
+          f"ويتبعها هدف مختلف، فيستحيل الحفظ (حد بايز غير قابل للاختزال): L − H = "
+          f"{fmt(res['S2_first_run_colliding_prefixes']['mean_L_minus_H'])} (✗)، وثبتت القيمة ≈ 0.055 حتى 1200 خطوة "
+          "بقص التدرج وبدونه، فليس بطء تقارب ولا خطأ تنفيذ. صُحِّح تصميم الاختبار (بادئات فريدة) قبل إعادة التشغيل، "
+          "دون تغيير أي معيار أو أي جزء من النموذج.",
           f"- S3: 5000 تسلسل تدريب × 30 خطوة، 500 اختبار؛ منحنى الخسارة: "
           + "، ".join(f"{x:.3f}" for x in res["S3"]["train_loss_curve"]),
           f"- S4: η = {res['S4']['lr']}، الهدف {res['S4']['target']}؛ أفضل دورة {res['S4']['best_epoch']} من "
