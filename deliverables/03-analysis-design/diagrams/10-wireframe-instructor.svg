@@ -55,9 +55,8 @@
 <text x="493.19999999999993" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">وسيط الأيام النشطة</text>
 <text x="493.19999999999993" y="292" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="bold" fill="#134E4A" text-anchor="end">21</text>
 <rect x="23.999999999999915" y="226" width="233.6" height="84" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
-<text x="243.5999999999999" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">فوق العتبة (قطع 56)</text>
-<text x="243.5999999999999" y="292" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">708 من 2,283</text>
-<text x="40" y="300" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="end" direction="rtl">قيم توضيحية</text>
+<text x="243.5999999999999" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">فوق العتبة (قطع 56) · حصة 0.31</text>
+<text x="243.5999999999999" y="292" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="bold" fill="#134E4A" text-anchor="end">708</text>
 <circle cx="1250" cy="236" r="13" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
 <text x="1250" y="241" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">2</text>
 <rect x="650" y="326" width="606" height="330" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
@@ -154,19 +153,19 @@
 <text x="805.0" y="654" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">إسقاط PCA للملامح (للعرض فقط)</text>
 <rect x="966" y="382" width="272" height="58" rx="8" fill="#F0FDFA" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1224" y="406" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">منتظمون عاليو الانخراط</text>
-<text x="1224" y="427" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">512 متعلماً · أعلى ملمحين: الأيام النشطة، حصة quiz</text>
+<text x="1224" y="427" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">512 متعلماً · أبرز ملمحين: الأيام النشطة، quiz</text>
 <circle cx="1238" cy="402" r="6" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
 <rect x="966" y="448" width="272" height="58" rx="8" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1224" y="472" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">متقطعون بنشاط تقييمي</text>
-<text x="1224" y="493" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">430 متعلماً · أعلى ملمحين: الأيام النشطة، حصة quiz</text>
+<text x="1224" y="493" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">430 متعلماً · أبرز ملمحين: الأيام النشطة، quiz</text>
 <rect x="1232" y="462" width="12" height="12" rx="0" fill="#1D4ED8" stroke="#1D4ED8" stroke-width="1.5"/>
 <rect x="966" y="514" width="272" height="58" rx="8" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1224" y="538" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">متأخرون في البدء</text>
-<text x="1224" y="559" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">388 متعلماً · أعلى ملمحين: الأيام النشطة، حصة quiz</text>
+<text x="1224" y="559" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">388 متعلماً · أبرز ملمحين: الأيام النشطة، quiz</text>
 <polygon points="1238,527 1231,540 1245,540" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
 <rect x="966" y="580" width="272" height="58" rx="8" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1224" y="604" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">منخفضو النشاط</text>
-<text x="1224" y="625" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">582 متعلماً · أعلى ملمحين: الأيام النشطة، حصة quiz</text>
+<text x="1224" y="625" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">582 متعلماً · أبرز ملمحين: الأيام النشطة، quiz</text>
 <polygon points="1238,593 1245,600 1238,607 1231,600" fill="#6D28D9" stroke="#6D28D9" stroke-width="1.5"/>
 <circle cx="1250" cy="330" r="13" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
 <text x="1250" y="335" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">3</text>

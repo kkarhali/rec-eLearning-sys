@@ -6,7 +6,7 @@ import { showSkeleton, showError, setBusy, toast, emptyState } from './component
 import { RecCard, CompLegend } from './components/RecCard.js';
 import { WhyPanel } from './components/WhyPanel.js';
 import { DEFAULT_DAY, firstPublished, loadPresentations, makeScrubber, presentationSelect, registrationPicker } from './controls.js';
-import { typeAr } from './labels.js';
+import { daysAr, typeAr } from './labels.js';
 import type { Presentation, RecommendationResponse, LearnerHistory } from './types.js';
 import type { Scrubber } from './components/DayScrubber.js';
 
@@ -83,9 +83,9 @@ function contextBar(r: RecommendationResponse): HTMLElement {
   return h('section', { class: 'ctxbar', 'aria-live': 'polite', 'aria-label': 'سياق التوصية' },
     h('p', { class: 'ctxbar__main' },
       `اليوم ${r.requested_day} (${r.snapshot_day === r.requested_day ? 'الحساب عند اليوم t نفسه' : 'محسوب عند اليوم ' + r.snapshot_day}) · الأسبوع ${c.week} · `,
-      na ? `التقييم القادم: ${na.type} بعد ${na.days_ahead} يوماً` : 'لا تقييم قادم', ` · أيامك النشطة حتى الآن: ${c.active_days_to_date}`),
+      na ? `التقييم القادم: ${na.type} بعد ${daysAr(na.days_ahead)}` : 'لا تقييم قادم', ` · أيامك النشطة حتى الآن: ${c.active_days_to_date}`),
     cut !== undefined ? h('p', { class: 'ctxbar__model' },
-      h('span', { class: 'badge', title: 'النموذج المستعمل دُرّب عند أقرب قطع ≤ t (D-49)' },
+      h('span', { class: 'badge', title: 'النموذج المستعمل دُرّب عند أقرب قطع لا يتجاوز اليوم t' },
         cut === null ? 'تاريخ النموذج: لا قطع بعد' : 'تاريخ النموذج: اليوم ', cut === null ? null : bdi(cut)),
       r.requested_day < 70 ? h('span', { class: 'note' }, ' لا مكوّن ثقيل قبل اليوم 70؛ أُعيدت معايرة أوزان المكوّنات المتاحة.') : null) : null);
 }

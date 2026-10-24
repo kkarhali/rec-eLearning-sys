@@ -60,7 +60,7 @@ export interface InstructorLearnerRow {
 }
 export interface InstructorOverview {
   presentation: string; requested_day: number; snapshot_day: number;
-  kpis: { active_learners: number; median_active_days: number; catalogue_size: number; coverage_at_10: number; share_above_threshold: number | null };
+  kpis: { active_learners: number; cohort_size?: number; median_active_days: number; catalogue_size: number; coverage_at_10: number; share_above_threshold: number | null };
   profile_summary: { name: string; p25: number; median: number; p75: number; unit: string }[];
   risk: { cut_day: number; threshold: number; provenance: string; label_ar?: string; histogram: { lo: number; hi: number; count: number }[] } | null;
   coverage: { at_10: number; catalogue_size: number; covered_items: number; by_type: { activity_type: string; catalogue_share: number; recs_share: number }[] };

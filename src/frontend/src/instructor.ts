@@ -8,7 +8,7 @@ import { ClusterMarker, ClusterScatter, DivergingBars, SvgBarChart, SvgDonut, Sv
 import { DataTable } from './components/DataTable.js';
 import { Drawer } from './components/Drawer.js';
 import { DEFAULT_DAY, firstPublished, loadPresentations, makeScrubber, presentationSelect } from './controls.js';
-import { fmt, pct, typeAr } from './labels.js';
+import { fmt, itemsAr, learnersAr, pct, score2, typeAr } from './labels.js';
 import type { ClusterSet, InstructorLearnerRow, InstructorOverview, Presentation } from './types.js';
 import type { Scrubber } from './components/DayScrubber.js';
 
@@ -64,9 +64,9 @@ async function refresh(): Promise<void> {
 function renderKpis(o: InstructorOverview): void {
   const k = o.kpis, d = o.requested_day;
   mount($('#kpis'),
-    KpiCard(`متعلمون نشطون حتى اليوم ${d}`, fmt(k.active_learners, 0), undefined, 'k1'),
+    KpiCard(`متعلمون نشطون حتى اليوم ${d}`, fmt(k.active_learners, 0), k.cohort_size !== undefined ? `بيوم نشط واحد على الأقل، من ${fmt(k.cohort_size, 0)} مسجَّلاً لم ينسحب` : 'بيوم نشط واحد على الأقل', 'k1'),
     KpiCard('وسيط الأيام النشطة', fmt(k.median_active_days, 0), undefined, 'k2'),
-    KpiCard(`الكتالوج عند اليوم ${o.snapshot_day}`, fmt(k.catalogue_size, 0) + ' مورداً', undefined, 'k3'),
+    KpiCard(`الكتالوج عند اليوم ${o.snapshot_day}`, itemsAr(k.catalogue_size), undefined, 'k3'),
     KpiCard('Coverage@10 للتوصيات', fmt(k.coverage_at_10, 2), 'نسبة الكتالوج الموصى به', 'k4'),
     KpiCard('درجة الخطر ≥ العتبة (نسبية)', k.share_above_threshold === null ? 'لا تقدير قبل اليوم 28' : pct(k.share_above_threshold), 'درجة نسبية غير معايَرة، للعرض لا للتقييم', 'k5'));
   setBusy($('#kpis'), false);
@@ -74,11 +74,13 @@ function renderKpis(o: InstructorOverview): void {
 function renderProfiles(o: InstructorOverview): void {
   const ul = h('ul', { class: 'prof' });
   for (const p of o.profile_summary) {
-    const max = Math.max(p.p75 * 1.3, p.median * 1.6, 1e-6), at = (v: number) => (v / max) * 100;
+    // محور من min(0، p25) إلى max(p75، الوسيط): يعمل مع القيم السالبة (يوم أول وصول قبل بدء العرض) ويبقى داخل المسار
+    const lo = Math.min(0, p.p25, p.median), hiRaw = Math.max(p.p75, p.median, lo), hi = hiRaw + (hiRaw - lo) * 0.15 || 1;
+    const at = (v: number) => Math.min(100, Math.max(0, ((v - lo) / (hi - lo)) * 100));
     ul.append(h('li', { class: 'prof__row' },
       h('span', { class: 'prof__name' }, p.name),
       h('span', { class: 'prof__track', role: 'img', 'aria-label': `الوسيط ${fmt(p.median)} ${p.unit}، النطاق الربيعي من ${fmt(p.p25)} إلى ${fmt(p.p75)}` },
-        h('span', { class: 'prof__range', style: `inset-inline-start:${at(p.p25)}%;width:${at(p.p75) - at(p.p25)}%` }),
+        h('span', { class: 'prof__range', style: `inset-inline-start:${at(p.p25)}%;width:${Math.max(at(p.p75) - at(p.p25), 1)}%` }),
         h('span', { class: 'prof__med', style: `inset-inline-start:${at(p.median)}%` })),
       h('span', { class: 'prof__val num' }, `${fmt(p.median)} ${p.unit}`, h('span', { class: 'muted' }, ` (${fmt(p.p25)}–${fmt(p.p75)})`))));
   }
@@ -91,7 +93,7 @@ function renderClusters(cs: ClusterSet): void {
     const on = st.cl === c.id;
     const b = h('button', { class: 'ccard' + (on ? ' ccard--on' : ''), type: 'button', 'aria-pressed': String(on), onclick: () => { writeState({ cl: on ? null : c.id }); renderClusters(cs); void renderTable(); } },
       h('span', { class: 'ccard__t' }, ClusterMarker(c.id), ' ', c.label_ar),
-      h('span', { class: 'ccard__m' }, `${fmt(c.size, 0)} متعلماً · أعلى ملمحين: `, c.top_features.map((f) => `${f.name} (${f.z > 0 ? '+' : ''}${fmt(f.z, 1)})`).join('، ')));
+      h('span', { class: 'ccard__m' }, `${learnersAr(c.size)} · أعلى ملمحين: `, c.top_features.map((f) => `${f.name} (${f.z > 0 ? '+' : ''}${fmt(f.z, 1)})`).join('، ')));
     cards.append(h('li', {}, b));
   }
   mount(host,
@@ -119,7 +121,7 @@ function renderRisk(o: InstructorOverview): void {
 function renderCoverage(o: InstructorOverview): void {
   const c = o.coverage;
   mount($('#coverage'),
-    h('p', {}, `غطّت التوصيات ${fmt(c.covered_items, 0)} من ${fmt(c.catalogue_size, 0)} مورداً (Coverage@10 = ${fmt(c.at_10)}).`),
+    h('p', {}, `غطّت التوصيات ${fmt(c.covered_items, 0)} من ${itemsAr(c.catalogue_size)} (Coverage@10 = ${fmt(c.at_10)}).`),
     SvgHBars('حصة أنواع الأنشطة: الكتالوج مقابل التوصيات', 'مقارنة حصة كل نوع نشاط في الكتالوج وفي قوائم أفضل 10.',
       c.by_type.map((t) => ({ label: typeAr(t.activity_type), a: t.catalogue_share, b: t.recs_share })), 'الكتالوج', 'التوصيات'));
   setBusy($('#coverage'), false);
@@ -146,7 +148,7 @@ async function renderTable(): Promise<void> {
         { key: 'factor', header: 'أبرز عامل', cell: (r: InstructorLearnerRow) => r.risk?.top_factor ?? '—' }]),
     ];
     mount(host,
-      h('p', { class: 'muted', 'aria-live': 'polite' }, `${rows.length} متعلماً` + (st.cl !== null ? ' في العنقود المختار' : '') + ' · مرتبون حسب ' + sortName(st.sort) + ' · Enter أو النقر لفتح الملف · ↑↓ للتنقل'),
+      h('p', { class: 'muted', 'aria-live': 'polite' }, `${learnersAr(rows.length)}` + (st.cl !== null ? ' في العنقود المختار' : '') + ' · مرتبون حسب ' + sortName(st.sort) + ' · Enter أو النقر لفتح الملف · ↑↓ للتنقل'),
       DataTable<InstructorLearnerRow>({ caption: 'جدول المتعلمين مع درجة الخطر النسبية', cols, rows, rowId: (r) => r.registration, sort: st.sort, activeId: st.r || undefined,
         emptyText: 'لا متعلمين يطابقون التصفية الحالية.', onSort: (k) => { const cur = readState().sort; writeState({ sort: cur === '-' + k ? k : '-' + k }); void renderTable(); },
         onOpen: (r, el) => void openLearner(r.registration, el) }));
@@ -157,7 +159,7 @@ function sortName(s: string): string { const k = s.replace(/^-/, ''); return ({ 
 function riskCell(p: number, above: boolean, thr?: number): HTMLElement {
   return h('span', { class: 'riskcell' + (above ? ' riskcell--above' : ''), title: thr !== undefined ? `العتبة ${fmt(thr)}` : '' },
     h('span', { class: 'riskbar', 'aria-hidden': 'true' }, h('span', { class: 'riskbar__fill', style: `width:${p * 100}%` })),
-    h('span', { class: 'num' }, fmt(p)), above ? h('span', { class: 'sr-only' }, ' (فوق العتبة)') : null);
+    h('span', { class: 'num riskcell__n' }, score2(p)), above ? h('span', { class: 'sr-only' }, ' (فوق العتبة)') : null);
 }
 
 function filterChips(): void {
@@ -181,7 +183,7 @@ async function openLearner(reg: string, opener: HTMLElement | null): Promise<voi
     const body = drawer.body; setBusy(body, false);
     mount(body,
       h('p', {}, h('span', { class: 'cl' }, ClusterMarker(d.cluster.id), ' العنقود: ', d.cluster.label),
-        d.risk ? h('span', {}, ` · درجة الخطر النسبية ${fmt(d.risk.score)} (قطع اليوم ${d.risk.cut_day}، العتبة ${fmt(d.risk.threshold)})`) : null),
+        d.risk ? h('span', {}, ` · درجة الخطر النسبية ${score2(d.risk.score)} (قطع اليوم ${d.risk.cut_day}، العتبة ${fmt(d.risk.threshold)})`) : null),
       d.withdrawn_day !== null ? h('p', { class: 'note note--box' }, `انسحب هذا التسجيل في اليوم ${d.withdrawn_day}؛ يُعرض الملف حتى يوم الانسحاب.`) : null,
       d.risk ? h('div', {}, h('h3', { class: 'card__sub' }, 'عوامل الدرجة (w·z)'), DivergingBars('عوامل الدرجة', d.risk.factors.map((f) => ({ name: f.name, v: f.wz }))),
         h('p', { class: 'muted' }, 'الموجب يرفع الدرجة والسالب يخفضها؛ درجة نسبية غير معايَرة لترتيب الأولوية لا حكم.')) : null,

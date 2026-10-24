@@ -1,12 +1,12 @@
 import { h } from '../dom.js';
 import type { Evidence, ExplanationDetail } from '../types.js';
-import { compColor, fmt, typeAr } from '../labels.js';
+import { compColor, daysAr, fmt, learnersAr, lastDaysAr, typeAr } from '../labels.js';
 
 export function evidenceText(e: Evidence | null): string | null {
   if (!e) return null;
-  if (e.type === 'count') return `استخدمه ${e.n} متعلماً في آخر ${e.window} يوماً.`;
-  if (e.type === 'item') return `${typeAr(e.activity_type)} #${e.id_site} — زرتَه في ${e.days} ${e.days === 1 ? 'يوم' : 'أيام'}، آخرها اليوم ${e.last_day}.`;
-  return `${e.assessment_type} بعد ${e.days_ahead} يوماً.`;
+  if (e.type === 'count') return `استخدمه ${learnersAr(e.n)} ${lastDaysAr(e.window)}.`;
+  if (e.type === 'item') return `${typeAr(e.activity_type)} #${e.id_site} — زرتَه في ${daysAr(e.days)}، آخرها اليوم ${e.last_day}.`;
+  return `${e.assessment_type} بعد ${daysAr(e.days_ahead)}.`;
 }
 
 /** Explanation panel: contributions (w_m * r~_m) sorted descending, plus the concrete evidence. */

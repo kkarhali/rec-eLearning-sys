@@ -5,6 +5,7 @@ import { renderHeader, showMode } from './components/Header.js';
 import { showError, toast } from './components/feedback.js';
 import { DEFAULT_DAY, loadPresentations, makeScrubber, registrationPicker, firstPublished } from './controls.js';
 import type { Presentation } from './types.js';
+import { daysAr, registrationsAr } from './labels.js';
 
 let list: Presentation[] = [];
 async function boot(): Promise<void> {
@@ -36,7 +37,7 @@ function render(): void {
     const locked = p.status === 'locked';
     const b = h('button', { class: 'choice' + (p.id === st.p ? ' choice--on' : ''), type: 'button', role: 'radio', 'aria-checked': String(p.id === st.p), disabled: locked,
       onclick: () => { writeState({ p: p.id, r: '' }); render(); } },
-      h('strong', {}, bdi(p.id)), h('span', {}, p.label_ar ?? p.role), h('span', { class: 'muted' }, `${p.registrations} تسجيلاً · ${p.length_days} يوماً`),
+      h('strong', {}, bdi(p.id)), h('span', {}, p.label_ar ?? p.role), h('span', { class: 'muted' }, `${registrationsAr(p.registrations)} · ${daysAr(p.length_days)}`),
       locked ? h('span', { class: 'badge badge--warn' }, 'مقفل حتى النشر') : null);
     presGroup.append(b);
   }

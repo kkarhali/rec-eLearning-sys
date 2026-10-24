@@ -121,7 +121,7 @@
 <rect x="24" y="246" width="376" height="400" rx="10" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
 <text x="382" y="276" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">لماذا «منتدى #546732»؟</text>
 <text x="382" y="300" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">درجة الملاءمة 0.95 = 0.75 + 0.20 (قيم توضيحية)</text>
-<text x="382" y="330" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">شعبية لدى المتشابهين (7)</text>
+<text x="382" y="330" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">المكوّن (7)</text>
 <rect x="44" y="317" width="150" height="14" rx="3" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <rect x="44" y="317" width="118.42105263157896" height="14" rx="3" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
 <text x="220" y="330" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">0.75</text>
@@ -134,7 +134,7 @@
 <rect x="40" y="436" width="344" height="70" rx="8" fill="#F0FDFA" stroke="#CCFBF1" stroke-width="1.5"/>
 <text x="370" y="460" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">الدليل (similar_learners_in_window):</text>
 <text x="370" y="484" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">زاره 41 متعلماً بنمط مشابه في آخر 7 أيام</text>
-<text x="382" y="542" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">الوزنان 0.75 و0.25 من hybrid_frozen.json (D-51)،</text>
+<text x="382" y="542" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">وزنا المكوّنين من ملف الهجين المجمَّد (D-51)،</text>
 <text x="382" y="564" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">والمساهمة = الوزن × الرتبة المطبَّعة.</text>
 <text x="382" y="586" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">يظهر سطر ثانٍ فقط إن تجاوزت مساهمته ثلث الدرجة.</text>
 <circle cx="38" cy="260" r="13" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>

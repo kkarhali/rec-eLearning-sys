@@ -1,6 +1,8 @@
 """أسماء عربية ومعرّفات المكوّنات والملامح (طبقة العرض فوق معرّفات ``serving``)."""
 from __future__ import annotations
 
+import re
+
 # معرّفات serving -> معرّفات الواجهة (mock/*.json و``labels.ts``: ألوان وأرقام المكوّنات (1)-(7))
 COMPONENT_IDS = {
     "B3_RecentPop": "recent_pop", "B7_WRMF": "wrmf", "B4_ItemKNN": "item_knn", "B5_SKNN": "sknn",
@@ -59,3 +61,28 @@ def phrase(feature: str, z: float) -> str:
         return f"ميل إلى {ar}" if z > 0 else f"قلة {ar}"
     pos, neg = _PHRASES.get(feature, (_FEATURE_AR.get(feature, feature) + " مرتفع", _FEATURE_AR.get(feature, feature) + " منخفض"))
     return pos if z > 0 else neg
+
+
+# ------------------------------------------------------------ نصوص عربية سليمة العدد وبلا أرقام قرارات داخلية
+def days_ar(n: int) -> str:
+    """1 «يوم واحد»، 2 «يومان»، 3–10 «أيام»، 11+ «يوماً» (حسب الباقي من 100)."""
+    a, m = abs(int(n)), abs(int(n)) % 100
+    if a == 1:
+        return "يوم واحد"
+    if a == 2:
+        return "يومان"
+    if a == 0 or 3 <= m <= 10:
+        return f"{a} أيام"
+    return f"{a} يوماً"
+
+
+_AFTER_DAYS = re.compile(r"بعد (\d+) (?:أيام|يوماً|يوم)")
+_DECISION = re.compile(r"\s*\(D-\d+[^()]*(?:\([^()]*\)[^()]*)*\)")
+
+
+def fix_ar(text: str | None) -> str | None:
+    """يصحّح «بعد 57 أيام» ويحذف أرقام القرارات الداخلية «(D-49 (5))» من أي نص يصل إلى المستخدم."""
+    if text is None:
+        return None
+    text = _AFTER_DAYS.sub(lambda m: "بعد " + days_ar(int(m.group(1))), text)
+    return _DECISION.sub("", text)

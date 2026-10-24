@@ -16,3 +16,22 @@ export function compColor(id: string): string { return COMPONENT_COLORS[id] ?? '
 export const COMPONENT_NO: Record<string, string> = { recent_pop: '1', wrmf: '2', item_knn: '3', sknn: '4', cbf: '5', assess_prox: '6', cluster_pop: '7', similar_pop: '7' };
 export const CLUSTER_COLORS = ['#0F766E', '#1D4ED8', '#B45309', '#7C3AED', '#BE185D', '#0369A1'];
 export const CLUSTER_SHAPES = ['circle', 'square', 'triangle', 'diamond', 'cross', 'star'] as const;
+
+/** صيغة العدد والمعدود بالعربية: 1 «يوم واحد»، 2 «يومان»، 3–10 «أيام»، 11+ «يوماً» (والمئات والعشرات على الباقي من 100). */
+export function countAr(n: number, one: string, two: string, few: string, many: string, oneWord = true): string {
+  const a = Math.abs(Math.trunc(n)), m = a % 100;
+  const num = NUM.format(a);
+  if (a === 1) return oneWord ? `${one} واحد` : one;
+  if (a === 2) return two;
+  if (m >= 3 && m <= 10) return `${num} ${few}`;
+  if (a === 0) return `0 ${few}`;
+  return `${num} ${many}`;
+}
+export const daysAr = (n: number): string => countAr(n, 'يوم', 'يومان', 'أيام', 'يوماً');
+export const learnersAr = (n: number): string => countAr(n, 'متعلم', 'متعلمان', 'متعلمين', 'متعلماً');
+export const itemsAr = (n: number): string => countAr(n, 'مورد', 'موردان', 'موارد', 'مورداً');
+export const registrationsAr = (n: number): string => countAr(n, 'تسجيل', 'تسجيلان', 'تسجيلات', 'تسجيلاً');
+/** «في آخر 3 أيام» (ظرف مضاف إلى عدد). */
+export const lastDaysAr = (n: number): string => (n === 1 ? 'في آخر يوم' : n === 2 ? 'في آخر يومين' : `في آخر ${daysAr(n)}`);
+/** درجة الخطر: دائماً بخانتين (0.98) لا تُقرأ نسبة ولا تُقصّ. */
+export function score2(x: number): string { return x.toFixed(2); }
