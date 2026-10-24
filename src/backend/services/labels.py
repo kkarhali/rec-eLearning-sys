@@ -5,12 +5,12 @@ from __future__ import annotations
 COMPONENT_IDS = {
     "B3_RecentPop": "recent_pop", "B7_WRMF": "wrmf", "B4_ItemKNN": "item_knn", "B5_SKNN": "sknn",
     "B6_Markov": "markov", "GRU_lite": "gru", "B9_CBF": "cbf", "C6_AssessProx": "assess_prox",
-    "C7_ClusterPop": "cluster_pop",
+    "C7_ClusterPop": "similar_pop",
 }
 COMPONENT_LABELS = {
     "B3_RecentPop": "Recent-Pop (1)", "B7_WRMF": "WRMF (2)", "B4_ItemKNN": "Item-kNN (3)", "B5_SKNN": "SKNN (4)",
     "B6_Markov": "Markov (4)", "GRU_lite": "GRU-lite", "B9_CBF": "CBF (5)", "C6_AssessProx": "قرب التقييم (6)",
-    "C7_ClusterPop": "شعبية العنقود (7)",
+    "C7_ClusterPop": "شعبية الأنماط المشابهة (7)",
 }
 
 

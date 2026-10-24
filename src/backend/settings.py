@@ -14,6 +14,8 @@ SNAPSHOT_GRID = tuple(range(28, 267, 14))          # أيام الانتقال �
 
 DEFAULT_PRESENTATION = "FFF_2013J"
 DEFAULT_DAY = 75
+# أيام العرض الرئيسية: الافتراضي، وأول عنقدة (56)، والقطوع الثلاثة، وقطع الخطر 112 (D-68)
+WARM_DAYS = (DEFAULT_DAY, 56, 70, 112, 126, 182)
 LOCKED_LISTED = ("BBB_2014J",)                       # العرض المقفل الذي يُدرَج للتمثيل؛ كل عروض 2014 تعيد 409
 
 
@@ -24,7 +26,7 @@ class Settings:
     instructor_enabled: bool = True                  # --no-instructor يعطّله (R-C5)
     warm: bool = False                               # --warm: تسخين في خيط خلفي عند الإقلاع
     warm_presentation: str = DEFAULT_PRESENTATION
-    warm_days: tuple[int, ...] = (DEFAULT_DAY,)
+    warm_days: tuple[int, ...] = WARM_DAYS
     default_presentation: str = DEFAULT_PRESENTATION
     frontend_dist: Path = REPO_ROOT / "src" / "frontend" / "dist"
     md5_reference: Path = REPO_ROOT / "data" / "oulad_md5_reference.txt"

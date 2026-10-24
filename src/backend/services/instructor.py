@@ -25,7 +25,7 @@ from ..settings import CLUSTER_DAY, Settings
 from .labels import feature_ar, phrase
 from .replay import ReplayService, _LRU
 
-PROVENANCE = "oof_2013"            # مدرَّب على العروض الثمانية الأخرى (ترك عرض خارج التدريب)، لا داخل العينة
+PROVENANCE = "lopo_2013"           # مدرَّب على العروض الثمانية الأخرى (ترك عرض خارج التدريب، D-65)
 RISK_MODEL = "M1"
 MAX_POINTS = 2500
 PROFILE_ROWS = (   # (الاسم، العمود، الوحدة، معامل)
@@ -321,7 +321,7 @@ class InstructorService:
         if np.isnan(r.prob):
             return None
         rm = self.risk_model(snap.pres, self.risk_cut(snap.day))
-        return RiskRow(probability=_round(r.prob, 3), cut_day=rm.tc, threshold=_round(rm.threshold, 3),
+        return RiskRow(score=_round(r.prob, 3), cut_day=rm.tc, threshold=_round(rm.threshold, 3),
                        above_threshold=bool(r.above), provenance=PROVENANCE, top_factor=str(r.top_factor))
 
     def learners(self, pres: str, day: int, cluster: int | None, risk: str, sort: str, limit: int, offset: int) -> Page[InstructorLearnerRow]:
@@ -373,7 +373,7 @@ class InstructorService:
             wz = rm.wz[p]
             order = np.argsort(-np.abs(wz), kind="stable")
             prob = float(rm.prob[p])
-            risk = RiskDetail(probability=_round(prob, 3), cut_day=tc, threshold=_round(rm.threshold, 3),
+            risk = RiskDetail(score=_round(prob, 3), cut_day=tc, threshold=_round(rm.threshold, 3),
                               above_threshold=prob >= rm.threshold, provenance=PROVENANCE,
                               top_factor=feature_ar(rm.features[order[0]]),
                               factors=[RiskFactor(name=feature_ar(rm.features[i]), wz=_round(wz[i])) for i in order[:5]])

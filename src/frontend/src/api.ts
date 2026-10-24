@@ -153,7 +153,7 @@ const mock = {
     if (p.cluster !== undefined) rows = rows.filter((r) => r.cluster.id === p.cluster);
     if (p.risk === 'above') rows = rows.filter((r) => r.risk?.above_threshold);
     const sort = p.sort ?? '-risk'; const dir = sort.startsWith('-') ? -1 : 1; const key = sort.replace(/^-/, '');
-    const val = (r: InstructorLearnerRow): number | string => key === 'risk' ? r.risk?.probability ?? -1 : key === 'active_days' ? r.active_days
+    const val = (r: InstructorLearnerRow): number | string => key === 'risk' ? r.risk?.score ?? -1 : key === 'active_days' ? r.active_days
       : key === 'last_access' ? r.last_access_day ?? -1 : key === 'cluster' ? r.cluster.label : key === 'on_time' ? r.on_time : r.registration;
     rows.sort((a, b) => { const x = val(a), y = val(b); return (x < y ? -1 : x > y ? 1 : 0) * dir; });
     const off = p.offset ?? 0, lim = p.limit ?? 100;

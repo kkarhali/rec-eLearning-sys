@@ -8,7 +8,7 @@ from starlette.responses import Response
 from starlette.routing import Route
 
 from .. import SCHEMA_VERSION, __version__
-from ..schemas import ComponentInfo, Health, Meta, PresentationList, RegistrationsIn, parse_in
+from ..schemas import RISK_LABEL_AR, ComponentInfo, Health, Meta, PresentationList, RegistrationsIn, parse_in
 from ..services.labels import comp_id, comp_label
 from ..settings import MODEL_CUTS, RISK_CUTS, SNAPSHOT_GRID
 from .common import json_response, respond
@@ -33,9 +33,13 @@ def routes(sv) -> list[Route]:
                             for m in fz["components"]],
                 snapshot_grid=list(SNAPSHOT_GRID), cutoffs=list(MODEL_CUTS), risk_cutoffs=list(RISK_CUTS),
                 presentations=[p.id for p in sv.replay.presentations() if p.status == "published"],
-                instructor_enabled=sv.settings.instructor_enabled, frozen_at_commit=sv.repo.frozen_commit(),
+                instructor_enabled=sv.settings.instructor_enabled, bind_host=sv.settings.host, frozen_at_commit=sv.repo.frozen_commit(),
+                risk_score={"field": "score", "label_ar": RISK_LABEL_AR, "calibrated": False, "audience": "المدرّس فقط (D-22)",
+                            "model": "M1", "provenance": "lopo_2013", "min_day": 28},
                 notes=["أوزان المكوّنات المعروضة هي الأوزان الأولية المجمَّدة (منوال)؛ لكل (عرض، قطع) أوزان خاصة تظهر في كل توصية.",
-                       "إعادة تشغيل على بيانات تاريخية (OULAD 2013) بلا جمع حي؛ لا أرقام تقييم تُشتق من الخدمة (D-49)."])
+                       "إعادة تشغيل على بيانات تاريخية (OULAD 2013) بلا جمع حي؛ لا أرقام تقييم تُشتق من الخدمة (D-49).",
+                       "عرض توضيحي بلا أمان وصول: لا مصادقة؛ الربط الافتراضي 127.0.0.1، و--no-instructor يعطّل مسارات المدرّس (D-66).",
+                       "درجة الخطر للمدرّس فقط، وهي درجة نسبية غير معايَرة لترتيب الأولوية وليست احتمالاً (D-65)."])
         return await respond(work)
 
     async def presentations(request: Request) -> Response:
@@ -44,7 +48,7 @@ def routes(sv) -> list[Route]:
     async def registrations(request: Request) -> Response:
         def work():
             q = parse_in(RegistrationsIn, dict(request.query_params))
-            return sv.replay.registrations(q.presentation, q.q, q.limit, q.offset)
+            return sv.replay.registrations(q.presentation, q.q, q.limit, q.offset, q.day)
         return await respond(work)
 
     return [Route("/api/health", health), Route("/api/meta", meta), Route("/api/presentations", presentations),

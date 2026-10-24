@@ -68,7 +68,7 @@ class TestApi(unittest.TestCase):
         return r.json()
 
     def assertCovers(self, ref, got, label):
-        ignore = lambda k: k == "/mock" or "/contributions/" in k      # علَم المحاكاة؛ ومفاتيح المكوّنات ديناميكية  # noqa: E731
+        ignore = lambda k: k in ("/mock", "/items[]/date_unregistration") or "/contributions/" in k      # علَم المحاكاة؛ وD-70 يحذف date_unregistration؛ ومفاتيح المكوّنات ديناميكية  # noqa: E731
         missing = {k for k in keys_of(ref) - keys_of(got) if not ignore(k)}
         self.assertFalse(missing, f"{label}: مفاتيح mock غائبة {sorted(missing)[:8]}")
 
@@ -101,7 +101,8 @@ class TestApi(unittest.TestCase):
         q = self.get(f"/api/registrations?presentation={P}&q={self.sid}")
         self.assertIn(self.reg, [x["registration"] for x in q["items"]])
         self.assertTrue(all(str(self.sid) in x["registration"] for x in q["items"]))
-        self.assertEqual(a["items"][0]["status"], "ok")
+        self.assertTrue(all(set(x) == {"registration", "id_student", "date_registration", "status"} for x in a["items"]))  # D-70
+        self.assertEqual({x["status"] for x in a["items"]}, {"ok"})        # بلا day لا حالة مشتقة من المستقبل
 
     def test_recommendation_contract(self):
         r = self.get(f"/api/recommendations?registration={self.reg}&day={DAY}&k=10")
@@ -183,13 +184,23 @@ class TestApi(unittest.TestCase):
         self.assertEqual(r["items"], [])
         self.assertIn("model_cut", r["provenance"])
         self.get(f"/api/explanations/{P}-{sid}/5?day={max(day, 0)}", status=404)
-        reg = self.get(f"/api/registrations?presentation={P}&limit=100&offset=2200")
+        reg = self.get(f"/api/registrations?presentation={P}&limit=100&offset=2200&day=268")
         self.assertIn("withdrawn", {x["status"] for x in reg["items"]})
+        early = self.get(f"/api/registrations?presentation={P}&q={sid}&day=0")["items"]    # قبل الانسحاب لا يظهر منسحباً
+        self.assertNotEqual(early[0]["status"], "withdrawn") if day > 0 else None
 
     def test_day_out_of_range(self):
         r = self.get(f"/api/recommendations?registration={self.reg}&day=300", status=422)
         self.assertEqual(r["error"]["code"], "day_out_of_range")
         self.assertEqual(r["error"]["details"]["max_day"], 268)
+
+    def test_meta_declares_unsafe_demo_and_score(self):
+        m = self.get("/api/meta")
+        self.assertEqual(m["bind_host"], "127.0.0.1")
+        self.assertIn("بلا أمان وصول", m["access_notice"])
+        self.assertEqual(m["risk_score"]["field"], "score")
+        self.assertIn("غير معايَرة", m["risk_score"]["label_ar"])
+        self.assertFalse(m["risk_score"]["calibrated"])
 
     # ------------------------------------------------------------ المدرّس
     def test_overview_contract(self):
@@ -222,10 +233,10 @@ class TestApi(unittest.TestCase):
         a = self.get(base + "&limit=50")
         self.assertCovers(mock("learners.json"), a, "learners")
         self.assertEqual((a["limit"], a["offset"]), (50, 0))
-        probs = [r["risk"]["probability"] for r in a["items"] if r["risk"]]
+        probs = [r["risk"]["score"] for r in a["items"] if r["risk"]]
         self.assertEqual(probs, sorted(probs, reverse=True))               # الافتراضي -risk
         asc = self.get(base + "&limit=50&sort=risk")["items"]
-        pa = [r["risk"]["probability"] for r in asc if r["risk"]]
+        pa = [r["risk"]["score"] for r in asc if r["risk"]]
         self.assertEqual(pa, sorted(pa))
         for key, getter in [("active_days", lambda r: r["active_days"]), ("-active_days", lambda r: r["active_days"]),
                             ("last_access", lambda r: -1 if r["last_access_day"] is None else r["last_access_day"]),
@@ -242,15 +253,17 @@ class TestApi(unittest.TestCase):
         cl = self.get(base + "&limit=500&cluster=1")
         self.assertTrue(cl["items"] and all(r["cluster"]["id"] == 1 for r in cl["items"]))
         row = a["items"][0]
-        self.assertEqual(row["risk"]["provenance"], "oof_2013")
-        self.assertEqual(row["risk"]["above_threshold"], row["risk"]["probability"] >= row["risk"]["threshold"])
+        self.assertEqual(row["risk"]["provenance"], "lopo_2013")
+        self.assertNotIn("probability", row["risk"])
+        self.assertIn("غير معايَرة", self.get(f"/api/instructor/overview?presentation={P}&day={DAY}")["risk"]["label_ar"])
+        self.assertEqual(row["risk"]["above_threshold"], row["risk"]["score"] >= row["risk"]["threshold"])
 
     def test_learner_detail_contract(self):
         row = self.get(f"/api/instructor/learners?presentation={P}&day={DAY}&limit=1")["items"][0]
         d = self.get(f"/api/instructor/learner/{row['registration']}?day={DAY}")
         self.assertCovers(next(iter(mock("learner-details.json").values())), d, "learner detail")
         self.assertEqual(d["cluster"], row["cluster"])
-        self.assertAlmostEqual(d["risk"]["probability"], row["risk"]["probability"], places=3)
+        self.assertAlmostEqual(d["risk"]["score"], row["risk"]["score"], places=3)
         self.assertEqual(d["risk"]["top_factor"], row["risk"]["top_factor"])
         self.assertIsNone(d["outcome"])
         self.assertFalse(all_keys(d) & SENSITIVE_KEYS)
@@ -274,7 +287,7 @@ class TestApi(unittest.TestCase):
             ref = eng._risk(P, sid, DAY, "M1")
             if ref and ref.get("probability") is not None:
                 n += 1
-                self.assertAlmostEqual(r["risk"]["probability"], ref["probability"], places=3)
+                self.assertAlmostEqual(r["risk"]["score"], ref["probability"], places=3)
                 self.assertAlmostEqual(r["risk"]["threshold"], ref["youden_threshold"], places=3)
                 self.assertEqual(r["risk"]["cut_day"], ref["risk_cut"])
         self.assertGreater(n, 5)

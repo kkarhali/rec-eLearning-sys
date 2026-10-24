@@ -35,7 +35,9 @@ class ExplanationService:
         if m == "B3_RecentPop":
             return CountEvidence(n=int(ev["learners_in_window"]), window=int(ev["window_days"]))
         if m == "C7_ClusterPop":
-            return CountEvidence(n=int(ev["same_cluster_learners_in_window"]), window=int(ev["window_days"]), scope="cluster")
+            # D-70: المفتاح بلا كلمة cluster؛ يقبل اسم serving الجديد والقديم إلى أن يُعاد تسميته هناك
+            n = ev["similar_learners_in_window"] if "similar_learners_in_window" in ev else ev["same_cluster_learners_in_window"]
+            return CountEvidence(n=int(n), window=int(ev["window_days"]), scope="similar")
         if m in ("B5_SKNN", "B6_Markov"):
             cands = [int(i) for i in ev.get("recent_items", [])]
             best, best_last = None, -10**9
@@ -67,7 +69,7 @@ class ExplanationService:
             return {}
         cfg = CP.parse_config(cfgs[m])
         if m == "C7_ClusterPop":
-            return {"same_cluster_learners_in_window": int(item["components"][m]["raw"]), "window_days": int(cfg.get("w", 7))}
+            return {"similar_learners_in_window": int(item["components"][m]["raw"]), "window_days": int(cfg.get("w", 7))}
         j = int(np.searchsorted(tr.items, item["id_site"]))
         try:
             return eng._evidence(m, tr, u, j, cfg, pres, day, c) or {}

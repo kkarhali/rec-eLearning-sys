@@ -68,7 +68,7 @@ function renderKpis(o: InstructorOverview): void {
     KpiCard('وسيط الأيام النشطة', fmt(k.median_active_days, 0), undefined, 'k2'),
     KpiCard(`الكتالوج عند اللقطة ${o.snapshot_day}`, fmt(k.catalogue_size, 0) + ' مورداً', undefined, 'k3'),
     KpiCard('Coverage@10 للتوصيات', fmt(k.coverage_at_10, 2), 'نسبة الكتالوج الموصى به', 'k4'),
-    KpiCard('احتمال ≥ عتبة Youden', k.share_above_threshold === null ? 'لا تقدير قبل اليوم 28' : pct(k.share_above_threshold), 'قيم توضيحية', 'k5'));
+    KpiCard('درجة الخطر ≥ العتبة (نسبية)', k.share_above_threshold === null ? 'لا تقدير قبل اليوم 28' : pct(k.share_above_threshold), 'قيم توضيحية', 'k5'));
   setBusy($('#kpis'), false);
 }
 function renderProfiles(o: InstructorOverview): void {
@@ -104,14 +104,14 @@ function renderClusters(cs: ClusterSet): void {
 }
 function renderRisk(o: InstructorOverview): void {
   const host = $('#risk');
-  if (!o.risk) { mount(host, emptyState('لا تقدير قبل اليوم 28', 'يبدأ تقدير الاحتمال عند أول قطع للنموذج.')); setBusy(host, false); return; }
+  if (!o.risk) { mount(host, emptyState('لا تقدير قبل اليوم 28', 'تبدأ درجة الخطر النسبية عند أول قطع للنموذج.')); setBusy(host, false); return; }
   const r = o.risk;
   const data = r.histogram.map((b) => ({ label: `\u202A${fmt(b.lo, 1)}–${fmt(b.hi, 1)}\u202C`, value: b.count, flag: b.hi > r.threshold }));
   mount(host,
     h('p', { class: 'muted' }, `تقدير Logistic L2 (قطع اليوم ${r.cut_day})، عتبة Youden المجمَّدة من 2013 = ${fmt(r.threshold)}`,
-      r.provenance === 'oof_2013' ? h('span', { class: 'badge badge--warn' }, 'تطوير — خارج الطيّة (oof_2013)') : null),
-    SvgBarChart({ title: 'توزيع احتمال الخطر', desc: 'مدرج تكراري لاحتمال الخطر في 10 فئات مع خط العتبة؛ الأعمدة فوق العتبة بلون دافئ وإطار داكن.',
-      data, xLabel: 'الاحتمال المقدَّر (لا حكم)؛ الخط المتقطع والإطار الداكن يميّزان ما فوق العتبة لا اللون وحده', yLabel: 'عدد المتعلمين',
+      r.provenance === 'oof_2013' || r.provenance === 'lopo_2013' ? h('span', { class: 'badge badge--warn' }, 'تطوير — ترك عرض خارج التدريب (' + r.provenance + ')') : null),
+    SvgBarChart({ title: 'توزيع درجة الخطر النسبية', desc: 'مدرج تكراري لدرجة الخطر النسبية في 10 فئات مع خط العتبة؛ الأعمدة فوق العتبة بلون دافئ وإطار داكن.',
+      data, xLabel: 'درجة الخطر النسبية غير المعايَرة (لا حكم)؛ الخط المتقطع والإطار الداكن يميّزان ما فوق العتبة لا اللون وحده', yLabel: 'عدد المتعلمين',
       threshold: { x: r.threshold * 10, label: `العتبة ${fmt(r.threshold)}` } }));
   setBusy(host, false);
 }
@@ -141,18 +141,18 @@ async function renderTable(): Promise<void> {
       { key: 'last_access', header: 'آخر وصول', sortable: true, align: 'num' as const, cell: (r: InstructorLearnerRow) => r.last_access_day === null ? '—' : 'اليوم ' + r.last_access_day },
       { key: 'on_time', header: 'الالتزام', sortable: true, align: 'num' as const, cell: (r: InstructorLearnerRow) => bdi(r.on_time) },
       ...(noRisk ? [] : [
-        { key: 'risk', header: 'احتمال الخطر', sortable: true, cell: (r: InstructorLearnerRow) => r.risk ? riskCell(r.risk.probability, r.risk.above_threshold, thr) : '—' },
+        { key: 'risk', header: 'درجة الخطر النسبية', sortable: true, cell: (r: InstructorLearnerRow) => r.risk ? riskCell(r.risk.score, r.risk.above_threshold, thr) : '—' },
         { key: 'factor', header: 'أبرز عامل', cell: (r: InstructorLearnerRow) => r.risk?.top_factor ?? '—' }]),
     ];
     mount(host,
       h('p', { class: 'muted', 'aria-live': 'polite' }, `${rows.length} متعلماً` + (st.cl !== null ? ' في العنقود المختار' : '') + ' · مرتبون حسب ' + sortName(st.sort) + ' · Enter أو النقر لفتح الملف · ↑↓ للتنقل'),
-      DataTable<InstructorLearnerRow>({ caption: 'جدول المتعلمين مع احتمال الخطر', cols, rows, rowId: (r) => r.registration, sort: st.sort, activeId: st.r || undefined,
+      DataTable<InstructorLearnerRow>({ caption: 'جدول المتعلمين مع درجة الخطر النسبية', cols, rows, rowId: (r) => r.registration, sort: st.sort, activeId: st.r || undefined,
         emptyText: 'لا متعلمين يطابقون التصفية الحالية.', onSort: (k) => { const cur = readState().sort; writeState({ sort: cur === '-' + k ? k : '-' + k }); void renderTable(); },
         onOpen: (r, el) => void openLearner(r.registration, el) }));
     setBusy(host, false);
   } catch (e) { showError(host, e, () => void renderTable()); }
 }
-function sortName(s: string): string { const k = s.replace(/^-/, ''); return ({ risk: 'احتمال الخطر', reg: 'التسجيل', cluster: 'العنقود', active_days: 'الأيام النشطة', last_access: 'آخر وصول', on_time: 'الالتزام' } as Record<string, string>)[k] ?? k; }
+function sortName(s: string): string { const k = s.replace(/^-/, ''); return ({ risk: 'درجة الخطر', reg: 'التسجيل', cluster: 'العنقود', active_days: 'الأيام النشطة', last_access: 'آخر وصول', on_time: 'الالتزام' } as Record<string, string>)[k] ?? k; }
 function riskCell(p: number, above: boolean, thr?: number): HTMLElement {
   return h('span', { class: 'riskcell' + (above ? ' riskcell--above' : ''), title: thr !== undefined ? `العتبة ${fmt(thr)}` : '' },
     h('span', { class: 'riskbar', 'aria-hidden': 'true' }, h('span', { class: 'riskbar__fill', style: `width:${p * 100}%` })),
@@ -180,10 +180,10 @@ async function openLearner(reg: string, opener: HTMLElement | null): Promise<voi
     const body = drawer.body; setBusy(body, false);
     mount(body,
       h('p', {}, h('span', { class: 'cl' }, ClusterMarker(d.cluster.id), ' العنقود: ', d.cluster.label),
-        d.risk ? h('span', {}, ` · احتمال الخطر ${fmt(d.risk.probability)} (قطع اليوم ${d.risk.cut_day}، العتبة ${fmt(d.risk.threshold)})`) : null),
+        d.risk ? h('span', {}, ` · درجة الخطر النسبية ${fmt(d.risk.score)} (قطع اليوم ${d.risk.cut_day}، العتبة ${fmt(d.risk.threshold)})`) : null),
       d.withdrawn_day !== null ? h('p', { class: 'note note--box' }, `انسحب هذا التسجيل في اليوم ${d.withdrawn_day}؛ يُعرض الملف حتى يوم الانسحاب.`) : null,
-      d.risk ? h('div', {}, h('h3', { class: 'card__sub' }, 'عوامل الاحتمال (w·z)'), DivergingBars('عوامل الاحتمال', d.risk.factors.map((f) => ({ name: f.name, v: f.wz }))),
-        h('p', { class: 'muted' }, 'الموجب يرفع الاحتمال والسالب يخفضه؛ تقدير احتمالي لا حكم.')) : null,
+      d.risk ? h('div', {}, h('h3', { class: 'card__sub' }, 'عوامل الدرجة (w·z)'), DivergingBars('عوامل الدرجة', d.risk.factors.map((f) => ({ name: f.name, v: f.wz }))),
+        h('p', { class: 'muted' }, 'الموجب يرفع الدرجة والسالب يخفضها؛ درجة نسبية غير معايَرة لترتيب الأولوية لا حكم.')) : null,
       h('h3', { class: 'card__sub' }, 'الملامح مقابل وسيط العرض'),
       h('div', { class: 'tablewrap' }, h('table', { class: 'table' }, h('thead', {}, h('tr', {}, ...['الملمح', 'القيمة', 'الوسيط', 'z'].map((x) => h('th', { scope: 'col' }, x)))),
         h('tbody', {}, ...d.profile.map((p) => h('tr', {}, h('td', {}, p.name), h('td', { class: 'num' }, fmt(p.value)), h('td', { class: 'num' }, fmt(p.median)), h('td', { class: 'num' }, (p.z > 0 ? '+' : '') + fmt(p.z, 1))))))),

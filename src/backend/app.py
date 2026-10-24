@@ -42,8 +42,17 @@ class Services:
     def run_warmup(self) -> None:
         """تسخين (بترتيب ما تستعمله الواجهة): قوائم العروض → أول تسجيل → توصية عند اليوم (+ لقطة المدرّس)."""
         st, s = self.warm, self.settings
-        st.update(state="running", started=time.time(), done=[])
+        st.update(state="running", started=time.time(), done=[], total=len(s.warm_days))
         try:
+            from src.ml import serving      # D-68: خطّاف التسخين/التحفيظ الدائم إن وفّره serving (يُستعمل حين يتوفر)
+            hook = getattr(serving, "warm", None)
+            if callable(hook):
+                t = time.time()
+                try:
+                    hook(s.warm_presentation, list(s.warm_days))
+                except TypeError:
+                    hook(s.warm_presentation)
+                st["serving_warm_seconds"] = round(time.time() - t, 2)
             self.replay.presentations()
             frame = self.replay._registration_frame(s.warm_presentation)
             sid = int(frame.iloc[0]["id_student"])
@@ -106,6 +115,8 @@ class FrontendFiles(StaticFiles):
 def create_app(settings: Settings | None = None, engine=None) -> Starlette:
     settings = settings or Settings()
     sv = Services(settings, engine)
+    if settings.host not in ("127.0.0.1", "localhost", "::1"):   # D-66: لا مصادقة؛ الربط الخارجي خارج التصميم
+        log.warning("الربط على %s: الخدمة بلا مصادقة (عرض توضيحي بلا أمان وصول، D-66)", settings.host)
 
     routes: list = []
     routes += meta_routes.routes(sv)

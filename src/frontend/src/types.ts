@@ -14,7 +14,7 @@ export interface Presentation {
 }
 export interface RegistrationSummary {
   registration: string; id_student: number; date_registration: number;
-  date_unregistration: number | null; status?: string;
+  date_unregistration?: number | null; status?: string;
 }
 export interface Page<T> { items: T[]; total: number; limit: number; offset: number }
 
@@ -50,7 +50,7 @@ export interface LearnerHistory {
 }
 
 export interface RiskRow {
-  probability: number; cut_day: number; threshold: number; above_threshold: boolean;
+  score: number; cut_day: number; threshold: number; above_threshold: boolean;
   provenance: string; top_factor: string;
 }
 export interface ClusterRef { id: number; label: string }
@@ -62,7 +62,7 @@ export interface InstructorOverview {
   presentation: string; requested_day: number; snapshot_day: number;
   kpis: { active_learners: number; median_active_days: number; catalogue_size: number; coverage_at_10: number; share_above_threshold: number | null };
   profile_summary: { name: string; p25: number; median: number; p75: number; unit: string }[];
-  risk: { cut_day: number; threshold: number; provenance: string; histogram: { lo: number; hi: number; count: number }[] } | null;
+  risk: { cut_day: number; threshold: number; provenance: string; label_ar?: string; histogram: { lo: number; hi: number; count: number }[] } | null;
   coverage: { at_10: number; catalogue_size: number; covered_items: number; by_type: { activity_type: string; catalogue_share: number; recs_share: number }[] };
   provenance: Provenance;
 }

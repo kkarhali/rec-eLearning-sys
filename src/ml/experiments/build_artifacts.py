@@ -60,18 +60,31 @@ def build_learner_models(pres, meta):
         fs = feature_sets(df)
         y = df["y"].to_numpy()
         keep = ~df["id_student"].isin(overlap).to_numpy()
-        for name in pres:
-            out = {"tc": tc, "trained_on": [n for n in pres if n != name], "models": {}}
-            tr = (df["presentation"] != name).to_numpy() & keep
-            for m in ("M1", "M2"):
-                cols = fs[m]
-                X = np.zeros((len(df), len(cols)))
-                for _, idx in df.groupby("presentation").indices.items():
-                    X[idx] = L.zscore(df.iloc[idx][cols].to_numpy(dtype=float))
+        pres_col = df["presentation"].to_numpy()
+        Xs, oof = {}, {}
+        for m in ("M1", "M2"):
+            cols = fs[m]
+            X = np.zeros((len(df), len(cols)))
+            for _, idx in df.groupby("presentation").indices.items():
+                X[idx] = L.zscore(df.iloc[idx][cols].to_numpy(dtype=float))
+            Xs[m] = X
+            oof[m] = np.full(len(df), np.nan)
+            for name in pres:
                 lm = float(lam.get(m, {}).get(name, 0.1)) if isinstance(lam.get(m), dict) else 0.1
-                w = L.logistic_fit(X[tr], y[tr], lm)
-                out["models"][m] = {"features": cols, "weights": w.tolist(), "lambda": lm,
-                                    "youden_threshold": float(thr.get(m, 0.5))}
+                tr = (pres_col != name) & keep
+                oof[m][pres_col == name] = L.logistic_predict(L.logistic_fit(Xs[m][tr], y[tr], lm), Xs[m][pres_col == name])
+        # D-65: the frozen D-58 threshold at day 56; pooled out-of-fold Youden thresholds for the display cuts 28 and 112
+        thresholds = {m: (float(thr.get(m, 0.5)), "D-58 frozen (day 56)") if tc == 56 else
+                      (L.youden_threshold(y, oof[m]), f"pooled out-of-fold Youden at day {tc} (display only, D-65)")
+                      for m in ("M1", "M2")}
+        for name in pres:
+            out = {"tc": tc, "trained_on": [n for n in pres if n != name], "provenance": "lopo_2013", "models": {}}
+            tr = (pres_col != name) & keep
+            for m in ("M1", "M2"):
+                lm = float(lam.get(m, {}).get(name, 0.1)) if isinstance(lam.get(m), dict) else 0.1
+                w = L.logistic_fit(Xs[m][tr], y[tr], lm)
+                out["models"][m] = {"features": fs[m], "weights": w.tolist(), "lambda": lm,
+                                    "youden_threshold": thresholds[m][0], "threshold_source": thresholds[m][1]}
             (ART / name).mkdir(parents=True, exist_ok=True)
             (ART / name / f"risk_{tc}.json").write_text(json.dumps(out, indent=1))
         if tc == 56:

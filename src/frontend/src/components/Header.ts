@@ -15,7 +15,7 @@ export function renderHeader(active: Page): void {
       h('nav', { class: 'nav', 'aria-label': 'التنقل الرئيسي' },
         link('index.html', 'الرئيسية', 'home'), link('learner.html', 'المتعلم', 'learner'),
         link('instructor.html', 'المدرّس', 'instructor'), link('about.html', 'عن النظام', 'about')),
-      h('p', { class: 'replay-badge', id: 'replay-badge' }, 'إعادة تشغيل على بيانات تاريخية (OULAD) — لا جمع حي')));
+      h('p', { class: 'replay-badge', id: 'replay-badge' }, 'إعادة تشغيل على بيانات تاريخية (OULAD) — لا جمع حي · عرض توضيحي بلا أمان وصول')));
 }
 /** Shows whether data comes from the live API or the bundled mock JSON. */
 export function showMode(): void {

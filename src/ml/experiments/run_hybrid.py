@@ -42,6 +42,7 @@ PERSONAL_BASE = {"B7_WRMF", "B4_ItemKNN", "B9_CBF"}
 STOCHASTIC = {"B7_WRMF", "GRU_lite", "C7_ClusterPop"}
 _PRES: dict = {}
 _CFG: dict = {}
+EXCLUSION = "E5"          # set by the confirmatory runner for the E sensitivities
 
 
 def fold_dir(pres, cut):
@@ -55,15 +56,15 @@ def build_fold(args):
     name, cut, comps, seeds = args
     p = _PRES[name]
     t = time.time()
-    tr, tg = make_fold(p, cut, "tune")
-    tr2, tg2 = make_fold(p, cut, "test")
+    tr, tg = make_fold(p, cut, "tune", EXCLUSION)
+    tr2, tg2 = make_fold(p, cut, "test", EXCLUSION)
     for phase, (T, G) in (("tune", (tr, tg)), ("test", (tr2, tg2))):
         tgt, cand, un, ev = G.task("A")
         tB, cB, uB, eB = G.task("B")
         np.savez_compressed(fold_dir(name, cut) / f"fold_{phase}.npz" if fold_dir(name, cut).exists()
                             else _mk(fold_dir(name, cut)) / f"fold_{phase}.npz",
                             tgt=tgt, cand=cand, unreach=un, ev=ev, tgtB=tB, unreachB=uB, evB=eB,
-                            tiebreak=T.tiebreak, n_items=T.seen.sum(axis=1), pop=T.popularity())
+                            tiebreak=T.tiebreak, n_items=T.seen.sum(axis=1), pop=T.popularity(), users=T.users)
     vA = tg.task("A")
     for comp in comps:
         if comp == "GRU_lite":

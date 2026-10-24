@@ -12,6 +12,8 @@ from pydantic import BaseModel, ConfigDict, Field, RootModel, field_validator
 
 REG_RE = re.compile(r"^([A-G]{3}_20(?:13|14)[BJ])-(\d+)$")
 T = TypeVar("T")
+RISK_LABEL_AR = "درجة خطر نسبية غير معايَرة"
+ACCESS_NOTICE_AR = "عرض توضيحي بلا أمان وصول"
 
 
 class Out(BaseModel):
@@ -59,6 +61,9 @@ class Meta(Out):
     risk_cutoffs: list[int]
     presentations: list[str]
     instructor_enabled: bool = True
+    bind_host: str = "127.0.0.1"
+    access_notice: str = ACCESS_NOTICE_AR
+    risk_score: dict = {}
     frozen_at_commit: str | None = None
     notes: list[str] = []
 
@@ -89,7 +94,8 @@ class RegistrationSummary(Out):
     registration: str
     id_student: int
     date_registration: int | None
-    date_unregistration: int | None
+    # D-70: قائمة بيضاء؛ لا date_unregistration ولا final_result ولا أي حالة مشتقة من مستقبل التسجيل.
+    # status بلا day = "ok"؛ ومع day: withdrawn إن انسحب ≤ day، وno_history إن لا نشاط ≤ day.
     status: Literal["ok", "no_history", "withdrawn"]
 
 
@@ -149,7 +155,7 @@ class CountEvidence(Out):
     type: Literal["count"] = "count"
     n: int
     window: int
-    scope: Literal["all", "cluster"] = "all"
+    scope: Literal["all", "similar"] = "all"
 
 
 class ItemEvidence(Out):
@@ -214,7 +220,7 @@ class LearnerHistory(Out):
 
 # ------------------------------------------------------------------ مسارات المدرّس
 class RiskRow(Out):
-    probability: float
+    score: float                    # D-65: درجة خطر نسبية غير معايَرة (ليست احتمالاً)
     cut_day: int
     threshold: float
     above_threshold: bool
@@ -228,6 +234,7 @@ class RiskFactor(Out):
 
 
 class RiskDetail(RiskRow):
+    label_ar: str = RISK_LABEL_AR
     factors: list[RiskFactor]
 
 
@@ -268,6 +275,7 @@ class HistBin(Out):
 
 
 class OverviewRisk(Out):
+    label_ar: str = RISK_LABEL_AR
     cut_day: int
     threshold: float
     provenance: str
@@ -382,6 +390,7 @@ class RegistrationsIn(In):
     q: str = Field("", max_length=12)
     limit: int = Field(100, ge=1, le=100)
     offset: int = Field(0, ge=0)
+    day: int | None = Field(None, ge=0, le=400)
 
 
 class RecommendationsIn(In):

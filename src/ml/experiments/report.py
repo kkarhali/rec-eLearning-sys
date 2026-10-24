@@ -213,7 +213,8 @@ def _bound(x):
 
 
 def _ci(c):
-    return f"{c['mean']:+.4f} [{_bound(c['ci_lo'])}, {_bound(c['ci_hi'])}], p = {c['p']:.4f}"
+    from ..stats import format_ci
+    return f"{c['mean']:+.4f} {format_ci(c)}, p = {c['p']:.4f}"
 
 
 def round2_sections(out: Path) -> list[str]:
@@ -272,19 +273,36 @@ def round2_sections(out: Path) -> list[str]:
         hm = json.loads((out / "hybrid_meta.json").read_text())
         fr = json.loads((out / "hybrid_frozen.json").read_text())
         h = pd.read_csv(out / "hybrid.csv")
-        hy = h[h["model"] == "HYB*"].groupby("presentation")["NDCG@10"].mean()
-        md.append("## الهجين المجمَّد وقاعدة القبول (D-11، D-30)\n")
+        if "task" not in h.columns:
+            h["task"] = "A"
+        ha = h[h["task"] == "A"]
+        hy = ha[ha["model"] == "HYB*"].groupby("presentation")["NDCG@10"].mean()
+        md.append("## الهجين المجمَّد وقاعدة القبول (D-11، D-30، D-51)\n")
         md.append(f"- **HYB\\*:** {' + '.join(fr['labels'])}"
-                  + (f"؛ دخل {fr['floor_component']} بالأرضية" if fr.get("floor_component") else "") + ".")
+                  + (f"؛ دخل {fr['floor_component']} بالأرضية، وقاعدة الأرضية: {fr['floor_rule']}" if fr.get("floor_component") else "") + ".")
         md.append(f"- الأوزان (منوال 27 زوجاً): " + "، ".join(f"{k} {v:.3f}" for k, v in fr["initial_weights_modal"].items()) + ".")
         md.append(f"- NDCG@10 على نوافذ اختبار 2013: **{hy.mean():.4f} ± {hy.std(ddof=1):.4f}**؛ "
                   f"Δ مقابل {fr['B_np_star']} (H1 وصفياً): {_ci(hm['H1'])}.")
+        if hm.get("nominal_floor_ndcg") is not None:
+            md.append(f"- حساسية الأرضية الاسمية (الشبكة بالصفر، قبل D-51): NDCG@10 = {hm['nominal_floor_ndcg']:.4f}.")
         if hm.get("H3"):
-            md.append(f"- H3 وصفياً: Δ({hm['H3']['comparison']}) = {_ci(hm['H3'])}؛ قراءة الجدول السداسي: {hm['H3']['dev_rule_reading']}.")
+            md.append(f"- H3 وصفياً: Δ({hm['H3']['comparison']}) = {_ci(hm['H3'])}؛ قراءة الجدول السداسي: "
+                      f"{hm['H3'].get('rule_reading', hm['H3'].get('dev_rule_reading'))}.")
         b = hm["H4b"]
         md.append(f"- H4-ب (استكشافية): الربع الأدنى Δ = {_ci(b['cold_q1'])} ({b['cold_q1']['direction']})؛ "
                   f"الربع الأعلى Δ = {_ci(b['top_q4'])} ({b['top_q4']['direction']}).")
-        md.append("- التفاصيل (الجولات، وسبب دخول/خروج كل مكوّن، وفجوة التفاؤل): `hybrid_acceptance.md`؛ التركيبة: `hybrid_frozen.json`.\n")
+        md.append(f"- **H2-ب: غير منطبقة بالبناء** (D-59): {fr.get('H2b', '')}.")
+        md.append("- التفاصيل (الجولات، وسبب دخول/خروج كل مكوّن، وفجوة التفاؤل، والفواصل المنحلّة D-52): "
+                  "`hybrid_acceptance.md`؛ التركيبة: `hybrid_frozen.json`.\n")
+        if hm.get("decomposition"):
+            md.append("**تفكيك H1 (D-60؛ ثانوي، وصفي):**\n")
+            md.append(_md_table(pd.DataFrame([{"المقارنة": d["component"], "Δ [bootstrap-t]": _ci(d),
+                                               "عروض Δ>0": f"{d['n_pos']}/{d['n']}"} for d in hm["decomposition"]])) + "\n")
+        hb = h[h["task"] == "B"]
+        if len(hb):
+            tb = hb.groupby("model")[["NDCG@10", "HR@10", "P@10", "R@10", "MRR@10"]].mean().round(4)
+            md.append("**الهجين على المهمة B (D-57؛ تركيبة A وأوزان A وإعدادات المكوّنات المختارة على A):**\n")
+            md.append(_md_table(tb.reset_index().rename(columns={"model": "النموذج"})) + "\n")
     if (out / "learner_h4a_summary.csv").exists():
         s = pd.read_csv(out / "learner_h4a_summary.csv")
         r = s[(s["cut"] == 56) & s["overlap_excluded"]]

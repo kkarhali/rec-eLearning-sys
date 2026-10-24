@@ -33,11 +33,14 @@ _PRES: dict = {}
 
 
 def run_job(args):
-    name, cut, seeds = args
+    """args = (presentation, cut, seeds[, exclusion[, dh128_presentations]])."""
+    name, cut, seeds = args[:3]
+    exclusion = args[3] if len(args) > 3 and args[3] else "E5"
+    dh128 = args[4] if len(args) > 4 and args[4] is not None else DH128_PRES
     p = _PRES[name]
     t_job = time.time()
     rows, tuning = [], []
-    tr, tg = make_fold(p, cut, "tune")
+    tr, tg = make_fold(p, cut, "tune", exclusion)
     tA = tg.task("A")
     val_fn = lambda S: metrics.summarize(metrics.evaluate(S, tA[1], tA[0], tA[2], tA[3], tr.tiebreak, ks=(10,)))["NDCG@10"]  # noqa: E731
     best = None
@@ -53,7 +56,7 @@ def run_job(args):
             best = (m.best_val, cfg, m.best_epoch, m)
     val, cfg, ep, mbest = best
     components.save_scores(name, cut, "GRU_lite", "tune", seeds[0], mbest.score())
-    tr2, tg2 = make_fold(p, cut, "test")
+    tr2, tg2 = make_fold(p, cut, "test", exclusion)
     views = {t: tg2.task(t) for t in ("A", "B")}
     key = config_key({**cfg, "epochs": ep})
     for s in seeds:
@@ -63,7 +66,7 @@ def run_job(args):
         components.save_scores(name, cut, "GRU_lite", "test", s, S)
         for task in ("A", "B"):
             rows += eval_rows(name, cut, "GRU_lite", task, s, key, val, S, views[task], tr2, secs)
-    if name in DH128_PRES:
+    if name in dh128:
         t = time.time()
         S = GRULite(seed=seeds[0], **cfg, epochs=ep, dh=128).fit(tr2).score()
         rows += eval_rows(name, cut, "GRU_lite_dh128", "A", seeds[0], key + ";dh=128", np.nan, S, views["A"], tr2,

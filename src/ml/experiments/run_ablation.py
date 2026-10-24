@@ -53,16 +53,20 @@ def space(model: str, variant: str) -> list[dict]:
 
 
 def run_job(args):
-    name, cut, seeds = args
+    """args = (presentation, cut, seeds[, models, variants, exclusion]); defaults: both models, all variants, E5."""
+    name, cut, seeds = args[:3]
+    models = args[3] if len(args) > 3 and args[3] else ("B7_WRMF", "B4_ItemKNN")
+    variants = args[4] if len(args) > 4 and args[4] else VARIANTS
+    exclusion = args[5] if len(args) > 5 and args[5] else "E5"
     p = _PRES[name]
     t_job = time.time()
     rows, tuning = [], []
-    tr, tg = make_fold(p, cut, "tune")
+    tr, tg = make_fold(p, cut, "tune", exclusion)
     vA = tg.task("A")
-    tr2, tg2 = make_fold(p, cut, "test")
+    tr2, tg2 = make_fold(p, cut, "test", exclusion)
     vA2 = tg2.task("A")
-    for model in ("B7_WRMF", "B4_ItemKNN"):
-        for variant in VARIANTS:
+    for model in models:
+        for variant in variants:
             best = None
             for cfg, S, secs in iter_settings(model, space(model, variant), tr, seed=seeds[0]):
                 v = _val_score(S, vA, tr.tiebreak)

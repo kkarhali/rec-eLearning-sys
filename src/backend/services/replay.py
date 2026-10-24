@@ -18,7 +18,7 @@ from ..repository import Repository
 from ..schemas import (AssessmentInfo, ComponentInfo, DailyClicks, HistoryEvent, LearnerHistory, NextAssessment,
                        Page, Presentation, Provenance, RecContext, RecItem, RecommendationResponse,
                        RegistrationSummary)
-from ..settings import LOCKED_LISTED, MODEL_CUTS, SNAPSHOT_GRID, Settings
+from ..settings import DEFAULT_DAY, LOCKED_LISTED, MODEL_CUTS, SNAPSHOT_GRID, Settings
 from .labels import comp_id, comp_label
 
 NOTE_NO_HISTORY = "لا نشاط سابق لهذا التسجيل حتى هذا اليوم؛ الترتيب غير شخصي (الأكثر استخداماً لدى الزملاء)."
@@ -67,6 +67,7 @@ class ReplayService:
         self.settings = settings
         self._recs = _LRU(settings.rec_cache_size)
         self._reg_lists: dict[str, pd.DataFrame] = {}
+        self._status_cache: dict = {}
 
     # ------------------------------------------------------------ العروض والتسجيلات
     def presentations(self) -> list[Presentation]:
@@ -96,30 +97,46 @@ class ReplayService:
         return out
 
     def _registration_frame(self, pres: str) -> pd.DataFrame:
+        """ترتيب ثابت: الأكثر أياماً نشطة حتى اليوم الافتراضي أولاً (الاختيار الافتراضي في الواجهة هو أول عنصر)."""
         df = self._reg_lists.get(pres)
         if df is None:
             ix = self.repo.index(pres)
-            reg = ix.reg.reset_index()
-            has = reg["id_student"].isin(ix.with_events)
-            wd = reg["date_unregistration"].notna()
-            reg["status"] = np.where(wd, "withdrawn", np.where(has, "ok", "no_history"))
-            reg["rank"] = reg["status"].map({"ok": 0, "no_history": 1, "withdrawn": 2})
-            # الأكثر نشاطاً أولاً داخل الفئة: الاختيار الافتراضي في الواجهة هو أول عنصر، فيكون ملفاً غنياً
-            act = ix.events.groupby("id_student")["date"].nunique()
+            reg = ix.reg[["date_registration"]].reset_index()
+            ev = ix.events[ix.events["date"] <= DEFAULT_DAY]
+            act = ev.groupby("id_student")["date"].nunique()
             reg["_act"] = -reg["id_student"].map(act).fillna(0).to_numpy()
-            df = reg.sort_values(["rank", "_act", "id_student"], kind="stable").reset_index(drop=True)
+            df = reg.sort_values(["_act", "id_student"], kind="stable").reset_index(drop=True)
             self._reg_lists[pres] = df
         return df
 
-    def registrations(self, pres: str, q: str, limit: int, offset: int) -> Page[RegistrationSummary]:
+    def _status_sets(self, pres: str, day: int):
+        key = (pres, day)
+        v = self._status_cache.get(key)
+        if v is None:
+            ix = self.repo.index(pres)
+            u = ix.reg["date_unregistration"]
+            withdrawn = set(u.index[(u <= day).to_numpy()].tolist())
+            active = set(np.unique(ix.ids[ix.events["date"].to_numpy() <= day]).tolist())
+            v = (withdrawn, active)
+            if len(self._status_cache) > 16:
+                self._status_cache.clear()
+            self._status_cache[key] = v
+        return v
+
+    def registrations(self, pres: str, q: str, limit: int, offset: int, day: int | None = None) -> Page[RegistrationSummary]:
         self.repo.check_presentation(pres)
         df = self._registration_frame(pres)
         if q:
             df = df[df["id_student"].astype(str).str.contains(q, regex=False)]
         page = df.iloc[offset:offset + limit]
+        withdrawn, active = self._status_sets(pres, day) if day is not None else (set(), None)
+
+        def status(i: int) -> str:
+            if i in withdrawn:
+                return "withdrawn"
+            return "no_history" if active is not None and i not in active else "ok"
         items = [RegistrationSummary(registration=f"{pres}-{int(r.id_student)}", id_student=int(r.id_student),
-                                     date_registration=_int_or_none(r.date_registration),
-                                     date_unregistration=_int_or_none(r.date_unregistration), status=r.status)
+                                     date_registration=_int_or_none(r.date_registration), status=status(int(r.id_student)))
                  for r in page.itertuples()]
         return Page[RegistrationSummary](items=items, total=int(len(df)), limit=limit, offset=offset)
 
