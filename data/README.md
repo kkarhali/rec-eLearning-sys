@@ -3,9 +3,9 @@
 | المجموعة | المسار المحلي | المصدر الرسمي (للاستشهاد) | الترخيص | التحقق |
 |---|---|---|---|---|
 | **OULAD** — Open University Learning Analytics Dataset | `data/raw/oulad/` (7 جداول؛ `studentVle.csv` يُعاد بناؤه من 8 أجزاء) | Kuzilek, Hlosta & Zdrahal, *Scientific Data* 4:170171 (2017) — https://analyse.kmi.open.ac.uk/open-dataset | CC BY 4.0 | MD5 لكل ملف مقابل `oulad_md5_reference.txt` + عدد الصفوف المنشور (10,655,280) |
-| **MARS** — Mandarine Academy Recommender System dataset | `data/raw/mars/` (EN/FR: implicit, explicit, items, users) | Mandarine Academy — https://mandarine.academy/mars-dataset/ ، Harvard Dataverse doi:10.7910/DVN/BMY3UD | يُتحقَّق (انظر تقرير البيانات) | تطابق بايتي للملفات EN بين مرآتين مستقلتين |
+| **MARS** — Mandarine Academy RS dataset | **غير مستخدمة** | https://mandarine.academy/mars-dataset/ | طلب رسمي + بحث غير تجاري فقط → لم تجتز بوابة الترخيص (ADR-001 ملحق أ) | — |
 
-المجلد `data/raw/` **غير مضمَّن في git** (الحجم ~400 MB). لإعادة التحميل:
+المجلد `data/raw/` **غير مضمَّن في git** (الحجم ~400 MB). بيانات الرسالة = OULAD وحدها (D-01، D-03). لإعادة التحميل:
 
 ```bash
 bash data/download.sh      # يستنسخ المرايا من GitHub ويتحقق من MD5
