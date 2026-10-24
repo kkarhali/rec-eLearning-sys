@@ -77,7 +77,7 @@ export interface InstructorLearnerDetail {
   risk: (RiskRow & { factors: { name: string; wz: number }[] }) | null;
   profile: { name: string; value: number; median: number; z: number }[];
   top_recs: { rank: number; id_site: number; activity_type: string; reason: string }[];
-  withdrawn_day: number | null;
+  withdrawn_day: number | null; provenance: Provenance;
 }
 export type LearnerQuery = {
   presentation: string; day: number; cluster?: number; risk?: 'all' | 'above'; sort?: string; limit?: number; offset?: number;

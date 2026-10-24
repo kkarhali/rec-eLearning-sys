@@ -31,7 +31,7 @@ python3 -m src.backend --host 127.0.0.1 --port 8000 --warm-presentation BBB_2013
 | `/api/instructor/overview` | `presentation`، `day` | مؤشرات، ملخص الملامح، مدرج الخطر، التغطية |
 | `/api/instructor/clusters` | `presentation`، `day` | k، `cluster_day` (لقطة العناقيد = 56)، `unstable` و`unstable_reason`، الجودة (ARI = ثبات البذور لـk المختار؛ والاستقرار يشترط أيضاً أن يقع k ضمن أفضل اثنين في silhouette وDBI، فقد يكون ARI = 1 والعناقيد «غير مستقرة»)، أحجام ووصف عربي حتمي، إسقاط PCA |
 | `/api/instructor/learners` | `presentation`، `day`، `cluster`، `risk=all|above`، `sort=[-]risk|reg|cluster|active_days|last_access|on_time`، `limit≤500`، `offset` | `{items,total,limit,offset}` |
-| `/api/instructor/learner/{reg}` | `day` | عنقود، خطر بعوامل w·z، ملامح مقابل الوسيط، أفضل 3، `withdrawn_day`، بلا أي حقل نتيجة نهائية |
+| `/api/instructor/learner/{reg}` | `day` | عنقود، خطر بعوامل w·z، ملامح مقابل الوسيط، أفضل 3، `withdrawn_day`، بلا أي حقل نتيجة نهائية، و`provenance {run_id, role, model_cut}` (D-49 (6)) |
 
 الأخطاء: 404 `presentation_not_found|registration_not_found|item_not_in_list|instructor_disabled|not_found`، 405 `method_not_allowed`،
 409 `confirmatory_locked` (أي عرض 2014، على كل المسارات)، 422 `validation_error` (مع `details.errors[{field,reason}]`) و`day_out_of_range`
@@ -106,3 +106,4 @@ NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js
 - `ClusterQuality.ari` يقبل `null` (العرض الغائب من `results/dev2013/learner_clusters.csv`)؛ الواجهة تعرض «غير متاح» و`unstable_reason` لا يستشهد بـARI غائب (`test_text.py`). تشخيص التجميع (silhouette وDBI وARI مع مصدره) يُعرض بلا تسميات؛ وبطاقة التغطية «اتساع التوصيات عند اليوم t: X من Y مورداً» (حقل `coverage.at_10` في API لم يتغير).
 - `--warm` يستدعي الآن `serving.warm(presentation, days)` ثم يسخّن توصيات ولقطات الأيام الستة. بعد وصول `serving.warm` (تحفيظ العنقدة الدائم، D-68): الخطّاف 16.0 ث ثم الأيام 75/56/70/112/126/182 بـ1.5/0.7/4.5/0.8/3.5/1.0 ث؛ المجموع **28.1 ث** (كان 81 ث).
 - اللقطات الحية (D-72): متعلم الدرج والصف = الأقرب إلى وسيط درجات الفوج من بين من هم دون العتبة ضمن الصفحة المعروضة (مرتبة بالتسجيل، بلا مرشّح)؛ يختاره `e2e/live-screenshots.js` برمجياً ويطبع معرّفه ودرجته وفرقه عن الوسيط. ويتحقق من أن أعمدة الجدول كلها ظاهرة والدرج مفتوح على سطح المكتب.
+- **دقة العتبة والدرجة:** `risk.threshold` و`risk.score` تُعادان بست منازل (العتبة المجمَّدة 0.455716…، لا 0.456)، ويُترك التقريب للعرض في الواجهة؛ فحكم `above_threshold` واحد في الخادم والعارض (يفحصه `test_learners_contract_sort_page_filter`).

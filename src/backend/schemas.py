@@ -367,6 +367,7 @@ class InstructorLearnerDetail(Out):
     profile: list[ProfileRow]
     top_recs: list[TopRec]
     withdrawn_day: int | None
+    provenance: Provenance            # D-49 (6): model_cut في كل استجابة
 
 
 LEARNER_MODELS = (Health, Meta, Presentation, RegistrationSummary, RecommendationResponse, ExplanationDetail,

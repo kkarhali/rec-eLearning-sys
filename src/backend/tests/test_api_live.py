@@ -267,6 +267,12 @@ class TestApi(unittest.TestCase):
         self.assertNotIn("probability", row["risk"])
         self.assertIn("غير معايَرة", self.get(f"/api/instructor/overview?presentation={P}&day={DAY}")["risk"]["label_ar"])
         self.assertEqual(row["risk"]["above_threshold"], row["risk"]["score"] >= row["risk"]["threshold"])
+        # العتبة بدقتها المخزَّنة (0.4557…) لا 0.456، فلا يختلف حكم «فوق العتبة» بين الخادم والعارض
+        self.assertAlmostEqual(row["risk"]["threshold"], self.sv.repo.engine._risk(P, 26247, DAY, "M1")["threshold"], places=5)
+        self.assertNotEqual(row["risk"]["threshold"], round(row["risk"]["threshold"], 3))
+        for r in a["items"]:
+            if r["risk"]:
+                self.assertEqual(r["risk"]["above_threshold"], r["risk"]["score"] >= r["risk"]["threshold"])
 
     def test_learner_detail_contract(self):
         row = self.get(f"/api/instructor/learners?presentation={P}&day={DAY}&limit=1")["items"][0]
@@ -276,6 +282,10 @@ class TestApi(unittest.TestCase):
         self.assertAlmostEqual(d["risk"]["score"], row["risk"]["score"], places=3)
         self.assertEqual(d["risk"]["top_factor"], row["risk"]["top_factor"])
         self.assertNotIn("outcome", d)
+        for day, cut in ((DAY, 70), (130, 126)):                 # D-49 (6): provenance.model_cut في ملف المتعلم أيضاً
+            dd = self.get(f"/api/instructor/learner/{row['registration']}?day={day}")
+            self.assertEqual(set(dd["provenance"]), {"run_id", "role", "model_cut"})
+            self.assertEqual(dd["provenance"]["model_cut"], cut)
         self.assertFalse(all_keys(d) & SENSITIVE_KEYS)
         self.get(f"/api/instructor/learner/{P}-99?day={DAY}", status=404)
 

@@ -300,7 +300,7 @@ class InstructorService:
 
         valid = ~np.isnan(prob)
         hist = np.histogram(prob[valid], bins=np.linspace(0, 1, 11))[0] if valid.any() else np.zeros(10, int)
-        risk = OverviewRisk(cut_day=tc, threshold=_round(rm.threshold, 3), provenance=PROVENANCE,
+        risk = OverviewRisk(cut_day=tc, threshold=_round(rm.threshold, 6), provenance=PROVENANCE,
                             histogram=[HistBin(lo=_round(i / 10, 1), hi=_round((i + 1) / 10, 1), count=int(c)) for i, c in enumerate(hist)])
         share = float(above[valid].mean()) if valid.any() else None
         mc = eng.model_cut(day)
@@ -337,7 +337,7 @@ class InstructorService:
         if np.isnan(r.prob):
             return None
         rm = self.risk_model(snap.pres, self.risk_cut(snap.day))
-        return RiskRow(score=_round(r.prob, 3), cut_day=rm.tc, threshold=_round(rm.threshold, 3),
+        return RiskRow(score=_round(r.prob, 6), cut_day=rm.tc, threshold=_round(rm.threshold, 6),
                        above_threshold=bool(r.above), provenance=PROVENANCE, top_factor=str(r.top_factor))
 
     def learners(self, pres: str, day: int, cluster: int | None, risk: str, sort: str, limit: int, offset: int) -> Page[InstructorLearnerRow]:
@@ -389,7 +389,7 @@ class InstructorService:
             wz = rm.wz[p]
             order = np.argsort(-np.abs(wz), kind="stable")
             prob = float(rm.prob[p])
-            risk = RiskDetail(score=_round(prob, 3), cut_day=tc, threshold=_round(rm.threshold, 3),
+            risk = RiskDetail(score=_round(prob, 6), cut_day=tc, threshold=_round(rm.threshold, 6),
                               above_threshold=prob >= rm.threshold, provenance=PROVENANCE,
                               top_factor=feature_ar(rm.features[order[0]]),
                               factors=[RiskFactor(name=feature_ar(rm.features[i]), wz=_round(wz[i])) for i in order[:5]])
@@ -401,4 +401,6 @@ class InstructorService:
                    for n, x in enumerate(raw.items[:3], start=1)]
         return InstructorLearnerDetail(registration=f"{pres}-{student}", day=day, snapshot_day=day,
                                        cluster=ClusterRef(id=j, label=cm.labels_ar[j]), risk=risk, profile=profile,
-                                       top_recs=top, withdrawn_day=wd)
+                                       top_recs=top, withdrawn_day=wd,
+                                       provenance=Provenance(run_id=self.repo.run_id, role="dev",
+                                                             model_cut=None if snap.model_cut is None else int(snap.model_cut)))
