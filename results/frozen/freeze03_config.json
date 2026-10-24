@@ -1,0 +1,901 @@
+{
+ "freeze": "freeze-03 (D-62); specification frozen at meeting 03",
+ "presentations": {
+  "development": [
+   "AAA_2013J",
+   "BBB_2013B",
+   "BBB_2013J",
+   "DDD_2013B",
+   "DDD_2013J",
+   "EEE_2013J",
+   "FFF_2013B",
+   "FFF_2013J",
+   "GGG_2013J"
+  ],
+  "confirmatory": [
+   "AAA_2014J",
+   "BBB_2014B",
+   "BBB_2014J",
+   "CCC_2014B",
+   "CCC_2014J",
+   "DDD_2014B",
+   "DDD_2014J",
+   "EEE_2014B",
+   "EEE_2014J",
+   "FFF_2014B",
+   "FFF_2014J",
+   "GGG_2014B",
+   "GGG_2014J"
+  ]
+ },
+ "exclusion_set_E": [
+  "folder",
+  "homepage",
+  "page",
+  "sharedsubpage",
+  "subpage"
+ ],
+ "cuts": [
+  70,
+  126,
+  182
+ ],
+ "horizon_days": 14,
+ "seeds_tuning": [
+  0
+ ],
+ "seeds_report": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "budget_settings": 20,
+ "signal_family": {
+  "tau": [
+   7.0,
+   14.0,
+   28.0,
+   56.0,
+   "inf"
+  ],
+  "beta": [
+   0.0,
+   0.5,
+   1.0,
+   2.0
+  ],
+  "alpha": [
+   1.0,
+   2.0,
+   5.0,
+   10.0,
+   20.0,
+   40.0
+  ],
+  "levels": [
+   "L0",
+   "L1",
+   "L2",
+   "L3"
+  ]
+ },
+ "model_spaces": {
+  "B1_Random": {
+   "full_space_size": 1,
+   "evaluated_settings": [
+    {}
+   ],
+   "strategy": "grid"
+  },
+  "B2_Pop": {
+   "full_space_size": 1,
+   "evaluated_settings": [
+    {}
+   ],
+   "strategy": "grid"
+  },
+  "B3_RecentPop": {
+   "full_space_size": 5,
+   "evaluated_settings": [
+    {
+     "w": 3
+    },
+    {
+     "w": 7
+    },
+    {
+     "w": 14
+    },
+    {
+     "w": 21
+    },
+    {
+     "w": 28
+    }
+   ],
+   "strategy": "grid"
+  },
+  "B4_ItemKNN": {
+   "full_space_size": 336,
+   "evaluated_settings": [
+    {
+     "k": 20,
+     "shrink": 0.0,
+     "signal": "L3(tau=7,beta=1)"
+    },
+    {
+     "k": 20,
+     "shrink": 0.0,
+     "signal": "L3(tau=14,beta=0.5)"
+    },
+    {
+     "k": 20,
+     "shrink": 0.0,
+     "signal": "L3(tau=28,beta=1)"
+    },
+    {
+     "k": 20,
+     "shrink": 50.0,
+     "signal": "L0"
+    },
+    {
+     "k": 20,
+     "shrink": 50.0,
+     "signal": "L2(tau=28)"
+    },
+    {
+     "k": 20,
+     "shrink": 50.0,
+     "signal": "L3(tau=28,beta=1)"
+    },
+    {
+     "k": 20,
+     "shrink": 100.0,
+     "signal": "L3(tau=7,beta=0.5)"
+    },
+    {
+     "k": 50,
+     "shrink": 0.0,
+     "signal": "L2(tau=7)"
+    },
+    {
+     "k": 50,
+     "shrink": 0.0,
+     "signal": "L3(tau=14,beta=0.5)"
+    },
+    {
+     "k": 50,
+     "shrink": 0.0,
+     "signal": "L3(tau=inf,beta=2)"
+    },
+    {
+     "k": 50,
+     "shrink": 10.0,
+     "signal": "L3(tau=7,beta=0.5)"
+    },
+    {
+     "k": 50,
+     "shrink": 100.0,
+     "signal": "L3(tau=14,beta=1)"
+    },
+    {
+     "k": 50,
+     "shrink": 100.0,
+     "signal": "L3(tau=28,beta=2)"
+    },
+    {
+     "k": 100,
+     "shrink": 0.0,
+     "signal": "L2(tau=7)"
+    },
+    {
+     "k": 100,
+     "shrink": 0.0,
+     "signal": "L3(tau=inf,beta=2)"
+    },
+    {
+     "k": 100,
+     "shrink": 50.0,
+     "signal": "L2(tau=14)"
+    },
+    {
+     "k": 100,
+     "shrink": 50.0,
+     "signal": "L3(tau=7,beta=0.5)"
+    },
+    {
+     "k": null,
+     "shrink": 10.0,
+     "signal": "L2(tau=56)"
+    },
+    {
+     "k": null,
+     "shrink": 100.0,
+     "signal": "L3(tau=28,beta=1)"
+    },
+    {
+     "k": null,
+     "shrink": 100.0,
+     "signal": "L3(tau=56,beta=2)"
+    }
+   ],
+   "strategy": "random subset of 20 (seed crc32(name) + 20261024)"
+  },
+  "B5_SKNN": {
+   "full_space_size": 72,
+   "evaluated_settings": [
+    {
+     "L": 1,
+     "k": 50,
+     "M": 1000,
+     "variant": "sknn"
+    },
+    {
+     "L": 1,
+     "k": 50,
+     "M": 1000,
+     "variant": "vsknn"
+    },
+    {
+     "L": 1,
+     "k": 50,
+     "M": 5000,
+     "variant": "vsknn"
+    },
+    {
+     "L": 1,
+     "k": 100,
+     "M": 5000,
+     "variant": "sknn"
+    },
+    {
+     "L": 1,
+     "k": 200,
+     "M": 1000,
+     "variant": "sknn"
+    },
+    {
+     "L": 1,
+     "k": 200,
+     "M": 5000,
+     "variant": "sknn"
+    },
+    {
+     "L": 1,
+     "k": 200,
+     "M": null,
+     "variant": "sknn"
+    },
+    {
+     "L": 1,
+     "k": 500,
+     "M": 1000,
+     "variant": "sknn"
+    },
+    {
+     "L": 1,
+     "k": 500,
+     "M": 1000,
+     "variant": "vsknn"
+    },
+    {
+     "L": 3,
+     "k": 50,
+     "M": 5000,
+     "variant": "vsknn"
+    },
+    {
+     "L": 3,
+     "k": 50,
+     "M": null,
+     "variant": "vsknn"
+    },
+    {
+     "L": 3,
+     "k": 100,
+     "M": 5000,
+     "variant": "vsknn"
+    },
+    {
+     "L": 3,
+     "k": 100,
+     "M": null,
+     "variant": "sknn"
+    },
+    {
+     "L": 3,
+     "k": 500,
+     "M": 5000,
+     "variant": "sknn"
+    },
+    {
+     "L": 7,
+     "k": 100,
+     "M": 1000,
+     "variant": "sknn"
+    },
+    {
+     "L": 7,
+     "k": 100,
+     "M": 1000,
+     "variant": "vsknn"
+    },
+    {
+     "L": 7,
+     "k": 100,
+     "M": null,
+     "variant": "vsknn"
+    },
+    {
+     "L": 7,
+     "k": 200,
+     "M": 1000,
+     "variant": "vsknn"
+    },
+    {
+     "L": 7,
+     "k": 200,
+     "M": 5000,
+     "variant": "vsknn"
+    },
+    {
+     "L": 7,
+     "k": 500,
+     "M": 1000,
+     "variant": "vsknn"
+    }
+   ],
+   "strategy": "random subset of 20 (seed crc32(name) + 20261024)"
+  },
+  "B6_Markov": {
+   "full_space_size": 8,
+   "evaluated_settings": [
+    {
+     "gamma": 0.01,
+     "L": 1
+    },
+    {
+     "gamma": 0.01,
+     "L": 3
+    },
+    {
+     "gamma": 0.1,
+     "L": 1
+    },
+    {
+     "gamma": 0.1,
+     "L": 3
+    },
+    {
+     "gamma": 0.5,
+     "L": 1
+    },
+    {
+     "gamma": 0.5,
+     "L": 3
+    },
+    {
+     "gamma": 1.0,
+     "L": 1
+    },
+    {
+     "gamma": 1.0,
+     "L": 3
+    }
+   ],
+   "strategy": "grid"
+  },
+  "B7_WRMF": {
+   "full_space_size": 1512,
+   "evaluated_settings": [
+    {
+     "f": 16,
+     "reg": 1.0,
+     "alpha": 20.0,
+     "signal": "L3(tau=14,beta=2)"
+    },
+    {
+     "f": 16,
+     "reg": 10.0,
+     "alpha": 2.0,
+     "signal": "L3(tau=inf,beta=0.5)"
+    },
+    {
+     "f": 16,
+     "reg": 10.0,
+     "alpha": 10.0,
+     "signal": "L3(tau=7,beta=0.5)"
+    },
+    {
+     "f": 32,
+     "reg": 0.01,
+     "alpha": 1.0,
+     "signal": "L3(tau=56,beta=1)"
+    },
+    {
+     "f": 32,
+     "reg": 0.01,
+     "alpha": 2.0,
+     "signal": "L2(tau=56)"
+    },
+    {
+     "f": 32,
+     "reg": 0.01,
+     "alpha": 5.0,
+     "signal": "L3(tau=7,beta=0.5)"
+    },
+    {
+     "f": 32,
+     "reg": 0.01,
+     "alpha": 10.0,
+     "signal": "L3(tau=28,beta=1)"
+    },
+    {
+     "f": 32,
+     "reg": 0.1,
+     "alpha": 2.0,
+     "signal": "L3(tau=28,beta=0.5)"
+    },
+    {
+     "f": 32,
+     "reg": 0.1,
+     "alpha": 10.0,
+     "signal": "L2(tau=56)"
+    },
+    {
+     "f": 32,
+     "reg": 0.1,
+     "alpha": 20.0,
+     "signal": "L3(tau=7,beta=0.5)"
+    },
+    {
+     "f": 32,
+     "reg": 1.0,
+     "alpha": 2.0,
+     "signal": "L3(tau=inf,beta=1)"
+    },
+    {
+     "f": 32,
+     "reg": 1.0,
+     "alpha": 40.0,
+     "signal": "L3(tau=14,beta=2)"
+    },
+    {
+     "f": 32,
+     "reg": 10.0,
+     "alpha": 10.0,
+     "signal": "L3(tau=7,beta=2)"
+    },
+    {
+     "f": 64,
+     "reg": 0.01,
+     "alpha": 40.0,
+     "signal": "L1"
+    },
+    {
+     "f": 64,
+     "reg": 0.1,
+     "alpha": 1.0,
+     "signal": "L0"
+    },
+    {
+     "f": 64,
+     "reg": 1.0,
+     "alpha": 2.0,
+     "signal": "L3(tau=14,beta=1)"
+    },
+    {
+     "f": 64,
+     "reg": 1.0,
+     "alpha": 10.0,
+     "signal": "L3(tau=14,beta=1)"
+    },
+    {
+     "f": 64,
+     "reg": 10.0,
+     "alpha": 1.0,
+     "signal": "L3(tau=14,beta=1)"
+    },
+    {
+     "f": 64,
+     "reg": 10.0,
+     "alpha": 10.0,
+     "signal": "L3(tau=56,beta=2)"
+    },
+    {
+     "f": 64,
+     "reg": 10.0,
+     "alpha": 20.0,
+     "signal": "L3(tau=28,beta=0.5)"
+    }
+   ],
+   "strategy": "random subset of 20 (seed crc32(name) + 20261024)",
+   "iteration_checkpoints": [
+    10,
+    15,
+    25
+   ]
+  },
+  "B8_PersonalRepeat": {
+   "full_space_size": 5,
+   "evaluated_settings": [
+    {
+     "tau": 7.0
+    },
+    {
+     "tau": 14.0
+    },
+    {
+     "tau": 28.0
+    },
+    {
+     "tau": 56.0
+    },
+    {
+     "tau": "inf"
+    }
+   ],
+   "strategy": "grid"
+  },
+  "B9_CBF": {
+   "full_space_size": 26,
+   "evaluated_settings": [
+    {
+     "w_type": 0.0,
+     "w_week": 0.0,
+     "w_assess": 1.0
+    },
+    {
+     "w_type": 0.0,
+     "w_week": 0.5,
+     "w_assess": 0.0
+    },
+    {
+     "w_type": 0.0,
+     "w_week": 0.5,
+     "w_assess": 0.5
+    },
+    {
+     "w_type": 0.0,
+     "w_week": 0.5,
+     "w_assess": 1.0
+    },
+    {
+     "w_type": 0.0,
+     "w_week": 1.0,
+     "w_assess": 0.0
+    },
+    {
+     "w_type": 0.0,
+     "w_week": 1.0,
+     "w_assess": 1.0
+    },
+    {
+     "w_type": 0.5,
+     "w_week": 0.0,
+     "w_assess": 0.0
+    },
+    {
+     "w_type": 0.5,
+     "w_week": 0.0,
+     "w_assess": 1.0
+    },
+    {
+     "w_type": 0.5,
+     "w_week": 0.5,
+     "w_assess": 0.0
+    },
+    {
+     "w_type": 0.5,
+     "w_week": 0.5,
+     "w_assess": 0.5
+    },
+    {
+     "w_type": 0.5,
+     "w_week": 0.5,
+     "w_assess": 1.0
+    },
+    {
+     "w_type": 0.5,
+     "w_week": 1.0,
+     "w_assess": 0.0
+    },
+    {
+     "w_type": 0.5,
+     "w_week": 1.0,
+     "w_assess": 0.5
+    },
+    {
+     "w_type": 0.5,
+     "w_week": 1.0,
+     "w_assess": 1.0
+    },
+    {
+     "w_type": 1.0,
+     "w_week": 0.0,
+     "w_assess": 0.0
+    },
+    {
+     "w_type": 1.0,
+     "w_week": 0.0,
+     "w_assess": 0.5
+    },
+    {
+     "w_type": 1.0,
+     "w_week": 0.0,
+     "w_assess": 1.0
+    },
+    {
+     "w_type": 1.0,
+     "w_week": 0.5,
+     "w_assess": 0.0
+    },
+    {
+     "w_type": 1.0,
+     "w_week": 0.5,
+     "w_assess": 1.0
+    },
+    {
+     "w_type": 1.0,
+     "w_week": 1.0,
+     "w_assess": 1.0
+    }
+   ],
+   "strategy": "random subset of 20 (seed crc32(name) + 20261024)"
+  },
+  "B10_EASE": {
+   "full_space_size": 5,
+   "evaluated_settings": [
+    {
+     "lam": 1.0
+    },
+    {
+     "lam": 10.0
+    },
+    {
+     "lam": 50.0
+    },
+    {
+     "lam": 100.0
+    },
+    {
+     "lam": 500.0
+    }
+   ],
+   "strategy": "grid"
+  },
+  "C6_AssessProx": {
+   "full_space_size": 1,
+   "evaluated_settings": [
+    {}
+   ],
+   "strategy": "grid"
+  },
+  "C7_ClusterPop": {
+   "full_space_size": 5,
+   "evaluated_settings": [
+    {
+     "w": 3
+    },
+    {
+     "w": 7
+    },
+    {
+     "w": 14
+    },
+    {
+     "w": 21
+    },
+    {
+     "w": 28
+    }
+   ],
+   "strategy": "grid"
+  },
+  "GRU_lite": {
+   "settings": [
+    {
+     "lr": 0.001,
+     "target": "next"
+    },
+    {
+     "lr": 0.001,
+     "target": "next-new"
+    },
+    {
+     "lr": 0.003,
+     "target": "next"
+    },
+    {
+     "lr": 0.003,
+     "target": "next-new"
+    },
+    {
+     "lr": 0.01,
+     "target": "next"
+    },
+    {
+     "lr": 0.01,
+     "target": "next-new"
+    }
+   ],
+   "d_e": 64,
+   "d_h": 64,
+   "T": 20,
+   "batch": 128,
+   "max_epochs": 30,
+   "patience": 3,
+   "l2": 1e-05,
+   "clip": 5.0,
+   "adam": [
+    0.9,
+    0.999,
+    1e-08
+   ],
+   "status": "passed the sanity gates (gru_sanity.md)"
+  }
+ },
+ "hybrid": {
+  "components": [
+   "C7_ClusterPop",
+   "B5_SKNN"
+  ],
+  "floor_component": "B5_SKNN",
+  "floor_rule": "weight of the floor component B5_SKNN ≥ 0.25 = smallest positive point of the D-29 grid; grid points with zero floor weight removed, no value added (D-51)",
+  "weight_grid_points": [
+   {
+    "C7_ClusterPop": 0.0,
+    "B5_SKNN": 1.0
+   },
+   {
+    "C7_ClusterPop": 0.25,
+    "B5_SKNN": 0.75
+   },
+   {
+    "C7_ClusterPop": 0.5,
+    "B5_SKNN": 0.5
+   },
+   {
+    "C7_ClusterPop": 0.75,
+    "B5_SKNN": 0.25
+   }
+  ],
+  "accept_only_components": [
+   "C7_ClusterPop"
+  ],
+  "B_np_star": "B3_RecentPop",
+  "S_star": "B5_SKNN",
+  "C7_window_space": [
+   3,
+   7,
+   14,
+   21,
+   28
+  ],
+  "H2b": "not applicable by construction: no component of HYB* reads W (D-59)"
+ },
+ "inference": {
+  "delta_ndcg10": 0.02,
+  "delta_auc": 0.02,
+  "alpha": 0.05,
+  "holm_family": [
+   "H1",
+   "H2-a",
+   "H3",
+   "H4-a"
+  ],
+  "holm_m": 4,
+  "p_value": "two-sided exact sign flip (2^n)",
+  "interval": "cluster bootstrap-t over presentations",
+  "bootstrap_B": 10000,
+  "bootstrap_seed": 0,
+  "verdict_tables": "D-26 (one-sided H1/H2-a/H4-a; six-level H3)",
+  "inconclusive_text": "غير حاسمة: لا يكشف التصميم بقوة 80% أثراً أصغر من MDE80 = x (D-48)",
+  "degenerate_rule": "D-52"
+ },
+ "learners": {
+  "risk_cut_primary": 56,
+  "risk_cuts_secondary": [
+   28,
+   112
+  ],
+  "youden_thresholds_day56": {
+   "M0": 0.4744,
+   "M1": 0.4557,
+   "M2": 0.4074
+  },
+  "logistic_lambdas": [
+   0.001,
+   0.01,
+   0.1,
+   1.0,
+   10.0
+  ],
+  "cart_grid": [
+   [
+    2,
+    20
+   ],
+   [
+    2,
+    50
+   ],
+   [
+    2,
+    100
+   ],
+   [
+    3,
+    20
+   ],
+   [
+    3,
+    50
+   ],
+   [
+    3,
+    100
+   ],
+   [
+    4,
+    20
+   ],
+   [
+    4,
+    50
+   ],
+   [
+    4,
+    100
+   ]
+  ],
+  "k_rule": "smallest k in top-2 silhouette ∩ top-2 DBI with mean ARI ≥ 0.8 over 5 seeds, else best silhouette flagged unstable (§4.7.2, D-39-b); k ∈ [2..8], 10 restarts",
+  "overlap_removal": "D-47 (confirmatory_student_ids)"
+ },
+ "raw_md5": {
+  "assessments.csv": {
+   "md5": "6126f9d435767bcc70134b46f21c2a90",
+   "reference": "6126f9d435767bcc70134b46f21c2a90",
+   "match": true
+  },
+  "courses.csv": {
+   "md5": "4c3df8a42a98a0d26b22f507007c31a8",
+   "reference": "4c3df8a42a98a0d26b22f507007c31a8",
+   "match": true
+  },
+  "studentAssessment.csv": {
+   "md5": "9ceb38acaeb26fbc15c98b563290c1db",
+   "reference": "9ceb38acaeb26fbc15c98b563290c1db",
+   "match": true
+  },
+  "studentInfo.csv": {
+   "md5": "ead11d001fe8b7aed1469daa643a812c",
+   "reference": "ead11d001fe8b7aed1469daa643a812c",
+   "match": true
+  },
+  "studentRegistration.csv": {
+   "md5": "ef06e3d5784dc7dffe06ef911c5b190c",
+   "reference": "ef06e3d5784dc7dffe06ef911c5b190c",
+   "match": true
+  },
+  "studentVle.csv": {
+   "md5": "b8aae6f4ffd1523319aeb56d66b17f72",
+   "reference": "b8aae6f4ffd1523319aeb56d66b17f72",
+   "match": true
+  },
+  "vle.csv": {
+   "md5": "0e7ef38c483daca42900ca426b66f8da",
+   "reference": "0e7ef38c483daca42900ca426b66f8da",
+   "match": true
+  }
+ },
+ "sha256": {
+  "mde80.json": "607468aeab296da35fae7e047b502d52c1ee919b26cb00cf8415cb6a9b81e88a",
+  "hybrid_frozen.json": "9abdf4d834311846b3e6366c466e98fb8ce2bef01edf7f3b392c16d1628c4848",
+  "risk_final.json": "728fd254680e8c67835ac61b07890cdbaa6b564c8103a7ebc52b1370af4a93c0"
+ },
+ "git_commit_when_written": "8c23be008186c1c32a11c8283703acf0db22f42f",
+ "date": "2026-10-24 22:21:30"
+}
