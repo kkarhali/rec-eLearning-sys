@@ -44,7 +44,7 @@ def run_pandoc(md_files: list[Path], out: Path, toc: bool, toc_title: str) -> No
         "--resource-path", ":".join({str(p.parent) for p in md_files} | {"."}),
     ]
     if toc:
-        cmd += ["--toc", "--toc-depth=3", "-V", f"toc-title={toc_title}"]
+        cmd += ["--toc", "--toc-depth=3", "-M", f"toc-title={toc_title}"]
     subprocess.run(cmd, check=True)
 
 
@@ -187,12 +187,13 @@ def _page_setup(doc: Document) -> None:
                     it = OxmlElement("w:instrText"); it.set(qn("xml:space"), "preserve"); it.text = text; run._r.append(it)
 
 
-def _insert_paragraph_before(anchor, text: str = "", style: str | None = None, size: int | None = None,
+def _insert_paragraph_before(anchor_el, parent, text: str = "", style: str | None = None, size: int | None = None,
                              bold: bool = False, align=WD_ALIGN_PARAGRAPH.CENTER, color: str | None = None):
+    """Insert a new paragraph before an arbitrary body element (paragraph, table or TOC sdt)."""
     new_p = OxmlElement("w:p")
-    anchor._p.addprevious(new_p)
+    anchor_el.addprevious(new_p)
     from docx.text.paragraph import Paragraph
-    para = Paragraph(new_p, anchor._parent)
+    para = Paragraph(new_p, parent)
     if style:
         para.style = style
     para.alignment = align
@@ -210,7 +211,12 @@ def _insert_paragraph_before(anchor, text: str = "", style: str | None = None, s
 
 
 def _add_cover(doc: Document, a: argparse.Namespace) -> None:
-    first = doc.paragraphs[0] if doc.paragraphs else doc.add_paragraph()
+    body = doc.element.body
+    # first real body child (pandoc puts the TOC in a <w:sdt> before the first paragraph)
+    first_el = next((el for el in body.iterchildren() if el.tag != qn("w:sectPr")), None)
+    if first_el is None:
+        first_el = doc.add_paragraph()._p
+    parent = doc._body
     lines = [
         (a.university, 16, True, "1F3864"),
         (a.faculty, 13, False, None),
@@ -228,9 +234,9 @@ def _add_cover(doc: Document, a: argparse.Namespace) -> None:
     for text, size, bold, color in lines:
         if text is None:
             continue
-        _insert_paragraph_before(first, text, size=size, bold=bold, color=color)
+        _insert_paragraph_before(first_el, parent, text, size=size, bold=bold, color=color)
     # page break after cover
-    br = _insert_paragraph_before(first, "")
+    br = _insert_paragraph_before(first_el, parent, "")
     br.add_run().add_break(WD_BREAK.PAGE)
 
 
@@ -269,6 +275,13 @@ def build(args: argparse.Namespace) -> Path:
         core.author = args.author or ""
         core.language = "ar-SY"
         doc.save(str(out))
+    if not args.no_toc and not args.no_update_toc:
+        # Write real page numbers into the TOC via headless LibreOffice (see lo_update_toc.py).
+        helper = Path(__file__).with_name("lo_update_toc.py")
+        try:
+            subprocess.run([sys.executable, str(helper), str(out)], check=True, timeout=600)
+        except Exception as exc:  # the document is still valid; Word refreshes the TOC on open
+            print(f"warning: TOC page numbers not pre-rendered ({exc}); Word will update the field on open")
     return out
 
 
@@ -287,6 +300,7 @@ def main() -> None:
     ap.add_argument("--year", default="2026")
     ap.add_argument("--toc-title", default="فهرس المحتويات")
     ap.add_argument("--no-toc", action="store_true")
+    ap.add_argument("--no-update-toc", action="store_true", help="skip the LibreOffice pass that fills TOC page numbers")
     ap.add_argument("--no-cover", action="store_true")
     ap.add_argument("--body-font", default="Simplified Arabic")
     ap.add_argument("--latin-font", default="Times New Roman")
