@@ -4,6 +4,8 @@
     "B5_SKNN"
   ],
   "floor": "B5_SKNN",
+  "floor_weight_positive_folds": 14,
+  "floor_min_quarter_ndcg": 0.5608710427965196,
   "H1": {
     "n": 9,
     "mean": 0.014771638438645842,
@@ -48,5 +50,5 @@
       "direction": "unclear"
     }
   },
-  "seconds": 135.3
+  "seconds": 124.2
 }

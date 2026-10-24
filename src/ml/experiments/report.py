@@ -206,12 +206,14 @@ def build_summary(out_dir) -> Path:
     return path
 
 
-if __name__ == "__main__":
-    print(build_summary(sys.argv[1] if len(sys.argv) > 1 else "results/dev2013"))
+
+
+def _bound(x):
+    return ("−∞" if x < 0 else "+∞") if abs(x) > 1 else f"{x:+.4f}"
 
 
 def _ci(c):
-    return f"{c['mean']:+.4f} [{c['ci_lo']:+.4f}, {c['ci_hi']:+.4f}], p = {c['p']:.4f}"
+    return f"{c['mean']:+.4f} [{_bound(c['ci_lo'])}, {_bound(c['ci_hi'])}], p = {c['p']:.4f}"
 
 
 def round2_sections(out: Path) -> list[str]:
@@ -303,3 +305,7 @@ def round2_sections(out: Path) -> list[str]:
     if times:
         md.append("**أزمنة الجولة الثانية (فعلية، 4 عمليات حيث ينطبق):** " + "، ".join(times) + ".\n")
     return md
+
+
+if __name__ == "__main__":
+    print(build_summary(sys.argv[1] if len(sys.argv) > 1 else "results/dev2013"))

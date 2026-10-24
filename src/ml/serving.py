@@ -191,8 +191,6 @@ class Engine:
         if comp == "C6_AssessProx":
             gap = data.next_assessment_gap([day], tr.assessments["date"])[0]
             return {"days": None if not np.isfinite(gap) else int(gap)}
-        if comp == "C7_ClusterPop":
-            return {"note": "count of same-cluster learners in the window"}
         return {}
 
     # ---------------------------------------------------------------- API
@@ -223,6 +221,9 @@ class Engine:
             expl = []
             for m in shown:
                 ev = self._evidence(m, tr, u, j, CP.parse_config(cfgs[m]), name, int(day), c) if u is not None else {}
+                if m == "C7_ClusterPop":
+                    ev = {"same_cluster_learners_in_window": int(raw[m][j]),
+                          "window_days": int(CP.parse_config(cfgs[m]).get("w", 7))}
                 expl.append({"component": m, "text": TEMPLATES[m].format(item=ev.get("item", "?"),
                                                                          type=ev.get("type", "?"),
                                                                          days=ev.get("days", "?")),
