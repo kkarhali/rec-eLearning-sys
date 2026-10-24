@@ -23,7 +23,7 @@
 <line x1="800" y1="270" x2="800" y2="289" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <line x1="1095" y1="297" x2="1095" y2="318" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
 <rect x="1030.0" y="318" width="130" height="64" rx="16" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
-<text x="1095" y="338.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">E6ب</text>
+<text x="1095" y="338.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl"><tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">E6ب</tspan></text>
 <text x="1095" y="354.32" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">مصنِّف الخطر</text>
 <text x="1095" y="370.64" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">M0/M1/M2 (8 ك1)</text>
 <line x1="955" y1="297" x2="955" y2="318" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
@@ -40,10 +40,10 @@
 <rect x="610.0" y="318" width="130" height="64" rx="16" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
 <text x="675" y="338.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1F2937" text-anchor="middle">E3</text>
 <text x="675" y="354.32" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">استئصال الإشارة</text>
-<text x="675" y="370.64" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">L0–L3 (H2-أ)</text>
+<text x="675" y="370.64" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">L0–L3 (<tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">H2-أ</tspan>)</text>
 <line x1="535" y1="297" x2="535" y2="318" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
 <rect x="470.0" y="318" width="130" height="64" rx="16" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
-<text x="535" y="338.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">E6أ</text>
+<text x="535" y="338.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl"><tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">E6أ</tspan></text>
 <text x="535" y="354.32" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">العناقيد</text>
 <text x="535" y="370.64" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">(20 ت2)</text>
 <rect x="470" y="410" width="480" height="6" rx="2" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
@@ -52,7 +52,7 @@
 <line x1="815" y1="382" x2="815" y2="409" stroke="#64748B" stroke-width="1.3" marker-end="url(#arr)"/>
 <line x1="930" y1="382" x2="930" y2="409" stroke="#64748B" stroke-width="1.3" marker-end="url(#arr)"/>
 <rect x="510.0" y="432" width="380" height="58" rx="16" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
-<text x="700" y="457.15999999999997" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">E7أ: الهجين بلا GRU (25 ت2)</text>
+<text x="700" y="457.15999999999997" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl"><tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">E7أ</tspan>: الهجين بلا GRU (25 ت2)</text>
 <text x="700" y="473.47999999999996" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">MDE80 مؤقت لـH1 (إنذار فقط، D-50)</text>
 <line x1="700" y1="416" x2="700" y2="432" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
 <rect x="960.0" y="432" width="150" height="70" rx="16" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.6"/>
@@ -69,14 +69,14 @@
 <text x="1018" y="600" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#15803D" text-anchor="start" direction="rtl">نعم</text>
 <path d="M1160,350 L1160,665 L1102,665" fill="none" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
 <rect x="500.0" y="640" width="600" height="70" rx="16" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
-<text x="800" y="663.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">E7ب: قاعدة القبول على نوافذ اختبار 2013 (9 ك1)</text>
+<text x="800" y="663.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl"><tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">E7ب</tspan>: قاعدة القبول على نوافذ اختبار 2013 (9 ك1)</text>
 <text x="800" y="679.32" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">جشع أمامي <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">≤ 4</tspan> مكوّنات، سمبلكس D-29، أرضية الشخصنة</text>
 <text x="800" y="695.64" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">← HYB* وB_np* وS* في hybrid_frozen.json</text>
 <line x1="700" y1="490" x2="700" y2="640" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <line x1="1035" y1="576" x2="1035" y2="640" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="500.0" y="740" width="600" height="56" rx="16" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
 <text x="800" y="764.1600000000001" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">power.py: جدول MDE80 لكل فرضية (D-46، D-50)</text>
-<text x="800" y="780.4800000000001" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">H2-أ 19 ت2 · H3 3 ك1 · H4-أ 8 ك1 · H1 9 ك1</text>
+<text x="800" y="780.4800000000001" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl"><tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">H2-أ</tspan> 19 ت2 · H3 3 ك1 · <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">H4-أ</tspan> 8 ك1 · H1 9 ك1</text>
 <line x1="800" y1="710" x2="800" y2="740" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="500.0" y="826" width="600" height="56" rx="16" fill="#FEF3C7" stroke="#B45309" stroke-width="1.6"/>
 <text x="800" y="850.1600000000001" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">build_artifacts (عروض 2013): wrmf/gru عند <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">c ∈ {70</tspan>، 126، 182}</text>
