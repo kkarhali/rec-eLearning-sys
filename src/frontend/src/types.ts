@@ -21,7 +21,7 @@ export interface Page<T> { items: T[]; total: number; limit: number; offset: num
 export interface NextAssessment { type: string; day: number; days_ahead: number }
 export interface RecContext { week: number; next_assessment: NextAssessment | null; active_days_to_date: number }
 export interface RecItem {
-  rank: number; id_site: number; activity_type: string; score: number;
+  rank: number; id_site: number; activity_type: string; relevance: number;
   contributions: Record<string, number>; reason: string; reason_secondary: string | null;
 }
 export interface Provenance { run_id: string; role: string; model_cut?: number | null }
@@ -41,7 +41,7 @@ export interface ExplComponent {
 }
 export interface ExplanationDetail {
   registration: string; id_site: number; activity_type: string; task: string; day: number;
-  snapshot_day: number; score: number; components: ExplComponent[]; notes?: string[];
+  snapshot_day: number; relevance: number; components: ExplComponent[]; notes?: string[];
 }
 export interface HistoryEvent { day: number; id_site: number; activity_type: string; clicks: number }
 export interface LearnerHistory {
@@ -77,7 +77,7 @@ export interface InstructorLearnerDetail {
   risk: (RiskRow & { factors: { name: string; wz: number }[] }) | null;
   profile: { name: string; value: number; median: number; z: number }[];
   top_recs: { rank: number; id_site: number; activity_type: string; reason: string }[];
-  withdrawn_day: number | null; outcome: unknown;
+  withdrawn_day: number | null;
 }
 export type LearnerQuery = {
   presentation: string; day: number; cluster?: number; risk?: 'all' | 'above'; sort?: string; limit?: number; offset?: number;

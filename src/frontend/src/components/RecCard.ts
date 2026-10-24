@@ -21,7 +21,7 @@ export function RecCard(o: RecCardOpts): HTMLElement {
       h('div', { class: 'rec__head' },
         h('span', { class: 'chip' }, typeAr(item.activity_type), ' ', h('bdi', {}, `(${item.activity_type})`)),
         h('span', { class: 'rec__id' }, h('bdi', {}, '#' + item.id_site)),
-        h('span', { class: 'rec__score', title: 'الدرجة المدمجة للهجين المجمَّد' }, 'الدرجة ', h('bdi', { class: 'num' }, fmt(item.score, 2)))),
+        h('span', { class: 'rec__score', title: 'الدرجة المدمجة للهجين المجمَّد' }, 'الدرجة ', h('bdi', { class: 'num' }, fmt(item.relevance, 2)))),
       h('p', { class: 'rec__reason' }, item.reason + (item.reason_secondary ? ' · ' + item.reason_secondary : ''))),
     h('div', { class: 'rec__side' }, h('span', { class: 'rec__bar-label' }, 'مساهمة المكوّنات'), bar), btn);
 }

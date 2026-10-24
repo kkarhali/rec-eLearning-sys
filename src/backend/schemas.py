@@ -123,7 +123,7 @@ class RecItem(Out):
     rank: int
     id_site: int
     activity_type: str
-    score: float
+    relevance: float                 # درجة الهجين للتوصية (D-70: لا مفتاح score في مسارات المتعلم)
     contributions: dict[str, float]
     reason: str
     reason_secondary: str | None
@@ -192,7 +192,7 @@ class ExplanationDetail(Out):
     task: Literal["A", "B"]
     day: int
     snapshot_day: int
-    score: float
+    relevance: float
     components: list[ExplComponent]
     notes: list[str] = []
 
@@ -367,7 +367,6 @@ class InstructorLearnerDetail(Out):
     profile: list[ProfileRow]
     top_recs: list[TopRec]
     withdrawn_day: int | None
-    outcome: None = None             # final_result لا يُعرَض أبداً (D-21، NFR-08)
 
 
 LEARNER_MODELS = (Health, Meta, Presentation, RegistrationSummary, RecommendationResponse, ExplanationDetail,

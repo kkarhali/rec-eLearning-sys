@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from src.backend import schemas
 
-FORBIDDEN_LEARNER = {"risk", "probability", "cluster", "final_result", "gender", "disability", "imd_band", "age_band",
+FORBIDDEN_LEARNER = {"risk", "score", "probability", "cluster", "final_result", "gender", "disability", "imd_band", "age_band",
                      "region", "highest_education", "threshold", "youden_threshold", "above_threshold", "factors"}
 SENSITIVE = {"gender", "disability", "imd_band", "age_band", "region", "highest_education", "final_result"}
 
@@ -38,8 +38,9 @@ class TestContractNoRisk(unittest.TestCase):
             bad = field_names(m) & SENSITIVE
             self.assertFalse(bad, f"{m.__name__}: {bad}")
 
-    def test_outcome_is_always_null(self):
-        self.assertIs(schemas.InstructorLearnerDetail.model_fields["outcome"].annotation, type(None))
+    def test_no_outcome_field_anywhere(self):
+        for m in schemas.LEARNER_MODELS + schemas.INSTRUCTOR_MODELS:
+            self.assertNotIn("outcome", field_names(m), m.__name__)
 
     def test_no_evaluation_numbers_fields(self):
         names = set()

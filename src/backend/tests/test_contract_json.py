@@ -1,8 +1,8 @@
 """D-70: اختبار العقد على JSON المسلسَل فعلياً (مفاتيح وقيماً، تكرارياً) لطلبات عيّنة؛ يحتاج البيانات (يُتخطّى بدونها).
 
-المتعلم: لا مفتاح ولا قيمة نصية تحوي {risk, probability, cluster, final_result, السمات الست}.
+المتعلم: لا مفتاح ولا قيمة نصية تحوي {risk, score, probability, cluster, final_result, السمات الست}.
 التسجيلات: لا ``date_unregistration`` ولا ``final_result``.  المدرّس: قائمة بيضاء للمفاتيح تكرارياً بلا سمات حساسة.
-(المفتاح ``score`` مسموح في عناصر التوصية: هو درجة الهجين نفسها لا درجة الخطر.)
+(لا استثناء لـ``score``: درجة الهجين للتوصية اسمها ``relevance``.)
 """
 import re
 import unittest
@@ -15,7 +15,7 @@ from .asgi_client import Client
 from .test_api_live import HAVE, P
 from .test_contract_no_risk import field_names
 
-FORBIDDEN = ["risk", "probability", "cluster", "final_result", "gender", "disability", "imd_band", "age_band", "region",
+FORBIDDEN = ["risk", "score", "probability", "cluster", "final_result", "gender", "disability", "imd_band", "age_band", "region",
              "highest_education"]
 FORBIDDEN_RE = re.compile("|".join(FORBIDDEN), re.I)
 SENSITIVE_RE = re.compile("final_result|gender|disability|imd_band|age_band|region|highest_education", re.I)

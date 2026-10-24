@@ -110,7 +110,7 @@ class TestApi(unittest.TestCase):
         self.assertCovers(ref, r, "recommendation")
         self.assertEqual(len(r["items"]), 10)
         self.assertEqual([i["rank"] for i in r["items"]], list(range(1, 11)))
-        scores = [i["score"] for i in r["items"]]
+        scores = [i["relevance"] for i in r["items"]]
         self.assertEqual(scores, sorted(scores, reverse=True))
         self.assertEqual(r["provenance"]["model_cut"], 70)            # D-49: أقرب قطع ≤ 75
         self.assertEqual(r["snapshot_day"], DAY)
@@ -118,7 +118,7 @@ class TestApi(unittest.TestCase):
         cids = {c["id"] for c in r["components"]}
         for it in r["items"]:
             self.assertLessEqual(set(it["contributions"]), cids)
-            self.assertAlmostEqual(sum(it["contributions"].values()), it["score"], places=2)
+            self.assertAlmostEqual(sum(it["contributions"].values()), it["relevance"], places=2)
         self.assertAlmostEqual(sum(c["weight"] for c in r["components"]), 1.0, places=3)
         self.assertEqual(self.get(f"/api/recommendations?registration={self.reg}&day={DAY}&k=3")["items"], r["items"][:3])
 
@@ -145,7 +145,7 @@ class TestApi(unittest.TestCase):
         e = self.get(f"/api/explanations/{self.reg}/{top['id_site']}?day={DAY}")
         ref = mock("explanations.json")
         self.assertCovers(next(iter(ref.values())), e, "explanation")
-        self.assertAlmostEqual(sum(c["contribution"] for c in e["components"]), top["score"], places=2)
+        self.assertAlmostEqual(sum(c["contribution"] for c in e["components"]), top["relevance"], places=2)
         for c in e["components"]:
             self.assertAlmostEqual(c["weight"] * c["r_tilde"], c["contribution"], places=2)
             self.assertTrue(c["sentence"])
@@ -275,7 +275,7 @@ class TestApi(unittest.TestCase):
         self.assertEqual(d["cluster"], row["cluster"])
         self.assertAlmostEqual(d["risk"]["score"], row["risk"]["score"], places=3)
         self.assertEqual(d["risk"]["top_factor"], row["risk"]["top_factor"])
-        self.assertIsNone(d["outcome"])
+        self.assertNotIn("outcome", d)
         self.assertFalse(all_keys(d) & SENSITIVE_KEYS)
         self.get(f"/api/instructor/learner/{P}-99?day={DAY}", status=404)
 

@@ -187,12 +187,36 @@ def _protect_mirrored_symbols(paragraph) -> None:
             t.set("{http://www.w3.org/XML/1998/namespace}space", "preserve")
 
 
+def _protect_inline_code(paragraph) -> None:
+    """Keep inline code (paths, identifiers, flags) as one LTR island inside RTL text.
+
+    Pandoc emits inline code as runs styled "Verbatim Char". Inside an RTL paragraph a
+    leading or trailing neutral character (``/api/health``, ``--warm``) is attached to
+    the surrounding Arabic run by the bidi algorithm, so the slash shows up at the
+    wrong end. Wrapping the run text in left-to-right marks resolves it as LTR.
+    """
+    for r in paragraph._p.iter(qn("w:r")):
+        rpr = r.find(qn("w:rPr"))
+        if rpr is None:
+            continue
+        rstyle = rpr.find(qn("w:rStyle"))
+        if rstyle is None or rstyle.get(qn("w:val")) not in ("VerbatimChar", "Verbatim Char", "SourceCode"):
+            continue
+        for t in r.iter(qn("w:t")):
+            text = t.text or ""
+            if not text.strip() or (text.startswith(_LRM) and text.endswith(_LRM)):
+                continue
+            t.text = f"{_LRM}{text}{_LRM}"
+            t.set("{http://www.w3.org/XML/1998/namespace}space", "preserve")
+
+
 def _rtl_paragraphs(doc: Document) -> None:
     for table in doc.tables:
         for row in table.rows:
             for cell in row.cells:
                 for p in cell.paragraphs:
                     _protect_mirrored_symbols(p)
+                    _protect_inline_code(p)
     for p in doc.paragraphs:
         sname = p.style.name if p.style is not None else ""
         if sname in LTR_STYLES or p._p.find(f".//{qn('m:oMathPara')}") is not None:
@@ -202,6 +226,7 @@ def _rtl_paragraphs(doc: Document) -> None:
             continue
         _set_bidi(p, True)
         _protect_mirrored_symbols(p)
+        _protect_inline_code(p)
         # Center figure captions / images
         if sname in ("Caption", "Image Caption", "Table Caption", "Figure"):
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER

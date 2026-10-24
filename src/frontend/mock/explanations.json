@@ -6,7 +6,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.704,
+  "relevance": 0.704,
   "components": [
    {
     "id": "recent_pop",
@@ -74,7 +74,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.701,
+  "relevance": 0.701,
   "components": [
    {
     "id": "wrmf",
@@ -142,7 +142,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.7,
+  "relevance": 0.7,
   "components": [
    {
     "id": "wrmf",
@@ -210,7 +210,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.625,
+  "relevance": 0.625,
   "components": [
    {
     "id": "recent_pop",
@@ -278,7 +278,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.524,
+  "relevance": 0.524,
   "components": [
    {
     "id": "sknn",
@@ -346,7 +346,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.383,
+  "relevance": 0.383,
   "components": [
    {
     "id": "recent_pop",
@@ -414,7 +414,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.382,
+  "relevance": 0.382,
   "components": [
    {
     "id": "assess_prox",
@@ -482,7 +482,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.369,
+  "relevance": 0.369,
   "components": [
    {
     "id": "recent_pop",
@@ -550,7 +550,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.362,
+  "relevance": 0.362,
   "components": [
    {
     "id": "wrmf",
@@ -618,7 +618,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.313,
+  "relevance": 0.313,
   "components": [
    {
     "id": "wrmf",
@@ -686,7 +686,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.77,
+  "relevance": 0.77,
   "components": [
    {
     "id": "recent_pop",
@@ -754,7 +754,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.629,
+  "relevance": 0.629,
   "components": [
    {
     "id": "wrmf",
@@ -822,7 +822,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.549,
+  "relevance": 0.549,
   "components": [
    {
     "id": "recent_pop",
@@ -890,7 +890,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.49,
+  "relevance": 0.49,
   "components": [
    {
     "id": "wrmf",
@@ -958,7 +958,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.399,
+  "relevance": 0.399,
   "components": [
    {
     "id": "wrmf",
@@ -1026,7 +1026,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.376,
+  "relevance": 0.376,
   "components": [
    {
     "id": "recent_pop",
@@ -1094,7 +1094,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.356,
+  "relevance": 0.356,
   "components": [
    {
     "id": "recent_pop",
@@ -1162,7 +1162,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.336,
+  "relevance": 0.336,
   "components": [
    {
     "id": "wrmf",
@@ -1230,7 +1230,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.278,
+  "relevance": 0.278,
   "components": [
    {
     "id": "wrmf",
@@ -1298,7 +1298,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.171,
+  "relevance": 0.171,
   "components": [
    {
     "id": "wrmf",
@@ -1366,7 +1366,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.787,
+  "relevance": 0.787,
   "components": [
    {
     "id": "recent_pop",
@@ -1434,7 +1434,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.676,
+  "relevance": 0.676,
   "components": [
    {
     "id": "recent_pop",
@@ -1502,7 +1502,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.636,
+  "relevance": 0.636,
   "components": [
    {
     "id": "recent_pop",
@@ -1570,7 +1570,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.609,
+  "relevance": 0.609,
   "components": [
    {
     "id": "recent_pop",
@@ -1638,7 +1638,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.581,
+  "relevance": 0.581,
   "components": [
    {
     "id": "recent_pop",
@@ -1706,7 +1706,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.54,
+  "relevance": 0.54,
   "components": [
    {
     "id": "wrmf",
@@ -1774,7 +1774,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.514,
+  "relevance": 0.514,
   "components": [
    {
     "id": "wrmf",
@@ -1842,7 +1842,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.496,
+  "relevance": 0.496,
   "components": [
    {
     "id": "wrmf",
@@ -1910,7 +1910,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.491,
+  "relevance": 0.491,
   "components": [
    {
     "id": "recent_pop",
@@ -1978,7 +1978,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.468,
+  "relevance": 0.468,
   "components": [
    {
     "id": "wrmf",
@@ -2046,7 +2046,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.78,
+  "relevance": 0.78,
   "components": [
    {
     "id": "recent_pop",
@@ -2114,7 +2114,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.676,
+  "relevance": 0.676,
   "components": [
    {
     "id": "wrmf",
@@ -2182,7 +2182,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.657,
+  "relevance": 0.657,
   "components": [
    {
     "id": "wrmf",
@@ -2250,7 +2250,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.547,
+  "relevance": 0.547,
   "components": [
    {
     "id": "assess_prox",
@@ -2318,7 +2318,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.541,
+  "relevance": 0.541,
   "components": [
    {
     "id": "recent_pop",
@@ -2386,7 +2386,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.484,
+  "relevance": 0.484,
   "components": [
    {
     "id": "assess_prox",
@@ -2454,7 +2454,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.452,
+  "relevance": 0.452,
   "components": [
    {
     "id": "wrmf",
@@ -2522,7 +2522,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.418,
+  "relevance": 0.418,
   "components": [
    {
     "id": "wrmf",
@@ -2590,7 +2590,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.387,
+  "relevance": 0.387,
   "components": [
    {
     "id": "sknn",
@@ -2658,7 +2658,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.357,
+  "relevance": 0.357,
   "components": [
    {
     "id": "recent_pop",
@@ -2726,7 +2726,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.696,
+  "relevance": 0.696,
   "components": [
    {
     "id": "wrmf",
@@ -2794,7 +2794,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.547,
+  "relevance": 0.547,
   "components": [
    {
     "id": "recent_pop",
@@ -2862,7 +2862,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.541,
+  "relevance": 0.541,
   "components": [
    {
     "id": "recent_pop",
@@ -2930,7 +2930,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.506,
+  "relevance": 0.506,
   "components": [
    {
     "id": "recent_pop",
@@ -2998,7 +2998,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.502,
+  "relevance": 0.502,
   "components": [
    {
     "id": "wrmf",
@@ -3066,7 +3066,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.472,
+  "relevance": 0.472,
   "components": [
    {
     "id": "assess_prox",
@@ -3134,7 +3134,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.318,
+  "relevance": 0.318,
   "components": [
    {
     "id": "wrmf",
@@ -3202,7 +3202,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.221,
+  "relevance": 0.221,
   "components": [
    {
     "id": "assess_prox",
@@ -3255,7 +3255,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.185,
+  "relevance": 0.185,
   "components": [
    {
     "id": "wrmf",
@@ -3323,7 +3323,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.774,
+  "relevance": 0.774,
   "components": [
    {
     "id": "wrmf",
@@ -3391,7 +3391,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.646,
+  "relevance": 0.646,
   "components": [
    {
     "id": "wrmf",
@@ -3459,7 +3459,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.64,
+  "relevance": 0.64,
   "components": [
    {
     "id": "recent_pop",
@@ -3527,7 +3527,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.488,
+  "relevance": 0.488,
   "components": [
    {
     "id": "wrmf",
@@ -3595,7 +3595,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.479,
+  "relevance": 0.479,
   "components": [
    {
     "id": "recent_pop",
@@ -3663,7 +3663,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.461,
+  "relevance": 0.461,
   "components": [
    {
     "id": "recent_pop",
@@ -3731,7 +3731,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.459,
+  "relevance": 0.459,
   "components": [
    {
     "id": "wrmf",
@@ -3799,7 +3799,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.419,
+  "relevance": 0.419,
   "components": [
    {
     "id": "wrmf",
@@ -3867,7 +3867,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.323,
+  "relevance": 0.323,
   "components": [
    {
     "id": "recent_pop",
@@ -3935,7 +3935,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.312,
+  "relevance": 0.312,
   "components": [
    {
     "id": "wrmf",
@@ -4003,7 +4003,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.681,
+  "relevance": 0.681,
   "components": [
    {
     "id": "wrmf",
@@ -4071,7 +4071,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.68,
+  "relevance": 0.68,
   "components": [
    {
     "id": "wrmf",
@@ -4139,7 +4139,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.596,
+  "relevance": 0.596,
   "components": [
    {
     "id": "recent_pop",
@@ -4207,7 +4207,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.559,
+  "relevance": 0.559,
   "components": [
    {
     "id": "assess_prox",
@@ -4275,7 +4275,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.547,
+  "relevance": 0.547,
   "components": [
    {
     "id": "recent_pop",
@@ -4343,7 +4343,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.532,
+  "relevance": 0.532,
   "components": [
    {
     "id": "wrmf",
@@ -4411,7 +4411,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.525,
+  "relevance": 0.525,
   "components": [
    {
     "id": "wrmf",
@@ -4479,7 +4479,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.507,
+  "relevance": 0.507,
   "components": [
    {
     "id": "recent_pop",
@@ -4547,7 +4547,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.473,
+  "relevance": 0.473,
   "components": [
    {
     "id": "wrmf",
@@ -4615,7 +4615,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.407,
+  "relevance": 0.407,
   "components": [
    {
     "id": "wrmf",
@@ -4683,7 +4683,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.284,
+  "relevance": 0.284,
   "components": [
    {
     "id": "recent_pop",
@@ -4721,7 +4721,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.263,
+  "relevance": 0.263,
   "components": [
    {
     "id": "recent_pop",
@@ -4759,7 +4759,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.227,
+  "relevance": 0.227,
   "components": [
    {
     "id": "recent_pop",
@@ -4797,7 +4797,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.222,
+  "relevance": 0.222,
   "components": [
    {
     "id": "recent_pop",
@@ -4835,7 +4835,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.214,
+  "relevance": 0.214,
   "components": [
    {
     "id": "recent_pop",
@@ -4873,7 +4873,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.195,
+  "relevance": 0.195,
   "components": [
    {
     "id": "recent_pop",
@@ -4911,7 +4911,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.152,
+  "relevance": 0.152,
   "components": [
    {
     "id": "recent_pop",
@@ -4949,7 +4949,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.14,
+  "relevance": 0.14,
   "components": [
    {
     "id": "recent_pop",
@@ -4987,7 +4987,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.139,
+  "relevance": 0.139,
   "components": [
    {
     "id": "recent_pop",
@@ -5025,7 +5025,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.11,
+  "relevance": 0.11,
   "components": [
    {
     "id": "recent_pop",
@@ -5063,7 +5063,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.594,
+  "relevance": 0.594,
   "components": [
    {
     "id": "wrmf",
@@ -5131,7 +5131,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.581,
+  "relevance": 0.581,
   "components": [
    {
     "id": "wrmf",
@@ -5199,7 +5199,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.554,
+  "relevance": 0.554,
   "components": [
    {
     "id": "wrmf",
@@ -5267,7 +5267,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.484,
+  "relevance": 0.484,
   "components": [
    {
     "id": "recent_pop",
@@ -5335,7 +5335,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.459,
+  "relevance": 0.459,
   "components": [
    {
     "id": "recent_pop",
@@ -5403,7 +5403,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.424,
+  "relevance": 0.424,
   "components": [
    {
     "id": "sknn",
@@ -5471,7 +5471,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.377,
+  "relevance": 0.377,
   "components": [
    {
     "id": "sknn",
@@ -5539,7 +5539,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.364,
+  "relevance": 0.364,
   "components": [
    {
     "id": "recent_pop",
@@ -5607,7 +5607,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.359,
+  "relevance": 0.359,
   "components": [
    {
     "id": "assess_prox",
@@ -5675,7 +5675,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.357,
+  "relevance": 0.357,
   "components": [
    {
     "id": "wrmf",
@@ -5743,7 +5743,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.769,
+  "relevance": 0.769,
   "components": [
    {
     "id": "recent_pop",
@@ -5811,7 +5811,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.691,
+  "relevance": 0.691,
   "components": [
    {
     "id": "recent_pop",
@@ -5879,7 +5879,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.641,
+  "relevance": 0.641,
   "components": [
    {
     "id": "wrmf",
@@ -5947,7 +5947,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.63,
+  "relevance": 0.63,
   "components": [
    {
     "id": "recent_pop",
@@ -6015,7 +6015,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.6,
+  "relevance": 0.6,
   "components": [
    {
     "id": "recent_pop",
@@ -6083,7 +6083,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.553,
+  "relevance": 0.553,
   "components": [
    {
     "id": "wrmf",
@@ -6151,7 +6151,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.485,
+  "relevance": 0.485,
   "components": [
    {
     "id": "wrmf",
@@ -6204,7 +6204,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.432,
+  "relevance": 0.432,
   "components": [
    {
     "id": "recent_pop",
@@ -6272,7 +6272,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.382,
+  "relevance": 0.382,
   "components": [
    {
     "id": "recent_pop",
@@ -6340,7 +6340,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.38,
+  "relevance": 0.38,
   "components": [
    {
     "id": "assess_prox",
@@ -6408,7 +6408,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.746,
+  "relevance": 0.746,
   "components": [
    {
     "id": "recent_pop",
@@ -6476,7 +6476,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.637,
+  "relevance": 0.637,
   "components": [
    {
     "id": "wrmf",
@@ -6544,7 +6544,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.582,
+  "relevance": 0.582,
   "components": [
    {
     "id": "sknn",
@@ -6612,7 +6612,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.468,
+  "relevance": 0.468,
   "components": [
    {
     "id": "wrmf",
@@ -6680,7 +6680,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.458,
+  "relevance": 0.458,
   "components": [
    {
     "id": "wrmf",
@@ -6748,7 +6748,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.433,
+  "relevance": 0.433,
   "components": [
    {
     "id": "wrmf",
@@ -6816,7 +6816,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.418,
+  "relevance": 0.418,
   "components": [
    {
     "id": "recent_pop",
@@ -6884,7 +6884,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.411,
+  "relevance": 0.411,
   "components": [
    {
     "id": "recent_pop",
@@ -6952,7 +6952,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.4,
+  "relevance": 0.4,
   "components": [
    {
     "id": "recent_pop",
@@ -7020,7 +7020,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.392,
+  "relevance": 0.392,
   "components": [
    {
     "id": "sknn",
@@ -7088,7 +7088,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.736,
+  "relevance": 0.736,
   "components": [
    {
     "id": "wrmf",
@@ -7156,7 +7156,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.609,
+  "relevance": 0.609,
   "components": [
    {
     "id": "wrmf",
@@ -7224,7 +7224,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.559,
+  "relevance": 0.559,
   "components": [
    {
     "id": "wrmf",
@@ -7292,7 +7292,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.555,
+  "relevance": 0.555,
   "components": [
    {
     "id": "recent_pop",
@@ -7360,7 +7360,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.554,
+  "relevance": 0.554,
   "components": [
    {
     "id": "recent_pop",
@@ -7428,7 +7428,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.532,
+  "relevance": 0.532,
   "components": [
    {
     "id": "recent_pop",
@@ -7496,7 +7496,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.497,
+  "relevance": 0.497,
   "components": [
    {
     "id": "sknn",
@@ -7564,7 +7564,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.443,
+  "relevance": 0.443,
   "components": [
    {
     "id": "recent_pop",
@@ -7632,7 +7632,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.437,
+  "relevance": 0.437,
   "components": [
    {
     "id": "assess_prox",
@@ -7700,7 +7700,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.418,
+  "relevance": 0.418,
   "components": [
    {
     "id": "assess_prox",
@@ -7768,7 +7768,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.585,
+  "relevance": 0.585,
   "components": [
    {
     "id": "wrmf",
@@ -7836,7 +7836,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.55,
+  "relevance": 0.55,
   "components": [
    {
     "id": "wrmf",
@@ -7904,7 +7904,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.55,
+  "relevance": 0.55,
   "components": [
    {
     "id": "wrmf",
@@ -7972,7 +7972,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.478,
+  "relevance": 0.478,
   "components": [
    {
     "id": "recent_pop",
@@ -8040,7 +8040,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.453,
+  "relevance": 0.453,
   "components": [
    {
     "id": "recent_pop",
@@ -8108,7 +8108,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.427,
+  "relevance": 0.427,
   "components": [
    {
     "id": "sknn",
@@ -8176,7 +8176,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.415,
+  "relevance": 0.415,
   "components": [
    {
     "id": "sknn",
@@ -8244,7 +8244,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.414,
+  "relevance": 0.414,
   "components": [
    {
     "id": "recent_pop",
@@ -8312,7 +8312,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.376,
+  "relevance": 0.376,
   "components": [
    {
     "id": "recent_pop",
@@ -8380,7 +8380,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.363,
+  "relevance": 0.363,
   "components": [
    {
     "id": "sknn",
@@ -8448,7 +8448,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.692,
+  "relevance": 0.692,
   "components": [
    {
     "id": "wrmf",
@@ -8516,7 +8516,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.575,
+  "relevance": 0.575,
   "components": [
    {
     "id": "wrmf",
@@ -8584,7 +8584,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.524,
+  "relevance": 0.524,
   "components": [
    {
     "id": "wrmf",
@@ -8652,7 +8652,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.522,
+  "relevance": 0.522,
   "components": [
    {
     "id": "recent_pop",
@@ -8720,7 +8720,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.52,
+  "relevance": 0.52,
   "components": [
    {
     "id": "recent_pop",
@@ -8788,7 +8788,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.497,
+  "relevance": 0.497,
   "components": [
    {
     "id": "wrmf",
@@ -8856,7 +8856,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.489,
+  "relevance": 0.489,
   "components": [
    {
     "id": "wrmf",
@@ -8924,7 +8924,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.454,
+  "relevance": 0.454,
   "components": [
    {
     "id": "recent_pop",
@@ -8992,7 +8992,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.419,
+  "relevance": 0.419,
   "components": [
    {
     "id": "sknn",
@@ -9060,7 +9060,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.324,
+  "relevance": 0.324,
   "components": [
    {
     "id": "sknn",
@@ -9128,7 +9128,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.766,
+  "relevance": 0.766,
   "components": [
    {
     "id": "wrmf",
@@ -9196,7 +9196,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.635,
+  "relevance": 0.635,
   "components": [
    {
     "id": "recent_pop",
@@ -9264,7 +9264,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.594,
+  "relevance": 0.594,
   "components": [
    {
     "id": "sknn",
@@ -9332,7 +9332,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.577,
+  "relevance": 0.577,
   "components": [
    {
     "id": "recent_pop",
@@ -9400,7 +9400,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.502,
+  "relevance": 0.502,
   "components": [
    {
     "id": "wrmf",
@@ -9468,7 +9468,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.501,
+  "relevance": 0.501,
   "components": [
    {
     "id": "recent_pop",
@@ -9536,7 +9536,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.433,
+  "relevance": 0.433,
   "components": [
    {
     "id": "assess_prox",
@@ -9604,7 +9604,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.411,
+  "relevance": 0.411,
   "components": [
    {
     "id": "wrmf",
@@ -9672,7 +9672,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.408,
+  "relevance": 0.408,
   "components": [
    {
     "id": "sknn",
@@ -9740,7 +9740,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.397,
+  "relevance": 0.397,
   "components": [
    {
     "id": "wrmf",
@@ -9808,7 +9808,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.58,
+  "relevance": 0.58,
   "components": [
    {
     "id": "recent_pop",
@@ -9876,7 +9876,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.537,
+  "relevance": 0.537,
   "components": [
    {
     "id": "wrmf",
@@ -9944,7 +9944,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.492,
+  "relevance": 0.492,
   "components": [
    {
     "id": "sknn",
@@ -10012,7 +10012,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.488,
+  "relevance": 0.488,
   "components": [
    {
     "id": "recent_pop",
@@ -10080,7 +10080,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.461,
+  "relevance": 0.461,
   "components": [
    {
     "id": "assess_prox",
@@ -10148,7 +10148,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.327,
+  "relevance": 0.327,
   "components": [
    {
     "id": "recent_pop",
@@ -10216,7 +10216,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.287,
+  "relevance": 0.287,
   "components": [
    {
     "id": "wrmf",
@@ -10284,7 +10284,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.248,
+  "relevance": 0.248,
   "components": [
    {
     "id": "sknn",
@@ -10352,7 +10352,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.18,
+  "relevance": 0.18,
   "components": [
    {
     "id": "recent_pop",
@@ -10420,7 +10420,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.813,
+  "relevance": 0.813,
   "components": [
    {
     "id": "recent_pop",
@@ -10488,7 +10488,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.612,
+  "relevance": 0.612,
   "components": [
    {
     "id": "wrmf",
@@ -10556,7 +10556,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.566,
+  "relevance": 0.566,
   "components": [
    {
     "id": "wrmf",
@@ -10624,7 +10624,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.545,
+  "relevance": 0.545,
   "components": [
    {
     "id": "recent_pop",
@@ -10692,7 +10692,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.532,
+  "relevance": 0.532,
   "components": [
    {
     "id": "wrmf",
@@ -10760,7 +10760,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.467,
+  "relevance": 0.467,
   "components": [
    {
     "id": "recent_pop",
@@ -10828,7 +10828,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.464,
+  "relevance": 0.464,
   "components": [
    {
     "id": "wrmf",
@@ -10896,7 +10896,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.375,
+  "relevance": 0.375,
   "components": [
    {
     "id": "wrmf",
@@ -10964,7 +10964,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.31,
+  "relevance": 0.31,
   "components": [
    {
     "id": "assess_prox",
@@ -11032,7 +11032,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.275,
+  "relevance": 0.275,
   "components": [
    {
     "id": "assess_prox",
@@ -11100,7 +11100,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.68,
+  "relevance": 0.68,
   "components": [
    {
     "id": "wrmf",
@@ -11168,7 +11168,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.554,
+  "relevance": 0.554,
   "components": [
    {
     "id": "assess_prox",
@@ -11236,7 +11236,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.553,
+  "relevance": 0.553,
   "components": [
    {
     "id": "recent_pop",
@@ -11304,7 +11304,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.548,
+  "relevance": 0.548,
   "components": [
    {
     "id": "recent_pop",
@@ -11372,7 +11372,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.506,
+  "relevance": 0.506,
   "components": [
    {
     "id": "wrmf",
@@ -11440,7 +11440,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.502,
+  "relevance": 0.502,
   "components": [
    {
     "id": "wrmf",
@@ -11508,7 +11508,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.477,
+  "relevance": 0.477,
   "components": [
    {
     "id": "recent_pop",
@@ -11576,7 +11576,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.46,
+  "relevance": 0.46,
   "components": [
    {
     "id": "recent_pop",
@@ -11644,7 +11644,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.397,
+  "relevance": 0.397,
   "components": [
    {
     "id": "recent_pop",
@@ -11712,7 +11712,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.361,
+  "relevance": 0.361,
   "components": [
    {
     "id": "assess_prox",
@@ -11780,7 +11780,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.694,
+  "relevance": 0.694,
   "components": [
    {
     "id": "wrmf",
@@ -11848,7 +11848,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.673,
+  "relevance": 0.673,
   "components": [
    {
     "id": "recent_pop",
@@ -11916,7 +11916,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.648,
+  "relevance": 0.648,
   "components": [
    {
     "id": "wrmf",
@@ -11984,7 +11984,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.607,
+  "relevance": 0.607,
   "components": [
    {
     "id": "recent_pop",
@@ -12052,7 +12052,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.574,
+  "relevance": 0.574,
   "components": [
    {
     "id": "wrmf",
@@ -12120,7 +12120,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.548,
+  "relevance": 0.548,
   "components": [
    {
     "id": "recent_pop",
@@ -12188,7 +12188,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.535,
+  "relevance": 0.535,
   "components": [
    {
     "id": "recent_pop",
@@ -12256,7 +12256,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.512,
+  "relevance": 0.512,
   "components": [
    {
     "id": "recent_pop",
@@ -12309,7 +12309,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.439,
+  "relevance": 0.439,
   "components": [
    {
     "id": "recent_pop",
@@ -12377,7 +12377,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.426,
+  "relevance": 0.426,
   "components": [
    {
     "id": "recent_pop",
@@ -12445,7 +12445,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.749,
+  "relevance": 0.749,
   "components": [
    {
     "id": "recent_pop",
@@ -12513,7 +12513,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.68,
+  "relevance": 0.68,
   "components": [
    {
     "id": "recent_pop",
@@ -12581,7 +12581,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.668,
+  "relevance": 0.668,
   "components": [
    {
     "id": "recent_pop",
@@ -12649,7 +12649,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.51,
+  "relevance": 0.51,
   "components": [
    {
     "id": "wrmf",
@@ -12717,7 +12717,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.487,
+  "relevance": 0.487,
   "components": [
    {
     "id": "wrmf",
@@ -12785,7 +12785,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.444,
+  "relevance": 0.444,
   "components": [
    {
     "id": "sknn",
@@ -12853,7 +12853,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.407,
+  "relevance": 0.407,
   "components": [
    {
     "id": "assess_prox",
@@ -12921,7 +12921,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.375,
+  "relevance": 0.375,
   "components": [
    {
     "id": "assess_prox",
@@ -12989,7 +12989,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.354,
+  "relevance": 0.354,
   "components": [
    {
     "id": "wrmf",
@@ -13057,7 +13057,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.285,
+  "relevance": 0.285,
   "components": [
    {
     "id": "recent_pop",
@@ -13095,7 +13095,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.624,
+  "relevance": 0.624,
   "components": [
    {
     "id": "wrmf",
@@ -13163,7 +13163,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.616,
+  "relevance": 0.616,
   "components": [
    {
     "id": "recent_pop",
@@ -13231,7 +13231,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.599,
+  "relevance": 0.599,
   "components": [
    {
     "id": "recent_pop",
@@ -13299,7 +13299,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.558,
+  "relevance": 0.558,
   "components": [
    {
     "id": "recent_pop",
@@ -13367,7 +13367,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.531,
+  "relevance": 0.531,
   "components": [
    {
     "id": "recent_pop",
@@ -13435,7 +13435,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.525,
+  "relevance": 0.525,
   "components": [
    {
     "id": "recent_pop",
@@ -13503,7 +13503,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.457,
+  "relevance": 0.457,
   "components": [
    {
     "id": "sknn",
@@ -13571,7 +13571,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.401,
+  "relevance": 0.401,
   "components": [
    {
     "id": "sknn",
@@ -13639,7 +13639,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.358,
+  "relevance": 0.358,
   "components": [
    {
     "id": "recent_pop",
@@ -13707,7 +13707,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.329,
+  "relevance": 0.329,
   "components": [
    {
     "id": "recent_pop",
@@ -13775,7 +13775,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.553,
+  "relevance": 0.553,
   "components": [
    {
     "id": "recent_pop",
@@ -13843,7 +13843,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.501,
+  "relevance": 0.501,
   "components": [
    {
     "id": "recent_pop",
@@ -13898,7 +13898,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.468,
+  "relevance": 0.468,
   "components": [
    {
     "id": "wrmf",
@@ -13966,7 +13966,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.433,
+  "relevance": 0.433,
   "components": [
    {
     "id": "recent_pop",
@@ -14034,7 +14034,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.422,
+  "relevance": 0.422,
   "components": [
    {
     "id": "wrmf",
@@ -14087,7 +14087,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.405,
+  "relevance": 0.405,
   "components": [
    {
     "id": "recent_pop",
@@ -14155,7 +14155,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.402,
+  "relevance": 0.402,
   "components": [
    {
     "id": "wrmf",
@@ -14223,7 +14223,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.388,
+  "relevance": 0.388,
   "components": [
    {
     "id": "assess_prox",
@@ -14291,7 +14291,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.363,
+  "relevance": 0.363,
   "components": [
    {
     "id": "recent_pop",
@@ -14359,7 +14359,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.337,
+  "relevance": 0.337,
   "components": [
    {
     "id": "wrmf",
@@ -14427,7 +14427,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.604,
+  "relevance": 0.604,
   "components": [
    {
     "id": "recent_pop",
@@ -14495,7 +14495,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.596,
+  "relevance": 0.596,
   "components": [
    {
     "id": "wrmf",
@@ -14563,7 +14563,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.568,
+  "relevance": 0.568,
   "components": [
    {
     "id": "assess_prox",
@@ -14631,7 +14631,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.55,
+  "relevance": 0.55,
   "components": [
    {
     "id": "recent_pop",
@@ -14699,7 +14699,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.548,
+  "relevance": 0.548,
   "components": [
    {
     "id": "sknn",
@@ -14767,7 +14767,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.539,
+  "relevance": 0.539,
   "components": [
    {
     "id": "recent_pop",
@@ -14835,7 +14835,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.468,
+  "relevance": 0.468,
   "components": [
    {
     "id": "recent_pop",
@@ -14903,7 +14903,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.455,
+  "relevance": 0.455,
   "components": [
    {
     "id": "wrmf",
@@ -14971,7 +14971,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.426,
+  "relevance": 0.426,
   "components": [
    {
     "id": "recent_pop",
@@ -15039,7 +15039,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.415,
+  "relevance": 0.415,
   "components": [
    {
     "id": "assess_prox",
@@ -15107,7 +15107,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.705,
+  "relevance": 0.705,
   "components": [
    {
     "id": "wrmf",
@@ -15175,7 +15175,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.702,
+  "relevance": 0.702,
   "components": [
    {
     "id": "wrmf",
@@ -15243,7 +15243,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.687,
+  "relevance": 0.687,
   "components": [
    {
     "id": "wrmf",
@@ -15311,7 +15311,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.542,
+  "relevance": 0.542,
   "components": [
    {
     "id": "recent_pop",
@@ -15379,7 +15379,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.492,
+  "relevance": 0.492,
   "components": [
    {
     "id": "wrmf",
@@ -15447,7 +15447,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.414,
+  "relevance": 0.414,
   "components": [
    {
     "id": "recent_pop",
@@ -15515,7 +15515,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.395,
+  "relevance": 0.395,
   "components": [
    {
     "id": "wrmf",
@@ -15583,7 +15583,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.354,
+  "relevance": 0.354,
   "components": [
    {
     "id": "wrmf",
@@ -15651,7 +15651,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.354,
+  "relevance": 0.354,
   "components": [
    {
     "id": "wrmf",
@@ -15719,7 +15719,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.322,
+  "relevance": 0.322,
   "components": [
    {
     "id": "assess_prox",
@@ -15787,7 +15787,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.75,
+  "relevance": 0.75,
   "components": [
    {
     "id": "recent_pop",
@@ -15855,7 +15855,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.604,
+  "relevance": 0.604,
   "components": [
    {
     "id": "recent_pop",
@@ -15923,7 +15923,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.578,
+  "relevance": 0.578,
   "components": [
    {
     "id": "recent_pop",
@@ -15991,7 +15991,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.542,
+  "relevance": 0.542,
   "components": [
    {
     "id": "recent_pop",
@@ -16059,7 +16059,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.524,
+  "relevance": 0.524,
   "components": [
    {
     "id": "recent_pop",
@@ -16127,7 +16127,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.482,
+  "relevance": 0.482,
   "components": [
    {
     "id": "recent_pop",
@@ -16195,7 +16195,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.419,
+  "relevance": 0.419,
   "components": [
    {
     "id": "recent_pop",
@@ -16263,7 +16263,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.417,
+  "relevance": 0.417,
   "components": [
    {
     "id": "recent_pop",
@@ -16331,7 +16331,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.381,
+  "relevance": 0.381,
   "components": [
    {
     "id": "sknn",
@@ -16399,7 +16399,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.34,
+  "relevance": 0.34,
   "components": [
    {
     "id": "wrmf",
@@ -16467,7 +16467,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.74,
+  "relevance": 0.74,
   "components": [
    {
     "id": "wrmf",
@@ -16535,7 +16535,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.606,
+  "relevance": 0.606,
   "components": [
    {
     "id": "recent_pop",
@@ -16603,7 +16603,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.602,
+  "relevance": 0.602,
   "components": [
    {
     "id": "wrmf",
@@ -16671,7 +16671,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.458,
+  "relevance": 0.458,
   "components": [
    {
     "id": "recent_pop",
@@ -16739,7 +16739,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.439,
+  "relevance": 0.439,
   "components": [
    {
     "id": "recent_pop",
@@ -16807,7 +16807,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.431,
+  "relevance": 0.431,
   "components": [
    {
     "id": "wrmf",
@@ -16875,7 +16875,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.43,
+  "relevance": 0.43,
   "components": [
    {
     "id": "wrmf",
@@ -16943,7 +16943,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.394,
+  "relevance": 0.394,
   "components": [
    {
     "id": "recent_pop",
@@ -17011,7 +17011,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.355,
+  "relevance": 0.355,
   "components": [
    {
     "id": "wrmf",
@@ -17079,7 +17079,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.351,
+  "relevance": 0.351,
   "components": [
    {
     "id": "recent_pop",
@@ -17147,7 +17147,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.612,
+  "relevance": 0.612,
   "components": [
    {
     "id": "recent_pop",
@@ -17215,7 +17215,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.55,
+  "relevance": 0.55,
   "components": [
    {
     "id": "wrmf",
@@ -17283,7 +17283,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.527,
+  "relevance": 0.527,
   "components": [
    {
     "id": "wrmf",
@@ -17351,7 +17351,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.525,
+  "relevance": 0.525,
   "components": [
    {
     "id": "recent_pop",
@@ -17419,7 +17419,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.521,
+  "relevance": 0.521,
   "components": [
    {
     "id": "wrmf",
@@ -17487,7 +17487,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.472,
+  "relevance": 0.472,
   "components": [
    {
     "id": "wrmf",
@@ -17555,7 +17555,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.452,
+  "relevance": 0.452,
   "components": [
    {
     "id": "recent_pop",
@@ -17623,7 +17623,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.442,
+  "relevance": 0.442,
   "components": [
    {
     "id": "assess_prox",
@@ -17691,7 +17691,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.358,
+  "relevance": 0.358,
   "components": [
    {
     "id": "wrmf",
@@ -17759,7 +17759,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.349,
+  "relevance": 0.349,
   "components": [
    {
     "id": "wrmf",
@@ -17827,7 +17827,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.741,
+  "relevance": 0.741,
   "components": [
    {
     "id": "recent_pop",
@@ -17895,7 +17895,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.538,
+  "relevance": 0.538,
   "components": [
    {
     "id": "wrmf",
@@ -17963,7 +17963,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.525,
+  "relevance": 0.525,
   "components": [
    {
     "id": "recent_pop",
@@ -18031,7 +18031,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.486,
+  "relevance": 0.486,
   "components": [
    {
     "id": "sknn",
@@ -18099,7 +18099,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.446,
+  "relevance": 0.446,
   "components": [
    {
     "id": "wrmf",
@@ -18167,7 +18167,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.442,
+  "relevance": 0.442,
   "components": [
    {
     "id": "recent_pop",
@@ -18235,7 +18235,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.393,
+  "relevance": 0.393,
   "components": [
    {
     "id": "wrmf",
@@ -18303,7 +18303,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.365,
+  "relevance": 0.365,
   "components": [
    {
     "id": "wrmf",
@@ -18371,7 +18371,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.292,
+  "relevance": 0.292,
   "components": [
    {
     "id": "assess_prox",
@@ -18439,7 +18439,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.158,
+  "relevance": 0.158,
   "components": [
    {
     "id": "wrmf",
@@ -18507,7 +18507,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.615,
+  "relevance": 0.615,
   "components": [
    {
     "id": "recent_pop",
@@ -18575,7 +18575,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.614,
+  "relevance": 0.614,
   "components": [
    {
     "id": "recent_pop",
@@ -18643,7 +18643,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.545,
+  "relevance": 0.545,
   "components": [
    {
     "id": "recent_pop",
@@ -18711,7 +18711,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.531,
+  "relevance": 0.531,
   "components": [
    {
     "id": "recent_pop",
@@ -18779,7 +18779,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.495,
+  "relevance": 0.495,
   "components": [
    {
     "id": "recent_pop",
@@ -18847,7 +18847,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.459,
+  "relevance": 0.459,
   "components": [
    {
     "id": "wrmf",
@@ -18915,7 +18915,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.449,
+  "relevance": 0.449,
   "components": [
    {
     "id": "wrmf",
@@ -18983,7 +18983,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.441,
+  "relevance": 0.441,
   "components": [
    {
     "id": "wrmf",
@@ -19051,7 +19051,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.347,
+  "relevance": 0.347,
   "components": [
    {
     "id": "recent_pop",
@@ -19119,7 +19119,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.294,
+  "relevance": 0.294,
   "components": [
    {
     "id": "sknn",
@@ -19187,7 +19187,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.615,
+  "relevance": 0.615,
   "components": [
    {
     "id": "recent_pop",
@@ -19255,7 +19255,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.597,
+  "relevance": 0.597,
   "components": [
    {
     "id": "wrmf",
@@ -19323,7 +19323,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.561,
+  "relevance": 0.561,
   "components": [
    {
     "id": "wrmf",
@@ -19391,7 +19391,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.498,
+  "relevance": 0.498,
   "components": [
    {
     "id": "recent_pop",
@@ -19459,7 +19459,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.455,
+  "relevance": 0.455,
   "components": [
    {
     "id": "recent_pop",
@@ -19527,7 +19527,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.443,
+  "relevance": 0.443,
   "components": [
    {
     "id": "assess_prox",
@@ -19595,7 +19595,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.436,
+  "relevance": 0.436,
   "components": [
    {
     "id": "recent_pop",
@@ -19663,7 +19663,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.434,
+  "relevance": 0.434,
   "components": [
    {
     "id": "recent_pop",
@@ -19731,7 +19731,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.415,
+  "relevance": 0.415,
   "components": [
    {
     "id": "sknn",
@@ -19799,7 +19799,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.375,
+  "relevance": 0.375,
   "components": [
    {
     "id": "sknn",
@@ -19867,7 +19867,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.61,
+  "relevance": 0.61,
   "components": [
    {
     "id": "wrmf",
@@ -19935,7 +19935,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.589,
+  "relevance": 0.589,
   "components": [
    {
     "id": "wrmf",
@@ -20003,7 +20003,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.571,
+  "relevance": 0.571,
   "components": [
    {
     "id": "wrmf",
@@ -20071,7 +20071,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.57,
+  "relevance": 0.57,
   "components": [
    {
     "id": "recent_pop",
@@ -20139,7 +20139,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.565,
+  "relevance": 0.565,
   "components": [
    {
     "id": "recent_pop",
@@ -20207,7 +20207,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.501,
+  "relevance": 0.501,
   "components": [
    {
     "id": "wrmf",
@@ -20275,7 +20275,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.495,
+  "relevance": 0.495,
   "components": [
    {
     "id": "recent_pop",
@@ -20343,7 +20343,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.494,
+  "relevance": 0.494,
   "components": [
    {
     "id": "sknn",
@@ -20411,7 +20411,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.425,
+  "relevance": 0.425,
   "components": [
    {
     "id": "wrmf",
@@ -20479,7 +20479,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.408,
+  "relevance": 0.408,
   "components": [
    {
     "id": "recent_pop",
@@ -20547,7 +20547,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.644,
+  "relevance": 0.644,
   "components": [
    {
     "id": "wrmf",
@@ -20615,7 +20615,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.625,
+  "relevance": 0.625,
   "components": [
    {
     "id": "recent_pop",
@@ -20683,7 +20683,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.619,
+  "relevance": 0.619,
   "components": [
    {
     "id": "wrmf",
@@ -20751,7 +20751,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.494,
+  "relevance": 0.494,
   "components": [
    {
     "id": "wrmf",
@@ -20819,7 +20819,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.493,
+  "relevance": 0.493,
   "components": [
    {
     "id": "wrmf",
@@ -20887,7 +20887,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.475,
+  "relevance": 0.475,
   "components": [
    {
     "id": "wrmf",
@@ -20955,7 +20955,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.414,
+  "relevance": 0.414,
   "components": [
    {
     "id": "assess_prox",
@@ -21023,7 +21023,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.395,
+  "relevance": 0.395,
   "components": [
    {
     "id": "recent_pop",
@@ -21091,7 +21091,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.383,
+  "relevance": 0.383,
   "components": [
    {
     "id": "sknn",
@@ -21159,7 +21159,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.37,
+  "relevance": 0.37,
   "components": [
    {
     "id": "sknn",
@@ -21227,7 +21227,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.585,
+  "relevance": 0.585,
   "components": [
    {
     "id": "recent_pop",
@@ -21295,7 +21295,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.546,
+  "relevance": 0.546,
   "components": [
    {
     "id": "recent_pop",
@@ -21363,7 +21363,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.542,
+  "relevance": 0.542,
   "components": [
    {
     "id": "sknn",
@@ -21431,7 +21431,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.527,
+  "relevance": 0.527,
   "components": [
    {
     "id": "wrmf",
@@ -21499,7 +21499,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.486,
+  "relevance": 0.486,
   "components": [
    {
     "id": "recent_pop",
@@ -21567,7 +21567,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.478,
+  "relevance": 0.478,
   "components": [
    {
     "id": "recent_pop",
@@ -21635,7 +21635,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.448,
+  "relevance": 0.448,
   "components": [
    {
     "id": "wrmf",
@@ -21703,7 +21703,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.412,
+  "relevance": 0.412,
   "components": [
    {
     "id": "sknn",
@@ -21771,7 +21771,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.411,
+  "relevance": 0.411,
   "components": [
    {
     "id": "recent_pop",
@@ -21839,7 +21839,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.386,
+  "relevance": 0.386,
   "components": [
    {
     "id": "assess_prox",
@@ -21907,7 +21907,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.808,
+  "relevance": 0.808,
   "components": [
    {
     "id": "recent_pop",
@@ -21975,7 +21975,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.768,
+  "relevance": 0.768,
   "components": [
    {
     "id": "wrmf",
@@ -22043,7 +22043,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.747,
+  "relevance": 0.747,
   "components": [
    {
     "id": "recent_pop",
@@ -22111,7 +22111,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.613,
+  "relevance": 0.613,
   "components": [
    {
     "id": "wrmf",
@@ -22179,7 +22179,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.603,
+  "relevance": 0.603,
   "components": [
    {
     "id": "wrmf",
@@ -22247,7 +22247,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.572,
+  "relevance": 0.572,
   "components": [
    {
     "id": "assess_prox",
@@ -22315,7 +22315,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.505,
+  "relevance": 0.505,
   "components": [
    {
     "id": "recent_pop",
@@ -22383,7 +22383,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.481,
+  "relevance": 0.481,
   "components": [
    {
     "id": "recent_pop",
@@ -22451,7 +22451,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.421,
+  "relevance": 0.421,
   "components": [
    {
     "id": "wrmf",
@@ -22519,7 +22519,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.4,
+  "relevance": 0.4,
   "components": [
    {
     "id": "wrmf",
@@ -22587,7 +22587,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.778,
+  "relevance": 0.778,
   "components": [
    {
     "id": "recent_pop",
@@ -22655,7 +22655,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.667,
+  "relevance": 0.667,
   "components": [
    {
     "id": "wrmf",
@@ -22723,7 +22723,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.65,
+  "relevance": 0.65,
   "components": [
    {
     "id": "wrmf",
@@ -22791,7 +22791,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.599,
+  "relevance": 0.599,
   "components": [
    {
     "id": "recent_pop",
@@ -22859,7 +22859,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.529,
+  "relevance": 0.529,
   "components": [
    {
     "id": "wrmf",
@@ -22927,7 +22927,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.456,
+  "relevance": 0.456,
   "components": [
    {
     "id": "sknn",
@@ -22995,7 +22995,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.443,
+  "relevance": 0.443,
   "components": [
    {
     "id": "wrmf",
@@ -23063,7 +23063,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.432,
+  "relevance": 0.432,
   "components": [
    {
     "id": "wrmf",
@@ -23131,7 +23131,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.359,
+  "relevance": 0.359,
   "components": [
    {
     "id": "wrmf",
@@ -23199,7 +23199,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.303,
+  "relevance": 0.303,
   "components": [
    {
     "id": "recent_pop",
@@ -23267,7 +23267,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.738,
+  "relevance": 0.738,
   "components": [
    {
     "id": "wrmf",
@@ -23335,7 +23335,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.725,
+  "relevance": 0.725,
   "components": [
    {
     "id": "recent_pop",
@@ -23403,7 +23403,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.669,
+  "relevance": 0.669,
   "components": [
    {
     "id": "wrmf",
@@ -23471,7 +23471,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.552,
+  "relevance": 0.552,
   "components": [
    {
     "id": "wrmf",
@@ -23539,7 +23539,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.461,
+  "relevance": 0.461,
   "components": [
    {
     "id": "assess_prox",
@@ -23607,7 +23607,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.457,
+  "relevance": 0.457,
   "components": [
    {
     "id": "recent_pop",
@@ -23675,7 +23675,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.437,
+  "relevance": 0.437,
   "components": [
    {
     "id": "wrmf",
@@ -23743,7 +23743,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.403,
+  "relevance": 0.403,
   "components": [
    {
     "id": "recent_pop",
@@ -23811,7 +23811,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.374,
+  "relevance": 0.374,
   "components": [
    {
     "id": "recent_pop",
@@ -23879,7 +23879,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.32,
+  "relevance": 0.32,
   "components": [
    {
     "id": "sknn",
@@ -23947,7 +23947,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.61,
+  "relevance": 0.61,
   "components": [
    {
     "id": "recent_pop",
@@ -24015,7 +24015,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.598,
+  "relevance": 0.598,
   "components": [
    {
     "id": "recent_pop",
@@ -24083,7 +24083,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.579,
+  "relevance": 0.579,
   "components": [
    {
     "id": "recent_pop",
@@ -24151,7 +24151,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.483,
+  "relevance": 0.483,
   "components": [
    {
     "id": "wrmf",
@@ -24219,7 +24219,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.44,
+  "relevance": 0.44,
   "components": [
    {
     "id": "wrmf",
@@ -24287,7 +24287,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.431,
+  "relevance": 0.431,
   "components": [
    {
     "id": "assess_prox",
@@ -24355,7 +24355,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.424,
+  "relevance": 0.424,
   "components": [
    {
     "id": "wrmf",
@@ -24423,7 +24423,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.4,
+  "relevance": 0.4,
   "components": [
    {
     "id": "sknn",
@@ -24491,7 +24491,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.306,
+  "relevance": 0.306,
   "components": [
    {
     "id": "assess_prox",
@@ -24559,7 +24559,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.305,
+  "relevance": 0.305,
   "components": [
    {
     "id": "recent_pop",
@@ -24627,7 +24627,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.746,
+  "relevance": 0.746,
   "components": [
    {
     "id": "wrmf",
@@ -24695,7 +24695,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.638,
+  "relevance": 0.638,
   "components": [
    {
     "id": "wrmf",
@@ -24763,7 +24763,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.498,
+  "relevance": 0.498,
   "components": [
    {
     "id": "wrmf",
@@ -24831,7 +24831,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.495,
+  "relevance": 0.495,
   "components": [
    {
     "id": "assess_prox",
@@ -24899,7 +24899,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.484,
+  "relevance": 0.484,
   "components": [
    {
     "id": "wrmf",
@@ -24967,7 +24967,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.458,
+  "relevance": 0.458,
   "components": [
    {
     "id": "assess_prox",
@@ -25035,7 +25035,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.457,
+  "relevance": 0.457,
   "components": [
    {
     "id": "wrmf",
@@ -25103,7 +25103,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.338,
+  "relevance": 0.338,
   "components": [
    {
     "id": "sknn",
@@ -25171,7 +25171,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.333,
+  "relevance": 0.333,
   "components": [
    {
     "id": "assess_prox",
@@ -25239,7 +25239,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.291,
+  "relevance": 0.291,
   "components": [
    {
     "id": "wrmf",
@@ -25307,7 +25307,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.671,
+  "relevance": 0.671,
   "components": [
    {
     "id": "recent_pop",
@@ -25375,7 +25375,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.635,
+  "relevance": 0.635,
   "components": [
    {
     "id": "recent_pop",
@@ -25443,7 +25443,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.623,
+  "relevance": 0.623,
   "components": [
    {
     "id": "wrmf",
@@ -25511,7 +25511,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.591,
+  "relevance": 0.591,
   "components": [
    {
     "id": "wrmf",
@@ -25579,7 +25579,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.591,
+  "relevance": 0.591,
   "components": [
    {
     "id": "wrmf",
@@ -25647,7 +25647,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.564,
+  "relevance": 0.564,
   "components": [
    {
     "id": "recent_pop",
@@ -25715,7 +25715,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.52,
+  "relevance": 0.52,
   "components": [
    {
     "id": "recent_pop",
@@ -25783,7 +25783,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.516,
+  "relevance": 0.516,
   "components": [
    {
     "id": "recent_pop",
@@ -25851,7 +25851,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.454,
+  "relevance": 0.454,
   "components": [
    {
     "id": "sknn",
@@ -25919,7 +25919,7 @@
   "task": "A",
   "day": 75,
   "snapshot_day": 70,
-  "score": 0.444,
+  "relevance": 0.444,
   "components": [
    {
     "id": "wrmf",

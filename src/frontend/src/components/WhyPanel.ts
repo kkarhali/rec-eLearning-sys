@@ -17,7 +17,7 @@ export function WhyPanel(d: ExplanationDetail, onClose: () => void): HTMLElement
     const ev = evidenceText(c.evidence);
     list.append(h('li', { class: 'why__item' },
       h('div', { class: 'why__row' }, h('strong', {}, h('bdi', {}, c.label ?? c.id)), h('span', { class: 'num' }, fmt(c.contribution, 2))),
-      h('div', { class: 'why__track', role: 'img', 'aria-label': `المساهمة ${fmt(c.contribution, 2)} من ${fmt(d.score, 2)}` },
+      h('div', { class: 'why__track', role: 'img', 'aria-label': `المساهمة ${fmt(c.contribution, 2)} من ${fmt(d.relevance, 2)}` },
         h('span', { class: 'why__fill', style: `width:${(c.contribution / max) * 100}%;background:${compColor(c.id)}` })),
       h('p', { class: 'why__sentence' }, c.sentence),
       h('p', { class: 'why__formula' }, `الوزن ${fmt(c.weight, 2)} × الرتبة المطبَّعة ${fmt(c.r_tilde, 2)}`),
@@ -27,7 +27,7 @@ export function WhyPanel(d: ExplanationDetail, onClose: () => void): HTMLElement
     h('div', { class: 'why__head' },
       h('h2', { id: 'why-title', class: 'why__title' }, 'لماذا ', typeAr(d.activity_type), ' ', h('bdi', {}, '#' + d.id_site), '؟'),
       h('button', { class: 'btn btn--icon', type: 'button', 'aria-label': 'إغلاق التفسير (Esc)', onclick: onClose }, '×')),
-    h('p', { class: 'why__sum' }, 'الدرجة ', h('bdi', { class: 'num' }, fmt(d.score, 2)), ' = مجموع (الوزن × الرتبة المطبَّعة)'),
+    h('p', { class: 'why__sum' }, 'الدرجة ', h('bdi', { class: 'num' }, fmt(d.relevance, 2)), ' = مجموع (الوزن × الرتبة المطبَّعة)'),
     list,
     ...(d.notes ?? []).map((n) => h('p', { class: 'note' }, n)));
   root.addEventListener('keydown', (e) => { if ((e as KeyboardEvent).key === 'Escape') { e.stopPropagation(); onClose(); } });

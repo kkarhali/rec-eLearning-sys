@@ -47,7 +47,7 @@
     "rank": 1,
     "id_site": 546759,
     "activity_type": "oucontent",
-    "score": 0.704,
+    "relevance": 0.704,
     "contributions": {
      "recent_pop": 0.199,
      "wrmf": 0.144,
@@ -61,7 +61,7 @@
     "rank": 2,
     "id_site": 547058,
     "activity_type": "glossary",
-    "score": 0.701,
+    "relevance": 0.701,
     "contributions": {
      "recent_pop": 0.101,
      "wrmf": 0.222,
@@ -75,7 +75,7 @@
     "rank": 3,
     "id_site": 546868,
     "activity_type": "quiz",
-    "score": 0.7,
+    "relevance": 0.7,
     "contributions": {
      "recent_pop": 0.198,
      "wrmf": 0.264,
@@ -89,7 +89,7 @@
     "rank": 4,
     "id_site": 546982,
     "activity_type": "ouwiki",
-    "score": 0.625,
+    "relevance": 0.625,
     "contributions": {
      "recent_pop": 0.274,
      "wrmf": 0.266,
@@ -103,7 +103,7 @@
     "rank": 5,
     "id_site": 547010,
     "activity_type": "oucontent",
-    "score": 0.524,
+    "relevance": 0.524,
     "contributions": {
      "recent_pop": 0.156,
      "wrmf": 0.145,
@@ -117,7 +117,7 @@
     "rank": 6,
     "id_site": 546742,
     "activity_type": "oucontent",
-    "score": 0.383,
+    "relevance": 0.383,
     "contributions": {
      "recent_pop": 0.166,
      "wrmf": 0.04,
@@ -131,7 +131,7 @@
     "rank": 7,
     "id_site": 547070,
     "activity_type": "url",
-    "score": 0.382,
+    "relevance": 0.382,
     "contributions": {
      "recent_pop": 0.014,
      "wrmf": 0.022,
@@ -145,7 +145,7 @@
     "rank": 8,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.369,
+    "relevance": 0.369,
     "contributions": {
      "recent_pop": 0.164,
      "wrmf": 0.073,
@@ -159,7 +159,7 @@
     "rank": 9,
     "id_site": 546876,
     "activity_type": "quiz",
-    "score": 0.362,
+    "relevance": 0.362,
     "contributions": {
      "recent_pop": 0.022,
      "wrmf": 0.293,
@@ -173,7 +173,7 @@
     "rank": 10,
     "id_site": 546813,
     "activity_type": "url",
-    "score": 0.313,
+    "relevance": 0.313,
     "contributions": {
      "recent_pop": 0.075,
      "wrmf": 0.136,
@@ -233,7 +233,7 @@
     "rank": 1,
     "id_site": 546831,
     "activity_type": "oucontent",
-    "score": 0.77,
+    "relevance": 0.77,
     "contributions": {
      "recent_pop": 0.297,
      "wrmf": 0.292,
@@ -247,7 +247,7 @@
     "rank": 2,
     "id_site": 546892,
     "activity_type": "oucontent",
-    "score": 0.629,
+    "relevance": 0.629,
     "contributions": {
      "recent_pop": 0.192,
      "wrmf": 0.259,
@@ -261,7 +261,7 @@
     "rank": 3,
     "id_site": 547058,
     "activity_type": "glossary",
-    "score": 0.549,
+    "relevance": 0.549,
     "contributions": {
      "recent_pop": 0.201,
      "wrmf": 0.198,
@@ -275,7 +275,7 @@
     "rank": 4,
     "id_site": 546868,
     "activity_type": "quiz",
-    "score": 0.49,
+    "relevance": 0.49,
     "contributions": {
      "recent_pop": 0.042,
      "wrmf": 0.235,
@@ -289,7 +289,7 @@
     "rank": 5,
     "id_site": 547089,
     "activity_type": "page",
-    "score": 0.399,
+    "relevance": 0.399,
     "contributions": {
      "recent_pop": 0.005,
      "wrmf": 0.273,
@@ -303,7 +303,7 @@
     "rank": 6,
     "id_site": 546802,
     "activity_type": "oucontent",
-    "score": 0.376,
+    "relevance": 0.376,
     "contributions": {
      "recent_pop": 0.179,
      "wrmf": 0.116,
@@ -317,7 +317,7 @@
     "rank": 7,
     "id_site": 546803,
     "activity_type": "oucontent",
-    "score": 0.356,
+    "relevance": 0.356,
     "contributions": {
      "recent_pop": 0.181,
      "wrmf": 0.01,
@@ -331,7 +331,7 @@
     "rank": 8,
     "id_site": 546985,
     "activity_type": "resource",
-    "score": 0.336,
+    "relevance": 0.336,
     "contributions": {
      "recent_pop": 0.034,
      "wrmf": 0.171,
@@ -345,7 +345,7 @@
     "rank": 9,
     "id_site": 546963,
     "activity_type": "ouwiki",
-    "score": 0.278,
+    "relevance": 0.278,
     "contributions": {
      "recent_pop": 0.082,
      "wrmf": 0.087,
@@ -359,7 +359,7 @@
     "rank": 10,
     "id_site": 546974,
     "activity_type": "oucontent",
-    "score": 0.171,
+    "relevance": 0.171,
     "contributions": {
      "recent_pop": 0.004,
      "wrmf": 0.115,
@@ -419,7 +419,7 @@
     "rank": 1,
     "id_site": 547058,
     "activity_type": "glossary",
-    "score": 0.787,
+    "relevance": 0.787,
     "contributions": {
      "recent_pop": 0.29,
      "wrmf": 0.232,
@@ -433,7 +433,7 @@
     "rank": 2,
     "id_site": 546964,
     "activity_type": "forumng",
-    "score": 0.676,
+    "relevance": 0.676,
     "contributions": {
      "recent_pop": 0.282,
      "wrmf": 0.046,
@@ -447,7 +447,7 @@
     "rank": 3,
     "id_site": 547001,
     "activity_type": "oucontent",
-    "score": 0.636,
+    "relevance": 0.636,
     "contributions": {
      "recent_pop": 0.198,
      "wrmf": 0.096,
@@ -461,7 +461,7 @@
     "rank": 4,
     "id_site": 546876,
     "activity_type": "quiz",
-    "score": 0.609,
+    "relevance": 0.609,
     "contributions": {
      "recent_pop": 0.271,
      "wrmf": 0.116,
@@ -475,7 +475,7 @@
     "rank": 5,
     "id_site": 547010,
     "activity_type": "oucontent",
-    "score": 0.581,
+    "relevance": 0.581,
     "contributions": {
      "recent_pop": 0.172,
      "wrmf": 0.15,
@@ -489,7 +489,7 @@
     "rank": 6,
     "id_site": 546783,
     "activity_type": "quiz",
-    "score": 0.54,
+    "relevance": 0.54,
     "contributions": {
      "recent_pop": 0.103,
      "wrmf": 0.289,
@@ -503,7 +503,7 @@
     "rank": 7,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.514,
+    "relevance": 0.514,
     "contributions": {
      "recent_pop": 0.041,
      "wrmf": 0.29,
@@ -517,7 +517,7 @@
     "rank": 8,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.496,
+    "relevance": 0.496,
     "contributions": {
      "recent_pop": 0.104,
      "wrmf": 0.188,
@@ -531,7 +531,7 @@
     "rank": 9,
     "id_site": 546985,
     "activity_type": "resource",
-    "score": 0.491,
+    "relevance": 0.491,
     "contributions": {
      "recent_pop": 0.21,
      "wrmf": 0.042,
@@ -545,7 +545,7 @@
     "rank": 10,
     "id_site": 547031,
     "activity_type": "oucontent",
-    "score": 0.468,
+    "relevance": 0.468,
     "contributions": {
      "recent_pop": 0.013,
      "wrmf": 0.276,
@@ -605,7 +605,7 @@
     "rank": 1,
     "id_site": 547043,
     "activity_type": "resource",
-    "score": 0.78,
+    "relevance": 0.78,
     "contributions": {
      "recent_pop": 0.273,
      "wrmf": 0.257,
@@ -619,7 +619,7 @@
     "rank": 2,
     "id_site": 547063,
     "activity_type": "homepage",
-    "score": 0.676,
+    "relevance": 0.676,
     "contributions": {
      "recent_pop": 0.179,
      "wrmf": 0.216,
@@ -633,7 +633,7 @@
     "rank": 3,
     "id_site": 547058,
     "activity_type": "glossary",
-    "score": 0.657,
+    "relevance": 0.657,
     "contributions": {
      "recent_pop": 0.227,
      "wrmf": 0.242,
@@ -647,7 +647,7 @@
     "rank": 4,
     "id_site": 546904,
     "activity_type": "forumng",
-    "score": 0.547,
+    "relevance": 0.547,
     "contributions": {
      "recent_pop": 0.159,
      "wrmf": 0.185,
@@ -661,7 +661,7 @@
     "rank": 5,
     "id_site": 547078,
     "activity_type": "resource",
-    "score": 0.541,
+    "relevance": 0.541,
     "contributions": {
      "recent_pop": 0.209,
      "wrmf": 0.103,
@@ -675,7 +675,7 @@
     "rank": 6,
     "id_site": 546813,
     "activity_type": "url",
-    "score": 0.484,
+    "relevance": 0.484,
     "contributions": {
      "recent_pop": 0.094,
      "wrmf": 0.057,
@@ -689,7 +689,7 @@
     "rank": 7,
     "id_site": 546964,
     "activity_type": "forumng",
-    "score": 0.452,
+    "relevance": 0.452,
     "contributions": {
      "recent_pop": 0.053,
      "wrmf": 0.233,
@@ -703,7 +703,7 @@
     "rank": 8,
     "id_site": 546622,
     "activity_type": "url",
-    "score": 0.418,
+    "relevance": 0.418,
     "contributions": {
      "recent_pop": 0.062,
      "wrmf": 0.163,
@@ -717,7 +717,7 @@
     "rank": 9,
     "id_site": 546876,
     "activity_type": "quiz",
-    "score": 0.387,
+    "relevance": 0.387,
     "contributions": {
      "recent_pop": 0.114,
      "wrmf": 0.073,
@@ -731,7 +731,7 @@
     "rank": 10,
     "id_site": 546936,
     "activity_type": "resource",
-    "score": 0.357,
+    "relevance": 0.357,
     "contributions": {
      "recent_pop": 0.18,
      "wrmf": 0.114,
@@ -791,7 +791,7 @@
     "rank": 1,
     "id_site": 547089,
     "activity_type": "page",
-    "score": 0.696,
+    "relevance": 0.696,
     "contributions": {
      "recent_pop": 0.236,
      "wrmf": 0.262,
@@ -805,7 +805,7 @@
     "rank": 2,
     "id_site": 546824,
     "activity_type": "url",
-    "score": 0.547,
+    "relevance": 0.547,
     "contributions": {
      "recent_pop": 0.159,
      "wrmf": 0.159,
@@ -819,7 +819,7 @@
     "rank": 3,
     "id_site": 546919,
     "activity_type": "oucontent",
-    "score": 0.541,
+    "relevance": 0.541,
     "contributions": {
      "recent_pop": 0.293,
      "wrmf": 0.009,
@@ -833,7 +833,7 @@
     "rank": 4,
     "id_site": 546853,
     "activity_type": "forumng",
-    "score": 0.506,
+    "relevance": 0.506,
     "contributions": {
      "recent_pop": 0.281,
      "wrmf": 0.053,
@@ -847,7 +847,7 @@
     "rank": 5,
     "id_site": 546956,
     "activity_type": "oucontent",
-    "score": 0.502,
+    "relevance": 0.502,
     "contributions": {
      "recent_pop": 0.199,
      "wrmf": 0.209,
@@ -861,7 +861,7 @@
     "rank": 6,
     "id_site": 546876,
     "activity_type": "quiz",
-    "score": 0.472,
+    "relevance": 0.472,
     "contributions": {
      "recent_pop": 0.016,
      "wrmf": 0.115,
@@ -875,7 +875,7 @@
     "rank": 7,
     "id_site": 547063,
     "activity_type": "homepage",
-    "score": 0.318,
+    "relevance": 0.318,
     "contributions": {
      "recent_pop": 0.029,
      "wrmf": 0.19,
@@ -889,7 +889,7 @@
     "rank": 8,
     "id_site": 546927,
     "activity_type": "oucontent",
-    "score": 0.221,
+    "relevance": 0.221,
     "contributions": {
      "recent_pop": 0.091,
      "wrmf": 0.0,
@@ -903,7 +903,7 @@
     "rank": 9,
     "id_site": 546813,
     "activity_type": "url",
-    "score": 0.185,
+    "relevance": 0.185,
     "contributions": {
      "recent_pop": 0.045,
      "wrmf": 0.114,
@@ -963,7 +963,7 @@
     "rank": 1,
     "id_site": 546904,
     "activity_type": "forumng",
-    "score": 0.774,
+    "relevance": 0.774,
     "contributions": {
      "recent_pop": 0.223,
      "wrmf": 0.269,
@@ -977,7 +977,7 @@
     "rank": 2,
     "id_site": 546803,
     "activity_type": "oucontent",
-    "score": 0.646,
+    "relevance": 0.646,
     "contributions": {
      "recent_pop": 0.172,
      "wrmf": 0.271,
@@ -991,7 +991,7 @@
     "rank": 3,
     "id_site": 546777,
     "activity_type": "oucontent",
-    "score": 0.64,
+    "relevance": 0.64,
     "contributions": {
      "recent_pop": 0.252,
      "wrmf": 0.081,
@@ -1005,7 +1005,7 @@
     "rank": 4,
     "id_site": 547089,
     "activity_type": "page",
-    "score": 0.488,
+    "relevance": 0.488,
     "contributions": {
      "recent_pop": 0.161,
      "wrmf": 0.222,
@@ -1019,7 +1019,7 @@
     "rank": 5,
     "id_site": 547078,
     "activity_type": "resource",
-    "score": 0.479,
+    "relevance": 0.479,
     "contributions": {
      "recent_pop": 0.248,
      "wrmf": 0.124,
@@ -1033,7 +1033,7 @@
     "rank": 6,
     "id_site": 547015,
     "activity_type": "quiz",
-    "score": 0.461,
+    "relevance": 0.461,
     "contributions": {
      "recent_pop": 0.208,
      "wrmf": 0.06,
@@ -1047,7 +1047,7 @@
     "rank": 7,
     "id_site": 547058,
     "activity_type": "glossary",
-    "score": 0.459,
+    "relevance": 0.459,
     "contributions": {
      "recent_pop": 0.189,
      "wrmf": 0.23,
@@ -1061,7 +1061,7 @@
     "rank": 8,
     "id_site": 547010,
     "activity_type": "oucontent",
-    "score": 0.419,
+    "relevance": 0.419,
     "contributions": {
      "recent_pop": 0.154,
      "wrmf": 0.22,
@@ -1075,7 +1075,7 @@
     "rank": 9,
     "id_site": 546982,
     "activity_type": "ouwiki",
-    "score": 0.323,
+    "relevance": 0.323,
     "contributions": {
      "recent_pop": 0.232,
      "wrmf": 0.032,
@@ -1089,7 +1089,7 @@
     "rank": 10,
     "id_site": 546876,
     "activity_type": "quiz",
-    "score": 0.312,
+    "relevance": 0.312,
     "contributions": {
      "recent_pop": 0.023,
      "wrmf": 0.153,
@@ -1149,7 +1149,7 @@
     "rank": 1,
     "id_site": 547034,
     "activity_type": "resource",
-    "score": 0.681,
+    "relevance": 0.681,
     "contributions": {
      "recent_pop": 0.198,
      "wrmf": 0.221,
@@ -1163,7 +1163,7 @@
     "rank": 2,
     "id_site": 547043,
     "activity_type": "resource",
-    "score": 0.68,
+    "relevance": 0.68,
     "contributions": {
      "recent_pop": 0.248,
      "wrmf": 0.276,
@@ -1177,7 +1177,7 @@
     "rank": 3,
     "id_site": 546880,
     "activity_type": "subpage",
-    "score": 0.596,
+    "relevance": 0.596,
     "contributions": {
      "recent_pop": 0.206,
      "wrmf": 0.107,
@@ -1191,7 +1191,7 @@
     "rank": 4,
     "id_site": 546932,
     "activity_type": "subpage",
-    "score": 0.559,
+    "relevance": 0.559,
     "contributions": {
      "recent_pop": 0.139,
      "wrmf": 0.114,
@@ -1205,7 +1205,7 @@
     "rank": 5,
     "id_site": 546985,
     "activity_type": "resource",
-    "score": 0.547,
+    "relevance": 0.547,
     "contributions": {
      "recent_pop": 0.261,
      "wrmf": 0.243,
@@ -1219,7 +1219,7 @@
     "rank": 6,
     "id_site": 546944,
     "activity_type": "quiz",
-    "score": 0.532,
+    "relevance": 0.532,
     "contributions": {
      "recent_pop": 0.061,
      "wrmf": 0.225,
@@ -1233,7 +1233,7 @@
     "rank": 7,
     "id_site": 547078,
     "activity_type": "resource",
-    "score": 0.525,
+    "relevance": 0.525,
     "contributions": {
      "recent_pop": 0.123,
      "wrmf": 0.173,
@@ -1247,7 +1247,7 @@
     "rank": 8,
     "id_site": 547015,
     "activity_type": "quiz",
-    "score": 0.507,
+    "relevance": 0.507,
     "contributions": {
      "recent_pop": 0.262,
      "wrmf": 0.102,
@@ -1261,7 +1261,7 @@
     "rank": 9,
     "id_site": 546803,
     "activity_type": "oucontent",
-    "score": 0.473,
+    "relevance": 0.473,
     "contributions": {
      "recent_pop": 0.177,
      "wrmf": 0.192,
@@ -1275,7 +1275,7 @@
     "rank": 10,
     "id_site": 546974,
     "activity_type": "oucontent",
-    "score": 0.407,
+    "relevance": 0.407,
     "contributions": {
      "recent_pop": 0.076,
      "wrmf": 0.263,
@@ -1335,7 +1335,7 @@
     "rank": 1,
     "id_site": 546944,
     "activity_type": "quiz",
-    "score": 0.284,
+    "relevance": 0.284,
     "contributions": {
      "recent_pop": 0.273,
      "wrmf": 0.0,
@@ -1349,7 +1349,7 @@
     "rank": 2,
     "id_site": 546919,
     "activity_type": "oucontent",
-    "score": 0.263,
+    "relevance": 0.263,
     "contributions": {
      "recent_pop": 0.238,
      "wrmf": 0.0,
@@ -1363,7 +1363,7 @@
     "rank": 3,
     "id_site": 546956,
     "activity_type": "oucontent",
-    "score": 0.227,
+    "relevance": 0.227,
     "contributions": {
      "recent_pop": 0.202,
      "wrmf": 0.0,
@@ -1377,7 +1377,7 @@
     "rank": 4,
     "id_site": 546618,
     "activity_type": "forumng",
-    "score": 0.222,
+    "relevance": 0.222,
     "contributions": {
      "recent_pop": 0.176,
      "wrmf": 0.0,
@@ -1391,7 +1391,7 @@
     "rank": 5,
     "id_site": 546639,
     "activity_type": "forumng",
-    "score": 0.214,
+    "relevance": 0.214,
     "contributions": {
      "recent_pop": 0.198,
      "wrmf": 0.0,
@@ -1405,7 +1405,7 @@
     "rank": 6,
     "id_site": 546803,
     "activity_type": "oucontent",
-    "score": 0.195,
+    "relevance": 0.195,
     "contributions": {
      "recent_pop": 0.165,
      "wrmf": 0.0,
@@ -1419,7 +1419,7 @@
     "rank": 7,
     "id_site": 547089,
     "activity_type": "page",
-    "score": 0.152,
+    "relevance": 0.152,
     "contributions": {
      "recent_pop": 0.117,
      "wrmf": 0.0,
@@ -1433,7 +1433,7 @@
     "rank": 8,
     "id_site": 546668,
     "activity_type": "url",
-    "score": 0.14,
+    "relevance": 0.14,
     "contributions": {
      "recent_pop": 0.093,
      "wrmf": 0.0,
@@ -1447,7 +1447,7 @@
     "rank": 9,
     "id_site": 546927,
     "activity_type": "oucontent",
-    "score": 0.139,
+    "relevance": 0.139,
     "contributions": {
      "recent_pop": 0.119,
      "wrmf": 0.0,
@@ -1461,7 +1461,7 @@
     "rank": 10,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.11,
+    "relevance": 0.11,
     "contributions": {
      "recent_pop": 0.098,
      "wrmf": 0.0,
@@ -1521,7 +1521,7 @@
     "rank": 1,
     "id_site": 546789,
     "activity_type": "forumng",
-    "score": 0.594,
+    "relevance": 0.594,
     "contributions": {
      "recent_pop": 0.153,
      "wrmf": 0.249,
@@ -1535,7 +1535,7 @@
     "rank": 2,
     "id_site": 546932,
     "activity_type": "subpage",
-    "score": 0.581,
+    "relevance": 0.581,
     "contributions": {
      "recent_pop": 0.264,
      "wrmf": 0.267,
@@ -1549,7 +1549,7 @@
     "rank": 3,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.554,
+    "relevance": 0.554,
     "contributions": {
      "recent_pop": 0.036,
      "wrmf": 0.243,
@@ -1563,7 +1563,7 @@
     "rank": 4,
     "id_site": 546919,
     "activity_type": "oucontent",
-    "score": 0.484,
+    "relevance": 0.484,
     "contributions": {
      "recent_pop": 0.246,
      "wrmf": 0.029,
@@ -1577,7 +1577,7 @@
     "rank": 5,
     "id_site": 547049,
     "activity_type": "resource",
-    "score": 0.459,
+    "relevance": 0.459,
     "contributions": {
      "recent_pop": 0.182,
      "wrmf": 0.019,
@@ -1591,7 +1591,7 @@
     "rank": 6,
     "id_site": 546912,
     "activity_type": "oucontent",
-    "score": 0.424,
+    "relevance": 0.424,
     "contributions": {
      "recent_pop": 0.136,
      "wrmf": 0.08,
@@ -1605,7 +1605,7 @@
     "rank": 7,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.377,
+    "relevance": 0.377,
     "contributions": {
      "recent_pop": 0.137,
      "wrmf": 0.031,
@@ -1619,7 +1619,7 @@
     "rank": 8,
     "id_site": 546824,
     "activity_type": "url",
-    "score": 0.364,
+    "relevance": 0.364,
     "contributions": {
      "recent_pop": 0.167,
      "wrmf": 0.022,
@@ -1633,7 +1633,7 @@
     "rank": 9,
     "id_site": 546894,
     "activity_type": "oucontent",
-    "score": 0.359,
+    "relevance": 0.359,
     "contributions": {
      "recent_pop": 0.089,
      "wrmf": 0.07,
@@ -1647,7 +1647,7 @@
     "rank": 10,
     "id_site": 546944,
     "activity_type": "quiz",
-    "score": 0.357,
+    "relevance": 0.357,
     "contributions": {
      "recent_pop": 0.039,
      "wrmf": 0.201,
@@ -1707,7 +1707,7 @@
     "rank": 1,
     "id_site": 546963,
     "activity_type": "ouwiki",
-    "score": 0.769,
+    "relevance": 0.769,
     "contributions": {
      "recent_pop": 0.199,
      "wrmf": 0.196,
@@ -1721,7 +1721,7 @@
     "rank": 2,
     "id_site": 546777,
     "activity_type": "oucontent",
-    "score": 0.691,
+    "relevance": 0.691,
     "contributions": {
      "recent_pop": 0.294,
      "wrmf": 0.078,
@@ -1735,7 +1735,7 @@
     "rank": 3,
     "id_site": 546803,
     "activity_type": "oucontent",
-    "score": 0.641,
+    "relevance": 0.641,
     "contributions": {
      "recent_pop": 0.111,
      "wrmf": 0.299,
@@ -1749,7 +1749,7 @@
     "rank": 4,
     "id_site": 546813,
     "activity_type": "url",
-    "score": 0.63,
+    "relevance": 0.63,
     "contributions": {
      "recent_pop": 0.241,
      "wrmf": 0.206,
@@ -1763,7 +1763,7 @@
     "rank": 5,
     "id_site": 547031,
     "activity_type": "oucontent",
-    "score": 0.6,
+    "relevance": 0.6,
     "contributions": {
      "recent_pop": 0.279,
      "wrmf": 0.209,
@@ -1777,7 +1777,7 @@
     "rank": 6,
     "id_site": 546868,
     "activity_type": "quiz",
-    "score": 0.553,
+    "relevance": 0.553,
     "contributions": {
      "recent_pop": 0.168,
      "wrmf": 0.175,
@@ -1791,7 +1791,7 @@
     "rank": 7,
     "id_site": 546802,
     "activity_type": "oucontent",
-    "score": 0.485,
+    "relevance": 0.485,
     "contributions": {
      "recent_pop": 0.099,
      "wrmf": 0.282,
@@ -1805,7 +1805,7 @@
     "rank": 8,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.432,
+    "relevance": 0.432,
     "contributions": {
      "recent_pop": 0.248,
      "wrmf": 0.109,
@@ -1819,7 +1819,7 @@
     "rank": 9,
     "id_site": 546964,
     "activity_type": "forumng",
-    "score": 0.382,
+    "relevance": 0.382,
     "contributions": {
      "recent_pop": 0.174,
      "wrmf": 0.031,
@@ -1833,7 +1833,7 @@
     "rank": 10,
     "id_site": 547049,
     "activity_type": "resource",
-    "score": 0.38,
+    "relevance": 0.38,
     "contributions": {
      "recent_pop": 0.095,
      "wrmf": 0.038,
@@ -1893,7 +1893,7 @@
     "rank": 1,
     "id_site": 547001,
     "activity_type": "oucontent",
-    "score": 0.746,
+    "relevance": 0.746,
     "contributions": {
      "recent_pop": 0.28,
      "wrmf": 0.247,
@@ -1907,7 +1907,7 @@
     "rank": 2,
     "id_site": 546964,
     "activity_type": "forumng",
-    "score": 0.637,
+    "relevance": 0.637,
     "contributions": {
      "recent_pop": 0.165,
      "wrmf": 0.262,
@@ -1921,7 +1921,7 @@
     "rank": 3,
     "id_site": 546927,
     "activity_type": "oucontent",
-    "score": 0.582,
+    "relevance": 0.582,
     "contributions": {
      "recent_pop": 0.164,
      "wrmf": 0.125,
@@ -1935,7 +1935,7 @@
     "rank": 4,
     "id_site": 546783,
     "activity_type": "quiz",
-    "score": 0.468,
+    "relevance": 0.468,
     "contributions": {
      "recent_pop": 0.096,
      "wrmf": 0.265,
@@ -1949,7 +1949,7 @@
     "rank": 5,
     "id_site": 546789,
     "activity_type": "forumng",
-    "score": 0.458,
+    "relevance": 0.458,
     "contributions": {
      "recent_pop": 0.001,
      "wrmf": 0.289,
@@ -1963,7 +1963,7 @@
     "rank": 6,
     "id_site": 547049,
     "activity_type": "resource",
-    "score": 0.433,
+    "relevance": 0.433,
     "contributions": {
      "recent_pop": 0.092,
      "wrmf": 0.166,
@@ -1977,7 +1977,7 @@
     "rank": 7,
     "id_site": 547043,
     "activity_type": "resource",
-    "score": 0.418,
+    "relevance": 0.418,
     "contributions": {
      "recent_pop": 0.248,
      "wrmf": 0.004,
@@ -1991,7 +1991,7 @@
     "rank": 8,
     "id_site": 547010,
     "activity_type": "oucontent",
-    "score": 0.411,
+    "relevance": 0.411,
     "contributions": {
      "recent_pop": 0.216,
      "wrmf": 0.177,
@@ -2005,7 +2005,7 @@
     "rank": 9,
     "id_site": 546831,
     "activity_type": "oucontent",
-    "score": 0.4,
+    "relevance": 0.4,
     "contributions": {
      "recent_pop": 0.209,
      "wrmf": 0.005,
@@ -2019,7 +2019,7 @@
     "rank": 10,
     "id_site": 546813,
     "activity_type": "url",
-    "score": 0.392,
+    "relevance": 0.392,
     "contributions": {
      "recent_pop": 0.153,
      "wrmf": 0.042,
@@ -2124,7 +2124,7 @@
     "rank": 1,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.736,
+    "relevance": 0.736,
     "contributions": {
      "recent_pop": 0.245,
      "wrmf": 0.248,
@@ -2138,7 +2138,7 @@
     "rank": 2,
     "id_site": 546964,
     "activity_type": "forumng",
-    "score": 0.609,
+    "relevance": 0.609,
     "contributions": {
      "recent_pop": 0.097,
      "wrmf": 0.268,
@@ -2152,7 +2152,7 @@
     "rank": 3,
     "id_site": 547010,
     "activity_type": "oucontent",
-    "score": 0.559,
+    "relevance": 0.559,
     "contributions": {
      "recent_pop": 0.195,
      "wrmf": 0.283,
@@ -2166,7 +2166,7 @@
     "rank": 4,
     "id_site": 546737,
     "activity_type": "url",
-    "score": 0.555,
+    "relevance": 0.555,
     "contributions": {
      "recent_pop": 0.256,
      "wrmf": 0.108,
@@ -2180,7 +2180,7 @@
     "rank": 5,
     "id_site": 546861,
     "activity_type": "subpage",
-    "score": 0.554,
+    "relevance": 0.554,
     "contributions": {
      "recent_pop": 0.286,
      "wrmf": 0.143,
@@ -2194,7 +2194,7 @@
     "rank": 6,
     "id_site": 546927,
     "activity_type": "oucontent",
-    "score": 0.532,
+    "relevance": 0.532,
     "contributions": {
      "recent_pop": 0.258,
      "wrmf": 0.18,
@@ -2208,7 +2208,7 @@
     "rank": 7,
     "id_site": 546936,
     "activity_type": "resource",
-    "score": 0.497,
+    "relevance": 0.497,
     "contributions": {
      "recent_pop": 0.178,
      "wrmf": 0.096,
@@ -2222,7 +2222,7 @@
     "rank": 8,
     "id_site": 546993,
     "activity_type": "oucontent",
-    "score": 0.443,
+    "relevance": 0.443,
     "contributions": {
      "recent_pop": 0.178,
      "wrmf": 0.171,
@@ -2236,7 +2236,7 @@
     "rank": 9,
     "id_site": 547031,
     "activity_type": "oucontent",
-    "score": 0.437,
+    "relevance": 0.437,
     "contributions": {
      "recent_pop": 0.073,
      "wrmf": 0.047,
@@ -2250,7 +2250,7 @@
     "rank": 10,
     "id_site": 546853,
     "activity_type": "forumng",
-    "score": 0.418,
+    "relevance": 0.418,
     "contributions": {
      "recent_pop": 0.125,
      "wrmf": 0.057,
@@ -2310,7 +2310,7 @@
     "rank": 1,
     "id_site": 547089,
     "activity_type": "page",
-    "score": 0.585,
+    "relevance": 0.585,
     "contributions": {
      "recent_pop": 0.058,
      "wrmf": 0.2,
@@ -2324,7 +2324,7 @@
     "rank": 2,
     "id_site": 547070,
     "activity_type": "url",
-    "score": 0.55,
+    "relevance": 0.55,
     "contributions": {
      "recent_pop": 0.063,
      "wrmf": 0.258,
@@ -2338,7 +2338,7 @@
     "rank": 3,
     "id_site": 547034,
     "activity_type": "resource",
-    "score": 0.55,
+    "relevance": 0.55,
     "contributions": {
      "recent_pop": 0.106,
      "wrmf": 0.175,
@@ -2352,7 +2352,7 @@
     "rank": 4,
     "id_site": 547001,
     "activity_type": "oucontent",
-    "score": 0.478,
+    "relevance": 0.478,
     "contributions": {
      "recent_pop": 0.179,
      "wrmf": 0.118,
@@ -2366,7 +2366,7 @@
     "rank": 5,
     "id_site": 547049,
     "activity_type": "resource",
-    "score": 0.453,
+    "relevance": 0.453,
     "contributions": {
      "recent_pop": 0.253,
      "wrmf": 0.036,
@@ -2380,7 +2380,7 @@
     "rank": 6,
     "id_site": 546824,
     "activity_type": "url",
-    "score": 0.427,
+    "relevance": 0.427,
     "contributions": {
      "recent_pop": 0.108,
      "wrmf": 0.055,
@@ -2394,7 +2394,7 @@
     "rank": 7,
     "id_site": 546985,
     "activity_type": "resource",
-    "score": 0.415,
+    "relevance": 0.415,
     "contributions": {
      "recent_pop": 0.083,
      "wrmf": 0.138,
@@ -2408,7 +2408,7 @@
     "rank": 8,
     "id_site": 546936,
     "activity_type": "resource",
-    "score": 0.414,
+    "relevance": 0.414,
     "contributions": {
      "recent_pop": 0.287,
      "wrmf": 0.003,
@@ -2422,7 +2422,7 @@
     "rank": 9,
     "id_site": 546964,
     "activity_type": "forumng",
-    "score": 0.376,
+    "relevance": 0.376,
     "contributions": {
      "recent_pop": 0.235,
      "wrmf": 0.1,
@@ -2436,7 +2436,7 @@
     "rank": 10,
     "id_site": 546876,
     "activity_type": "quiz",
-    "score": 0.363,
+    "relevance": 0.363,
     "contributions": {
      "recent_pop": 0.063,
      "wrmf": 0.062,
@@ -2496,7 +2496,7 @@
     "rank": 1,
     "id_site": 547049,
     "activity_type": "resource",
-    "score": 0.692,
+    "relevance": 0.692,
     "contributions": {
      "recent_pop": 0.202,
      "wrmf": 0.26,
@@ -2510,7 +2510,7 @@
     "rank": 2,
     "id_site": 546956,
     "activity_type": "oucontent",
-    "score": 0.575,
+    "relevance": 0.575,
     "contributions": {
      "recent_pop": 0.116,
      "wrmf": 0.238,
@@ -2524,7 +2524,7 @@
     "rank": 3,
     "id_site": 546868,
     "activity_type": "quiz",
-    "score": 0.524,
+    "relevance": 0.524,
     "contributions": {
      "recent_pop": 0.05,
      "wrmf": 0.234,
@@ -2538,7 +2538,7 @@
     "rank": 4,
     "id_site": 546974,
     "activity_type": "oucontent",
-    "score": 0.522,
+    "relevance": 0.522,
     "contributions": {
      "recent_pop": 0.192,
      "wrmf": 0.014,
@@ -2552,7 +2552,7 @@
     "rank": 5,
     "id_site": 546963,
     "activity_type": "ouwiki",
-    "score": 0.52,
+    "relevance": 0.52,
     "contributions": {
      "recent_pop": 0.213,
      "wrmf": 0.122,
@@ -2566,7 +2566,7 @@
     "rank": 6,
     "id_site": 546853,
     "activity_type": "forumng",
-    "score": 0.497,
+    "relevance": 0.497,
     "contributions": {
      "recent_pop": 0.062,
      "wrmf": 0.202,
@@ -2580,7 +2580,7 @@
     "rank": 7,
     "id_site": 547089,
     "activity_type": "page",
-    "score": 0.489,
+    "relevance": 0.489,
     "contributions": {
      "recent_pop": 0.115,
      "wrmf": 0.195,
@@ -2594,7 +2594,7 @@
     "rank": 8,
     "id_site": 546944,
     "activity_type": "quiz",
-    "score": 0.454,
+    "relevance": 0.454,
     "contributions": {
      "recent_pop": 0.277,
      "wrmf": 0.085,
@@ -2608,7 +2608,7 @@
     "rank": 9,
     "id_site": 547034,
     "activity_type": "resource",
-    "score": 0.419,
+    "relevance": 0.419,
     "contributions": {
      "recent_pop": 0.035,
      "wrmf": 0.017,
@@ -2622,7 +2622,7 @@
     "rank": 10,
     "id_site": 547015,
     "activity_type": "quiz",
-    "score": 0.324,
+    "relevance": 0.324,
     "contributions": {
      "recent_pop": 0.118,
      "wrmf": 0.028,
@@ -2682,7 +2682,7 @@
     "rank": 1,
     "id_site": 546789,
     "activity_type": "forumng",
-    "score": 0.766,
+    "relevance": 0.766,
     "contributions": {
      "recent_pop": 0.256,
      "wrmf": 0.299,
@@ -2696,7 +2696,7 @@
     "rank": 2,
     "id_site": 546904,
     "activity_type": "forumng",
-    "score": 0.635,
+    "relevance": 0.635,
     "contributions": {
      "recent_pop": 0.256,
      "wrmf": 0.168,
@@ -2710,7 +2710,7 @@
     "rank": 3,
     "id_site": 547070,
     "activity_type": "url",
-    "score": 0.594,
+    "relevance": 0.594,
     "contributions": {
      "recent_pop": 0.193,
      "wrmf": 0.162,
@@ -2724,7 +2724,7 @@
     "rank": 4,
     "id_site": 546964,
     "activity_type": "forumng",
-    "score": 0.577,
+    "relevance": 0.577,
     "contributions": {
      "recent_pop": 0.284,
      "wrmf": 0.03,
@@ -2738,7 +2738,7 @@
     "rank": 5,
     "id_site": 547001,
     "activity_type": "oucontent",
-    "score": 0.502,
+    "relevance": 0.502,
     "contributions": {
      "recent_pop": 0.075,
      "wrmf": 0.218,
@@ -2752,7 +2752,7 @@
     "rank": 6,
     "id_site": 546831,
     "activity_type": "oucontent",
-    "score": 0.501,
+    "relevance": 0.501,
     "contributions": {
      "recent_pop": 0.217,
      "wrmf": 0.077,
@@ -2766,7 +2766,7 @@
     "rank": 7,
     "id_site": 546993,
     "activity_type": "oucontent",
-    "score": 0.433,
+    "relevance": 0.433,
     "contributions": {
      "recent_pop": 0.172,
      "wrmf": 0.024,
@@ -2780,7 +2780,7 @@
     "rank": 8,
     "id_site": 546861,
     "activity_type": "subpage",
-    "score": 0.411,
+    "relevance": 0.411,
     "contributions": {
      "recent_pop": 0.058,
      "wrmf": 0.197,
@@ -2794,7 +2794,7 @@
     "rank": 9,
     "id_site": 546912,
     "activity_type": "oucontent",
-    "score": 0.408,
+    "relevance": 0.408,
     "contributions": {
      "recent_pop": 0.104,
      "wrmf": 0.11,
@@ -2808,7 +2808,7 @@
     "rank": 10,
     "id_site": 546892,
     "activity_type": "oucontent",
-    "score": 0.397,
+    "relevance": 0.397,
     "contributions": {
      "recent_pop": 0.054,
      "wrmf": 0.163,
@@ -2868,7 +2868,7 @@
     "rank": 1,
     "id_site": 546824,
     "activity_type": "url",
-    "score": 0.58,
+    "relevance": 0.58,
     "contributions": {
      "recent_pop": 0.224,
      "wrmf": 0.026,
@@ -2882,7 +2882,7 @@
     "rank": 2,
     "id_site": 547034,
     "activity_type": "resource",
-    "score": 0.537,
+    "relevance": 0.537,
     "contributions": {
      "recent_pop": 0.181,
      "wrmf": 0.277,
@@ -2896,7 +2896,7 @@
     "rank": 3,
     "id_site": 547015,
     "activity_type": "quiz",
-    "score": 0.492,
+    "relevance": 0.492,
     "contributions": {
      "recent_pop": 0.013,
      "wrmf": 0.14,
@@ -2910,7 +2910,7 @@
     "rank": 4,
     "id_site": 546904,
     "activity_type": "forumng",
-    "score": 0.488,
+    "relevance": 0.488,
     "contributions": {
      "recent_pop": 0.267,
      "wrmf": 0.003,
@@ -2924,7 +2924,7 @@
     "rank": 5,
     "id_site": 547089,
     "activity_type": "page",
-    "score": 0.461,
+    "relevance": 0.461,
     "contributions": {
      "recent_pop": 0.042,
      "wrmf": 0.14,
@@ -2938,7 +2938,7 @@
     "rank": 6,
     "id_site": 546982,
     "activity_type": "ouwiki",
-    "score": 0.327,
+    "relevance": 0.327,
     "contributions": {
      "recent_pop": 0.138,
      "wrmf": 0.124,
@@ -2952,7 +2952,7 @@
     "rank": 7,
     "id_site": 547020,
     "activity_type": "quiz",
-    "score": 0.287,
+    "relevance": 0.287,
     "contributions": {
      "recent_pop": 0.074,
      "wrmf": 0.124,
@@ -2966,7 +2966,7 @@
     "rank": 8,
     "id_site": 546831,
     "activity_type": "oucontent",
-    "score": 0.248,
+    "relevance": 0.248,
     "contributions": {
      "recent_pop": 0.002,
      "wrmf": 0.058,
@@ -2980,7 +2980,7 @@
     "rank": 9,
     "id_site": 546932,
     "activity_type": "subpage",
-    "score": 0.18,
+    "relevance": 0.18,
     "contributions": {
      "recent_pop": 0.134,
      "wrmf": 0.017,
@@ -3040,7 +3040,7 @@
     "rank": 1,
     "id_site": 546817,
     "activity_type": "oucontent",
-    "score": 0.813,
+    "relevance": 0.813,
     "contributions": {
      "recent_pop": 0.298,
      "wrmf": 0.214,
@@ -3054,7 +3054,7 @@
     "rank": 2,
     "id_site": 546919,
     "activity_type": "oucontent",
-    "score": 0.612,
+    "relevance": 0.612,
     "contributions": {
      "recent_pop": 0.12,
      "wrmf": 0.287,
@@ -3068,7 +3068,7 @@
     "rank": 3,
     "id_site": 546944,
     "activity_type": "quiz",
-    "score": 0.566,
+    "relevance": 0.566,
     "contributions": {
      "recent_pop": 0.176,
      "wrmf": 0.228,
@@ -3082,7 +3082,7 @@
     "rank": 4,
     "id_site": 547010,
     "activity_type": "oucontent",
-    "score": 0.545,
+    "relevance": 0.545,
     "contributions": {
      "recent_pop": 0.251,
      "wrmf": 0.024,
@@ -3096,7 +3096,7 @@
     "rank": 5,
     "id_site": 546974,
     "activity_type": "oucontent",
-    "score": 0.532,
+    "relevance": 0.532,
     "contributions": {
      "recent_pop": 0.065,
      "wrmf": 0.262,
@@ -3110,7 +3110,7 @@
     "rank": 6,
     "id_site": 546904,
     "activity_type": "forumng",
-    "score": 0.467,
+    "relevance": 0.467,
     "contributions": {
      "recent_pop": 0.237,
      "wrmf": 0.026,
@@ -3124,7 +3124,7 @@
     "rank": 7,
     "id_site": 546868,
     "activity_type": "quiz",
-    "score": 0.464,
+    "relevance": 0.464,
     "contributions": {
      "recent_pop": 0.016,
      "wrmf": 0.28,
@@ -3138,7 +3138,7 @@
     "rank": 8,
     "id_site": 547070,
     "activity_type": "url",
-    "score": 0.375,
+    "relevance": 0.375,
     "contributions": {
      "recent_pop": 0.018,
      "wrmf": 0.182,
@@ -3152,7 +3152,7 @@
     "rank": 9,
     "id_site": 547020,
     "activity_type": "quiz",
-    "score": 0.31,
+    "relevance": 0.31,
     "contributions": {
      "recent_pop": 0.008,
      "wrmf": 0.039,
@@ -3166,7 +3166,7 @@
     "rank": 10,
     "id_site": 546802,
     "activity_type": "oucontent",
-    "score": 0.275,
+    "relevance": 0.275,
     "contributions": {
      "recent_pop": 0.002,
      "wrmf": 0.032,
@@ -3226,7 +3226,7 @@
     "rank": 1,
     "id_site": 546932,
     "activity_type": "subpage",
-    "score": 0.68,
+    "relevance": 0.68,
     "contributions": {
      "recent_pop": 0.192,
      "wrmf": 0.247,
@@ -3240,7 +3240,7 @@
     "rank": 2,
     "id_site": 546831,
     "activity_type": "oucontent",
-    "score": 0.554,
+    "relevance": 0.554,
     "contributions": {
      "recent_pop": 0.084,
      "wrmf": 0.145,
@@ -3254,7 +3254,7 @@
     "rank": 3,
     "id_site": 546993,
     "activity_type": "oucontent",
-    "score": 0.553,
+    "relevance": 0.553,
     "contributions": {
      "recent_pop": 0.299,
      "wrmf": 0.06,
@@ -3268,7 +3268,7 @@
     "rank": 4,
     "id_site": 547034,
     "activity_type": "resource",
-    "score": 0.548,
+    "relevance": 0.548,
     "contributions": {
      "recent_pop": 0.184,
      "wrmf": 0.119,
@@ -3282,7 +3282,7 @@
     "rank": 5,
     "id_site": 547049,
     "activity_type": "resource",
-    "score": 0.506,
+    "relevance": 0.506,
     "contributions": {
      "recent_pop": 0.08,
      "wrmf": 0.182,
@@ -3296,7 +3296,7 @@
     "rank": 6,
     "id_site": 546824,
     "activity_type": "url",
-    "score": 0.502,
+    "relevance": 0.502,
     "contributions": {
      "recent_pop": 0.001,
      "wrmf": 0.298,
@@ -3310,7 +3310,7 @@
     "rank": 7,
     "id_site": 546936,
     "activity_type": "resource",
-    "score": 0.477,
+    "relevance": 0.477,
     "contributions": {
      "recent_pop": 0.251,
      "wrmf": 0.016,
@@ -3324,7 +3324,7 @@
     "rank": 8,
     "id_site": 547020,
     "activity_type": "quiz",
-    "score": 0.46,
+    "relevance": 0.46,
     "contributions": {
      "recent_pop": 0.16,
      "wrmf": 0.105,
@@ -3338,7 +3338,7 @@
     "rank": 9,
     "id_site": 547078,
     "activity_type": "resource",
-    "score": 0.397,
+    "relevance": 0.397,
     "contributions": {
      "recent_pop": 0.164,
      "wrmf": 0.089,
@@ -3352,7 +3352,7 @@
     "rank": 10,
     "id_site": 547070,
     "activity_type": "url",
-    "score": 0.361,
+    "relevance": 0.361,
     "contributions": {
      "recent_pop": 0.067,
      "wrmf": 0.104,
@@ -3412,7 +3412,7 @@
     "rank": 1,
     "id_site": 546904,
     "activity_type": "forumng",
-    "score": 0.694,
+    "relevance": 0.694,
     "contributions": {
      "recent_pop": 0.138,
      "wrmf": 0.276,
@@ -3426,7 +3426,7 @@
     "rank": 2,
     "id_site": 546892,
     "activity_type": "oucontent",
-    "score": 0.673,
+    "relevance": 0.673,
     "contributions": {
      "recent_pop": 0.294,
      "wrmf": 0.144,
@@ -3440,7 +3440,7 @@
     "rank": 3,
     "id_site": 546817,
     "activity_type": "oucontent",
-    "score": 0.648,
+    "relevance": 0.648,
     "contributions": {
      "recent_pop": 0.07,
      "wrmf": 0.299,
@@ -3454,7 +3454,7 @@
     "rank": 4,
     "id_site": 546789,
     "activity_type": "forumng",
-    "score": 0.607,
+    "relevance": 0.607,
     "contributions": {
      "recent_pop": 0.258,
      "wrmf": 0.13,
@@ -3468,7 +3468,7 @@
     "rank": 5,
     "id_site": 546936,
     "activity_type": "resource",
-    "score": 0.574,
+    "relevance": 0.574,
     "contributions": {
      "recent_pop": 0.147,
      "wrmf": 0.166,
@@ -3482,7 +3482,7 @@
     "rank": 6,
     "id_site": 547049,
     "activity_type": "resource",
-    "score": 0.548,
+    "relevance": 0.548,
     "contributions": {
      "recent_pop": 0.197,
      "wrmf": 0.163,
@@ -3496,7 +3496,7 @@
     "rank": 7,
     "id_site": 547078,
     "activity_type": "resource",
-    "score": 0.535,
+    "relevance": 0.535,
     "contributions": {
      "recent_pop": 0.212,
      "wrmf": 0.053,
@@ -3510,7 +3510,7 @@
     "rank": 8,
     "id_site": 547015,
     "activity_type": "quiz",
-    "score": 0.512,
+    "relevance": 0.512,
     "contributions": {
      "recent_pop": 0.251,
      "wrmf": 0.0,
@@ -3524,7 +3524,7 @@
     "rank": 9,
     "id_site": 546963,
     "activity_type": "ouwiki",
-    "score": 0.439,
+    "relevance": 0.439,
     "contributions": {
      "recent_pop": 0.196,
      "wrmf": 0.083,
@@ -3538,7 +3538,7 @@
     "rank": 10,
     "id_site": 546777,
     "activity_type": "oucontent",
-    "score": 0.426,
+    "relevance": 0.426,
     "contributions": {
      "recent_pop": 0.175,
      "wrmf": 0.095,
@@ -3598,7 +3598,7 @@
     "rank": 1,
     "id_site": 546912,
     "activity_type": "oucontent",
-    "score": 0.749,
+    "relevance": 0.749,
     "contributions": {
      "recent_pop": 0.277,
      "wrmf": 0.271,
@@ -3612,7 +3612,7 @@
     "rank": 2,
     "id_site": 546927,
     "activity_type": "oucontent",
-    "score": 0.68,
+    "relevance": 0.68,
     "contributions": {
      "recent_pop": 0.297,
      "wrmf": 0.269,
@@ -3626,7 +3626,7 @@
     "rank": 3,
     "id_site": 547001,
     "activity_type": "oucontent",
-    "score": 0.668,
+    "relevance": 0.668,
     "contributions": {
      "recent_pop": 0.281,
      "wrmf": 0.046,
@@ -3640,7 +3640,7 @@
     "rank": 4,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.51,
+    "relevance": 0.51,
     "contributions": {
      "recent_pop": 0.127,
      "wrmf": 0.2,
@@ -3654,7 +3654,7 @@
     "rank": 5,
     "id_site": 546777,
     "activity_type": "oucontent",
-    "score": 0.487,
+    "relevance": 0.487,
     "contributions": {
      "recent_pop": 0.079,
      "wrmf": 0.198,
@@ -3668,7 +3668,7 @@
     "rank": 6,
     "id_site": 546783,
     "activity_type": "quiz",
-    "score": 0.444,
+    "relevance": 0.444,
     "contributions": {
      "recent_pop": 0.164,
      "wrmf": 0.076,
@@ -3682,7 +3682,7 @@
     "rank": 7,
     "id_site": 546936,
     "activity_type": "resource",
-    "score": 0.407,
+    "relevance": 0.407,
     "contributions": {
      "recent_pop": 0.019,
      "wrmf": 0.13,
@@ -3696,7 +3696,7 @@
     "rank": 8,
     "id_site": 546993,
     "activity_type": "oucontent",
-    "score": 0.375,
+    "relevance": 0.375,
     "contributions": {
      "recent_pop": 0.103,
      "wrmf": 0.07,
@@ -3710,7 +3710,7 @@
     "rank": 9,
     "id_site": 546894,
     "activity_type": "oucontent",
-    "score": 0.354,
+    "relevance": 0.354,
     "contributions": {
      "recent_pop": 0.047,
      "wrmf": 0.17,
@@ -3724,7 +3724,7 @@
     "rank": 10,
     "id_site": 547078,
     "activity_type": "resource",
-    "score": 0.285,
+    "relevance": 0.285,
     "contributions": {
      "recent_pop": 0.144,
      "wrmf": 0.0,
@@ -3784,7 +3784,7 @@
     "rank": 1,
     "id_site": 546944,
     "activity_type": "quiz",
-    "score": 0.624,
+    "relevance": 0.624,
     "contributions": {
      "recent_pop": 0.072,
      "wrmf": 0.193,
@@ -3798,7 +3798,7 @@
     "rank": 2,
     "id_site": 546993,
     "activity_type": "oucontent",
-    "score": 0.616,
+    "relevance": 0.616,
     "contributions": {
      "recent_pop": 0.224,
      "wrmf": 0.139,
@@ -3812,7 +3812,7 @@
     "rank": 3,
     "id_site": 546853,
     "activity_type": "forumng",
-    "score": 0.599,
+    "relevance": 0.599,
     "contributions": {
      "recent_pop": 0.27,
      "wrmf": 0.202,
@@ -3826,7 +3826,7 @@
     "rank": 4,
     "id_site": 546824,
     "activity_type": "url",
-    "score": 0.558,
+    "relevance": 0.558,
     "contributions": {
      "recent_pop": 0.245,
      "wrmf": 0.076,
@@ -3840,7 +3840,7 @@
     "rank": 5,
     "id_site": 546982,
     "activity_type": "ouwiki",
-    "score": 0.531,
+    "relevance": 0.531,
     "contributions": {
      "recent_pop": 0.295,
      "wrmf": 0.054,
@@ -3854,7 +3854,7 @@
     "rank": 6,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.525,
+    "relevance": 0.525,
     "contributions": {
      "recent_pop": 0.238,
      "wrmf": 0.145,
@@ -3868,7 +3868,7 @@
     "rank": 7,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.457,
+    "relevance": 0.457,
     "contributions": {
      "recent_pop": 0.14,
      "wrmf": 0.069,
@@ -3882,7 +3882,7 @@
     "rank": 8,
     "id_site": 546876,
     "activity_type": "quiz",
-    "score": 0.401,
+    "relevance": 0.401,
     "contributions": {
      "recent_pop": 0.01,
      "wrmf": 0.159,
@@ -3896,7 +3896,7 @@
     "rank": 9,
     "id_site": 547010,
     "activity_type": "oucontent",
-    "score": 0.358,
+    "relevance": 0.358,
     "contributions": {
      "recent_pop": 0.133,
      "wrmf": 0.001,
@@ -3910,7 +3910,7 @@
     "rank": 10,
     "id_site": 547034,
     "activity_type": "resource",
-    "score": 0.329,
+    "relevance": 0.329,
     "contributions": {
      "recent_pop": 0.275,
      "wrmf": 0.002,
@@ -3970,7 +3970,7 @@
     "rank": 1,
     "id_site": 546912,
     "activity_type": "oucontent",
-    "score": 0.553,
+    "relevance": 0.553,
     "contributions": {
      "recent_pop": 0.22,
      "wrmf": 0.181,
@@ -3984,7 +3984,7 @@
     "rank": 2,
     "id_site": 547034,
     "activity_type": "resource",
-    "score": 0.501,
+    "relevance": 0.501,
     "contributions": {
      "recent_pop": 0.231,
      "wrmf": 0.167,
@@ -3998,7 +3998,7 @@
     "rank": 3,
     "id_site": 546927,
     "activity_type": "oucontent",
-    "score": 0.468,
+    "relevance": 0.468,
     "contributions": {
      "recent_pop": 0.039,
      "wrmf": 0.227,
@@ -4012,7 +4012,7 @@
     "rank": 4,
     "id_site": 546783,
     "activity_type": "quiz",
-    "score": 0.433,
+    "relevance": 0.433,
     "contributions": {
      "recent_pop": 0.253,
      "wrmf": 0.008,
@@ -4026,7 +4026,7 @@
     "rank": 5,
     "id_site": 546944,
     "activity_type": "quiz",
-    "score": 0.422,
+    "relevance": 0.422,
     "contributions": {
      "recent_pop": 0.15,
      "wrmf": 0.194,
@@ -4040,7 +4040,7 @@
     "rank": 6,
     "id_site": 546963,
     "activity_type": "ouwiki",
-    "score": 0.405,
+    "relevance": 0.405,
     "contributions": {
      "recent_pop": 0.144,
      "wrmf": 0.115,
@@ -4054,7 +4054,7 @@
     "rank": 7,
     "id_site": 546876,
     "activity_type": "quiz",
-    "score": 0.402,
+    "relevance": 0.402,
     "contributions": {
      "recent_pop": 0.009,
      "wrmf": 0.261,
@@ -4068,7 +4068,7 @@
     "rank": 8,
     "id_site": 546894,
     "activity_type": "oucontent",
-    "score": 0.388,
+    "relevance": 0.388,
     "contributions": {
      "recent_pop": 0.037,
      "wrmf": 0.113,
@@ -4082,7 +4082,7 @@
     "rank": 9,
     "id_site": 546919,
     "activity_type": "oucontent",
-    "score": 0.363,
+    "relevance": 0.363,
     "contributions": {
      "recent_pop": 0.168,
      "wrmf": 0.029,
@@ -4096,7 +4096,7 @@
     "rank": 10,
     "id_site": 546956,
     "activity_type": "oucontent",
-    "score": 0.337,
+    "relevance": 0.337,
     "contributions": {
      "recent_pop": 0.042,
      "wrmf": 0.171,
@@ -4156,7 +4156,7 @@
     "rank": 1,
     "id_site": 546912,
     "activity_type": "oucontent",
-    "score": 0.604,
+    "relevance": 0.604,
     "contributions": {
      "recent_pop": 0.191,
      "wrmf": 0.165,
@@ -4170,7 +4170,7 @@
     "rank": 2,
     "id_site": 546803,
     "activity_type": "oucontent",
-    "score": 0.596,
+    "relevance": 0.596,
     "contributions": {
      "recent_pop": 0.155,
      "wrmf": 0.268,
@@ -4184,7 +4184,7 @@
     "rank": 3,
     "id_site": 546944,
     "activity_type": "quiz",
-    "score": 0.568,
+    "relevance": 0.568,
     "contributions": {
      "recent_pop": 0.143,
      "wrmf": 0.055,
@@ -4198,7 +4198,7 @@
     "rank": 4,
     "id_site": 547070,
     "activity_type": "url",
-    "score": 0.55,
+    "relevance": 0.55,
     "contributions": {
      "recent_pop": 0.205,
      "wrmf": 0.205,
@@ -4212,7 +4212,7 @@
     "rank": 5,
     "id_site": 546824,
     "activity_type": "url",
-    "score": 0.548,
+    "relevance": 0.548,
     "contributions": {
      "recent_pop": 0.18,
      "wrmf": 0.169,
@@ -4226,7 +4226,7 @@
     "rank": 6,
     "id_site": 547078,
     "activity_type": "resource",
-    "score": 0.539,
+    "relevance": 0.539,
     "contributions": {
      "recent_pop": 0.216,
      "wrmf": 0.175,
@@ -4240,7 +4240,7 @@
     "rank": 7,
     "id_site": 546974,
     "activity_type": "oucontent",
-    "score": 0.468,
+    "relevance": 0.468,
     "contributions": {
      "recent_pop": 0.284,
      "wrmf": 0.108,
@@ -4254,7 +4254,7 @@
     "rank": 8,
     "id_site": 546880,
     "activity_type": "subpage",
-    "score": 0.455,
+    "relevance": 0.455,
     "contributions": {
      "recent_pop": 0.011,
      "wrmf": 0.234,
@@ -4268,7 +4268,7 @@
     "rank": 9,
     "id_site": 546868,
     "activity_type": "quiz",
-    "score": 0.426,
+    "relevance": 0.426,
     "contributions": {
      "recent_pop": 0.165,
      "wrmf": 0.116,
@@ -4282,7 +4282,7 @@
     "rank": 10,
     "id_site": 547063,
     "activity_type": "homepage",
-    "score": 0.415,
+    "relevance": 0.415,
     "contributions": {
      "recent_pop": 0.091,
      "wrmf": 0.032,
@@ -4342,7 +4342,7 @@
     "rank": 1,
     "id_site": 546956,
     "activity_type": "oucontent",
-    "score": 0.705,
+    "relevance": 0.705,
     "contributions": {
      "recent_pop": 0.177,
      "wrmf": 0.287,
@@ -4356,7 +4356,7 @@
     "rank": 2,
     "id_site": 546993,
     "activity_type": "oucontent",
-    "score": 0.702,
+    "relevance": 0.702,
     "contributions": {
      "recent_pop": 0.156,
      "wrmf": 0.212,
@@ -4370,7 +4370,7 @@
     "rank": 3,
     "id_site": 546936,
     "activity_type": "resource",
-    "score": 0.687,
+    "relevance": 0.687,
     "contributions": {
      "recent_pop": 0.238,
      "wrmf": 0.256,
@@ -4384,7 +4384,7 @@
     "rank": 4,
     "id_site": 547015,
     "activity_type": "quiz",
-    "score": 0.542,
+    "relevance": 0.542,
     "contributions": {
      "recent_pop": 0.265,
      "wrmf": 0.198,
@@ -4398,7 +4398,7 @@
     "rank": 5,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.492,
+    "relevance": 0.492,
     "contributions": {
      "recent_pop": 0.004,
      "wrmf": 0.294,
@@ -4412,7 +4412,7 @@
     "rank": 6,
     "id_site": 546974,
     "activity_type": "oucontent",
-    "score": 0.414,
+    "relevance": 0.414,
     "contributions": {
      "recent_pop": 0.268,
      "wrmf": 0.013,
@@ -4426,7 +4426,7 @@
     "rank": 7,
     "id_site": 546964,
     "activity_type": "forumng",
-    "score": 0.395,
+    "relevance": 0.395,
     "contributions": {
      "recent_pop": 0.034,
      "wrmf": 0.188,
@@ -4440,7 +4440,7 @@
     "rank": 8,
     "id_site": 546927,
     "activity_type": "oucontent",
-    "score": 0.354,
+    "relevance": 0.354,
     "contributions": {
      "recent_pop": 0.062,
      "wrmf": 0.145,
@@ -4454,7 +4454,7 @@
     "rank": 9,
     "id_site": 546876,
     "activity_type": "quiz",
-    "score": 0.354,
+    "relevance": 0.354,
     "contributions": {
      "recent_pop": 0.086,
      "wrmf": 0.18,
@@ -4468,7 +4468,7 @@
     "rank": 10,
     "id_site": 546880,
     "activity_type": "subpage",
-    "score": 0.322,
+    "relevance": 0.322,
     "contributions": {
      "recent_pop": 0.052,
      "wrmf": 0.075,
@@ -4528,7 +4528,7 @@
     "rank": 1,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.75,
+    "relevance": 0.75,
     "contributions": {
      "recent_pop": 0.227,
      "wrmf": 0.225,
@@ -4542,7 +4542,7 @@
     "rank": 2,
     "id_site": 546668,
     "activity_type": "url",
-    "score": 0.604,
+    "relevance": 0.604,
     "contributions": {
      "recent_pop": 0.266,
      "wrmf": 0.209,
@@ -4556,7 +4556,7 @@
     "rank": 3,
     "id_site": 546892,
     "activity_type": "oucontent",
-    "score": 0.578,
+    "relevance": 0.578,
     "contributions": {
      "recent_pop": 0.286,
      "wrmf": 0.148,
@@ -4570,7 +4570,7 @@
     "rank": 4,
     "id_site": 546963,
     "activity_type": "ouwiki",
-    "score": 0.542,
+    "relevance": 0.542,
     "contributions": {
      "recent_pop": 0.271,
      "wrmf": 0.177,
@@ -4584,7 +4584,7 @@
     "rank": 5,
     "id_site": 547078,
     "activity_type": "resource",
-    "score": 0.524,
+    "relevance": 0.524,
     "contributions": {
      "recent_pop": 0.229,
      "wrmf": 0.094,
@@ -4598,7 +4598,7 @@
     "rank": 6,
     "id_site": 547031,
     "activity_type": "oucontent",
-    "score": 0.482,
+    "relevance": 0.482,
     "contributions": {
      "recent_pop": 0.147,
      "wrmf": 0.106,
@@ -4612,7 +4612,7 @@
     "rank": 7,
     "id_site": 546824,
     "activity_type": "url",
-    "score": 0.419,
+    "relevance": 0.419,
     "contributions": {
      "recent_pop": 0.189,
      "wrmf": 0.001,
@@ -4626,7 +4626,7 @@
     "rank": 8,
     "id_site": 546974,
     "activity_type": "oucontent",
-    "score": 0.417,
+    "relevance": 0.417,
     "contributions": {
      "recent_pop": 0.211,
      "wrmf": 0.002,
@@ -4640,7 +4640,7 @@
     "rank": 9,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.381,
+    "relevance": 0.381,
     "contributions": {
      "recent_pop": 0.057,
      "wrmf": 0.08,
@@ -4654,7 +4654,7 @@
     "rank": 10,
     "id_site": 546831,
     "activity_type": "oucontent",
-    "score": 0.34,
+    "relevance": 0.34,
     "contributions": {
      "recent_pop": 0.051,
      "wrmf": 0.181,
@@ -4714,7 +4714,7 @@
     "rank": 1,
     "id_site": 546876,
     "activity_type": "quiz",
-    "score": 0.74,
+    "relevance": 0.74,
     "contributions": {
      "recent_pop": 0.212,
      "wrmf": 0.23,
@@ -4728,7 +4728,7 @@
     "rank": 2,
     "id_site": 546919,
     "activity_type": "oucontent",
-    "score": 0.606,
+    "relevance": 0.606,
     "contributions": {
      "recent_pop": 0.295,
      "wrmf": 0.22,
@@ -4742,7 +4742,7 @@
     "rank": 3,
     "id_site": 546861,
     "activity_type": "subpage",
-    "score": 0.602,
+    "relevance": 0.602,
     "contributions": {
      "recent_pop": 0.183,
      "wrmf": 0.283,
@@ -4756,7 +4756,7 @@
     "rank": 4,
     "id_site": 547063,
     "activity_type": "homepage",
-    "score": 0.458,
+    "relevance": 0.458,
     "contributions": {
      "recent_pop": 0.179,
      "wrmf": 0.099,
@@ -4770,7 +4770,7 @@
     "rank": 5,
     "id_site": 546880,
     "activity_type": "subpage",
-    "score": 0.439,
+    "relevance": 0.439,
     "contributions": {
      "recent_pop": 0.262,
      "wrmf": 0.002,
@@ -4784,7 +4784,7 @@
     "rank": 6,
     "id_site": 546993,
     "activity_type": "oucontent",
-    "score": 0.431,
+    "relevance": 0.431,
     "contributions": {
      "recent_pop": 0.062,
      "wrmf": 0.134,
@@ -4798,7 +4798,7 @@
     "rank": 7,
     "id_site": 546985,
     "activity_type": "resource",
-    "score": 0.43,
+    "relevance": 0.43,
     "contributions": {
      "recent_pop": 0.069,
      "wrmf": 0.252,
@@ -4812,7 +4812,7 @@
     "rank": 8,
     "id_site": 547020,
     "activity_type": "quiz",
-    "score": 0.394,
+    "relevance": 0.394,
     "contributions": {
      "recent_pop": 0.284,
      "wrmf": 0.071,
@@ -4826,7 +4826,7 @@
     "rank": 9,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.355,
+    "relevance": 0.355,
     "contributions": {
      "recent_pop": 0.049,
      "wrmf": 0.159,
@@ -4840,7 +4840,7 @@
     "rank": 10,
     "id_site": 546802,
     "activity_type": "oucontent",
-    "score": 0.351,
+    "relevance": 0.351,
     "contributions": {
      "recent_pop": 0.258,
      "wrmf": 0.008,
@@ -4900,7 +4900,7 @@
     "rank": 1,
     "id_site": 546789,
     "activity_type": "forumng",
-    "score": 0.612,
+    "relevance": 0.612,
     "contributions": {
      "recent_pop": 0.236,
      "wrmf": 0.191,
@@ -4914,7 +4914,7 @@
     "rank": 2,
     "id_site": 546956,
     "activity_type": "oucontent",
-    "score": 0.55,
+    "relevance": 0.55,
     "contributions": {
      "recent_pop": 0.107,
      "wrmf": 0.22,
@@ -4928,7 +4928,7 @@
     "rank": 3,
     "id_site": 546912,
     "activity_type": "oucontent",
-    "score": 0.527,
+    "relevance": 0.527,
     "contributions": {
      "recent_pop": 0.181,
      "wrmf": 0.222,
@@ -4942,7 +4942,7 @@
     "rank": 4,
     "id_site": 546932,
     "activity_type": "subpage",
-    "score": 0.525,
+    "relevance": 0.525,
     "contributions": {
      "recent_pop": 0.27,
      "wrmf": 0.048,
@@ -4956,7 +4956,7 @@
     "rank": 5,
     "id_site": 546802,
     "activity_type": "oucontent",
-    "score": 0.521,
+    "relevance": 0.521,
     "contributions": {
      "recent_pop": 0.097,
      "wrmf": 0.181,
@@ -4970,7 +4970,7 @@
     "rank": 6,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.472,
+    "relevance": 0.472,
     "contributions": {
      "recent_pop": 0.047,
      "wrmf": 0.298,
@@ -4984,7 +4984,7 @@
     "rank": 7,
     "id_site": 546974,
     "activity_type": "oucontent",
-    "score": 0.452,
+    "relevance": 0.452,
     "contributions": {
      "recent_pop": 0.258,
      "wrmf": 0.036,
@@ -4998,7 +4998,7 @@
     "rank": 8,
     "id_site": 546892,
     "activity_type": "oucontent",
-    "score": 0.442,
+    "relevance": 0.442,
     "contributions": {
      "recent_pop": 0.111,
      "wrmf": 0.133,
@@ -5012,7 +5012,7 @@
     "rank": 9,
     "id_site": 546927,
     "activity_type": "oucontent",
-    "score": 0.358,
+    "relevance": 0.358,
     "contributions": {
      "recent_pop": 0.145,
      "wrmf": 0.174,
@@ -5026,7 +5026,7 @@
     "rank": 10,
     "id_site": 547043,
     "activity_type": "resource",
-    "score": 0.349,
+    "relevance": 0.349,
     "contributions": {
      "recent_pop": 0.085,
      "wrmf": 0.147,
@@ -5086,7 +5086,7 @@
     "rank": 1,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.741,
+    "relevance": 0.741,
     "contributions": {
      "recent_pop": 0.3,
      "wrmf": 0.248,
@@ -5100,7 +5100,7 @@
     "rank": 2,
     "id_site": 546783,
     "activity_type": "quiz",
-    "score": 0.538,
+    "relevance": 0.538,
     "contributions": {
      "recent_pop": 0.006,
      "wrmf": 0.266,
@@ -5114,7 +5114,7 @@
     "rank": 3,
     "id_site": 546956,
     "activity_type": "oucontent",
-    "score": 0.525,
+    "relevance": 0.525,
     "contributions": {
      "recent_pop": 0.205,
      "wrmf": 0.122,
@@ -5128,7 +5128,7 @@
     "rank": 4,
     "id_site": 547031,
     "activity_type": "oucontent",
-    "score": 0.486,
+    "relevance": 0.486,
     "contributions": {
      "recent_pop": 0.169,
      "wrmf": 0.015,
@@ -5142,7 +5142,7 @@
     "rank": 5,
     "id_site": 547058,
     "activity_type": "glossary",
-    "score": 0.446,
+    "relevance": 0.446,
     "contributions": {
      "recent_pop": 0.07,
      "wrmf": 0.25,
@@ -5156,7 +5156,7 @@
     "rank": 6,
     "id_site": 547001,
     "activity_type": "oucontent",
-    "score": 0.442,
+    "relevance": 0.442,
     "contributions": {
      "recent_pop": 0.181,
      "wrmf": 0.077,
@@ -5170,7 +5170,7 @@
     "rank": 7,
     "id_site": 547049,
     "activity_type": "resource",
-    "score": 0.393,
+    "relevance": 0.393,
     "contributions": {
      "recent_pop": 0.091,
      "wrmf": 0.237,
@@ -5184,7 +5184,7 @@
     "rank": 8,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.365,
+    "relevance": 0.365,
     "contributions": {
      "recent_pop": 0.105,
      "wrmf": 0.226,
@@ -5198,7 +5198,7 @@
     "rank": 9,
     "id_site": 546831,
     "activity_type": "oucontent",
-    "score": 0.292,
+    "relevance": 0.292,
     "contributions": {
      "recent_pop": 0.003,
      "wrmf": 0.12,
@@ -5212,7 +5212,7 @@
     "rank": 10,
     "id_site": 547063,
     "activity_type": "homepage",
-    "score": 0.158,
+    "relevance": 0.158,
     "contributions": {
      "recent_pop": 0.026,
      "wrmf": 0.112,
@@ -5272,7 +5272,7 @@
     "rank": 1,
     "id_site": 546985,
     "activity_type": "resource",
-    "score": 0.615,
+    "relevance": 0.615,
     "contributions": {
      "recent_pop": 0.252,
      "wrmf": 0.221,
@@ -5286,7 +5286,7 @@
     "rank": 2,
     "id_site": 547049,
     "activity_type": "resource",
-    "score": 0.614,
+    "relevance": 0.614,
     "contributions": {
      "recent_pop": 0.276,
      "wrmf": 0.039,
@@ -5300,7 +5300,7 @@
     "rank": 3,
     "id_site": 546974,
     "activity_type": "oucontent",
-    "score": 0.545,
+    "relevance": 0.545,
     "contributions": {
      "recent_pop": 0.243,
      "wrmf": 0.111,
@@ -5314,7 +5314,7 @@
     "rank": 4,
     "id_site": 547010,
     "activity_type": "oucontent",
-    "score": 0.531,
+    "relevance": 0.531,
     "contributions": {
      "recent_pop": 0.193,
      "wrmf": 0.187,
@@ -5328,7 +5328,7 @@
     "rank": 5,
     "id_site": 547089,
     "activity_type": "page",
-    "score": 0.495,
+    "relevance": 0.495,
     "contributions": {
      "recent_pop": 0.203,
      "wrmf": 0.088,
@@ -5342,7 +5342,7 @@
     "rank": 6,
     "id_site": 546853,
     "activity_type": "forumng",
-    "score": 0.459,
+    "relevance": 0.459,
     "contributions": {
      "recent_pop": 0.003,
      "wrmf": 0.183,
@@ -5356,7 +5356,7 @@
     "rank": 7,
     "id_site": 546803,
     "activity_type": "oucontent",
-    "score": 0.449,
+    "relevance": 0.449,
     "contributions": {
      "recent_pop": 0.012,
      "wrmf": 0.253,
@@ -5370,7 +5370,7 @@
     "rank": 8,
     "id_site": 547043,
     "activity_type": "resource",
-    "score": 0.441,
+    "relevance": 0.441,
     "contributions": {
      "recent_pop": 0.067,
      "wrmf": 0.251,
@@ -5384,7 +5384,7 @@
     "rank": 9,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.347,
+    "relevance": 0.347,
     "contributions": {
      "recent_pop": 0.27,
      "wrmf": 0.017,
@@ -5398,7 +5398,7 @@
     "rank": 10,
     "id_site": 546944,
     "activity_type": "quiz",
-    "score": 0.294,
+    "relevance": 0.294,
     "contributions": {
      "recent_pop": 0.035,
      "wrmf": 0.059,
@@ -5458,7 +5458,7 @@
     "rank": 1,
     "id_site": 547078,
     "activity_type": "resource",
-    "score": 0.615,
+    "relevance": 0.615,
     "contributions": {
      "recent_pop": 0.201,
      "wrmf": 0.171,
@@ -5472,7 +5472,7 @@
     "rank": 2,
     "id_site": 547031,
     "activity_type": "oucontent",
-    "score": 0.597,
+    "relevance": 0.597,
     "contributions": {
      "recent_pop": 0.038,
      "wrmf": 0.244,
@@ -5486,7 +5486,7 @@
     "rank": 3,
     "id_site": 547043,
     "activity_type": "resource",
-    "score": 0.561,
+    "relevance": 0.561,
     "contributions": {
      "recent_pop": 0.102,
      "wrmf": 0.2,
@@ -5500,7 +5500,7 @@
     "rank": 4,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.498,
+    "relevance": 0.498,
     "contributions": {
      "recent_pop": 0.227,
      "wrmf": 0.057,
@@ -5514,7 +5514,7 @@
     "rank": 5,
     "id_site": 546982,
     "activity_type": "ouwiki",
-    "score": 0.455,
+    "relevance": 0.455,
     "contributions": {
      "recent_pop": 0.182,
      "wrmf": 0.078,
@@ -5528,7 +5528,7 @@
     "rank": 6,
     "id_site": 546880,
     "activity_type": "subpage",
-    "score": 0.443,
+    "relevance": 0.443,
     "contributions": {
      "recent_pop": 0.023,
      "wrmf": 0.129,
@@ -5542,7 +5542,7 @@
     "rank": 7,
     "id_site": 546803,
     "activity_type": "oucontent",
-    "score": 0.436,
+    "relevance": 0.436,
     "contributions": {
      "recent_pop": 0.278,
      "wrmf": 0.018,
@@ -5556,7 +5556,7 @@
     "rank": 8,
     "id_site": 546919,
     "activity_type": "oucontent",
-    "score": 0.434,
+    "relevance": 0.434,
     "contributions": {
      "recent_pop": 0.156,
      "wrmf": 0.019,
@@ -5570,7 +5570,7 @@
     "rank": 9,
     "id_site": 547063,
     "activity_type": "homepage",
-    "score": 0.415,
+    "relevance": 0.415,
     "contributions": {
      "recent_pop": 0.125,
      "wrmf": 0.138,
@@ -5584,7 +5584,7 @@
     "rank": 10,
     "id_site": 546932,
     "activity_type": "subpage",
-    "score": 0.375,
+    "relevance": 0.375,
     "contributions": {
      "recent_pop": 0.011,
      "wrmf": 0.04,
@@ -5644,7 +5644,7 @@
     "rank": 1,
     "id_site": 546927,
     "activity_type": "oucontent",
-    "score": 0.61,
+    "relevance": 0.61,
     "contributions": {
      "recent_pop": 0.121,
      "wrmf": 0.296,
@@ -5658,7 +5658,7 @@
     "rank": 2,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.589,
+    "relevance": 0.589,
     "contributions": {
      "recent_pop": 0.169,
      "wrmf": 0.251,
@@ -5672,7 +5672,7 @@
     "rank": 3,
     "id_site": 546936,
     "activity_type": "resource",
-    "score": 0.571,
+    "relevance": 0.571,
     "contributions": {
      "recent_pop": 0.185,
      "wrmf": 0.237,
@@ -5686,7 +5686,7 @@
     "rank": 4,
     "id_site": 546944,
     "activity_type": "quiz",
-    "score": 0.57,
+    "relevance": 0.57,
     "contributions": {
      "recent_pop": 0.229,
      "wrmf": 0.141,
@@ -5700,7 +5700,7 @@
     "rank": 5,
     "id_site": 546892,
     "activity_type": "oucontent",
-    "score": 0.565,
+    "relevance": 0.565,
     "contributions": {
      "recent_pop": 0.268,
      "wrmf": 0.162,
@@ -5714,7 +5714,7 @@
     "rank": 6,
     "id_site": 547063,
     "activity_type": "homepage",
-    "score": 0.501,
+    "relevance": 0.501,
     "contributions": {
      "recent_pop": 0.028,
      "wrmf": 0.255,
@@ -5728,7 +5728,7 @@
     "rank": 7,
     "id_site": 546802,
     "activity_type": "oucontent",
-    "score": 0.495,
+    "relevance": 0.495,
     "contributions": {
      "recent_pop": 0.194,
      "wrmf": 0.125,
@@ -5742,7 +5742,7 @@
     "rank": 8,
     "id_site": 547015,
     "activity_type": "quiz",
-    "score": 0.494,
+    "relevance": 0.494,
     "contributions": {
      "recent_pop": 0.034,
      "wrmf": 0.174,
@@ -5756,7 +5756,7 @@
     "rank": 9,
     "id_site": 547078,
     "activity_type": "resource",
-    "score": 0.425,
+    "relevance": 0.425,
     "contributions": {
      "recent_pop": 0.034,
      "wrmf": 0.219,
@@ -5770,7 +5770,7 @@
     "rank": 10,
     "id_site": 546868,
     "activity_type": "quiz",
-    "score": 0.408,
+    "relevance": 0.408,
     "contributions": {
      "recent_pop": 0.268,
      "wrmf": 0.001,
@@ -5830,7 +5830,7 @@
     "rank": 1,
     "id_site": 546813,
     "activity_type": "url",
-    "score": 0.644,
+    "relevance": 0.644,
     "contributions": {
      "recent_pop": 0.224,
      "wrmf": 0.25,
@@ -5844,7 +5844,7 @@
     "rank": 2,
     "id_site": 546817,
     "activity_type": "oucontent",
-    "score": 0.625,
+    "relevance": 0.625,
     "contributions": {
      "recent_pop": 0.259,
      "wrmf": 0.072,
@@ -5858,7 +5858,7 @@
     "rank": 3,
     "id_site": 547031,
     "activity_type": "oucontent",
-    "score": 0.619,
+    "relevance": 0.619,
     "contributions": {
      "recent_pop": 0.07,
      "wrmf": 0.265,
@@ -5872,7 +5872,7 @@
     "rank": 4,
     "id_site": 546982,
     "activity_type": "ouwiki",
-    "score": 0.494,
+    "relevance": 0.494,
     "contributions": {
      "recent_pop": 0.138,
      "wrmf": 0.17,
@@ -5886,7 +5886,7 @@
     "rank": 5,
     "id_site": 547070,
     "activity_type": "url",
-    "score": 0.493,
+    "relevance": 0.493,
     "contributions": {
      "recent_pop": 0.104,
      "wrmf": 0.239,
@@ -5900,7 +5900,7 @@
     "rank": 6,
     "id_site": 546894,
     "activity_type": "oucontent",
-    "score": 0.475,
+    "relevance": 0.475,
     "contributions": {
      "recent_pop": 0.04,
      "wrmf": 0.239,
@@ -5914,7 +5914,7 @@
     "rank": 7,
     "id_site": 546904,
     "activity_type": "forumng",
-    "score": 0.414,
+    "relevance": 0.414,
     "contributions": {
      "recent_pop": 0.159,
      "wrmf": 0.052,
@@ -5928,7 +5928,7 @@
     "rank": 8,
     "id_site": 546803,
     "activity_type": "oucontent",
-    "score": 0.395,
+    "relevance": 0.395,
     "contributions": {
      "recent_pop": 0.201,
      "wrmf": 0.092,
@@ -5942,7 +5942,7 @@
     "rank": 9,
     "id_site": 546868,
     "activity_type": "quiz",
-    "score": 0.383,
+    "relevance": 0.383,
     "contributions": {
      "recent_pop": 0.02,
      "wrmf": 0.069,
@@ -5956,7 +5956,7 @@
     "rank": 10,
     "id_site": 547020,
     "activity_type": "quiz",
-    "score": 0.37,
+    "relevance": 0.37,
     "contributions": {
      "recent_pop": 0.122,
      "wrmf": 0.046,
@@ -6016,7 +6016,7 @@
     "rank": 1,
     "id_site": 547043,
     "activity_type": "resource",
-    "score": 0.585,
+    "relevance": 0.585,
     "contributions": {
      "recent_pop": 0.3,
      "wrmf": 0.194,
@@ -6030,7 +6030,7 @@
     "rank": 2,
     "id_site": 546803,
     "activity_type": "oucontent",
-    "score": 0.546,
+    "relevance": 0.546,
     "contributions": {
      "recent_pop": 0.245,
      "wrmf": 0.083,
@@ -6044,7 +6044,7 @@
     "rank": 3,
     "id_site": 547089,
     "activity_type": "page",
-    "score": 0.542,
+    "relevance": 0.542,
     "contributions": {
      "recent_pop": 0.113,
      "wrmf": 0.121,
@@ -6058,7 +6058,7 @@
     "rank": 4,
     "id_site": 546861,
     "activity_type": "subpage",
-    "score": 0.527,
+    "relevance": 0.527,
     "contributions": {
      "recent_pop": 0.008,
      "wrmf": 0.296,
@@ -6072,7 +6072,7 @@
     "rank": 5,
     "id_site": 547049,
     "activity_type": "resource",
-    "score": 0.486,
+    "relevance": 0.486,
     "contributions": {
      "recent_pop": 0.294,
      "wrmf": 0.066,
@@ -6086,7 +6086,7 @@
     "rank": 6,
     "id_site": 546783,
     "activity_type": "quiz",
-    "score": 0.478,
+    "relevance": 0.478,
     "contributions": {
      "recent_pop": 0.168,
      "wrmf": 0.087,
@@ -6100,7 +6100,7 @@
     "rank": 7,
     "id_site": 546932,
     "activity_type": "subpage",
-    "score": 0.448,
+    "relevance": 0.448,
     "contributions": {
      "recent_pop": 0.021,
      "wrmf": 0.269,
@@ -6114,7 +6114,7 @@
     "rank": 8,
     "id_site": 547015,
     "activity_type": "quiz",
-    "score": 0.412,
+    "relevance": 0.412,
     "contributions": {
      "recent_pop": 0.007,
      "wrmf": 0.175,
@@ -6128,7 +6128,7 @@
     "rank": 9,
     "id_site": 546880,
     "activity_type": "subpage",
-    "score": 0.411,
+    "relevance": 0.411,
     "contributions": {
      "recent_pop": 0.172,
      "wrmf": 0.06,
@@ -6142,7 +6142,7 @@
     "rank": 10,
     "id_site": 547001,
     "activity_type": "oucontent",
-    "score": 0.386,
+    "relevance": 0.386,
     "contributions": {
      "recent_pop": 0.118,
      "wrmf": 0.088,
@@ -6202,7 +6202,7 @@
     "rank": 1,
     "id_site": 546932,
     "activity_type": "subpage",
-    "score": 0.808,
+    "relevance": 0.808,
     "contributions": {
      "recent_pop": 0.285,
      "wrmf": 0.221,
@@ -6216,7 +6216,7 @@
     "rank": 2,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.768,
+    "relevance": 0.768,
     "contributions": {
      "recent_pop": 0.205,
      "wrmf": 0.263,
@@ -6230,7 +6230,7 @@
     "rank": 3,
     "id_site": 546789,
     "activity_type": "forumng",
-    "score": 0.747,
+    "relevance": 0.747,
     "contributions": {
      "recent_pop": 0.256,
      "wrmf": 0.193,
@@ -6244,7 +6244,7 @@
     "rank": 4,
     "id_site": 546880,
     "activity_type": "subpage",
-    "score": 0.613,
+    "relevance": 0.613,
     "contributions": {
      "recent_pop": 0.176,
      "wrmf": 0.211,
@@ -6258,7 +6258,7 @@
     "rank": 5,
     "id_site": 547049,
     "activity_type": "resource",
-    "score": 0.603,
+    "relevance": 0.603,
     "contributions": {
      "recent_pop": 0.209,
      "wrmf": 0.215,
@@ -6272,7 +6272,7 @@
     "rank": 6,
     "id_site": 546912,
     "activity_type": "oucontent",
-    "score": 0.572,
+    "relevance": 0.572,
     "contributions": {
      "recent_pop": 0.177,
      "wrmf": 0.082,
@@ -6286,7 +6286,7 @@
     "rank": 7,
     "id_site": 546919,
     "activity_type": "oucontent",
-    "score": 0.505,
+    "relevance": 0.505,
     "contributions": {
      "recent_pop": 0.287,
      "wrmf": 0.023,
@@ -6300,7 +6300,7 @@
     "rank": 8,
     "id_site": 546817,
     "activity_type": "oucontent",
-    "score": 0.481,
+    "relevance": 0.481,
     "contributions": {
      "recent_pop": 0.228,
      "wrmf": 0.019,
@@ -6314,7 +6314,7 @@
     "rank": 9,
     "id_site": 546982,
     "activity_type": "ouwiki",
-    "score": 0.421,
+    "relevance": 0.421,
     "contributions": {
      "recent_pop": 0.053,
      "wrmf": 0.205,
@@ -6328,7 +6328,7 @@
     "rank": 10,
     "id_site": 546985,
     "activity_type": "resource",
-    "score": 0.4,
+    "relevance": 0.4,
     "contributions": {
      "recent_pop": 0.125,
      "wrmf": 0.153,
@@ -6388,7 +6388,7 @@
     "rank": 1,
     "id_site": 546956,
     "activity_type": "oucontent",
-    "score": 0.778,
+    "relevance": 0.778,
     "contributions": {
      "recent_pop": 0.28,
      "wrmf": 0.271,
@@ -6402,7 +6402,7 @@
     "rank": 2,
     "id_site": 546919,
     "activity_type": "oucontent",
-    "score": 0.667,
+    "relevance": 0.667,
     "contributions": {
      "recent_pop": 0.241,
      "wrmf": 0.245,
@@ -6416,7 +6416,7 @@
     "rank": 3,
     "id_site": 546904,
     "activity_type": "forumng",
-    "score": 0.65,
+    "relevance": 0.65,
     "contributions": {
      "recent_pop": 0.169,
      "wrmf": 0.281,
@@ -6430,7 +6430,7 @@
     "rank": 4,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.599,
+    "relevance": 0.599,
     "contributions": {
      "recent_pop": 0.242,
      "wrmf": 0.122,
@@ -6444,7 +6444,7 @@
     "rank": 5,
     "id_site": 546892,
     "activity_type": "oucontent",
-    "score": 0.529,
+    "relevance": 0.529,
     "contributions": {
      "recent_pop": 0.013,
      "wrmf": 0.229,
@@ -6458,7 +6458,7 @@
     "rank": 6,
     "id_site": 546789,
     "activity_type": "forumng",
-    "score": 0.456,
+    "relevance": 0.456,
     "contributions": {
      "recent_pop": 0.154,
      "wrmf": 0.025,
@@ -6472,7 +6472,7 @@
     "rank": 7,
     "id_site": 547015,
     "activity_type": "quiz",
-    "score": 0.443,
+    "relevance": 0.443,
     "contributions": {
      "recent_pop": 0.168,
      "wrmf": 0.181,
@@ -6486,7 +6486,7 @@
     "rank": 8,
     "id_site": 546880,
     "activity_type": "subpage",
-    "score": 0.432,
+    "relevance": 0.432,
     "contributions": {
      "recent_pop": 0.064,
      "wrmf": 0.224,
@@ -6500,7 +6500,7 @@
     "rank": 9,
     "id_site": 546944,
     "activity_type": "quiz",
-    "score": 0.359,
+    "relevance": 0.359,
     "contributions": {
      "recent_pop": 0.07,
      "wrmf": 0.146,
@@ -6514,7 +6514,7 @@
     "rank": 10,
     "id_site": 547001,
     "activity_type": "oucontent",
-    "score": 0.303,
+    "relevance": 0.303,
     "contributions": {
      "recent_pop": 0.119,
      "wrmf": 0.079,
@@ -6574,7 +6574,7 @@
     "rank": 1,
     "id_site": 547010,
     "activity_type": "oucontent",
-    "score": 0.738,
+    "relevance": 0.738,
     "contributions": {
      "recent_pop": 0.068,
      "wrmf": 0.295,
@@ -6588,7 +6588,7 @@
     "rank": 2,
     "id_site": 546861,
     "activity_type": "subpage",
-    "score": 0.725,
+    "relevance": 0.725,
     "contributions": {
      "recent_pop": 0.228,
      "wrmf": 0.217,
@@ -6602,7 +6602,7 @@
     "rank": 3,
     "id_site": 546831,
     "activity_type": "oucontent",
-    "score": 0.669,
+    "relevance": 0.669,
     "contributions": {
      "recent_pop": 0.2,
      "wrmf": 0.234,
@@ -6616,7 +6616,7 @@
     "rank": 4,
     "id_site": 546963,
     "activity_type": "ouwiki",
-    "score": 0.552,
+    "relevance": 0.552,
     "contributions": {
      "recent_pop": 0.138,
      "wrmf": 0.216,
@@ -6630,7 +6630,7 @@
     "rank": 5,
     "id_site": 546853,
     "activity_type": "forumng",
-    "score": 0.461,
+    "relevance": 0.461,
     "contributions": {
      "recent_pop": 0.118,
      "wrmf": 0.134,
@@ -6644,7 +6644,7 @@
     "rank": 6,
     "id_site": 546964,
     "activity_type": "forumng",
-    "score": 0.457,
+    "relevance": 0.457,
     "contributions": {
      "recent_pop": 0.254,
      "wrmf": 0.086,
@@ -6658,7 +6658,7 @@
     "rank": 7,
     "id_site": 546912,
     "activity_type": "oucontent",
-    "score": 0.437,
+    "relevance": 0.437,
     "contributions": {
      "recent_pop": 0.029,
      "wrmf": 0.229,
@@ -6672,7 +6672,7 @@
     "rank": 8,
     "id_site": 547063,
     "activity_type": "homepage",
-    "score": 0.403,
+    "relevance": 0.403,
     "contributions": {
      "recent_pop": 0.141,
      "wrmf": 0.133,
@@ -6686,7 +6686,7 @@
     "rank": 9,
     "id_site": 547058,
     "activity_type": "glossary",
-    "score": 0.374,
+    "relevance": 0.374,
     "contributions": {
      "recent_pop": 0.16,
      "wrmf": 0.073,
@@ -6700,7 +6700,7 @@
     "rank": 10,
     "id_site": 546985,
     "activity_type": "resource",
-    "score": 0.32,
+    "relevance": 0.32,
     "contributions": {
      "recent_pop": 0.082,
      "wrmf": 0.028,
@@ -6760,7 +6760,7 @@
     "rank": 1,
     "id_site": 546783,
     "activity_type": "quiz",
-    "score": 0.61,
+    "relevance": 0.61,
     "contributions": {
      "recent_pop": 0.243,
      "wrmf": 0.178,
@@ -6774,7 +6774,7 @@
     "rank": 2,
     "id_site": 546813,
     "activity_type": "url",
-    "score": 0.598,
+    "relevance": 0.598,
     "contributions": {
      "recent_pop": 0.244,
      "wrmf": 0.196,
@@ -6788,7 +6788,7 @@
     "rank": 3,
     "id_site": 546777,
     "activity_type": "oucontent",
-    "score": 0.579,
+    "relevance": 0.579,
     "contributions": {
      "recent_pop": 0.177,
      "wrmf": 0.159,
@@ -6802,7 +6802,7 @@
     "rank": 4,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.483,
+    "relevance": 0.483,
     "contributions": {
      "recent_pop": 0.083,
      "wrmf": 0.215,
@@ -6816,7 +6816,7 @@
     "rank": 5,
     "id_site": 546618,
     "activity_type": "forumng",
-    "score": 0.44,
+    "relevance": 0.44,
     "contributions": {
      "recent_pop": 0.187,
      "wrmf": 0.21,
@@ -6830,7 +6830,7 @@
     "rank": 6,
     "id_site": 546789,
     "activity_type": "forumng",
-    "score": 0.431,
+    "relevance": 0.431,
     "contributions": {
      "recent_pop": 0.089,
      "wrmf": 0.11,
@@ -6844,7 +6844,7 @@
     "rank": 7,
     "id_site": 546936,
     "activity_type": "resource",
-    "score": 0.424,
+    "relevance": 0.424,
     "contributions": {
      "recent_pop": 0.034,
      "wrmf": 0.223,
@@ -6858,7 +6858,7 @@
     "rank": 8,
     "id_site": 546803,
     "activity_type": "oucontent",
-    "score": 0.4,
+    "relevance": 0.4,
     "contributions": {
      "recent_pop": 0.09,
      "wrmf": 0.1,
@@ -6872,7 +6872,7 @@
     "rank": 9,
     "id_site": 546993,
     "activity_type": "oucontent",
-    "score": 0.306,
+    "relevance": 0.306,
     "contributions": {
      "recent_pop": 0.005,
      "wrmf": 0.115,
@@ -6886,7 +6886,7 @@
     "rank": 10,
     "id_site": 546632,
     "activity_type": "oucontent",
-    "score": 0.305,
+    "relevance": 0.305,
     "contributions": {
      "recent_pop": 0.189,
      "wrmf": 0.028,
@@ -6946,7 +6946,7 @@
     "rank": 1,
     "id_site": 546845,
     "activity_type": "quiz",
-    "score": 0.746,
+    "relevance": 0.746,
     "contributions": {
      "recent_pop": 0.254,
      "wrmf": 0.294,
@@ -6960,7 +6960,7 @@
     "rank": 2,
     "id_site": 546706,
     "activity_type": "oucontent",
-    "score": 0.638,
+    "relevance": 0.638,
     "contributions": {
      "recent_pop": 0.201,
      "wrmf": 0.253,
@@ -6974,7 +6974,7 @@
     "rank": 3,
     "id_site": 546912,
     "activity_type": "oucontent",
-    "score": 0.498,
+    "relevance": 0.498,
     "contributions": {
      "recent_pop": 0.018,
      "wrmf": 0.241,
@@ -6988,7 +6988,7 @@
     "rank": 4,
     "id_site": 546985,
     "activity_type": "resource",
-    "score": 0.495,
+    "relevance": 0.495,
     "contributions": {
      "recent_pop": 0.075,
      "wrmf": 0.121,
@@ -7002,7 +7002,7 @@
     "rank": 5,
     "id_site": 547010,
     "activity_type": "oucontent",
-    "score": 0.484,
+    "relevance": 0.484,
     "contributions": {
      "recent_pop": 0.167,
      "wrmf": 0.18,
@@ -7016,7 +7016,7 @@
     "rank": 6,
     "id_site": 546982,
     "activity_type": "ouwiki",
-    "score": 0.458,
+    "relevance": 0.458,
     "contributions": {
      "recent_pop": 0.137,
      "wrmf": 0.008,
@@ -7030,7 +7030,7 @@
     "rank": 7,
     "id_site": 546936,
     "activity_type": "resource",
-    "score": 0.457,
+    "relevance": 0.457,
     "contributions": {
      "recent_pop": 0.027,
      "wrmf": 0.265,
@@ -7044,7 +7044,7 @@
     "rank": 8,
     "id_site": 547031,
     "activity_type": "oucontent",
-    "score": 0.338,
+    "relevance": 0.338,
     "contributions": {
      "recent_pop": 0.047,
      "wrmf": 0.126,
@@ -7058,7 +7058,7 @@
     "rank": 9,
     "id_site": 546843,
     "activity_type": "forumng",
-    "score": 0.333,
+    "relevance": 0.333,
     "contributions": {
      "recent_pop": 0.017,
      "wrmf": 0.062,
@@ -7072,7 +7072,7 @@
     "rank": 10,
     "id_site": 547043,
     "activity_type": "resource",
-    "score": 0.291,
+    "relevance": 0.291,
     "contributions": {
      "recent_pop": 0.001,
      "wrmf": 0.165,
@@ -7132,7 +7132,7 @@
     "rank": 1,
     "id_site": 546927,
     "activity_type": "oucontent",
-    "score": 0.671,
+    "relevance": 0.671,
     "contributions": {
      "recent_pop": 0.232,
      "wrmf": 0.178,
@@ -7146,7 +7146,7 @@
     "rank": 2,
     "id_site": 546892,
     "activity_type": "oucontent",
-    "score": 0.635,
+    "relevance": 0.635,
     "contributions": {
      "recent_pop": 0.285,
      "wrmf": 0.144,
@@ -7160,7 +7160,7 @@
     "rank": 3,
     "id_site": 547001,
     "activity_type": "oucontent",
-    "score": 0.623,
+    "relevance": 0.623,
     "contributions": {
      "recent_pop": 0.145,
      "wrmf": 0.266,
@@ -7174,7 +7174,7 @@
     "rank": 4,
     "id_site": 546880,
     "activity_type": "subpage",
-    "score": 0.591,
+    "relevance": 0.591,
     "contributions": {
      "recent_pop": 0.224,
      "wrmf": 0.282,
@@ -7188,7 +7188,7 @@
     "rank": 5,
     "id_site": 546817,
     "activity_type": "oucontent",
-    "score": 0.591,
+    "relevance": 0.591,
     "contributions": {
      "recent_pop": 0.056,
      "wrmf": 0.266,
@@ -7202,7 +7202,7 @@
     "rank": 6,
     "id_site": 546868,
     "activity_type": "quiz",
-    "score": 0.564,
+    "relevance": 0.564,
     "contributions": {
      "recent_pop": 0.251,
      "wrmf": 0.198,
@@ -7216,7 +7216,7 @@
     "rank": 7,
     "id_site": 546974,
     "activity_type": "oucontent",
-    "score": 0.52,
+    "relevance": 0.52,
     "contributions": {
      "recent_pop": 0.255,
      "wrmf": 0.146,
@@ -7230,7 +7230,7 @@
     "rank": 8,
     "id_site": 547070,
     "activity_type": "url",
-    "score": 0.516,
+    "relevance": 0.516,
     "contributions": {
      "recent_pop": 0.27,
      "wrmf": 0.066,
@@ -7244,7 +7244,7 @@
     "rank": 9,
     "id_site": 547015,
     "activity_type": "quiz",
-    "score": 0.454,
+    "relevance": 0.454,
     "contributions": {
      "recent_pop": 0.106,
      "wrmf": 0.051,
@@ -7258,7 +7258,7 @@
     "rank": 10,
     "id_site": 546876,
     "activity_type": "quiz",
-    "score": 0.444,
+    "relevance": 0.444,
     "contributions": {
      "recent_pop": 0.152,
      "wrmf": 0.238,

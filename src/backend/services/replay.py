@@ -190,7 +190,7 @@ class ReplayService:
         for n, it in enumerate(raw.items[:k], start=1):
             exp = it["explanation"]
             items.append(RecItem(
-                rank=n, id_site=int(it["id_site"]), activity_type=str(it["activity_type"]), score=round(float(it["score"]), 4),
+                rank=n, id_site=int(it["id_site"]), activity_type=str(it["activity_type"]), relevance=round(float(it["score"]), 4),
                 contributions={comp_id(m): round(float(v["contribution"]), 4) for m, v in it["components"].items()},
                 reason=fix_ar(exp["main"]["text"]), reason_secondary=(fix_ar(exp["secondary"][0]["text"]) if exp["secondary"] else None)))
         ev = ix.student_events(student, day)

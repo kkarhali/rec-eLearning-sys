@@ -14,7 +14,7 @@ python3 -m src.backend --warm --warm-weekly     # + شبكة أسبوعية من
 python3 -m src.backend --no-instructor          # /api/instructor/* ⇒ 404 instructor_disabled، وصفحة المدرّس 404، وتُخفى روابطها
 python3 -m src.backend --host 127.0.0.1 --port 8000 --warm-presentation BBB_2013J --warm-days 75,126
 ```
-المتطلبات: `data/raw/oulad/` و`data/cache/` (انظر `src/ml/README.md`)، و`artifacts/` (**يجب تشغيل `python3 -m src.ml.experiments.build_artifacts` قبل أول تشغيل**) و`results/dev2013/hybrid_frozen.json`. غيابها ⇒ 503 `artifacts_missing`.
+المتطلبات: `data/raw/oulad/` و`data/cache/` (انظر `src/ml/README.md`)، و`artifacts/` (**يجب تشغيل `python3 -m src.ml.experiments.build_artifacts` قبل أول تشغيل**) و`results/dev2013/hybrid_frozen.json`. غيابها ⇒ 503 `artifacts_missing`، و500 `internal_error` (دون تفاصيل داخلية).
 يطلق `--warm` الخطّاف `serving.warm(presentation, days)` إن وُجد في `serving.py` (D-68، تحفيظ العنقدة الدائم)، وإلا يسخّن بنداءات التوصية ولقطة المدرّس نفسها. الربط الافتراضي `127.0.0.1`؛ أي مضيف آخر يطلق تحذيراً (D-66: عرض توضيحي بلا أمان وصول).
 `GET /api/health` يعيد `warm.state` (`pending|running|done|failed`).
 
@@ -25,24 +25,24 @@ python3 -m src.backend --host 127.0.0.1 --port 8000 --warm-presentation BBB_2013
 | `/api/meta` | — | الإصدار، `git_commit` (+`git_dirty`)، `data_fingerprint` (MD5 لـ`data/oulad_md5_reference.txt`) و`data_files` (MD5 لكل ملف)، `components` (الأوزان الأولية المجمَّدة)، `cutoffs` = قطوع النموذج [70،126،182]، `risk_cutoffs` = [28،56،112]، `snapshot_grid` (نقاط التنقل السريع)، `presentations`، و`bind_host` و`access_notice` («عرض توضيحي بلا أمان وصول»، D-66)، و`risk_score` (الحقل `score`، «درجة خطر نسبية غير معايَرة»، الهدف: رسوب/انسحاب مقابل نجاح/امتياز، D-65) |
 | `/api/presentations` | — | 9 عروض 2013 `published` (الافتراضي FFF_2013J أولاً) + عرض 2014 واحد `locked` للتمثيل (عدد تسجيلاته وطوله 0: لا يُقرأ شيء من 2014، D-09) |
 | `/api/registrations` | `presentation`، `q` (جزء من id_student)، `limit≤100`، `offset`، `day` (اختياري) | قائمة بيضاء (D-70): `registration, id_student, date_registration, status` فقط، لا `final_result` ولا `date_unregistration`. `status` بلا `day` دائماً `ok`؛ ومع `day`: `withdrawn` إن انسحب ≤ day، و`no_history` إن لا نشاط ≤ day. الترتيب: الأكثر أياماً نشطة حتى اليوم 75 أولاً |
-| `/api/recommendations` | `registration`، `day`، `k` 1..20، `task=A|B` | `provenance.model_cut` دائماً (null قبل اليوم 70)، `note`، `known_learner`، `status`، `components`، `items[{rank,id_site,activity_type,score,contributions,reason,reason_secondary}]` |
+| `/api/recommendations` | `registration`، `day`، `k` 1..20، `task=A|B` | `provenance.model_cut` دائماً (null قبل اليوم 70)، `note`، `known_learner`، `status`، `components`، `items[{rank,id_site,activity_type,relevance,contributions,reason,reason_secondary}]` |
 | `/api/explanations/{reg}/{id_site}` | `day`، `task` | مكوّنات `{weight, r_tilde, contribution, evidence, sentence}` مرتبة بالمساهمة؛ الدليل `count|item|assessment`؛ 404 `item_not_in_list` خارج أفضل 20 |
 | `/api/learner/{reg}/history` | `day`، `window` (28) | `daily`، `recent` (3)، `active_days` |
 | `/api/instructor/overview` | `presentation`، `day` | مؤشرات، ملخص الملامح، مدرج الخطر، التغطية |
 | `/api/instructor/clusters` | `presentation`، `day` | k، `cluster_day` (لقطة العناقيد = 56)، `unstable` و`unstable_reason`، الجودة (ARI = ثبات البذور لـk المختار؛ والاستقرار يشترط أيضاً أن يقع k ضمن أفضل اثنين في silhouette وDBI، فقد يكون ARI = 1 والعناقيد «غير مستقرة»)، أحجام ووصف عربي حتمي، إسقاط PCA |
 | `/api/instructor/learners` | `presentation`، `day`، `cluster`، `risk=all|above`، `sort=[-]risk|reg|cluster|active_days|last_access|on_time`، `limit≤500`، `offset` | `{items,total,limit,offset}` |
-| `/api/instructor/learner/{reg}` | `day` | عنقود، خطر بعوامل w·z، ملامح مقابل الوسيط، أفضل 3، `withdrawn_day`، `outcome: null` دائماً |
+| `/api/instructor/learner/{reg}` | `day` | عنقود، خطر بعوامل w·z، ملامح مقابل الوسيط، أفضل 3، `withdrawn_day`، بلا أي حقل نتيجة نهائية |
 
 الأخطاء: 404 `presentation_not_found|registration_not_found|item_not_in_list|instructor_disabled|not_found`، 405 `method_not_allowed`،
 409 `confirmatory_locked` (أي عرض 2014، على كل المسارات)، 422 `validation_error` (مع `details.errors[{field,reason}]`) و`day_out_of_range`
-(`details.max_day`) و`day_before_first_snapshot` (المدرّس قبل اليوم 56، `details.first_day = 56`؛ الواجهة تنقل الشريط تلقائياً)، 503 `artifacts_missing`.
+(`details.max_day`) و`day_before_first_snapshot` (المدرّس قبل اليوم 56، `details.first_day = 56`؛ الواجهة تنقل الشريط تلقائياً)، 503 `artifacts_missing`، و500 `internal_error` (دون تفاصيل داخلية).
 
 ```text
 $ curl 'localhost:8000/api/recommendations?registration=FFF_2013J-371869&day=75&k=3'
 {"registration":"FFF_2013J-371869","presentation":"FFF_2013J","id_student":371869,"requested_day":75,"snapshot_day":75,"task":"A",
  "status":"ok","known_learner":true,"note":null,"context":{"week":11,"next_assessment":{"type":"TMA","day":96,"days_ahead":21},"active_days_to_date":93},
- "components":[{"id":"cluster_pop","label":"شعبية العنقود (7)","weight":0.75},{"id":"sknn","label":"SKNN (4)","weight":0.25}],
- "items":[{"rank":1,"id_site":716344,"activity_type":"oucontent","score":1.0,"contributions":{"cluster_pop":0.75,"sknn":0.25},
+ "components":[{"id":"similar_pop","label":"شعبية الأنماط المشابهة (7)","weight":0.75},{"id":"sknn","label":"SKNN (4)","weight":0.25}],
+ "items":[{"rank":1,"id_site":716344,"activity_type":"oucontent","relevance":1.0,"contributions":{"similar_pop":0.75,"sknn":0.25},
            "reason":"شائع لدى متعلمين بنمط مشابه لنمطك","reason_secondary":null}, …],
  "provenance":{"run_id":"replay-dev2013-…","role":"dev","model_cut":70}}
 $ curl 'localhost:8000/api/instructor/learners?presentation=FFF_2013J&day=75&sort=-risk&limit=1'
@@ -57,6 +57,7 @@ $ curl 'localhost:8000/api/instructor/learners?presentation=FFF_2013J&day=75&sor
 - **الفوج** في لوحة المدرّس = المسجَّلون ≤ t ولم ينسحبوا ≤ t (لا مستقبل). ملخص الملامح على النشطين (≥ يوم نشط)، النسب بالمئة (الأمثلة تستعمل كسوراً مع وحدة «%»). صفوف «أول وصول» و«متوسط الدرجات» تُحذف من ملف المتعلم حين لا نشاط/درجة (قيمتا غياب بالعرف).
 - **عدد المكوّنات** هو ما في التركيبة المجمَّدة فعلاً: `C7_ClusterPop` و`B5_SKNN` فقط (الأوزان تتغير مع القطع؛ SKNN بوزن 0 عند 126 و182).
 - **D-70:** مفتاح دليل C7 `similar_learners_in_window` (يقبل الاسم القديم من `serving` إلى أن يُعاد تسميته هناك)، ومعرّف المكوّن `similar_pop` والوسم «شعبية الأنماط المشابهة»، و`scope: "similar"`؛ فلا كلمة cluster في أي استجابة متعلم، ويفحصه `test_contract_json.py` على JSON المسلسَل. العنقود يُستعمل داخل التوصية ولا يُعرض للمتعلم.
+- **درجة التوصية** اسمها `relevance` (عناصر التوصية والتفسير) لا `score`؛ فالمفتاح `score` محجوز لدرجة الخطر في مسارات المدرّس وحدها، ويحظره اختبار العقد في كل JSON المتعلم (D-70).
 - **الفصل بالعقد** (لا ضبط وصول): نماذج المتعلم بلا حقول خطر/عنقود/سمات حساسة/`final_result`؛ لا يُستدعى `learner_profile` في مساراته. `outcome` في ملف المدرّس `null` دائماً.
 - `--no-instructor`: رابط المدرّس يُخفى بحقن `<style>a[href*="instructor"]{display:none}</style>` في صفحات HTML (دون تعديل الواجهة).
 
