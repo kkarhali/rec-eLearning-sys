@@ -195,7 +195,7 @@ def build_summary(out_dir) -> Path:
     tt["أقصى RSS للعملية (MB)"] = mem
     md.append("## الجدول 9: زمن التدريب والتقييم لكل نموذج (مجموع 27 (عرض، أصل)، ثوانٍ)\n")
     md.append(_md_table(tt.reset_index().rename(columns={"model": "النموذج"})) + "\n")
-    md.append("قيم K = 5 و20 وشرائح cold/warm لكل (عرض، أصل، بذرة) في `baselines.csv`؛ "
+    md.append("قيم K = 5 و20 والشرائح cold_q1/top_q4/lt5 لكل (عرض، أصل، بذرة) في `baselines.csv`؛ "
               "كل إعدادات الضبط وقيمها على التحقق في `tuning.csv`.\n")
     path = out / "summary.md"
     path.write_text("\n".join(md), encoding="utf-8")

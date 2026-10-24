@@ -26,7 +26,8 @@
       "B6_Markov",
       "B7_WRMF",
       "B8_PersonalRepeat",
-      "B9_CBF"
+      "B9_CBF",
+      "B10_EASE"
     ],
     "seeds": [
       0,
@@ -39,12 +40,12 @@
     "workers": 4,
     "out": "/home/user/rec-eLearning-sys/results/dev2013"
   },
-  "git_commit": "2ddc06c4e37a69b10dcb73c8690db51837610121",
+  "git_commit": "2fea7fc7db129d9414228028091a146e7e420d3b",
   "data_fingerprint": "85fda9abc3",
   "python": "3.13.17",
   "numpy": "2.5.3",
   "pandas": "3.0.5",
-  "wall_seconds": 419.6,
+  "wall_seconds": 311.9,
   "workers": 4,
-  "date": "2026-10-24 20:42:38"
+  "date": "2026-10-24 20:52:19"
 }
