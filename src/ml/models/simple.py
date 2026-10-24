@@ -40,7 +40,7 @@ def recent_popularity(train, w: int) -> np.ndarray:
 
 
 class RecentPop(Recommender):
-    """B3: s(i; t0, w) = |{u : ∃ d ∈ (t0−w, t0], c_uid > 0}|, w ∈ {7, 14}."""
+    """B3: s(i; t0, w) = |{u : ∃ d ∈ (t0−w, t0], c_uid > 0}|, w ∈ {3, 7, 14, 21, 28} (D-29)."""
 
     name = "B3_RecentPop"
 
@@ -51,7 +51,7 @@ class RecentPop(Recommender):
 
     @classmethod
     def param_space(cls):
-        return grid(w=[7, 14])
+        return grid(w=[3, 7, 14, 21, 28])
 
 
 class PersonalRepeat(Recommender):

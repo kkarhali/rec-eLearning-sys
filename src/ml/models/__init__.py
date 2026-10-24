@@ -1,6 +1,7 @@
-"""Baselines B1–B9 behind one interface (see base.Recommender)."""
+"""Baselines B1–B9 and the reference B10 EASE behind one interface (see base.Recommender)."""
 from .base import Recommender, grid, sample_space
 from .cbf import CBF
+from .ease import EASE
 from .knn import SKNN, ItemKNN
 from .markov import Markov
 from .simple import Pop, PersonalRepeat, RandomRec, RecentPop
@@ -16,7 +17,8 @@ BASELINES = {
     "B7_WRMF": WRMF,
     "B8_PersonalRepeat": PersonalRepeat,
     "B9_CBF": CBF,
+    "B10_EASE": EASE,      # reference only (D-37)
 }
 
 __all__ = ["Recommender", "grid", "sample_space", "BASELINES", "RandomRec", "Pop", "RecentPop",
-           "ItemKNN", "SKNN", "Markov", "WRMF", "PersonalRepeat", "CBF"]
+           "ItemKNN", "SKNN", "Markov", "WRMF", "PersonalRepeat", "CBF", "EASE"]

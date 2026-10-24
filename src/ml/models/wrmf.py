@@ -112,8 +112,9 @@ class WRMF(Recommender):
 
     @classmethod
     def param_space(cls):
-        # 'iters' is evaluated as checkpoints of one run (10, 15, 25), see README §decisions
-        return grid(f=[16, 32, 64, 128], reg=[0.01, 0.1, 1.0, 10.0], alpha=list(ALPHA_SPACE),
+        # 'iters' = checkpoints (10, 15, 25) of one run, not counted as settings (ADR-004 §2.4);
+        # f ≤ 64 (D-34: f = 128 rejected for cost)
+        return grid(f=[16, 32, 64], reg=[0.01, 0.1, 1.0, 10.0], alpha=list(ALPHA_SPACE),
                     signal=all_signal_specs())
 
     ITER_CHECKPOINTS = (10, 15, 25)
