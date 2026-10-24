@@ -1,0 +1,7 @@
+6126f9d435767bcc70134b46f21c2a90  data/raw/assessments.csv
+4c3df8a42a98a0d26b22f507007c31a8  data/raw/courses.csv
+9ceb38acaeb26fbc15c98b563290c1db  data/raw/studentAssessment.csv
+ead11d001fe8b7aed1469daa643a812c  data/raw/studentInfo.csv
+ef06e3d5784dc7dffe06ef911c5b190c  data/raw/studentRegistration.csv
+b8aae6f4ffd1523319aeb56d66b17f72  data/raw/studentVle.csv
+0e7ef38c483daca42900ca426b66f8da  data/raw/vle.csv
