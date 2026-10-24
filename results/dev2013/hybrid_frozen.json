@@ -1,0 +1,95 @@
+{
+  "status": "frozen on the 2013 development presentations (D-11, D-30); confirmatory run on 2014 re-tunes only the weights on each presentation's validation window inside this frozen space",
+  "components": [
+    "C7_ClusterPop",
+    "B4_ItemKNN"
+  ],
+  "labels": [
+    "(7) شعبية العنقود",
+    "(3) Item-kNN"
+  ],
+  "floor_component": "B4_ItemKNN",
+  "accept_only_components": [
+    "C7_ClusterPop"
+  ],
+  "candidates": [
+    "B3_RecentPop",
+    "B7_WRMF",
+    "B4_ItemKNN",
+    "B5_SKNN",
+    "B9_CBF",
+    "C6_AssessProx",
+    "C7_ClusterPop"
+  ],
+  "S_star": "B5_SKNN",
+  "S_star_nonneural": "B5_SKNN",
+  "B_np_star": "B3_RecentPop",
+  "weight_grid": "simplex step 1/4 (D-29)",
+  "initial_weights_modal": {
+    "C7_ClusterPop": 1.0,
+    "B4_ItemKNN": 0.0
+  },
+  "weights_by_fold": {
+    "GGG_2013J_182": {
+      "C7_ClusterPop": 1.0,
+      "B4_ItemKNN": 0.0
+    },
+    "AAA_2013J_182": {
+      "C7_ClusterPop": 1.0,
+      "B4_ItemKNN": 0.0
+    },
+    "GGG_2013J_126": {
+      "C7_ClusterPop": 1.0,
+      "B4_ItemKNN": 0.0
+    },
+    "AAA_2013J_126": {
+      "C7_ClusterPop": 0.75,
+      "B4_ItemKNN": 0.25
+    },
+    "GGG_2013J_70": {
+      "C7_ClusterPop": 1.0,
+      "B4_ItemKNN": 0.0
+    },
+    "AAA_2013J_70": {
+      "C7_ClusterPop": 1.0,
+      "B4_ItemKNN": 0.0
+    }
+  },
+  "component_configs_by_fold": {
+    "GGG_2013J_182": {
+      "C7_ClusterPop": "w=14",
+      "B4_ItemKNN": "k=20;shrink=0;signal=L3(tau=7,beta=1)"
+    },
+    "AAA_2013J_182": {
+      "C7_ClusterPop": "w=3",
+      "B4_ItemKNN": "k=20;shrink=0;signal=L3(tau=7,beta=1)"
+    },
+    "GGG_2013J_126": {
+      "C7_ClusterPop": "w=7",
+      "B4_ItemKNN": "k=20;shrink=0;signal=L3(tau=7,beta=1)"
+    },
+    "AAA_2013J_126": {
+      "C7_ClusterPop": "w=7",
+      "B4_ItemKNN": "k=20;shrink=0;signal=L3(tau=7,beta=1)"
+    },
+    "GGG_2013J_70": {
+      "C7_ClusterPop": "w=3",
+      "B4_ItemKNN": "k=100;shrink=0;signal=L2(tau=7)"
+    },
+    "AAA_2013J_70": {
+      "C7_ClusterPop": "w=3",
+      "B4_ItemKNN": "k=20;shrink=0;signal=L3(tau=7,beta=1)"
+    }
+  },
+  "component_parameter_spaces": "standalone spaces of results/dev2013/baselines.csv (B3, B4, B7, B9), gru.csv (GRU-lite), C7 w ∈ {3,7,14,21,28}",
+  "task": "A (D-42)",
+  "seeds_report": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "git_commit_at_freeze_run": "409b1d14c234e106c13879ebcf0f9b85a9bb9e79",
+  "date": "2026-10-24 21:23:39"
+}

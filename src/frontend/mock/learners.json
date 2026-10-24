@@ -1,0 +1,727 @@
+{
+ "items": [
+  {
+   "registration": "BBB_2013J-29905",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 42,
+   "last_access_day": 73,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.86,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "يوم أول وصول"
+   }
+  },
+  {
+   "registration": "BBB_2013J-26906",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 26,
+   "last_access_day": 72,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.84,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "حصة quiz"
+   }
+  },
+  {
+   "registration": "BBB_2013J-23776",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 41,
+   "last_access_day": 73,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.82,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "الالتزام بالمواعيد"
+   }
+  },
+  {
+   "registration": "BBB_2013J-28400",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 8,
+   "last_access_day": 72,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.81,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "متوسط الدرجات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-25070",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 35,
+   "last_access_day": 75,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.79,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "الأيام النشطة"
+   }
+  },
+  {
+   "registration": "BBB_2013J-32164",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 26,
+   "last_access_day": 75,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.77,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "يوم أول وصول"
+   }
+  },
+  {
+   "registration": "BBB_2013J-24286",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 46,
+   "last_access_day": 72,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.75,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "حصة quiz"
+   }
+  },
+  {
+   "registration": "BBB_2013J-30905",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 38,
+   "last_access_day": 69,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.74,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "يوم أول وصول"
+   }
+  },
+  {
+   "registration": "BBB_2013J-25596",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 21,
+   "last_access_day": 73,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.73,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "الالتزام بالمواعيد"
+   }
+  },
+  {
+   "registration": "BBB_2013J-24126",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 9,
+   "last_access_day": 73,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.72,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "انحراف الفجوات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-27087",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 13,
+   "last_access_day": 73,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.69,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "انحراف الفجوات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-31092",
+   "cluster": {
+    "id": 2,
+    "label": "متأخرون في البدء"
+   },
+   "active_days": 43,
+   "last_access_day": 74,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.67,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "انحراف الفجوات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-26742",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 38,
+   "last_access_day": 66,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.66,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "انحراف الفجوات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-31044",
+   "cluster": {
+    "id": 2,
+    "label": "متأخرون في البدء"
+   },
+   "active_days": 45,
+   "last_access_day": 75,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.63,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "انحراف الفجوات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-32075",
+   "cluster": {
+    "id": 2,
+    "label": "متأخرون في البدء"
+   },
+   "active_days": 24,
+   "last_access_day": 75,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.61,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "انحراف الفجوات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-26220",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 13,
+   "last_access_day": 41,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.6,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "حصة quiz"
+   }
+  },
+  {
+   "registration": "BBB_2013J-33707",
+   "cluster": {
+    "id": 2,
+    "label": "متأخرون في البدء"
+   },
+   "active_days": 6,
+   "last_access_day": 56,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.6,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "الأيام النشطة"
+   }
+  },
+  {
+   "registration": "BBB_2013J-33064",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 26,
+   "last_access_day": 74,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.58,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "متوسط الدرجات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-27210",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 8,
+   "last_access_day": 75,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.57,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "متوسط الدرجات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-31520",
+   "cluster": {
+    "id": 2,
+    "label": "متأخرون في البدء"
+   },
+   "active_days": 9,
+   "last_access_day": 70,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.56,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "حصة quiz"
+   }
+  },
+  {
+   "registration": "BBB_2013J-27711",
+   "cluster": {
+    "id": 1,
+    "label": "متقطعون بنشاط تقييمي"
+   },
+   "active_days": 38,
+   "last_access_day": 68,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.55,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "انحراف الفجوات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-33001",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 30,
+   "last_access_day": 74,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.54,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "حصة quiz"
+   }
+  },
+  {
+   "registration": "BBB_2013J-23634",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 22,
+   "last_access_day": 75,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.54,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "متوسط الدرجات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-33305",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 9,
+   "last_access_day": 68,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.53,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "متوسط الدرجات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-27180",
+   "cluster": {
+    "id": 2,
+    "label": "متأخرون في البدء"
+   },
+   "active_days": 21,
+   "last_access_day": 70,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.51,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "حصة quiz"
+   }
+  },
+  {
+   "registration": "BBB_2013J-30455",
+   "cluster": {
+    "id": 3,
+    "label": "منخفضو النشاط"
+   },
+   "active_days": 9,
+   "last_access_day": 72,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.47,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "الالتزام بالمواعيد"
+   }
+  },
+  {
+   "registration": "BBB_2013J-24786",
+   "cluster": {
+    "id": 1,
+    "label": "متقطعون بنشاط تقييمي"
+   },
+   "active_days": 21,
+   "last_access_day": 75,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.46,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": true,
+    "provenance": "oof_2013",
+    "top_factor": "حصة quiz"
+   }
+  },
+  {
+   "registration": "BBB_2013J-32888",
+   "cluster": {
+    "id": 2,
+    "label": "متأخرون في البدء"
+   },
+   "active_days": 47,
+   "last_access_day": 73,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.35,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "يوم أول وصول"
+   }
+  },
+  {
+   "registration": "BBB_2013J-24701",
+   "cluster": {
+    "id": 2,
+    "label": "متأخرون في البدء"
+   },
+   "active_days": 30,
+   "last_access_day": 74,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.32,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "الأيام النشطة"
+   }
+  },
+  {
+   "registration": "BBB_2013J-32772",
+   "cluster": {
+    "id": 1,
+    "label": "متقطعون بنشاط تقييمي"
+   },
+   "active_days": 27,
+   "last_access_day": 73,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.31,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "حصة quiz"
+   }
+  },
+  {
+   "registration": "BBB_2013J-33090",
+   "cluster": {
+    "id": 1,
+    "label": "متقطعون بنشاط تقييمي"
+   },
+   "active_days": 13,
+   "last_access_day": 63,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.3,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "متوسط الدرجات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-29416",
+   "cluster": {
+    "id": 1,
+    "label": "متقطعون بنشاط تقييمي"
+   },
+   "active_days": 26,
+   "last_access_day": 75,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.29,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "الالتزام بالمواعيد"
+   }
+  },
+  {
+   "registration": "BBB_2013J-29894",
+   "cluster": {
+    "id": 1,
+    "label": "متقطعون بنشاط تقييمي"
+   },
+   "active_days": 7,
+   "last_access_day": 67,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.28,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "يوم أول وصول"
+   }
+  },
+  {
+   "registration": "BBB_2013J-25874",
+   "cluster": {
+    "id": 1,
+    "label": "متقطعون بنشاط تقييمي"
+   },
+   "active_days": 13,
+   "last_access_day": 71,
+   "on_time": "0/2",
+   "risk": {
+    "probability": 0.28,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "انحراف الفجوات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-26109",
+   "cluster": {
+    "id": 1,
+    "label": "متقطعون بنشاط تقييمي"
+   },
+   "active_days": 0,
+   "last_access_day": null,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.24,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "حصة quiz"
+   }
+  },
+  {
+   "registration": "BBB_2013J-31394",
+   "cluster": {
+    "id": 0,
+    "label": "منتظمون عاليو الانخراط"
+   },
+   "active_days": 44,
+   "last_access_day": 75,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.23,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "انحراف الفجوات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-29360",
+   "cluster": {
+    "id": 1,
+    "label": "متقطعون بنشاط تقييمي"
+   },
+   "active_days": 4,
+   "last_access_day": 43,
+   "on_time": "1/2",
+   "risk": {
+    "probability": 0.18,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "متوسط الدرجات"
+   }
+  },
+  {
+   "registration": "BBB_2013J-27807",
+   "cluster": {
+    "id": 0,
+    "label": "منتظمون عاليو الانخراط"
+   },
+   "active_days": 29,
+   "last_access_day": 73,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.17,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "الالتزام بالمواعيد"
+   }
+  },
+  {
+   "registration": "BBB_2013J-30852",
+   "cluster": {
+    "id": 0,
+    "label": "منتظمون عاليو الانخراط"
+   },
+   "active_days": 43,
+   "last_access_day": 75,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.17,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "حصة quiz"
+   }
+  },
+  {
+   "registration": "BBB_2013J-29903",
+   "cluster": {
+    "id": 0,
+    "label": "منتظمون عاليو الانخراط"
+   },
+   "active_days": 49,
+   "last_access_day": 75,
+   "on_time": "2/2",
+   "risk": {
+    "probability": 0.12,
+    "cut_day": 56,
+    "threshold": 0.42,
+    "above_threshold": false,
+    "provenance": "oof_2013",
+    "top_factor": "متوسط الدرجات"
+   }
+  }
+ ],
+ "total": 40,
+ "limit": 100,
+ "offset": 0
+}

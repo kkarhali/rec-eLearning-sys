@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المدرّس — موصي التعلّم</title>
+<link rel="stylesheet" href="styles/tokens.css"><link rel="stylesheet" href="styles/base.css"><link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+<a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+<header class="header" id="site-header"></header>
+<main id="main" class="container container--wide">
+  <h1 class="h1">لوحة المدرّس</h1>
+  <p class="banner banner--danger" role="note"><strong>للمدرّس/المشرف فقط:</strong> تقديرات احتمالية من نموذج Logistic L2 ليست حكماً على المتعلم، ولا تظهر في واجهة المتعلم. الأرقام للعرض والتوضيح لا للتقييم (D-49).</p>
+  <section class="card controls" id="controls" aria-label="التحكم بالعرض واليوم" aria-busy="true"></section>
+  <section class="kpis" id="kpis" aria-label="مؤشرات رئيسية" aria-busy="true"></section>
+  <div class="grid-dash">
+    <section class="card" aria-labelledby="t-cl"><h2 class="h2" id="t-cl">العناقيد السلوكية</h2><div id="clusters" aria-busy="true"></div></section>
+    <section class="card" aria-labelledby="t-risk"><h2 class="h2" id="t-risk">توزيع احتمال الخطر</h2><div id="risk" aria-busy="true"></div></section>
+    <section class="card" aria-labelledby="t-prof"><h2 class="h2" id="t-prof">ملامح السلوك</h2><div id="profiles" aria-busy="true"></div></section>
+    <section class="card" aria-labelledby="t-cov"><h2 class="h2" id="t-cov">تغطية التوصيات</h2><div id="coverage" aria-busy="true"></div></section>
+  </div>
+  <section class="card" aria-labelledby="t-learners"><h2 class="h2" id="t-learners">المتعلمون (مرتبون باحتمال الخطر تنازلياً)</h2>
+    <div id="filters" class="filters" role="group" aria-label="تصفية الجدول"></div>
+    <div id="learners" aria-busy="true"></div></section>
+  <div id="drawer-slot"></div>
+</main>
+<script type="module" src="js/instructor.js"></script>
+</body></html>

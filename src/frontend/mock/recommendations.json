@@ -1,0 +1,7273 @@
+{
+ "BBB_2013J-28400": {
+  "registration": "BBB_2013J-28400",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 23
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546759,
+    "activity_type": "oucontent",
+    "score": 0.704,
+    "contributions": {
+     "recent_pop": 0.199,
+     "wrmf": 0.144,
+     "sknn": 0.193,
+     "assess_prox": 0.168
+    },
+    "reason": "يستخدمه 96 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 547058,
+    "activity_type": "glossary",
+    "score": 0.701,
+    "contributions": {
+     "recent_pop": 0.101,
+     "wrmf": 0.222,
+     "sknn": 0.191,
+     "assess_prox": 0.187
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546868,
+    "activity_type": "quiz",
+    "score": 0.7,
+    "contributions": {
+     "recent_pop": 0.198,
+     "wrmf": 0.264,
+     "sknn": 0.184,
+     "assess_prox": 0.054
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546982,
+    "activity_type": "ouwiki",
+    "score": 0.625,
+    "contributions": {
+     "recent_pop": 0.274,
+     "wrmf": 0.266,
+     "sknn": 0.006,
+     "assess_prox": 0.079
+    },
+    "reason": "يستخدمه 175 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 5,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "score": 0.524,
+    "contributions": {
+     "recent_pop": 0.156,
+     "wrmf": 0.145,
+     "sknn": 0.191,
+     "assess_prox": 0.032
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546742,
+    "activity_type": "oucontent",
+    "score": 0.383,
+    "contributions": {
+     "recent_pop": 0.166,
+     "wrmf": 0.04,
+     "sknn": 0.136,
+     "assess_prox": 0.041
+    },
+    "reason": "يستخدمه 262 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 7,
+    "id_site": 547070,
+    "activity_type": "url",
+    "score": 0.382,
+    "contributions": {
+     "recent_pop": 0.014,
+     "wrmf": 0.022,
+     "sknn": 0.149,
+     "assess_prox": 0.197
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 8,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.369,
+    "contributions": {
+     "recent_pop": 0.164,
+     "wrmf": 0.073,
+     "sknn": 0.027,
+     "assess_prox": 0.105
+    },
+    "reason": "يستخدمه 85 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "score": 0.362,
+    "contributions": {
+     "recent_pop": 0.022,
+     "wrmf": 0.293,
+     "sknn": 0.036,
+     "assess_prox": 0.011
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546813,
+    "activity_type": "url",
+    "score": 0.313,
+    "contributions": {
+     "recent_pop": 0.075,
+     "wrmf": 0.136,
+     "sknn": 0.086,
+     "assess_prox": 0.016
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-31092": {
+  "registration": "BBB_2013J-31092",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 155
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546831,
+    "activity_type": "oucontent",
+    "score": 0.77,
+    "contributions": {
+     "recent_pop": 0.297,
+     "wrmf": 0.292,
+     "sknn": 0.059,
+     "assess_prox": 0.122
+    },
+    "reason": "يستخدمه 316 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "score": 0.629,
+    "contributions": {
+     "recent_pop": 0.192,
+     "wrmf": 0.259,
+     "sknn": 0.007,
+     "assess_prox": 0.171
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 547058,
+    "activity_type": "glossary",
+    "score": 0.549,
+    "contributions": {
+     "recent_pop": 0.201,
+     "wrmf": 0.198,
+     "sknn": 0.087,
+     "assess_prox": 0.063
+    },
+    "reason": "يستخدمه 132 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 4,
+    "id_site": 546868,
+    "activity_type": "quiz",
+    "score": 0.49,
+    "contributions": {
+     "recent_pop": 0.042,
+     "wrmf": 0.235,
+     "sknn": 0.041,
+     "assess_prox": 0.172
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 5,
+    "id_site": 547089,
+    "activity_type": "page",
+    "score": 0.399,
+    "contributions": {
+     "recent_pop": 0.005,
+     "wrmf": 0.273,
+     "sknn": 0.047,
+     "assess_prox": 0.074
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546802,
+    "activity_type": "oucontent",
+    "score": 0.376,
+    "contributions": {
+     "recent_pop": 0.179,
+     "wrmf": 0.116,
+     "sknn": 0.045,
+     "assess_prox": 0.036
+    },
+    "reason": "يستخدمه 375 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "score": 0.356,
+    "contributions": {
+     "recent_pop": 0.181,
+     "wrmf": 0.01,
+     "sknn": 0.085,
+     "assess_prox": 0.08
+    },
+    "reason": "يستخدمه 415 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546985,
+    "activity_type": "resource",
+    "score": 0.336,
+    "contributions": {
+     "recent_pop": 0.034,
+     "wrmf": 0.171,
+     "sknn": 0.059,
+     "assess_prox": 0.072
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546963,
+    "activity_type": "ouwiki",
+    "score": 0.278,
+    "contributions": {
+     "recent_pop": 0.082,
+     "wrmf": 0.087,
+     "sknn": 0.038,
+     "assess_prox": 0.071
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546974,
+    "activity_type": "oucontent",
+    "score": 0.171,
+    "contributions": {
+     "recent_pop": 0.004,
+     "wrmf": 0.115,
+     "sknn": 0.047,
+     "assess_prox": 0.005
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-27711": {
+  "registration": "BBB_2013J-27711",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 114
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 547058,
+    "activity_type": "glossary",
+    "score": 0.787,
+    "contributions": {
+     "recent_pop": 0.29,
+     "wrmf": 0.232,
+     "sknn": 0.067,
+     "assess_prox": 0.198
+    },
+    "reason": "يستخدمه 317 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "score": 0.676,
+    "contributions": {
+     "recent_pop": 0.282,
+     "wrmf": 0.046,
+     "sknn": 0.197,
+     "assess_prox": 0.151
+    },
+    "reason": "يستخدمه 390 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "score": 0.636,
+    "contributions": {
+     "recent_pop": 0.198,
+     "wrmf": 0.096,
+     "sknn": 0.144,
+     "assess_prox": 0.198
+    },
+    "reason": "يستخدمه 261 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "score": 0.609,
+    "contributions": {
+     "recent_pop": 0.271,
+     "wrmf": 0.116,
+     "sknn": 0.17,
+     "assess_prox": 0.052
+    },
+    "reason": "يستخدمه 195 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "score": 0.581,
+    "contributions": {
+     "recent_pop": 0.172,
+     "wrmf": 0.15,
+     "sknn": 0.11,
+     "assess_prox": 0.149
+    },
+    "reason": "يستخدمه 239 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546783,
+    "activity_type": "quiz",
+    "score": 0.54,
+    "contributions": {
+     "recent_pop": 0.103,
+     "wrmf": 0.289,
+     "sknn": 0.012,
+     "assess_prox": 0.136
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.514,
+    "contributions": {
+     "recent_pop": 0.041,
+     "wrmf": 0.29,
+     "sknn": 0.054,
+     "assess_prox": 0.129
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.496,
+    "contributions": {
+     "recent_pop": 0.104,
+     "wrmf": 0.188,
+     "sknn": 0.173,
+     "assess_prox": 0.031
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 9,
+    "id_site": 546985,
+    "activity_type": "resource",
+    "score": 0.491,
+    "contributions": {
+     "recent_pop": 0.21,
+     "wrmf": 0.042,
+     "sknn": 0.171,
+     "assess_prox": 0.068
+    },
+    "reason": "يستخدمه 420 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 10,
+    "id_site": 547031,
+    "activity_type": "oucontent",
+    "score": 0.468,
+    "contributions": {
+     "recent_pop": 0.013,
+     "wrmf": 0.276,
+     "sknn": 0.177,
+     "assess_prox": 0.002
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   }
+  ]
+ },
+ "BBB_2013J-30455": {
+  "registration": "BBB_2013J-30455",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 28
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "score": 0.78,
+    "contributions": {
+     "recent_pop": 0.273,
+     "wrmf": 0.257,
+     "sknn": 0.162,
+     "assess_prox": 0.088
+    },
+    "reason": "يستخدمه 395 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 547063,
+    "activity_type": "homepage",
+    "score": 0.676,
+    "contributions": {
+     "recent_pop": 0.179,
+     "wrmf": 0.216,
+     "sknn": 0.173,
+     "assess_prox": 0.108
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 547058,
+    "activity_type": "glossary",
+    "score": 0.657,
+    "contributions": {
+     "recent_pop": 0.227,
+     "wrmf": 0.242,
+     "sknn": 0.054,
+     "assess_prox": 0.134
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 315 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 4,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "score": 0.547,
+    "contributions": {
+     "recent_pop": 0.159,
+     "wrmf": 0.185,
+     "sknn": 0.009,
+     "assess_prox": 0.194
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 5,
+    "id_site": 547078,
+    "activity_type": "resource",
+    "score": 0.541,
+    "contributions": {
+     "recent_pop": 0.209,
+     "wrmf": 0.103,
+     "sknn": 0.075,
+     "assess_prox": 0.154
+    },
+    "reason": "يستخدمه 357 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546813,
+    "activity_type": "url",
+    "score": 0.484,
+    "contributions": {
+     "recent_pop": 0.094,
+     "wrmf": 0.057,
+     "sknn": 0.147,
+     "assess_prox": 0.186
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "score": 0.452,
+    "contributions": {
+     "recent_pop": 0.053,
+     "wrmf": 0.233,
+     "sknn": 0.121,
+     "assess_prox": 0.045
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546622,
+    "activity_type": "url",
+    "score": 0.418,
+    "contributions": {
+     "recent_pop": 0.062,
+     "wrmf": 0.163,
+     "sknn": 0.126,
+     "assess_prox": 0.067
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "score": 0.387,
+    "contributions": {
+     "recent_pop": 0.114,
+     "wrmf": 0.073,
+     "sknn": 0.191,
+     "assess_prox": 0.009
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "score": 0.357,
+    "contributions": {
+     "recent_pop": 0.18,
+     "wrmf": 0.114,
+     "sknn": 0.017,
+     "assess_prox": 0.046
+    },
+    "reason": "يستخدمه 138 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-29903": {
+  "registration": "BBB_2013J-29903",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 151
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 547089,
+    "activity_type": "page",
+    "score": 0.696,
+    "contributions": {
+     "recent_pop": 0.236,
+     "wrmf": 0.262,
+     "sknn": 0.001,
+     "assess_prox": 0.197
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 311 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546824,
+    "activity_type": "url",
+    "score": 0.547,
+    "contributions": {
+     "recent_pop": 0.159,
+     "wrmf": 0.159,
+     "sknn": 0.113,
+     "assess_prox": 0.116
+    },
+    "reason": "يستخدمه 361 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "score": 0.541,
+    "contributions": {
+     "recent_pop": 0.293,
+     "wrmf": 0.009,
+     "sknn": 0.094,
+     "assess_prox": 0.145
+    },
+    "reason": "يستخدمه 395 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546853,
+    "activity_type": "forumng",
+    "score": 0.506,
+    "contributions": {
+     "recent_pop": 0.281,
+     "wrmf": 0.053,
+     "sknn": 0.053,
+     "assess_prox": 0.119
+    },
+    "reason": "يستخدمه 92 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "score": 0.502,
+    "contributions": {
+     "recent_pop": 0.199,
+     "wrmf": 0.209,
+     "sknn": 0.061,
+     "assess_prox": 0.033
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 363 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 6,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "score": 0.472,
+    "contributions": {
+     "recent_pop": 0.016,
+     "wrmf": 0.115,
+     "sknn": 0.165,
+     "assess_prox": 0.176
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 7,
+    "id_site": 547063,
+    "activity_type": "homepage",
+    "score": 0.318,
+    "contributions": {
+     "recent_pop": 0.029,
+     "wrmf": 0.19,
+     "sknn": 0.098,
+     "assess_prox": 0.001
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "score": 0.221,
+    "contributions": {
+     "recent_pop": 0.091,
+     "wrmf": 0.0,
+     "sknn": 0.017,
+     "assess_prox": 0.113
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": "يستخدمه 153 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 9,
+    "id_site": 546813,
+    "activity_type": "url",
+    "score": 0.185,
+    "contributions": {
+     "recent_pop": 0.045,
+     "wrmf": 0.114,
+     "sknn": 0.003,
+     "assess_prox": 0.023
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-33001": {
+  "registration": "BBB_2013J-33001",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 91
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "score": 0.774,
+    "contributions": {
+     "recent_pop": 0.223,
+     "wrmf": 0.269,
+     "sknn": 0.09,
+     "assess_prox": 0.192
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "score": 0.646,
+    "contributions": {
+     "recent_pop": 0.172,
+     "wrmf": 0.271,
+     "sknn": 0.183,
+     "assess_prox": 0.02
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546777,
+    "activity_type": "oucontent",
+    "score": 0.64,
+    "contributions": {
+     "recent_pop": 0.252,
+     "wrmf": 0.081,
+     "sknn": 0.125,
+     "assess_prox": 0.182
+    },
+    "reason": "يستخدمه 372 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 547089,
+    "activity_type": "page",
+    "score": 0.488,
+    "contributions": {
+     "recent_pop": 0.161,
+     "wrmf": 0.222,
+     "sknn": 0.018,
+     "assess_prox": 0.087
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 547078,
+    "activity_type": "resource",
+    "score": 0.479,
+    "contributions": {
+     "recent_pop": 0.248,
+     "wrmf": 0.124,
+     "sknn": 0.099,
+     "assess_prox": 0.008
+    },
+    "reason": "يستخدمه 232 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 547015,
+    "activity_type": "quiz",
+    "score": 0.461,
+    "contributions": {
+     "recent_pop": 0.208,
+     "wrmf": 0.06,
+     "sknn": 0.034,
+     "assess_prox": 0.159
+    },
+    "reason": "يستخدمه 383 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 7,
+    "id_site": 547058,
+    "activity_type": "glossary",
+    "score": 0.459,
+    "contributions": {
+     "recent_pop": 0.189,
+     "wrmf": 0.23,
+     "sknn": 0.028,
+     "assess_prox": 0.012
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 367 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 8,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "score": 0.419,
+    "contributions": {
+     "recent_pop": 0.154,
+     "wrmf": 0.22,
+     "sknn": 0.008,
+     "assess_prox": 0.037
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 200 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 9,
+    "id_site": 546982,
+    "activity_type": "ouwiki",
+    "score": 0.323,
+    "contributions": {
+     "recent_pop": 0.232,
+     "wrmf": 0.032,
+     "sknn": 0.04,
+     "assess_prox": 0.019
+    },
+    "reason": "يستخدمه 253 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "score": 0.312,
+    "contributions": {
+     "recent_pop": 0.023,
+     "wrmf": 0.153,
+     "sknn": 0.097,
+     "assess_prox": 0.039
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-27087": {
+  "registration": "BBB_2013J-27087",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 45
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 547034,
+    "activity_type": "resource",
+    "score": 0.681,
+    "contributions": {
+     "recent_pop": 0.198,
+     "wrmf": 0.221,
+     "sknn": 0.087,
+     "assess_prox": 0.175
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "score": 0.68,
+    "contributions": {
+     "recent_pop": 0.248,
+     "wrmf": 0.276,
+     "sknn": 0.013,
+     "assess_prox": 0.143
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 376 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546880,
+    "activity_type": "subpage",
+    "score": 0.596,
+    "contributions": {
+     "recent_pop": 0.206,
+     "wrmf": 0.107,
+     "sknn": 0.089,
+     "assess_prox": 0.194
+    },
+    "reason": "يستخدمه 274 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546932,
+    "activity_type": "subpage",
+    "score": 0.559,
+    "contributions": {
+     "recent_pop": 0.139,
+     "wrmf": 0.114,
+     "sknn": 0.117,
+     "assess_prox": 0.189
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546985,
+    "activity_type": "resource",
+    "score": 0.547,
+    "contributions": {
+     "recent_pop": 0.261,
+     "wrmf": 0.243,
+     "sknn": 0.005,
+     "assess_prox": 0.038
+    },
+    "reason": "يستخدمه 228 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 6,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "score": 0.532,
+    "contributions": {
+     "recent_pop": 0.061,
+     "wrmf": 0.225,
+     "sknn": 0.148,
+     "assess_prox": 0.098
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 547078,
+    "activity_type": "resource",
+    "score": 0.525,
+    "contributions": {
+     "recent_pop": 0.123,
+     "wrmf": 0.173,
+     "sknn": 0.121,
+     "assess_prox": 0.108
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 547015,
+    "activity_type": "quiz",
+    "score": 0.507,
+    "contributions": {
+     "recent_pop": 0.262,
+     "wrmf": 0.102,
+     "sknn": 0.032,
+     "assess_prox": 0.111
+    },
+    "reason": "يستخدمه 404 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "score": 0.473,
+    "contributions": {
+     "recent_pop": 0.177,
+     "wrmf": 0.192,
+     "sknn": 0.002,
+     "assess_prox": 0.102
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 188 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 10,
+    "id_site": 546974,
+    "activity_type": "oucontent",
+    "score": 0.407,
+    "contributions": {
+     "recent_pop": 0.076,
+     "wrmf": 0.263,
+     "sknn": 0.058,
+     "assess_prox": 0.01
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-26109": {
+  "registration": "BBB_2013J-26109",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 0
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "no_history",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "score": 0.284,
+    "contributions": {
+     "recent_pop": 0.273,
+     "wrmf": 0.0,
+     "sknn": 0.0,
+     "assess_prox": 0.011
+    },
+    "reason": "يستخدمه 172 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "score": 0.263,
+    "contributions": {
+     "recent_pop": 0.238,
+     "wrmf": 0.0,
+     "sknn": 0.0,
+     "assess_prox": 0.025
+    },
+    "reason": "يستخدمه 248 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "score": 0.227,
+    "contributions": {
+     "recent_pop": 0.202,
+     "wrmf": 0.0,
+     "sknn": 0.0,
+     "assess_prox": 0.025
+    },
+    "reason": "يستخدمه 237 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546618,
+    "activity_type": "forumng",
+    "score": 0.222,
+    "contributions": {
+     "recent_pop": 0.176,
+     "wrmf": 0.0,
+     "sknn": 0.0,
+     "assess_prox": 0.046
+    },
+    "reason": "يستخدمه 131 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546639,
+    "activity_type": "forumng",
+    "score": 0.214,
+    "contributions": {
+     "recent_pop": 0.198,
+     "wrmf": 0.0,
+     "sknn": 0.0,
+     "assess_prox": 0.016
+    },
+    "reason": "يستخدمه 390 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "score": 0.195,
+    "contributions": {
+     "recent_pop": 0.165,
+     "wrmf": 0.0,
+     "sknn": 0.0,
+     "assess_prox": 0.03
+    },
+    "reason": "يستخدمه 199 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 547089,
+    "activity_type": "page",
+    "score": 0.152,
+    "contributions": {
+     "recent_pop": 0.117,
+     "wrmf": 0.0,
+     "sknn": 0.0,
+     "assess_prox": 0.035
+    },
+    "reason": "يستخدمه 142 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546668,
+    "activity_type": "url",
+    "score": 0.14,
+    "contributions": {
+     "recent_pop": 0.093,
+     "wrmf": 0.0,
+     "sknn": 0.0,
+     "assess_prox": 0.047
+    },
+    "reason": "يستخدمه 95 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 9,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "score": 0.139,
+    "contributions": {
+     "recent_pop": 0.119,
+     "wrmf": 0.0,
+     "sknn": 0.0,
+     "assess_prox": 0.02
+    },
+    "reason": "يستخدمه 93 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.11,
+    "contributions": {
+     "recent_pop": 0.098,
+     "wrmf": 0.0,
+     "sknn": 0.0,
+     "assess_prox": 0.012
+    },
+    "reason": "يستخدمه 297 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-25596": {
+  "registration": "BBB_2013J-25596",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 77
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "score": 0.594,
+    "contributions": {
+     "recent_pop": 0.153,
+     "wrmf": 0.249,
+     "sknn": 0.092,
+     "assess_prox": 0.1
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546932,
+    "activity_type": "subpage",
+    "score": 0.581,
+    "contributions": {
+     "recent_pop": 0.264,
+     "wrmf": 0.267,
+     "sknn": 0.037,
+     "assess_prox": 0.013
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 236 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.554,
+    "contributions": {
+     "recent_pop": 0.036,
+     "wrmf": 0.243,
+     "sknn": 0.113,
+     "assess_prox": 0.162
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "score": 0.484,
+    "contributions": {
+     "recent_pop": 0.246,
+     "wrmf": 0.029,
+     "sknn": 0.063,
+     "assess_prox": 0.146
+    },
+    "reason": "يستخدمه 161 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "score": 0.459,
+    "contributions": {
+     "recent_pop": 0.182,
+     "wrmf": 0.019,
+     "sknn": 0.147,
+     "assess_prox": 0.111
+    },
+    "reason": "يستخدمه 336 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "score": 0.424,
+    "contributions": {
+     "recent_pop": 0.136,
+     "wrmf": 0.08,
+     "sknn": 0.166,
+     "assess_prox": 0.042
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.377,
+    "contributions": {
+     "recent_pop": 0.137,
+     "wrmf": 0.031,
+     "sknn": 0.189,
+     "assess_prox": 0.02
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "يستخدمه 203 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 8,
+    "id_site": 546824,
+    "activity_type": "url",
+    "score": 0.364,
+    "contributions": {
+     "recent_pop": 0.167,
+     "wrmf": 0.022,
+     "sknn": 0.135,
+     "assess_prox": 0.04
+    },
+    "reason": "يستخدمه 391 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 9,
+    "id_site": 546894,
+    "activity_type": "oucontent",
+    "score": 0.359,
+    "contributions": {
+     "recent_pop": 0.089,
+     "wrmf": 0.07,
+     "sknn": 0.095,
+     "assess_prox": 0.105
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "score": 0.357,
+    "contributions": {
+     "recent_pop": 0.039,
+     "wrmf": 0.201,
+     "sknn": 0.002,
+     "assess_prox": 0.115
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-33305": {
+  "registration": "BBB_2013J-33305",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 39
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546963,
+    "activity_type": "ouwiki",
+    "score": 0.769,
+    "contributions": {
+     "recent_pop": 0.199,
+     "wrmf": 0.196,
+     "sknn": 0.191,
+     "assess_prox": 0.183
+    },
+    "reason": "يستخدمه 145 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546777,
+    "activity_type": "oucontent",
+    "score": 0.691,
+    "contributions": {
+     "recent_pop": 0.294,
+     "wrmf": 0.078,
+     "sknn": 0.191,
+     "assess_prox": 0.128
+    },
+    "reason": "يستخدمه 172 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "score": 0.641,
+    "contributions": {
+     "recent_pop": 0.111,
+     "wrmf": 0.299,
+     "sknn": 0.048,
+     "assess_prox": 0.183
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546813,
+    "activity_type": "url",
+    "score": 0.63,
+    "contributions": {
+     "recent_pop": 0.241,
+     "wrmf": 0.206,
+     "sknn": 0.036,
+     "assess_prox": 0.147
+    },
+    "reason": "يستخدمه 213 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 547031,
+    "activity_type": "oucontent",
+    "score": 0.6,
+    "contributions": {
+     "recent_pop": 0.279,
+     "wrmf": 0.209,
+     "sknn": 0.009,
+     "assess_prox": 0.103
+    },
+    "reason": "يستخدمه 311 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 6,
+    "id_site": 546868,
+    "activity_type": "quiz",
+    "score": 0.553,
+    "contributions": {
+     "recent_pop": 0.168,
+     "wrmf": 0.175,
+     "sknn": 0.162,
+     "assess_prox": 0.048
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546802,
+    "activity_type": "oucontent",
+    "score": 0.485,
+    "contributions": {
+     "recent_pop": 0.099,
+     "wrmf": 0.282,
+     "sknn": 0.0,
+     "assess_prox": 0.104
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.432,
+    "contributions": {
+     "recent_pop": 0.248,
+     "wrmf": 0.109,
+     "sknn": 0.052,
+     "assess_prox": 0.023
+    },
+    "reason": "يستخدمه 199 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "score": 0.382,
+    "contributions": {
+     "recent_pop": 0.174,
+     "wrmf": 0.031,
+     "sknn": 0.136,
+     "assess_prox": 0.041
+    },
+    "reason": "يستخدمه 259 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 10,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "score": 0.38,
+    "contributions": {
+     "recent_pop": 0.095,
+     "wrmf": 0.038,
+     "sknn": 0.109,
+     "assess_prox": 0.138
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-32075": {
+  "registration": "BBB_2013J-32075",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 82
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "score": 0.746,
+    "contributions": {
+     "recent_pop": 0.28,
+     "wrmf": 0.247,
+     "sknn": 0.061,
+     "assess_prox": 0.158
+    },
+    "reason": "يستخدمه 298 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "score": 0.637,
+    "contributions": {
+     "recent_pop": 0.165,
+     "wrmf": 0.262,
+     "sknn": 0.06,
+     "assess_prox": 0.15
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "score": 0.582,
+    "contributions": {
+     "recent_pop": 0.164,
+     "wrmf": 0.125,
+     "sknn": 0.179,
+     "assess_prox": 0.114
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546783,
+    "activity_type": "quiz",
+    "score": 0.468,
+    "contributions": {
+     "recent_pop": 0.096,
+     "wrmf": 0.265,
+     "sknn": 0.001,
+     "assess_prox": 0.106
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "score": 0.458,
+    "contributions": {
+     "recent_pop": 0.001,
+     "wrmf": 0.289,
+     "sknn": 0.163,
+     "assess_prox": 0.005
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 6,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "score": 0.433,
+    "contributions": {
+     "recent_pop": 0.092,
+     "wrmf": 0.166,
+     "sknn": 0.077,
+     "assess_prox": 0.098
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "score": 0.418,
+    "contributions": {
+     "recent_pop": 0.248,
+     "wrmf": 0.004,
+     "sknn": 0.004,
+     "assess_prox": 0.162
+    },
+    "reason": "يستخدمه 82 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 8,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "score": 0.411,
+    "contributions": {
+     "recent_pop": 0.216,
+     "wrmf": 0.177,
+     "sknn": 0.009,
+     "assess_prox": 0.009
+    },
+    "reason": "يستخدمه 364 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 9,
+    "id_site": 546831,
+    "activity_type": "oucontent",
+    "score": 0.4,
+    "contributions": {
+     "recent_pop": 0.209,
+     "wrmf": 0.005,
+     "sknn": 0.182,
+     "assess_prox": 0.004
+    },
+    "reason": "يستخدمه 381 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 10,
+    "id_site": 546813,
+    "activity_type": "url",
+    "score": 0.392,
+    "contributions": {
+     "recent_pop": 0.153,
+     "wrmf": 0.042,
+     "sknn": 0.171,
+     "assess_prox": 0.026
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "يستخدمه 266 من زملائك في آخر 14 يوماً"
+   }
+  ]
+ },
+ "BBB_2013J-26220": {
+  "registration": "BBB_2013J-26220",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 13
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "withdrawn",
+  "items": []
+ },
+ "BBB_2013J-29360": {
+  "registration": "BBB_2013J-29360",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 29
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.736,
+    "contributions": {
+     "recent_pop": 0.245,
+     "wrmf": 0.248,
+     "sknn": 0.119,
+     "assess_prox": 0.124
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "score": 0.609,
+    "contributions": {
+     "recent_pop": 0.097,
+     "wrmf": 0.268,
+     "sknn": 0.143,
+     "assess_prox": 0.101
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "score": 0.559,
+    "contributions": {
+     "recent_pop": 0.195,
+     "wrmf": 0.283,
+     "sknn": 0.04,
+     "assess_prox": 0.041
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 213 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 4,
+    "id_site": 546737,
+    "activity_type": "url",
+    "score": 0.555,
+    "contributions": {
+     "recent_pop": 0.256,
+     "wrmf": 0.108,
+     "sknn": 0.172,
+     "assess_prox": 0.019
+    },
+    "reason": "يستخدمه 144 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546861,
+    "activity_type": "subpage",
+    "score": 0.554,
+    "contributions": {
+     "recent_pop": 0.286,
+     "wrmf": 0.143,
+     "sknn": 0.064,
+     "assess_prox": 0.061
+    },
+    "reason": "يستخدمه 248 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "score": 0.532,
+    "contributions": {
+     "recent_pop": 0.258,
+     "wrmf": 0.18,
+     "sknn": 0.008,
+     "assess_prox": 0.086
+    },
+    "reason": "يستخدمه 226 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 7,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "score": 0.497,
+    "contributions": {
+     "recent_pop": 0.178,
+     "wrmf": 0.096,
+     "sknn": 0.191,
+     "assess_prox": 0.032
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "يستخدمه 236 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 8,
+    "id_site": 546993,
+    "activity_type": "oucontent",
+    "score": 0.443,
+    "contributions": {
+     "recent_pop": 0.178,
+     "wrmf": 0.171,
+     "sknn": 0.038,
+     "assess_prox": 0.056
+    },
+    "reason": "يستخدمه 351 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 9,
+    "id_site": 547031,
+    "activity_type": "oucontent",
+    "score": 0.437,
+    "contributions": {
+     "recent_pop": 0.073,
+     "wrmf": 0.047,
+     "sknn": 0.118,
+     "assess_prox": 0.199
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546853,
+    "activity_type": "forumng",
+    "score": 0.418,
+    "contributions": {
+     "recent_pop": 0.125,
+     "wrmf": 0.057,
+     "sknn": 0.05,
+     "assess_prox": 0.186
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-30905": {
+  "registration": "BBB_2013J-30905",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 147
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 547089,
+    "activity_type": "page",
+    "score": 0.585,
+    "contributions": {
+     "recent_pop": 0.058,
+     "wrmf": 0.2,
+     "sknn": 0.133,
+     "assess_prox": 0.194
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 547070,
+    "activity_type": "url",
+    "score": 0.55,
+    "contributions": {
+     "recent_pop": 0.063,
+     "wrmf": 0.258,
+     "sknn": 0.139,
+     "assess_prox": 0.09
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 547034,
+    "activity_type": "resource",
+    "score": 0.55,
+    "contributions": {
+     "recent_pop": 0.106,
+     "wrmf": 0.175,
+     "sknn": 0.116,
+     "assess_prox": 0.153
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "score": 0.478,
+    "contributions": {
+     "recent_pop": 0.179,
+     "wrmf": 0.118,
+     "sknn": 0.051,
+     "assess_prox": 0.13
+    },
+    "reason": "يستخدمه 297 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "score": 0.453,
+    "contributions": {
+     "recent_pop": 0.253,
+     "wrmf": 0.036,
+     "sknn": 0.121,
+     "assess_prox": 0.043
+    },
+    "reason": "يستخدمه 329 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546824,
+    "activity_type": "url",
+    "score": 0.427,
+    "contributions": {
+     "recent_pop": 0.108,
+     "wrmf": 0.055,
+     "sknn": 0.162,
+     "assess_prox": 0.102
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546985,
+    "activity_type": "resource",
+    "score": 0.415,
+    "contributions": {
+     "recent_pop": 0.083,
+     "wrmf": 0.138,
+     "sknn": 0.174,
+     "assess_prox": 0.02
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "score": 0.414,
+    "contributions": {
+     "recent_pop": 0.287,
+     "wrmf": 0.003,
+     "sknn": 0.05,
+     "assess_prox": 0.074
+    },
+    "reason": "يستخدمه 118 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "score": 0.376,
+    "contributions": {
+     "recent_pop": 0.235,
+     "wrmf": 0.1,
+     "sknn": 0.004,
+     "assess_prox": 0.037
+    },
+    "reason": "يستخدمه 229 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "score": 0.363,
+    "contributions": {
+     "recent_pop": 0.063,
+     "wrmf": 0.062,
+     "sknn": 0.152,
+     "assess_prox": 0.086
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-32888": {
+  "registration": "BBB_2013J-32888",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 162
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "score": 0.692,
+    "contributions": {
+     "recent_pop": 0.202,
+     "wrmf": 0.26,
+     "sknn": 0.194,
+     "assess_prox": 0.036
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "score": 0.575,
+    "contributions": {
+     "recent_pop": 0.116,
+     "wrmf": 0.238,
+     "sknn": 0.196,
+     "assess_prox": 0.025
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546868,
+    "activity_type": "quiz",
+    "score": 0.524,
+    "contributions": {
+     "recent_pop": 0.05,
+     "wrmf": 0.234,
+     "sknn": 0.093,
+     "assess_prox": 0.147
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546974,
+    "activity_type": "oucontent",
+    "score": 0.522,
+    "contributions": {
+     "recent_pop": 0.192,
+     "wrmf": 0.014,
+     "sknn": 0.167,
+     "assess_prox": 0.149
+    },
+    "reason": "يستخدمه 341 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546963,
+    "activity_type": "ouwiki",
+    "score": 0.52,
+    "contributions": {
+     "recent_pop": 0.213,
+     "wrmf": 0.122,
+     "sknn": 0.139,
+     "assess_prox": 0.046
+    },
+    "reason": "يستخدمه 128 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546853,
+    "activity_type": "forumng",
+    "score": 0.497,
+    "contributions": {
+     "recent_pop": 0.062,
+     "wrmf": 0.202,
+     "sknn": 0.043,
+     "assess_prox": 0.19
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 7,
+    "id_site": 547089,
+    "activity_type": "page",
+    "score": 0.489,
+    "contributions": {
+     "recent_pop": 0.115,
+     "wrmf": 0.195,
+     "sknn": 0.118,
+     "assess_prox": 0.061
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "score": 0.454,
+    "contributions": {
+     "recent_pop": 0.277,
+     "wrmf": 0.085,
+     "sknn": 0.09,
+     "assess_prox": 0.002
+    },
+    "reason": "يستخدمه 375 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 547034,
+    "activity_type": "resource",
+    "score": 0.419,
+    "contributions": {
+     "recent_pop": 0.035,
+     "wrmf": 0.017,
+     "sknn": 0.185,
+     "assess_prox": 0.182
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 10,
+    "id_site": 547015,
+    "activity_type": "quiz",
+    "score": 0.324,
+    "contributions": {
+     "recent_pop": 0.118,
+     "wrmf": 0.028,
+     "sknn": 0.132,
+     "assess_prox": 0.046
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "يستخدمه 369 من زملائك في آخر 14 يوماً"
+   }
+  ]
+ },
+ "BBB_2013J-24286": {
+  "registration": "BBB_2013J-24286",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 150
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "score": 0.766,
+    "contributions": {
+     "recent_pop": 0.256,
+     "wrmf": 0.299,
+     "sknn": 0.166,
+     "assess_prox": 0.045
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 286 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "score": 0.635,
+    "contributions": {
+     "recent_pop": 0.256,
+     "wrmf": 0.168,
+     "sknn": 0.183,
+     "assess_prox": 0.028
+    },
+    "reason": "يستخدمه 413 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 547070,
+    "activity_type": "url",
+    "score": 0.594,
+    "contributions": {
+     "recent_pop": 0.193,
+     "wrmf": 0.162,
+     "sknn": 0.194,
+     "assess_prox": 0.045
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "score": 0.577,
+    "contributions": {
+     "recent_pop": 0.284,
+     "wrmf": 0.03,
+     "sknn": 0.113,
+     "assess_prox": 0.15
+    },
+    "reason": "يستخدمه 98 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "score": 0.502,
+    "contributions": {
+     "recent_pop": 0.075,
+     "wrmf": 0.218,
+     "sknn": 0.073,
+     "assess_prox": 0.136
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546831,
+    "activity_type": "oucontent",
+    "score": 0.501,
+    "contributions": {
+     "recent_pop": 0.217,
+     "wrmf": 0.077,
+     "sknn": 0.17,
+     "assess_prox": 0.037
+    },
+    "reason": "يستخدمه 362 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 7,
+    "id_site": 546993,
+    "activity_type": "oucontent",
+    "score": 0.433,
+    "contributions": {
+     "recent_pop": 0.172,
+     "wrmf": 0.024,
+     "sknn": 0.059,
+     "assess_prox": 0.178
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": "يستخدمه 334 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 8,
+    "id_site": 546861,
+    "activity_type": "subpage",
+    "score": 0.411,
+    "contributions": {
+     "recent_pop": 0.058,
+     "wrmf": 0.197,
+     "sknn": 0.031,
+     "assess_prox": 0.125
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "score": 0.408,
+    "contributions": {
+     "recent_pop": 0.104,
+     "wrmf": 0.11,
+     "sknn": 0.14,
+     "assess_prox": 0.054
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "score": 0.397,
+    "contributions": {
+     "recent_pop": 0.054,
+     "wrmf": 0.163,
+     "sknn": 0.085,
+     "assess_prox": 0.095
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-29905": {
+  "registration": "BBB_2013J-29905",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 146
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546824,
+    "activity_type": "url",
+    "score": 0.58,
+    "contributions": {
+     "recent_pop": 0.224,
+     "wrmf": 0.026,
+     "sknn": 0.17,
+     "assess_prox": 0.16
+    },
+    "reason": "يستخدمه 104 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 547034,
+    "activity_type": "resource",
+    "score": 0.537,
+    "contributions": {
+     "recent_pop": 0.181,
+     "wrmf": 0.277,
+     "sknn": 0.004,
+     "assess_prox": 0.075
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 87 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 547015,
+    "activity_type": "quiz",
+    "score": 0.492,
+    "contributions": {
+     "recent_pop": 0.013,
+     "wrmf": 0.14,
+     "sknn": 0.181,
+     "assess_prox": 0.158
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "score": 0.488,
+    "contributions": {
+     "recent_pop": 0.267,
+     "wrmf": 0.003,
+     "sknn": 0.183,
+     "assess_prox": 0.035
+    },
+    "reason": "يستخدمه 249 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 5,
+    "id_site": 547089,
+    "activity_type": "page",
+    "score": 0.461,
+    "contributions": {
+     "recent_pop": 0.042,
+     "wrmf": 0.14,
+     "sknn": 0.111,
+     "assess_prox": 0.168
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546982,
+    "activity_type": "ouwiki",
+    "score": 0.327,
+    "contributions": {
+     "recent_pop": 0.138,
+     "wrmf": 0.124,
+     "sknn": 0.059,
+     "assess_prox": 0.006
+    },
+    "reason": "يستخدمه 347 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 7,
+    "id_site": 547020,
+    "activity_type": "quiz",
+    "score": 0.287,
+    "contributions": {
+     "recent_pop": 0.074,
+     "wrmf": 0.124,
+     "sknn": 0.087,
+     "assess_prox": 0.002
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546831,
+    "activity_type": "oucontent",
+    "score": 0.248,
+    "contributions": {
+     "recent_pop": 0.002,
+     "wrmf": 0.058,
+     "sknn": 0.096,
+     "assess_prox": 0.092
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 9,
+    "id_site": 546932,
+    "activity_type": "subpage",
+    "score": 0.18,
+    "contributions": {
+     "recent_pop": 0.134,
+     "wrmf": 0.017,
+     "sknn": 0.014,
+     "assess_prox": 0.015
+    },
+    "reason": "يستخدمه 202 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-23776": {
+  "registration": "BBB_2013J-23776",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 142
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546817,
+    "activity_type": "oucontent",
+    "score": 0.813,
+    "contributions": {
+     "recent_pop": 0.298,
+     "wrmf": 0.214,
+     "sknn": 0.102,
+     "assess_prox": 0.199
+    },
+    "reason": "يستخدمه 229 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "score": 0.612,
+    "contributions": {
+     "recent_pop": 0.12,
+     "wrmf": 0.287,
+     "sknn": 0.197,
+     "assess_prox": 0.008
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "score": 0.566,
+    "contributions": {
+     "recent_pop": 0.176,
+     "wrmf": 0.228,
+     "sknn": 0.127,
+     "assess_prox": 0.035
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "score": 0.545,
+    "contributions": {
+     "recent_pop": 0.251,
+     "wrmf": 0.024,
+     "sknn": 0.153,
+     "assess_prox": 0.117
+    },
+    "reason": "يستخدمه 418 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546974,
+    "activity_type": "oucontent",
+    "score": 0.532,
+    "contributions": {
+     "recent_pop": 0.065,
+     "wrmf": 0.262,
+     "sknn": 0.014,
+     "assess_prox": 0.191
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 6,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "score": 0.467,
+    "contributions": {
+     "recent_pop": 0.237,
+     "wrmf": 0.026,
+     "sknn": 0.031,
+     "assess_prox": 0.173
+    },
+    "reason": "يستخدمه 228 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 7,
+    "id_site": 546868,
+    "activity_type": "quiz",
+    "score": 0.464,
+    "contributions": {
+     "recent_pop": 0.016,
+     "wrmf": 0.28,
+     "sknn": 0.127,
+     "assess_prox": 0.041
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 547070,
+    "activity_type": "url",
+    "score": 0.375,
+    "contributions": {
+     "recent_pop": 0.018,
+     "wrmf": 0.182,
+     "sknn": 0.074,
+     "assess_prox": 0.101
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 547020,
+    "activity_type": "quiz",
+    "score": 0.31,
+    "contributions": {
+     "recent_pop": 0.008,
+     "wrmf": 0.039,
+     "sknn": 0.09,
+     "assess_prox": 0.173
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546802,
+    "activity_type": "oucontent",
+    "score": 0.275,
+    "contributions": {
+     "recent_pop": 0.002,
+     "wrmf": 0.032,
+     "sknn": 0.083,
+     "assess_prox": 0.158
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-24701": {
+  "registration": "BBB_2013J-24701",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 90
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546932,
+    "activity_type": "subpage",
+    "score": 0.68,
+    "contributions": {
+     "recent_pop": 0.192,
+     "wrmf": 0.247,
+     "sknn": 0.136,
+     "assess_prox": 0.105
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546831,
+    "activity_type": "oucontent",
+    "score": 0.554,
+    "contributions": {
+     "recent_pop": 0.084,
+     "wrmf": 0.145,
+     "sknn": 0.157,
+     "assess_prox": 0.168
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546993,
+    "activity_type": "oucontent",
+    "score": 0.553,
+    "contributions": {
+     "recent_pop": 0.299,
+     "wrmf": 0.06,
+     "sknn": 0.171,
+     "assess_prox": 0.023
+    },
+    "reason": "يستخدمه 247 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 547034,
+    "activity_type": "resource",
+    "score": 0.548,
+    "contributions": {
+     "recent_pop": 0.184,
+     "wrmf": 0.119,
+     "sknn": 0.081,
+     "assess_prox": 0.164
+    },
+    "reason": "يستخدمه 155 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "score": 0.506,
+    "contributions": {
+     "recent_pop": 0.08,
+     "wrmf": 0.182,
+     "sknn": 0.085,
+     "assess_prox": 0.159
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546824,
+    "activity_type": "url",
+    "score": 0.502,
+    "contributions": {
+     "recent_pop": 0.001,
+     "wrmf": 0.298,
+     "sknn": 0.186,
+     "assess_prox": 0.017
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 7,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "score": 0.477,
+    "contributions": {
+     "recent_pop": 0.251,
+     "wrmf": 0.016,
+     "sknn": 0.069,
+     "assess_prox": 0.141
+    },
+    "reason": "يستخدمه 274 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 547020,
+    "activity_type": "quiz",
+    "score": 0.46,
+    "contributions": {
+     "recent_pop": 0.16,
+     "wrmf": 0.105,
+     "sknn": 0.071,
+     "assess_prox": 0.124
+    },
+    "reason": "يستخدمه 238 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 547078,
+    "activity_type": "resource",
+    "score": 0.397,
+    "contributions": {
+     "recent_pop": 0.164,
+     "wrmf": 0.089,
+     "sknn": 0.026,
+     "assess_prox": 0.118
+    },
+    "reason": "يستخدمه 103 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 547070,
+    "activity_type": "url",
+    "score": 0.361,
+    "contributions": {
+     "recent_pop": 0.067,
+     "wrmf": 0.104,
+     "sknn": 0.027,
+     "assess_prox": 0.163
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-24786": {
+  "registration": "BBB_2013J-24786",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 85
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "score": 0.694,
+    "contributions": {
+     "recent_pop": 0.138,
+     "wrmf": 0.276,
+     "sknn": 0.124,
+     "assess_prox": 0.156
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "score": 0.673,
+    "contributions": {
+     "recent_pop": 0.294,
+     "wrmf": 0.144,
+     "sknn": 0.121,
+     "assess_prox": 0.114
+    },
+    "reason": "يستخدمه 101 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546817,
+    "activity_type": "oucontent",
+    "score": 0.648,
+    "contributions": {
+     "recent_pop": 0.07,
+     "wrmf": 0.299,
+     "sknn": 0.126,
+     "assess_prox": 0.153
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "score": 0.607,
+    "contributions": {
+     "recent_pop": 0.258,
+     "wrmf": 0.13,
+     "sknn": 0.198,
+     "assess_prox": 0.021
+    },
+    "reason": "يستخدمه 264 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "score": 0.574,
+    "contributions": {
+     "recent_pop": 0.147,
+     "wrmf": 0.166,
+     "sknn": 0.137,
+     "assess_prox": 0.124
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "score": 0.548,
+    "contributions": {
+     "recent_pop": 0.197,
+     "wrmf": 0.163,
+     "sknn": 0.183,
+     "assess_prox": 0.005
+    },
+    "reason": "يستخدمه 269 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 7,
+    "id_site": 547078,
+    "activity_type": "resource",
+    "score": 0.535,
+    "contributions": {
+     "recent_pop": 0.212,
+     "wrmf": 0.053,
+     "sknn": 0.141,
+     "assess_prox": 0.129
+    },
+    "reason": "يستخدمه 278 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 547015,
+    "activity_type": "quiz",
+    "score": 0.512,
+    "contributions": {
+     "recent_pop": 0.251,
+     "wrmf": 0.0,
+     "sknn": 0.096,
+     "assess_prox": 0.165
+    },
+    "reason": "يستخدمه 376 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546963,
+    "activity_type": "ouwiki",
+    "score": 0.439,
+    "contributions": {
+     "recent_pop": 0.196,
+     "wrmf": 0.083,
+     "sknn": 0.025,
+     "assess_prox": 0.135
+    },
+    "reason": "يستخدمه 398 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546777,
+    "activity_type": "oucontent",
+    "score": 0.426,
+    "contributions": {
+     "recent_pop": 0.175,
+     "wrmf": 0.095,
+     "sknn": 0.029,
+     "assess_prox": 0.127
+    },
+    "reason": "يستخدمه 418 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-23634": {
+  "registration": "BBB_2013J-23634",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 85
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "score": 0.749,
+    "contributions": {
+     "recent_pop": 0.277,
+     "wrmf": 0.271,
+     "sknn": 0.165,
+     "assess_prox": 0.036
+    },
+    "reason": "يستخدمه 159 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "score": 0.68,
+    "contributions": {
+     "recent_pop": 0.297,
+     "wrmf": 0.269,
+     "sknn": 0.113,
+     "assess_prox": 0.001
+    },
+    "reason": "يستخدمه 121 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "score": 0.668,
+    "contributions": {
+     "recent_pop": 0.281,
+     "wrmf": 0.046,
+     "sknn": 0.2,
+     "assess_prox": 0.141
+    },
+    "reason": "يستخدمه 258 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.51,
+    "contributions": {
+     "recent_pop": 0.127,
+     "wrmf": 0.2,
+     "sknn": 0.058,
+     "assess_prox": 0.125
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546777,
+    "activity_type": "oucontent",
+    "score": 0.487,
+    "contributions": {
+     "recent_pop": 0.079,
+     "wrmf": 0.198,
+     "sknn": 0.023,
+     "assess_prox": 0.187
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 6,
+    "id_site": 546783,
+    "activity_type": "quiz",
+    "score": 0.444,
+    "contributions": {
+     "recent_pop": 0.164,
+     "wrmf": 0.076,
+     "sknn": 0.184,
+     "assess_prox": 0.02
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "يستخدمه 280 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 7,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "score": 0.407,
+    "contributions": {
+     "recent_pop": 0.019,
+     "wrmf": 0.13,
+     "sknn": 0.112,
+     "assess_prox": 0.146
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546993,
+    "activity_type": "oucontent",
+    "score": 0.375,
+    "contributions": {
+     "recent_pop": 0.103,
+     "wrmf": 0.07,
+     "sknn": 0.058,
+     "assess_prox": 0.144
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546894,
+    "activity_type": "oucontent",
+    "score": 0.354,
+    "contributions": {
+     "recent_pop": 0.047,
+     "wrmf": 0.17,
+     "sknn": 0.073,
+     "assess_prox": 0.064
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 547078,
+    "activity_type": "resource",
+    "score": 0.285,
+    "contributions": {
+     "recent_pop": 0.144,
+     "wrmf": 0.0,
+     "sknn": 0.0,
+     "assess_prox": 0.141
+    },
+    "reason": "يستخدمه 146 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   }
+  ]
+ },
+ "BBB_2013J-31394": {
+  "registration": "BBB_2013J-31394",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 147
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "score": 0.624,
+    "contributions": {
+     "recent_pop": 0.072,
+     "wrmf": 0.193,
+     "sknn": 0.189,
+     "assess_prox": 0.17
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546993,
+    "activity_type": "oucontent",
+    "score": 0.616,
+    "contributions": {
+     "recent_pop": 0.224,
+     "wrmf": 0.139,
+     "sknn": 0.117,
+     "assess_prox": 0.136
+    },
+    "reason": "يستخدمه 108 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546853,
+    "activity_type": "forumng",
+    "score": 0.599,
+    "contributions": {
+     "recent_pop": 0.27,
+     "wrmf": 0.202,
+     "sknn": 0.064,
+     "assess_prox": 0.063
+    },
+    "reason": "يستخدمه 328 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 4,
+    "id_site": 546824,
+    "activity_type": "url",
+    "score": 0.558,
+    "contributions": {
+     "recent_pop": 0.245,
+     "wrmf": 0.076,
+     "sknn": 0.108,
+     "assess_prox": 0.129
+    },
+    "reason": "يستخدمه 344 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546982,
+    "activity_type": "ouwiki",
+    "score": 0.531,
+    "contributions": {
+     "recent_pop": 0.295,
+     "wrmf": 0.054,
+     "sknn": 0.181,
+     "assess_prox": 0.001
+    },
+    "reason": "يستخدمه 363 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 6,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.525,
+    "contributions": {
+     "recent_pop": 0.238,
+     "wrmf": 0.145,
+     "sknn": 0.118,
+     "assess_prox": 0.024
+    },
+    "reason": "يستخدمه 189 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.457,
+    "contributions": {
+     "recent_pop": 0.14,
+     "wrmf": 0.069,
+     "sknn": 0.195,
+     "assess_prox": 0.053
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "score": 0.401,
+    "contributions": {
+     "recent_pop": 0.01,
+     "wrmf": 0.159,
+     "sknn": 0.196,
+     "assess_prox": 0.036
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 9,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "score": 0.358,
+    "contributions": {
+     "recent_pop": 0.133,
+     "wrmf": 0.001,
+     "sknn": 0.121,
+     "assess_prox": 0.103
+    },
+    "reason": "يستخدمه 242 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 10,
+    "id_site": 547034,
+    "activity_type": "resource",
+    "score": 0.329,
+    "contributions": {
+     "recent_pop": 0.275,
+     "wrmf": 0.002,
+     "sknn": 0.015,
+     "assess_prox": 0.037
+    },
+    "reason": "يستخدمه 393 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-27180": {
+  "registration": "BBB_2013J-27180",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 96
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "score": 0.553,
+    "contributions": {
+     "recent_pop": 0.22,
+     "wrmf": 0.181,
+     "sknn": 0.139,
+     "assess_prox": 0.013
+    },
+    "reason": "يستخدمه 237 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 547034,
+    "activity_type": "resource",
+    "score": 0.501,
+    "contributions": {
+     "recent_pop": 0.231,
+     "wrmf": 0.167,
+     "sknn": 0.103,
+     "assess_prox": 0.0
+    },
+    "reason": "يستخدمه 390 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "score": 0.468,
+    "contributions": {
+     "recent_pop": 0.039,
+     "wrmf": 0.227,
+     "sknn": 0.165,
+     "assess_prox": 0.037
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 4,
+    "id_site": 546783,
+    "activity_type": "quiz",
+    "score": 0.433,
+    "contributions": {
+     "recent_pop": 0.253,
+     "wrmf": 0.008,
+     "sknn": 0.071,
+     "assess_prox": 0.101
+    },
+    "reason": "يستخدمه 326 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "score": 0.422,
+    "contributions": {
+     "recent_pop": 0.15,
+     "wrmf": 0.194,
+     "sknn": 0.0,
+     "assess_prox": 0.078
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 232 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 6,
+    "id_site": 546963,
+    "activity_type": "ouwiki",
+    "score": 0.405,
+    "contributions": {
+     "recent_pop": 0.144,
+     "wrmf": 0.115,
+     "sknn": 0.084,
+     "assess_prox": 0.062
+    },
+    "reason": "يستخدمه 97 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "score": 0.402,
+    "contributions": {
+     "recent_pop": 0.009,
+     "wrmf": 0.261,
+     "sknn": 0.027,
+     "assess_prox": 0.105
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546894,
+    "activity_type": "oucontent",
+    "score": 0.388,
+    "contributions": {
+     "recent_pop": 0.037,
+     "wrmf": 0.113,
+     "sknn": 0.088,
+     "assess_prox": 0.15
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "score": 0.363,
+    "contributions": {
+     "recent_pop": 0.168,
+     "wrmf": 0.029,
+     "sknn": 0.127,
+     "assess_prox": 0.039
+    },
+    "reason": "يستخدمه 349 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 10,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "score": 0.337,
+    "contributions": {
+     "recent_pop": 0.042,
+     "wrmf": 0.171,
+     "sknn": 0.094,
+     "assess_prox": 0.03
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-26906": {
+  "registration": "BBB_2013J-26906",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 103
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "score": 0.604,
+    "contributions": {
+     "recent_pop": 0.191,
+     "wrmf": 0.165,
+     "sknn": 0.058,
+     "assess_prox": 0.19
+    },
+    "reason": "يستخدمه 296 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "score": 0.596,
+    "contributions": {
+     "recent_pop": 0.155,
+     "wrmf": 0.268,
+     "sknn": 0.16,
+     "assess_prox": 0.013
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "score": 0.568,
+    "contributions": {
+     "recent_pop": 0.143,
+     "wrmf": 0.055,
+     "sknn": 0.178,
+     "assess_prox": 0.192
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 547070,
+    "activity_type": "url",
+    "score": 0.55,
+    "contributions": {
+     "recent_pop": 0.205,
+     "wrmf": 0.205,
+     "sknn": 0.035,
+     "assess_prox": 0.105
+    },
+    "reason": "يستخدمه 88 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 5,
+    "id_site": 546824,
+    "activity_type": "url",
+    "score": 0.548,
+    "contributions": {
+     "recent_pop": 0.18,
+     "wrmf": 0.169,
+     "sknn": 0.198,
+     "assess_prox": 0.001
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 547078,
+    "activity_type": "resource",
+    "score": 0.539,
+    "contributions": {
+     "recent_pop": 0.216,
+     "wrmf": 0.175,
+     "sknn": 0.114,
+     "assess_prox": 0.034
+    },
+    "reason": "يستخدمه 83 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546974,
+    "activity_type": "oucontent",
+    "score": 0.468,
+    "contributions": {
+     "recent_pop": 0.284,
+     "wrmf": 0.108,
+     "sknn": 0.037,
+     "assess_prox": 0.039
+    },
+    "reason": "يستخدمه 87 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546880,
+    "activity_type": "subpage",
+    "score": 0.455,
+    "contributions": {
+     "recent_pop": 0.011,
+     "wrmf": 0.234,
+     "sknn": 0.106,
+     "assess_prox": 0.104
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546868,
+    "activity_type": "quiz",
+    "score": 0.426,
+    "contributions": {
+     "recent_pop": 0.165,
+     "wrmf": 0.116,
+     "sknn": 0.092,
+     "assess_prox": 0.053
+    },
+    "reason": "يستخدمه 228 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 547063,
+    "activity_type": "homepage",
+    "score": 0.415,
+    "contributions": {
+     "recent_pop": 0.091,
+     "wrmf": 0.032,
+     "sknn": 0.099,
+     "assess_prox": 0.193
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-29416": {
+  "registration": "BBB_2013J-29416",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 103
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "score": 0.705,
+    "contributions": {
+     "recent_pop": 0.177,
+     "wrmf": 0.287,
+     "sknn": 0.062,
+     "assess_prox": 0.179
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546993,
+    "activity_type": "oucontent",
+    "score": 0.702,
+    "contributions": {
+     "recent_pop": 0.156,
+     "wrmf": 0.212,
+     "sknn": 0.2,
+     "assess_prox": 0.134
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "score": 0.687,
+    "contributions": {
+     "recent_pop": 0.238,
+     "wrmf": 0.256,
+     "sknn": 0.187,
+     "assess_prox": 0.006
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 309 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 4,
+    "id_site": 547015,
+    "activity_type": "quiz",
+    "score": 0.542,
+    "contributions": {
+     "recent_pop": 0.265,
+     "wrmf": 0.198,
+     "sknn": 0.003,
+     "assess_prox": 0.076
+    },
+    "reason": "يستخدمه 240 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 5,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.492,
+    "contributions": {
+     "recent_pop": 0.004,
+     "wrmf": 0.294,
+     "sknn": 0.095,
+     "assess_prox": 0.099
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546974,
+    "activity_type": "oucontent",
+    "score": 0.414,
+    "contributions": {
+     "recent_pop": 0.268,
+     "wrmf": 0.013,
+     "sknn": 0.073,
+     "assess_prox": 0.06
+    },
+    "reason": "يستخدمه 132 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "score": 0.395,
+    "contributions": {
+     "recent_pop": 0.034,
+     "wrmf": 0.188,
+     "sknn": 0.017,
+     "assess_prox": 0.156
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 8,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "score": 0.354,
+    "contributions": {
+     "recent_pop": 0.062,
+     "wrmf": 0.145,
+     "sknn": 0.08,
+     "assess_prox": 0.067
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "score": 0.354,
+    "contributions": {
+     "recent_pop": 0.086,
+     "wrmf": 0.18,
+     "sknn": 0.059,
+     "assess_prox": 0.029
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546880,
+    "activity_type": "subpage",
+    "score": 0.322,
+    "contributions": {
+     "recent_pop": 0.052,
+     "wrmf": 0.075,
+     "sknn": 0.017,
+     "assess_prox": 0.178
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-27210": {
+  "registration": "BBB_2013J-27210",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 30
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.75,
+    "contributions": {
+     "recent_pop": 0.227,
+     "wrmf": 0.225,
+     "sknn": 0.15,
+     "assess_prox": 0.148
+    },
+    "reason": "يستخدمه 318 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546668,
+    "activity_type": "url",
+    "score": 0.604,
+    "contributions": {
+     "recent_pop": 0.266,
+     "wrmf": 0.209,
+     "sknn": 0.022,
+     "assess_prox": 0.107
+    },
+    "reason": "يستخدمه 112 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "score": 0.578,
+    "contributions": {
+     "recent_pop": 0.286,
+     "wrmf": 0.148,
+     "sknn": 0.115,
+     "assess_prox": 0.029
+    },
+    "reason": "يستخدمه 392 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546963,
+    "activity_type": "ouwiki",
+    "score": 0.542,
+    "contributions": {
+     "recent_pop": 0.271,
+     "wrmf": 0.177,
+     "sknn": 0.09,
+     "assess_prox": 0.004
+    },
+    "reason": "يستخدمه 262 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 547078,
+    "activity_type": "resource",
+    "score": 0.524,
+    "contributions": {
+     "recent_pop": 0.229,
+     "wrmf": 0.094,
+     "sknn": 0.151,
+     "assess_prox": 0.05
+    },
+    "reason": "يستخدمه 326 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 547031,
+    "activity_type": "oucontent",
+    "score": 0.482,
+    "contributions": {
+     "recent_pop": 0.147,
+     "wrmf": 0.106,
+     "sknn": 0.11,
+     "assess_prox": 0.119
+    },
+    "reason": "يستخدمه 415 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546824,
+    "activity_type": "url",
+    "score": 0.419,
+    "contributions": {
+     "recent_pop": 0.189,
+     "wrmf": 0.001,
+     "sknn": 0.116,
+     "assess_prox": 0.113
+    },
+    "reason": "يستخدمه 133 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546974,
+    "activity_type": "oucontent",
+    "score": 0.417,
+    "contributions": {
+     "recent_pop": 0.211,
+     "wrmf": 0.002,
+     "sknn": 0.168,
+     "assess_prox": 0.036
+    },
+    "reason": "يستخدمه 129 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 9,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.381,
+    "contributions": {
+     "recent_pop": 0.057,
+     "wrmf": 0.08,
+     "sknn": 0.122,
+     "assess_prox": 0.122
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546831,
+    "activity_type": "oucontent",
+    "score": 0.34,
+    "contributions": {
+     "recent_pop": 0.051,
+     "wrmf": 0.181,
+     "sknn": 0.03,
+     "assess_prox": 0.078
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-29894": {
+  "registration": "BBB_2013J-29894",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 30
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "score": 0.74,
+    "contributions": {
+     "recent_pop": 0.212,
+     "wrmf": 0.23,
+     "sknn": 0.101,
+     "assess_prox": 0.197
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "score": 0.606,
+    "contributions": {
+     "recent_pop": 0.295,
+     "wrmf": 0.22,
+     "sknn": 0.041,
+     "assess_prox": 0.05
+    },
+    "reason": "يستخدمه 170 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546861,
+    "activity_type": "subpage",
+    "score": 0.602,
+    "contributions": {
+     "recent_pop": 0.183,
+     "wrmf": 0.283,
+     "sknn": 0.115,
+     "assess_prox": 0.021
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 547063,
+    "activity_type": "homepage",
+    "score": 0.458,
+    "contributions": {
+     "recent_pop": 0.179,
+     "wrmf": 0.099,
+     "sknn": 0.055,
+     "assess_prox": 0.125
+    },
+    "reason": "يستخدمه 408 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546880,
+    "activity_type": "subpage",
+    "score": 0.439,
+    "contributions": {
+     "recent_pop": 0.262,
+     "wrmf": 0.002,
+     "sknn": 0.041,
+     "assess_prox": 0.134
+    },
+    "reason": "يستخدمه 342 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546993,
+    "activity_type": "oucontent",
+    "score": 0.431,
+    "contributions": {
+     "recent_pop": 0.062,
+     "wrmf": 0.134,
+     "sknn": 0.104,
+     "assess_prox": 0.131
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546985,
+    "activity_type": "resource",
+    "score": 0.43,
+    "contributions": {
+     "recent_pop": 0.069,
+     "wrmf": 0.252,
+     "sknn": 0.062,
+     "assess_prox": 0.047
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 547020,
+    "activity_type": "quiz",
+    "score": 0.394,
+    "contributions": {
+     "recent_pop": 0.284,
+     "wrmf": 0.071,
+     "sknn": 0.016,
+     "assess_prox": 0.023
+    },
+    "reason": "يستخدمه 266 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.355,
+    "contributions": {
+     "recent_pop": 0.049,
+     "wrmf": 0.159,
+     "sknn": 0.121,
+     "assess_prox": 0.026
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 10,
+    "id_site": 546802,
+    "activity_type": "oucontent",
+    "score": 0.351,
+    "contributions": {
+     "recent_pop": 0.258,
+     "wrmf": 0.008,
+     "sknn": 0.059,
+     "assess_prox": 0.026
+    },
+    "reason": "يستخدمه 259 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-32772": {
+  "registration": "BBB_2013J-32772",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 110
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "score": 0.612,
+    "contributions": {
+     "recent_pop": 0.236,
+     "wrmf": 0.191,
+     "sknn": 0.016,
+     "assess_prox": 0.169
+    },
+    "reason": "يستخدمه 106 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "score": 0.55,
+    "contributions": {
+     "recent_pop": 0.107,
+     "wrmf": 0.22,
+     "sknn": 0.2,
+     "assess_prox": 0.023
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "score": 0.527,
+    "contributions": {
+     "recent_pop": 0.181,
+     "wrmf": 0.222,
+     "sknn": 0.002,
+     "assess_prox": 0.122
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 185 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 4,
+    "id_site": 546932,
+    "activity_type": "subpage",
+    "score": 0.525,
+    "contributions": {
+     "recent_pop": 0.27,
+     "wrmf": 0.048,
+     "sknn": 0.186,
+     "assess_prox": 0.021
+    },
+    "reason": "يستخدمه 85 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 5,
+    "id_site": 546802,
+    "activity_type": "oucontent",
+    "score": 0.521,
+    "contributions": {
+     "recent_pop": 0.097,
+     "wrmf": 0.181,
+     "sknn": 0.1,
+     "assess_prox": 0.143
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.472,
+    "contributions": {
+     "recent_pop": 0.047,
+     "wrmf": 0.298,
+     "sknn": 0.082,
+     "assess_prox": 0.045
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546974,
+    "activity_type": "oucontent",
+    "score": 0.452,
+    "contributions": {
+     "recent_pop": 0.258,
+     "wrmf": 0.036,
+     "sknn": 0.047,
+     "assess_prox": 0.111
+    },
+    "reason": "يستخدمه 354 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "score": 0.442,
+    "contributions": {
+     "recent_pop": 0.111,
+     "wrmf": 0.133,
+     "sknn": 0.046,
+     "assess_prox": 0.152
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "score": 0.358,
+    "contributions": {
+     "recent_pop": 0.145,
+     "wrmf": 0.174,
+     "sknn": 0.006,
+     "assess_prox": 0.033
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 238 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 10,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "score": 0.349,
+    "contributions": {
+     "recent_pop": 0.085,
+     "wrmf": 0.147,
+     "sknn": 0.041,
+     "assess_prox": 0.076
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-31044": {
+  "registration": "BBB_2013J-31044",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 160
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.741,
+    "contributions": {
+     "recent_pop": 0.3,
+     "wrmf": 0.248,
+     "sknn": 0.143,
+     "assess_prox": 0.05
+    },
+    "reason": "يستخدمه 177 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546783,
+    "activity_type": "quiz",
+    "score": 0.538,
+    "contributions": {
+     "recent_pop": 0.006,
+     "wrmf": 0.266,
+     "sknn": 0.087,
+     "assess_prox": 0.179
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "score": 0.525,
+    "contributions": {
+     "recent_pop": 0.205,
+     "wrmf": 0.122,
+     "sknn": 0.145,
+     "assess_prox": 0.053
+    },
+    "reason": "يستخدمه 252 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 547031,
+    "activity_type": "oucontent",
+    "score": 0.486,
+    "contributions": {
+     "recent_pop": 0.169,
+     "wrmf": 0.015,
+     "sknn": 0.181,
+     "assess_prox": 0.121
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "يستخدمه 203 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 5,
+    "id_site": 547058,
+    "activity_type": "glossary",
+    "score": 0.446,
+    "contributions": {
+     "recent_pop": 0.07,
+     "wrmf": 0.25,
+     "sknn": 0.008,
+     "assess_prox": 0.118
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "score": 0.442,
+    "contributions": {
+     "recent_pop": 0.181,
+     "wrmf": 0.077,
+     "sknn": 0.064,
+     "assess_prox": 0.12
+    },
+    "reason": "يستخدمه 95 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "score": 0.393,
+    "contributions": {
+     "recent_pop": 0.091,
+     "wrmf": 0.237,
+     "sknn": 0.053,
+     "assess_prox": 0.012
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.365,
+    "contributions": {
+     "recent_pop": 0.105,
+     "wrmf": 0.226,
+     "sknn": 0.03,
+     "assess_prox": 0.004
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546831,
+    "activity_type": "oucontent",
+    "score": 0.292,
+    "contributions": {
+     "recent_pop": 0.003,
+     "wrmf": 0.12,
+     "sknn": 0.043,
+     "assess_prox": 0.126
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 10,
+    "id_site": 547063,
+    "activity_type": "homepage",
+    "score": 0.158,
+    "contributions": {
+     "recent_pop": 0.026,
+     "wrmf": 0.112,
+     "sknn": 0.013,
+     "assess_prox": 0.007
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-27807": {
+  "registration": "BBB_2013J-27807",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 97
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546985,
+    "activity_type": "resource",
+    "score": 0.615,
+    "contributions": {
+     "recent_pop": 0.252,
+     "wrmf": 0.221,
+     "sknn": 0.136,
+     "assess_prox": 0.006
+    },
+    "reason": "يستخدمه 176 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "score": 0.614,
+    "contributions": {
+     "recent_pop": 0.276,
+     "wrmf": 0.039,
+     "sknn": 0.121,
+     "assess_prox": 0.178
+    },
+    "reason": "يستخدمه 272 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546974,
+    "activity_type": "oucontent",
+    "score": 0.545,
+    "contributions": {
+     "recent_pop": 0.243,
+     "wrmf": 0.111,
+     "sknn": 0.029,
+     "assess_prox": 0.162
+    },
+    "reason": "يستخدمه 407 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "score": 0.531,
+    "contributions": {
+     "recent_pop": 0.193,
+     "wrmf": 0.187,
+     "sknn": 0.011,
+     "assess_prox": 0.14
+    },
+    "reason": "يستخدمه 108 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 5,
+    "id_site": 547089,
+    "activity_type": "page",
+    "score": 0.495,
+    "contributions": {
+     "recent_pop": 0.203,
+     "wrmf": 0.088,
+     "sknn": 0.007,
+     "assess_prox": 0.197
+    },
+    "reason": "يستخدمه 138 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 6,
+    "id_site": 546853,
+    "activity_type": "forumng",
+    "score": 0.459,
+    "contributions": {
+     "recent_pop": 0.003,
+     "wrmf": 0.183,
+     "sknn": 0.174,
+     "assess_prox": 0.099
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 7,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "score": 0.449,
+    "contributions": {
+     "recent_pop": 0.012,
+     "wrmf": 0.253,
+     "sknn": 0.16,
+     "assess_prox": 0.024
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 8,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "score": 0.441,
+    "contributions": {
+     "recent_pop": 0.067,
+     "wrmf": 0.251,
+     "sknn": 0.106,
+     "assess_prox": 0.017
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.347,
+    "contributions": {
+     "recent_pop": 0.27,
+     "wrmf": 0.017,
+     "sknn": 0.047,
+     "assess_prox": 0.013
+    },
+    "reason": "يستخدمه 130 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "score": 0.294,
+    "contributions": {
+     "recent_pop": 0.035,
+     "wrmf": 0.059,
+     "sknn": 0.17,
+     "assess_prox": 0.03
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-31520": {
+  "registration": "BBB_2013J-31520",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 32
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 547078,
+    "activity_type": "resource",
+    "score": 0.615,
+    "contributions": {
+     "recent_pop": 0.201,
+     "wrmf": 0.171,
+     "sknn": 0.171,
+     "assess_prox": 0.072
+    },
+    "reason": "يستخدمه 267 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 547031,
+    "activity_type": "oucontent",
+    "score": 0.597,
+    "contributions": {
+     "recent_pop": 0.038,
+     "wrmf": 0.244,
+     "sknn": 0.188,
+     "assess_prox": 0.127
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "score": 0.561,
+    "contributions": {
+     "recent_pop": 0.102,
+     "wrmf": 0.2,
+     "sknn": 0.197,
+     "assess_prox": 0.062
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 4,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.498,
+    "contributions": {
+     "recent_pop": 0.227,
+     "wrmf": 0.057,
+     "sknn": 0.072,
+     "assess_prox": 0.142
+    },
+    "reason": "يستخدمه 230 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546982,
+    "activity_type": "ouwiki",
+    "score": 0.455,
+    "contributions": {
+     "recent_pop": 0.182,
+     "wrmf": 0.078,
+     "sknn": 0.103,
+     "assess_prox": 0.092
+    },
+    "reason": "يستخدمه 236 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546880,
+    "activity_type": "subpage",
+    "score": 0.443,
+    "contributions": {
+     "recent_pop": 0.023,
+     "wrmf": 0.129,
+     "sknn": 0.097,
+     "assess_prox": 0.194
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "score": 0.436,
+    "contributions": {
+     "recent_pop": 0.278,
+     "wrmf": 0.018,
+     "sknn": 0.135,
+     "assess_prox": 0.005
+    },
+    "reason": "يستخدمه 209 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "score": 0.434,
+    "contributions": {
+     "recent_pop": 0.156,
+     "wrmf": 0.019,
+     "sknn": 0.152,
+     "assess_prox": 0.107
+    },
+    "reason": "يستخدمه 255 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 9,
+    "id_site": 547063,
+    "activity_type": "homepage",
+    "score": 0.415,
+    "contributions": {
+     "recent_pop": 0.125,
+     "wrmf": 0.138,
+     "sknn": 0.151,
+     "assess_prox": 0.001
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546932,
+    "activity_type": "subpage",
+    "score": 0.375,
+    "contributions": {
+     "recent_pop": 0.011,
+     "wrmf": 0.04,
+     "sknn": 0.197,
+     "assess_prox": 0.127
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   }
+  ]
+ },
+ "BBB_2013J-25874": {
+  "registration": "BBB_2013J-25874",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 35
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "score": 0.61,
+    "contributions": {
+     "recent_pop": 0.121,
+     "wrmf": 0.296,
+     "sknn": 0.101,
+     "assess_prox": 0.092
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.589,
+    "contributions": {
+     "recent_pop": 0.169,
+     "wrmf": 0.251,
+     "sknn": 0.099,
+     "assess_prox": 0.07
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "score": 0.571,
+    "contributions": {
+     "recent_pop": 0.185,
+     "wrmf": 0.237,
+     "sknn": 0.015,
+     "assess_prox": 0.134
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "score": 0.57,
+    "contributions": {
+     "recent_pop": 0.229,
+     "wrmf": 0.141,
+     "sknn": 0.196,
+     "assess_prox": 0.004
+    },
+    "reason": "يستخدمه 398 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 5,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "score": 0.565,
+    "contributions": {
+     "recent_pop": 0.268,
+     "wrmf": 0.162,
+     "sknn": 0.132,
+     "assess_prox": 0.003
+    },
+    "reason": "يستخدمه 343 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 547063,
+    "activity_type": "homepage",
+    "score": 0.501,
+    "contributions": {
+     "recent_pop": 0.028,
+     "wrmf": 0.255,
+     "sknn": 0.119,
+     "assess_prox": 0.099
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546802,
+    "activity_type": "oucontent",
+    "score": 0.495,
+    "contributions": {
+     "recent_pop": 0.194,
+     "wrmf": 0.125,
+     "sknn": 0.16,
+     "assess_prox": 0.016
+    },
+    "reason": "يستخدمه 218 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 547015,
+    "activity_type": "quiz",
+    "score": 0.494,
+    "contributions": {
+     "recent_pop": 0.034,
+     "wrmf": 0.174,
+     "sknn": 0.187,
+     "assess_prox": 0.099
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 9,
+    "id_site": 547078,
+    "activity_type": "resource",
+    "score": 0.425,
+    "contributions": {
+     "recent_pop": 0.034,
+     "wrmf": 0.219,
+     "sknn": 0.135,
+     "assess_prox": 0.037
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546868,
+    "activity_type": "quiz",
+    "score": 0.408,
+    "contributions": {
+     "recent_pop": 0.268,
+     "wrmf": 0.001,
+     "sknn": 0.047,
+     "assess_prox": 0.092
+    },
+    "reason": "يستخدمه 248 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-24126": {
+  "registration": "BBB_2013J-24126",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 37
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546813,
+    "activity_type": "url",
+    "score": 0.644,
+    "contributions": {
+     "recent_pop": 0.224,
+     "wrmf": 0.25,
+     "sknn": 0.088,
+     "assess_prox": 0.082
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 281 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546817,
+    "activity_type": "oucontent",
+    "score": 0.625,
+    "contributions": {
+     "recent_pop": 0.259,
+     "wrmf": 0.072,
+     "sknn": 0.125,
+     "assess_prox": 0.169
+    },
+    "reason": "يستخدمه 377 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 547031,
+    "activity_type": "oucontent",
+    "score": 0.619,
+    "contributions": {
+     "recent_pop": 0.07,
+     "wrmf": 0.265,
+     "sknn": 0.102,
+     "assess_prox": 0.182
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546982,
+    "activity_type": "ouwiki",
+    "score": 0.494,
+    "contributions": {
+     "recent_pop": 0.138,
+     "wrmf": 0.17,
+     "sknn": 0.016,
+     "assess_prox": 0.17
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 5,
+    "id_site": 547070,
+    "activity_type": "url",
+    "score": 0.493,
+    "contributions": {
+     "recent_pop": 0.104,
+     "wrmf": 0.239,
+     "sknn": 0.113,
+     "assess_prox": 0.037
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546894,
+    "activity_type": "oucontent",
+    "score": 0.475,
+    "contributions": {
+     "recent_pop": 0.04,
+     "wrmf": 0.239,
+     "sknn": 0.027,
+     "assess_prox": 0.169
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 7,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "score": 0.414,
+    "contributions": {
+     "recent_pop": 0.159,
+     "wrmf": 0.052,
+     "sknn": 0.04,
+     "assess_prox": 0.163
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": "يستخدمه 406 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 8,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "score": 0.395,
+    "contributions": {
+     "recent_pop": 0.201,
+     "wrmf": 0.092,
+     "sknn": 0.076,
+     "assess_prox": 0.026
+    },
+    "reason": "يستخدمه 358 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546868,
+    "activity_type": "quiz",
+    "score": 0.383,
+    "contributions": {
+     "recent_pop": 0.02,
+     "wrmf": 0.069,
+     "sknn": 0.149,
+     "assess_prox": 0.145
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 10,
+    "id_site": 547020,
+    "activity_type": "quiz",
+    "score": 0.37,
+    "contributions": {
+     "recent_pop": 0.122,
+     "wrmf": 0.046,
+     "sknn": 0.144,
+     "assess_prox": 0.058
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-25070": {
+  "registration": "BBB_2013J-25070",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 149
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "score": 0.585,
+    "contributions": {
+     "recent_pop": 0.3,
+     "wrmf": 0.194,
+     "sknn": 0.005,
+     "assess_prox": 0.086
+    },
+    "reason": "يستخدمه 267 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "score": 0.546,
+    "contributions": {
+     "recent_pop": 0.245,
+     "wrmf": 0.083,
+     "sknn": 0.151,
+     "assess_prox": 0.067
+    },
+    "reason": "يستخدمه 142 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 547089,
+    "activity_type": "page",
+    "score": 0.542,
+    "contributions": {
+     "recent_pop": 0.113,
+     "wrmf": 0.121,
+     "sknn": 0.189,
+     "assess_prox": 0.119
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546861,
+    "activity_type": "subpage",
+    "score": 0.527,
+    "contributions": {
+     "recent_pop": 0.008,
+     "wrmf": 0.296,
+     "sknn": 0.062,
+     "assess_prox": 0.161
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "score": 0.486,
+    "contributions": {
+     "recent_pop": 0.294,
+     "wrmf": 0.066,
+     "sknn": 0.106,
+     "assess_prox": 0.02
+    },
+    "reason": "يستخدمه 306 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546783,
+    "activity_type": "quiz",
+    "score": 0.478,
+    "contributions": {
+     "recent_pop": 0.168,
+     "wrmf": 0.087,
+     "sknn": 0.159,
+     "assess_prox": 0.064
+    },
+    "reason": "يستخدمه 388 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546932,
+    "activity_type": "subpage",
+    "score": 0.448,
+    "contributions": {
+     "recent_pop": 0.021,
+     "wrmf": 0.269,
+     "sknn": 0.079,
+     "assess_prox": 0.079
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 547015,
+    "activity_type": "quiz",
+    "score": 0.412,
+    "contributions": {
+     "recent_pop": 0.007,
+     "wrmf": 0.175,
+     "sknn": 0.179,
+     "assess_prox": 0.051
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 9,
+    "id_site": 546880,
+    "activity_type": "subpage",
+    "score": 0.411,
+    "contributions": {
+     "recent_pop": 0.172,
+     "wrmf": 0.06,
+     "sknn": 0.12,
+     "assess_prox": 0.059
+    },
+    "reason": "يستخدمه 177 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "score": 0.386,
+    "contributions": {
+     "recent_pop": 0.118,
+     "wrmf": 0.088,
+     "sknn": 0.039,
+     "assess_prox": 0.141
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-26742": {
+  "registration": "BBB_2013J-26742",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 153
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546932,
+    "activity_type": "subpage",
+    "score": 0.808,
+    "contributions": {
+     "recent_pop": 0.285,
+     "wrmf": 0.221,
+     "sknn": 0.119,
+     "assess_prox": 0.183
+    },
+    "reason": "يستخدمه 261 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.768,
+    "contributions": {
+     "recent_pop": 0.205,
+     "wrmf": 0.263,
+     "sknn": 0.137,
+     "assess_prox": 0.163
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "score": 0.747,
+    "contributions": {
+     "recent_pop": 0.256,
+     "wrmf": 0.193,
+     "sknn": 0.116,
+     "assess_prox": 0.182
+    },
+    "reason": "يستخدمه 248 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546880,
+    "activity_type": "subpage",
+    "score": 0.613,
+    "contributions": {
+     "recent_pop": 0.176,
+     "wrmf": 0.211,
+     "sknn": 0.063,
+     "assess_prox": 0.163
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "score": 0.603,
+    "contributions": {
+     "recent_pop": 0.209,
+     "wrmf": 0.215,
+     "sknn": 0.037,
+     "assess_prox": 0.142
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 265 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 6,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "score": 0.572,
+    "contributions": {
+     "recent_pop": 0.177,
+     "wrmf": 0.082,
+     "sknn": 0.13,
+     "assess_prox": 0.183
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "score": 0.505,
+    "contributions": {
+     "recent_pop": 0.287,
+     "wrmf": 0.023,
+     "sknn": 0.05,
+     "assess_prox": 0.145
+    },
+    "reason": "يستخدمه 297 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546817,
+    "activity_type": "oucontent",
+    "score": 0.481,
+    "contributions": {
+     "recent_pop": 0.228,
+     "wrmf": 0.019,
+     "sknn": 0.134,
+     "assess_prox": 0.1
+    },
+    "reason": "يستخدمه 375 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546982,
+    "activity_type": "ouwiki",
+    "score": 0.421,
+    "contributions": {
+     "recent_pop": 0.053,
+     "wrmf": 0.205,
+     "sknn": 0.161,
+     "assess_prox": 0.002
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 10,
+    "id_site": 546985,
+    "activity_type": "resource",
+    "score": 0.4,
+    "contributions": {
+     "recent_pop": 0.125,
+     "wrmf": 0.153,
+     "sknn": 0.055,
+     "assess_prox": 0.067
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-30852": {
+  "registration": "BBB_2013J-30852",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 145
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "score": 0.778,
+    "contributions": {
+     "recent_pop": 0.28,
+     "wrmf": 0.271,
+     "sknn": 0.086,
+     "assess_prox": 0.141
+    },
+    "reason": "يستخدمه 419 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "score": 0.667,
+    "contributions": {
+     "recent_pop": 0.241,
+     "wrmf": 0.245,
+     "sknn": 0.129,
+     "assess_prox": 0.052
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 193 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "score": 0.65,
+    "contributions": {
+     "recent_pop": 0.169,
+     "wrmf": 0.281,
+     "sknn": 0.198,
+     "assess_prox": 0.002
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.599,
+    "contributions": {
+     "recent_pop": 0.242,
+     "wrmf": 0.122,
+     "sknn": 0.067,
+     "assess_prox": 0.168
+    },
+    "reason": "يستخدمه 377 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "score": 0.529,
+    "contributions": {
+     "recent_pop": 0.013,
+     "wrmf": 0.229,
+     "sknn": 0.155,
+     "assess_prox": 0.132
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "score": 0.456,
+    "contributions": {
+     "recent_pop": 0.154,
+     "wrmf": 0.025,
+     "sknn": 0.188,
+     "assess_prox": 0.089
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "يستخدمه 420 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 7,
+    "id_site": 547015,
+    "activity_type": "quiz",
+    "score": 0.443,
+    "contributions": {
+     "recent_pop": 0.168,
+     "wrmf": 0.181,
+     "sknn": 0.012,
+     "assess_prox": 0.082
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 232 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 8,
+    "id_site": 546880,
+    "activity_type": "subpage",
+    "score": 0.432,
+    "contributions": {
+     "recent_pop": 0.064,
+     "wrmf": 0.224,
+     "sknn": 0.093,
+     "assess_prox": 0.051
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "score": 0.359,
+    "contributions": {
+     "recent_pop": 0.07,
+     "wrmf": 0.146,
+     "sknn": 0.09,
+     "assess_prox": 0.053
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "score": 0.303,
+    "contributions": {
+     "recent_pop": 0.119,
+     "wrmf": 0.079,
+     "sknn": 0.094,
+     "assess_prox": 0.011
+    },
+    "reason": "يستخدمه 153 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-32164": {
+  "registration": "BBB_2013J-32164",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 105
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "score": 0.738,
+    "contributions": {
+     "recent_pop": 0.068,
+     "wrmf": 0.295,
+     "sknn": 0.176,
+     "assess_prox": 0.199
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546861,
+    "activity_type": "subpage",
+    "score": 0.725,
+    "contributions": {
+     "recent_pop": 0.228,
+     "wrmf": 0.217,
+     "sknn": 0.196,
+     "assess_prox": 0.084
+    },
+    "reason": "يستخدمه 116 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546831,
+    "activity_type": "oucontent",
+    "score": 0.669,
+    "contributions": {
+     "recent_pop": 0.2,
+     "wrmf": 0.234,
+     "sknn": 0.04,
+     "assess_prox": 0.195
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546963,
+    "activity_type": "ouwiki",
+    "score": 0.552,
+    "contributions": {
+     "recent_pop": 0.138,
+     "wrmf": 0.216,
+     "sknn": 0.006,
+     "assess_prox": 0.192
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 5,
+    "id_site": 546853,
+    "activity_type": "forumng",
+    "score": 0.461,
+    "contributions": {
+     "recent_pop": 0.118,
+     "wrmf": 0.134,
+     "sknn": 0.037,
+     "assess_prox": 0.172
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "score": 0.457,
+    "contributions": {
+     "recent_pop": 0.254,
+     "wrmf": 0.086,
+     "sknn": 0.062,
+     "assess_prox": 0.055
+    },
+    "reason": "يستخدمه 400 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "score": 0.437,
+    "contributions": {
+     "recent_pop": 0.029,
+     "wrmf": 0.229,
+     "sknn": 0.158,
+     "assess_prox": 0.021
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 8,
+    "id_site": 547063,
+    "activity_type": "homepage",
+    "score": 0.403,
+    "contributions": {
+     "recent_pop": 0.141,
+     "wrmf": 0.133,
+     "sknn": 0.103,
+     "assess_prox": 0.026
+    },
+    "reason": "يستخدمه 220 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 547058,
+    "activity_type": "glossary",
+    "score": 0.374,
+    "contributions": {
+     "recent_pop": 0.16,
+     "wrmf": 0.073,
+     "sknn": 0.086,
+     "assess_prox": 0.055
+    },
+    "reason": "يستخدمه 216 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546985,
+    "activity_type": "resource",
+    "score": 0.32,
+    "contributions": {
+     "recent_pop": 0.082,
+     "wrmf": 0.028,
+     "sknn": 0.154,
+     "assess_prox": 0.056
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-33707": {
+  "registration": "BBB_2013J-33707",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 32
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546783,
+    "activity_type": "quiz",
+    "score": 0.61,
+    "contributions": {
+     "recent_pop": 0.243,
+     "wrmf": 0.178,
+     "sknn": 0.066,
+     "assess_prox": 0.123
+    },
+    "reason": "يستخدمه 181 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546813,
+    "activity_type": "url",
+    "score": 0.598,
+    "contributions": {
+     "recent_pop": 0.244,
+     "wrmf": 0.196,
+     "sknn": 0.128,
+     "assess_prox": 0.03
+    },
+    "reason": "يستخدمه 188 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546777,
+    "activity_type": "oucontent",
+    "score": 0.579,
+    "contributions": {
+     "recent_pop": 0.177,
+     "wrmf": 0.159,
+     "sknn": 0.175,
+     "assess_prox": 0.068
+    },
+    "reason": "يستخدمه 371 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.483,
+    "contributions": {
+     "recent_pop": 0.083,
+     "wrmf": 0.215,
+     "sknn": 0.135,
+     "assess_prox": 0.05
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 546618,
+    "activity_type": "forumng",
+    "score": 0.44,
+    "contributions": {
+     "recent_pop": 0.187,
+     "wrmf": 0.21,
+     "sknn": 0.014,
+     "assess_prox": 0.029
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 151 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 6,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "score": 0.431,
+    "contributions": {
+     "recent_pop": 0.089,
+     "wrmf": 0.11,
+     "sknn": 0.049,
+     "assess_prox": 0.183
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "score": 0.424,
+    "contributions": {
+     "recent_pop": 0.034,
+     "wrmf": 0.223,
+     "sknn": 0.049,
+     "assess_prox": 0.118
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "score": 0.4,
+    "contributions": {
+     "recent_pop": 0.09,
+     "wrmf": 0.1,
+     "sknn": 0.136,
+     "assess_prox": 0.074
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 546993,
+    "activity_type": "oucontent",
+    "score": 0.306,
+    "contributions": {
+     "recent_pop": 0.005,
+     "wrmf": 0.115,
+     "sknn": 0.04,
+     "assess_prox": 0.146
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 10,
+    "id_site": 546632,
+    "activity_type": "oucontent",
+    "score": 0.305,
+    "contributions": {
+     "recent_pop": 0.189,
+     "wrmf": 0.028,
+     "sknn": 0.014,
+     "assess_prox": 0.074
+    },
+    "reason": "يستخدمه 196 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   }
+  ]
+ },
+ "BBB_2013J-33090": {
+  "registration": "BBB_2013J-33090",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 39
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "score": 0.746,
+    "contributions": {
+     "recent_pop": 0.254,
+     "wrmf": 0.294,
+     "sknn": 0.052,
+     "assess_prox": 0.146
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 198 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546706,
+    "activity_type": "oucontent",
+    "score": 0.638,
+    "contributions": {
+     "recent_pop": 0.201,
+     "wrmf": 0.253,
+     "sknn": 0.119,
+     "assess_prox": 0.065
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "score": 0.498,
+    "contributions": {
+     "recent_pop": 0.018,
+     "wrmf": 0.241,
+     "sknn": 0.175,
+     "assess_prox": 0.064
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   },
+   {
+    "rank": 4,
+    "id_site": 546985,
+    "activity_type": "resource",
+    "score": 0.495,
+    "contributions": {
+     "recent_pop": 0.075,
+     "wrmf": 0.121,
+     "sknn": 0.126,
+     "assess_prox": 0.173
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 5,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "score": 0.484,
+    "contributions": {
+     "recent_pop": 0.167,
+     "wrmf": 0.18,
+     "sknn": 0.109,
+     "assess_prox": 0.028
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 252 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 6,
+    "id_site": 546982,
+    "activity_type": "ouwiki",
+    "score": 0.458,
+    "contributions": {
+     "recent_pop": 0.137,
+     "wrmf": 0.008,
+     "sknn": 0.12,
+     "assess_prox": 0.193
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 7,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "score": 0.457,
+    "contributions": {
+     "recent_pop": 0.027,
+     "wrmf": 0.265,
+     "sknn": 0.089,
+     "assess_prox": 0.076
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 547031,
+    "activity_type": "oucontent",
+    "score": 0.338,
+    "contributions": {
+     "recent_pop": 0.047,
+     "wrmf": 0.126,
+     "sknn": 0.142,
+     "assess_prox": 0.023
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 9,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "score": 0.333,
+    "contributions": {
+     "recent_pop": 0.017,
+     "wrmf": 0.062,
+     "sknn": 0.072,
+     "assess_prox": 0.182
+    },
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "score": 0.291,
+    "contributions": {
+     "recent_pop": 0.001,
+     "wrmf": 0.165,
+     "sknn": 0.123,
+     "assess_prox": 0.002
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يتبع غالباً ما زرتَه مؤخراً"
+   }
+  ]
+ },
+ "BBB_2013J-33064": {
+  "registration": "BBB_2013J-33064",
+  "presentation": "BBB_2013J",
+  "requested_day": 75,
+  "snapshot_day": 70,
+  "task": "A",
+  "context": {
+   "week": 11,
+   "next_assessment": {
+    "type": "TMA",
+    "day": 89,
+    "days_ahead": 14
+   },
+   "active_days_to_date": 111
+  },
+  "components": [
+   {
+    "id": "recent_pop",
+    "label": "Recent-Pop (1)",
+    "weight": 0.3
+   },
+   {
+    "id": "wrmf",
+    "label": "WRMF (2)",
+    "weight": 0.3
+   },
+   {
+    "id": "sknn",
+    "label": "SKNN (4)",
+    "weight": 0.2
+   },
+   {
+    "id": "assess_prox",
+    "label": "قرب التقييم (6)",
+    "weight": 0.2
+   }
+  ],
+  "provenance": {
+   "run_id": "replay-dev2013-2ddc06c4e3",
+   "role": "dev",
+   "model_cut": 56
+  },
+  "status": "ok",
+  "items": [
+   {
+    "rank": 1,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "score": 0.671,
+    "contributions": {
+     "recent_pop": 0.232,
+     "wrmf": 0.178,
+     "sknn": 0.147,
+     "assess_prox": 0.114
+    },
+    "reason": "يستخدمه 117 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 2,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "score": 0.635,
+    "contributions": {
+     "recent_pop": 0.285,
+     "wrmf": 0.144,
+     "sknn": 0.195,
+     "assess_prox": 0.011
+    },
+    "reason": "يستخدمه 129 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 3,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "score": 0.623,
+    "contributions": {
+     "recent_pop": 0.145,
+     "wrmf": 0.266,
+     "sknn": 0.046,
+     "assess_prox": 0.166
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 4,
+    "id_site": 546880,
+    "activity_type": "subpage",
+    "score": 0.591,
+    "contributions": {
+     "recent_pop": 0.224,
+     "wrmf": 0.282,
+     "sknn": 0.002,
+     "assess_prox": 0.083
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 193 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 5,
+    "id_site": 546817,
+    "activity_type": "oucontent",
+    "score": 0.591,
+    "contributions": {
+     "recent_pop": 0.056,
+     "wrmf": 0.266,
+     "sknn": 0.118,
+     "assess_prox": 0.151
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": null
+   },
+   {
+    "rank": 6,
+    "id_site": 546868,
+    "activity_type": "quiz",
+    "score": 0.564,
+    "contributions": {
+     "recent_pop": 0.251,
+     "wrmf": 0.198,
+     "sknn": 0.031,
+     "assess_prox": 0.084
+    },
+    "reason": "يستخدمه 221 من زملائك في آخر 14 يوماً",
+    "reason_secondary": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 7,
+    "id_site": 546974,
+    "activity_type": "oucontent",
+    "score": 0.52,
+    "contributions": {
+     "recent_pop": 0.255,
+     "wrmf": 0.146,
+     "sknn": 0.041,
+     "assess_prox": 0.078
+    },
+    "reason": "يستخدمه 219 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 8,
+    "id_site": 547070,
+    "activity_type": "url",
+    "score": 0.516,
+    "contributions": {
+     "recent_pop": 0.27,
+     "wrmf": 0.066,
+     "sknn": 0.102,
+     "assess_prox": 0.078
+    },
+    "reason": "يستخدمه 182 من زملائك في آخر 14 يوماً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 9,
+    "id_site": 547015,
+    "activity_type": "quiz",
+    "score": 0.454,
+    "contributions": {
+     "recent_pop": 0.106,
+     "wrmf": 0.051,
+     "sknn": 0.169,
+     "assess_prox": 0.128
+    },
+    "reason": "يتبع غالباً ما زرتَه مؤخراً",
+    "reason_secondary": null
+   },
+   {
+    "rank": 10,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "score": 0.444,
+    "contributions": {
+     "recent_pop": 0.152,
+     "wrmf": 0.238,
+     "sknn": 0.047,
+     "assess_prox": 0.007
+    },
+    "reason": "زاره متعلمون بنمط مشابه لنمطك",
+    "reason_secondary": "يستخدمه 299 من زملائك في آخر 14 يوماً"
+   }
+  ]
+ }
+}

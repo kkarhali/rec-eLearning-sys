@@ -266,7 +266,7 @@ def main(argv=None):
 
     hyb = per_pres(final)
     bnp = presentation_means(base, b_np)
-    d_h1 = (hyb - bnp).to_numpy()
+    d_h1 = (hyb - bnp).dropna().to_numpy()
     c_h1 = stats.compare(d_h1)
     rows = []
     for label, res in (("HYB*", final), ("HYB_accept_only", acc_res)):
@@ -280,14 +280,14 @@ def main(argv=None):
     # H3 development descriptive (GRU vs best non-neural sequential)
     h3 = None
     if gru_ok:
-        d3 = (presentation_means(gru, "GRU_lite") - presentation_means(base, s_star_nonneural)).to_numpy()
+        d3 = (presentation_means(gru, "GRU_lite") - presentation_means(base, s_star_nonneural)).dropna().to_numpy()
         c3 = stats.compare(d3)
         h3 = {"comparison": f"GRU_lite − {s_star_nonneural}", **c3, "sd": float(np.std(d3, ddof=1)),
               "dev_rule_reading": stats.verdict_bidirectional(c3["mean"], c3["ci_lo"], c3["ci_hi"], c3["p"])}
     # H4-b
     h4b = {}
     for sl in ("cold_q1", "top_q4"):
-        d = (per_pres(m1_res, f"test_{sl}") - per_pres(m0_res, f"test_{sl}")).to_numpy()
+        d = (per_pres(m1_res, f"test_{sl}") - per_pres(m0_res, f"test_{sl}")).dropna().to_numpy()
         c = stats.compare(d)
         direction = "positive" if c["ci_lo"] > 0 else ("negative" if c["ci_hi"] < 0 else "unclear")
         h4b[sl] = {**c, "direction": direction}

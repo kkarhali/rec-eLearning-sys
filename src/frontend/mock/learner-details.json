@@ -1,0 +1,3943 @@
+{
+ "BBB_2013J-28400": {
+  "registration": "BBB_2013J-28400",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.81,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "متوسط الدرجات",
+   "factors": [
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.9
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.7
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.4
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.3
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 8,
+    "median": 21,
+    "z": -0.5
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.72,
+    "median": 3,
+    "z": 0.8
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 4.83,
+    "median": 4.2,
+    "z": 0.5
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.19,
+    "median": 0.18,
+    "z": 0.2
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 1.0,
+    "median": 0.75,
+    "z": 1.1
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 37.4,
+    "median": 68,
+    "z": -1.5
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546759,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 96 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 547058,
+    "activity_type": "glossary",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546868,
+    "activity_type": "quiz",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-31092": {
+  "registration": "BBB_2013J-31092",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 2,
+   "label": "متأخرون في البدء"
+  },
+  "risk": {
+   "probability": 0.67,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "انحراف الفجوات",
+   "factors": [
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.6
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.5
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.4
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.4
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.3
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 43,
+    "median": 21,
+    "z": 1.3
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.63,
+    "median": 3,
+    "z": 0.7
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.46,
+    "median": 4.2,
+    "z": 1.0
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.17,
+    "median": 0.18,
+    "z": -0.2
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.57,
+    "median": 0.75,
+    "z": -0.8
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 59.84,
+    "median": 68,
+    "z": -0.4
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546831,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 316 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 547058,
+    "activity_type": "glossary",
+    "reason": "يستخدمه 132 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-27711": {
+  "registration": "BBB_2013J-27711",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 1,
+   "label": "متقطعون بنشاط تقييمي"
+  },
+  "risk": {
+   "probability": 0.55,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "انحراف الفجوات",
+   "factors": [
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.9
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.7
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.4
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.4
+    },
+    {
+     "name": "حصة quiz",
+     "wz": 0.1
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 38,
+    "median": 21,
+    "z": 0.1
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.81,
+    "median": 3,
+    "z": 0.9
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 2.56,
+    "median": 4.2,
+    "z": -1.3
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.19,
+    "median": 0.18,
+    "z": 0.2
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.41,
+    "median": 0.75,
+    "z": -1.5
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 47.6,
+    "median": 68,
+    "z": -1.0
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 547058,
+    "activity_type": "glossary",
+    "reason": "يستخدمه 317 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "reason": "يستخدمه 390 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 261 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-30455": {
+  "registration": "BBB_2013J-30455",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.47,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "الالتزام بالمواعيد",
+   "factors": [
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.8
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.6
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.4
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": 0.4
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.3
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 9,
+    "median": 21,
+    "z": -1.1
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.28,
+    "median": 3,
+    "z": -0.8
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.96,
+    "median": 4.2,
+    "z": 1.4
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.18,
+    "median": 0.18,
+    "z": 0.0
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 1.02,
+    "median": 0.75,
+    "z": 1.2
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 88.4,
+    "median": 68,
+    "z": 1.0
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "reason": "يستخدمه 395 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 547063,
+    "activity_type": "homepage",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 547058,
+    "activity_type": "glossary",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-29903": {
+  "registration": "BBB_2013J-29903",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 0,
+   "label": "منتظمون عاليو الانخراط"
+  },
+  "risk": {
+   "probability": 0.12,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "متوسط الدرجات",
+   "factors": [
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.7
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.5
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.3
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.2
+    },
+    {
+     "name": "حصة quiz",
+     "wz": 0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 49,
+    "median": 21,
+    "z": 0.8
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.09,
+    "median": 3,
+    "z": 0.1
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 4.58,
+    "median": 4.2,
+    "z": 0.3
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.16,
+    "median": 0.18,
+    "z": -0.3
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.93,
+    "median": 0.75,
+    "z": 0.8
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 98.6,
+    "median": 68,
+    "z": 1.5
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 547089,
+    "activity_type": "page",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546824,
+    "activity_type": "url",
+    "reason": "يستخدمه 361 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 395 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-33001": {
+  "registration": "BBB_2013J-33001",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.54,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "حصة quiz",
+   "factors": [
+    {
+     "name": "حصة quiz",
+     "wz": -1.1
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.7
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.5
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.5
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.1
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 30,
+    "median": 21,
+    "z": 0.2
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 1.92,
+    "median": 3,
+    "z": -1.2
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.59,
+    "median": 4.2,
+    "z": 1.1
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.09,
+    "median": 0.18,
+    "z": -1.6
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.77,
+    "median": 0.75,
+    "z": 0.1
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 47.6,
+    "median": 68,
+    "z": -1.0
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546777,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 372 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-27087": {
+  "registration": "BBB_2013J-27087",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.69,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "انحراف الفجوات",
+   "factors": [
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.4
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.2
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.1
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.1
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.1
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 13,
+    "median": 21,
+    "z": -0.1
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.46,
+    "median": 3,
+    "z": -0.6
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.46,
+    "median": 4.2,
+    "z": 1.0
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.17,
+    "median": 0.18,
+    "z": -0.1
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.77,
+    "median": 0.75,
+    "z": 0.1
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 76.16,
+    "median": 68,
+    "z": 0.4
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 547034,
+    "activity_type": "resource",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546880,
+    "activity_type": "subpage",
+    "reason": "يستخدمه 274 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-26109": {
+  "registration": "BBB_2013J-26109",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 1,
+   "label": "متقطعون بنشاط تقييمي"
+  },
+  "risk": {
+   "probability": 0.24,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "حصة quiz",
+   "factors": [
+    {
+     "name": "حصة quiz",
+     "wz": 0.8
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.7
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.6
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.5
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.4
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 0,
+    "median": 21,
+    "z": 0.8
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 4.08,
+    "median": 3,
+    "z": 1.2
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.46,
+    "median": 4.2,
+    "z": 1.0
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.12,
+    "median": 0.18,
+    "z": -1.2
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 1.0,
+    "median": 0.75,
+    "z": 1.1
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 84.32,
+    "median": 68,
+    "z": 0.8
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "reason": "يستخدمه 172 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 248 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 237 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-25596": {
+  "registration": "BBB_2013J-25596",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.73,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "الالتزام بالمواعيد",
+   "factors": [
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.8
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.5
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.5
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.5
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.3
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 21,
+    "median": 21,
+    "z": -1.0
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.19,
+    "median": 3,
+    "z": -0.9
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 3.44,
+    "median": 4.2,
+    "z": -0.6
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.23,
+    "median": 0.18,
+    "z": 1.0
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.46,
+    "median": 0.75,
+    "z": -1.3
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 51.68,
+    "median": 68,
+    "z": -0.8
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546932,
+    "activity_type": "subpage",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-33305": {
+  "registration": "BBB_2013J-33305",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.53,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "متوسط الدرجات",
+   "factors": [
+    {
+     "name": "متوسط الدرجات",
+     "wz": -1.0
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.7
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.6
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.4
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.3
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 9,
+    "median": 21,
+    "z": 0.9
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 4.08,
+    "median": 3,
+    "z": 1.2
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.08,
+    "median": 4.2,
+    "z": 0.7
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.12,
+    "median": 0.18,
+    "z": -1.2
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.68,
+    "median": 0.75,
+    "z": -0.3
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 35.36,
+    "median": 68,
+    "z": -1.6
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546963,
+    "activity_type": "ouwiki",
+    "reason": "يستخدمه 145 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546777,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 172 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-32075": {
+  "registration": "BBB_2013J-32075",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 2,
+   "label": "متأخرون في البدء"
+  },
+  "risk": {
+   "probability": 0.61,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "انحراف الفجوات",
+   "factors": [
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.7
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.7
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.4
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": 0.4
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.1
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 24,
+    "median": 21,
+    "z": -0.3
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.72,
+    "median": 3,
+    "z": 0.8
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 2.81,
+    "median": 4.2,
+    "z": -1.1
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.18,
+    "median": 0.18,
+    "z": 0.0
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.48,
+    "median": 0.75,
+    "z": -1.2
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 92.48,
+    "median": 68,
+    "z": 1.2
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 298 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "reason": "يتبع غالباً ما زرتَه مؤخراً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-26220": {
+  "registration": "BBB_2013J-26220",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.6,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "حصة quiz",
+   "factors": [
+    {
+     "name": "حصة quiz",
+     "wz": -0.9
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.8
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.4
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.4
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.4
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 13,
+    "median": 21,
+    "z": -1.5
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.19,
+    "median": 3,
+    "z": -0.9
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.08,
+    "median": 4.2,
+    "z": 0.7
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.1,
+    "median": 0.18,
+    "z": -1.4
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.95,
+    "median": 0.75,
+    "z": 0.9
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 53.72,
+    "median": 68,
+    "z": -0.7
+   }
+  ],
+  "top_recs": [],
+  "withdrawn_day": 41,
+  "outcome": null
+ },
+ "BBB_2013J-29360": {
+  "registration": "BBB_2013J-29360",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 1,
+   "label": "متقطعون بنشاط تقييمي"
+  },
+  "risk": {
+   "probability": 0.18,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "متوسط الدرجات",
+   "factors": [
+    {
+     "name": "متوسط الدرجات",
+     "wz": -1.1
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.7
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.6
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.5
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.3
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 4,
+    "median": 21,
+    "z": 0.6
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 1.56,
+    "median": 3,
+    "z": -1.6
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.46,
+    "median": 4.2,
+    "z": 1.0
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.19,
+    "median": 0.18,
+    "z": 0.1
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.55,
+    "median": 0.75,
+    "z": -0.9
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 100.64,
+    "median": 68,
+    "z": 1.6
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546964,
+    "activity_type": "forumng",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-30905": {
+  "registration": "BBB_2013J-30905",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.74,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "يوم أول وصول",
+   "factors": [
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.9
+    },
+    {
+     "name": "حصة quiz",
+     "wz": 0.9
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.7
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.6
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": 0.5
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 38,
+    "median": 21,
+    "z": 1.2
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 1.83,
+    "median": 3,
+    "z": -1.3
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.96,
+    "median": 4.2,
+    "z": 1.4
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.26,
+    "median": 0.18,
+    "z": 1.5
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.61,
+    "median": 0.75,
+    "z": -0.6
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 92.48,
+    "median": 68,
+    "z": 1.2
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 547089,
+    "activity_type": "page",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 547070,
+    "activity_type": "url",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 547034,
+    "activity_type": "resource",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-32888": {
+  "registration": "BBB_2013J-32888",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 2,
+   "label": "متأخرون في البدء"
+  },
+  "risk": {
+   "probability": 0.35,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "يوم أول وصول",
+   "factors": [
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.6
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.6
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.5
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.3
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.0
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 47,
+    "median": 21,
+    "z": 0.0
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.81,
+    "median": 3,
+    "z": 0.9
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 3.19,
+    "median": 4.2,
+    "z": -0.8
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.26,
+    "median": 0.18,
+    "z": 1.4
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.64,
+    "median": 0.75,
+    "z": -0.5
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 68.0,
+    "median": 68,
+    "z": -0.0
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546868,
+    "activity_type": "quiz",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-24286": {
+  "registration": "BBB_2013J-24286",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.75,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "حصة quiz",
+   "factors": [
+    {
+     "name": "حصة quiz",
+     "wz": 0.8
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": 0.7
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.6
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.5
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.1
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 46,
+    "median": 21,
+    "z": -0.1
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.37,
+    "median": 3,
+    "z": -0.7
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 2.94,
+    "median": 4.2,
+    "z": -1.0
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.25,
+    "median": 0.18,
+    "z": 1.3
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.73,
+    "median": 0.75,
+    "z": -0.1
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 90.44,
+    "median": 68,
+    "z": 1.1
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "reason": "يستخدمه 413 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 547070,
+    "activity_type": "url",
+    "reason": "يتبع غالباً ما زرتَه مؤخراً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-29905": {
+  "registration": "BBB_2013J-29905",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.86,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "يوم أول وصول",
+   "factors": [
+    {
+     "name": "يوم أول وصول",
+     "wz": -1.0
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.5
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.4
+    },
+    {
+     "name": "حصة quiz",
+     "wz": 0.2
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.1
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 42,
+    "median": 21,
+    "z": -0.0
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 1.74,
+    "median": 3,
+    "z": -1.4
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 2.44,
+    "median": 4.2,
+    "z": -1.4
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.2,
+    "median": 0.18,
+    "z": 0.3
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.82,
+    "median": 0.75,
+    "z": 0.3
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 55.76,
+    "median": 68,
+    "z": -0.6
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546824,
+    "activity_type": "url",
+    "reason": "يستخدمه 104 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 547034,
+    "activity_type": "resource",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 547015,
+    "activity_type": "quiz",
+    "reason": "يتبع غالباً ما زرتَه مؤخراً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-23776": {
+  "registration": "BBB_2013J-23776",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.82,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "الالتزام بالمواعيد",
+   "factors": [
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.7
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.6
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.5
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.2
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.0
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 41,
+    "median": 21,
+    "z": 1.4
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.0,
+    "median": 3,
+    "z": -0.0
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.84,
+    "median": 4.2,
+    "z": 1.3
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.16,
+    "median": 0.18,
+    "z": -0.4
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 1.02,
+    "median": 0.75,
+    "z": 1.2
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 68.0,
+    "median": 68,
+    "z": -0.0
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546817,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 229 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-24701": {
+  "registration": "BBB_2013J-24701",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 2,
+   "label": "متأخرون في البدء"
+  },
+  "risk": {
+   "probability": 0.32,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "الأيام النشطة",
+   "factors": [
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.9
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.8
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.6
+    },
+    {
+     "name": "حصة quiz",
+     "wz": 0.6
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.6
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 30,
+    "median": 21,
+    "z": -1.4
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 1.83,
+    "median": 3,
+    "z": -1.3
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.71,
+    "median": 4.2,
+    "z": 1.2
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.13,
+    "median": 0.18,
+    "z": -1.0
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.95,
+    "median": 0.75,
+    "z": 0.9
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 55.76,
+    "median": 68,
+    "z": -0.6
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546932,
+    "activity_type": "subpage",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546831,
+    "activity_type": "oucontent",
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546993,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 247 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-24786": {
+  "registration": "BBB_2013J-24786",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 1,
+   "label": "متقطعون بنشاط تقييمي"
+  },
+  "risk": {
+   "probability": 0.46,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "حصة quiz",
+   "factors": [
+    {
+     "name": "حصة quiz",
+     "wz": -0.7
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.6
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.5
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.4
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 21,
+    "median": 21,
+    "z": 1.0
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.99,
+    "median": 3,
+    "z": 1.1
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 4.7,
+    "median": 4.2,
+    "z": 0.4
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.12,
+    "median": 0.18,
+    "z": -1.1
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.41,
+    "median": 0.75,
+    "z": -1.5
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 68.0,
+    "median": 68,
+    "z": -0.0
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 101 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546817,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-23634": {
+  "registration": "BBB_2013J-23634",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.54,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "متوسط الدرجات",
+   "factors": [
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.9
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.6
+    },
+    {
+     "name": "حصة quiz",
+     "wz": 0.6
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.5
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.3
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 22,
+    "median": 21,
+    "z": -1.4
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.82,
+    "median": 3,
+    "z": -0.2
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 2.56,
+    "median": 4.2,
+    "z": -1.3
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.26,
+    "median": 0.18,
+    "z": 1.4
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.59,
+    "median": 0.75,
+    "z": -0.7
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 35.36,
+    "median": 68,
+    "z": -1.6
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 159 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 121 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 258 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-31394": {
+  "registration": "BBB_2013J-31394",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 0,
+   "label": "منتظمون عاليو الانخراط"
+  },
+  "risk": {
+   "probability": 0.23,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "انحراف الفجوات",
+   "factors": [
+    {
+     "name": "انحراف الفجوات",
+     "wz": -1.0
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.6
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.4
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.3
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 44,
+    "median": 21,
+    "z": -0.5
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.45,
+    "median": 3,
+    "z": 0.5
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.96,
+    "median": 4.2,
+    "z": 1.4
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.22,
+    "median": 0.18,
+    "z": 0.8
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.48,
+    "median": 0.75,
+    "z": -1.2
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 78.2,
+    "median": 68,
+    "z": 0.5
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546993,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 108 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546853,
+    "activity_type": "forumng",
+    "reason": "يستخدمه 328 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-27180": {
+  "registration": "BBB_2013J-27180",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 2,
+   "label": "متأخرون في البدء"
+  },
+  "risk": {
+   "probability": 0.51,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "حصة quiz",
+   "factors": [
+    {
+     "name": "حصة quiz",
+     "wz": -1.0
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.8
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.3
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.2
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 21,
+    "median": 21,
+    "z": 0.8
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.73,
+    "median": 3,
+    "z": -0.3
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 2.69,
+    "median": 4.2,
+    "z": -1.2
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.1,
+    "median": 0.18,
+    "z": -1.4
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.66,
+    "median": 0.75,
+    "z": -0.4
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 65.96,
+    "median": 68,
+    "z": -0.1
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 237 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 547034,
+    "activity_type": "resource",
+    "reason": "يستخدمه 390 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-26906": {
+  "registration": "BBB_2013J-26906",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.84,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "حصة quiz",
+   "factors": [
+    {
+     "name": "حصة quiz",
+     "wz": -0.6
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.6
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.5
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.2
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.1
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 26,
+    "median": 21,
+    "z": -0.4
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 1.65,
+    "median": 3,
+    "z": -1.5
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 4.58,
+    "median": 4.2,
+    "z": 0.3
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.11,
+    "median": 0.18,
+    "z": -1.3
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.44,
+    "median": 0.75,
+    "z": -1.4
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 65.96,
+    "median": 68,
+    "z": -0.1
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 296 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546944,
+    "activity_type": "quiz",
+    "reason": "مرتبط بالتقييم القادم بعد 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-29416": {
+  "registration": "BBB_2013J-29416",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 1,
+   "label": "متقطعون بنشاط تقييمي"
+  },
+  "risk": {
+   "probability": 0.29,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "الالتزام بالمواعيد",
+   "factors": [
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.9
+    },
+    {
+     "name": "حصة quiz",
+     "wz": 0.7
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.5
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.4
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.3
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 26,
+    "median": 21,
+    "z": 1.2
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.0,
+    "median": 3,
+    "z": 0.0
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.08,
+    "median": 4.2,
+    "z": 0.7
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.1,
+    "median": 0.18,
+    "z": -1.4
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 1.09,
+    "median": 0.75,
+    "z": 1.5
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 80.24,
+    "median": 68,
+    "z": 0.6
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546993,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-27210": {
+  "registration": "BBB_2013J-27210",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.57,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "متوسط الدرجات",
+   "factors": [
+    {
+     "name": "متوسط الدرجات",
+     "wz": -1.0
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.7
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.5
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.3
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 8,
+    "median": 21,
+    "z": -0.0
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.55,
+    "median": 3,
+    "z": -0.5
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 3.57,
+    "median": 4.2,
+    "z": -0.5
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.1,
+    "median": 0.18,
+    "z": -1.5
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.93,
+    "median": 0.75,
+    "z": 0.8
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 37.4,
+    "median": 68,
+    "z": -1.5
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "reason": "يستخدمه 318 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546668,
+    "activity_type": "url",
+    "reason": "يستخدمه 112 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 392 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-29894": {
+  "registration": "BBB_2013J-29894",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 1,
+   "label": "متقطعون بنشاط تقييمي"
+  },
+  "risk": {
+   "probability": 0.28,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "يوم أول وصول",
+   "factors": [
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.5
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.5
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.3
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.3
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": 0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 7,
+    "median": 21,
+    "z": 0.5
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.1,
+    "median": 3,
+    "z": -1.0
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 4.2,
+    "median": 4.2,
+    "z": 0.0
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.24,
+    "median": 0.18,
+    "z": 1.1
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.57,
+    "median": 0.75,
+    "z": -0.8
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 61.88,
+    "median": 68,
+    "z": -0.3
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546876,
+    "activity_type": "quiz",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 170 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546861,
+    "activity_type": "subpage",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-32772": {
+  "registration": "BBB_2013J-32772",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 1,
+   "label": "متقطعون بنشاط تقييمي"
+  },
+  "risk": {
+   "probability": 0.31,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "حصة quiz",
+   "factors": [
+    {
+     "name": "حصة quiz",
+     "wz": -0.9
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.9
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.7
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.4
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 27,
+    "median": 21,
+    "z": 0.4
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.91,
+    "median": 3,
+    "z": -0.1
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.59,
+    "median": 4.2,
+    "z": 1.1
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.26,
+    "median": 0.18,
+    "z": 1.4
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.57,
+    "median": 0.75,
+    "z": -0.8
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 94.52,
+    "median": 68,
+    "z": 1.3
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "reason": "يستخدمه 106 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-31044": {
+  "registration": "BBB_2013J-31044",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 2,
+   "label": "متأخرون في البدء"
+  },
+  "risk": {
+   "probability": 0.63,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "انحراف الفجوات",
+   "factors": [
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.6
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.6
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.3
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.1
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.1
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 45,
+    "median": 21,
+    "z": 0.1
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.18,
+    "median": 3,
+    "z": 0.2
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 2.56,
+    "median": 4.2,
+    "z": -1.3
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.19,
+    "median": 0.18,
+    "z": 0.1
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.98,
+    "median": 0.75,
+    "z": 1.0
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 57.8,
+    "median": 68,
+    "z": -0.5
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "reason": "يستخدمه 177 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546783,
+    "activity_type": "quiz",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 252 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-27807": {
+  "registration": "BBB_2013J-27807",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 0,
+   "label": "منتظمون عاليو الانخراط"
+  },
+  "risk": {
+   "probability": 0.17,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "الالتزام بالمواعيد",
+   "factors": [
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 1.0
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.9
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.4
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.2
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 29,
+    "median": 21,
+    "z": -0.9
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.27,
+    "median": 3,
+    "z": 0.3
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 4.83,
+    "median": 4.2,
+    "z": 0.5
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.19,
+    "median": 0.18,
+    "z": 0.2
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.44,
+    "median": 0.75,
+    "z": -1.4
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 98.6,
+    "median": 68,
+    "z": 1.5
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546985,
+    "activity_type": "resource",
+    "reason": "يستخدمه 176 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 547049,
+    "activity_type": "resource",
+    "reason": "يستخدمه 272 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546974,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 407 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-31520": {
+  "registration": "BBB_2013J-31520",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 2,
+   "label": "متأخرون في البدء"
+  },
+  "risk": {
+   "probability": 0.56,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "حصة quiz",
+   "factors": [
+    {
+     "name": "حصة quiz",
+     "wz": 0.6
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.6
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": 0.6
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.4
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.3
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 9,
+    "median": 21,
+    "z": -1.2
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.82,
+    "median": 3,
+    "z": -0.2
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 4.83,
+    "median": 4.2,
+    "z": 0.5
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.23,
+    "median": 0.18,
+    "z": 1.0
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.41,
+    "median": 0.75,
+    "z": -1.5
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 92.48,
+    "median": 68,
+    "z": 1.2
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 547078,
+    "activity_type": "resource",
+    "reason": "يستخدمه 267 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 547031,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-25874": {
+  "registration": "BBB_2013J-25874",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 1,
+   "label": "متقطعون بنشاط تقييمي"
+  },
+  "risk": {
+   "probability": 0.28,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "انحراف الفجوات",
+   "factors": [
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.8
+    },
+    {
+     "name": "حصة quiz",
+     "wz": 0.5
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.3
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.2
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": 0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 13,
+    "median": 21,
+    "z": 0.4
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.18,
+    "median": 3,
+    "z": 0.2
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 2.56,
+    "median": 4.2,
+    "z": -1.3
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.13,
+    "median": 0.18,
+    "z": -0.9
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.61,
+    "median": 0.75,
+    "z": -0.6
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 80.24,
+    "median": 68,
+    "z": 0.6
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546843,
+    "activity_type": "forumng",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546936,
+    "activity_type": "resource",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-24126": {
+  "registration": "BBB_2013J-24126",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.72,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "انحراف الفجوات",
+   "factors": [
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.6
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.4
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.2
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.2
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.1
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 9,
+    "median": 21,
+    "z": 0.3
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.64,
+    "median": 3,
+    "z": -0.4
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 3.07,
+    "median": 4.2,
+    "z": -0.9
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.17,
+    "median": 0.18,
+    "z": -0.2
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.57,
+    "median": 0.75,
+    "z": -0.8
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 65.96,
+    "median": 68,
+    "z": -0.1
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546813,
+    "activity_type": "url",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546817,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 377 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 547031,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-25070": {
+  "registration": "BBB_2013J-25070",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.79,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "الأيام النشطة",
+   "factors": [
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.8
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.5
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.5
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": 0.5
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.4
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 35,
+    "median": 21,
+    "z": -1.4
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.28,
+    "median": 3,
+    "z": -0.8
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 3.32,
+    "median": 4.2,
+    "z": -0.7
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.09,
+    "median": 0.18,
+    "z": -1.6
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.44,
+    "median": 0.75,
+    "z": -1.4
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 100.64,
+    "median": 68,
+    "z": 1.6
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 547043,
+    "activity_type": "resource",
+    "reason": "يستخدمه 267 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546803,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 142 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 547089,
+    "activity_type": "page",
+    "reason": "يتبع غالباً ما زرتَه مؤخراً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-26742": {
+  "registration": "BBB_2013J-26742",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.66,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "انحراف الفجوات",
+   "factors": [
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.9
+    },
+    {
+     "name": "حصة quiz",
+     "wz": 0.8
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.4
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.3
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.1
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 38,
+    "median": 21,
+    "z": -1.0
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.09,
+    "median": 3,
+    "z": 0.1
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 2.31,
+    "median": 4.2,
+    "z": -1.5
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.26,
+    "median": 0.18,
+    "z": 1.4
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.64,
+    "median": 0.75,
+    "z": -0.5
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 61.88,
+    "median": 68,
+    "z": -0.3
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546932,
+    "activity_type": "subpage",
+    "reason": "يستخدمه 261 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546789,
+    "activity_type": "forumng",
+    "reason": "يستخدمه 248 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-30852": {
+  "registration": "BBB_2013J-30852",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 0,
+   "label": "منتظمون عاليو الانخراط"
+  },
+  "risk": {
+   "probability": 0.17,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "حصة quiz",
+   "factors": [
+    {
+     "name": "حصة quiz",
+     "wz": 1.0
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": -0.5
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": -0.4
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": 0.4
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 43,
+    "median": 21,
+    "z": 0.7
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.18,
+    "median": 3,
+    "z": 0.2
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.21,
+    "median": 4.2,
+    "z": 0.8
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.1,
+    "median": 0.18,
+    "z": -1.5
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.84,
+    "median": 0.75,
+    "z": 0.4
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 49.64,
+    "median": 68,
+    "z": -0.9
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546956,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 419 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546919,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546904,
+    "activity_type": "forumng",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-32164": {
+  "registration": "BBB_2013J-32164",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.77,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "يوم أول وصول",
+   "factors": [
+    {
+     "name": "يوم أول وصول",
+     "wz": -0.7
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.5
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.3
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": 0.2
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.0
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 26,
+    "median": 21,
+    "z": 0.7
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.1,
+    "median": 3,
+    "z": -1.0
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 4.2,
+    "median": 4.2,
+    "z": 0.0
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.15,
+    "median": 0.18,
+    "z": -0.5
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.77,
+    "median": 0.75,
+    "z": 0.1
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 82.28,
+    "median": 68,
+    "z": 0.7
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 547010,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546861,
+    "activity_type": "subpage",
+    "reason": "يستخدمه 116 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546831,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-33707": {
+  "registration": "BBB_2013J-33707",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 2,
+   "label": "متأخرون في البدء"
+  },
+  "risk": {
+   "probability": 0.6,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "الأيام النشطة",
+   "factors": [
+    {
+     "name": "الأيام النشطة",
+     "wz": 1.0
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.6
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.4
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.4
+    },
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 6,
+    "median": 21,
+    "z": 1.5
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 3.54,
+    "median": 3,
+    "z": 0.6
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 5.21,
+    "median": 4.2,
+    "z": 0.8
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.12,
+    "median": 0.18,
+    "z": -1.1
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.82,
+    "median": 0.75,
+    "z": 0.3
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 55.76,
+    "median": 68,
+    "z": -0.6
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546783,
+    "activity_type": "quiz",
+    "reason": "يستخدمه 181 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546813,
+    "activity_type": "url",
+    "reason": "يستخدمه 188 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 546777,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 371 من زملائك في آخر 14 يوماً"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-33090": {
+  "registration": "BBB_2013J-33090",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 1,
+   "label": "متقطعون بنشاط تقييمي"
+  },
+  "risk": {
+   "probability": 0.3,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": false,
+   "provenance": "oof_2013",
+   "top_factor": "متوسط الدرجات",
+   "factors": [
+    {
+     "name": "متوسط الدرجات",
+     "wz": 0.5
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.4
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.4
+    },
+    {
+     "name": "انحراف الفجوات",
+     "wz": 0.3
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.3
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 13,
+    "median": 21,
+    "z": 0.2
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 2.37,
+    "median": 3,
+    "z": -0.7
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 3.19,
+    "median": 4.2,
+    "z": -0.8
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.23,
+    "median": 0.18,
+    "z": 1.0
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.95,
+    "median": 0.75,
+    "z": 0.9
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 45.56,
+    "median": 68,
+    "z": -1.1
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546845,
+    "activity_type": "quiz",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 2,
+    "id_site": 546706,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   },
+   {
+    "rank": 3,
+    "id_site": 546912,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ },
+ "BBB_2013J-33064": {
+  "registration": "BBB_2013J-33064",
+  "day": 75,
+  "snapshot_day": 70,
+  "cluster": {
+   "id": 3,
+   "label": "منخفضو النشاط"
+  },
+  "risk": {
+   "probability": 0.58,
+   "cut_day": 56,
+   "threshold": 0.42,
+   "above_threshold": true,
+   "provenance": "oof_2013",
+   "top_factor": "متوسط الدرجات",
+   "factors": [
+    {
+     "name": "متوسط الدرجات",
+     "wz": -0.7
+    },
+    {
+     "name": "يوم أول وصول",
+     "wz": 0.6
+    },
+    {
+     "name": "حصة quiz",
+     "wz": -0.3
+    },
+    {
+     "name": "الالتزام بالمواعيد",
+     "wz": -0.3
+    },
+    {
+     "name": "الأيام النشطة",
+     "wz": 0.2
+    }
+   ]
+  },
+  "profile": [
+   {
+    "name": "الأيام النشطة",
+    "value": 26,
+    "median": 21,
+    "z": 0.4
+   },
+   {
+    "name": "يوم أول وصول",
+    "value": 4.17,
+    "median": 3,
+    "z": 1.3
+   },
+   {
+    "name": "انحراف الفجوات",
+    "value": 4.07,
+    "median": 4.2,
+    "z": -0.1
+   },
+   {
+    "name": "حصة quiz",
+    "value": 0.15,
+    "median": 0.18,
+    "z": -0.6
+   },
+   {
+    "name": "الالتزام بالمواعيد",
+    "value": 0.64,
+    "median": 0.75,
+    "z": -0.5
+   },
+   {
+    "name": "متوسط الدرجات",
+    "value": 41.48,
+    "median": 68,
+    "z": -1.3
+   }
+  ],
+  "top_recs": [
+   {
+    "rank": 1,
+    "id_site": 546927,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 117 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 2,
+    "id_site": 546892,
+    "activity_type": "oucontent",
+    "reason": "يستخدمه 129 من زملائك في آخر 14 يوماً"
+   },
+   {
+    "rank": 3,
+    "id_site": 547001,
+    "activity_type": "oucontent",
+    "reason": "زاره متعلمون بنمط مشابه لنمطك"
+   }
+  ],
+  "withdrawn_day": null,
+  "outcome": null
+ }
+}

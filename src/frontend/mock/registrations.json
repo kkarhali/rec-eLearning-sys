@@ -1,0 +1,287 @@
+{
+ "items": [
+  {
+   "registration": "BBB_2013J-28400",
+   "id_student": 28400,
+   "date_registration": -14,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-31092",
+   "id_student": 31092,
+   "date_registration": -40,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-27711",
+   "id_student": 27711,
+   "date_registration": -32,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-30455",
+   "id_student": 30455,
+   "date_registration": -31,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-29903",
+   "id_student": 29903,
+   "date_registration": -100,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-33001",
+   "id_student": 33001,
+   "date_registration": -7,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-27087",
+   "id_student": 27087,
+   "date_registration": -13,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-26109",
+   "id_student": 26109,
+   "date_registration": -39,
+   "date_unregistration": null,
+   "status": "no_history"
+  },
+  {
+   "registration": "BBB_2013J-25596",
+   "id_student": 25596,
+   "date_registration": -57,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-33305",
+   "id_student": 33305,
+   "date_registration": -62,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-32075",
+   "id_student": 32075,
+   "date_registration": -36,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-26220",
+   "id_student": 26220,
+   "date_registration": -12,
+   "date_unregistration": 41,
+   "status": "withdrawn"
+  },
+  {
+   "registration": "BBB_2013J-29360",
+   "id_student": 29360,
+   "date_registration": -10,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-30905",
+   "id_student": 30905,
+   "date_registration": -27,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-32888",
+   "id_student": 32888,
+   "date_registration": -41,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-24286",
+   "id_student": 24286,
+   "date_registration": -52,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-29905",
+   "id_student": 29905,
+   "date_registration": -72,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-23776",
+   "id_student": 23776,
+   "date_registration": -78,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-24701",
+   "id_student": 24701,
+   "date_registration": -21,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-24786",
+   "id_student": 24786,
+   "date_registration": -16,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-23634",
+   "id_student": 23634,
+   "date_registration": -51,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-31394",
+   "id_student": 31394,
+   "date_registration": -22,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-27180",
+   "id_student": 27180,
+   "date_registration": -119,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-26906",
+   "id_student": 26906,
+   "date_registration": -62,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-29416",
+   "id_student": 29416,
+   "date_registration": -47,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-27210",
+   "id_student": 27210,
+   "date_registration": -89,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-29894",
+   "id_student": 29894,
+   "date_registration": -98,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-32772",
+   "id_student": 32772,
+   "date_registration": -93,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-31044",
+   "id_student": 31044,
+   "date_registration": -71,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-27807",
+   "id_student": 27807,
+   "date_registration": -79,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-31520",
+   "id_student": 31520,
+   "date_registration": -22,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-25874",
+   "id_student": 25874,
+   "date_registration": -80,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-24126",
+   "id_student": 24126,
+   "date_registration": -9,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-25070",
+   "id_student": 25070,
+   "date_registration": -7,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-26742",
+   "id_student": 26742,
+   "date_registration": -65,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-30852",
+   "id_student": 30852,
+   "date_registration": -50,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-32164",
+   "id_student": 32164,
+   "date_registration": -94,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-33707",
+   "id_student": 33707,
+   "date_registration": -44,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-33090",
+   "id_student": 33090,
+   "date_registration": -9,
+   "date_unregistration": null,
+   "status": "ok"
+  },
+  {
+   "registration": "BBB_2013J-33064",
+   "id_student": 33064,
+   "date_registration": -7,
+   "date_unregistration": null,
+   "status": "ok"
+  }
+ ],
+ "total": 2237,
+ "limit": 100,
+ "offset": 0
+}

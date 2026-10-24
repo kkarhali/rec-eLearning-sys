@@ -1,0 +1,160 @@
+{
+ "presentation": "BBB_2013J",
+ "requested_day": 75,
+ "snapshot_day": 70,
+ "kpis": {
+  "active_learners": 1912,
+  "median_active_days": 21,
+  "catalogue_size": 412,
+  "coverage_at_10": 0.48,
+  "share_above_threshold": 0.31
+ },
+ "profile_summary": [
+  {
+   "name": "الأيام النشطة",
+   "p25": 11,
+   "median": 21,
+   "p75": 34,
+   "unit": "يوم"
+  },
+  {
+   "name": "يوم أول وصول",
+   "p25": 0,
+   "median": 3,
+   "p75": 9,
+   "unit": "يوم"
+  },
+  {
+   "name": "انحراف الفجوات",
+   "p25": 2.1,
+   "median": 4.2,
+   "p75": 7.8,
+   "unit": "يوم"
+  },
+  {
+   "name": "حصة quiz",
+   "p25": 0.08,
+   "median": 0.18,
+   "p75": 0.31,
+   "unit": "%"
+  },
+  {
+   "name": "الالتزام بالمواعيد",
+   "p25": 0.5,
+   "median": 0.75,
+   "p75": 1.0,
+   "unit": "%"
+  },
+  {
+   "name": "متوسط الدرجات",
+   "p25": 52,
+   "median": 68,
+   "p75": 81,
+   "unit": "درجة"
+  }
+ ],
+ "risk": {
+  "cut_day": 56,
+  "threshold": 0.42,
+  "provenance": "oof_2013",
+  "histogram": [
+   {
+    "lo": 0.0,
+    "hi": 0.1,
+    "count": 370
+   },
+   {
+    "lo": 0.1,
+    "hi": 0.2,
+    "count": 340
+   },
+   {
+    "lo": 0.2,
+    "hi": 0.3,
+    "count": 330
+   },
+   {
+    "lo": 0.3,
+    "hi": 0.4,
+    "count": 279
+   },
+   {
+    "lo": 0.4,
+    "hi": 0.5,
+    "count": 190
+   },
+   {
+    "lo": 0.5,
+    "hi": 0.6,
+    "count": 150
+   },
+   {
+    "lo": 0.6,
+    "hi": 0.7,
+    "count": 110
+   },
+   {
+    "lo": 0.7,
+    "hi": 0.8,
+    "count": 80
+   },
+   {
+    "lo": 0.8,
+    "hi": 0.9,
+    "count": 40
+   },
+   {
+    "lo": 0.9,
+    "hi": 1.0,
+    "count": 23
+   }
+  ]
+ },
+ "coverage": {
+  "at_10": 0.48,
+  "catalogue_size": 412,
+  "covered_items": 198,
+  "by_type": [
+   {
+    "activity_type": "oucontent",
+    "catalogue_share": 0.31,
+    "recs_share": 0.38
+   },
+   {
+    "activity_type": "quiz",
+    "catalogue_share": 0.12,
+    "recs_share": 0.17
+   },
+   {
+    "activity_type": "forumng",
+    "catalogue_share": 0.14,
+    "recs_share": 0.15
+   },
+   {
+    "activity_type": "resource",
+    "catalogue_share": 0.11,
+    "recs_share": 0.09
+   },
+   {
+    "activity_type": "subpage",
+    "catalogue_share": 0.1,
+    "recs_share": 0.08
+   },
+   {
+    "activity_type": "url",
+    "catalogue_share": 0.07,
+    "recs_share": 0.05
+   },
+   {
+    "activity_type": "أخرى",
+    "catalogue_share": 0.15,
+    "recs_share": 0.08
+   }
+  ]
+ },
+ "provenance": {
+  "run_id": "replay-dev2013-2ddc06c4e3",
+  "role": "dev",
+  "model_cut": 56
+ }
+}
