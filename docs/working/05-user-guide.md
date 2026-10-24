@@ -540,7 +540,7 @@ NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js
 | `/api/instructor/learners` | جدول المتعلمين مع الفرز والتصفية والترقيم |
 | `/api/instructor/learner/{registration}` | ملف متعلم واحد |
 
-أخطاء الواجهة البرمجية تأتي بصيغة `{"error":{"code","message","details"}}`. أهم الرموز: `day_before_first_snapshot`، و`day_out_of_range`، و`confirmatory_locked`، و`artifacts_missing`، و`instructor_disabled`.
+أخطاء الواجهة البرمجية تأتي في حقل خطأ يحتوي الرمز والرسالة والتفاصيل. أهم الرموز: `day_before_first_snapshot`، و`day_out_of_range`، و`confirmatory_locked`، و`artifacts_missing`، و`instructor_disabled`.
 
 ### 6.3 مسرد المصطلحات
 
