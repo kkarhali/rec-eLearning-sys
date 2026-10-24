@@ -10,11 +10,11 @@
 <rect x="40" y="82" width="310" height="8" fill="#0F766E"/>
 <text x="195.0" y="81" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">PRESENTATION</text>
 <text x="50" y="112" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="80" y="112" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation_id: str</text>
-<text x="80" y="131" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">code_module, code_presentation</text>
+<text x="80" y="112" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation: str (FFF_2013J)</text>
+<text x="80" y="131" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">role: dev | confirm</text>
 <text x="80" y="150" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">length_days: int</text>
-<text x="80" y="169" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">role: dev | confirm</text>
-<text x="80" y="188" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">status: locked..published</text>
+<text x="80" y="169" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">status: locked | frozen |</text>
+<text x="80" y="188" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    evaluated | served</text>
 <rect x="380" y="60" width="310" height="139" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.8"/>
 <rect x="380" y="60" width="310" height="30" rx="6" fill="#0F766E"/>
 <rect x="380" y="82" width="310" height="8" fill="#0F766E"/>
@@ -22,7 +22,7 @@
 <text x="390" y="112" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
 <text x="420" y="112" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">id_assessment: int</text>
 <text x="390" y="131" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#1D4ED8" text-anchor="start">FK</text>
-<text x="420" y="131" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation_id</text>
+<text x="420" y="131" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation</text>
 <text x="420" y="150" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">assessment_type: TMA|CMA|Exam</text>
 <text x="420" y="169" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date: int | null</text>
 <text x="420" y="188" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">weight: float</text>
@@ -31,189 +31,168 @@
 <rect x="720" y="82" width="310" height="8" fill="#0F766E"/>
 <text x="875.0" y="81" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">RESOURCE</text>
 <text x="730" y="112" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="760" y="112" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation_id, id_site</text>
+<text x="760" y="112" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation, id_site</text>
 <text x="760" y="131" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">activity_type: str</text>
-<text x="760" y="150" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">is_target: bool  (type ∉ E5)</text>
-<text x="760" y="169" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">first_use_day: int (≤ t0)</text>
-<rect x="1060" y="60" width="310" height="158" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.8"/>
+<text x="760" y="150" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">in_catalogue: type ∉ E5</text>
+<text x="760" y="169" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    and accessed ≤ t</text>
+<rect x="1060" y="60" width="310" height="139" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.8"/>
 <rect x="1060" y="60" width="310" height="30" rx="6" fill="#B45309"/>
 <rect x="1060" y="82" width="310" height="8" fill="#B45309"/>
-<text x="1215.0" y="81" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">RUN_MANIFEST</text>
-<text x="1070" y="112" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="1100" y="112" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">run_id: str</text>
-<text x="1100" y="131" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">schema_version: int</text>
-<text x="1100" y="150" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">git_commit, freeze_tag</text>
-<text x="1100" y="169" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">data_fingerprint: str</text>
-<text x="1100" y="188" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">components: list[str]</text>
-<text x="1100" y="207" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">created_at: datetime</text>
-<rect x="40" y="300" width="310" height="196" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.8"/>
+<text x="1215.0" y="81" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">HYBRID_FROZEN</text>
+<text x="1100" y="112" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">results/dev2013/hybrid_frozen.json</text>
+<text x="1100" y="131" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">components: [B3_RecentPop, …]</text>
+<text x="1100" y="150" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">weights_by_fold[pres_c]</text>
+<text x="1100" y="169" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">component_configs_by_fold</text>
+<text x="1100" y="188" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">initial_weights_modal</text>
+<rect x="40" y="300" width="310" height="177" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.8"/>
 <rect x="40" y="300" width="310" height="30" rx="6" fill="#0F766E"/>
 <rect x="40" y="322" width="310" height="8" fill="#0F766E"/>
 <text x="195.0" y="321" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">REGISTRATION</text>
 <text x="50" y="352" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="80" y="352" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration_id: str</text>
-<text x="50" y="371" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#1D4ED8" text-anchor="start">FK</text>
-<text x="80" y="371" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation_id</text>
+<text x="80" y="352" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration: str</text>
+<text x="80" y="371" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    = presentation-id_student</text>
 <text x="80" y="390" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">id_student: int</text>
 <text x="80" y="409" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date_registration: int</text>
 <text x="80" y="428" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date_unregistration: int|null</text>
 <text x="80" y="447" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">num_of_prev_attempts: int</text>
 <text x="80" y="466" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">studied_credits: int</text>
-<text x="80" y="485" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">final_result (offline only)</text>
 <rect x="380" y="300" width="310" height="120" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
 <rect x="380" y="300" width="310" height="30" rx="6" fill="#1D4ED8"/>
 <rect x="380" y="322" width="310" height="8" fill="#1D4ED8"/>
 <text x="535.0" y="321" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">DAILY_EVENT</text>
 <text x="390" y="352" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="420" y="352" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration_id, id_site, day</text>
-<text x="390" y="371" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#1D4ED8" text-anchor="start">FK</text>
-<text x="420" y="371" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">id_site → RESOURCE</text>
-<text x="420" y="390" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">day: int (may be &lt; 0)</text>
-<text x="420" y="409" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">clicks c_uid: int (Σ rows)</text>
-<rect x="720" y="300" width="310" height="120" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
+<text x="420" y="352" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">id_student, id_site, date</text>
+<text x="420" y="371" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation: str</text>
+<text x="420" y="390" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date: int (may be &lt; 0)</text>
+<text x="420" y="409" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">sum_click: int (Σ rows)</text>
+<rect x="720" y="300" width="310" height="101" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
 <rect x="720" y="300" width="310" height="30" rx="6" fill="#1D4ED8"/>
 <rect x="720" y="322" width="310" height="8" fill="#1D4ED8"/>
 <text x="875.0" y="321" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">DAY_BASKET</text>
 <text x="730" y="352" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="760" y="352" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration_id, day</text>
+<text x="760" y="352" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">id_student, day</text>
 <text x="760" y="371" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">items: set[id_site] (non-nav)</text>
-<text x="760" y="390" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">n_items: int</text>
-<text x="760" y="409" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">week = ⌊day / 7⌋</text>
-<rect x="1060" y="300" width="310" height="139" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
-<rect x="1060" y="300" width="310" height="30" rx="6" fill="#1D4ED8"/>
-<rect x="1060" y="322" width="310" height="8" fill="#1D4ED8"/>
-<text x="1215.0" y="321" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">CUTOFF_WINDOW</text>
+<text x="760" y="390" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">← DAILY_EVENT, d ≤ t</text>
+<rect x="1060" y="300" width="310" height="139" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.8"/>
+<rect x="1060" y="300" width="310" height="30" rx="6" fill="#B45309"/>
+<rect x="1060" y="322" width="310" height="8" fill="#B45309"/>
+<text x="1215.0" y="321" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">MODEL_ARTIFACT</text>
 <text x="1070" y="352" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="1100" y="352" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation_id, t0, phase</text>
-<text x="1100" y="371" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">phase: tune | test | replay</text>
-<text x="1100" y="390" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">train: d ≤ t0</text>
-<text x="1100" y="409" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">target: (t0, t0+14]</text>
-<text x="1100" y="428" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">catalogue_size: int</text>
-<rect x="40" y="620" width="310" height="177" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
+<text x="1100" y="352" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation, cut c, kind</text>
+<text x="1100" y="371" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">c ∈ {70, 126, 182}</text>
+<text x="1100" y="390" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">kind: wrmf | gru</text>
+<text x="1100" y="409" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">wrmf.npz: Y, items, config</text>
+<text x="1100" y="428" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">gru.npz: p_*, items, config</text>
+<rect x="40" y="620" width="310" height="158" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
 <rect x="40" y="620" width="310" height="30" rx="6" fill="#1D4ED8"/>
 <rect x="40" y="642" width="310" height="8" fill="#1D4ED8"/>
-<text x="195.0" y="641" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">BEHAVIOUR_PROFILE</text>
-<text x="50" y="672" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="80" y="672" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration_id, t0</text>
-<text x="50" y="691" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#1D4ED8" text-anchor="start">FK</text>
-<text x="80" y="691" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">cluster_id</text>
-<text x="80" y="710" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">active_days, gap_sd</text>
-<text x="80" y="729" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">click_share[type] (incl. nav)</text>
-<text x="80" y="748" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">first_access_day</text>
-<text x="80" y="767" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">on_time_rate, mean_score</text>
-<text x="80" y="786" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">z: float[] (within pres.)</text>
-<rect x="380" y="620" width="310" height="158" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
-<rect x="380" y="620" width="310" height="30" rx="6" fill="#1D4ED8"/>
-<rect x="380" y="642" width="310" height="8" fill="#1D4ED8"/>
-<text x="535.0" y="641" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">CLUSTER</text>
-<text x="390" y="672" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="420" y="672" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation_id, t0, cluster_id</text>
-<text x="420" y="691" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">k: int (2..8)</text>
-<text x="420" y="710" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">centroid: float[]</text>
-<text x="420" y="729" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">size: int</text>
-<text x="420" y="748" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">label_ar: str</text>
-<text x="420" y="767" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">silhouette, dbi, ari</text>
-<rect x="720" y="620" width="310" height="139" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
+<text x="195.0" y="641" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">LEARNER_FEATURES</text>
+<text x="80" y="672" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">computed at day t (no storage)</text>
+<text x="80" y="691" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">active_days, total_clicks</text>
+<text x="80" y="710" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">first_day, gap_sd</text>
+<text x="80" y="729" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">share_&lt;activity_type&gt;</text>
+<text x="80" y="748" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">on_time_ratio, mean_score</text>
+<text x="80" y="767" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">M1 = VLE log features only</text>
+<rect x="380" y="620" width="310" height="139" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.8"/>
+<rect x="380" y="620" width="310" height="30" rx="6" fill="#B45309"/>
+<rect x="380" y="642" width="310" height="8" fill="#B45309"/>
+<text x="535.0" y="641" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">CLUSTER_MODEL_56</text>
+<text x="420" y="672" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">artifacts/&lt;pres&gt;/clusters_56.npz</text>
+<text x="420" y="691" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">k, stable: bool</text>
+<text x="420" y="710" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">centres, features, mu, sd</text>
+<text x="420" y="729" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">labels (day-56 learners)</text>
+<text x="420" y="748" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">cluster_day = 56 (D-39)</text>
+<rect x="720" y="620" width="310" height="120" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
 <rect x="720" y="620" width="310" height="30" rx="6" fill="#1D4ED8"/>
 <rect x="720" y="642" width="310" height="8" fill="#1D4ED8"/>
 <text x="875.0" y="641" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">WEIGHTED_SIGNAL</text>
-<text x="730" y="672" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="760" y="672" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration_id, id_site, t0</text>
+<text x="760" y="672" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">computed at t (no storage)</text>
 <text x="760" y="691" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">level: L0 | L1 | L2 | L3</text>
-<text x="760" y="710" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">tau, beta: float</text>
-<text x="760" y="729" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">W: float</text>
-<text x="760" y="748" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">confidence = 1 + α·W</text>
-<rect x="1060" y="620" width="310" height="158" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.8"/>
-<rect x="1060" y="620" width="310" height="30" rx="6" fill="#B45309"/>
-<rect x="1060" y="642" width="310" height="8" fill="#B45309"/>
+<text x="760" y="710" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">tau, beta</text>
+<text x="760" y="729" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">W_ui(t); C = 1 + α·W</text>
+<rect x="1060" y="620" width="310" height="158" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
+<rect x="1060" y="620" width="310" height="30" rx="6" fill="#1D4ED8"/>
+<rect x="1060" y="642" width="310" height="8" fill="#1D4ED8"/>
 <text x="1215.0" y="641" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">RECOMMENDATION</text>
-<text x="1070" y="672" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="1100" y="672" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration_id, snapshot_day,</text>
-<text x="1100" y="691" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    task, rank</text>
-<text x="1070" y="710" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#1D4ED8" text-anchor="start">FK</text>
-<text x="1100" y="710" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">id_site, run_id</text>
-<text x="1100" y="729" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">rank: 1..20</text>
-<text x="1100" y="748" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">score: float</text>
-<text x="1100" y="767" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">task: A | B</text>
-<rect x="40" y="930" width="310" height="177" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.8"/>
-<rect x="40" y="930" width="310" height="30" rx="6" fill="#B45309"/>
-<rect x="40" y="952" width="310" height="8" fill="#B45309"/>
-<text x="195.0" y="951" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">RISK_ESTIMATE</text>
-<text x="50" y="982" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="80" y="982" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration_id, cut_day</text>
-<text x="80" y="1001" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">cut_day: 28 | 56 | 112</text>
-<text x="80" y="1020" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">model: M1 Logistic L2</text>
-<text x="80" y="1039" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">probability: float [0,1]</text>
-<text x="80" y="1058" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">youden_threshold: float</text>
-<text x="80" y="1077" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">provenance: oof_2013|test_2014</text>
-<text x="80" y="1096" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">top_factors: (feature, w·z)[]</text>
-<rect x="1060" y="930" width="310" height="158" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.8"/>
-<rect x="1060" y="930" width="310" height="30" rx="6" fill="#B45309"/>
-<rect x="1060" y="952" width="310" height="8" fill="#B45309"/>
-<text x="1215.0" y="951" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">EXPLANATION_CONTRIB</text>
-<text x="1070" y="982" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
-<text x="1100" y="982" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">rec_key, component</text>
-<text x="1100" y="1001" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">component: (1)…(7)</text>
-<text x="1100" y="1020" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">weight w_m, r_tilde</text>
-<text x="1100" y="1039" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">contribution = w_m·r̃_m</text>
-<text x="1100" y="1058" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">evidence_type: item|count|days</text>
-<text x="1100" y="1077" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">evidence_value</text>
+<text x="1100" y="672" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">computed per request</text>
+<text x="1100" y="691" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration, day, model_cut</text>
+<text x="1100" y="710" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">id_site, activity_type, score</text>
+<text x="1100" y="729" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">known_learner: bool, note</text>
+<text x="1100" y="748" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">components{m: rtilde, weight,</text>
+<text x="1100" y="767" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    contribution, raw}</text>
+<rect x="40" y="940" width="310" height="158" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.8"/>
+<rect x="40" y="940" width="310" height="30" rx="6" fill="#B45309"/>
+<rect x="40" y="962" width="310" height="8" fill="#B45309"/>
+<text x="195.0" y="961" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">RISK_MODEL</text>
+<text x="80" y="992" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">artifacts/&lt;pres&gt;/risk_&lt;tc&gt;.json</text>
+<text x="80" y="1011" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">tc ∈ {28, 56, 112}</text>
+<text x="80" y="1030" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">models[M1|M2]: features,</text>
+<text x="80" y="1049" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    weights, youden_threshold</text>
+<text x="80" y="1068" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">→ risk{risk_cut, model,</text>
+<text x="80" y="1087" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    probability*, above_threshold}</text>
+<rect x="1060" y="940" width="310" height="158" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
+<rect x="1060" y="940" width="310" height="30" rx="6" fill="#1D4ED8"/>
+<rect x="1060" y="962" width="310" height="8" fill="#1D4ED8"/>
+<text x="1215.0" y="961" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">EXPLANATION</text>
+<text x="1100" y="992" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">main + secondary (≥ 1/3)</text>
+<text x="1100" y="1011" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">component: B3_RecentPop | …</text>
+<text x="1100" y="1030" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">text: TEMPLATES[component]</text>
+<text x="1100" y="1049" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">contribution: float</text>
+<text x="1100" y="1068" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">evidence: dict per component</text>
+<text x="1100" y="1087" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    (see §7.2)</text>
 <line x1="195" y1="199" x2="195" y2="300" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="172.6" y="236.5" width="44.8" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
 <text x="195.0" y="250.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — *</text>
 <line x1="350" y1="120" x2="380" y2="120" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="349.56" y="95" width="30.88" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
 <text x="365" y="109" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1—*</text>
+<line x1="350" y1="380" x2="380" y2="380" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="349.56" y="355" width="30.88" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="365" y="369" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1—*</text>
 <line x1="790" y1="180" x2="600" y2="300" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="672.6" y="227.0" width="44.8" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
 <text x="695.0" y="241.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — *</text>
-<line x1="350" y1="360" x2="380" y2="360" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<rect x="349.56" y="335" width="30.88" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="365" y="349" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1—*</text>
 <line x1="690" y1="380" x2="720" y2="380" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="689.56" y="355" width="30.88" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
 <text x="705" y="369" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">*—1</text>
 <line x1="600" y1="420" x2="790" y2="620" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<rect x="641.28" y="507.0" width="107.44" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="695.0" y="521.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">* — * (Σ ≤ t0)</text>
-<path d="M300,199 L300,268 L1180,268 L1180,298" fill="none" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<rect x="877.6" y="259" width="44.8" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="900" y="273" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — *</text>
-<line x1="1120" y1="439" x2="1000" y2="620" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<rect x="1037.6" y="516.5" width="44.8" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="1060.0" y="530.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — *</text>
-<line x1="1215" y1="439" x2="1215" y2="620" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<rect x="1192.6" y="516.5" width="44.8" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="1215.0" y="530.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — *</text>
-<line x1="150" y1="496" x2="150" y2="620" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<rect x="127.6" y="545.0" width="44.8" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="150.0" y="559.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — *</text>
+<rect x="665.64" y="507.0" width="58.72" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="695.0" y="521.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">Σ d ≤ t</text>
+<line x1="1215" y1="199" x2="1215" y2="300" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="1185.64" y="236.5" width="58.72" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="1215.0" y="250.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">configs</text>
+<line x1="150" y1="477" x2="150" y2="620" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="127.6" y="535.5" width="44.8" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="150.0" y="549.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — *</text>
 <line x1="380" y1="700" x2="350" y2="700" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<rect x="349.56" y="675" width="30.88" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="365" y="689" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1—*</text>
+<rect x="339.12" y="675" width="51.76" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="365" y="689" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">assign</text>
 <path d="M40,470 L18,470 L18,1000 L38,1000" fill="none" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="6.5600000000000005" y="867" width="30.88" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
 <text x="22" y="881" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1—*</text>
-<path d="M300,496 L300,588 L1100,588 L1100,618" fill="none" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<rect x="537.6" y="579" width="44.8" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="560" y="593" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — *</text>
-<line x1="1215" y1="778" x2="1215" y2="930" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<rect x="1182.16" y="841.0" width="65.67999999999999" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="1215.0" y="855.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — 1..4</text>
-<line x1="1370" y1="218" x2="1370" y2="620" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<rect x="1354.56" y="467" width="30.88" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="1370" y="481" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1—*</text>
-<line x1="1030" y1="160" x2="1060" y2="640" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<rect x="1012.6" y="547" width="44.8" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="1035" y="561" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — *</text>
-<rect x="420" y="960" width="590" height="250" rx="8" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.5"/>
-<text x="990" y="988" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">مفتاح الألوان والقواعد</text>
-<rect x="950" y="1005" width="30" height="18" rx="3" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
-<text x="935" y="1019" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">مصدر: جداول OULAD (مع إسقاط السمات الحساسة D-21)</text>
-<rect x="950" y="1035" width="30" height="18" rx="3" fill="#1D4ED8" stroke="#1D4ED8" stroke-width="1.5"/>
-<text x="935" y="1049" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">مشتق: خط المعالجة src/ml (من التدريب ≤ t0 وحده)</text>
-<rect x="950" y="1065" width="30" height="18" rx="3" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
-<text x="935" y="1079" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">مخرَج: artifacts/ تقرؤه خدمة API</text>
-<text x="990" y="1120" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="end">• registration_id = presentation_id + &quot;-&quot; + id_student (D-04).</text>
-<text x="990" y="1137" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• final_result متغير تحليل لاحق؛ لا يُخزَّن في artifacts (NFR-08).</text>
-<text x="990" y="1154" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• gender، disability، imd_band، age_band… لا كيان لها هنا.</text></svg>
+<line x1="1215" y1="439" x2="1215" y2="620" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="1192.6" y="516.5" width="44.8" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="1215.0" y="530.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">c ≤ t</text>
+<line x1="1030" y1="700" x2="1060" y2="700" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="1015.64" y="675" width="58.72" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="1045" y="689" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">fold-in</text>
+<line x1="1215" y1="778" x2="1215" y2="940" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="1182.16" y="846.0" width="65.67999999999999" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="1215.0" y="860.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — 1..2</text>
+<path d="M300,477 L300,590 L1100,590 L1100,618" fill="none" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="502.8" y="581" width="114.39999999999999" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="560" y="595" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — * (per day)</text>
+<path d="M1370,140 L1385,140 L1385,660 L1372,660" fill="none" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="1363.0" y="388" width="30" height="18" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="1378" y="401" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#134E4A" text-anchor="middle">w_c</text>
+<rect x="400" y="965" width="590" height="250" rx="8" fill="#F8FAFC" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="970" y="993" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">مفتاح الألوان والقواعد</text>
+<rect x="930" y="1010" width="30" height="18" rx="3" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
+<text x="915" y="1024" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">مصدر: جداول OULAD (مع إسقاط السمات الحساسة D-21)</text>
+<rect x="930" y="1040" width="30" height="18" rx="3" fill="#1D4ED8" stroke="#1D4ED8" stroke-width="1.5"/>
+<text x="915" y="1054" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">محسوب عند الطلب من أحداث اليوم t وما قبله (لا يُخزَّن)</text>
+<rect x="930" y="1070" width="30" height="18" rx="3" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
+<text x="915" y="1084" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">مخزَّن: معاملات القطع c (artifacts/، results/)</text>
+<text x="970" y="1125" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• المتعلم = تسجيل: registration = presentation-id_student (D-04).</text>
+<text x="970" y="1142" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• final_result هدف تدريب أوفلاين فقط: لا يُخزَّن ولا يُخدَم (NFR-08).</text>
+<text x="970" y="1159" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• السمات الحساسة الست لا كيان لها هنا (D-21). * درجة غير معايَرة.</text></svg>

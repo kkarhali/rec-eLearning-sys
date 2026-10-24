@@ -130,3 +130,8 @@
 | 49 | Hassan, Waheed, Aljohani, Ali, Ventura, Herrera؛ Int. J. Intell. Syst. 34(8):1935–1952، 2019؛ doi 10.1002/int.22129؛ LSTM على تفاعلات OULAD للتنبؤ المبكر بالانسحاب | https://produccioncientifica.ugr.es/documentos/618fa3fc4fa218568b4e18b4 | 2026-10-24 | ✅ البيانات البيبليوغرافية؛ **الأرقام لم تؤكَّد** (مصدرها ملخص ثانوي) فلا تُنقل |
 | 50 | Waheed, Hassan, Aljohani, Hardman, Nawaz؛ Computers in Human Behavior 104:106189، 2020؛ doi 10.1016/j.chb.2019.106189؛ شبكة عصبونية على نقرات VLE للتنبؤ بالمعرّضين للخطر | https://e-space.mmu.ac.uk/624309 (المخطوطة المقبولة) | 2026-10-24 | ✅ |
 | 51 | Jha, Ghergulescu, Moldovan؛ CSEDU 2019، SciTePress، pp. 154–164؛ doi 10.5220/0007767901540164؛ AUC = 0.91 للانسحاب و0.93 للنتيجة بـ GBM على ميزات VLE (من صفحة الناشر) | https://scitepress.org/Papers/2019/77679/ | 2026-10-24 | ✅ |
+
+
+## 5. المراجع المنهجية [52]–[62]
+
+أُضيفت في الفصل الثالث من الأطروحة (EASE، Holm، Efron bootstrap، k-means++، silhouette، Davies–Bouldin، ARI، CART، Adam، Sarwar item-kNN، Järvelin NDCG). تحقق منها كاتب الأطروحة عبر WebSearch بعنوان كل مرجع ومؤلفه الأول، وأُدرجت فقط البيانات المؤكدة (الوعاء/السنة/المؤلفون)؛ ما لم يتأكد من صفحات أو DOI حُذف. الأسطر النهائية في `references-bibliography.md` القسم الأخير و`docs/working/06-thesis/references.md`.

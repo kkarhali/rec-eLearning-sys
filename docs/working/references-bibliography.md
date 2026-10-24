@@ -109,3 +109,30 @@
 [50] H. Waheed, S.-U. Hassan, N. R. Aljohani, J. Hardman, and R. Nawaz, "Predicting academic performance of students from VLE big data using deep learning models," *Computers in Human Behavior*, vol. 104, Art. no. 106189, 2020, doi: 10.1016/j.chb.2019.106189.
 
 [51] N. I. Jha, I. Ghergulescu, and A.-N. Moldovan, "OULAD MOOC dropout and result prediction using ensemble, deep learning and regression techniques," in *Proc. 11th Int. Conf. Computer Supported Education (CSEDU)*, SciTePress, 2019, pp. 154–164, doi: 10.5220/0007767901540164.
+
+
+## مراجع منهجية كلاسيكية إضافية ([52]–[62])
+
+> أُضيفت أثناء كتابة الفصل الثالث للأطروحة (المقاييس والطرق الإحصائية وخوارزميات التجميع/التصنيف). تحقق منها كاتب الأطروحة عبر WebSearch ولم تُدرج إلا البيانات المؤكدة؛ سجل التحقق في `research-credibility.md` القسم 5.
+
+[52] B. Sarwar, G. Karypis, J. Konstan, and J. Riedl, "Item-based collaborative filtering recommendation algorithms," in *Proc. 10th Int. Conf. World Wide Web (WWW)*, Hong Kong, 2001, pp. 285–295, doi: 10.1145/371920.372071.
+
+[53] K. Järvelin and J. Kekäläinen, "Cumulated gain-based evaluation of IR techniques," *ACM Transactions on Information Systems*, vol. 20, no. 4, pp. 422–446, Oct. 2002, doi: 10.1145/582415.582418.
+
+[54] D. Arthur and S. Vassilvitskii, "k-means++: The advantages of careful seeding," in *Proc. 18th Annu. ACM-SIAM Symp. Discrete Algorithms (SODA)*, 2007, pp. 1027–1035.
+
+[55] P. J. Rousseeuw, "Silhouettes: A graphical aid to the interpretation and validation of cluster analysis," *Journal of Computational and Applied Mathematics*, vol. 20, pp. 53–65, 1987, doi: 10.1016/0377-0427(87)90125-7.
+
+[56] D. L. Davies and D. W. Bouldin, "A cluster separation measure," *IEEE Transactions on Pattern Analysis and Machine Intelligence*, vol. PAMI-1, no. 2, pp. 224–227, 1979, doi: 10.1109/TPAMI.1979.4766909.
+
+[57] L. Hubert and P. Arabie, "Comparing partitions," *Journal of Classification*, vol. 2, no. 1, pp. 193–218, 1985, doi: 10.1007/BF01908075.
+
+[58] L. Breiman, J. H. Friedman, R. A. Olshen, and C. J. Stone, *Classification and Regression Trees*. Belmont, CA, USA: Wadsworth, 1984.
+
+[59] B. Efron and R. J. Tibshirani, *An Introduction to the Bootstrap*. New York, NY, USA: Chapman & Hall, 1993.
+
+[60] S. Holm, "A simple sequentially rejective multiple test procedure," *Scandinavian Journal of Statistics*, vol. 6, no. 2, pp. 65–70, 1979.
+
+[61] D. P. Kingma and J. Ba, "Adam: A method for stochastic optimization," in *Proc. 3rd Int. Conf. Learning Representations (ICLR)*, San Diego, CA, USA, 2015.
+
+[62] H. Steck, "Embarrassingly shallow autoencoders for sparse data," in *Proc. World Wide Web Conf. (WWW)*, San Francisco, CA, USA, 2019, pp. 3251–3257, doi: 10.1145/3308558.3313710.

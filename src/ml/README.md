@@ -11,7 +11,7 @@
 bash data/download.sh                     # أو: python3 data/verify_oulad.py
 
 # 1) اختبارات الوحدة (≈ 3 ثوانٍ، لا تحتاج البيانات الخام)
-python3 -m unittest discover -s src/ml/tests -v   # 65 اختباراً
+python3 -m unittest discover -s src/ml/tests -v   # TESTS_COUNT اختباراً
 
 # 2) الإحصاءات الوصفية + إعادة إنتاج فحص الزميل 0.2 وفحص المشرف (≈ 25 ثانية)
 python3 -m src.ml.experiments.eda
@@ -21,8 +21,31 @@ python3 -m src.ml.experiments.run_baselines
 #    خيارات: --presentations FFF_2013J --cuts 70 --models B2_Pop B3_RecentPop --workers 4
 #            --exclusion {E5,E4,none}  (تحليل حساسية E؛ يُكتب إلى --out مختلف)
 
-# 4) إعادة توليد summary.md من ملفات CSV دون إعادة التشغيل
+# --- الجولة الثانية (بالترتيب؛ كلها على 2013 وحدها) ---
+# 4) حزمة صحة GRU-lite (S1–S6، D-35) ثم تقييمه (H3)
+python3 -m src.ml.experiments.gru_sanity          # → gru_sanity.md/json (بوابة: لا نتائج GRU بلا اجتياز)
+python3 -m src.ml.experiments.run_gru             # → gru.csv, gru_tuning.csv (+ ذاكرة درجات للهجين)
+# 5) استئصال عائلة الإشارة (H2-أ): WRMF وItem-kNN على L0/L1/L2/L3/W*
+python3 -m src.ml.experiments.run_ablation        # → ablation_signals.csv, ablation_tuning.csv
+# 6) تحليل المتعلمين (H4-أ، العناقيد، CART، الإنصاف الوصفي؛ يقرأ معرّفات 2014 وحدها وفق D-47 ويسجّل الوصول)
+python3 -m src.ml.experiments.learner_analysis    # → learner_analysis.md, learner_auc.csv, learner_clusters.csv
+# 7) الهجين: قاعدة القبول، التجميد، H1/H3 وصفياً، H4-ب
+python3 -m src.ml.experiments.run_hybrid          # → hybrid_frozen.json, hybrid_acceptance.md, hybrid.csv, h4b.csv
+# 8) MDE80 لكل فرضية من زوجها الفعلي (D-46)
+python3 -m src.ml.experiments.power               # → mde80.md/json
+# 9) قطع النماذج لخدمة إعادة التشغيل (D-49) — artifacts/ متجاهَل في git
+python3 -m src.ml.experiments.build_artifacts
+
+# إعادة توليد summary.md من ملفات CSV دون إعادة التشغيل
 python3 -m src.ml.experiments.report results/dev2013
+```
+
+**خدمة الواجهة (D-49، إعادة تشغيل):**
+```python
+from src.ml import serving
+serving.recommend("FFF_2013J", 2548055, day=100, k=10)      # [{id_site, activity_type, score, components, explanation, model_cut, ...}]
+serving.learner_profile("FFF_2013J", 2548055, day=100)      # الملامح، عنقود اليوم 56، احتمال الخطر (للمدرّس فقط)
+serving.presentation_overview("FFF_2013J", day=100)         # لوحة المدرّس
 ```
 
 أول تحميل يقرأ `studentVle.csv` (10,655,280 صفاً، ≈ 15 ثانية)، ويجمّع الصفوف المكررة، ويحفظ ذاكرة مؤقتة

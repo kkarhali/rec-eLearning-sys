@@ -14,30 +14,19 @@
 <text x="786" y="35" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle" direction="rtl">عن النظام</text>
 <rect x="24" y="14" width="420" height="30" rx="15" fill="#FEF3C7" stroke="#FEF3C7" stroke-width="1.5"/>
 <text x="234" y="34" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#B45309" text-anchor="middle" direction="rtl">إعادة تشغيل على بيانات تاريخية (OULAD) — لا جمع حي</text>
-<rect x="24" y="72" width="1232" height="96" rx="10" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
+<rect x="24" y="72" width="1232" height="96" rx="10" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1236" y="96" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#475569" text-anchor="start" direction="rtl">العرض</text>
 <rect x="1006" y="104" width="230" height="38" rx="6" fill="#fff" stroke="#94A3B8" stroke-width="1.5"/>
 <text x="1224" y="129" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">FFF_2013J  (تطوير 2013)  ▾</text>
 <text x="982" y="96" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#475569" text-anchor="start" direction="rtl">اليوم t</text>
 <line x1="60" y1="124" x2="982" y2="124" stroke="#94A3B8" stroke-width="6"/>
 <line x1="948.8345323741007" y1="124" x2="700.0935251798561" y2="124" stroke="#0F766E" stroke-width="6"/>
-<line x1="855.9712230215828" y1="115" x2="855.9712230215828" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="809.5395683453237" y1="115" x2="809.5395683453237" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="763.1079136690647" y1="115" x2="763.1079136690647" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="716.6762589928057" y1="115" x2="716.6762589928057" y2="133" stroke="#0F766E" stroke-width="2"/>
-<line x1="670.2446043165468" y1="115" x2="670.2446043165468" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="623.8129496402878" y1="115" x2="623.8129496402878" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="577.3812949640287" y1="115" x2="577.3812949640287" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="530.9496402877699" y1="115" x2="530.9496402877699" y2="133" stroke="#0F766E" stroke-width="2"/>
-<line x1="484.5179856115108" y1="115" x2="484.5179856115108" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="438.0863309352518" y1="115" x2="438.0863309352518" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="391.6546762589928" y1="115" x2="391.6546762589928" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="345.22302158273374" y1="115" x2="345.22302158273374" y2="133" stroke="#0F766E" stroke-width="2"/>
-<line x1="298.7913669064749" y1="115" x2="298.7913669064749" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="252.3597122302159" y1="115" x2="252.3597122302159" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="205.92805755395682" y1="115" x2="205.92805755395682" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="159.49640287769785" y1="115" x2="159.49640287769785" y2="133" stroke="#94A3B8" stroke-width="2"/>
-<line x1="113.06474820143887" y1="115" x2="113.06474820143887" y2="133" stroke="#94A3B8" stroke-width="2"/>
+<line x1="716.6762589928057" y1="113" x2="716.6762589928057" y2="135" stroke="#0F766E" stroke-width="3"/>
+<line x1="530.9496402877699" y1="113" x2="530.9496402877699" y2="135" stroke="#0F766E" stroke-width="3"/>
+<line x1="345.22302158273374" y1="113" x2="345.22302158273374" y2="135" stroke="#0F766E" stroke-width="3"/>
+<line x1="855.9712230215828" y1="117" x2="855.9712230215828" y2="131" stroke="#B45309" stroke-width="2"/>
+<line x1="763.1079136690647" y1="117" x2="763.1079136690647" y2="131" stroke="#B45309" stroke-width="2"/>
+<line x1="577.3812949640287" y1="117" x2="577.3812949640287" y2="131" stroke="#B45309" stroke-width="2"/>
 <polygon points="885.8201438848921,138 890.8201438848921,144 885.8201438848921,150 880.8201438848921,144" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
 <polygon points="792.9568345323742,138 797.9568345323742,144 792.9568345323742,150 787.9568345323742,144" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
 <polygon points="630.4460431654676,138 635.4460431654676,144 630.4460431654676,150 625.4460431654676,144" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
@@ -45,35 +34,35 @@
 <polygon points="375.0719424460432,138 380.0719424460432,144 375.0719424460432,150 370.0719424460432,144" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
 <polygon points="166.12949640287763,138 171.12949640287763,144 166.12949640287763,150 161.12949640287763,144" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
 <circle cx="700.0935251798561" cy="124" r="10" fill="#fff" stroke="#0F766E" stroke-width="3"/>
-<rect x="620.0935251798561" y="80" width="160" height="24" rx="12" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
-<text x="700.0935251798561" y="97" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#fff" text-anchor="middle" direction="rtl">اليوم 75 · لقطة 70</text>
+<rect x="585.0935251798561" y="80" width="230" height="24" rx="12" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
+<text x="700.0935251798561" y="97" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#fff" text-anchor="middle" direction="rtl">اليوم 75 · نموذج القطع 70</text>
 <text x="982" y="162" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0</text>
 <text x="60" y="162" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">268</text>
 <rect x="24" y="178" width="1232" height="34" rx="8" fill="#FEE2E2" stroke="#FEE2E2" stroke-width="1.5"/>
-<text x="1236" y="200" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#B91C1C" text-anchor="start" direction="rtl">للمدرّس/المشرف فقط: تقديرات احتمالية من نموذج Logistic L2 (قطع اليوم 56) — ليست حكماً على المتعلم، ولا تظهر في واجهة المتعلم.</text>
+<text x="1236" y="200" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#B91C1C" text-anchor="start" direction="rtl">للمدرّس/المشرف فقط: درجة خطر غير معايَرة من Logistic L2 على ملامح VLE (M1، قطع اليوم 56) — ليست احتمالاً ولا حكماً.</text>
 <circle cx="40" cy="195" r="13" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
 <text x="40" y="200" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">1</text>
-<rect x="1022.4" y="226" width="233.6" height="84" rx="10" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/>
-<text x="1242" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">متعلمون نشطون حتى اليوم 75</text>
-<text x="1242" y="292" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="bold" fill="#134E4A" text-anchor="end">1,912</text>
-<rect x="772.8" y="226" width="233.6" height="84" rx="10" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/>
-<text x="992.4" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">وسيط الأيام النشطة</text>
-<text x="992.4" y="292" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="bold" fill="#134E4A" text-anchor="end">21</text>
-<rect x="523.1999999999999" y="226" width="233.6" height="84" rx="10" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/>
-<text x="742.8" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">الكتالوج عند اللقطة 70</text>
+<rect x="1022.4" y="226" width="233.6" height="84" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="1242" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">التسجيلات</text>
+<text x="1242" y="292" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="bold" fill="#134E4A" text-anchor="end">2,283</text>
+<rect x="772.8" y="226" width="233.6" height="84" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="992.4" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">نشطون في آخر 7 أيام</text>
+<text x="992.4" y="292" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="bold" fill="#134E4A" text-anchor="end">1,412</text>
+<rect x="523.1999999999999" y="226" width="233.6" height="84" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="742.8" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">الكتالوج عند اليوم 75</text>
 <text x="742.8" y="292" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">412 مورداً</text>
-<rect x="273.5999999999999" y="226" width="233.6" height="84" rx="10" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/>
-<text x="493.19999999999993" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">Coverage@10 للتوصيات</text>
-<text x="493.19999999999993" y="292" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="bold" fill="#134E4A" text-anchor="end">0.48</text>
-<rect x="23.999999999999915" y="226" width="233.6" height="84" rx="10" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/>
-<text x="243.5999999999999" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">احتمال ≥ عتبة Youden</text>
+<rect x="273.5999999999999" y="226" width="233.6" height="84" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="493.19999999999993" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">وسيط الأيام النشطة</text>
+<text x="493.19999999999993" y="292" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="bold" fill="#134E4A" text-anchor="end">21</text>
+<rect x="23.999999999999915" y="226" width="233.6" height="84" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="243.5999999999999" y="252" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">فوق عتبة Youden</text>
 <text x="243.5999999999999" y="292" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="bold" fill="#134E4A" text-anchor="end">31%</text>
 <text x="40" y="300" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="end" direction="rtl">قيم توضيحية</text>
 <circle cx="1250" cy="236" r="13" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
 <text x="1250" y="241" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">2</text>
-<rect x="650" y="326" width="606" height="330" rx="10" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/>
-<text x="1238" y="354" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">العناقيد عند اللقطة 70 (k = 4؛ silhouette 0.31)</text>
-<rect x="670" y="372" width="270" height="268" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
+<rect x="650" y="326" width="606" height="330" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="1238" y="354" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">عناقيد اليوم 56 (k = 4؛ مستقرة؛ D-39)</text>
+<rect x="670" y="372" width="270" height="268" rx="6" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <circle cx="745.4729857695319" cy="463.3650916283541" r="4" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
 <circle cx="746.1163228406849" cy="445.64493302521936" r="4" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
 <circle cx="730.9116070890282" cy="447.82680624728937" r="4" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
@@ -163,57 +152,51 @@
 <polygon points="887.9154726698277,536.9646690266887 892.9154726698277,541.9646690266887 887.9154726698277,546.9646690266887 882.9154726698277,541.9646690266887" fill="#6D28D9" stroke="#6D28D9" stroke-width="1.5"/>
 <polygon points="879.1560373238098,536.0085526317265 884.1560373238098,541.0085526317265 879.1560373238098,546.0085526317265 874.1560373238098,541.0085526317265" fill="#6D28D9" stroke="#6D28D9" stroke-width="1.5"/>
 <text x="805.0" y="654" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">إسقاط PCA للملامح (للعرض فقط)</text>
-<rect x="966" y="382" width="272" height="58" rx="8" fill="#F0FDFA" stroke="#E2E8F0" stroke-width="1.5"/>
+<rect x="966" y="382" width="272" height="58" rx="8" fill="#F0FDFA" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1224" y="406" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">منتظمون عاليو الانخراط</text>
 <text x="1224" y="427" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">512 متعلماً · أعلى ملمحين: الأيام النشطة، حصة quiz</text>
 <circle cx="1238" cy="402" r="6" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
-<rect x="966" y="448" width="272" height="58" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
+<rect x="966" y="448" width="272" height="58" rx="8" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1224" y="472" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">متقطعون بنشاط تقييمي</text>
 <text x="1224" y="493" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">430 متعلماً · أعلى ملمحين: الأيام النشطة، حصة quiz</text>
 <rect x="1232" y="462" width="12" height="12" rx="0" fill="#1D4ED8" stroke="#1D4ED8" stroke-width="1.5"/>
-<rect x="966" y="514" width="272" height="58" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
+<rect x="966" y="514" width="272" height="58" rx="8" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1224" y="538" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">متأخرون في البدء</text>
 <text x="1224" y="559" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">388 متعلماً · أعلى ملمحين: الأيام النشطة، حصة quiz</text>
 <polygon points="1238,527 1231,540 1245,540" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
-<rect x="966" y="580" width="272" height="58" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
+<rect x="966" y="580" width="272" height="58" rx="8" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1224" y="604" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">منخفضو النشاط</text>
 <text x="1224" y="625" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">582 متعلماً · أعلى ملمحين: الأيام النشطة، حصة quiz</text>
 <polygon points="1238,593 1245,600 1238,607 1231,600" fill="#6D28D9" stroke="#6D28D9" stroke-width="1.5"/>
 <circle cx="1250" cy="330" r="13" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
 <text x="1250" y="335" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">3</text>
-<rect x="24" y="326" width="610" height="330" rx="10" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/>
-<text x="616" y="354" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">توزيع احتمال الخطر (تقدير اليوم 56، Logistic L2 السلوكي)</text>
-<rect x="87.0" y="420.0" width="46.0" height="180.0" rx="2" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1"/>
-<rect x="139.0" y="400.0" width="46.0" height="200.0" rx="2" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1"/>
-<rect x="191.0" y="436.0" width="46.0" height="164.0" rx="2" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1"/>
-<rect x="243.0" y="468.0" width="46.0" height="132.0" rx="2" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1"/>
-<rect x="295.0" y="496.0" width="46.0" height="104.0" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1"/>
-<rect x="347.0" y="520.0" width="46.0" height="80.0" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1"/>
-<rect x="399.0" y="532.0" width="46.0" height="68.0" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1"/>
-<rect x="451.0" y="544.0" width="46.0" height="56.00000000000001" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1"/>
-<rect x="503.0" y="556.0" width="46.0" height="44.0" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1"/>
-<rect x="555.0" y="566.0" width="46.0" height="34.0" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1"/>
+<rect x="24" y="326" width="610" height="330" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="616" y="354" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">توزيع درجة الخطر غير المعايَرة (M1، قطع 56؛ 4 فئات)</text>
+<pattern id="hz" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#E2E8F0"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B45309" stroke-width="3"/></pattern>
+<rect x="90.0" y="400.0" width="118.0" height="200.0" rx="2" fill="#E2E8F0" stroke="#7F8A9C" stroke-width="1.4"/>
+<rect x="220.0" y="456.0" width="118.0" height="144.0" rx="2" fill="url(#hz)" stroke="#92400E" stroke-width="1.4"/>
+<rect x="350.0" y="524.0" width="118.0" height="76.0" rx="2" fill="#FCD34D" stroke="#92400E" stroke-width="1.4"/>
+<rect x="480.0" y="564.0" width="118.0" height="36.0" rx="2" fill="#FCD34D" stroke="#92400E" stroke-width="1.4"/>
 <line x1="84" y1="600" x2="604" y2="600" stroke="#134E4A" stroke-width="1.4"/>
-<text x="84.0" y="618" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0.0</text>
-<text x="188.0" y="618" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0.2</text>
-<text x="292.0" y="618" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0.4</text>
-<text x="396.0" y="618" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0.6</text>
-<text x="500.0" y="618" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0.8</text>
-<text x="604.0" y="618" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">1.0</text>
+<text x="84.0" y="618" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0.00</text>
+<text x="214.0" y="618" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0.25</text>
+<text x="344.0" y="618" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0.50</text>
+<text x="474.0" y="618" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0.75</text>
+<text x="604.0" y="618" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">1.00</text>
 <line x1="302.4" y1="386" x2="302.4" y2="600" stroke="#B91C1C" stroke-width="2" stroke-dasharray="6 4"/>
 <text x="308.4" y="382" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#B91C1C" text-anchor="end" direction="rtl">عتبة Youden = 0.42 (مجمَّدة من 2013)</text>
-<text x="344.0" y="640" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">الاحتمال المقدَّر (لا حكم)؛ الخط المتقطع والإطار الداكن يميّزان ما فوق العتبة لا اللون وحده</text>
+<text x="344.0" y="640" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">درجة غير معايَرة (لا احتمال ولا حكم)؛ المحور العددي LTR؛ الفئة المقطوعة بالعتبة منقوشة</text>
 <text x="54" y="470" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">عدد</text>
 <circle cx="628" cy="330" r="13" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
 <text x="628" y="335" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">4</text>
-<rect x="430" y="672" width="826" height="360" rx="10" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/>
-<text x="1238" y="700" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">المتعلمون (مرتبة باحتمال الخطر تنازلياً)</text>
+<rect x="430" y="672" width="826" height="360" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="1238" y="700" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">المتعلمون (مرتبة بدرجة الخطر تنازلياً)</text>
 <rect x="1172" y="712" width="66" height="28" rx="14" fill="#F0FDFA" stroke="#0F766E" stroke-width="1.5"/>
 <text x="1205.0" y="731" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">الكل</text>
 <rect x="1072" y="712" width="90" height="28" rx="14" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="1117.0" y="731" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">عنقود ▾</text>
 <rect x="964" y="712" width="98" height="28" rx="14" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
-<text x="1013.0" y="731" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">≥ العتبة</text>
+<text x="1013.0" y="731" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl"><tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">≥</tspan> العتبة</text>
 <rect x="784" y="712" width="170" height="28" rx="14" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="869.0" y="731" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">بلا نشاط 14 يوماً</text>
 <rect x="440" y="752" width="806" height="30" rx="4" fill="#F1F5F9" stroke="#F1F5F9" stroke-width="1.5"/>
@@ -222,7 +205,7 @@
 <text x="986" y="772" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">الأيام النشطة</text>
 <text x="881" y="772" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">آخر وصول</text>
 <text x="786" y="772" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">الالتزام</text>
-<text x="696" y="772" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">احتمال الخطر</text>
+<text x="696" y="772" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">درجة الخطر</text>
 <text x="556" y="772" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">أبرز عامل</text>
 <rect x="440" y="790" width="806" height="32" rx="4" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/>
 <text x="1238" y="810" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">28400</text>
@@ -230,8 +213,8 @@
 <text x="986" y="810" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">6</text>
 <text x="881" y="810" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">اليوم 52</text>
 <text x="786" y="810" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">0/2</text>
-<rect x="606" y="799" width="90" height="12" rx="2" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
-<rect x="623.1" y="799" width="72.9" height="12" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1.5"/>
+<rect x="606" y="799" width="90" height="12" rx="2" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
+<rect x="606" y="799" width="72.9" height="12" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1.5"/>
 <text x="598" y="810" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="end">0.81</text>
 <text x="556" y="810" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">قلة الأيام النشطة</text>
 <text x="1238" y="850" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">31092</text>
@@ -239,8 +222,8 @@
 <text x="986" y="850" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">9</text>
 <text x="881" y="850" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">اليوم 70</text>
 <text x="786" y="850" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">1/2</text>
-<rect x="606" y="839" width="90" height="12" rx="2" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
-<rect x="635.7" y="839" width="60.300000000000004" height="12" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1.5"/>
+<rect x="606" y="839" width="90" height="12" rx="2" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
+<rect x="606" y="839" width="60.300000000000004" height="12" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1.5"/>
 <text x="598" y="850" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="end">0.67</text>
 <text x="556" y="850" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">تأخر أول وصول</text>
 <text x="1238" y="890" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">27711</text>
@@ -248,8 +231,8 @@
 <text x="986" y="890" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">14</text>
 <text x="881" y="890" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">اليوم 73</text>
 <text x="786" y="890" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">1/2</text>
-<rect x="606" y="879" width="90" height="12" rx="2" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
-<rect x="646.5" y="879" width="49.50000000000001" height="12" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1.5"/>
+<rect x="606" y="879" width="90" height="12" rx="2" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
+<rect x="606" y="879" width="49.50000000000001" height="12" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1.5"/>
 <text x="598" y="890" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="end">0.55</text>
 <text x="556" y="890" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">انحراف الفجوات</text>
 <text x="1238" y="930" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">30455</text>
@@ -257,8 +240,8 @@
 <text x="986" y="930" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">11</text>
 <text x="881" y="930" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">اليوم 64</text>
 <text x="786" y="930" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">2/2</text>
-<rect x="606" y="919" width="90" height="12" rx="2" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
-<rect x="653.7" y="919" width="42.3" height="12" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1.5"/>
+<rect x="606" y="919" width="90" height="12" rx="2" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
+<rect x="606" y="919" width="42.3" height="12" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1.5"/>
 <text x="598" y="930" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="end">0.47</text>
 <text x="556" y="930" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">حصة التنقل</text>
 <text x="1238" y="970" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">29903</text>
@@ -266,8 +249,8 @@
 <text x="986" y="970" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">25</text>
 <text x="881" y="970" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">اليوم 75</text>
 <text x="786" y="970" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">2/2</text>
-<rect x="606" y="959" width="90" height="12" rx="2" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
-<rect x="685.2" y="959" width="10.799999999999999" height="12" rx="2" fill="#94A3B8" stroke="#94A3B8" stroke-width="1.5"/>
+<rect x="606" y="959" width="90" height="12" rx="2" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
+<rect x="606" y="959" width="10.799999999999999" height="12" rx="2" fill="#94A3B8" stroke="#94A3B8" stroke-width="1.5"/>
 <text x="598" y="970" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="end">0.12</text>
 <text x="556" y="970" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="end">—</text>
 <text x="843.0" y="1014" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">ترقيم صفحات 50/صفحة · فرز بكل عمود · لوحة المفاتيح: ↑↓ ثم Enter لفتح الملف</text>
@@ -275,22 +258,22 @@
 <text x="1250" y="681" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">5</text>
 <rect x="24" y="672" width="392" height="360" rx="10" fill="#fff" stroke="#B45309" stroke-width="1.8"/>
 <text x="398" y="700" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">ملف المتعلم FFF_2013J-28400</text>
-<text x="398" y="722" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">العنقود: منخفضو النشاط · احتمال الخطر 0.81 (اليوم 56)</text>
-<text x="398" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">عوامل الاحتمال (w·z):</text>
-<text x="398" y="778" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الأيام النشطة</text>
-<rect x="174" y="767" width="77.0" height="12" rx="2" fill="#99F6E4" stroke="#0F766E" stroke-width="1.5"/>
-<text x="257.0" y="778" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#1F2937" text-anchor="start">-1.4</text>
-<text x="398" y="804" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">يوم أول وصول</text>
-<rect x="124.5" y="793" width="49.5" height="12" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1.5"/>
-<text x="118.5" y="804" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#1F2937" text-anchor="end">+0.9</text>
+<text x="398" y="722" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">العنقود: منخفضو النشاط · درجة الخطر 0.81 (M1، قطع 56)</text>
+<text x="398" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">عوامل الدرجة (w·z؛ الموجب يرفعها):</text>
+<text x="398" y="778" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">قلة الأيام النشطة</text>
+<rect x="134" y="767" width="77.0" height="12" rx="2" fill="#FCD34D" stroke="#92400E" stroke-width="1.5"/>
+<text x="217.0" y="778" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#1F2937" text-anchor="start">+1.4</text>
+<text x="398" y="804" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">تأخر أول وصول</text>
+<rect x="134" y="793" width="49.5" height="12" rx="2" fill="#FCD34D" stroke="#92400E" stroke-width="1.5"/>
+<text x="189.5" y="804" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#1F2937" text-anchor="start">+0.9</text>
 <text x="398" y="830" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">انحراف الفجوات</text>
-<rect x="141.0" y="819" width="33.0" height="12" rx="2" fill="#FCD34D" stroke="#B45309" stroke-width="1.5"/>
-<text x="135.0" y="830" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#1F2937" text-anchor="end">+0.6</text>
+<rect x="134" y="819" width="33.0" height="12" rx="2" fill="#FCD34D" stroke="#92400E" stroke-width="1.5"/>
+<text x="173.0" y="830" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#1F2937" text-anchor="start">+0.6</text>
 <text x="398" y="856" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">حصة quiz</text>
-<rect x="174" y="845" width="22.0" height="12" rx="2" fill="#99F6E4" stroke="#0F766E" stroke-width="1.5"/>
-<text x="202.0" y="856" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#1F2937" text-anchor="start">-0.4</text>
-<line x1="174" y1="762" x2="174" y2="868" stroke="#134E4A" stroke-width="1"/>
-<text x="398" y="892" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">يرفع الاحتمال ◀ ▶ يخفضه</text>
+<rect x="112.0" y="845" width="22.0" height="12" rx="2" fill="#99F6E4" stroke="#0F766E" stroke-width="1.5"/>
+<text x="106.0" y="856" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#1F2937" text-anchor="end">-0.4</text>
+<line x1="134" y1="762" x2="134" y2="868" stroke="#134E4A" stroke-width="1"/>
+<text x="398" y="892" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">يخفض الدرجة ◀ | ▶ يرفعها</text>
 <text x="398" y="922" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">توصياته الحالية (أفضل 3):</text>
 <text x="398" y="946" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">1. اختبار قصير #546712 — قرب التقييم</text>
 <text x="398" y="968" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">2. محتوى #546614 — زملاء هذا الأسبوع</text>

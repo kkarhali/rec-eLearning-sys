@@ -1,128 +1,103 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="900" viewBox="0 0 1300 900" font-family="DejaVu Sans, Arial, sans-serif"><title>Replay timeline and availability states</title><defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="920" viewBox="0 0 1300 920" font-family="DejaVu Sans, Arial, sans-serif"><title>Replay timeline and availability states</title><defs>
 <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
 <marker id="arrs" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
 <marker id="arrp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F766E"/></marker>
 <marker id="arra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B45309"/></marker>
 <marker id="open" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L11,6 L0,12" fill="none" stroke="#64748B" stroke-width="1.5"/></marker>
-</defs><rect x="0" y="0" width="1300" height="900" fill="#ffffff"/><text x="650" y="34" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">إعادة التشغيل: حل اليوم t إلى لقطة، وحالات إتاحة العرض في الواجهة</text>
-<text x="1270" y="70" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">(أ) الخط الزمني لعرض FFF_2013J (الطول 268 يوماً) — مثال: طلب اليوم t = 75</text>
-<rect x="70.0" y="160" width="390.0" height="70" rx="0" fill="#CCFBF1" stroke="none" stroke-width="1.5"/>
-<text x="265.0" y="186" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">معروف للنماذج عند s = 70:</text>
-<text x="265.0" y="206" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">الأحداث d ≤ 70 فقط</text>
+</defs><rect x="0" y="0" width="1300" height="920" fill="#ffffff"/><text x="650" y="34" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">إعادة التشغيل وفق D-49: ما يُحسب عند اليوم t وما يؤخذ من القطع c، وحالات إتاحة العرض</text>
+<text x="1270" y="70" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">(أ) الخط الزمني لعرض FFF_2013J (268 يوماً؛ الزمن من اليمين) — مثالان: t = 75 وt = 50</text>
+<rect x="830.5" y="170" width="409.5" height="70" rx="0" fill="#CCFBF1" stroke="none" stroke-width="1.5"/>
+<text x="1035.25" y="196" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">حالة المتعلم والمكوّنات الخفيفة عند t = 75:</text>
+<text x="1035.25" y="216" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">كل الأحداث <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">d ≤ 75 (fold-in</tspan>، تمرير GRU)</text>
 <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#CBD5E1" stroke-width="3"/></pattern>
-<rect x="460.0" y="160" width="772.2" height="70" fill="url(#hatch)"/>
-<rect x="622.0" y="174" width="300" height="40" rx="4" fill="#fff" stroke="#94A3B8" stroke-width="1.5"/>
-<text x="772.0" y="200" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">محجوب عن النماذج والعرض: (70، 268]</text>
-<line x1="70.0" y1="230" x2="1240.0" y2="230" stroke="#134E4A" stroke-width="2.2" marker-end="url(#arr)"/>
-<line x1="187.0" y1="225" x2="187.0" y2="235" stroke="#134E4A" stroke-width="1.2"/>
-<text x="187.0" y="302" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0</text>
-<line x1="382.0" y1="225" x2="382.0" y2="235" stroke="#134E4A" stroke-width="1.2"/>
-<text x="382.0" y="302" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">50</text>
-<line x1="577.0" y1="225" x2="577.0" y2="235" stroke="#134E4A" stroke-width="1.2"/>
-<text x="577.0" y="302" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">100</text>
-<line x1="772.0" y1="225" x2="772.0" y2="235" stroke="#134E4A" stroke-width="1.2"/>
-<text x="772.0" y="302" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">150</text>
-<line x1="967.0" y1="225" x2="967.0" y2="235" stroke="#134E4A" stroke-width="1.2"/>
-<text x="967.0" y="302" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">200</text>
-<line x1="1162.0" y1="225" x2="1162.0" y2="235" stroke="#134E4A" stroke-width="1.2"/>
-<text x="1162.0" y="302" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">250</text>
-<text x="89.5" y="302" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">اليوم</text>
-<circle cx="296.2" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="296.2" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">28</text>
-<circle cx="350.8" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="350.8" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">42</text>
-<circle cx="405.4" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="405.4" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">56</text>
-<circle cx="460.0" cy="230" r="7" fill="#0F766E" stroke="#0F766E" stroke-width="2"/>
-<text x="460.0" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#0F766E" text-anchor="middle">70</text>
-<circle cx="514.6" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="514.6" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">84</text>
-<circle cx="569.2" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="569.2" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">98</text>
-<circle cx="623.8" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="623.8" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">112</text>
-<circle cx="678.4" cy="230" r="7" fill="#0F766E" stroke="#0F766E" stroke-width="2"/>
-<text x="678.4" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#0F766E" text-anchor="middle">126</text>
-<circle cx="733.0" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="733.0" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">140</text>
-<circle cx="787.6" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="787.6" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">154</text>
-<circle cx="842.2" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="842.2" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">168</text>
-<circle cx="896.8" cy="230" r="7" fill="#0F766E" stroke="#0F766E" stroke-width="2"/>
-<text x="896.8" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#0F766E" text-anchor="middle">182</text>
-<circle cx="951.4" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="951.4" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">196</text>
-<circle cx="1006.0" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="1006.0" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">210</text>
-<circle cx="1060.6" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="1060.6" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">224</text>
-<circle cx="1115.2" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="1115.2" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">238</text>
-<circle cx="1169.8" cy="230" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="1169.8" y="254" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#0F766E" text-anchor="middle">252</text>
-<polygon points="296.2,262 289.2,275 303.2,275" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
-<polygon points="405.4,262 398.4,275 412.4,275" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
-<polygon points="623.8,262 616.8,275 630.8,275" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
-<polygon points="261.1,312 268.1,320 261.1,328 254.10000000000002,320" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
-<text x="261.1" y="345" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">TMA 19</text>
-<polygon points="370.3,312 377.3,320 370.3,328 363.3,320" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
-<text x="370.3" y="345" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">TMA 47</text>
-<polygon points="561.4,312 568.4,320 561.4,328 554.4,320" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
-<text x="561.4" y="345" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">TMA 96</text>
-<polygon points="697.9,312 704.9,320 697.9,328 690.9,320" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
-<text x="697.9" y="345" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">TMA 131</text>
-<polygon points="861.7,312 868.7,320 861.7,328 854.7,320" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
-<text x="861.7" y="345" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">TMA 173</text>
-<polygon points="1107.4,312 1114.4,320 1107.4,328 1100.4,320" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
-<text x="1107.4" y="345" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">Exam 236</text>
-<line x1="479.5" y1="120" x2="479.5" y2="222" stroke="#B91C1C" stroke-width="2.2" marker-end="url(#arr)"/>
-<text x="487.5" y="118" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#B91C1C" text-anchor="end" direction="rtl">طلب: t = 75</text>
-<path d="M479.5,138 C471.7,130 463.9,130 462.0,154" fill="none" stroke="#B91C1C" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arr)"/>
-<circle cx="1240" cy="370" r="7" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
-<text x="1224" y="375" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">أصل بروتوكولي (70/126/182)</text>
-<circle cx="960" cy="370" r="4.5" fill="#fff" stroke="#0F766E" stroke-width="2"/>
-<text x="944" y="375" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">لقطة إعادة تشغيل كل 14 يوماً</text>
-<polygon points="680,363 673,376 687,376" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
-<text x="664" y="375" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">قطع نموذج الخطر (28/56/112)</text>
-<polygon points="400,362 407,370 400,378 393,370" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
-<text x="384" y="375" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">تقييم منشور مسبقاً</text>
-<rect x="40" y="396" width="1220" height="118" rx="8" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.5"/>
-<text x="1240" y="422" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">قاعدة اللقطة: s(t) = max{ s ∈ S_p : s ≤ t }،  S_p = {28, 42, …} ∩ [28, L_p − 14]  ← هنا s(75) = 70؛ وإن t &lt; 28 فلا لقطة (422 day_before_first_snapshot).</text>
-<text x="1240" y="448" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">قاعدة الخطر: c(t) = max{ c ∈ {28, 56, 112} : c ≤ t } ← هنا c(75) = 56؛ وإن t &lt; 28 فـ risk = null («لا تقدير»). العنقود يُحسب عند s نفسها (D-39).</text>
-<text x="1240" y="474" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">السياق المعروض: التقييم القادم بعد s = 70 هو TMA في اليوم 96 (بعد 26 يوماً، الفئة &gt; 14)؛ والاستجابة تعلن requested_day وsnapshot_day معاً.</text>
-<text x="1240" y="500" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">المعاملات عند لقطة غير بروتوكولية تُؤخذ من أقرب أصل سابق (70 لما قبله)؛ والمخرجات للعرض فقط ولا يُشتق منها رقم في الرسالة.</text>
-<text x="1270" y="600" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">(ب) حالات إتاحة العرض في الواجهة (عروض 2014)</text>
-<rect x="1030" y="640" width="220" height="92" rx="22" fill="#FEE2E2" stroke="#B91C1C" stroke-width="1.8"/>
-<text x="1140" y="668" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#B91C1C" text-anchor="middle">Locked</text>
-<text x="1140" y="690" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">محجوب</text>
-<text x="1140" y="712" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">assert_allowed يرفض؛ API ← 409</text>
-<rect x="730" y="640" width="220" height="92" rx="22" fill="#E2E8F0" stroke="#64748B" stroke-width="1.8"/>
-<text x="840" y="668" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#64748B" text-anchor="middle">Frozen</text>
-<text x="840" y="690" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">مجمَّد</text>
-<text x="840" y="712" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">وسم git + manifest (E9)</text>
-<rect x="430" y="640" width="220" height="92" rx="22" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="1.8"/>
-<text x="540" y="668" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1D4ED8" text-anchor="middle">Evaluated</text>
-<text x="540" y="690" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">مقيَّم</text>
-<text x="540" y="712" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">E10 مرة واحدة + الأحكام</text>
-<rect x="110" y="640" width="220" height="92" rx="22" fill="#DCFCE7" stroke="#15803D" stroke-width="1.8"/>
-<text x="220" y="668" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#15803D" text-anchor="middle">Published</text>
-<text x="220" y="690" font-family="DejaVu Sans, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">منشور في الواجهة</text>
-<text x="220" y="712" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">artifacts confirm + فتح</text>
-<circle cx="1278" cy="686" r="9" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
-<line x1="1268" y1="686" x2="1252" y2="686" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<line x1="1030" y1="686" x2="952" y2="686" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
-<rect x="914.965" y="659.5" width="150.07" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="990.0" y="673" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">E9: اجتماع التجميد 03</text>
-<line x1="730" y1="686" x2="652" y2="686" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
-<rect x="641.645" y="659.5" width="96.71" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="690.0" y="673" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle">E10: 12-15/16</text>
-<line x1="430" y1="686" x2="332" y2="686" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
-<rect x="281.62" y="659.5" width="196.76" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="380.0" y="673" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle">export_replay --role confirm</text>
-<path d="M1110,732 C1110,775 1180,775 1180,734" fill="none" stroke="#64748B" stroke-width="1.5" marker-end="url(#arr)"/>
-<text x="1145" y="792" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#B91C1C" text-anchor="middle" direction="rtl">أي طلب ← 409 confirmatory_locked</text>
-<text x="220" y="760" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">لا عودة: أي تغيير بعد E10 يوسم post-hoc</text>
-<rect x="40" y="810" width="1220" height="72" rx="8" fill="#fff" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="5 4"/>
-<text x="1240" y="838" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">عروض 2013 التسعة: NotExported ← (export_replay --role dev) ← Published منذ مرحلة التكامل؛ ومخاطر الخطر فيها تنبؤات «خارج الطيّة» موسومة oof_2013.</text>
-<text x="1240" y="864" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الحالة تُقرأ من manifest.json (presentations[].status) ولا تُستنتج من وجود الملفات؛ والمستودع يرفض عرضاً حالته غير Published.</text></svg>
+<rect x="77.79999999999995" y="170" width="752.7" height="70" fill="url(#hatch)"/>
+<rect x="359.0" y="184" width="280" height="40" rx="4" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="499.0" y="210" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">محجوب: الأحداث بعد t</text>
+<line x1="1240.0" y1="240" x2="70.0" y2="240" stroke="#134E4A" stroke-width="2.2" marker-end="url(#arr)"/>
+<line x1="1123.0" y1="235" x2="1123.0" y2="245" stroke="#134E4A" stroke-width="1.2"/>
+<text x="1123.0" y="312" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">0</text>
+<line x1="928.0" y1="235" x2="928.0" y2="245" stroke="#134E4A" stroke-width="1.2"/>
+<text x="928.0" y="312" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">50</text>
+<line x1="733.0" y1="235" x2="733.0" y2="245" stroke="#134E4A" stroke-width="1.2"/>
+<text x="733.0" y="312" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">100</text>
+<line x1="538.0" y1="235" x2="538.0" y2="245" stroke="#134E4A" stroke-width="1.2"/>
+<text x="538.0" y="312" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">150</text>
+<line x1="343.0" y1="235" x2="343.0" y2="245" stroke="#134E4A" stroke-width="1.2"/>
+<text x="343.0" y="312" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">200</text>
+<line x1="148.0" y1="235" x2="148.0" y2="245" stroke="#134E4A" stroke-width="1.2"/>
+<text x="148.0" y="312" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle">250</text>
+<text x="1220.5" y="312" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">اليوم</text>
+<circle cx="850.0" cy="240" r="8" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
+<text x="850.0" y="264" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#0F766E" text-anchor="middle">70</text>
+<circle cx="631.6" cy="240" r="8" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
+<text x="631.6" y="264" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#0F766E" text-anchor="middle">126</text>
+<circle cx="413.20000000000005" cy="240" r="8" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
+<text x="413.20000000000005" y="264" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#0F766E" text-anchor="middle">182</text>
+<polygon points="1013.8,272 1006.8,285 1020.8,285" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
+<text x="1013.8" y="264" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#B45309" text-anchor="middle">28</text>
+<polygon points="904.6,272 897.6,285 911.6,285" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
+<text x="904.6" y="264" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#B45309" text-anchor="middle">56</text>
+<polygon points="686.2,272 679.2,285 693.2,285" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
+<text x="686.2" y="264" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#B45309" text-anchor="middle">112</text>
+<rect x="899.6" y="288" width="10" height="10" rx="0" fill="#6D28D9" stroke="#6D28D9" stroke-width="1.5"/>
+<polygon points="1048.9,322 1055.9,330 1048.9,338 1041.9,330" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
+<text x="1048.9" y="355" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">TMA 19</text>
+<polygon points="939.7,322 946.7,330 939.7,338 932.7,330" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
+<text x="939.7" y="355" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">TMA 47</text>
+<polygon points="748.6,322 755.6,330 748.6,338 741.6,330" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
+<text x="748.6" y="355" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">TMA 96</text>
+<polygon points="612.1,322 619.1,330 612.1,338 605.1,330" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
+<text x="612.1" y="355" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">TMA 131</text>
+<polygon points="448.29999999999995,322 455.29999999999995,330 448.29999999999995,338 441.29999999999995,330" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
+<text x="448.29999999999995" y="355" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">TMA 173</text>
+<polygon points="202.5999999999999,322 209.5999999999999,330 202.5999999999999,338 195.5999999999999,330" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
+<text x="202.5999999999999" y="355" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#6D28D9" text-anchor="middle">Exam 236</text>
+<line x1="830.5" y1="122" x2="830.5" y2="232" stroke="#B91C1C" stroke-width="2.2" marker-end="url(#arr)"/>
+<text x="822.5" y="120" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#B91C1C" text-anchor="end">request t = 75 → model_cut = 70, tc = 56</text>
+<path d="M830.5,142 C838.3,134 846.1,134 852.0,160" fill="none" stroke="#B91C1C" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+<line x1="928.0" y1="140" x2="928.0" y2="166" stroke="#1D4ED8" stroke-width="2" marker-end="url(#arr)"/>
+<text x="936.0" y="136" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1D4ED8" text-anchor="start">t = 50 → model_cut = null (light only)</text>
+<circle cx="1240" cy="380" r="7" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
+<text x="1224" y="385" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">قطع النماذج الثقيلة c (70/126/182)</text>
+<polygon points="920,373 913,386 927,386" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
+<text x="904" y="385" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">قطع نموذج الخطر tc (28/56/112)</text>
+<rect x="595" y="375" width="10" height="10" rx="0" fill="#6D28D9" stroke="#6D28D9" stroke-width="1.5"/>
+<text x="584" y="385" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">عناقيد اليوم 56 (D-39)</text>
+<polygon points="360,372 367,380 360,388 353,380" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
+<text x="344" y="385" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">تقييم منشور مسبقاً</text>
+<rect x="40" y="406" width="1220" height="146" rx="8" fill="#F8FAFC" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="1240" y="432" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">(1) الثقيلة (WRMF، GRU-lite): معاملات أقرب قطع <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">c ≤ t</tspan>؛ هنا c(75) = 70. (2) حالة المتعلم عند t: fold-in لـ x_u بـ Y الثابتة، وتمرير GRU أمامي.</text>
+<text x="1240" y="457" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">(3) الخفيفة (Recent-Pop، SKNN، Markov، Item-kNN، CBF، C6، C7) تُحسب عند t. (4) أوزان الهجين أوزان القطع c.</text>
+<text x="1240" y="482" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">(5) قبل اليوم 70: الخفيفة وحدها بأوزان مُعاد تطبيعها مع إشعار. (6) model_cut في كل استجابة. (7) لا رقم تقييم منها.</text>
+<text x="1240" y="507" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الخطر: tc(t) = أكبر قطع من {28، 56، <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">112} ≤ t</tspan>، وإن <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">t &lt; 28</tspan> فلا تقدير. العناقيد: نموذج اليوم 56، وتُعرض عند <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">t ≥ 56.</tspan></text>
+<text x="1240" y="532" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">السياق: التقييم القادم بعد t = 75 هو TMA في اليوم 96 (بعد 21 يوماً).</text>
+<text x="1270" y="640" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">(ب) حالات إتاحة عروض 2014 في الخدمة</text>
+<rect x="1030" y="680" width="220" height="92" rx="22" fill="#FEE2E2" stroke="#B91C1C" stroke-width="1.8"/>
+<text x="1140" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#B91C1C" text-anchor="middle" direction="rtl">محجوب (Locked)</text>
+<text x="1140" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">assert_allowed يرفض؛ API ← 409</text>
+<rect x="730" y="680" width="220" height="92" rx="22" fill="#E2E8F0" stroke="#64748B" stroke-width="1.8"/>
+<text x="840" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#64748B" text-anchor="middle" direction="rtl">مجمَّد (Frozen)</text>
+<text x="840" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">وسم git + manifest (E9)</text>
+<rect x="430" y="680" width="220" height="92" rx="22" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="1.8"/>
+<text x="540" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1D4ED8" text-anchor="middle" direction="rtl">مقيَّم (Evaluated)</text>
+<text x="540" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">E10 مرة واحدة + verdicts.csv</text>
+<rect x="110" y="680" width="220" height="92" rx="22" fill="#DCFCE7" stroke="#15803D" stroke-width="1.8"/>
+<text x="220" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#15803D" text-anchor="middle" direction="rtl">متاح في الواجهة (Served)</text>
+<text x="220" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle">build_artifacts + allow_confirmatory</text>
+<circle cx="1278" cy="726" r="9" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
+<line x1="1268" y1="726" x2="1252" y2="726" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="1030" y1="726" x2="952" y2="726" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="928.3050000000001" y="699.5" width="123.38999999999999" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="990.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">اجتماع التجميد 03</text>
+<line x1="730" y1="726" x2="652" y2="726" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="641.645" y="699.5" width="96.71" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="690.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">E10: 15–16 ك1</text>
+<line x1="430" y1="726" x2="332" y2="726" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="321.64" y="699.5" width="116.72" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="380.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">بعد وجود الأحكام</text>
+<path d="M1110,772 C1110,815 1180,815 1180,774" fill="none" stroke="#64748B" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="1145" y="832" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#B91C1C" text-anchor="middle" direction="rtl">أي طلب ← 409 confirmatory_locked</text>
+<text x="220" y="800" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">لا عودة: أي تغيير بعد E10 يوسم post-hoc</text>
+<rect x="40" y="850" width="1220" height="60" rx="8" fill="#fff" stroke="#7F8A9C" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="1240" y="876" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">عروض 2013 التسعة متاحة منذ بناء مخرجاتها؛ ودرجات خطرها من نموذج دُرِّب على العروض الثمانية الأخرى (ترك عرض واحد).</text>
+<text x="1240" y="900" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الإتاحة تُقرَّر من وجود <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">artifacts/&lt;pres&gt;/</tspan> ومن ملف الأحكام لعروض 2014، لا من الواجهة.</text></svg>

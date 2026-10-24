@@ -2,13 +2,13 @@
   "status": "frozen on the 2013 development presentations (D-11, D-30); confirmatory run on 2014 re-tunes only the weights on each presentation's validation window inside this frozen space",
   "components": [
     "C7_ClusterPop",
-    "B4_ItemKNN"
+    "B5_SKNN"
   ],
   "labels": [
     "(7) شعبية العنقود",
-    "(3) Item-kNN"
+    "(4) SKNN"
   ],
-  "floor_component": "B4_ItemKNN",
+  "floor_component": "B5_SKNN",
   "accept_only_components": [
     "C7_ClusterPop"
   ],
@@ -27,58 +27,226 @@
   "weight_grid": "simplex step 1/4 (D-29)",
   "initial_weights_modal": {
     "C7_ClusterPop": 1.0,
-    "B4_ItemKNN": 0.0
+    "B5_SKNN": 0.0
   },
   "weights_by_fold": {
+    "FFF_2013J_182": {
+      "C7_ClusterPop": 1.0,
+      "B5_SKNN": 0.0
+    },
+    "FFF_2013B_182": {
+      "C7_ClusterPop": 0.25,
+      "B5_SKNN": 0.75
+    },
+    "DDD_2013J_182": {
+      "C7_ClusterPop": 1.0,
+      "B5_SKNN": 0.0
+    },
+    "BBB_2013J_182": {
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
+    },
+    "DDD_2013B_182": {
+      "C7_ClusterPop": 1.0,
+      "B5_SKNN": 0.0
+    },
+    "BBB_2013B_182": {
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
+    },
+    "EEE_2013J_182": {
+      "C7_ClusterPop": 0.5,
+      "B5_SKNN": 0.5
+    },
     "GGG_2013J_182": {
       "C7_ClusterPop": 1.0,
-      "B4_ItemKNN": 0.0
+      "B5_SKNN": 0.0
     },
     "AAA_2013J_182": {
       "C7_ClusterPop": 1.0,
-      "B4_ItemKNN": 0.0
+      "B5_SKNN": 0.0
+    },
+    "FFF_2013J_126": {
+      "C7_ClusterPop": 1.0,
+      "B5_SKNN": 0.0
+    },
+    "FFF_2013B_126": {
+      "C7_ClusterPop": 0.5,
+      "B5_SKNN": 0.5
+    },
+    "DDD_2013J_126": {
+      "C7_ClusterPop": 1.0,
+      "B5_SKNN": 0.0
+    },
+    "BBB_2013J_126": {
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
+    },
+    "DDD_2013B_126": {
+      "C7_ClusterPop": 1.0,
+      "B5_SKNN": 0.0
+    },
+    "BBB_2013B_126": {
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
+    },
+    "EEE_2013J_126": {
+      "C7_ClusterPop": 0.5,
+      "B5_SKNN": 0.5
     },
     "GGG_2013J_126": {
       "C7_ClusterPop": 1.0,
-      "B4_ItemKNN": 0.0
+      "B5_SKNN": 0.0
     },
     "AAA_2013J_126": {
       "C7_ClusterPop": 0.75,
-      "B4_ItemKNN": 0.25
+      "B5_SKNN": 0.25
+    },
+    "FFF_2013J_70": {
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
+    },
+    "FFF_2013B_70": {
+      "C7_ClusterPop": 0.5,
+      "B5_SKNN": 0.5
+    },
+    "DDD_2013J_70": {
+      "C7_ClusterPop": 1.0,
+      "B5_SKNN": 0.0
+    },
+    "BBB_2013J_70": {
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
+    },
+    "DDD_2013B_70": {
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
+    },
+    "BBB_2013B_70": {
+      "C7_ClusterPop": 1.0,
+      "B5_SKNN": 0.0
+    },
+    "EEE_2013J_70": {
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "GGG_2013J_70": {
       "C7_ClusterPop": 1.0,
-      "B4_ItemKNN": 0.0
+      "B5_SKNN": 0.0
     },
     "AAA_2013J_70": {
       "C7_ClusterPop": 1.0,
-      "B4_ItemKNN": 0.0
+      "B5_SKNN": 0.0
     }
   },
   "component_configs_by_fold": {
+    "FFF_2013J_182": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=7;M=1000;k=500;variant=vsknn"
+    },
+    "FFF_2013B_182": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
+    },
+    "DDD_2013J_182": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
+    },
+    "BBB_2013J_182": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=1;M=1000;k=200;variant=sknn"
+    },
+    "DDD_2013B_182": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=1;M=1000;k=200;variant=sknn"
+    },
+    "BBB_2013B_182": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=7;M=1000;k=500;variant=vsknn"
+    },
+    "EEE_2013J_182": {
+      "C7_ClusterPop": "w=7",
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
+    },
     "GGG_2013J_182": {
       "C7_ClusterPop": "w=14",
-      "B4_ItemKNN": "k=20;shrink=0;signal=L3(tau=7,beta=1)"
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
     },
     "AAA_2013J_182": {
       "C7_ClusterPop": "w=3",
-      "B4_ItemKNN": "k=20;shrink=0;signal=L3(tau=7,beta=1)"
+      "B5_SKNN": "L=1;M=1000;k=200;variant=sknn"
+    },
+    "FFF_2013J_126": {
+      "C7_ClusterPop": "w=7",
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
+    },
+    "FFF_2013B_126": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=7;M=1000;k=200;variant=vsknn"
+    },
+    "DDD_2013J_126": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=1;M=1000;k=200;variant=sknn"
+    },
+    "BBB_2013J_126": {
+      "C7_ClusterPop": "w=7",
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
+    },
+    "DDD_2013B_126": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=1;M=1000;k=200;variant=sknn"
+    },
+    "BBB_2013B_126": {
+      "C7_ClusterPop": "w=7",
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
+    },
+    "EEE_2013J_126": {
+      "C7_ClusterPop": "w=14",
+      "B5_SKNN": "L=7;M=1000;k=500;variant=vsknn"
     },
     "GGG_2013J_126": {
       "C7_ClusterPop": "w=7",
-      "B4_ItemKNN": "k=20;shrink=0;signal=L3(tau=7,beta=1)"
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
     },
     "AAA_2013J_126": {
       "C7_ClusterPop": "w=7",
-      "B4_ItemKNN": "k=20;shrink=0;signal=L3(tau=7,beta=1)"
+      "B5_SKNN": "L=7;M=1000;k=500;variant=vsknn"
+    },
+    "FFF_2013J_70": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
+    },
+    "FFF_2013B_70": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
+    },
+    "DDD_2013J_70": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=1;M=1000;k=200;variant=sknn"
+    },
+    "BBB_2013J_70": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=7;M=1000;k=500;variant=vsknn"
+    },
+    "DDD_2013B_70": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=1;M=1000;k=200;variant=sknn"
+    },
+    "BBB_2013B_70": {
+      "C7_ClusterPop": "w=3",
+      "B5_SKNN": "L=7;M=1000;k=500;variant=vsknn"
+    },
+    "EEE_2013J_70": {
+      "C7_ClusterPop": "w=14",
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
     },
     "GGG_2013J_70": {
       "C7_ClusterPop": "w=3",
-      "B4_ItemKNN": "k=100;shrink=0;signal=L2(tau=7)"
+      "B5_SKNN": "L=1;M=1000;k=500;variant=sknn"
     },
     "AAA_2013J_70": {
       "C7_ClusterPop": "w=3",
-      "B4_ItemKNN": "k=20;shrink=0;signal=L3(tau=7,beta=1)"
+      "B5_SKNN": "L=1;M=1000;k=200;variant=sknn"
     }
   },
   "component_parameter_spaces": "standalone spaces of results/dev2013/baselines.csv (B3, B4, B7, B9), gru.csv (GRU-lite), C7 w ∈ {3,7,14,21,28}",
@@ -90,6 +258,6 @@
     3,
     4
   ],
-  "git_commit_at_freeze_run": "409b1d14c234e106c13879ebcf0f9b85a9bb9e79",
-  "date": "2026-10-24 21:23:39"
+  "git_commit_at_freeze_run": "594d12f82dc8af73f593e460102c366cc1f727e5",
+  "date": "2026-10-24 21:44:46"
 }
