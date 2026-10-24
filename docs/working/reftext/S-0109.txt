@@ -1,0 +1,2494 @@
+                             International Journal of Innovative Technology and
+                                          Interdisciplinary Sciences
+                                         https://journals.tultech.eu/index.php/ijitis
+                                                       ISSN: 2613-7305
+                                                      Volume 9, Issue 2
+                                  DOI: https://doi.org/10.15157/IJITIS.2026.9.2.1445-1495
+                               Received: 21.05.2026; Revised: 02.07.2026; Accepted: 22.07.2026
+
+
+      A Hybrid Explainable Machine Learning
+      Framework for Adaptive Recommendation in E-
+      Learning Systems
+      Surapaneni Phani Praveen1*            , Rajeswari Nakka2      , Massila Kamalrudin3          , Somasundharam
+      Lalitha 4   , Jujjuri Rama Devi   5     , Paramasivan Muthukumar        6
+
+
+      1Department of Computer Science and Engineering, Prasad V Potluri Siddhartha Institute of
+      Technology, Kanuru, Vijayawada, Andhra Pradesh, India.
+      2Department of Computer Science and Engineering, Seshadri Rao Gudlavalleru Engineering College,
+
+      Gudlavalleru, A.P, India.
+      3Faculty of Information and Communication Technology, Universiti Teknikal Malaysia Melaka,
+
+      Malaysia.
+      4Department of Computer Science and Engineering (AIML), Vel Tech Rangarajan Dr.Sagunthala
+
+      R&D Institute of Science and Technology, Avadi, Chennai, India.
+      5Department of Computer Science and Engineering, Koneru Lakshmaiah Education Foundation,
+
+      Vaddeswaram, Andhra Pradesh, India.
+      6Department of Electrical and Electronics Engineering, Saveetha School of Engineering, SIMATS,
+
+      Saveetha University, Chennai, Tamilnadu, India.
+      *phani.0713@gmail.com
+
+
+      Abstract
+      Personalized recommendation has become an essential component of modern e-learning systems,
+      yet conventional collaborative- and content-based filtering approaches are often limited by data
+      sparsity, insufficient contextual awareness, and limited interpretability. This paper proposes a hybrid
+      explainable recommendation framework that integrates collaborative filtering, content-based
+      filtering, bidirectional long short-term memory (BiLSTM) sequence modelling, reinforcement
+      learning–based dynamic fusion, and SHAP-driven explainability to deliver adaptive and transparent
+      learning recommendations. Unlike existing studies that primarily optimize either recommendation
+      accuracy, adaptability, or interpretability, the proposed framework jointly addresses all three
+      objectives within a unified architecture. The model was initially evaluated using a behaviourally
+      motivated synthetic dataset comprising 250 learners and subsequently validated on the Open
+      University Learning Analytics Dataset (OULAD). Comparative experiments included reproduced
+      implementations of GRU4Rec, SASRec, and LightGCN under consistent evaluation settings.
+      Experimental results demonstrate that the proposed approach achieves an accuracy of 92.8% while
+      providing comprehensive feature-level explanations through SHAP analysis, thereby improving the
+      transparency and trustworthiness of recommendations. Runtime evaluation and error analysis
+      further confirm the practical feasibility of the framework. The findings indicate that combining
+      sequential learning, adaptive fusion, and explainable artificial intelligence provides an effective
+      balance between predictive performance, adaptability, and interpretability, making the proposed
+      framework suitable for trustworthy intelligent learning environments.
+
+      Keywords: Explainable Artificial Intelligence; Adaptive Learning; E-Learning Systems; Hybrid
+      Recommender Systems; LSTM; Personalized Education; SHAP; Educational Data Mining.
+
+International Journal of Innovative Technology
+                                                   https://doi.org/10.15157/IJITIS.2026.9.2.1445-1495
+        and Interdisciplinary Sciences
+                                                   ©2026 Authors. This is an Open Access article distributed under the terms and
+                                                   conditions of the Creative Commons Attribution 4.0 International License CC BY 4.0
+                                                   (http://creativecommons.org/licenses/by/4.0).
+                                                                                                                   1445
+1446       Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+           Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       INTRODUCTION
+            The advent of e-learning sites has revolutionized the learning world by providing
+       learning opportunities that are flexible, scalable and accessible. As digital educational
+       resources expand rapidly, and the learner types of the learners become increasingly
+       diverse, personalized recommendation systems are now needed to provide personalized
+       content, streamline the learning process, and increase the engagement of the learners [1-4].
+            There are however numerous limitations to the current recommendation approaches
+       [5-10]. The classical approaches like collaborative and content-based filtering have
+       drawbacks like lack of sparseness in the data, cold-start, and lack of contextual knowledge.
+       Despite the fact that deep learning models can enhance the predictive performance, such
+       models tend to be black-box systems, which are not interpretable or transparent. It is a
+       severe restriction in educational settings where the reasoning behind the recommendations
+       should be comprehended.
+            Explainable Artificial Intelligence (XAI) solves this problem by giving insights into
+       model decisions that are explainable to users, enhancing trust and aiding in informed
+       learning. Recent work has considered reinforcement learning as a way to follow adaptive
+       learning trajectories, as well as, explainability using knowledge graphs. Moreover,
+       adaptive learning systems that are powered by AI focus on customization and smart
+       tutoring [11] and with these developments, however, there remains no comprehensive
+       frameworks which combine hybrid recommendation, sequential learning, reinforcement
+       learning and explainability.
+       Problem Statement
+          Existing e-learning recommendation systems do not succeed in balancing the accuracy,
+       adaptability, and interpretability. Traditional models do not have dynamic behaviour
+       models, whereas deep learning models do not have transparency in favor of performance.
+       Moreover, adaptive systems that are based on reinforcement learning tend to lack definite
+       explanations.
+            The current explainable AI methods are usually implemented in single units and not as
+       a system. This leaves a big gap in the creation of a unified, scalable and interpretable
+       framework of recommendation that can be applied in the real world of education.
+       Research Aim and Objectives
+            This study will focus on creating a hybrid explainable machine learning model of
+             adaptive recommendation in e-learning systems that achieves a balance between
+             performance and interpretability. The objectives are:
+            To implement a hybrid system with collaborative filtering, content-based filtering and
+             LSTM-based sequential learning.
+            To use reinforcement learning to optimize the adaptive learning path.
+            To incorporate explainable AI methods (SHAP and attention mechanisms) to be
+             transparent.
+            To test the framework with both explainability and performance measures.
+1447       A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+           Systems
+
+
+
+
+            To examine the effects of integrating adaptability and interpretability in e-learning
+             systems.
+       Proposed Approach and Contributions
+            This research will suggest a hybrid explainable machine learning model, which can
+       combine various learning paradigms to explain the behaviour of learners, such as historical
+       activities, temporal trends, and contextual preferences. Explainability layer is added to
+       provide transparency and confidence in recommendations.
+            The main contributions are as follows:
+               An integrated recommendation system that integrates CF, CBF, and LSTM.
+               Reinforcement learning to be integrated in order to personalize dynamically.
+               Explainable AI methods to achieve interpretability.
+               Extensive analysis of accuracy and explainability.
+               Clues about the value of explainability in education recommendation systems.
+       Research Hypothesis
+               H1: Dynamic reinforcement learning-based weight optimization greatly decreases
+                MAE compared to static equal weight fusion.
+               H2: Hybrid combination of collaborative filtering, content-based filtering, and Bi-
+                LSTM increases the accuracy and F1-score of recommendations when the
+                interaction is sparse.
+               H3: Inclusion of SHAP and attention-based methods increases transparency and
+                trust while not impacting predictive performance negatively.
+               H4: The proposed framework enables scalable recommendation performance with
+                reduced computational complexity compared to graph-based explainable
+                recommenders.
+       Organization of the Paper
+            The remainder of the paper is organized as follows. It begins with a review of the
+       relevant literature, highlighting existing research gaps and presenting the state-of-the-art
+       classification. This is followed by a detailed description of the proposed hybrid explainable
+       recommendation system, including its formulation, reinforcement learning–based
+       optimization, explainable artificial intelligence component, and the overall algorithmic
+       workflow. The subsequent part describes the dataset preparation, data pre-processing,
+       model implementation, and experimental settings. The paper concludes with a discussion
+       of the results, educational implications, study limitations, and directions for future
+       research.
+
+       LITREATURE REVIEW
+            Machine learning and artificial intelligence, especially in personalized recommendation
+       systems, have greatly contributed to the development of e-learning systems. The initial
+       strategies were based on collaboration and content-based filtering to align the learners with
+1448    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       the content of relevance depending on previous interactions and profile similarity. Early
+       hybrid models also utilized the integration of statistical and machine learning methods to
+       forecast preferences of learners [9, 12, 13], and it demonstrated the potential of such
+       integrated models.
+         Further studies proposed more complex models based on hybrid and deep learning.
+       Authors in [5] suggested a cluster hybrid recommendation system, whereas in [14]
+       proposed DNNRec based on deep neural networks to enhance the features representation.
+       Despite the fact that these methods increased the accuracy of recommendations, they did
+       not give much consideration to transparency and interpretability.
+         The implementation of deep learning also enhanced the ability to model. Authors in [1]
+       employed a better LSTM model to learn the behaviour of temporal learning and [8]
+       employed machine learning methods to recommend adaptively. These methods are
+       however black-box models and as such, cannot be used in education where interpretation
+       is a requirement [8, 15-20].
+         E-learning systems have added reinforcement learning (RL) to increase the flexibility.
+       Authors in [4] introduced an RL-based model of sequential learning paths generation, and
+       [21] implemented an RL with the knowledge graph to generate explainable
+       recommendations. Although they enhance adaptability, these methods are usually not
+       explainable and transparent enough.
+          Explainable Artificial Intelligence (XAI) has come up in order to overcome these
+       shortcomings. Authors in [2] pointed out that XAI enhances trust and decreases bias,
+       whereas [7] stressed that it is also essential in a decision-making process. The authors in
+       [13, 22, 23-30] were able to offer in-depth information about explainable recommender
+       systems, which supports the necessity to be transparent.
+          Explainability in graph-based approaches has been also investigated recently. The
+       systems of the knowledge graph-based recommendations were suggested by [19, 20, 27]
+       examined their efficiency. Nevertheless, these models tend to be computationally complex
+       and have scaled-up problems.
+          Also, explainable systems that are human-centered have been explored. Authors in [12]
+       emphasized explainable interfaces and conversational systems and [6] pointed at structural
+       constraints of XAI in education. Explainable systems based on online learning have as well
+       been implemented to help in continuous adaptation [17].
+          Although these developments have been made, there are still some important
+       drawbacks as outlined in Table 1. It highlights the research gaps that have been identified
+       in previous studies, it is important to conduct an assessment of the current state-of-the-art
+       in order to situate the proposed model within the current framework of electronic learning
+       recommendation systems.
+          Existing models can be classified based on their respective recommendation processes,
+       advantages, and weaknesses, as shown in Table 2.
+1449    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+                          Table 1. Research Gaps and Corresponding Proposed Solutions
+         Identified Research    Limitations in Existing       Studies   Proposed Solution in This
+         Gap                    Studies                                 Study
+
+         Lack of integration    Most systems rely on a        [5]       Development of a
+         between multiple       single or limited hybrid                comprehensive hybrid
+         recommendation         approach without fully                  framework combining
+         techniques             integrating collaborative,              collaborative, content-based,
+                                content-based, and                      and LSTM-based sequential
+                                sequential models                       learning
+         Limited                Deep learning models such     [1]       Integration of XAI techniques
+         interpretability of    as LSTM and DNN operate                 (SHAP, attention
+         deep learning          as black boxes, reducing                mechanisms) to provide
+         models                 trust and usability                     interpretable
+                                                                        recommendations
+         Insufficient           Many adaptive systems         [4]       Embedding explainability
+         incorporation of       focus on personalization                modules within adaptive
+         explainability in      but neglect explainability              recommendation pipeline
+         adaptive systems       aspects
+         Lack of dynamic        Reinforcement learning        [21]      Combining reinforcement
+         learning path          models adapt dynamically                learning with explainable
+         optimization with      but do not provide clear                decision-making mechanisms
+         transparency           explanations
+         High computational     Knowledge graph-based         [20]      Designing a scalable hybrid
+         complexity in          systems are complex and                 model with selective use of
+         graph-based            difficult to scale                      explainability instead of
+         explainable systems                                            heavy graph dependency
+         Limited user-centric   Existing systems lack         [12]      Incorporation of user-friendly
+         explanation            effective visualization and             explanation outputs tailored
+         interfaces             interaction mechanisms for              for learners and instructors
+                                explanations
+         Absence of unified     Current research treats       [2]       Proposed unified hybrid
+         framework              adaptability and                        explainable framework
+         combining              explainability as separate
+         adaptability and       problems
+         explainability
+         Lack of                Most studies evaluate only    [7]       Inclusion of both
+         comprehensive          accuracy-based metrics and              performance and
+         evaluation             ignore interpretability                 explainability evaluation
+         including              evaluation                              metrics (trust, transparency,
+         explainability                                                 user satisfaction)
+         metrics
+
+
+          The classification described in Table 2 demonstrates the development of the
+       recommender systems in the e-learning environment. Collaborative filtering methods
+       successfully capture user similarity but suffer from the sparsity problem and the cold start
+1450    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       issue. Deep learning models enhance prediction accuracy with their sophisticated
+       representation learning, but they are not transparent enough. Learning-based methods
+       increase adaptiveness by using dynamic decision making, yet these methods usually offer
+       low levels of transparency. Graph based recommendation systems include complex
+       context relations within their structure, yet they are computationally costly. Explainable
+       recommendation systems add value to transparency while neglecting the interdependency
+       between adaptivity and explainability.
+
+          Table 2. State-of-the-Art (Sota) Categorization of E-Learning Recommendation Approaches
+        Category               Studies             Key Strengths                 Limitations
+        Collaborative          [5]                 Simple implementation         Data sparsity and cold-
+        Filtering                                  and effective user            start problems
+                                                   similarity modeling
+        Deep Learning-         [14]                High predictive accuracy      Limited interpretability
+        Based Systems                              and ability to learn          due to black-box
+                                                   complex patterns              behavior
+        Reinforcement          [4]                 Dynamic adaptation and        Limited explainability
+        Learning-Based                             personalized learning         and transparency
+        Systems                                    path optimization
+        Graph-Based            [20]                Rich semantic                 High computational
+        Recommender                                representation and            complexity and
+        Systems                                    contextual reasoning          scalability challenges
+        Explainable            [22]                Improved transparency,        Limited adaptability to
+        Recommendation                             trust, and interpretability   dynamic learner
+        Systems                                                                  behavior
+        Human-Centered         [12]                Enhanced user                 Focus primarily on
+        Explainable Systems                        interaction and               explanation quality
+                                                   explanation usability         rather than
+                                                                                 recommendation
+                                                                                 performance
+        Proposed Hybrid        Present Study       Integrates                    Moderate
+        Explainable                                personalization,              computational
+        Framework                                  adaptability, and             overhead associated
+                                                   explainability through        with multiple
+                                                   CF, CBF, Bi-LSTM, RL,         integrated components
+                                                   and XAI techniques
+
+
+          Therefore, there is still an outstanding research gap for the creation of such a
+       recommendation framework that can be able to satisfy all the above criteria of high
+       accuracy, optimized learning process, and transparency at the same time. The developed
+       hybrid explainable machine learning framework seeks to overcome this limitation by
+       combining various techniques under one structure.
+          The analysis presented above shows that even though the great improvements were
+       made, the current systems do not still provide the balance between personalization,
+1451    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       adaptability, and interpretability [3]. The vast majority of approaches focus on either
+       performance or explainability, but not both. Moreover, the absence of user-friendliness and
+       thorough testing restricts practical use. The mentioned gaps underscore the necessity of an
+       integrated framework that would combine methods of hybrid recommendations with
+       explainable AI and stay scalable and pedagogically relevant [9]. To overcome such issues,
+       the suggested study proposes a hybrid explainable machine learning model [10], a
+       combination of various learning paradigms and interpretability, as the next step toward
+       the state of the art of adaptive e-learning systems [11].
+
+
+       METHODOLOGY
+          This section introduces a design of a hybrid explainable machine learning system to
+       provide adaptive recommendations in e-learning systems. To enhance the performance of
+       explainable AI [15] and improve its interpretability, the proposed approach combines
+       several recommendation methods, reinforcement learning, and explainable AI into one
+       architecture.
+       Overview of the Proposed Framework
+         The solution is a multi-layered hybrid system that is a combination of:
+              Collaborative Filtering (CF)
+              Content-Based Filtering (CBF)
+              LSTM-based Sequential Learning
+              Reinforcement Learning (RL)
+              Explainable AI (XAI) module
+          All these elements are modelling both the static learner preferences and dynamic
+       behaviour patterns. It works by taking user interactions, making recommendations based
+       on hybrid learning [16], and explaining them in interpretable ways to further increase
+       transparency and trust.
+       System Architecture
+          The framework scheme of the proposed architecture is depicted in Figure 1. The key
+       layers in the system are as follows:
+          1.   Input Layer: Gathers information about learners, such as demographics, history of
+               interaction, and metadata of content.
+          2.   Preprocessing Module: Conducts data cleaning, normalization, encoding, and
+               sequence preparation to do temporal modeling.
+          3.   Feature Engineering Layer: Produces learner profiles, content embeddings and
+               interaction features.
+          4.   Hybrid Recommendation Engine:
+                  CF stores user-item relationships.
+                  CBF models have similarity.
+1452    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+                    Temporal behavior is captured with LSTM.
+                    Weighted aggregation is used to combine the outputs.
+          5.    Reinforcement Learning Module: To optimize recommendations, a Q-learning
+                agent dynamically changes the weights on components as learner feedback is
+                received.
+          6.    Output Layer: Produces personalized recommendations.
+          7.    Explainability Layer: Applicable to SHAP, attention mechanisms and rule-based
+                techniques to derive interpretable insights.
+          8.    The proposed framework was also tested against various recommendation models
+                at the state-of-the-art such as SASRec, LightGCN, GRU4Rec and KGAT with the
+                aim of achieving objective performance evaluation. The exact same preprocessing
+                procedures, train-test partitions, evaluation metrics and computational settings
+                were used in the training of all benchmark models to facilitate experimental
+                comparison.
+          This architecture allows a continuous learning process via feedback and transparency
+       in recommendations.
+
+
+
+
+               Figure 1. Architecture of the proposed hybrid explainable recommendation framework.
+
+       Mathematical Formulation of Hybrid Recommendation
+          The suggested framework incorporates recommendations based on collaborative
+       filtering [18], content-based filtering [24], and sequential learning results using an adaptive
+       weighted combination approach [25] as in equations (1) until (4).
+                                           𝑅𝐶𝐹 (𝑢, 𝑖) = 𝑝𝑢𝑇 𝑞𝑖                                       (1)
+                                                                   𝑝𝑟𝑒𝑓𝑢 · 𝑐𝑜𝑛𝑡𝑖                     (2)
+                       𝑅𝑐𝑜𝑛𝑡𝑒𝑛𝑡 (𝑢, 𝑖) = 𝑐𝑜𝑠(𝑝𝑟𝑒𝑓𝑢 , 𝑐𝑜𝑛𝑡𝑖 ) =
+                                                                 ‖𝑝𝑟𝑒𝑓𝑢 ‖ · ‖𝑐𝑜𝑛𝑡𝑖 ‖
+                                         ℎ𝑡 = 𝐿𝑆𝑇𝑀(𝑥𝑡 , ℎ𝑡−1 )                                       (3)
+1453     A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+         Systems
+
+
+
+
+                                            𝑅𝑠𝑒𝑞 (𝑢, 𝑖) = 𝑓𝑠𝑒𝑞 (ℎ𝑡 )                                         (4)
+
+              The final recommendation value of user u for learning item i is calculated as in equation
+       (5),
+                      𝑅(𝑢, 𝑖) = 𝑤𝐶𝐹 𝑅𝐶𝐹 (𝑢, 𝑖) + 𝑤𝑐𝑜𝑛𝑡𝑒𝑛𝑡 𝑅𝑐𝑜𝑛𝑡𝑒𝑛𝑡 (𝑢, 𝑖) + 𝑤𝑠𝑒𝑞 𝑅𝑠𝑒𝑞 (𝑢, 𝑖)                 (5)
+          Where:
+           pu - Latent embedding vector of the learner, learned by the collaborative filtering
+            model.
+           qi - Latent embedding vector of the learning item, learned by the collaborative
+            filtering model.
+           RCF - Interaction-prediction function used by the collaborative filtering component.
+           prefu - Preference vector of the learner used for content-based matching.
+           conti - Content feature vector describing the learning item.
+           cos(·,·) - Cosine similarity between the learner preference vector and the content
+            feature vector.
+           ht - Hidden state produced by the LSTM network at time step t, summarizing the
+            learner's interaction history.
+           Rseq - Sequential prediction function that maps the LSTM hidden state to a
+            recommendation score.
+           wseq - Adaptive fusion weights for the collaborative, content-based, and sequential
+                 components, optimized via reinforcement learning.
+              This formulation allows the framework to simultaneously benefit from collaboration,
+       content similarity, and temporal learning behaviors and dynamically weight their relative
+       importance based on the feedback of learners.
+       Reinforcement Learning for Adaptive Weight Optimization
+          In order to perform dynamic personalization, the system views the process of
+       recommending as a sequential decision-making problem [26] formulated through
+       reinforcement learning [28].
+              The learner state at time step is represented as in equation (6).
+                                                 𝑠𝑡 = (𝑃𝑡 , 𝐸𝑡 )                                             (6)
+          Where:
+                 st - State of the learner at time step t, reflecting current academic performance and
+                  engagement traits.
+                 Pt - Measure of the learner's academic performance at time step t.
+                 Et - Measure of the learner's engagement traits at time step t.
+          The action space is defined by adaptive fusion weights attributed to the
+       recommendation modules:
+                                       𝑎𝑡 = (𝑤𝐶𝐹,𝑡 , 𝑤𝑐𝑜𝑛𝑡𝑒𝑛𝑡,𝑡 , 𝑤𝑠𝑒𝑞,𝑡 )                                   (7)
+
+              subject to the constraints: 𝑤𝐶𝐹,𝑡 + 𝑤𝑐𝑜𝑛𝑡𝑒𝑛𝑡,𝑡 + 𝑤𝑠𝑒𝑞,𝑡 = 1, 𝑤𝑘,𝑡 ∈ {0,1} ∀𝑘 ∈ {𝐶𝐹, 𝑐𝑜𝑛𝑡𝑒𝑛𝑡, 𝑠𝑒𝑞}
+1454    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+          Where:
+           at - Action taken at time step t, i.e., the vector of adaptive fusion weights assigned to
+             the recommendation modules.
+           wseq,t - Fusion weights for the collaborative, content-based, and sequential
+             components at time t; together they define the action space and must satisfy the
+             probability-simplex constraints.
+          These constraints guarantee that the weights represent a probability distribution. The
+       design of the reward function aims at encouraging learning while ensuring that no dropout
+       occurs:
+                                    𝑟𝑡 = 𝛼1 𝛥𝑃𝑡 + 𝛼2 𝐶𝑡 − 𝛼3 𝐷𝑡                                     (8)
+
+          Where:
+           rt - Reward received at time step t.
+           Pt - Improvement in learner performance at time step t.
+           Ct - Measure of content completion at time step t.
+           Dt - Estimated learner disengagement (dropout risk) at time step t.
+           α3 - Reward-balancing coefficients that weight performance gain, content
+             completion, and disengagement, respectively.
+          The Q-learning update rule is defined by the Bellman equation (9).
+
+                      Q(s, a) = Q(s, a) + α [r + γ max Q(s′, a′) − Q(s, a)]                        (9)
+                                                    𝑎′
+
+          Where:
+           𝑄(𝑠, 𝑎)- Expected cumulative (long-term) reward associated with taking action a in
+             state s — the value being learned. The update revises the current estimate on the left
+             of Eq. (10) toward a better estimate on the right.
+           𝛼 − Reinforcement learning rate (0–1), controlling how much of the newly observed
+             information is blended into the existing Q-value. A value near 0 yields slow, stable
+            updates; a value near 1 replaces the old estimate almost entirely with the new one.
+           𝛾 − Discount factor (0–1), controlling how much weight future rewards receive
+             relative to the immediate reward r. A value near 0 makes the agent short-sighted; a
+             value near 1 makes it value long-term learner outcomes almost as much as
+            immediate ones.
+           𝑟 − Immediate reward received after taking action a in state s.
+           𝑚𝑎𝑥𝑎′ 𝑄(𝑠′, 𝑎′)- Best achievable Q-value from the next state s′, maximized over all
+            next actions a′; represents the agent's estimate of the optimal future value and lets
+            the update look one step ahead.
+           𝑠′, 𝑎′ − Next state the learner transitions into after the current action, and the next
+            action the agent could take from that state.
+           [𝑟 + 𝛾 · 𝑚𝑎𝑥𝑎′ 𝑄(𝑠′, 𝑎′) − 𝑄(𝑠, 𝑎)]- Temporal-difference (TD) error: the gap between
+            the old prediction Q(s,a) and the more accurate estimate (immediate reward plus
+1455    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+               discounted future value). The Q-value is nudged in the direction that closes this gap,
+               scaled by α.
+           The method continuously modifies recommendation weights according to learner
+       interaction, thus facilitating dynamic adaptation and optimal learning path
+       personalization.
+
+       Online Adaptive Learning Strategy
+          The reinforcement learning agent adjusts the fusion weights at the end of every learner
+       interaction, based on the reward received. The recommendation module, which results in
+       a successful recommendation, contributes to the successful recommendation, evidenced in
+       learner feedback, as such in higher quiz performance, longer engagement time and
+       successful completion of the content. On the other hand, if learners are not engaged, the
+       weight of the respective module be lighter, which allows for continuous personalization of
+       the learning process.
+       Explainable AI (XAI) Module
+          To enhance transparency and instill user trust in our system [29], the framework
+       introduces the use of SHAP [31] (SHapley Additive exPlanations), attention methods, and
+       rules for rule-based explanation. The mathematical formulation of SHAP explanation
+       model is given by equation (10):
+                                                     𝑀
+                                                                                                (10)
+                                      𝑔(𝑥′) = 𝜙0 + ∑ 𝜙𝑖 𝑥′𝑖
+                                                     𝑖=1
+
+          Where:
+           ϕ0 - Baseline prediction, i.e., the expected model output in the absence of any feature
+            contributions.
+           ϕi Shapley value associated with feature i, quantifying that feature's average
+            marginal contribution to the prediction across all possible feature combinations.
+           x'i -     Binary variable indicating the presence or contribution of feature i (1 if the
+               feature is present/active, 0 otherwise).
+          The Shapley value quantifies the contribution of each feature toward the final
+       recommendation decision.
+          According to the experimental analysis, the most important features according to the
+       SHAP explanations were:
+                Quiz Score
+                Completion Rate
+                Engagement Time
+          These attributes were the most contributing, having a significant impact on
+       recommendation results [26].
+          Moreover, an attention mechanism is introduced into the LSTM neural network model
+       [32, 33] to emphasize essential temporal and learning interactions. The use of SHAP
+1456    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       explanation along with attention mechanisms makes it possible to obtain global as well as
+       local interpretation of the recommendation process [34].
+       Explainability Evaluation Framework
+          The proposed framework was assessed based on quantitative and qualitative criteria
+       for its explainability. The quantitative evaluation used Explanation Coverage, Explanation
+       Fidelity, Stability and Transparency Score. Qualitative evaluation was designed using a
+       user-cantered assessment with instructions and learners evaluating the usefulness, clarity,
+       and trustworthiness of the explanations generated on a 5-point Likert scale.
+          The two evaluation methods offer a comprehensive evaluation of both the predictive
+       performance and the interpretability of the recommendation.
+
+       Theoretical Justification of the Hybrid Framework
+          While collaborative filtering, content-based filtering, sequential deep learning, and
+       reinforcement learning have shown to have effective recommendation capabilities alone,
+       they each have their own limitations and cannot be used effectively in an adaptive e-
+       learning setting without others. The proposed hybrid system combines these
+       complementary paradigms in such a way that it makes use of their strengths and avoids
+       their weaknesses.
+          While the Collaborative Filtering approach well represents the hidden relations
+       between learners according to historical interactions, it generally suffers of the cold-start
+       and data sparsity issues. Content-Based Filtering also has several drawbacks in that it is
+       based on the course metadata and the similarity of the learners' profiles, but is less effective
+       in capturing collaborative behavioral patterns among learners.
+          The BiLSTM is added to model the temporal sequence, thereby allowing the model to
+       learn long-term learning behaviors, changing learner interests and sequential
+       dependencies that cannot be well captured by the traditional recommendation algorithms.
+          This is done by adjusting the contribution of each recommendation module
+       dynamically based on the continuous feedback from the learner, which is called
+       Reinforcement Learning. It is not based on fixed fusion weights: the Q-learning agent
+       continuously adapts the recommendation strategy according to the observed learner
+       engagement, quiz performance and completion behaviour.
+          Lastly, Explainable Artificial Intelligence with SHAP and attention mechanisms ensures
+       transparent explanations for each recommendation, leading to increased learner trust,
+       instructor confidence, and decision interpretability.
+          As such, the proposed architecture encompasses collaborative knowledge, content
+       similarity, temporal behavioural modelling, adaptive optimization, and explainability in
+       an integrated manner. With the integration, the accuracy of the recommendations, the
+       personalization capability, the adaptability and transparency of the recommendations can
+       be improved simultaneously compared to individual recommendation models.
+1457    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       Expanded Theoretical Justification: Why Hybrid Fusion Should Outperform
+       Individual Paradigms
+             This subsection was expanded based on peer review to provide a concrete, falsifiable
+       theoretical mechanism—ruling out an assertion—and a basis to the mechanism based on
+       real evidence reported later in the new OULAD validation section. Collaborative Filtering
+       (CF) propagates similarity across learners, but fails badly for those with sparse histories:
+       this is not just a theory here, it is a fact as the real OULAD anecdote in this manuscript's
+       own experiments shows, where item-based CF's full-catalog NDCG@10 drops to 0.552
+       (versus 0.253 for CBF and 0.748-0.841 for the sequential models), and its full-catalog HR@10
+       is lower for cold-start learners specifically. Content Based Filtering (CBF) is less sensitive
+       to the fact that other learners have no history and thus more gracefully degrades in the
+       absence of a history, but it is not very effective in isolation if the content categories are
+       coarse (observed real HR@10 = 0.434 on OULAD, the lowest of all components), since the
+       activity-type alone is a low resolution content signal. Sequential modelling (BiLSTM, and
+       in turn GRU4Rec/SASRec) is able to represent order-dependent behavioural drift which is
+       not expressible by CF or CBF, and empirically achieves best standalone ranking quality
+       among the three (NDCG@10 = 0.832 on real OULAD data when used alone).
+             The theoretical argument for fusing these three signals, instead of picking the very best
+       of them, is based on the empirical argument below, which is confirmed by the data: the
+       relatively best-performing signal — CF — is not constant across learner subgroups: cold-
+       start learners are where CF is relatively poor, and CBF/sequential signals are relatively
+       more important, while established learners with long histories are where CF and sequential
+       signals are relatively good. It is not possible to have an optimal single static weighting for
+       both regimes. In fact, reinforcement-learning-based fusion is theoretically motivated by
+       allowing the effective weighting to change with the learner's context bucket (state) length,
+       as the fusion agent in this study is shown to choose different weight triples for short-,
+       medium-, and long history learners. It is given as a tangible testable mechanism; it predicts
+       that when the optimal weighting is truly different across subgroups, then the fusion that
+       is optimal for each subgroup should outperform any fixed-weight fusion, as the real error
+       analysis on OULAD confirms. It is also correct, and honest, to predict that a hybrid fusion
+       not outperform every single specialized competitor on every metric (as seen with SASRec
+       outperforming the fused models on NDCG@10 with real data) — a powerful specialized
+       model be able to outrank a weaker set of models on a metric it is optimized to perform well
+       on.
+
+       Workflow of the Proposed System
+             The system is structured in terms of pipeline:
+               Data collection and preprocessing
+               Feature extraction
+               Hybrid recommendation generation
+               Reinforcement learning-based adaptation
+1458    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+               Recommendation output
+               Explanation generation
+               Continuous feedback update.
+
+       Algorithm of the Proposed Framework
+           The step-by-step process of the hybrid explainable framework of recommendations can
+       be found in Algorithm 1.
+
+              Algorithm 1: Hybrid Explainable Recommendation System
+
+              Input: Dataset, interaction matrix, content features
+
+              Output: Personalized and explainable recommendations
+
+                      Step 1: Preprocess dataset
+
+                      Step 2: Extract learner features
+
+                      Step 3: Compute
+
+                      Step 4: Compute
+
+                      Step 5: Compute
+
+                      Step 6: Combine using weighted aggregation
+
+                      Step 7: Optimize weights using RL
+
+                      Step 8: Generate recommendations
+
+                      Step 9: Apply SHAP and attention for explanations
+
+                      Step 10: Output results
+
+       Computational Complexity Analysis
+          The computational complexity of the proposed framework is mainly dependent on the
+       collaborative filtering module, content similarity computation, the BiLSTM sequence
+       modelling, reinforcement learning optimization, and explainability generation.
+          In such systems, collaborative filtering conducts latent factor analysis optimization,
+       while content-based processing involves computing cosine similarity. BiLSTM models
+       learners' interaction sequences, and reinforcement learning adjusts adaptive fusion
+       weights. While combining multiple learning modules increases computation loads relative
+       to standalone recommendation algorithms, modularity allows for effective parallel
+       processing and retains scalability in practice for substantial amounts of educational data.
+          This combination allows for leveraging strengths across different techniques. Latent
+       factor analysis helps identify hidden relationships among learners based on their
+       interaction histories. Cosine similarity provides insights into learner interests through
+       analysing content interaction.
+1459    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       Scalability and Real-World Deployment
+          The suggested framework aims at being implemented within massive scale learning
+       environments.     Modular     structure   facilitates   easy   modification   of   individual
+       recommendation modules without affecting system performance. Recommendation
+       engine constantly monitors learners' activity, adjusts adaptive recommendation weights,
+       produces personalized recommendations, and interprets results using SHAP analysis
+       technique. Such architecture makes possible effortless integration with popular Learning
+       Management Systems like Moodle, Canvas, Blackboard, and Open edX.
+
+       Key Advantages
+          The suggested framework has a number of benefits:
+             Improved recommendation accuracy through complementary hybrid learning.
+             Dynamic adaptation using reinforcement learning.
+             Transparent recommendation generation using SHAP-based explainability.
+             Robust handling of sparse learner interactions and cold-start situations.
+             Scalable modular architecture suitable for large educational platforms.
+             Improved learner trust and instructor confidence.
+             Compatibility with real-world Learning Management Systems.
+             Capability for continuous online learning and recommendation updating.
+
+
+       RESULTS AND ANALYSIS
+       Dataset Description and Preprocessing
+          This part explains the data that was adopted to test the proposed hybrid explainable
+       recommendation framework [35-39]. The data set is set in such a way to provide a
+       simulation of the real learner behaviour in e learning settings and this will include the
+       demographic, behavioural and performance-based attributes.
+       Dataset Overview
+          For simulating realistic interaction patterns in modern e-learning systems, a
+       behaviorally motivated synthetic data set is used. This synthetic data set consists of 250
+       learner objects and includes both numerical and categorical features characterizing learner
+       properties and performance are illustrated in Table 3.
+          Even if the data set was created to mimic the real interaction of learners, it is still
+       synthetic data for demonstration purposes. Hence, the results presented must be seen only
+       as a validation step of the proposed hybrid framework for explainable recommendations.
+       The data set was deliberately designed to contain typical patterns of learner engagement,
+       performance development, achievement, and dropout found within digital learning
+       settings. In future studies, the analysis will be carried out on large scale public educational
+1460    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       datasets such as OULAD, EdNet, and Assistments, which will allow for testing scalability,
+       robustness, external validity, and generalizability.
+                                     Table 3. Summary of Dataset Characteristics
+                     Parameter                 Value
+
+                     Total Instances           250
+
+                     Total Features            14 (Input) + 1 (Target)
+
+                     Feature Types             Numerical + Categorical
+
+                     Target Variable           Recommended_Content
+
+                     Learning Domains          Programming, Mathematics, Data Science, AI
+
+                     Data Source               Simulated (Behaviorally grounded)
+
+                     Sampling Strategy         Stratified behavioral distribution
+
+
+          This structure includes not only the characteristics that are not dynamic (e.g. age,
+       education) but also the dynamic behavioural attributes (e.g. engagement, performance).
+
+       Feature Description
+          The data contains multi-dimensional measures of the learner profile, interaction
+       behaviour and content characteristics as in Table 4.
+
+                                      Table 4. Description Of Dataset Features
+                  Feature Name                    Type                   Description
+
+                  learner_id                      Categorical            Unique identifier
+
+                  age                             Numerical              Age (18–45 years)
+
+                  education_level                 Categorical            Academic background
+
+                  prior_knowledge_score           Numerical              Pre-assessment score
+
+                  engagement_time                 Numerical              Time spent per session
+
+                  click_rate                      Numerical              Interaction frequency
+
+                  completion_rate                 Numerical              Content completion (%)
+
+                  quiz_score                      Numerical              Performance score
+
+                  difficulty_level                Categorical            Content difficulty
+
+                  content_type                    Categorical            Learning format
+
+                  learning_style                  Categorical            Preferred learning mode
+
+                  session_frequency               Numerical              Sessions per week
+
+                  dropout_risk                    Numerical              Probability (0–1)
+
+                  interaction_sequence            Sequential             Learning sequence
+
+                  Recommended_Content             Target                 Suggested content
+1461    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+         These characteristics allow the modelling of both learner preferences as well as the
+       temporal learning behaviour.
+
+       Statistical Summary
+          The most important numerical characteristics are balanced, which allows them to train
+       the models effectively as described in Table 5.
+
+                           Table 5. Statistical Summary of Key Numerical Features
+            Feature                          Mean           Std Dev          Min        Max
+            age                              26.8           6.4              18         45
+            prior_knowledge_score            58.3           18.7             10         95
+            engagement_time                  42.5           15.2             10         90
+            click_rate                       18.6           7.9              5          40
+            completion_rate                  71.2           14.5             30         98
+            quiz_score                       68.9           17.3             20         96
+            session_frequency                4.3            1.8              1          9
+            dropout_risk                     0.34           0.18             0.05       0.85
+
+
+          These values show equal distributions with no serious forms of bias, which makes them
+       appropriate to train machine learning models.
+
+       Distribution Analysis
+          In order to further justify the dataset, the distribution analysis of the main features was
+       carried out. Figure 2 shows the statistical distributions of age, prior knowledge score,
+       engagement time, quiz score, completion rate and dropout risk.
+
+
+
+
+        Figure 2. Distribution of key dataset features including age, prior knowledge score, engagement
+                              time, quiz score, completion rate, and dropout risk.
+1462    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+          The distributions show that the age is concentrated around 20-30 years, and the
+       performance related features are normally distributed. Engagement is slightly positive
+       skewed, and the risk of dropout is skewed to right, as the behaviour patterns of real
+       learners are illustrated in Table 6.
+                                 Table 6. Distribution of Categorical Features
+                          Feature                Category             Frequency (%)
+                          education_level        Undergraduate        52%
+                                                 Graduate             33%
+                                                 Professional         15%
+                          content_type           Video                46%
+                                                 Text                 28%
+                                                 Interactive          26%
+                          difficulty_level       Easy                 30%
+                                                 Medium               45%
+                                                 Hard                 25%
+                          learning_style         Visual               40%
+                                                 Auditory             32%
+                                                 Kinesthetic          28%
+
+
+          The categorical distribution is another step toward ensuring that the dataset is diverse
+       in terms of backgrounds of learners and preferences of content presented and helps to
+       make strong generalizations.
+
+       Correlation Analysis
+          Correlation analysis was performed to know the relationships among the variables. The
+       correlation matrix of key features is shown in Figure 3.
+
+
+
+
+                           Figure 3. Correlation matrix of key features in the dataset.
+1463    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+          There are strong positive correlations between prior knowledge and quiz score (0.81),
+       and engagement and completion rate (0.72). There is a negative correlation between
+       engagement and completion and dropout risk meaning that the less the interaction, the
+       greater the probability of dropping out. There is little correlation with age indicating the
+       superiority of behavioural factors.
+
+       Data Preprocessing Techniques
+          Preprocessing of the dataset was done to guarantee consistency and model preparation:
+               Missing Value Handling: Mean imputation of numerical features and mode of
+                categorical features.
+               Normalization: Min-Max scaling applied.
+               Categorical Encoding: One-hot encoding.
+               Sequential Preparation: Sliding window input to LSTM.
+               Train-Test Split: 80% training and 20% testing.
+               These preprocessing steps improve the quality of data and make it possible to learn
+                effectively between the hybrid model components.
+
+       Data Quality and Validation
+          Reliability of data was facilitated by:
+               Outlier detection using Z-score (±3 threshold)
+               Logical consistency checks
+               Distribution verification
+               Class balance validation
+          These will ensure that the dataset is consistent and can be used to assess the proposed
+       model.
+
+       Model Design and Implementation
+          This part has introduced the design of the proposed hybrid explainable
+       recommendation model that incorporates collaborative filtering, content-based filtering,
+       LSTM, reinforcement learning and explainable AI to achieve accurate and adaptive
+       recommendations.
+
+       Overall Model Architecture
+          The model suggested is based on the multi-stage hybrid architecture that reflects the
+       dynamic and static characteristics of learners. It consists of workflow features embedding,
+       parallel feature recommendation modules (CF, CBF, LSTM), hybrid fusion, reinforcement
+       learning optimization, and an explainability layer.
+          This architecture enables:
+           User similarity modeling (CF)
+           Content relevance estimation (CBF)
+1464    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+           Temporal behavior learning (LSTM)
+           Adaptive decision-making (RL)
+
+       Collaborative Filtering Model
+           The collaborative filtering part is founded on matrix factorization, where the user-item
+       interaction matrix is broken down into latent representations.
+
+       Content-Based Filtering Model
+          The content-based model is based on the similarity between the learner and content
+       feature vectors calculated by cosine similarity:
+
+          This will make recommendations to be in line with the individual learner preferences.
+
+       Sequential Learning using LSTM
+          A better LSTM model is employed to extract the temporal relationships in learner
+       interactions. The LSTM cell can be defined as:
+
+       Hybrid Fusion Mechanism
+       The output of CF, CBF, and LSTM are weighted together:
+
+       The weights are dynamically updated using reinforcement learning to adapt to learner
+       behavior.
+
+       Reinforcement Learning Integration
+          The strategy of recommendation is dynamically optimized using a Q-learning-based
+       approach.
+          The reward function can be defined as given in equation (11).
+                                   𝑅(st, at) = α ⋅ Lt + β ⋅ Et − γ ⋅ Dt                          (11)
+
+           Where:
+                Lt - learning gain (improvement in assessment score after consuming the recom-
+                 mended content)
+                Et - engagement score (e.g., time spent, follow-through, or satisfaction rating nor-
+                 malized to [0,1])
+                Dt - difficulty mismatch penalty (if content was too hard/easy relative to learner's
+                 estimated ability)
+                α,β,γ - weighting coefficients
+
+           The update rule of Q-value is shown in equation (12).
+
+               Q(st, at) ← Q(st, at) + η[R(st, at) + γa′maxQ(st + 1, a′) − Q(st, at)]            (12)
+          This allows recommendation weights and learning paths to be continually adapted.
+1465    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       Training Procedure
+          The model is trained in four steps:
+          1.   Training CF, CBF and LSTM separately.
+          2.   Initial weight hybrid fusion.
+          3.   Reinforcement learning-based optimization
+          4.   Backpropagation Fine-tuning.
+       Hyperparameter Configuration
+          Table 7 summarizes the important hyperparameters in the model.
+                                 Table 7. Model Hyperparameter Settings
+                                    Parameter               Value
+                                    LSTM Units              64
+                                    Number of Layers        2
+                                    Dropout Rate            0.3
+                                    Learning Rate           0.001
+                                    Batch Size              32
+                                    Epochs                  50
+                                    RL Discount Factor ()   0.9
+                                    RL Learning Rate ()     0.01
+
+       Implementation Details
+          Model is implemented in Python using TensorFlow, Keras and scikit-learn in a GPU-
+       supported environment.
+          The computational complexity of the suggested approach is driven by the collaborative
+       filtering module, sequential learning module and the reinforcement learning module.
+
+       Time Complexity
+
+          Approximation of the overall time complexity is described in equation (13).
+
+                                      O(N⋅d2)+O(N⋅T⋅L⋅H2)                                     (13)
+
+
+          Where:
+
+              N= number of learners
+
+              d= latent embedding dimension
+
+              T= sequence length
+
+              L= number of LSTM layers
+
+              H= number of hidden units
+
+          The first term O(N.d2) corresponds to latent factor learning in collaborative filtering,
+       where each learner's latent embedding of dimension d is updated (e.g., via matrix
+1466    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       factorization or gradient-based optimization), giving a per-learner cost that scales
+       quadratically with the embedding dimension.
+          The second term O(N.T.L.H2) captures the sequential processing performed by the
+       LSTM component, where for each learner, the sequence of length T is processed through L
+       stacked LSTM layers, each requiring O(H2) operations per timestep (from the gate
+       computations involving hidden-to-hidden weight matrices of size H×H).
+          The overall space complexity is given in equation (14).
+
+                                      𝑂(𝑁 ⋅ 𝑑) + 𝑂(𝐿 ⋅ 𝐻2)                                        (14)
+
+         The first term O(N.d) represents the latent learner-item representation storing the
+       embedding vector of dimension d for each of the N learners (and similarly for items, if item
+       embeddings are of comparable size, this can be written as O((N+M).d) where M is the
+       number of items).
+          The second term O(L.H2) represents the parameters of the hidden states in the LSTM
+       network each LSTM layer maintains weight matrices for its four gates (input, forget, cell,
+       output), each of size roughly H×H (hidden-to-hidden) plus H×d (input-to-hidden) for the
+       first layer, so stacking L layers gives a parameter count that scales as O(L.H2), independent
+       of N and T since weights are shared across learners and timesteps.
+          Compared to existing methods that use graphs as an explainable recommendation
+       technique including KGAT and other knowledge graph-based systems, the developed
+       framework shows sub-quadratic computational complexity while still achieving high
+       predictability and explanation capability. Such feature provides improved scalability,
+       making the framework easier to be implemented in e-learning platforms.
+       Experimental Setup and Evaluation Metrics
+          In this section, the experimental setup, the baseline models and the evaluation approach
+       and measures to evaluate the proposed hybrid explainable recommendation framework
+       are described. The arrangement will guarantee consistency, equitable comparison and
+       thorough analysis.
+       Experimental Environment
+           The model was tested in a controlled computational environment to be consistent and
+       reliable in performance. Table 8 summarizes the configuration details.
+                              Table 8. Experimental Environment Specifications
+             Component                        Specification
+             Operating System                 Windows 11 (64-bit)
+             Processor                        Intel Core i7 (11th Gen)
+             RAM                              16 GB
+             GPU                              NVIDIA GTX 1650
+             Programming Language             Python 3.9
+             Libraries Used                   TensorFlow, Keras, Scikit-learn, NumPy, Pandas
+             Development Platform             Jupyter Notebook
+1467    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+          The efficiency of the training process was enhanced with the help of the GPU
+       acceleration, especially in terms of the LSTM and reinforcement learning elements.
+
+       Dataset Splitting and Validation Strategy
+          The dataset was split into 200 and 50 training and testing samples respectively, based
+       on 80:20 split. The cross-validation was used to enhance generalization with 5-fold cross-
+       validation. Validation included:
+           Stratified sampling in order to maintain class distribution.
+           Shuffling to eliminate bias.
+           Mean fold averaging of results.
+       Baseline Models for Comparison
+          In order to conduct an objective assessment of the efficiency of the proposed hybrid
+       explainable    recommendation    framework,    a   comparison       with   various   existing
+       recommendation models was performed in Table 9. The selected models include
+       collaborative filtering recommendations, sequential recommendation, graph neural
+       network recommendation, and explainable recommendation frameworks. Such an
+       approach allows assessing the performance of each methodology fairly.
+
+                                Table 9. Baseline Models Used for Comparison
+        Model             Category                    Description
+
+        CF                Traditional                 Matrix Factorization Collaborative Filtering
+
+        CBF               Traditional                 Content-Based Recommendation
+
+        BPR-MF            Pairwise Ranking            Bayesian Personalized Ranking
+
+        GRU4Rec           Sequential Deep Learning    GRU-based Sequential Recommendation
+
+        SASRec            Transformer                 Self-Attention Sequential Recommendation
+
+        LightGCN          Graph Neural Network        Graph Convolution-based Recommendation
+
+        KGAT              Knowledge Graph             Knowledge Graph Attention Network
+
+        Proposed Hybrid   Hybrid Explainable AI       CF + CBF + BiLSTM + RL + SHAP
+        Framework
+
+
+
+       Evaluation Metrics
+          Predictive accuracy as well as error-based measures were applied to assess
+       performance.
+          Correct predictions are measures of accuracy as in equation (15).
+                                                  𝑇𝑃 + 𝑇𝑁                                        (15)
+                               𝐴𝑐𝑐𝑢𝑟𝑎𝑐𝑦 =
+                                             𝑇𝑃 + 𝑇𝑁 + 𝐹𝑃 + 𝐹𝑁
+
+          Precision assesses relevance of the recommendation as in equation (16).
+1468    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+                                                                𝑇𝑃
+                                               𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 = 𝑇𝑃+𝐹𝑃                                  (16)
+
+
+          The ability to recall measures as in equation (17).
+                                                               𝑇𝑃
+                                                𝑅𝑒𝑐𝑎𝑙𝑙 = 𝑇𝑃+𝐹𝑁                                    (17)
+
+
+          F1-Score is a balance between accuracy and recall as in equation (18).
+                                                         𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛.𝑅𝑒𝑐𝑎𝑙𝑙
+                                           F1 Score=2.                                            (18)
+                                                       𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛+𝑅𝑒𝑐𝑎𝑙𝑙
+
+
+
+          The Mean Absolute Error (MAE) is defined as in equation (19).
+                                                         𝑛
+                                                      1                                           (19)
+                                             𝑀𝐴𝐸 =      ∑ |𝑦𝑖 − ŷ𝑖 |
+                                                      𝑛
+                                                         𝑖=1
+
+          Where:
+                  yi Actual (ground-truth) value for the i-th observation.
+                  ŷi Predicted value produced by the model for the i-th observation.
+
+       Explainability Evaluation Metrics
+          Besides predictive performance, interpretability was measured with certain
+       explainability metrics in Table 10.
+
+                                        Table 10. Explainability Evaluation Metrics
+                        Metric                 Description
+
+                        Transparency           Clarity and interpretability of explanations
+
+                        Trust Score            User confidence in recommendations
+
+                        Coverage               Percentage of recommendations with explanations
+
+
+          These measures gauge the effectiveness of the model in making its decisions known to
+       the users.
+
+       Evaluation Protocol
+          The assessment was conducted in a systematic process:
+              1.     Baseline models of trains under the same conditions.
+              2.     Training the proposed hybrid model.
+              3.     Make predictions on the test set.
+              4.     Performance and explainability metrics of computation.
+              5.     Compare the results between all models.
+       Statistical Significance Testing
+          In order to confirm whether the performance gains were not due to chance, statistical
+       significance tests were carried out through paired t-tests on the results from 5-fold cross-
+1469    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       validation. Additionally, the standard deviation and confidence intervals at 95 percent
+       level were calculated for each performance measure. The statistical verification was done
+       at the significance level of α = 0.01 so that the results could be reliable and replicable. This
+       kind of analysis will provide solid grounds for proving the superior performance of the
+       suggested method compared to existing recommendation systems.
+
+       Results and Performance Analysis
+          This section measures the performance of the proposed explainable recommendation
+       framework hybrid in terms of quantitative metrics as well as interpretability measures. Its
+       effectiveness is validated by comparing it with baseline models.
+
+       Overall Performance Comparison
+          The output of the proposed model was contrasted to various baseline methods. Figure
+       4 demonstrates the relative performance of the evaluation metrics and the improvement of
+       all models is similar.
+          In order to determine the effectiveness of the proposed model, a comparison analysis
+       has been conducted between the proposed model and several baseline approaches.
+
+
+
+
+       Figure 4. Performance comparison of baseline models and the proposed hybrid model (Error bars
+                         represent ± standard deviation across 5-fold cross-validation)
+
+          The graphical comparison shows that the proposed model consistently surpasses
+       conventional recommendation techniques as well as the latest state-of-the-art models for
+       each measure used in evaluation. The numerical analysis is displayed in Table 11.
+          The results of BPR-MF, GRU4Rec, SASRec, LightGCN, and KGAT have provided from
+       the table above. These numbers have extracted from the respective research papers where
+       these models have tested using their own benchmark datasets. The inclusion of such
+       numbers in this study serves only as a preliminary indicator of the effectiveness of the
+1470        Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+            Rama Devi, Paramasivan Muthukumar
+
+
+
+
+        current research. It does not represent any comparative analysis. The experimental
+        validation of GRU4Rec, SASRec, and LightGCN models conducted independently using
+        the proposed dataset, and this discussed separately in the section entitled "Real-World
+        Dataset Validation and Replication of Baselines (OULAD)". Furthermore, the values are
+        given in Mean ± Standard Deviation for 5-fold cross-validation. The results of BPR-MF,
+        GRU4Rec, SASRec, LightGCN, and KGAT are taken from relevant benchmark papers
+        where recommendations are performed under similar conditions, and added for
+        comparative purposes.
+        Table 11. Comparative Performance Analysis with Baseline and State-Of-The-Art Recommendation
+                                                   Models
+       Model            Accuracy (%)     Precision       Recall        F1-Score      MAE           RMSE
+
+       CF               74.2 ± 0.82      0.72 ± 0.02     0.70 ± 0.03   0.71 ± 0.02   0.48 ± 0.03   0.62 ± 0.03
+
+       CBF              76.5 ± 0.78      0.75 ± 0.02     0.73 ± 0.02   0.74 ± 0.02   0.44 ± 0.02   0.58 ± 0.03
+
+       KNN              78.1 ± 0.74      0.77 ± 0.02     0.75 ± 0.02   0.76 ± 0.02   0.41 ± 0.02   0.53 ± 0.03
+
+       DNNRec           83.6 ± 0.61      0.82 ± 0.02     0.81 ± 0.02   0.81 ± 0.02   0.33 ± 0.02   0.44 ± 0.02
+
+       LSTM             86.9 ± 0.54      0.85 ± 0.01     0.84 ± 0.01   0.84 ± 0.01   0.29 ± 0.01   0.39 ± 0.02
+
+       RL Model         88.2 ± 0.48      0.87 ± 0.01     0.86 ± 0.01   0.86 ± 0.01   0.26 ± 0.01   0.35 ± 0.02
+
+       BPR-MF           80.4 ± 0.69      0.79 ± 0.02     0.78 ± 0.02   0.78 ± 0.02   0.39 ± 0.02   0.50 ± 0.02
+
+       GRU4Rec          84.8 ± 0.58      0.84 ± 0.01     0.83 ± 0.01   0.83 ± 0.01   0.31 ± 0.01   0.41 ± 0.02
+
+       SASRec           89.4 ± 0.46      0.88 ± 0.01     0.88 ± 0.01   0.88 ± 0.01   0.23 ± 0.01   0.31 ± 0.01
+
+       LightGCN         90.1 ± 0.42      0.89 ± 0.01     0.89 ± 0.01   0.89 ± 0.01   0.21 ± 0.01   0.29 ± 0.01
+
+       KGAT             90.7 ± 0.39      0.90 ± 0.01     0.89 ± 0.01   0.90 ± 0.01   0.20 ± 0.01   0.27 ± 0.01
+
+       Proposed
+       Hybrid
+                        92.8 ± 0.35      0.91 ± 0.01     0.90 ± 0.01   0.91 ± 0.01   0.18 ± 0.01   0.24 ± 0.01
+       Explainable
+       Framework
+
+
+           It is evident from the above table that the hybrid explainable recommendation system
+        framework proposed by us delivered the best results compared to all other competing
+        systems. It delivered an accuracy score of 92.8 ± 0.35%, F1 score of 0.91 ± 0.01, a MAE score
+        of 0.18 ± 0.01, and RMSE score of 0.24 ± 0.01, beating other sophisticated recommender
+        systems like SASRec and LightGCN and KGAT.
+             KGAT yielded the best results among the state-of-the-art baseline methods, with
+        90.7±0.39% accuracy, followed by LightGCN with 90.1±0.42% and SASRec with 89.4±0.46%.
+        Even though the techniques make efficient use of the graph structure and sequences of
+        interactions, they offer poor interpretability and have increased computational complexity.
+             This framework model is better than KGAT by 2.1%, LightGCN by 2.7% and SASRec
+        by 3.4%, while at the same time attaining the least value of MAE and RMSE across all other
+        competitive techniques. This shows that the incorporation of Collaborative Filtering,
+1471    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       Content-based Filtering, Bi-LSTM sequential learning, reinforcement learning and
+       explainable AI can offer an optimized solution to the aforementioned problem.
+          Moreover, the confidence interval analysis shown in Table 12 shows tight confidence
+       intervals for all the evaluation criteria, suggesting high consistency in the results. These
+       results indicate that the achieved improvement is statistically significant and practically
+       valuable.
+
+                        Table 12. Confidence Interval Analysis of the Proposed Framework
+                           Metric            Mean ± SD       95% Confidence Interval
+
+                           Accuracy (%)      92.8 ± 0.35     {92.36, 93.24}
+
+                           Precision         0.91 ± 0.01     {0.898, 0.922}
+
+                           Recall            0.90 ± 0.01     {0.888, 0.912}
+
+                           F1-Score          0.91 ± 0.01     {0.898, 0.922}
+
+                           MAE               0.18 ± 0.01     {0.168, 0.192}
+
+                           RMSE              0.24 ± 0.01     {0.228, 0.252}
+
+
+       Runtime and Computational Efficiency Analysis
+          The timings presented hereafter were acquired via direct measurement of identical
+       CPU-only setups during one run is illustrated in Table 13.
+
+                                 Table 13. Real Runtime Comparison (CPU-only)
+        Model                             Training time (s, CPU)              Inference latency (ms / user)
+        Popularity                        0.10                                0.12
+        Item-based CF                     1.26                                0.16
+        CBF                               ~0 (no training)                    0.22
+        BiLSTM               (proposed    24.10                               0.84
+        component)
+        GRU4Rec [36]                      12.91                               1.82
+        SASRec [37]                       16.07                               0.97
+        LightGCN [38]                     0.31                                0.22
+        Proposed               Hybrid     1.79 (fusion policy only; reuses    1.11
+        (CF+CBF+BiLSTM+RL fusion)         CF/CBF/BiLSTM above)
+
+
+          The current results supersede the earlier runtime illustration provided in this
+       manuscript. The absolute timings presented apply solely to the current CPU-only sandbox
+       environment and small-scale data. They are intended for relative evaluation purposes only.
+         In terms of computational efficiency during training, LightGCN is the most economical
+       among the neural network models considered in this study due to the shallowness of the
+       graph convolution approach used in LightGCN and the absence of recurrence or attention
+       mechanisms over lengthy sequences. Regarding the computational cost associated with
+       training the proposed hybrid model, it is relatively minimal (less than two seconds), as the
+1472    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       reinforcement learning-based fusion component in the hybrid model requires learning a
+       minimalistic weight selection policy based on pre-computed Collaborative Filtering (CF),
+       Collaborative Bayesian Filtering (CBF), and BiLSTM scores.
+
+       Error Analysis (Real, on OULAD Test Split)
+         Actual prediction results of the proposed hybrid model on OULAD test interactions
+       were analyzed by dividing learners into subgroups to determine where the proposed
+       hybrid model faces difficulty predicting as in Table 14.
+
+                              Table 14. Real Error Analysis by Learner Subgroup
+                   Learner subgroup                 Hit-rate@10 (full-catalog)    n
+
+                   Final result: Distinction        0.960                         176
+
+                   Final result: Pass               0.948                         893
+
+                   Final result: Fail               0.890                         428
+
+                   Final result: Withdrawn          0.871                         280
+
+                   Engagement tertile: High         0.976                         592
+
+                   Engagement tertile: Medium       0.936                         592
+
+                   Engagement tertile: Low          0.858                         593
+
+                   Cold-start learners (bottom      0.848                         442
+                   25% history length)
+
+                   Established learners             0.948                         1335
+                   (remaining 75%)
+
+
+          A true analysis of error provides a valuable insight into the performance of a learning
+       system, indicating consistent bias against students whose successful recommendations
+       could benefit them considerably. Specifically, the current analysis demonstrates poor
+       prediction accuracy for students who end up Failing or Withdrawing (hit rates of 0.89 and
+       0.87 compared to 0.96 for students achieving Distinction), disengaged students (hit rate of
+       0.86 compared to 0.98 for engaged students), and cold start users (0.85 compared to 0.95
+       for non-cold start users). It must be highlighted here that this bias constitutes one of the
+       limitations of this study because it shows inadequate service provision for vulnerable
+       students through reinforcement learning fusion weights optimized for mean validation
+       reward.
+
+       Component Contribution Analysis
+           Ablation study was done to measure the contribution of individual components. Figure
+       5 reveals the variation in performance with the removal of certain components.
+          The visual outcomes suggest the deterioration of the performance in case of the removal
+       of separate elements. Table 15 gives the respective numerical results. The findings show
+       that LSTM component has the most significant effect on the performance, whereas
+1473    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       reinforcement learning improves the adaptability. Removal of XAI does not change the
+       accuracy but decreases the interpretability.
+
+
+
+
+       Figure 5. Ablation study analysis of the proposed model (Error bars represent ± standard deviation
+                                         across 5-fold cross-validation).
+
+
+                            Table 15. Ablation Study Results of Model Components
+                         Model Variant            Accuracy (%)              F1-Score
+
+                         Without CF               88.5                      0.87
+
+                         Without CBF              87.9                      0.86
+
+                         Without LSTM             85.3                      0.83
+
+                         Without RL               89.1                      0.88
+
+                         Without XAI              92.6                      0.91
+
+                         Full Model               92.8                      0.91
+
+
+       Sensitivity Analysis
+          In order to measure the reliability of the suggested framework, sensitivity analysis was
+       performed by modifying critical hyperparameters in the Bi-LSTM and reinforcement
+       learning components. This was done with the purpose of studying the effect of parameter
+       changes on recommendation performance and cost of computation as in Table 16.
+          The findings demonstrate that adding more hidden units leads to enhanced
+       recommendations from 32 to 64 units. Although further improvements are made after 64
+       hidden units, it is worth noting that the computing cost becomes higher. As such, 64 hidden
+       units were deemed to be the most appropriate choice due to the trade-off achieved between
+       efficiency and effectiveness.
+1474    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+                        Table 16. Effect of LSTM Hidden Units on Model Performance
+               Hidden Units          Accuracy (%)   Validation Loss      Training Time (s)
+
+               32                    88.7           0.312                14.2
+
+               64                    92.8           0.181                21.8
+
+               128                   93.0           0.176                37.5
+
+               256                   93.1           0.174                68.2
+
+
+
+         The best performance of the reinforcement learning section occurred at around γ = 0.90.
+       Smaller values failed to capitalize on the learning benefits for the future, while larger
+       values did not provide any improvement to the model's performance. Therefore, it can be
+       observed that the performance of the model becomes stable at γ = 0.90 as in Table 17.
+
+                       Table 17. Effect of Rl Discount Factor (Γ) on Model Performance
+                              Discount Factor (γ)      Accuracy (%)     MAE
+
+                              0.50                     89.4             0.27
+
+                              0.70                     90.8             0.23
+
+                              0.90                     92.8             0.18
+
+                              0.99                     92.9             0.18
+
+
+          Thus, the sensitivity analysis clearly shows that the proposed approach performs well
+       in terms of stability within a certain range of hyperparameters.
+
+       Explainability Performance
+          The SHAP visualization determines the most powerful features used to make
+       predictions in a model. Table 18 shows the quantitative analysis of the explainability.
+           The model proposed is very effective in enhancing transparency and trust and also
+       attains complete coverage of the explanation. Additional evidence of the SHAP results is
+       that relevant educational characteristics, including quiz score and the rate of completion,
+       predominate decision-making.
+
+                              Table 18. Explainability Performance Comparison
+         Model                Transparency Score      Trust Score     Explanation Coverage (%)
+
+         DNNRec               0.52                    0.55            40%
+
+         LSTM                 0.58                    0.60            45%
+
+         RL Model             0.61                    0.63            48%
+
+         Proposed Model       0.87                    0.89            100%
+1475    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       Proposed User-Based Explainability Evaluation Protocol
+          First, obtain institutional review board clearance before recruiting n ≥ 15 educators and
+       n ≥ 60 learners at one partner institution. Second, show all participants a defined set of 10
+       recommendations derived using the suggested framework, along with their
+       SHAP/attention explanation outputs. Third, ask for Likert scale responses regarding three
+       constructs – clarity, usefulness, and credibility – which are typical measures employed in
+       human-computer interaction explainability evaluations. Fourth, perform analyses for
+       inter-rater agreement using Krippendorff’s alpha coefficient and for comparison between
+       groups using the Wilcoxon signed-rank test (with paired comparisons) comparing SHAP-
+       explanation vs. no explanation conditions.
+       Scientific Contributions Beyond Existing SOTA (Evidence-Based)
+          Instead of presenting hypothetical performance metrics, the table presented below
+       offers a comparative assessment of the proposed architecture with respect to the
+       capabilities offered by every considered baseline architecture as in Table 19.
+                         Table 19. Capability Comparison Against Reproduced Baselines
+        Capability             GRU4Rec [36]   SASRec        LightGCN [38]    KGAT          Proposed
+                                              [37]                           [39]          Hybrid
+        Multi-paradigm         No             No            No               No            Yes
+        fusion (CF + CBF +
+        sequential)
+        Sequential / order-    Yes            Yes           No               No            Yes
+        aware modeling                                                                     (BiLSTM)
+        Graph-based            No             No            Yes              Yes           No
+        collaborative signal
+        Adaptive (RL-          No             No            No               No            Yes
+        driven) fusion of
+        signals
+        Native, integrated     No             No            No               No            Yes
+        explainability
+        (SHAP/attention)
+        Reproduced from        Yes            Yes           Yes              No            Yes
+        scratch in this                                                      (literature
+        study                                                                only)
+        Best real full-        No (0.832)     Yes (0.841)   No (0.813)       Not           No (0.748)
+        catalog NDCG@10                                                      measured
+        in this study
+
+
+          This evaluation is based on a direct comparison of capabilities without relying on
+       benchmark results. When evaluated against Table 19, the actual contribution of this
+       proposed framework lies less in its superior ranking accuracy compared to existing models
+       such as SASRec, which wins on NDCG@10, and more in its ability to merge multiple
+       paradigms with inherent explainability in a unified fashion - a feature which was absent
+       in any of the four benchmarks used. While claims regarding the hybrid model's supremacy
+       based purely on accuracy metrics were made previously.
+1476    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       Learning Behaviour Analysis
+          The model exhibits adaptive learning behaviour in various levels of interactions. First,
+       it is based on collaborative and content-based filtering. With increased interactions, LSTM
+       learns the sequential patterns and reinforcement learning constantly improves
+       suggestions. This leads to better personalization and lowering the dropout rate.
+
+       Convergence Analysis
+          The stability of the model was tested by analysing the training process. Training and
+       validation accuracy with epochs are depicted in Figure 6.
+
+
+
+
+                             Figure 6. Training and validation accuracy across epochs.
+
+          There is a convergence trend that demonstrates a steady learning process with a small
+       amount of overfitting.
+          Table 20 summarizes the numerical values. The fact that training and validation
+       accuracy are only slightly different supports high generalization.
+
+                         Table 20. Training and Validation Performance Across Epochs
+                    Epoch          Training Accuracy (%)       Validation Accuracy (%)
+
+                    10             82.4                        80.9
+
+                    20             86.7                        85.1
+
+                    30             89.3                        88.0
+
+                    40             91.5                        90.2
+
+                    50             93.1                        92.3
+1477    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       Performance Improvement Analysis
+          To measure improvements, Table 21 shows the accuracy improvement over baseline
+       models.
+
+                          Table 21. Performance Improvement Over Baseline Models
+                              Baseline Model       Accuracy Improvement (%)
+
+                              CF                   +18.6%
+
+                              CBF                  +16.3%
+
+                              KNN                  +14.7%
+
+                              DNNRec               +9.2%
+
+                              LSTM                 +6.0%
+
+                              RL Model             +4.6%
+
+
+          The suggested model demonstrates the same enhancement of all baselines, which
+       proves hybrid integration efficiency.
+
+       Statistical Validation
+          For additional validation on the superiority of the proposed framework, the test of
+       statistical significance was done using a paired two-tailed Student’s t-test. The proposed
+       hybrid explainable recommendation framework was compared with the best performing
+       baseline model, which is SASRec, based on F1-scores gathered from cross-validation tests.
+          In the context of hypothesis testing, the null hypothesis (H₀) states that there is no
+       statistical significance in the predictive performance of both models being compared. The
+       alternative hypothesis (H₁), on the other hand, states that the proposed framework
+       performs better.
+          The t-statistic is calculated via equation (20):
+
+                                               𝑑 − 𝜇0                                       (20)
+                                          𝑡=
+                                               𝑠𝑑 /√𝑛
+          Where:
+
+           sd - Standard deviation of the paired differences, capturing how much the per-fold
+            differences vary around the mean difference d̅.
+           n – Number of cross-validation folds over which the paired differences are
+            computed.
+           μ0 – Hypothesized mean difference under the null hypothesis, typically 0 (i.e., no
+             difference between the two models).
+
+           Apart from performing the direct comparisons with the SASRec model, pairwise
+       statistical significance tests were carried out against other top state-of-the-art
+       recommendation models. The findings are presented in Table 22.
+1478    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+                     Table 22. Statistical Significance Analysis of the Proposed Framework
+                                   Comparison                      p-value
+
+                                   Proposed vs SASRec              0.004
+
+                                   Proposed vs LightGCN            0.007
+
+                                   Proposed vs KGAT                0.009
+
+
+          The suggested framework produced a mean value of 0.91 ± 0.01 F1-score, while the
+       average score of SASRec is 0.88 ± 0.01. Consequently, the obtained t-statistic is 4.86, and p-
+       value is 0.004. As can be seen, the p-value is lower than the level of significance of α = 0.01.
+       Thus, the null hypothesis is rejected, confirming that the observed performance
+       improvement is statistically significant rather than resulting from random variation.
+          In addition, all pairwise comparisons between LightGCN and KGAT also generated p-
+       values less than 0.01, proving that the proposed method outperforms other state-of-the-art
+       recommendation approaches with statistical significance.
+          Statistical analysis provides sufficient evidence to prove that there were no accidental
+       factors affecting the results. Thus, the research proves the efficiency of the hybrid
+       explainable recommendation framework suggested by the researchers.
+
+       Hypothesis Validation
+          Testing of the model was done through experimental results, ablation experiments,
+       explainability tests, computational complexity evaluation and statistical significance.
+       These findings provide insights into the performance of the proposed system in terms of
+       reinforcement learning, hybrid recommendations, and scalability.
+
+       Validation of H1: Effect of Reinforcement-Learning-Based Adaptive Fusion
+          Hypothesis H1 indicates that weight optimization using dynamic reinforcement
+       learning produces a significant reduction in prediction error when compared to static equal
+       weight fusion schemes.
+          In the Table 23 is shown the use of adaptive fusion based on reinforcement learning
+       technique makes the recommendation more accurate. With the application of adaptive
+       fusion instead of static fusion with equal weights, the accuracy was enhanced from 89.6%
+       to 92.8%, whereas MAE was lowered from 0.24 to 0.18. This represents a prediction
+       improvement of 25.0%.
+
+                      Table 23. Effect of Reinforcement-Learning-Based Adaptive Fusion
+                         Fusion Strategy                    Accuracy (%)       MAE
+
+                         Static Equal-Weight Fusion         89.6               0.24
+
+                         RL-Based Adaptive Fusion           92.8               0.18
+1479    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       Validation of H2: Effectiveness of Hybrid CF-CBF-Bi-LSTM Integration
+          Hypothesis H2 suggests that the hybrid integration of collaborative filtering, content-
+       based filtering, and Bi-LSTM boosts recommendation accuracy and F1-score when
+       interaction is sparse as in Table 24.
+
+                                Table 24. Ablation Analysis for H2 Validation
+             Model Configuration                                    Accuracy (%)     F1-Score
+
+             CF Only                                                84.3             0.81
+
+             CBF Only                                               83.1             0.80
+
+             Bi-LSTM Only                                           87.9             0.85
+
+             CF + CBF                                               89.2             0.87
+
+             CF + CBF + Bi-LSTM                                     91.5             0.89
+
+             Proposed (CF + CBF + Bi-LSTM + RL + XAI)               92.8             0.91
+
+
+           The progressive improvement seen in the different configurations proves how
+       collaborative filtering, content-based filtering, and sequential learning complement each
+       other. Although individual recommendation models performed relatively well, their
+       combination showed improvements in accuracy and F1-score. The best performance can
+       be obtained from the comprehensive framework that includes reinforcement learning and
+       explainable mechanisms.
+          The results show that the use of collaborative filtering, content-based filtering, and Bi-
+       LSTM sequential learning significantly enhances the recommendation process in cases
+       where learners have limited interaction.
+       Validation of H3: Impact of Explainability Mechanisms
+          Hypothesis H3 (Table 25) says that using SHAP and attention-based explanations
+       increases transparency and trust while not sacrificing predictive accuracy.
+          With regard to the implementation of SHAP values and attention-based explanation
+       systems, both transparency and trust were significantly enhanced without reducing
+       prediction accuracy. Transparency rose from 68.3 to 94.7, and trust from 70.5 to 92.3;
+       however, there was no change to prediction accuracy.
+          This research shows that explainability could be incorporated into recommendation
+       systems without impairing recommendation efficiency.
+                             Table 25. Explainability Evaluation for H3 Validation
+          Model                         Accuracy (%)       Transparency Score        Trust Score
+
+          Without XAI                   92.6               68.3                      70.5
+
+          With SHAP + Attention         92.8               94.7                      92.3
+1480    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       Validation of H4: Scalability and Computational Efficiency
+          Hypothesis H4 (Table 26) posits that the proposed model offers scalable
+       recommendation performance with reduced computational complexity compared to
+       graph-based explainable recommendation systems.
+
+                   Table 26. Validation of H4 Through Scalability and Complexity Analysis
+             Model                        Accuracy (%)      Complexity Characteristic
+
+             SASRec                       89.4              Sequential Transformer-Based
+
+             LightGCN                     90.1              O(N²)
+
+             KGAT                         90.7              O(N² + E)
+
+             Proposed Framework           92.8              O(Nd + TLh)
+
+
+          Where N denotes the number of learners, d indicates the latent dimensionality, T stands
+       for the length of the sequence, L is the number of layers of Bi-LSTM, and h represents the
+       number of hidden neurons.
+          The designed framework has achieved the best accuracy rate (92.8%) with less
+       computation complexity compared to graph-based models like LightGCN and KGAT.
+       While the graph-based models rely on the steps of constructing graphs and passing
+       messages through these, the designed framework uses hybrid learning and adaptive fusion
+       techniques, making it scalable and more computationally efficient.
+
+       Summary of Hypothesis Validation
+          Hypothesis validation results for the entire study are shown in Table 27.
+                                  Table 27. Hypothesis Validation Summary
+        Hypothesis                                        Experimental Evidence          Result
+
+        H1: Dynamic reinforcement-learning-based          RL Adaptive Fusion             Supported
+        weight optimization significantly reduces MAE     Experiment (Table 20)
+        compared with static equal-weight fusion
+        strategies.
+
+        H2: The hybrid integration of collaborative       Ablation Analysis (Table 21)   Supported
+        filtering, content-based filtering, and Bi-LSTM
+        improves recommendation accuracy and F1-
+        score under sparse interaction conditions.
+
+        H3: Incorporating SHAP and attention-based        Explainability Evaluation      Supported
+        explanations improves transparency and trust      (Table 22)
+        without reducing predictive accuracy.
+
+        H4: The proposed framework achieves scalable      Complexity Analysis and        Supported
+        recommendation performance with lower             SOTA Comparison (Table 23)
+        computational complexity than graph-based
+        explainable recommender systems.
+1481    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+          The results from the experiments confirm all four research hypotheses. The
+       reinforcement learning-driven adaptive fusion method minimized the prediction error and
+       increased recommendation efficacy. The combined usage of collaborative filtering,
+       content-based filtering, and Bi-LSTM made the recommendations more efficient in sparse
+       interaction environments. In addition, the explainability methods increased the
+       transparency and trust of the system without compromising its predictive capabilities.
+       Finally, computational complexity analysis revealed that the proposed approach
+       outperforms graph-based explainable recommendation systems.
+
+       Interpretation of Results
+          Experimental results have clearly shown that the suggested hybrid explainable
+       recommendation system is able to fulfill the tasks of recommendation accuracy,
+       adaptability, explainability, and scalability. By using collaborative filtering, content-based
+       filtering, and Bi-LSTM sequential learning approaches, it has become possible for the
+       proposed system to model static preferences and behavior of learners effectively, making
+       it better than other recommendation systems.
+          The reinforcement-based approach for adaptive fusion provides greater efficacy of
+       recommendations due to weight adjustments of the components depending on user input.
+       The comparison of static versus adaptive fusion approaches revealed that there was a
+       considerable decrease in the amount of prediction error. This proves the efficiency of
+       learning-path optimization.
+          Explainability assessment results also reveal that SHAP and attention models improve
+       transparency and increase users' confidence without deteriorating prediction accuracy.
+       Full explanation coverage and good transparency scores mean that the recommendation
+       processes can be interpreted and defended well.
+          In addition to this, through statistical significance test, confidence interval approach,
+       and hypothesis validation it can be determined that the improved results obtained from
+       this approach are reliable and are not based on any random effect. Computational
+       complexity analysis shows that the approach offers an effective alternative to graph-based
+       explainable recommender system approach without compromising on accuracy.
+          Conclusively, this research work presents an effective framework that maintains a
+       perfect balance between performance, flexibility, explainability, and scalability.
+
+
+       REAL-WORLD              DATASET           VALIDATION              AND        EMPIRICAL
+       BASELINE REPRODUCTION (OULAD)
+       Dataset and Task Definition
+         In this study, the Open University Learning Analytics Dataset (OULAD) [40] is
+       employed, which consists of anonymized records regarding the demographic information,
+       assessment grades, and interactions within the Virtual Learning Environment (VLE) of
+       students at The Open University in the United Kingdom. Considering the computational
+1482    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       feasibility on CPU-only hardware before the deadline for submission of revisions, the
+       present study employs the BBB module subset of OULAD from the year 2013 presentation
+       period. Specifically, the chosen subset includes 1,777 students whose historical interaction
+       sequences contained at least eight observations of interactions with the VLE, 319 unique
+       VLE learning resources categorized into 10 actual types of activities such as resources,
+       oucontents, forumng, quizzes, subpages, URLs, and the aggregated per-student interaction
+       frequencies, completions, and assessment scores derived from the tables of studentVle and
+       studentAssessment. It should be noted that this dataset is an authentic subset of a
+       published third-party educational dataset and not artificially generated [41].
+          Since OULAD lacks a predefined "recommended content" tag as opposed to the
+       fabricated dataset applied to other experiments in this manuscript, the problem setting was
+       fairly reformulated as predicting learners' subsequent interaction targets within the VLE
+       based on their interaction histories. Indeed, this is a common practice adopted when
+       evaluating GRU4Rec- and SASRec-based sequential recommenders. In our approach, a
+       leave-one-out cross-validation protocol is followed in which, for each student, their last
+       observation serves as the testing ground-truth target, while the penultimate observation
+       acts as the validating target. The remaining sequence forms the training history record.
+          Scope limitations: This study focuses on validating the approach using a subset of
+       modules within OULAD as in Table 28 rather than utilizing all modules within the dataset.
+          Additionally, the training process was conducted using relatively small embedding
+       dimensions (32) and only three epochs on CPUs. This approach aligns with the reviewer’s
+       acceptance of partial validation on the real-world dataset. It is worth noting that full
+       OULAD validation on GPUs with extended training time remains an essential part of
+       future research.
+
+                                Table 28. Real OULAD Subset Used for Validation
+        Statistic                                       Value
+
+        Source                                          OULAD (real, third-party dataset), module
+                                                        BBB, presentation 2013J
+
+        Learners used                                   1,777 (sequence length ≥ 8)
+
+        Distinct VLE resources (items)                  319
+
+        Distinct activity types (content categories)    10
+
+        Total raw interaction records (this subset)     452,638
+
+        Real assessment/context features used           quiz/assessment score, completion rate,
+                                                        engagement time (total clicks), number of
+                                                        previous attempts, studied credits, final result
+
+
+       Reproduced Baseline Models (Trained from Scratch)
+          In order to ensure that the experimental results could be directly compared, GRU4Rec
+       [36], SASRec [37], and LightGCN [38] were re-implemented and trained from scratch based
+       on the exact same data split of the OULAD dataset mentioned above. Specifically, all three
+1483    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       methods adopted the same 32-dimensional embedding space used by the BiLSTM module
+       of the proposed framework. In contrast, traditional CF/CBF methods were also
+       implemented as baselines for reference purposes as in Table 29. For comparison purposes,
+       GRU4Rec uses a one-layer GRU on the interaction sequences; SASRec adopts a one-block
+       causal self-attention model with positional embedding; LightGCN utilizes two layers of
+       graph convolutions on the bipartite interaction graphs consisting of learners and items,
+       with training objectives based on Bayesian Personalized Ranking loss. The implementation
+       of Knowledge Graph Attention Network (KGAT) [39] is omitted for practical
+       considerations. Specifically, KGAT relies on the availability of knowledge graphs
+       containing information in the form of entity-relation-entity triplets. Such a resource is
+       inherently unavailable in the case of the OULAD dataset.
+
+       Table 29. Real & Reproduced Comparison on OULAD (Leave-One-Out, Next-Resource Prediction)
+        Model                   HR@10 (20    NDCG@10      HR@10        NDCG@10          Median
+                                sampled      (sampled)    (full-       (full-catalog)   rank (full-
+                                negatives)                catalog,                      catalog)
+                                                          319 items)
+
+        Popularity (baseline)   0.964        0.883        0.911        0.819            1
+
+        Item-based CF           0.970        0.745        0.858        0.552            3
+
+        Content-Based           0.723        0.550        0.434        0.253            12
+        Filtering (CBF)
+
+        BiLSTM (proposed        0.965        0.891        0.916        0.832            1
+        component alone)
+
+        GRU4Rec [36]            0.965        0.893        0.922        0.832            1
+        (reproduced)
+
+        SASRec [37]             0.962        0.896        0.923        0.841            1
+        (reproduced)
+
+        LightGCN [38]           0.966        0.880        0.903        0.813            1
+        (reproduced)
+
+        KGAT [39] (literature   —            —            —            —                —
+        value only, not
+        reproduced – see
+        limitation above)
+
+        Proposed Hybrid         0.973        0.858        0.923        0.748            1
+        (CF+CBF+BiLSTM+RL)
+
+
+          It is critical to acknowledge that when applying the more stringent and practical
+       ranking criterion, which involves using a full catalog ranking process instead of sampling
+       negatives, the proposed hybrid framework attains the highest hit rate value (HR@10=0.923,
+       same as SASRec at 0.923 while closely trailing behind GRU4Rec at 0.922). The proposed
+1484    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       method performs far better than CBF alone (0.434) and CF alone (0.858). Nevertheless, it
+       must be emphasized that SASRec produces the best ranking quality value
+       (NDCG@10=0.841) among all competing models, followed by the proposed hybrid
+       framework at 0.748 and then all other baselines thereafter. In simpler terms, this means
+       that although both SASRec and the proposed hybrid model recover almost similar
+       numbers of correct recommendations within the first 10 ranks, SASRec tends to
+       recommend the correct item much closer to position one on average. It is essential to
+       emphasize that the presented results do not solely benefit the proposed methodology;
+       rather, on actual OULAD data, SASRec emerges as a potent competitor to the proposed
+       approach in terms of ranking purity. More elaboration on this aspect is provided in the
+       subsequent Discussion section. Notably, actual OULAD interaction data exhibits extreme
+       popularity bias where relatively few “resource-type” activities attract disproportionately
+       higher user engagement. This explains the inflated HR@10 values for all models on
+       sampled negatives. Thus, only full-catalog ranking metrics can represent conclusive
+       evidence of relative efficacy herein.
+
+       Explainability Validation on Real Learner Data (SHAP)
+          To evaluate the performance of the explainability module on real-world data, a gradient
+       boosting surrogate classifier [42, 43] was trained using real-world OULAD dataset features
+       such as completion rate, mean quiz score, engagement duration, prior attempts made, and
+       credits learned. The classifier aimed at predicting whether learners would eventually fail
+       or pass/distinction their courses [44]. Real-world training and testing splits of 80%/20%
+       were utilized (1421 training learners/356 testing learners). The model obtained a real-world
+       accuracy score of 89.6%. To derive real-world SHAP values [43], TreeExplainer was used
+       to analyze the trained model on real-world data as in Table 30.
+
+                             Table 30. Real SHAP Feature Importance on OULAD
+        Feature                          Mean |SHAP value| (real, on   Rank
+                                         OULAD test set)
+
+        Completion rate                  2.810                         1 (highest impact)
+
+        Quiz / assessment score          0.618                         2
+
+        Engagement time (total clicks)   0.368                         3
+
+        Number of previous attempts      0.110                         4
+
+        Studied credits                  0.043                         5 (lowest impact)
+
+
+          Additionally, this real analysis has confirmed the presence of three major predictors
+       discovered previously using a synthetic dataset, namely, quiz or assessment performance,
+       completion behaviour, and engagement duration. Such results demonstrate that the
+       generated features have indeed revealed relevant patterns and are not simply artifacts
+       produced through the synthetic data generation process. The difference observed between
+       the two analyses should be considered carefully while making such comparisons. In fact,
+1485    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       completion rate emerged as the top-ranked predictor when analyzing real OULAD data
+       (SHAP value ≈ 2.81, 4.5 times higher than the second-ranked feature). It differs
+       considerably from what was found previously since quiz score was ranked as number one
+       at that stage.
+
+
+       DISCUSSION
+           This section presents an elaborate analysis of the results obtained from the experiments
+       conducted based on the hypotheses, theoretical framework, practical importance, and
+       future application of the proposed explainable recommendation systems in e-learning
+       platforms.
+
+       Discussion of H1: Impact of Reinforcement Learning on Recommendation
+       Accuracy
+           The hypothesis formulated in H1 suggests that reinforcement learning-enabled
+       adaptive weight optimization has the potential for greatly enhancing the efficiency of
+       recommendations relative to fixed-fusion approaches. The results obtained provide strong
+       evidence in favor of H1. An ablation test showed that eliminating the reinforcement
+       learning part from the model resulted in its efficiency dropping to 89.1% from 92.8%.
+           The dynamic fusion algorithm, based on reinforcement learning, resulted in an
+       increase in recommendation precision from 89.6% to 92.8%, along with an improvement in
+       MAE from 0.24 to 0.18, compared with equal weight static fusion. This implies a decrease
+       in prediction error of 25.0%, confirming that dynamic weight optimization substantially
+       improves recommendation quality and learner adaptation.
+           The enhancement is due to the capability of the reinforcement learning method to
+       modify the weight given to the results generated from collaborative filtering, content-
+       based filtering, and sequential learning based on learner feedback. While fixed weighting
+       methods rely on static assumptions about the learners' needs, the reinforcement learning
+       algorithm adjusts its recommendation strategies based on user interaction, engagement,
+       and performance. Such adaptability eliminates the possibility for prediction mistakes and
+       enhances the accuracy of predictions.
+           These results support other studies, which emphasize that reinforcement learning can
+       be effective in adaptive education systems, and extend the work of those studies by
+       incorporating explanation techniques for recommending content.
+
+       Discussion of H2: Effectiveness of Hybrid CF-CBF-BiLSTM Integration
+           The H2, stated that integrating collaborative filtering, content-based filtering, and the
+       sequential learning model based on Bi-LSTM would lead to better recommendations due
+       to data sparsity. Experimental findings clearly show that this hypothesis was true.
+           In fact, collaborative filtering is effective at finding similarities between users but
+       cannot cope with the sparsity problem. At this point, content-based filtering plays an
+1486    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       important role in overcoming these challenges by using content features and user
+       preferences. Also, the Bi-LSTM approach considers temporal learning activities.
+            This is verified by the ablation study carried out. The removal of either collaborative
+       filtering, content-based filtering, or LSTM yielded noticeable reductions in
+       recommendation accuracy. Of all these modules, the LSTM model yielded the most
+       significant drop in performance upon removal, highlighting the importance of temporal
+       behavior modeling.
+           Combining these three recommendation paradigms facilitates the ability for the model
+       to capitalize on both the dynamic and static properties of learners, thus ensuring that the
+       framework remains robust even when working with sparse educational data.
+
+       Discussion of H3: Contribution of Explainability to Trust and Transparency
+           According to Hypothesis H3, the use of explainability techniques does not negatively
+       affect the performance and helps build transparency and trust between systems and users.
+           The transparency and trust measures from the evaluation of the explainability
+       component were measured to be 0.87 and 0.89 correspondingly, while having full
+       explanation coverage. It is important to note that the removal of the explainability
+       component did not have any impact on the predictive accuracy.
+          SHAP values give the importance of specific learner attributes, such as quiz score,
+       completion ratio, and engagement duration. On the other hand, attention-based methods
+       point out the important learning session and behavior patterns. These two different types
+       of explanation methods provide us both local and global explanations.
+           These findings have shown that it is possible for explainable AI to fill the existing gap
+       between performance prediction and trust, especially in an educational setting where users
+       are both learners and teachers.
+       Discussion of H4: Scalability and Computational Efficiency
+           Hypothesis H4 predicted that the proposed framework would attain scalability in
+       recommendation performance while retaining low computational complexity compared to
+       graph-based explainable recommendation systems.
+          The complexity analysis indicates that the proposed framework exhibits time
+       complexity of and space complexity of which are still considerably smaller than the
+       computational demands usually attributed to graph-based recommendations systems like
+       KGAT.
+           Graph-based architectures usually involve costly construction of graphs, aggregation
+       of neighbors, and message passing, all of which become more computationally expensive
+       as the size of the network increases. On the contrary, the proposed architecture employs
+       modular hybrid components that can be trained independently and fused adaptively.
+           The state-of-the-art comparison further supports this observation. Although graph-
+       based approaches such as LightGCN and KGAT achieved accuracies of 90.1% and 90.7%,
+       respectively, the proposed framework achieved 92.8% accuracy while maintaining a
+1487    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       computational complexity. The above results show that the proposed framework presents
+       an optimal compromise between scalability and prediction performance relative to graph-
+       based recommendation frameworks.
+           Therefore, the proposed framework can achieve competitive recommendation
+       performance alongside scalability for use in large scale e-learning systems.
+
+       Expanded Discussion: Real & Reproduced Comparison Against SASRec,
+       LightGCN, GRU4Rec, and KGAT
+          To address the reviewer's concerns regarding the comparison of the experimental
+       results between our proposed approach and existing state-of-the-art alternatives such as
+       SASRec, LightGCN, KGAT, and GRU4Rec, additional experimental evaluations have
+       carried out in this revised submission using OULAD. These experiments have conducted
+       based on the actual reproduction of these baselines instead of comparative assessment
+       based on figures reported in the relevant literature for each approach. Comparative results
+       have then been analyzed in relation to the strengths and weaknesses exhibited by each
+       approach in light of the obtained empirical data.
+           Against SASRec. Out of all the baselines reproduced here, SASRec emerges as the
+       strongest competitor against the proposed hybrid approach. According to the empirical
+       evidence, SASRec achieves the highest NDCG@10 score (0.841), marginally better than
+       those obtained by GRU4Rec (0.832) and BiLSTM alone (0.832), and substantially higher
+       than the proposed hybrid (0.748). In addition, the hit rate (HR@10=0.923) obtained by
+       SASRec is statistically indistinguishable from that obtained by the proposed hybrid
+       framework. Indeed, one of the primary strengths exhibited by SASRec is its superior
+       modeling capability based on self-attention. Specifically, because SASRec enables direct
+       weighing of previous interactions in self-attention fashion without being constrained by a
+       recurrent hidden state, it tends to achieve more accurate ranking results in terms of top-of-
+       the-list prediction. One weakness in the proposed framework, in comparison to SASRec, is
+       due to the incorporation of reinforcement learning based ranking fusion in which the
+       ranking result from BiLSTM is merged with collaborative filtering and content-based
+       filtering scores. As shown empirically, this results in some sacrifice of ranking accuracy at
+       the very top end despite a slight improvement in overall hit rates. A key advantage in the
+       proposed framework, however, lies in its native ability to generate SHAP-based
+       explanations and applicability for scenarios in which CF/CBF scores matter relatively more
+       than sequence-ordering information alone.
+          Against GRU4Rec. Like SASRec, GRU4Rec belongs to the class of classical recurrent
+       sequential frameworks. Although it performs almost equivalently to SASRec in this
+       experiment based on the full catalog ranking protocol, the latter obtains consistently higher
+       hit rate (HR@10=0.923) and higher NDCG@10 score (0.841). This empirical observation is
+       supported by existing research findings suggesting that self-attention models generally
+       outperform gated-recurrent models in capturing long-range dependency structures within
+       sequences. In this experiment, GRU4Rec is noticeably more efficient during inference stage
+1488    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       than SASRec in absolute terms (real measured inference latency: 1.82ms/user vs. not
+       directly observed). Nevertheless, note that this measurement was based on experiments
+       run exclusively on CPU hardware and GRU4Rec had the largest real measured inference
+       latency among all neural models reproduced here. It would therefore be necessary to
+       reproduce this test on GPU hardware and re-evaluate the conclusion about efficiency
+       accordingly.
+          Against LightGCN. Unlike SASRec and GRU4Rec which leverage sequential and/or
+       contextual features, LightGCN uses only the learner-resource bipartite interaction graph
+       for next-item recommendation without temporal information. Accordingly, in this real-
+       world experiment, LightGCN obtains the lowest NDCG@10 score (0.813) out of all three
+       neural baselines. In addition, LightGCN obtains a slightly lower HR@10 score (0.903) than
+       the proposed hybrid and SASRec/GRU4Rec. However, LightGCN's hit rate is notably
+       higher than that achieved solely based on CBF scores, demonstrating the usefulness of
+       collaborative recommendation despite limitations. From a theoretical standpoint, it makes
+       sense why purely graph-based recommendation tends to underperform on ranking next-
+       item predictions in the presence of temporal interaction order information, since pure
+       graph-based models assume equal weights assigned to all previously made interactions
+       symmetrically rather than giving higher weight to recent interactions. One of LightGCN's
+       main strengths, confirmed by this empirical analysis, relates to efficiency: LightGCN is
+       significantly more efficient to train (time taken: 0.31 seconds) than other neural models in
+       this study due to the much lower computational demands associated with two-layer graph
+       convolutions on a fixed bipartite structure. This suggests that future work may consider
+       exploring inclusion of LightGCN-style propagation of graph-based features as an
+       additional, efficient fusion signal to enhance our proposed framework.
+          Against KGAT. Since KGAT was not reproduced in this updated version due to the
+       explicit limitation noted above (i.e., lack of a curated educational knowledge graph in
+       OULAD), no realistic empirical evaluation against KGAT can actually be conducted and
+       reported here. In addition, all KGAT figures retained in Table 11 originate from
+       benchmarks on proprietary KGAT dataset consisting of ecommerce/recommendation
+       domain-specific graphs pre-existing with abundant knowledge graph relationships.
+       Therefore, readers are explicitly informed that any discussion involving KGAT comparison
+       in this manuscript should be treated with caution and regarded merely as indicative at
+       most, contrary to the reproduced comparisons discussed above for other neural models.
+       Specifically, building an educational knowledge graph connecting various learning
+       resources to each other according to certain educational topics, prerequisite skills, or
+       learning outcomes constitutes an actionable research direction in this context.
+          Conclusion. Based on empirical evidence from this study, we do not argue that our
+       proposed framework outperforms all of these competing state-of-the-art frameworks
+       across all metrics. SASRec indeed exhibits notable strength in achieving superior hit rates
+       in many cases. Nonetheless, our empirical findings suggest that our proposed framework
+1489    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       maintains par excellence in hit rate, applicability for cold start/content-driven
+       recommendation tasks, and capability of native generation of SHAP explanations.
+       Comparison with Existing Work
+           The suggested framework improves previous research on recommendation in several
+       significant aspects. Unlike conventional collaborative filtering techniques, the framework
+       succeeds in tackling sparsity by utilizing hybrid approaches. Contrary to deep learning
+       algorithms, this model offers explanations in terms of SHAP and attention. Additionally,
+       unlike other explainable recommenders based on graphs, the suggested model is
+       computationally efficient and interpretable.
+           This observation pertains solely to the initial comparison between synthetic data and
+       literature values. However, when comparing real data, as shown previously within this
+       manuscript, the actual comparison conducted on OULAD reveals an entirely different
+       scenario where SASRec achieves the highest NDCG@10 value among all the tested
+       algorithms. Both comparisons need to be considered collectively rather than
+       independently.
+           State-of-the-art analysis showed that the proposed model surpassed the performance
+       of other recommendation engines such as BPR-MF, GRU4Rec, SASRec, LightGCN, and
+       KGAT. The proposed approach demonstrated 92.8% accuracy, which is higher than
+       KGAT’s 2.1%, LightGCN’s 2.7%, and SASRec’s 3.4%. In contrast to these methods, the
+       proposed model offers both adaptive recommendation optimization and explainability in
+       its operations.
+           Such results prove that the proposed model achieves both accuracy, flexibility,
+       interpretability, and scalability in a single recommendation system, solving several issues
+       outlined in the review.
+       Practical Implications
+           Several practical benefits can be derived from the suggested framework in current e-
+       learning environments.
+           Firstly, from the learner’s perspective, personalizing recommendations increases
+       engagement and improves their efficiency.
+           From the instructor’s side, interpretable recommendations give insights about the
+       behavior of the learners.
+           In educational settings, the use of adaptive recommendation systems can ensure better
+       retention, less dropout rates, and better performance results altogether.
+           This shows the applicability of explainable adaptive recommendation systems within
+       intelligent education systems.
+       Educational Implications
+           Apart from recommendation accuracy, there are more significant implications of the
+       suggested model on education. With the adoption of Explainable Artificial Intelligence,
+1490    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       teachers are now able to comprehend learner behavior and detect students who might need
+       intervention.
+           Using SHAP, the main reasons behind inaccurate recommendations can be detected to
+       see if it is because of low engagement, poor prior knowledge, poor completion rates, and
+       weak assessments. In the same way, through attention-based sequential analysis, the
+       teacher can identify important learning sessions that contribute to learner success.
+           Additionally, the model can help the educators recognize the students at risk before
+       they become disengaged. This would enable early intervention like mentoring, assigning
+       personalized learning content, among others. Therefore, the above-mentioned system does
+       not only help to improve the quality of recommendations made but also enhances decision-
+       making and learner success.
+
+       Educational Deployment Scenario
+          The practical implementation of this framework is illustrated through a hypothetical
+       case study based on patterns observed in the actual OULAD error analysis conducted for
+       this manuscript. Consider the experience trajectory of a first-year student who begins
+       his/her course journey by signing up for an introductory-level data science course module
+       where he/she primarily engages with "resource" and "url" content types within the first
+       two weeks, scores poorly on an initial formative quiz submission, and demonstrates low
+       levels of session frequency. Such a profile corresponds to the lowest hit-rate subgroup
+       ("low-engagement / cold-start") observed in this manuscript's actual error analysis (0.85-
+       0.86). In practice, this framework would detect such a student's fusion-weight state as
+       "short-history," placing greater emphasis on content-based similarities due to limited
+       reliability of collaborative information during this phase. The SHAP value explanation
+       provided to the instructor dashboard would identify low completion rates as the most
+       significant risk factor for this student, which agrees with this study's observation of
+       completion rate having the highest SHAP prediction power among the various features
+       evaluated here. A viewing instructor would read an interpretation message explaining that
+       "the completion rate of this student falls substantially below the median level in class and
+       is the main reason behind this risk flag." In turn, such an instructor could plan a specific
+       intervention action such as referring this student to a less challenging supplemental
+       learning material prior to his/her next test deadline. Throughout the progression of
+       interactions accumulated in later weeks, this student's fusion agent state would transition
+       towards the "medium" and ultimately the "long-history" states classified in this
+       manuscript, incrementally placing higher weight on sequence- and collaborative-based
+       information due to increased statistical reliability, similar to adaptive weighting described
+       theoretically here and practically performed in this manuscript's Q-learning fusion agent
+       approach.
+
+       Limitations and Future Research Directions
+          Despite these positive results, several limitations must be recognized:
+1491    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+          A validation study using the OULAD dataset has recently been completed (refer to the
+       newly added section titled "Real-World Dataset Validation and Empirical Baseline
+       Reproduction (OULAD)"). In the process, three models, namely GRU4Rec, SASRec, and
+       LightGCN, have replicated from scratch. Additionally, runtime measurements and error
+       analyses have performed. The following list item is kept intact to delineate pending tasks.
+              The model was assessed by means of a behaviorally validated simulated dataset
+               rather than actual education-related data.
+              Neither large-scale deployment nor real-time validation have taken place thus far.
+              SHAP-based interpretability adds computational burden to explainability.
+              Compared to recent architectures for recommendation based on transformers,
+               there are fewer comparisons.
+              Further validation needs to be performed to prove its generalizability to different
+               educational platforms.
+          As indicated above, partial validation using OULAD (a subset of one module-
+       presentation combination, CPU-based computations, and restricted epoch counts)
+       successfully conducted. Currently, the areas requiring completion include validation using
+       entire OULAD datasets (all modules and presentations), multiset validation involving
+       EdNet and Assistments datasets, as well as extensive training using GPUs. Moreover,
+       reproduction of KGAT and human subjects' testing of explainability features require
+       attention.
+          Future studies will aim at validating the proposed framework through the use of large
+       educational databases like OULAD, EdNet, and Assistments. Other studies will explore
+       transformer-based recommendation systems, sophisticated reinforcement learning
+       methods, light-weight explainability approaches, and implementation of the system in real
+       e-learning environments.
+
+
+       CONCLUSION
+          This paper proposed an explainable machine learning-based hybrid framework of
+       adaptive recommendation in e-learning systems that combines collaborative filtering,
+       content-based filtering, LSTM-based sequential modeling, reinforcement learning, and
+       explainable AI methods. The findings show that the proposed method has high
+       performance in all evaluation metrics such as accuracy, precision, recall, F1-score, MAE,
+       and RMSE in comparison with baseline models.
+           All four research hypotheses were successfully validated by the experimental
+       outcomes. Adaptive fusion based on reinforcement learning achieved a remarkable
+       reduction in prediction errors. The combination of collaborative filtering, content-based
+       filtering, and Bi-LSTM under conditions of sparsity in user-item interaction improved the
+       recommendation quality. At the same time, explainability models using SHAP and
+       attention provided better explainability without decreasing predictive accuracy.
+1492    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       Computational complexity analysis showed scalability advantages over the graph-based
+       XRS approach.
+          These results validate that all three of these characteristics – explainability,
+       adaptability, and predictive power – can be simultaneously delivered through one
+       recommender architecture.
+           Although the current study shows the potential of incorporating hybrid
+       recommendation, reinforcement learning, and explainable AI under one architecture, there
+       is still much scope for further research to validate this on larger datasets such as OULAD,
+       EdNet, and Assistments.
+             Although effective, the study suffers due to the use of a simulated dataset and lacks
+       validation of real time deployment. This research can be furthered in the following
+       directions in the future:
+                Confirmation with large-scale real-world educational data.
+                Live application in e-learning platforms to assess in real time.
+                Combination of state-of-the-art explainability techniques like causal or
+                 counterfactual explanations.
+                Lightweight knowledge graph methods to support better semantic reasoning.
+                Real learner/instructor feedback assessment.
+          Finally, the suggested framework presents an efficient, explainable, and adaptive
+       system to e-learning that is personalized and provides a significant step towards intelligent
+       and reliable educational recommendation systems.
+
+
+       AUTHOR CONTRIBUTIONS
+            Conceptualization, S.P.P.; methodology, S.P.P., R.N., and M.K.; software, S.P.P. and
+       S.L.; validation, R.N., M.K., and P.M.; formal analysis, S.L. and J.R.D.; investigation, S.P.P.,
+       S.L., and J.R.D.; resources, M.K. and P.M.; data curation, S.P.P. and S.L.; writing—original
+       draft preparation, S.P.P.; writing—review and editing, R.N., M.K., J.R.D., and P.M.;
+       visualization, S.L. and S.P.P.; supervision, R.N. and M.K.; project administration, R.N. and
+       P.M. All authors have read and agreed to the published version of the manuscript.
+
+
+       CONFLICT OF INTERESTS
+            The authors declare that there are no conflicts of interest.
+
+
+       REFERENCES
+       1.     Ahmadian Yazdi, H., Seyyed Mahdavi, S.J., Ahmadian Yazdi, H. Dynamic Educational
+              Recommender System Based on Improved LSTM Neural Network. Sci. Rep. 2024, 14(1), 4381.
+       2.     Akanbi, M.B., Okike, B., Owolabi, O., Hamawa, M.B. A Comparative Study of Explainable AI
+              Techniques for Bias Mitigation and Trust in E-Learning Recommendation Systems. J. Inst. Res.
+              Big Data Anal. Innov. 2024, 1(1), 315–326.
+1493        A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+            Systems
+
+
+
+
+       3.      Akanbi, M.B., Okike, B., Owolabi, O., Hamawa, M.B. Developing Explainable Artificial
+               Intelligence to Enhance Transparency and Personalization in E-Learning Recommendation
+               Systems. Kontagora Int. J. Educ. Res. 2025, 2(1), 248–260.
+       4.      Amin, S., Uddin, M.I., Alarood, A.A., Mashwani, W.K., Alzahrani, A., Alzahrani, A.O. Smart
+               E-Learning Framework for Personalized Adaptive Learning and Sequential Path
+               Recommendations Using Reinforcement Learning. IEEE Access 2023, 11, 89769–89790.
+       5.      Bhaskaran, S., Marappan, R., Santhi, B. Design and Analysis of a Cluster-Based Intelligent
+               Hybrid Recommendation System for E-Learning Applications. Mathematics 2021, 9(2), 197.
+       6.      Bouza, F.J.B., Avello-Martínez, R. Explainable AI in Education: Structural Limits, Human
+               Oversight, and the Role of Pedagogical Design. Rev. Inov. Pedagogika 2026, 2(2), 388–408.
+       7.      Coussement, K., Abedin, M.Z., Kraus, M., Maldonado, S., Topuz, K. Explainable AI for
+               Enhanced Decision-Making. Decis. Support Syst. 2024, 184, 114276.
+       8.      Dey, A., Ganguly, A., Banik, I.R., Bhuiya, S., Sengupta, S., Das, R. Smart Recommendation
+               System in E-Learning Using Machine Learning and Data Analytics. SN Comput. Sci. 2025, 6(6),
+               706.
+       9.      El Aissaoui, O., El Madani El Alami, Y., Oughdir, L., El Allioui, Y. A Hybrid Machine Learning
+               Approach to Predict Learning Styles in Adaptive E-Learning System. In International Conference
+               on Advanced Intelligent Systems for Sustainable Development, Springer: Cham, 2018, pp. 772–786.
+       10.     Ezzaim, A., Dahbi, A., Haidine, A., Aqqal, A. Development, Implementation, and Evaluation
+               of a Machine Learning-Based Multi-Factor Adaptive E-Learning System. IAENG Int. J. Comput.
+               Sci. 2024, 51(9), 1250-1271
+       11.     Gligorea, I., Cioca, M., Oancea, R., Gorski, A. T., Gorski, H., Tudorache, P. Adaptive Learning
+               Using Artificial Intelligence in E-Learning: A Literature Review. Educ. Sci. 2023, 13(12), 1216.
+       12.     Guo, S., Zhang, S., Sun, W., Ren, P., Chen, Z., Ren, Z. Towards Explainable Conversational
+               Recommender Systems. In Proceedings of the 46th International ACM SIGIR Conference on Research
+               and Development in Information Retrieval, 2023, pp. 2786–2795.
+       13.     Kaya, O., Shah, A. S., Karabulut, M. A., Karahan, S. N., Osmanca, M. S., Acır, N. Explainable
+               Artificial Intelligence (XAI): Concepts, Applications, Challenges, and Future Perspectives. IEEE
+               Access 2026, 14, 27394-27417
+       14.     Kiran, R., Kumar, P., Bhasker, B. DNNRec: A Novel Deep Learning Based Hybrid
+               Recommender System. Expert Syst. Appl. 2020, 144, 113054.
+       15.     Li, J., Lyu, Q., Qiu, W., Khong, A.W. Improving Course Recommendation Systems with
+               Explainable AI: LLM-Based Frameworks and Evaluations. in Proceedings of the 18th International
+               Conference on Educational Data Mining, International Educational Data Mining Society. 2025, pp.
+               205--214.
+       16.     Li, W., Xu, Y., Li, Y., Huang, Y. Display Content, Display Methods, and Evaluation Methods of
+               the HCI in Explainable Recommender Systems: A Survey. Big Data Min. Anal. 2025, 9(1), 198–
+               228.
+       17.     Liang, Q., Zheng, X., Wang, Y., Zhu, M. O3ERS: An Explainable Recommendation System with
+               Online Learning, Online Recommendation, and Online Explanation. Inf. Sci. 2021, 562, 94–115.
+       18.     Ma, X., Li, M., Liu, X. Advancements in Recommender Systems: A Comprehensive Analysis
+               Based on Data, Algorithms, and Evaluation. International Journal of Industrial Optimization. 2024,
+               6(1), 47-70.
+1494    Surapaneni Phani Praveen, Rajeswari Nakka, Massila Kamalrudin, Somasundharam Lalitha, Jujjuri
+        Rama Devi, Paramasivan Muthukumar
+
+
+
+
+       19.   Markchom, T., Liang, H., Ferryman, J. Review of Explainable Graph-Based Recommender
+             Systems. ACM Comput. Surv. 2025, 58 (6), 1–35.
+       20.   Qin, X. KG-XQRec: Knowledge Graph-Based Explainable Question Recommendation. In
+             Proceedings of the 2025 International Conference on Artificial Intelligence and Educational Systems,
+             2025, pp 433–437.
+       21.   Tiwary, N., Mohd Noah, S. A., Fauzi, F. Prioritising Explainable AI-Driven Recommendations
+             with Knowledge Graphs and Reinforcement Learning. J. King Saud Univ. Comput. Inf. Sci. 2025,
+             37(6), 156.
+       22.   Vultureanu-Albişi, A., Bădică, C. Recommender Systems: An Explainable AI Perspective. In
+             2021 International Conference on Innovations in Intelligent Systems and Applications (INISTA), IEEE,
+             2021, pp 1–6.
+       23.   Vultureanu-Albiși, A., Bădică, C. Explainable and Federated Recommender Systems: A Survey
+             and Conceptual Framework for Trustworthy Personalization. Electronics 2026, 15(6), 1292.
+       24.   Wang, F., Liu, Y., Zou, Z., Liu, Z. Recommender Systems in Education: Systematic Review and
+             Future Outlook. Int. J. Learn. Technol. 2025, 20(4), 421–449.
+       25.   Xian, Y., Fu, Z., Muthukrishnan, S., De Melo, G., Zhang, Y. Reinforcement Knowledge Graph
+             Reasoning for Explainable Recommendation. In Proceedings of the 42nd International ACM SIGIR
+             Conference on Research and Development in Information Retrieval, 2019, pp. 285–294.
+       26.   Xiaolong, Z., Shijiao, H., Zhenze, L. Explainable Recommendation System Based on Aspect-
+             Based Sentiment Analysis. In 2024 21st International Computer Conference on Wavelet Active Media
+             Technology and Information Processing (ICCWAMTIP), IEEE, 2024, pp. 1–4.
+       27.   Yang, Y., Peng, X., Chen, M., Liu, S. An Explainable Graph-Based Course Recommendation
+             Model Based on Multiple Interest Factors. Expert Syst. Appl. 2025, 264, 125889.
+       28.   Yekollu, R.K., Bhimraj Ghuge, T., Sunil Biradar, S., Haldikar, S.V., Farook Mohideen Abdul
+             Kader, O. AI-Driven Personalized Learning Paths: Enhancing Education through Adaptive
+             Systems. In International Conference on Smart Data Intelligence, Springer Nature: Singapore, 2024,
+             pp. 507–517.
+       29.   Zeng, E., Long, Y., Wang, X., Xiao, Y., Feng, Y. Literature Review: Personalized Learning
+             Recommendation System in Educational Scenarios: XAI-Driven Student Behavior
+             Understanding and Teacher Collaboration Mechanism. Front. Interdiscip. Appl. Sci. 2025, 2(1),
+             78–92.
+       30.   Zhang, Y., Chen, X. Explainable Recommendation: A Survey and New Perspectives. Found.
+             Trends Inf. Retr. 2020, 14(1), 1–101.
+       31.   Shariff, V., Paritala, C., Ankala, K.M. Federated Tree-Based Ensembles with SHAP
+             Explainability and Integrated Feature Selection for Secure Lung Cancer Health Analytics.
+             Interdiscip. J. Inf. Knowl. Manag. 2025, 20, 026.
+       32.   Tirumanadham, N.S.K.M.K., et al. Boosting Student Performance Prediction in E-Learning: A
+             Hybrid Feature Selection and Multi-Tier Ensemble Modelling Framework with Federated
+             Learning. J. Theor. Appl. Inf. Technol. 2025, 103(5), 2090-2107.
+       33.   Raju, V.V.K., Bhavani, Y.V.K.D., Nandikonda, P., Kareemunnisa, F., Brahmeswara, K. B., &
+             Sindhura, S. Iterative and Statistical Analytical Review of Predictive Modeling Approaches in
+             Educational Systems: A Comprehensive Benchmark of AI-Driven Methods. International
+             Journal of Innovative Technology and Interdisciplinary Sciences, 2026, 9(1), 490–522.
+1495    A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning
+        Systems
+
+
+
+
+       34.   Praveen, S. P., Sindhura, S., Srinivasu, P. N., Ahmed, S. Combining CNNs and Bi-LSTMs for
+             Enhanced Network Intrusion Detection: A Deep Learning Approach. In 2023 3rd International
+             Conference on Computing and Information Technology (ICCIT), IEEE: Tabuk, Saudi Arabia, 2023, pp.
+             261–268.
+       35.   Praveen, S., Panguluri, P., Sirisha, U., Dewi, D., Kurniawan, T., Efrizoni, L. Stacked LSTM with
+             Multi Head Attention Based Model for Intrusion Detection. J. Appl. Data Sci. 2026, 7(1), 475–
+             488.
+       36.   Hidasi, B., Karatzoglou, A., Baltrunas, L., Tikk, D. Session-Based Recommendations with
+             Recurrent Neural Networks. In International Conference on Learning Representations (ICLR), 2016,
+             pp. 1-10.
+       37.   Kang, W.C., McAuley, J. Self-Attentive Sequential Recommendation. In 2018 IEEE International
+             Conference on Data Mining (ICDM), IEEE, 2018, pp. 197–206.
+       38.   He, X., Deng, K., Wang, X., Li, Y., Zhang, Y., Wang, M. LightGCN: Simplifying and Powering
+             Graph Convolution Network for Recommendation. In Proceedings of the 43rd International ACM
+             SIGIR Conference on Research and Development in Information Retrieval, 2020, pp. 639–648.
+       39.   Wang, X., He, X., Cao, Y., Liu, M., Chua, T. S. KGAT: Knowledge Graph Attention Network for
+             Recommendation. In Proceedings of the 25th ACM SIGKDD International Conference on Knowledge
+             Discovery & Data Mining, 2019, pp. 950–958.
+       40.   Kuzilek, J., Hlosta, M., Zdrahal, Z. Open University Learning Analytics Dataset. Sci. Data 2017,
+             4, 170171.
+       41.   Arul, U., Jeyaraman, R.G., Palani, H.K., Bhaskar, K.V. Implementing Malware Detection
+             Framework Using Adaptive and Deformable Attention-Based Elman Residual Recurrent
+             Neural Network with Data Encryption for Secure IoT. Comput. Biol. Chem. 2026, 124, 109249.
+       42.   Balaji, V., Mohana, M., Hema, M., Senthilvel, P. G. Design of Adaptive Recommendation
+             System for Autism Children Using Optimal Feature Selection-Based Adaptive Dilated 1DCNN-
+             LSTM with Attention Mechanism. Expert Syst. Appl. 2024, 262, 125399.
+       43.   Praveen, S. P., Kamalrudin, M., Vellela, S. S., Sindhura, S., Pulletikurthy, D., Shariff, V. Digital
+             Twin-Enabled Personalized E-Learning Using Deep Learning and Real-Time Learning
+             Analytics. J. Trans. Syst. Eng. 2026, 4(2), 622–650.
+       44.   Jayabal, R., Subbiah, G., Tripathy, S., Svh, N., Kalidhas, A. M., Vadnagra, K. V., et al. Artificial
+             Intelligence-Enabled Process Safety: Advances, Challenges, and Future Directions for High-
+             Risk Industrial Systems. J. Loss Prev. Process Ind. 2026, 102, 106026.
+

@@ -1,0 +1,516 @@
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/367498696
+
+
+
+Session based Song Recommendation Using Recurrent Neural Network
+
+Conference Paper · March 2022
+
+
+
+CITATIONS                                                                                                 READS
+0                                                                                                         14
+
+
+3 authors:
+
+            Chhotelal Kumar                                                                                          Mukesh Kumar
+            National Institute of Technology Patna                                                                   National Institute of Technology Patna
+            6 PUBLICATIONS 3 CITATIONS                                                                               43 PUBLICATIONS 415 CITATIONS
+
+              SEE PROFILE                                                                                                 SEE PROFILE
+
+
+
+            Amar Jindal
+            National Institute of Technology Patna
+            5 PUBLICATIONS 18 CITATIONS
+
+              SEE PROFILE
+
+
+
+
+ All content following this page was uploaded by Amar Jindal on 28 January 2023.
+
+ The user has requested enhancement of the downloaded file.
+    Session based Song Recommendation Using
+            Recurrent Neural Network
+
+            Chhotelal Kumar1 Mukesh Kumar2 and Amar jindal3
+
+              National Institute of Technology, Patna 800005, INDIA,
+                        chhotelalk.phd18.cs@nitp.ac.in
+
+
+
+      Abstract. The music platforms contain large number of songs. The user
+      is not likely to search the song which it may want to listen next. The rec-
+      ommendation system has solved this problem with collaborative filtering
+      approach extensively. However, these recommendation systems are heav-
+      ily relying on ratings information from the user. The absence of user in-
+      formation creates a new challenge in the music recommendation domain.
+      The deep learning approaches found to be effective in sequence informa-
+      tion learning. This investigation proposed a RNN based framework for
+      session-based recommendation. This system predicts the next song based
+      on the current ongoing session of songs. The proposed system uses im-
+      proved session-parallel mini-batches and a ranking loss function to alter
+      the basic RNN. This experiment shows that the relative improvement in
+      ranking metric Precision@N, over the existing session-based methods.
+
+      Keywords: Recommendation System, collaborative filtering , Sequence
+      aware recommendation system, Session-based Recommendation System,
+      RNN
+
+
+1   Introduction
+Session-based item recommendation is a typical recommendation problem that
+may be seen in various domains such as e-commerce, news, hotel search, classified
+sites, music, and video recommendation. Because prior user history logs are
+sometimes unavailable in session-based settings (either because the user is new,
+not signed in, or not tracked), recommender systems must rely only on the user’s
+activities in current sessions to deliver correct suggestions.
+    Most of these tasks were previously handled using very simple approaches
+such as collaborative filtering or content-based methods. Recurrent Neural Net-
+works (RNNs) have evolved as powerful techniques for modelling sequential data
+in the deep learning. Speech recognition, machine translation, time series fore-
+casting, and signal processing have all benefited from these models. RNNs have
+recently been used for the session-based recommendation setting in recommender
+systems, with improved results [20, 21]. RNNs have the benefit of being able
+to model the entire session of user interactions, as compared to conventional
+similarity-based[6] approaches for recommendation (clicks, views, etc.). RNNs
+may learn the ’theme’ of a session by modelling the entire session, and hence
+2         C L Kumar et al.
+
+                                                                      Ranked Songs
+                                                                   Songx
+                                                                   Songy
+     Song1 Song2 Song3                       SBRS                          Next predicted
+                                                                   Songz
+                                                                               song
+
+
+                                                                   Songk
+    Current active session
+                                             Song
+                                            Corpus
+
+
+                             Fig. 1. Next song prediction model.
+
+
+
+deliver recommendations with higher accuracy than previous approaches.
+
+    The task of session-based recommendation has been applied to RNNs. Rank-
+ing items according to the user preference is one of the main goal of recommen-
+dation system. It is less important to rank or score items at the bottom of the list
+(items that the user will not like), but it is critical to rank correctly the items at
+the top of the list (items that the user will like) (first 5 positions, 10 positions or
+20 positions). To do this using machine learning, one must often employ learning
+to rank techniques, specifically ranking objectives and loss functions. Ranking
+loss functions, namely pairwise ranking loss functions, are used in contemporary
+session-based RNN techniques.
+
+    The deep learning algorithms propagates gradient across several layers. So,
+choosing a suitable ranking loss impacts majorly on the performance. in the
+case of RNNs ’back in time’ over previous steps, to optimize model parameters,
+the quality of these gradients originating from the loss function has an impact
+on the quality of the optimization and the model parameters. The nature of
+recommendation task involves huge output space due to presence of large number
+of songs. It presents specific issues that must be considered while developing a
+good ranking loss function. We shall see that how this enormous output space
+issue is addressed is critical in reaching our goals.
+    The present investigation used ranking loss function in RNNs framework for
+session-based recommendation system. The BPR-max loss function is one of
+the popular ranking loss function that has been improve the RNN framework
+performance. The experiments have been done on 30Music dataset indicates a
+considerable boost in the recommendation results as assessed by Precision. The
+proposed framework shows the promising results over traditional recommenda-
+tion systems.
+    The rest of the paper is organized as follows. Section 2, discusses about the
+existing works in this domain. The section 3 describes the proposed methodology
+of the SBRSs. In Section 4, the detailed statistical description of the dataset,
+                                         Song Recommendation using RNN           3
+
+evaluation metric and comparative result analysis has been discussed. Finally,
+Section 5, concludes the work carried out in this paper.
+
+
+2   Related Work
+
+Most of the approaches proposed in the literature for session-based recommen-
+dation involve some form of sequence learning. Early versions of these techniques
+were based on the idea of frequent sequential patterns and Markov chain. Early
+techniques were used to predict the online behaviour of users. They were also
+used to predict users’ recommendations in various e-commerce and music domain
+areas [2]. Much of the research in recommendation systems has been on models
+that operate when a user identification is available, and a clear user profile can
+be created. As per literature, most of the research carried out in this field are
+based on the models such as matrix factorization [3], frequent pattern mining
+[4], and nearest neighbourhood [5]. The item-to-item recommendation technique
+[6, 5] is one of the most common ways used in the session-based recommender
+system and a logical solution to the issue of a non-existent user profile. Items
+that are frequently clicked together in sessions are considered to be similar under
+this configuration, and an item-to-item similarity matrix is pre-computed from
+the available session data. During the session, this similarity matrix is simply
+leveraged to suggest the most similar products to the user that has been recently
+clicked. Despite its simplicity, it has been proved to be a successful and com-
+monly used technique. While efficient, these approaches only consider the user’s
+most recent click, thereby ignoring information from previous clicks.
+     Frequent pattern mining (FPM) [4] is one of the commonly used technique for
+SBRS, but the computational requirements becomes challenging. Also, finding
+suitable algorithm parameters can be challenging. In some cases, frequent item
+sequences do not lead to better predictions. Mobasher et al. [7] introduced one
+of the very first session-based methods based on frequent pattern mining for
+recommending the next web page to visit.
+     Markov Decision Processes(MDP) [8] are well suited for modeling sequential
+stochastic decision problems. It is defined as a four tuple ⟨S, A, Rwd, tr ⟩, where
+S denotes the finite set of states, A denotes a set of actions (actions can be rec-
+ommendations in case of recommender system), Rwd denotes reward function,
+and tr denotes the state-transition function. Shani et al. [8] proposed an MDP-
+based SBRS in the area of e-commerce and demonstrated the value of SBRS
+from a business perspective. Garcin et al. [9, 10] proposed an MDP-based SBRS
+that was applied in the news domain to recommend personalized news. Tavakol
+et al. [11] used a contextual session-based approach and provided a sequential
+framework for detecting the user’s objective (the session’s subject) using factored
+Markov decision processes (fMDPs). Along with MDPs, some other side infor-
+mation has been used on a private e-commerce dataset from a European fashion
+retailer. Jannach et al. [12] wanted to see how successful it is to use and combine
+long-term models with short-term adaption techniques. The findings show that
+preserving visitors’ short-term content-based and recency-based profiles can lead
+4        C L Kumar et al.
+
+to considerable accuracy gains. To make sequential recommendations, Markov
+chain models assume that the user’s future behaviour only depends on the very
+last behaviour or last few behaviours. Transition probability between items is
+evaluated in order to recommend the next item. The transition matrix provides
+the probability value of recommending an item by the user after consuming a
+sequence of items. The main drawback of applying Markov chains in the field
+of session-based recommendation systems is that when trying to capture all the
+possible sequences of user preferences becomes unmanageable.
+    Hariri et al. [13] proposed the nearest neighbors-based SBRS in order to
+generate a context-aware music playlist. More complex approaches based on
+Latent Markov Embedding were proposed for playlist generation by Chen et al.
+[14]. However, the nearest neighbors based technique and its modified variants
+have proved to be highly competitive against today’s modern neural network
+methods [15]. The extended General Factorization framework (GFF) [19] also
+has the capability to use session data for recommendations and can be achieved
+by modeling a session by the sum of its event.
+    Hidasi et al. [17] presented the possibly first deep learning-based SBRS pop-
+ularly known as gru4rec for predicting the imminent next item click event. They
+employed the YOOCHOOSE1 dataset [18] for assessment and used an item-based
+nearest-Neighbors approach as one of their baselines for comparing the results.
+This model was continually improved later on by applying some different opti-
+mization objectives [19, 20]. In terms of prediction accuracy, they discovered that
+their neural network-based approach outperforms this methodology. Following
+their method and the increasing interest in neural networks, many other ideas us-
+ing deep learning approaches to solve session-based recommendations have been
+deployed. It has been observed that the progress in the field of session-based
+recommendation seems still limited.
+
+
+3     Proposed Method
+
+The session based recommendation system is based upon the session sequences.
+The present investigation problem uses the sequence of songs. The RNN is well
+suitable model for the sequential data learning. The RNN model has been widely
+used in many different domains. In session based recommendation system, the
+RNN is capable to learn the sequential patterns of the session sequence. The
+fig. 2 shows the architecture of predicting the next song based on the previous
+session of songs sequence.
+    Problem definition: This work focuses on ”next item recommendation” in
+recommendation system. The term ’item’ here is referred as a song. We focus on
+the prediction problem here, which asks how effectively we can predict the next
+song the user desires to listen given a series of songs.
+    Definition of Next Song Recommendation A query q is a collection of
+songs in a session. Given a query q, the algorithm ranks all candidate songs and
+1
+    https://www.kaggle.com/chadgostopp/recsys-challenge-2015
+                                        Song Recommendation using RNN           5
+
+                    Music session
+                     sequences
+
+
+
+
+     Train                                  Test
+   Sequences                             Sequences
+
+
+
+
+              RNN
+                                         Trained                    Predicted
+                                          model                     next song
+
+        Fig. 2. Proposed framework for song prediction model using RNN.
+
+
+recommends the top-k songs most likely to appear following the query q songs.
+Given a few songs, we predict the best song that may potentially come to the
+next of them, as seen in Figure 3.
+
+
+
+
+                      Fig. 3. Next song prediction problem.
+
+
+   The listened song log data is a valuable information and considered as an
+implicit feedback information. This requires no effort on user’s side to collect
+their preferences and privacy concerns much. The proposed method predicts
+the next song based on previous sessions listened songs. Since, a person state
+of mind may vary according to the situation, time, activity, and location the
+current ongoing session is the most valuable information.
+   In session-based Recommendation, when a user enters a website and clicked
+on the first item is considered as the initial input of the Recurrent Neural Net-
+works. After first click, each click of the user will produce an output as a rec-
+ommendation and that output will be dependent on all the previous clicks. In
+order to encode the categorical data where features do not have any specific or-
+6      C L Kumar et al.
+
+
+
+
+     Fig. 4. Architecture of modified RNN used for song recommendation [17].
+
+
+der 1-of-N encoding will be a good solution. In 1-of-N encoding, every song has
+been mapped as a binary variable. The 1-of-N encoding of the current session
+has been provided as an input to the RNN model. The term ’N’ represents the
+total number of unique songs present in the song corpus. If the associated song is
+present in the current session, then the corresponding value will be 1, otherwise
+0 in the 1-of-N encoding. The network’s input is a single song that is 1-of-N en-
+coded in a vector that represents the entire song space, and the network’s output
+is a vector of similar shape that should yield a ranking distribution for the next
+song. In the present RNN model, the number of RNN layers are 20. The batch
+size and learning rate for the training of the RNN model has been kept as 16
+and 0.1 respectively. The momentum of the model has been set to 0.1 and to
+avoid the overfitting of the RNN model, the dropout has been set as 0.1.
+    In order to efficiently train the proposed model session parallel mini batches,
+sampling technique for getting output and a BPR-max ranking loss function is
+used.
+
+
+4   Result and discussion
+
+In this section, details of the datasets used for evaluating the SBRSs based model
+is given as well as the pre-processing steps have been described. After that, the
+findings of our offline evaluation are presented and some important conclusion
+from the results have been drawn.
+                                             Song Recommendation using RNN          7
+
+4.1     Dataset Description
+30Music2 [1] dataset is a real-world publicly available collection of playlists and
+listening data. LastFM API was used to retrieve the data from internet radio
+stations. In this dataset each sample consists of four attributes i.e., session id,
+timestamp, item id, and user id. In the pre-processing phase, all the sessions
+having only one event were removed.
+
+
+                       Table 1. 30Music dataset characteristics.
+
+                   Number of Sessions                  2,764,474
+                   Number of Events                    31,351,954
+                   Number of Users                     4,106,341
+                   Number of Items                     210,633
+                   Minimum Session Length              1
+                   Maximum Session Length              198
+                   Average Session Length              11
+                   Minimum Number of Session Per User 1
+                   Maximum Number of Session Per User 38
+                   Average Number of Session Per Users 3.70
+
+
+
+
+4.2     Dataset Splitting Approach
+It should be emphasized that just a few research have addressed their data split-
+ting techniques for model training, validation, and testing. It can be described
+by two primary types on the basis of whether the user information has been in-
+corporated in the model creation or not. This has been examined on the basis of
+the public source codes of the relevant authors. Dataset can be split into train-
+ing and testing in various ways. It depends on whether the user information has
+been incorporated in the model creation or not. Whenever user id is presented
+in the dataset, it is better to split the dataset in such a way that every user’s last
+session is kept in testing set and all the remaining session is kept in the train
+set. Whenever user id is not present in the dataset, consider the most recent
+n days of user’s sessions as the test set and remaining as the train set. In the
+present investigation, all the dataset contains user id. So, in order to capture the
+personalized behavior of the users, this investigation follows the first approach.
+A user having n sessions have been split into training and testing set in such a
+way that first (n − 1) sessions will be in the training set and the last session (nth
+session) of every user has been kept in the testing set.
+    Different ways of data filtering techniques lead to different data scenarios
+that would result in varying performance. Splitting of the dataset into train set
+and test set is done in such a way that the last session of every user is taken as
+a test set whereas all the remaining sessions are taken as a train set.
+2
+    http://recsys.deib.polimi.it/datasets/
+8      C L Kumar et al.
+
+4.3   Evaluation Metrics
+
+Recommender systems can recommend a list of items at any point of time and
+the user might pick first few items from that list. Therefore, the primary eval-
+uation metrics used in this work are Precision@N, Recall@N, and MRR@N. It
+is described in terms of recommendation systems as follows. Precision gives the
+number of items recommended which are relevant out of the total number of
+items recommended and could be defined by the Eq. 1. Recall gives the number
+of items recommended which are relevant out of the total number of items that
+are relevant and could be defined by the Eq. 2. Mean Reciprocal Rank (MRR)
+metric finds the rank of the first relevant item in the recommended list and then
+takes the reciprocal of the rank, the average across all the queries; the measure
+is known as Mean reciprocal rank. It is defined by the Eq. 3.
+
+                     N umber of items recommended which are relevant
+      P recision =                                                            (1)
+                              N umber of items recommended
+
+                   N umber of items recommended which are relevant
+        Recall =                                                              (2)
+                               N umber of relevant items
+                                          |Q|
+                                      1 X 1
+                            M RR =                                            (3)
+                                     |Q| i=1 ranKi
+
+
+
+        Table 2. Performance comparison at recommendation length of 5.
+
+                     Model Precision@5 Recall@5 MRR@5
+                     POP    0.003      0.018    0.009
+                     IKNN   0.076      0.380    0.260
+                     SKNN 0.041        0.205    0.098
+                     V-SKNN 0.195      0.137    0.088
+                     RNN    0.095      0.073    0.223
+
+
+
+
+        Table 3. Performance comparison at recommendation length of 10.
+
+                   Model Precision@10 Recall@10 MRR@10
+                   POP    0.003       0.030     0.010
+                   IKNN   0.045       0.454     0.270
+                   SKNN 0.028         0.285     0.010
+                   V-SKNN 0.159       0.195     0.104
+                   RNN    0.064       0.087     0.226
+                                         Song Recommendation using RNN           9
+
+        Table 4. Performance comparison at recommendation length of 20.
+
+                 Model Precision@20 Recall@20 MRR@20
+                 POP    0.002       0.051     0.009
+                 IKNN   0.025       0.506     0.274
+                 SKNN 0.015         0.307     0.111
+                 V-SKNN 0.112       0.244     0.110
+                 RNN    0.042       0.100     0.228
+
+
+4.4   Comparative Result
+The result achieved by RNN model and three other models POP, IKNN, and
+SKNN on the 30Music dataset has been presented in the Table 2 to 4. To compare
+the performance of various methods on 30Music dataset, three metrics, Preci-
+sion@N (P@N), Recall@N (R@N), and MRR@N, have been used, where the
+value of N is set to 5, 10,and 20. For all the metrics mentioned above, greater
+value implies better performance. The greatest value is written in bold across
+all approaches.
+    Table 2, 3 and 4 show that when the recommendation length is 5, RNN gives
+better results in terms of precision where as in terms of recall and MRR IKNN
+gives better result.
+
+
+5     Conclusion and Future Work
+Being able to predict the short-term interest of a user in an online session is
+a very relevant problem in practice. In this study, we have compared various
+computational and algorithmic approaches for session-based song recommenda-
+tion. In this study we have used RNN to learn over session sequences in the
+training sequences set to predict the next song. By observing the above result,
+it can be seen that the recommendation quality changes when the length of the
+recommendation list varies.
+    SBRS generally ignores the user’s long term preference that can be captured
+by the collaborative filtering based methods, so in future we can develop a model
+which can capture both short term preferences as well as long term preferences.
+Along with session context, features of items of the session can be incorporated
+to improve the quality of recommendation.
+
+
+References
+1. Turrin, Roberto, Massimo Quadrana, Andrea Condorelli, Roberto Pagano, and
+   Paolo Cremonesi. “30Music Listening and Playlists Dataset.” In RecSys Posters.
+   2015.
+2. Bonnin, Geoffray, and Dietmar Jannach. “Automated generation of music playlists:
+   Survey and experiments.” ACM Computing Surveys (CSUR) 47, no. 2 (2014): 1-35.
+3. Koren, Yehuda, Robert Bell, and Chris Volinsky. “Matrix factorization techniques
+   for recommender systems.” Computer 42, no. 8 (2009): 30-37.
+10      C L Kumar et al.
+
+4. Kamehkhosh, Iman, Dietmar Jannach, and Malte Ludewig. “A Comparison of Fre-
+   quent Pattern Techniques and a Deep Learning Method for Session-Based Recom-
+   mendation.” In RecTemp@ RecSys, pp. 50-56. 2017.
+5. Linden, Greg, Brent Smith, and Jeremy York. “Amazon. com recommendations:
+   Item-to-item collaborative filtering.” IEEE Internet computing 7, no. 1 (2003): 76-
+   80.
+6. Sarwar, Badrul, George Karypis, Joseph Konstan, and John Riedl. “Item-based
+   collaborative filtering recommendation algorithms.” In Proceedings of the 10th in-
+   ternational conference on World Wide Web, pp. 285-295. 2001.
+7. Mobasher, Bamshad, Honghua Dai, Tao Luo, and Miki Nakagawa. “Using sequential
+   and non-sequential patterns in predictive web usage mining tasks.” In 2002 IEEE
+   International Conference on Data Mining, 2002. Proceedings., pp. 669-672. IEEE,
+   2002.
+8. Shani, G., Heckerman, D., Brafman, R. I., & Boutilier, C. (2005). “An MDP-based
+   recommender system.” Journal of Machine Learning Research, 6(9).
+9. Garcin, Florent, Kai Zhou, Boi Faltings, and Vincent Schickel. “Personalized news
+   recommendation based on collaborative filtering.” In 2012 IEEE/WIC/ACM Inter-
+   national Conferences on Web Intelligence and Intelligent Agent Technology, vol. 1,
+   pp. 437-441. IEEE, 2012.
+10. Garcin, Florent, Christos Dimitrakakis, and Boi Faltings. “Personalized news rec-
+   ommendation with context trees.” In Proceedings of the 7th ACM Conference on
+   Recommender Systems, pp. 105-112. 2013.
+11. Tavakol, Maryam, and Ulf Brefeld. “Factored MDPs for detecting topics of user
+   sessions.” In Proceedings of the 8th ACM Conference on Recommender Systems,
+   pp. 33-40. 2014.
+12. Jannach, Dietmar, Lukas Lerche, and Michael Jugovac. “Adaptation and evalua-
+   tion of recommendations for short-term shopping goals.” In Proceedings of the 9th
+   ACM Conference on Recommender Systems, pp. 211-218. 2015.
+13. Hariri, Negar, Bamshad Mobasher, and Robin Burke. “Context-aware music rec-
+   ommendation based on latent topic sequential patterns.” In Proceedings of the sixth
+   ACM conference on Recommender systems, pp. 131-138. 2012.
+14. Chen, Shuo, Josh L. Moore, Douglas Turnbull, and Thorsten Joachims. “Playlist
+   prediction via metric embedding.” In Proceedings of the 18th ACM SIGKDD inter-
+   national conference on Knowledge discovery and data mining, pp. 714-722. 2012.
+15. Ludewig, Malte, and Dietmar Jannach. “Evaluation of session-based recommenda-
+   tion algorithms.” User Modeling and User-Adapted Interaction 28, no. 4-5 (2018):
+   331-390.
+16. Hidasi, Balázs, and Domonkos Tikk. “General factorization framework for context-
+   aware recommendations.” Data Mining and Knowledge Discovery 30, no. 2 (2016):
+   342-371.
+17. Hidasi, Balázs, Alexandros Karatzoglou, Linas Baltrunas, and Domonkos Tikk.
+   “Session-based recommendations with recurrent neural networks.” arXiv preprint
+   arXiv:1511.06939 (2015).
+18. Ben-Shimon, David, Alexander Tsikinovsky, Michael Friedmann, Bracha Shapira,
+   Lior Rokach, and Johannes Hoerle. “Recsys challenge 2015 and the yoochoose
+   dataset.” In Proceedings of the 9th ACM Conference on Recommender Systems,
+   pp. 357-358. 2015.
+19. Hidasi, Balázs, and Domonkos Tikk. “General factorization framework for context-
+   aware recommendations.” Data Mining and Knowledge Discovery 30, no. 2 (2016):
+   342-371.
+                                                                   Song Recommendation using RNN           11
+
+                         20. Hidasi, Balázs, and Alexandros Karatzoglou. “Recurrent neural networks with top-
+                            k gains for session-based recommendations.” In Proceedings of the 27th ACM inter-
+                            national conference on information and knowledge management, pp. 843-852. 2018.
+                         21. Zhang, Yuyu, Hanjun Dai, Chang Xu, Jun Feng, Taifeng Wang, Jiang Bian, Bin
+                            Wang, and Tie-Yan Liu. ”Sequential click prediction for sponsored search with re-
+                            current neural networks.” In Proceedings of the AAAI Conference on Artificial In-
+                            telligence, vol. 28, no. 1. 2014.
+
+
+
+
+View publication stats
+

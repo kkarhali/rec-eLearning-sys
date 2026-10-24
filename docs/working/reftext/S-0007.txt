@@ -1,0 +1,1298 @@
+                       This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                                 content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+Date of publication xxxx 00, 0000, date of current version xxxx 00, 0000.
+Digital Object Identifier 10.1109/ACCESS.2017.Doi Number
+
+
+Developing a Personalized E-Learning
+and MOOC Recommender System in IoT-
+Enabled Smart Education
+Samina Amin1, M. Irfan Uddin1*, Wali Khan Mashwani2, Ala Abdulsalam Alarood3,
+Abdulrahman Alzahrani4, and Ahmed Omar Alzahrani5
+1
+ Institute of Computing, Kohat University of Science and Technology (KUST), Kohat 26000, Pakistan. (kustsameena@gmail.com,
+irfanuddin@kust.edu.pk)
+2
+ Institute of Numerical Sciences, Kohat University of Science and Technology (KUST), Kohat 26000, Pakistan. (walikhan@kust.edu.pk)
+3
+ College of Computer Science and Engineering, University of Jeddah, Saudi Arabia. (aasoleman@uj.edu.sa, alaa.alarood@gmail.com)
+4
+ Department of Information System and Technology, College of Computer Science and Engineering, University of Jeddah, Jeddah 21493, Saudi
+Arabia. (aasalzahrani1@uj.edu.sa)
+5
+ Faculty of Computer Science and Engineering, University of Jeddah. (aoalzahrani@uj.edu.sa)
+
+
+
+
+Corresponding author: M. Irfan Uddin* (irfanuddin@kust.edu.pk).
+
+“This work was supported was supported in part by the university of Jeddah.”
+
+
+
+ABSTRACT Smart strategies and intelligent technologies are enabling the designing of a smart learning
+environment that successfully supports the development of personalized learning and adaptive learning.
+This trend towards integration is in line with the growing prevalence of Internet of Things (IoT)-enabled
+smart education systems, which can leverage Machine Learning (ML) techniques to provide Personalized
+Course Recommendations (PCR) to students. Furthermore, the existing recommendation techniques are
+based on either explicit or implicit feedback and fail to capture the changes in learners’ preferences while
+integrating implicit or explicit feedback. To this end, this paper proposes a new model for personalized
+learning and PCR that is enabled by a smart E-Learning (EL) platform. The model aims to gather data on
+students' academic performance, interests, and learning preferences and utilize this data to recommend the
+courses that will be most beneficial to each student. The proposed approach makes suggestions based on the
+learner's interactions with the system and the cosine similarity in related contents by combining explicit
+(user ratings) and implicit (views and behavior) methodologies. The suggested method makes use of ML
+algorithms and an EL Recommender System (RecSys) based on Collaborative Filtering (CF).This includes
+Random Forest Regressor (RFR), Decision Tree Regressor (DTR), K-Nearest Neighbors (KNN), Singular
+Value Decomposition (SVD), eXtreme Gradient Boosting Regressor (XGBR), and Linear Regression (LR).
+The proposed solution is benchmarked against existing approaches on both predictive accuracy and running
+time. Experimental results are conducted based on two benchmark datasets (Coursera and Udemy). The
+proposed model outperforms existing top-K recommendations techniques in terms of accuracy metrics such
+as precision@k, Mean Average Precision (MAP)@k, recall@k, Normalized Discounted Cumulative Gain
+(NDCG)@k, Mean Squared Error (MSE), Root Mean Squared Error (RMSE), and Mean Absolute Error
+(MAE) for PCR. From the experiments, it can be shown that SVD can perform well in terms of higher
+accuracy and MAP and NDCG and lower MAE, RMSE, and MSE values when contrasted to other
+proposed algorithms because it is better suited to capture complex student-course interactions. The
+proposed solutions are promising on two different datasets and can be applied to various RecSys domains.
+
+INDEX TERMS Machine learning; collaborative filtering; recommender system; e-learning; IoT; smart
+education; personalized learning.
+
+
+I. INTRODUCTION
+
+
+VOLUME XX, 2017                                                                                                                                                                      1
+                       This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+The purpose of education has been to gradually enhance the                                         Conventional EL platforms rely on static content and
+atmosphere of smart learning and techniques throughout the                                    assume that all learners are homogeneous, making it
+last few years. Another element that accelerates learning is                                  impossible for them to meet the requirements of every single
+the use of different techniques. Students' progression is                                     student. These platforms are less adaptable, and if a platform
+boosted by ongoing performance evaluation and monitoring                                      supporting a specific method has been created and put into
+employing a variety of sensing devices and Internet-                                          place, it is less likely to evolve in response to how students
+connected devices. Everyone has several possibilities for                                     engage and what they prefer [10].
+achieving high standards and novel developments due to                                             The quick transition to smart education, especially in the
+smart education. Furthermore, IoT advancements are                                            age of pandemics, makes the use of EL, remote learning
+expected to transform the traditional educational system into                                 platforms, and hybrid models necessary. It becomes
+a smart learning environment. IoT has the power to compel                                     necessary to develop adaptive and personalized education to
+the interconnection of items and the use of sensed data in                                    lessen the drawbacks of distance learning and keep high
+smart education. The use of IoT can improve the learning                                      standards of accomplishment. ML, the Internet of behavior,
+involvement of students, enabling them to study quickly,                                      and explainable AI are just a few of the technologies
+successfully, and pleasantly [1], [2], [3].                                                   influencing the direction of smart education in the era of EL
+     Technology has become an essential component of the                                      and MOOC through personalization and customization [11].
+education sector, contributing to the enhancement of                                               Due to the emergence of COVID-19 and the subsequent
+educational quality and the promotion of knowledge sharing                                    closure of educational institutions, authorities proposed
+among students worldwide via various platforms [4], [5], [6].                                 alternative methods for learning in emergencies to ensure
+EL, a form of education delivered through the Internet, has                                   students continue their education and prevent the spread of
+emerged as an effective means of information exchange and                                     the virus [12]. Traditional educational methods were replaced
+learning. EL platform enables learners to enhance their                                       by EL, also known as online learning, as social gatherings in
+knowledge and skills without needing to attend physical                                       educational institutions were deemed a high-risk activity for
+classes or be present at an educational institution due to                                    the spread of the virus. EL has gained significant attention in
+factors such as the inaccessibility of institutions or their                                  recent years and has become a crucial means of acquiring
+remote locations [7]. However, IoT-enabled smart education                                    knowledge, not only for students in schools and universities
+systems can be incredibly useful in providing PCR to                                          but also for lifelong learners seeking to improve their social
+students using ML techniques. The system can gather data                                      and workplace skills [13]. Coursera is an example of a
+about students' academic performance, interests, and learning                                 MOOC platform that offers courses, degrees, programs, and
+preferences, and use this data to suggest the most appropriate                                credentials from renowned institutions and businesses
+courses for them. In real-time data collection, IoT can                                       including Stanford, Harvard, Google, and IBM. MOOC
+facilitate remote learning by enabling students to access                                     offers online courses and materials spanning a variety of
+educational content and resources from anywhere. This                                         disciplines like computer science, mathematics, and business.
+includes online courses, video conferencing tools, and virtual                                Learners must choose the courses and materials that will help
+laboratories. In the proposed work, we use online course data                                 them advance their careers and remain competitive in the
+extracted from MOOC platforms, including Udemy and                                            global economy from the many options accessible [14].
+Coursera.                                                                                     Udemy1 is a MOOC platform that offers a wide range of
+     The Massive Open Online Courses (MOOC) platform's                                        courses on various topics, including business, technology,
+learning materials are growing daily as a result of the                                       personal development, and the arts, among others. It enables
+digitization and network exchange of educational materials                                    instructors to build and distribute courses on the platform,
+[8]. On the one hand, learners can always find the curriculum                                 and it also allows learners to access courses on demand.
+resources they actually need when it comes to various                                         Udemy's courses are designed for learners of all levels, from
+educational materials; due to learners' varying levels of                                     beginner to advanced, and they offer various formats, such as
+expertise, it might be challenging for them to accurately                                     video lectures, quizzes, and assignments. Additionally,
+recognize the content of the materials itself [9]. Because they                               Udemy offers a certificate of completion for many courses
+cannot quickly eliminate the learning resources they are                                      upon finishing them. Therefore, it is important to create
+interested in, students get lost or make ill-informed decisions                               RecSys to encourage learners in choosing academic courses
+wasting extra time. The MOOC system places a lot of                                           or learning contents in EL.
+emphasis on the course or video suggestion because it                                              RecSys are the main information filtering solutions that
+enables students to find materials for their learning needs.                                  are efficient for increased internet availability,
+The MOOC platforms can successfully assist learners in                                        personalization tendencies, and evolving computer user
+coping with issues like resource overload and knowledge                                       activities. Although current RecSys are effective at delivering
+fragmentation by recommending instructional materials that                                    reasonable suggestions, they continue to struggle with issues
+match their preferences and requirements.
+                                                                                                  1
+                                                                                                      https://www.udemy.com/
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+including accuracy, scalability, and cold-start [15]. Finding                                 relevant and engaging content, these systems can help
+precise information from data sources is becoming more                                        students learn more effectively and efficiently.
+challenging due to the student population's ever-growing                                           According to our knowledge, many students continue to
+access to EL resources. Personalization systems like adaptive                                 be curious about how to select the most suitable courses to
+EL and RecSys simplify the process of finding information                                     take during the learning experience. Students frequently
+from data pools, but they encounter challenges like data                                      select appropriate courses according to their preferences,
+scarcity, cold-start, scalability, time consumption, and                                      interests, assistance from accompanying experts, etc. The
+accuracy [16].                                                                                proposed study aims to develop a PCR using ML and CF
+     Personalized RecSys [17], [18] are capable by offering                                   techniques to predict students' academic performance and
+engaging content that matches users' interests and contributes                                recommend appropriate courses. The study will compare the
+to alleviating the problem of information overload. Most                                      effectiveness of CF and ML techniques. The results could
+frequently, recommendation algorithms present customers                                       provide insights into developing an effective PCR, but ethical
+with possible items based on a range of data. RecSys uses the                                 considerations must be considered to ensure unbiased
+history of user-item interactions to suggest items in real-                                   recommendations. The material/content of the MOOCs
+world situations, and it then solicits user feedback to improve                               regarding the students’ profiles will be classified into
+those suggestions. In other ways, RecSys also makes                                           beginners, intermediate, expert, difficulty, and all levels to
+recommendations for products based on interactions with                                       make recommendations. By applying explicit (user ratings)
+users to learn about those users' preferences. The initial                                    and implicit (views and behavior e.g., the video lecture the
+recommendation study mainly concentrates on designing                                         students have watched, the articles they have read, or the
+content-based filtering and CF techniques to achieve this                                     exams/assignments they have done, to identify patterns)
+[19], [20]. Personalized learning and PCR are important                                       techniques to make recommendations based on the learner's
+features for EL platforms to enhance the learning experience                                  interactions with the system and the cosine similarity in the
+of their users. CF is a popular technique used to build such                                  similar contents. Additionally, the proposed model will
+models [21], [22].                                                                            combine temporal course correlation explicitly and learners’
+     Numerous colleges and universities are recognizing this                                  preferences and interest in course content implicitly. To this
+idea and approach. They create a learning environment                                         end, the Udemy data is utilized for learner’s implicit
+online and open their courses for free on the MOOC system                                     behavior, and Coursera data is utilized to make
+to make it easier for students to learn online and share                                      recommendations based on explicit behavior. Then the
+information. Due to the abundance of network resources at                                     explicit and implicit feedback are combined by designing a
+this time, students are having difficulties swiftly and                                       matrix for each learner group. CF and ML algorithms are
+precisely locating the right course materials. Therefore, the                                 applied to the matrix to generate recommendations for each
+current research priorities in curriculum suggestion are how                                  learner.
+to distribute knowledge, convey relevant knowledge to                                              To ensure that learning materials are personalized to
+people who need it, reduce redundant knowledge generation,                                    each learner, smart educational systems should emerge. This
+and encourage the widespread utilization of knowledge more                                    work aims to create a novel PCR that provides learners with
+effectively.                                                                                  the best learning materials based on their choices,
+     Integrating MOOC resources into the learning process is                                  preferences, interests, past performance, learning style,
+crucial, and the internet and big data analysis technology                                    contextual knowledge, and information-storage abilities. For
+offer significant benefits for learners. However, finding                                     EL in smart education, a novel RecSys based on CF using
+suitable MOOCs has become complex due to their variety                                        ML approaches is introduced. To deliver personalized
+and easy access to platforms such as Udacity, Coursera,                                       learning materials, this strategy is integrated into a smart
+Udemy, and edX, and learners can be overwhelmed by the                                        learning environment. By the design, implementation,
+vast amount of information offered. As distance learning                                      analysis, and assessment of a personal learning framework,
+demand grows, RecSys solutions have emerged to enhance                                        we demonstrate the effectiveness of the proposed RecSys
+course selection quality and help learners navigate the                                       model for top@k courses. Based on the insights obtained
+overwhelming amount of course information available.                                          from data analysis, It should also consider the student's IoT-
+MOOC-based RecSys provides suggested quality courses to                                       enabled devices and their usage patterns to personalize the
+learners. One way that IoT can be used to improve education                                   recommendations further. Personalization and adaptability
+is through the development of personalized EL and MOOC                                        are currently crucial components of technology integration
+RecSys. These systems can collect data from students, such                                    due to the quick development of EL systems. For instance,
+as their learning styles, interests, and progress, to recommend                               personalized learning environments are created to give
+the most relevant and engaging content. This can help                                         students control over their learning environment and
+students learn more effectively and efficiently. Personalized                                 experience.
+EL and MOOC RecSys can be valuable tools for improving
+smart education. By providing students with the most
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+A. Research Contributions                                                                        Numerous approaches have been established in recent
+     1. To provide a paradigm for smart education. To                                         years and evaluated against publicly accessible datasets. The
+          ascertain if the current educational systems                                        RecSys problem has been approached in a variety of ways in
+          adequately meet learners' needs, the study examines                                 the literature. These techniques are divided into content-
+          information on student behavior.                                                    based filtering [31], [32], CF [33], [34], and hybrid [35]
+     2. Based on the data collected and analyzed, the                                         algorithms. Popular buckets incorporate heuristic approaches,
+          system would provide PCR to each student. The                                       matrix factorization-based CF approaches [36], [37],
+          recommendation engine would use ML algorithms                                       neighborhood-based CF approaches, and ML approaches.
+          to suggest courses that match the student's academic                                   There is a lot of research has been conducted on PCR. For
+          performance, interests, learning styles, and learning                               instance, W. Chen et al. [38] presented a hybrid RecSys. To
+          preferences.                                                                        acquire content-related items, it leverages item-based CF.
+     3. To explore CF and ML techniques, including RFR,                                       These items are then filtered using a sequential pattern
+          KNN, DTR, SVD, XGBR, and LR in order to                                             mining technique following typical learning sequences. To
+          suggest top@k courses that match the student's                                      predict course trends and carry out rating predictions
+          academic performance, interests, and learning                                       following them, P. Symeonidis et al. [39] designed a multi-
+          preferences.                                                                        dimensional matrix factorization framework coupled with the
+     4. To evaluate the performance of the proposed                                           CF technique that makes use of data from external resources
+          models for top-N recommendations in terms of                                        (such as users' skills, course characteristics, etc.).
+          accuracy metrics such as precision@k, MAP@k,                                        Additionally, Wan and Niu [40] developed a learning object
+          recall@k, NDCG@k, MSE@k, RMSE@k, and                                                self-organization-based RecSys in which the learning object
+          MAE@k are employed.                                                                 is cumulatively modeled as an intelligent entity applying the
+     5. The system would integrate with the learning                                          self-organization concept and communicates with each other
+          management system to provide students with easy                                     independently. As time passes, immediately after the learning
+          access to the recommended courses. The learning                                     process begins, the students typically put in a lot of effort on
+          management system would also deliver feedback on                                    their assignments and video watching, and they are highly
+          the courses taken by the students, which can be used                                motivated to finish the course [41]. But as the course goes
+          to improve the PCR.                                                                 on, the challenge grows, and students get more dissatisfied
+     6. The system would provide real-time feedback to the                                    [42].
+          students about their performance and progress in the                                   According to S. Halawa et al., [43], students typically
+          recommended courses. This feedback can help                                         leave school because they are not satisfied with their
+          students to stay motivated and engaged in their                                     education. Better satisfaction promotes MOOC persistence.
+          learning.                                                                           A high score helps with contentment. Regular MOOC
+     The rest of the article is categorized into subsequent                                   recommendations are typically based on interest. Thus, better
+sections: related work is conducted in section 2 while section                                features should be considered. Before attempting learning
+3 illustrates the proposed course recommendation model.                                       modules in an EL setting, RecSys can propose familiarization
+Section 4 reports experimental analysis and results to validate                               exercises. RecSys creates "user rating resource matrices" and
+the proposed objectives. Finally, section 5 concludes the                                     provides individualized suggestions for learning resources
+proposed work and provides suggestions for prospective                                        according to users' learning preferences and learning paths in
+research directions.                                                                          EL systems [16], [44]. More and more articles are being
+                                                                                              submitted to computer science journals and conferences as
+II. LITERATURE REVIEW                                                                         computer science and information technology has a wide and
+   Recently, ML for education has drawn a lot of interest [1],                                profound impact on our daily lives. D. Wan et al., [32]
+[2], [23]. Prior studies have concentrated on topics like grade                               presented the content-based filtering Journals and
+prediction [24], drop-out prediction [25], individualized                                     Conferences RecSys on computer science, together with its
+teaching methods and resources [26], evaluating students'                                     online service, to aid authors in picking where to publish
+conceptual understanding of a subject matter [27],                                            their studies. Depending on a manuscript's abstract, this
+multimedia and cooperative learning [28], interpretation of                                   method prioritizes conferences or journals that would be
+students' performance [29], MOOC recommendations [30],                                        appropriate. To do this, a web crawler is leveraged to keep
+etc. The vital but under-researched issue of (tailored) course                                updating the training set and the learning method to keep up
+sequence recommendation is examined in this work.                                             with the rapidly evolving field of computer science and
+Shortening the time required for students to graduate is one                                  technology. We provide an effective hybrid approach based
+of the potentially big effects of addressing this problem. The                                on chi-square feature selection and SoftMax regression to
+solutions for resolving this issue can then be integrated with                                produce an interactive online response.
+other approaches to offer a complete collection of resources                                     M. Amane et al., [45] presented a dynamic ontology-based
+for individualized learning.                                                                  EL RecSys. In order to get the top-k recommendations
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+applying clustering approaches, their suggested strategy                                      on this are assessed using the LDA user interest paradigm.
+characterizes course and learner linguistically. This                                         The proposed strategy is then assessed using data from EL
+information will be merged into collaborative and content-                                    websites.
+based filtering processes. The experiments' measurements                                         For the movie RecSys, several modifications of the KNN
+were conducted by employing the Coursera dataset with the                                     method with various similarity metrics have been presented
+USMBA dataset from the university. D. Yang et al., [46]                                       in [49]. These various KNN method modifications have been
+created a max cost flow structure to handle the limitations                                   applied to real data from the MovieLens dataset. R. Ahuja et
+after developing a context-aware matrix factorization                                         al., [50] built a movie RecSys by leveraging the K-Means
+framework for predicting students' opinions over questions.                                   clustering and KNN methods. M. Gupta et al., [51] designed
+A question recommendation with limitations for MOOC was                                       CF and K-NN approaches that are mainly used to show how
+the suggestion made in their work. S. Lazarevic et al., [47]                                  they can improve results' accuracy when compared to
+
+
+
+
+                                             Figure 1: Proposed MOOC recommendations framework
+
+   established a mechanism for recommending courses based                                     content-based filtering. By combining a CF strategy with
+on commonalities between courses that are driven by ML.                                       cosine similarity and KNN, this method improves upon the
+The suggested method uses a variety of data mining                                            drawbacks of content-based filtering. K. R. P. Kumar et al.,
+approaches to highlight course similarities. The experimental                                 [52] created a novel Deep Learning (DL) hybrid RecSys to
+portion of this study demonstrated that Cosine metrics are the                                close the gaps in CF structures and attain the greatest
+most accurate for calculating these values. The approach                                      projected accuracy doable using DL. The suggested method
+suggested in this work is built on rankings according to study                                uses a decreasing learning rate along with increasing weight
+areas. X. Jiang et al., [48] employed a Latent Dirichlet                                      decay, with the values cycled over epochs, to further boost
+Allocation (LDA) user interest approach to construct an                                       accuracy. The suggested solution is compared to existing
+online education course RecSys. LDA is an unsupervised                                        approaches based on projected accuracy and computational
+ML technique. The user's preference for subjects, their                                       effectiveness. Extensive study has been conducted on several
+interest in online education courses, and the completion of                                   datasets, comprising MovieLens 100K, FilmTrust, Book-
+the recommendation of online education courses depending                                      Crossing, and MovieLens 1-M. H. Tahmasebi et al., [53],
+
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+introduced a hybrid social RecSys that makes use of a deep                                    preferences. It is necessary to make distinctions between
+autoencoder structure. Their proposed framework takes                                         suggestions for full-time students and those who study part-
+advantage of social influence from users in addition to CF                                    time.
+and content-based filtering. Depending on users’ social traits
+and online behaviors, each user's social influence is defined.                                III. PROPOSED SYSTEM ARCHITECTURE
+The required datasets for the assessment were collected from                                  Figure 1 demonstrates the framework designed for the
+                                                                                              proposed personalized EL and MOOC RecSys. In this case,
+
+
+
+
+                                                  Figure 2: A CF-based PCR architecture for MOOC.
+
+the Open Movie database and MovieTweetings.                                                   MOOC         datasets    were     employed     to    provide
+   However, a course may only be taken once all of its                                        recommendations. The user-item rating matrix is used to
+required courses have been completed and passed. Therefore,                                   determine how similar different students are to one another.
+while traditional RecSys addresses the issue of                                               For a particular user-item rating matrix, two types of
+recommending items or sets of items, the majority of them do                                  similarities are calculated: cosine, and MSD baseline. To
+not take                                                                                      provide a course recommendation, a form of KNN-based CF
+   prerequisites into account when proposing an item. Hence,                                  and ML recommendation algorithms are employed with five-
+recommending a course to a student who has not finished the                                   fold cross-validation techniques. Metrics like precision@k,
+prerequisite courses is pointless.                                                            MAP@k, recall@k, NDCG@k, MSE@k, RMSE@k, and
+   To the best of our knowledge, it appears that no research                                  MAE@k for top-k recommendations are evaluated for the
+has been conducted on a MOOC RecSys specifically                                              achieved results. According to our knowledge, it appears that
+utilizing CF and ML techniques like RFR, KNN, DTR, SVD,                                       no research has been conducted on a MOOC RecSys
+XGBR, and LR, along with two different similarity                                             specifically utilizing CF and ML techniques including RFR,
+measurements (cosine and Mean Square Difference (MSD)                                         KNN, DTR, SVD, XGBR, and LR, along with two different
+baseline similarities) for neighborhood and top-k                                             similarity measurements (cosine and MSD baseline
+recommendations calculation. This statement suggests that                                     similarities) for neighborhood and top-k recommendations
+there is a gap in the existing literature regarding the specific                              calculations.
+combination of KNN variants and similarity measurements
+for movie recommendation systems. Conducting research in                                       A.           MOOC DATASET
+this area could contribute to the understanding and                                           Due to the COVID-19 pandemic, MOOCs have seen a boom
+improvement of movie recommendation algorithms. To                                            in 2021. It is difficult for students to learn new skills when
+know how to place the learners’ importance on the learning                                    there are so many paid and free resources available online.
+context by including the course's goal and learning                                           Because of this, RecSys may be developed using this dataset
+
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                     This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                               content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+to suggest courses to students based on their skills and level                                   courses. For simplicity of usage, this version alters the
+of difficulty. Moreover, a Course link is provided, which                                        column names eliminates empty columns, and consolidates
+RecSys may make available for simple access. For the model                                       everything into a single CSV file [54] after preprocessing.
+training, two benchmark datasets are used during the
+experiment. The well-known MOOC datasets, including                                              Table 1: Representation of the parameters/features of the
+Coursera and Udemy, are used in the experiments and                                              Udemy dataset.
+evaluations. The description of the dataset is covered in detail                                 Index                   Description
+in the following subsections.                                                                    Course ID               id field for courses
+
+
+
+
+                                                          Figure 3: Framework for features representations
+
+
+                                                                                                 Course title                            title field for courses
+B.            UDEMY DATASET                                                                      Number of subscribers                   demand field for each course
+The Udemy course dataset is a collection of data that                                            Number of reviews                       review number for each course
+includes information on courses available on the Udemy                                           Number of lectures                      lecture per course
+platform. The dataset contains over 130,000 courses and                                          Level                                   course level by trainee experience
+includes various attributes or parameters such as course title,                                  Content duration                        course duration in hours
+description, instructor name, price, rating, number of                                           Subject                                 course type field
+subscribers, and number of reviews2. It can be used for
+various purposes such as data analysis, ML, RecSys, and
+natural language processing. It can provide valuable insights                                    C. COURSERA DATASET
+into the most popular courses, the highest-rated courses, and                                    The Coursera course dataset is a collection of data that
+the courses with the most subscribers. Researchers, analysts,                                    includes information on courses available on the Coursera
+and educators can leverage this dataset to better understand                                     platform. The dataset contains over 3,900 courses and
+the Udemy platform and its users, and to develop strategies                                      includes various attributes such as course title, description,
+for creating and promoting online courses. Table 1 reports                                       instructor name, university name, duration, language, rating,
+the features of the benchmark Udemy dataset.                                                     and the number of students enrolled. The dataset is available
+     The Udemy dataset is made up of 3678 rows and 12                                            for download3 and can be used for various purposes such as
+columns. This dataset includes 3678 entries from Udemy                                           data analysis, ML, RecSys, and natural language processing.
+courses in the following 4 categories: business finance,                                         It can provide valuable insights into the most popular
+graphic design, musical instruments, and web design. A                                           courses, the highest-rated courses, and the courses with the
+MOOC platform termed Udemy provides both free and paid
+                                                                                                    3
+                                                                                                         https://www.kaggle.com/datasets/khusheekapoor/coursera-courses-
+     2
+         https://www.kaggle.com/datasets/andrewmvd/udemy-courses                                 dataset-2021
+
+VOLUME XX, 2017                                                                                                                                                                    9
+
+
+                     This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+most enrollees. Researchers, analysts, and educators can                                      D. COLLABORATIVE FILTERING FOR MOOC
+leverage this dataset to better understand the Coursera                                       RECOMMENDATION
+platform and its users, and to develop strategies for creating                                CF is a popular technique in RecSys that leverages the
+and promoting online courses. The Coursera course dataset is                                  preferences and behaviors of a group of users to make
+frequently updated to include new courses and to reflect                                      recommendations for an individual user. It is based on the
+changes in the platform.                                                                      idea that users with similar tastes and preferences in the past
+     This dataset was scraped off the publicly available                                      (items previously selected and/or numerical ratings given to
+information on the Coursera website in September 2021 and                                     those items) are likely to have similar preferences in the
+manually entered in the case where the data was improperly                                    future. This model is then used to predict items (or ratings for
+scraped. It can be used in RecSys to promote Coursera                                         items) that the user may have an interest in.
+                                                                                              In this work, we used CF based model SVD in order to
+
+
+
+
+                                  Figure 4: Use (student) case diagram for MOOC RecSys based on CF.
+
+courses based on the Difficulty Level and the Skills needed.                                  suggest courses that match the student's academic
+Course dataset scrapped from Coursera website. The dataset                                    performance, interests, and learning preferences. Figure 2
+comprises six columns and 3522 course data. The detailed                                      depicts a CF-based PCR architecture for MOOC
+illustrations of the data are reported in Table 2:                                            recommendations in EL. The architecture consists of two
+                                                                                              components including user knowledge and Interactions and
+Table 2: Descriptions of the Coursera dataset                                                 application server. Here students will be able to rate any
+Index                      Description                                                        course they study on a scale of 1-5. This rating will be saved
+Course Name                Contains the course title.                                         in a CSV format and later exported to a directory created
+Organization               Identifies the institution running                                 using a terminal. The model will access this file, and then we
+                           the courses.                                                       perform the recommendations using CF-based algorithms
+Course Description         Provide specifics on certifications                                and applying existing prediction function ML algorithms.
+                           that are offered in the courses.                                   Moreover, a model architecture that is proposed for the PCR
+Course Rating              Includes the ratings assigned to                                   is presented in Figure 3. Here the first step contains the
+                           each course.                                                       information regarding student profile attributes (such as
+Difficulty Level           Describes the degree of difficulty                                 student ID, study level, learning interest, ratings, views,
+                           or course level.                                                   interest, etc.), and their learning history to identify the model
+Coursestudentsenrolled Includes the total number of                                           parameters. Then, the proposed model will start to
+                           students registered for the course.                                recommend top courses to students. During this
+                                                                                              recommendation process, the model can improve these
+                                                                                              parameters by using student’s feedback in the form of ratings
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+or reviews. In addition, Figure 4 depicts a use (student) case                                in classification, it is also known as gradient boosted decision
+diagram based on CF for MOOC RecSys. The idea behind                                          tree. In the proposed PCR, to estimate the likelihood of each
+this is to consider students’ views/opinions on various                                       sample and select a suitable threshold for course rating it, we
+courses and recommend the appropriate course to each                                          build a sophisticated model based on the XGBR. Then, a
+student based on the student’s previous rankings and the                                      feature matrix has been designed where each row represents
+views/opinions of other similar types of students.                                            a student-course pair, and each column represents a feature
+                                                                                              related to students, course, and their interactions (see Tables
+D. RECOMMENDATIONS MODELS                                                                     1 and 2). The datasets were split into a train set and a test set.
+The suggested research offers a cutting-edge context-aware                                    The model receives the training set as input from feature
+MOOC RecSys for developing EL courses that are built on                                       matrix.
+ML and CF. In this research, ML-based models are applied                                            LR [56] In order to identify correlations between input
+for MOOC RecSys, including Random Forest Regressor                                            data and a target variable and to predict continuous values,
+(RFR) [55]; K-Neighbors Regressor (KNN) [21]; Decision                                        linear regression is usually employed. For PCR RecSys, the
+Tree Regressor [54]; eXtreme Gradient Boosting Regressor                                      main objective is to recommend course content to students.
+[56]; Linear Regression [56]; and Singular Value                                                    In the proposed study, first, the course recommendation
+Decomposition (SVD) [57] as follows:                                                          problem has been transformed into a regression task with a
+     RFR [55] utilizes large datasets effectively. It is capable                              continuous variable reflecting learners’ preference such as
+of successfully predicting the missing data, even when there                                  course ratings as the target variable. Then, a feature matrix
+are no pre-processing and significant amounts of missing                                      has been designed where each row shows a student-course
+data. It combines a random feature with bagging. Decision                                     pair, and each column shows a feature related to students,
+trees paired with individual learners are found in random                                     course, and their interactions (Tables 1 and 2). The datasets
+forests.                                                                                      were split into a train set and a test set. The model receives
+     In the suggested PCR, first the recommendation problem                                   the training set as input from feature matrix such as using
+has been transformed into a regression task, where the goal is                                features as input and the learner's ratings as the target
+to predict a learner's rating or preference for a course. Next,                               variable.
+an RFR model is utilized to predict learner ratings and                                       KNN [21] is used to identify user clusters based on shared
+reviews. Then, a feature matrix has been designed where                                       course ratings and predict results using the average rating of
+each row represents a student-course pair, and each column                                    the top k nearest neighbors. As an illustration, we first
+represents a feature related to students, course, and their                                   display the ratings in a matrix, which has a row for each
+interactions (see Tables 1 and 2). The datasets were split into                               course and a column for each student.
+a train set and a test set. The model receives the training set                                     RecSys is often based on the KNN model, and generates
+as input from feature matrix. It is an ensemble of decision                                   suggestions based on shared, similar features. However, both
+trees, and it can capture complex relationships between                                       classification and regression issues can be solved using
+features and ratings.                                                                         KNN. The objective of using KNN-based RecSys in order to
+     DTR [54] is used for classification problems. In                                         predict the top K courses based on a given course. We set K
+classification jobs, where the objective is to group data points                              = 5, 10, 15, and 20. The nearestNeighbors mechanism and
+into groupings or categories, decision trees are most                                         neighbors () model are employed to recommend the topmost
+frequently utilized. However, by properly defining the                                        closely related courses.
+problem, DTR can be modified for recommendation                                                     SVD [58] is a matrix factorization method in CF to
+purposes. In the proposed PCR, first, we need to characterize                                 factorize the rating matrix into separate user matrix and item
+the issue as a regression task in order to use a DTR. For                                     matrix, respectively. Although Euclidean distance is
+instance, a continuous rating score for each student-course                                   employed as a similarity measure and SVD is utilized to
+pair can be predicted. Then, a feature matrix has been                                        reduce dimensionality. However, the anticipated ranking
+designed where each row shows a student-course pair, and                                      result cannot be predicted with sufficient accuracy as the
+each column shows a feature related to students, course, and                                  SVD does not hold additional information from the user and
+their interactions as reported in Tables 1 and 2. The datasets                                item. To improve the accuracy of rating predictions by
+were split into a train set and a test set. The model receives                                utilizing more features, we employ a redistribution feature of
+the training set as input from feature matrix such as using                                   the user matrix (learner matrix in our case) and the item
+features as input and the learner's ratings as the target                                     (course) matrix through SVD. This helps in overcoming the
+variable.                                                                                     problem of sparse data.
+     XGBR [56] we XGBR adapted for RecSys, particularly
+in scenarios where we have student-course interactions and                                    E. Evaluation Metric For MOOC Recommendations
+additional features that can be used for prediction. XGBR is a                                Evaluation metrics for recommendations are used to measure
+scalable ML model designed for tree boosting. In regression                                   the effectiveness of RecSys in providing personalized
+task, it is referred to gradient boosted regression tree, while                               recommendations to users. The main goal of these metrics is
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+to evaluate the quality of the recommendations provided by                                    recommended items. NDCG@k is a normalized version of
+the system and to identify areas for improvement. Some                                        Discounted Cumulative Gain (DCG@k), which calculates
+common evaluation metrics for recommendations include                                         the sum of relevance scores of the top k recommended items,
+[59], [60] as follows:                                                                        with a logarithmic discount applied to the positions of the
+     Precision@k is an evaluation statistic that determines                                   items. The logarithmic discount is employed to provide
+the percentage of suggested items in the top k that are                                       higher weight to items that are ranked higher in the list.
+pertinent to the user's preferences or needs. It is used to                                         NDCG@k is designed as the ratio of DCG@k and the
+assess the correctness of a RecSys. Items that the user enjoys,                               ideal DCG@k, which is the DCG@k that would be achieved
+engages with, or finds beneficial are relevant. The                                           if all the relevant items were ranked at the top of the list. For
+precision@k is 0.4, for instance, if a RecSys suggests 10                                     example, if a RecSys is evaluated at k=5, and the NDCG@k
+items to a user and 6 of those items are pertinent to the user,                               is 0.9, it means that on average, the recommended items are
+the system is assessed at k=5. This is because 6 pertinent                                    ranked at positions that are 90% as good as the ideal ranking.
+items were among the top 5 recommendations. As it                                                   RMSE@k measures the average deviation of the
+considers both the relevance and the order of the                                             predicted ratings from the actual ratings across all the items
+recommended items, precision@k is a valuable indicator for                                    in the test set. It is calculated as the square root of the mean
+assessing the system's top recommendations.                                                   of the squared differences between the predicted ratings and
+     Recall@k measures the proportion of relevant items that                                  the actual ratings. For recommendations, RMSE@k is
+were recommended in the top k items. A relevant item is one                                   determined by only reflecting the top-k items in the
+that the user would be interested in or would have interacted                                 recommendation list. This signifies that only the predicted
+
+
+
+
+                                                                                              (b)
+     (a)
+                                           Figure 5: Distribution of (a) review of Udemy and (b) ratings of Coursera
+
+
+with if it had been recommended. For example, if a user has                                   ratings and actual ratings of the top-k items are used to
+interacted with 10 items and a RecSys recommends 5 items                                      calculate the RMSE. For example, if a RecSys is calculated
+and 3 of the recommended items are relevant to the user, then                                 at k=10, and the RMSE@10 is 1.5, it implies that on average,
+the Recall@5 for that user is 0.3.                                                            the predicted ratings of the top 10 recommended items differ
+     MAP@k is an evaluation metric used to assess the                                         from the actual ratings by 1.5 units.
+performance of RecSys by considering both the relevance                                            MAE@k measures the average absolute deviation of the
+and the instruction of the recommended items. It measures                                     predicted ratings from the actual ratings across all the items
+the proportion of relevant items among the top k                                              in the test set.
+recommended items for each user and then calculates the                                       In the proposed study, MAE@k is calculated by suggesting
+average of these proportions across all users. For example, if                                the top-k courses in the recommendation catalog. This
+a RecSys is evaluated at k=5, and the MAP@k is 0.8, it                                        indicates that only the predicted ratings and actual ratings of
+means that on average, 80% of the relevant items for each                                     the top-k course are employed to determine the MAE. For
+user are among the top 5 recommended items. MAP@k                                             example, if a RecSys is evaluated at k=10, and the MAE@10
+considers both the precision and the recall of the RecSys and                                 is 1.2, it means that on average, the predicted ratings of the
+is useful for evaluating systems where the number of relevant                                 top 10 recommended courses deviate from the actual ratings
+items is unknown across users. However, metrics like NDCG                                     by 1.2 units.
+tackle the problem of distinguishing between relevant items                                        MSE@k is computed for the top k recommendations.
+that are listed higher or lower in the recommendation list.                                   MSE prioritizes the accuracy of the most important
+     NDCG@k is employed to evaluate the effectiveness of                                      recommendations        rather     than      considering     all
+RecSys by measuring the ranking quality of the                                                recommendations. MSE@k is helpful in assessing RecSys'
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+effectiveness when the objective is to give the user a                                           hypotheses, and double-check suppositions using
+condensed collection of high-quality recommendations. A                                       statistical and graphical representation tools. Figure 5 shows
+low MSE@k indicates that the system can accurately predict                                    a distribution of ratings of (a) review of Udemy and (b)
+the user's preferences for the top ‘k’ recommendations, which                                 ratings of the Coursera dataset and Figure 6 represents the
+can improve the overall user experience and satisfaction with                                 average distributions of (a) review of Udemy courses and (b)
+the system.                                                                                   Ratings of Coursera courses. Figure 7 depicts the
+                                                                                              classification of learning levels (a) Udemy courses and (b)
+IV. EXPERIMENTAL ANALYSIS AND RESULTS                                                         Coursera courses.
+                                                                                              From the visualizations, we can sum up that the higher the
+This section demonstrates the experimental data analysis                                      difficulty level of courses, the lower the rating feedback they
+and results achieved during the experiments. It also                                          get. It can be the result of lower quality of difficult courses or
+evaluates and compares the results using the proposed                                         the creators facing complexity when diving into deeper
+algorithms.                                                                                   teaching online for more advanced students (Figure 6).
+                                                                                              However, the pie chart depicts the courses for advanced
+A. EXPLORATORY DATA ANALYSIS                                                                  levels are poorly presented on the platform. Fewer courses
+   Exploratory data analysis, also known as exploratory data                                  can result in fewer courses with good qualities and,
+processing, is the critical method of presenting early analyses                               consequently, an overall lower ranking (Figure 7). More data
+of data in order to identify patterns, detect anomalies, test                                 is needed for getting deeper into the analysis.
+
+
+
+
+                                                                                                                                       (b)
+
+                                      (a)
+                           Figure 6: Average distribution of (a) review of Udemy courses and (b) Ratings of Coursera courses
+
+
+
+
+                  (a)                                                                      (b)
+
+                                 Figure 7: Classification of learning level (a) Udemy coursers and (b) Coursera courses
+
+
+
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+B. EVALUATION OF THE PROPOSED                                                                 of the true label in a top@k recommendations catalog. For
+RECOMMENDATIONS MODELS                                                                        this, the recall index through K = 5, 10, 15, and 20 is
+For explicit and implicit based MOOC RecSys, we have                                          compiled. The extent of the recommendation list is shown
+implemented a CF and ML RecSys. Six models are applied                                        by the fact that k denotes the top course recommendations
+including SVD, KNN, RFR, LR, DTR and XGBR. Each                                               for the proposed PCR. For top k, we used the top @5, @10,
+
+      Table 3: Performance of all the recommendation models for comparison on the Udemy dataset: bold indicates the best
+                           performance value in the metric in a comparison among proposed models.
+
+ Metrics             Top @k                                                  Models
+                     recommendations                  RFR                     LR                       XGBR                    DTR                  KNN           SVD
+                     @5                               0.6048                  0.5953                   0.7103                  0.5881               0.7422        0.8496
+ Precision@k
+                     @10                              0.5937                  0.5123                   0.7198                  0.5608               0.7231        0.8478
+ (higher is
+                     @15                              0.5821                  0.5241                   0.7210                  0.5498               0.7001        0.8398
+ better)
+                     @20                              0.6691                  0.6178                   0.7538                  0.6872               0.6843        0.8596
+                     @5                               0.5963                  0.5901                   0.7012                  0.6034               0.7202        0.8123
+ Recall@k
+                     @10                              0.6234                  0.6098                   0.7194                  0.6262               0.7031        0.8477
+ (higher is
+                     @15                              0.6704                  0.6823                   0.7831                  0.6504               0.7110        0.8501
+ better)
+                     @20                              0.6895                  0.7002                   0.7996                  0.6790               0.6943        0.8642
+                     @5                               0.6985                  0.6985                   0.7304                  0.6910               0.7302        0.8202
+ NDCG@k
+                     @10                              0.6956                  0.7023                   0.7276                  0.7001               0.7131        0.8490
+ (higher is
+                     @15                              0.7074                  0.7098                   0.7295                  0.7200               0.7110        0.8601
+ better)
+                     @20                              0.7049                  0.7103                   0.7883                  0.7234               0.7043        0.8721
+                     @5                               0.6911                  0.6993                   0.7299                  0.6986               0.7982        0.8306
+ MAP@k
+                     @10                              0.6988                  0.7021                   0.7208                  0.6890               0.7931        0.8580
+ (higher is
+                     @15                              0.7104                  0.7098                   0.7202                  0.6987               0.7810        0.8610
+ better)
+                     @20                              0.7197                  0.7302                   0.7984                  0.7369               0.8243        0.8678
+                     @5                               0.4811                  0.4403                   0.3221                  0.4210               0.4010        0.3021
+ MAE@k
+                     @10                              0.4612                  0.4421                   0.3204                  0.4601               0.4101        0.2510
+ (lower
+                     @15                              0.4329                  0.4230                   0.3321                  0.4820               0.4220        0.282
+ is better)
+                     @20                              0.4225                  0.4221                   0.3203                  0.4200               0.4100        0.2001
+                     @5                               0.4665                  0.4843                   0.3021                  0.4331               0.4231        0.2671
+ MSE@k
+                     @10                              0.4612                  0.4471                   0.3104                  0.4500               0.4200        0.2521
+ (lower
+                     @15                              0.4546                  0.4340                   0.3011                  0.4562               0.4362        0.2562
+ is better)
+                     @20                              0.4304                  0.4243                   0.2934                  0.4301               0.4101        0.2212
+                     @5                               0.5210                  0.4896                   0.3542                  0.4731               0.3411        0.3211
+ RMSE@k
+                     @10                              0.5012                  0.4747                   0.3682                  0.4679               0.3642        0.3342
+ (lower
+                     @15                              0.5120                  0.4720                   0.3702                  0.4783               0.3793        0.3693
+ is better)
+                     @20                              0.5010                  0.4643                   0.3522                  0.4451               0.3263        0.3203
+
+
+                                                                                              @15, and @20 course recommendations, and the key
+ of these six methods have been evaluated using the
+                                                                                              results are listed in Tables 5 and 6.
+neighborhood calculation's similarity measures, including
+cosine and MSD similarity. The MSE, RMSE, and MAE
+metrics are used to assess how well certain similarity
+measures perform when applied to various ML techniques.
+For top-k recommendations, precision@k, recall@k,
+NDCG@k, and MAP@k are also determined.
+    The performance of each comparison approach for
+each of the four measures, Precision@k, MAP@k,
+recall@k, and NDCG@k, on each of the two datasets
+(Udemy and Coursera), is shown in Tables 5 and 6,
+respectively. Finally, Recall at top@k is depicted as a sign
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+      Table 4: Performance of all the recommendation models for comparison on the Coursera dataset: bold indicates the best
+                                                      performance value.
+   Metrics         Top k                             Models
+                   recommendations RFR                LR             XGBR           DTR             KNN          SVD
+                   @5                    0.6126       0.6153         0.7212         0.6482          0.7682       0.8529
+   Precision@k
+                   @10                   0.6098       0.6382         0.7279         0.6296          0.7629       0.8445
+   (higher is
+                   @15                   0.6347       0.6554         0.7402         0.6012          0.7601       0.8478
+   better)
+                   @20                   0.6731       0.6673         0.7701         0.6673          0.7667       0.8621
+                   @5                    0.6876       0.6153         0.7403         0.6343          0.7634       0.8342
+   Recall@k
+                   @10                   0.6532       0.6201         0.7453         0.6563          0.7656       0.8545
+   (higher is
+                   @15                   0.6867       0.6653         0.7876         0.6654          0.7665       0.8498
+   better)
+                   @20                   0.6978       0.6909         0.7897         0.6734          0.7673       0.8764
+                   @5                    0.6805       0.6905         0.7333         0.6900          0.7690       0.8202
+   NDCG@k
+                   @10                   0.6997       0.6992         0.7198         0.6990          0.7699       0.8490
+   (higher is
+                   @15                   0.7079       0.7005         0.7289         0.7296          0.7729       0.8601
+   better)
+                   @20                   0.7103       0.7202         0.7903         0.7369          0.7736       0.8721
+                   @5                    0.6876       0.7045         0.7390         0.6821          0.7682       0.8365
+   MAP@k
+                   @10                   0.6823       0.7234         0.7432         0.6976          0.7697       0.8238
+   (higher is
+                   @15                   0.7058       0.7154         0.7452         0.6798          0.7779       0.8365
+   better)
+                   @20                   0.7097       0.7403         0.7898         0.7023          0.7793       0.8534
+                   @5                    0.4875       0.4987         0.3657         0.3974          0.4374       0.3776
+   MAE@k
+                   @10                   0.4645       0.5500         0.3565         0.5321          0.4321       0.3686
+   (lower
+                   @15                   0.5023       0.5223         0.3562         0.4986          0.3826       0.3542
+   is better)
+                   @20                   0.4333       0.4767         0.3503         0.4321          0.3621       0.3325
+                   @5                    0.4756       0.5324         0.4093         0.4703          0.4703       0.2897
+   MSE@k
+                   @10                   0.4986       0.5378         0.3955         0.4887          0.4887       0.3452
+   (lower
+                   @15                   0.4445       0.5673         0.3769         0.4986          0.4986       0.3543
+   is better)
+                   @20                   0.4685       0.4979         0.3753         0.4832          0.4832       0.3501
+                   @5                    0.5112       0.4676         0.3876         0.4932          0.3932       0.3565
+   RMSE@k
+                   @10                   0.4981       0.4707         0.3854         0.5001          0.4001       0.3431
+   (lower
+                   @15                   0.4805       0.4983         0.3687         0.4987          0.3987       0.3552
+   is better)
+                   @20                   0.4801       0.4564         0.3632         0.4623          0.3623       0.3297
+
+
+
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+                                       (a) Precision@k                                          (b) Recall@k
+
+
+
+
+                                    (c) MAP@k                    (d) NDCG@k
+   Figure 8: Accuracies of all the recommendation models for comparison measured by (a) precision@k, (b) recall@k, (c)
+                                      MAP@k, and (d) NDCG@k on the Udemy dataset.
+
+
+
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+                                             (a) Precision@k                                   (b) Recall@k
+
+
+
+
+                                       (c) MAP@k                   (d) NDCG@k
+   Figure 9: Accuracies of all the recommendation models for comparison measured by (a) precision@k, (b) recall@k, (c)
+                                     MAP@k, and (d) NDCG@k on the Coursera dataset.
+
+
+                                                                                              characteristics from an online MOOC platform like
+The suggested approach uses an intensive ML framework
+                                                                                              Coursera and Udemy. For both the suggested approach and
+to examine the selected courses based on user learning
+                                                                                              other ML algorithms, we have assessed Precision@k,
+activities or learning experiences/histories. The proposed
+                                                                                              recall@k, MAP@k, NDCG@k, MAE, MSE, and RMSE.
+method increases the precision of identifying the pertinent
+                                                                                              Compared to other ML methods, our proposed SVD based
+courses that should be suggested to students/learners and
+                                                                                              approach produced the lowest error rate and improved the
+are likely to be taught or learned. The information used to
+                                                                                              prediction accuracy of the PCR RecSys.
+evaluate the outcomes includes click-based learner
+
+
+
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                   This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                             content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+(a) MAE@k                                                    (b) MSE@k                                                             (c) RMSE@k
+
+  Figure 10: Mean errors of all the recommendation models for comparison measured by (a) MAE@k, (b) MSE@k, and (c)
+                                            RMSE@k, on the Udemy dataset.
+
+
+
+
+(a) MAE@k                                                    (b) MSE@k                                                            (c) RMSE@k
+
+  Figure 11: Mean errors of all the recommendation models for comparison measured by (a) MAE@k, (b) MSE@k, and (c)
+                                           RMSE@k, on the Coursera dataset.
+
+                                                                                               5.12% to 6.04% in terms of MAP and 3.24% to 3.84% in
+ V. DISCUSSION                                                                                 terms of NDCG. Moreover, on Udemy and Coursera, it can
+                                                                                               be found that SVD saves 1.50 sec and 1.90 sec every
+ A. RESULTS DISCUSSION AND ANALYSIS                                                            episode, respectively. These findings lead to the following
+                                                                                               deductions.
+ The study demonstrates seven major evaluation metrics to
+                                                                                                    For instance, we received a NDCG of 20 which is
+ compare the performance of the proposed models giving
+                                                                                               really impressive. In other words, out of a list of 20 options,
+ multiple perspectives to analyze and to distinguish which
+                                                                                               the actual course that 87.21% of the students ultimately
+ one is more appropriate. The results demonstrate that SVD
+                                                                                               interacted with was recommended to them as reported in
+ and KNN are better models as compared to others such as
+                                                                                               Tables 5 and 6. Overall, is can be said that the higher the
+ XGBR, RFR, DTR, and LR because they are better suited
+                                                                                               error, the less accurate the recommendations are perceived
+ to capture complex student-course interactions.
+                                                                                               to be. The higher the predicted rating, the more likely the
+      The results of the various course recommendation
+                                                                                               course is to be recommended to the student.
+ methods are compiled in Tables 5 and 6. In both the Udemy
+                                                                                                    Figures 8 and 9 compare the proposed models for the
+ and Coursera datasets, as revealed in Tables 5 and 6,
+                                                                                               PCR RecSys using a variety of evaluation metrics on the
+ respectively, the recommendation performances achieved
+                                                                                               Coursera and Udemy datasets. Using the benchmark
+ by SVD outperform those of other competitor approaches
+                                                                                               datasets, we ran experiments and evaluated the proposed
+ in terms of several evaluation metrics. For instance, when
+                                                                                               models for two datasets. To evaluate the performance, we
+ compared to the XGBR, LR, DTR, RFR, and KNN models,
+                                                                                               leveraged a set of metrics including Precision@k, recall@k,
+ SVD enhances course recommendation performances on
+                                                                                               MAP@k, and NDCG@k. Additionally, MAE@k, MSE@k,
+ the Udemy dataset by 2.63% to 3.28% in terms of MAP and
+                                                                                               and RMSE@k, where ‘k’ represents the number of top
+ 2.30% to 4.03% in terms of NDCG, and it even enhances
+                                                                                               courses considered in our experiments. The number of
+ recommendation accuracy on the Coursera dataset by
+                                                                                               closest neighbors is a parameter that can impact how well a
+
+ VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                   This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+RecSys performs. Hence, using various nearest-neighbor                                        and CF techniques. To conduct the experiments and train
+settings, the outcomes are evaluated as depicted in Figures                                   the models, extensive MOOC datasets, including platforms
+10 and 11.                                                                                    like Coursera and Udemy have been utilized. The proposed
+      Due to the overabundance of information in the                                          model's performance is analyzed by conducting
+modern digital world, RecSys is a mechanism for data                                          experiments through simulations and comparing its results
+filtering. The proposed approach also uses a KNN-based                                        among the proposed solutions to understand their
+CF technique to construct the PCR. The KNN model has                                          effectiveness in top@k course recommendation tasks by
+been tested using the well-known Coursera and Udemy                                           ensuring that it is performing optimally. The experimental
+datasets from MOOC to assess how well it performs for                                         results verify the effectiveness of the proposed model in
+various evaluation indexes. With a neighborhood size of 20                                    top-N course recommendations in MOOC.
+neighbors, error types like RMSE, MSE, and MAE have                                                In conclusion, PCR RecSys utilizing CF and ML can
+been found to be stable. Hence, we discovered that the K                                      give more accurate, varied, and fair recommendations by
+number of nearest neighbors for our dataset is optimum at                                     considering the consequences of recent advancements and
+20.                                                                                           future perspectives. This will improve user experiences and
+      With a score of @20, the proposed metrics were fairly                                   recommend results across a variety of domains.
+good. To put this into perspective, it means that 86% of                                      Furthermore, we contribute to the current discussion within
+students were suggested the specific courses (from a list of                                  this academic field by accepting both the limitations and the
+20 choices) that they ultimately engaged with. It has been                                    opportunities, promoting a collaborative environment of
+explored how K affects several metrics including MAE,                                         intellectual advancement. This study is inspired by the need
+MSE, and RMSE. Higher NDCG values and lower MAE,                                              for smart learning to make students independent learners by
+MSE, and RMSE values should be recommended for the                                            limiting information overload in MOOC scenarios. For this,
+course RecSys to perform better.                                                              the paper has designed potential developments of ML and
+      Furthermore, the accuracy of recommendations is                                         CF-based techniques for top@k course recommendations in
+evaluated using MAE, MSE, and RMSE as can be seen in                                          MOOC. These promising initial findings provide a possible
+Figure 10 and Figure 11. The results show that in both non-                                   solution to assess this challenge further in future work.
+cold start and cold start situations, the proposed method                                     Moreover, the contributions of this study allow the
+outperforms the alternatives [21], [61]. Based on its higher                                  exploration of innovative intelligent systems for IoT-
+performance on two different datasets, the proposed                                           enabled smart EL education and for more potential
+solution has a general methodology that may be applied to                                     applications in RecSys.
+new RecSys rating prediction tasks.                                                                Moreover, as with any comprehensive study, this
+                                                                                              research is not without its limitations. In the following
+B. CORRELATION AMONG METRICS                                                                  sections, we go through the limitations and restrictions of
+                                                                                              our approach as well as potential directions for further
+In this section, the relationships (correlations) between the                                 research based on the results of this study. These analyses
+model configurations based on several rating metrics are                                      open the door for further research in this area and offer a
+explored. Figures 13 and 14 display Kendall’s correlation                                     deeper view of the broader implications of our research.
+among metrics on the Udemy and Coursera datasets,
+respectively. All correlations on the Udemy dataset are                                       D. LIMITATIONS
+more than 0.9, indicating that the metrics yield nearly equal                                 The proposed method's drawback is that while it worked
+ranks. Including some correlations below 0.8, the other                                       well for the Coursera and Udemy datasets, it has not been
+Coursera dataset shows stronger disparities.                                                  compiled on other similar datasets. The second drawback of
+     It can be observed that, particularly for the Udemy                                      our technique is that, as it performs well for small datasets,
+dataset, NDCG@k and MAP@k stand out significantly                                             it may have run-time and storage implications for larger
+from the rest of the metrics. These two measurements are                                      datasets.
+related to one another. We believe that the extremely                                              Another drawback is regarding the privacy issue; there
+skewed long-tailed rating distribution across the dataset's                                   are concerns about the use of personal information on EL
+items may be the cause of this. On the two datasets, MAP is                                   platforms, and the potential misuse of this information for
+substantially connected with NDCG. Nonetheless, the                                           recommendations purposes. Developing privacy-preserving
+rankings generated by the other metrics demonstrate a                                         methods regarding the use of personal information on
+rather substantial correlation between them.                                                  MOOCs can be addressed for data collection and analysis.
+                                                                                              Furthermore, investigating online recommendation
+C. IMPLICATIONS                                                                               approaches and implementing data privacy and security
+The significance and the novelty of the work lies in the fact                                 measures in real-time can effectively tackle data security,
+that the current studies did not consider the Coursera and                                    and privacy issues [62], [63].
+Udemy data for top K course suggestions by developing
+MOOC RecSys. Additionally, this study goes a step further                                     E. FUTURE RESEARCH DIRECTIONS
+by crafting top-N course recommendations using both ML
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+In the future, to address the aforementioned drawbacks by                                     environment. Two real-world benchmark datasets Coursera
+utilizing a more accurate distance metric, such as                                            and Udemy are used in several experiments, and the findings
+Mahalanobis distance, which uses the variance of the data                                     indicate that our model performs admirably. In conclusion,
+distribution to assess the distance from all points in addition                               our model has the following benefits: (1) long-term
+to the distance between any two spots, the proposed method                                    suggestion with high accuracy; (2) dynamic updating of user
+can be further enhanced. Other methods based on DL like                                       status; (3) applicability for both cold-start and warm-start
+deep collaborative neural networks, BERT, ANN, RNN,                                           scenarios without extra content information.
+and CNN can be used to enhance the performance of the                                              In this research, we addressed the new user cold start
+suggested method. It is possible to use other MOOC                                            problem which is regarded as a significant challenge in EL
+datasets like edX and Udacity to improve performance and                                      systems as well as the recommendation based on new
+make it more generalized. Real-time data collection from
+                                                                                              information. By incorporating input from other learners in
+learner activities is now possible due to the increasing
+                                                                                              the recommendation mechanism, this complexity can be
+popularity of IoT solutions. Using body area sensor
+                                                                                              minimized. This research's goal is to recommend an adaptive
+networks and data compression techniques is a useful way
+to collect data from students' learning activities.                                           PCR-based EL RecSys. To produce the top K
+     Finally, utilizing the rating-based feedback and                                         recommendations using similarities techniques, our
+learning from the sentiment scores, we want to construct a                                    suggested strategy characterizes the course and learner in a
+live demo of the proposed PCR and assess its quality in an                                    semantically rich manner. The method is combined with CF
+online learning environment with real students and learners.                                  and ML techniques. The experiments' measurements are
+This can make it easier to evaluate the effectiveness of the                                  performed utilizing the renowned Coursera and Udemy
+discussed PCR method in various situations and application                                    datasets. To assess the effectiveness of each technique, we
+domains.                                                                                      used seven majors evaluation metrics, including
+                                                                                              Precision@k, recall@k, MAP@k, NDCG@k MAE, MSE,
+VI. CONCLUSION                                                                                and RMSE. Better ranking accuracy is typically indicated by
+By combining IoT technologies with RecSys, personalized                                       higher metric values. The proposed approach produced the
+EL and MOOC RecSys can provide learners with tailored                                         lowest error rate and improved the prediction accuracy of the
+educational experiences, improve engagement, and enhance                                      PCR.
+learning outcomes in the IoT-enabled smart education
+
+
+
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+     Figure 12: Pairwise Kendall’s correlation of Precision@k, Recall@k, NDCG@k, MAP@k, MAE@k, MSE@k, and
+    RMSE@k on the Udemy dataset. Pink signifies higher correlation values whereas light green indicates lower correlation.
+
+
+
+
+      Figure 13: Pairwise Kendall’s correlation of Precision@k, Recall@k, NDCG@k, MAP@k, MAE@k, MSE@k, and
+        RMSE@k on the Coursera dataset. Pink signifies higher correlation values whereas light green indicates lower.
+
+                                                                                                          for E-Learning in Higher Educational Institutes in Developing
+                                                                                                          Countries,” Frontiers in Psychology, vol. 13. 2022, [Online].
+ACKNOWLEDGMENT
+                                                                                                          Available:
+.                                                                                                         https://www.frontiersin.org/articles/10.3389/fpsyg.2022.915596.
+                                                                                              [3]         D. Pandey, N. Singh, V. Singh, and M. W. Khan, Paradigms of
+REFERENCES                                                                                                smart education with IoT approach. Springer, 2022.
+[1]       S. Tahir, Y. Hafeez, M. A. Abbas, A. Nawaz, and B. Hamid,                           [4]         S. Amin, M. I. Uddin, A. A. Alarood, W. K. Mashwani, A.
+          “Smart Learning Objects Retrieval for E-Learning with                                           Alzahrani, and A. O. Alzahrani, “Smart E-Learning Framework
+          Contextual Recommendation based on Collaborative Filtering,”                                    For Personalized Adaptive Learning and Sequential Path
+          Educ. Inf. Technol., vol. 27, no. 6, pp. 8631–8668, 2022, doi:                                  Recommendations Using Reinforcement Learning,” IEEE
+          10.1007/s10639-022-10966-0.                                                                     Access,    vol.    11,    pp.     89769–89790,      2023,   doi:
+[2]       S. H. H. Madni et al., “Factors Influencing the Adoption of IoT                                 10.1109/ACCESS.2023.3305584.
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+[5]      K. Dahdouh, A. Dakkak, L. Oughdir, and A. Ibriz, “Large-scale                        [23]        M. Yağcı, “Educational data mining: prediction of students’
+         e-learning recommender system based on Spark and Hadoop,” J.                                     academic performance using machine learning algorithms,”
+         Big Data, vol. 6, no. 1, 2019, doi: 10.1186/s40537-019-0169-4.                                   Smart Learn. Environ., vol. 9, no. 1, p. 11, 2022, doi:
+[6]      W. Deng, P. Zhu, H. Chen, T. Yuan, and J. Wu, “Knowledge-                                        10.1186/s40561-022-00192-z.
+         aware sequence modelling with deep learning for online course                        [24]        R. Costa-Mendes, T. Oliveira, M. Castelli, and F. Cruz-Jesus, “A
+         recommendation,” Inf. Process. Manag., vol. 60, no. 4, p.                                        machine learning approximation of the 2015 Portuguese high
+         103377, 2023, doi: https://doi.org/10.1016/j.ipm.2023.103377.                                    school student grades: A hybrid approach,” Educ. Inf. Technol.,
+[7]      S. Ali, Y. Hafeez, M. Humayun, N. S. M. Jamail, M. Aqib, and                                     vol. 26, no. 2, pp. 1527–1547, 2021.
+         A. Nawaz, “Enabling recommendation system architecture in                            [25]        N. S. Sani, A. F. M. Nafuri, Z. A. Othman, M. Z. A. Nazri, and
+         virtualized environment for e-learning,” Egypt. Informatics J.,                                  K. N. Mohamad, “Drop-out prediction in higher education
+         vol. 23, no. 1, pp. 33–45, 2022.                                                                 among B40 students,” Int. J. Adv. Comput. Sci. Appl., vol. 11,
+[8]      R. Chaker, F. Bouchet, and R. Bachelet, “How do online                                           no. 11, 2020.
+         learning intentions lead to learning outcomes? The mediating                         [26]        Y. Ping, “Research on computer professional process and
+         effect of the autotelic dimension of flow in a MOOC,” Comput.                                    individualized teaching reform based on big data thinking,” in
+         Human Behav., vol. 134, p. 107306, 2022, doi:                                                    Proceedings of 2019 International Conference on Reform,
+         https://doi.org/10.1016/j.chb.2022.107306.                                                       Technology, Psychology in Education (ICRTPE 2019), 2019, pp.
+[9]      B. Li et al., “A personalized recommendation framework based                                     397–400.
+         on MOOC system integrating deep learning and big data,”                              [27]        F. Cruz-Jesus et al., “Using artificial intelligence methods to
+         Comput. Electr. Eng., vol. 106, p. 108571, 2023, doi:                                            assess academic achievement in public high schools of a
+         https://doi.org/10.1016/j.compeleceng.2022.108571.                                               European Union country,” Heliyon, vol. 6, no. 6, p. e04081,
+[10]     S. Benhamdi, A. Babouri, and R. Chiky, “Personalized                                             2020.
+         recommender system for e-Learning environment,” Educ. Inf.                           [28]        F. M. A. Khan and M. Masood, “The effectiveness of an
+         Technol., vol. 22, no. 4, pp. 1455–1477, 2017, doi:                                              interactive multimedia courseware with cooperative mastery
+         10.1007/s10639-016-9504-y.                                                                       approach in enhancing higher order thinking skills in learning
+[11]     O. Embarak, “An adaptive paradigm for smart education systems                                    cellular respiration,” Procedia-Social Behav. Sci., vol. 176, pp.
+         in smart cities using the internet of behaviour (IoB) and                                        977–984, 2015.
+         explainable artificial intelligence (XAI),” in 2022 8th                              [29]        M. Adnan, M. I. Uddin, E. Khan, F. S. Alharithi, S. Amin, and
+         International Conference on Information Technology Trends                                        A. A. Alzahrani, “Earliest Possible Global and Local
+         (ITT), 2022, pp. 74–79, doi: 10.1109/ITT56123.2022.9863950.                                      Interpretation of Students ’ Performance in Virtual Learning
+[12]     A. M. Maatuk, E. K. Elberkawi, S. Aljawarneh, H. Rashaideh,                                      Environment by Leveraging Explainable AI,” IEEE Access, vol.
+         and H. Alharbi, “The COVID-19 pandemic and E-learning:                                           10, no. December, pp. 129843–129864, 2022, doi:
+         challenges and opportunities from the perspective of students                                    10.1109/ACCESS.2022.3227072.
+         and instructors,” J. Comput. High. Educ., vol. 34, no. 1, pp. 21–                    [30]        B. Wu and L. Liu, “Personalized Hybrid Recommendation
+         38, 2022.                                                                                        Algorithm for MOOCs Based on Learners’ Dynamic Preferences
+[13]     M. A. Almaiah, A. Al-Khasawneh, and A. Althunibat,                                               and Multidimensional Capabilities,” Applied Sciences, vol. 13,
+         “Exploring the critical challenges and factors influencing the E-                                no. 9. 2023, doi: 10.3390/app13095548.
+         learning system usage during COVID-19 pandemic,” Educ. Inf.                          [31]        P. B. Thorat, R. M. Goudar, and S. Barve, “Survey on
+         Technol., vol. 25, pp. 5261–5280, 2020.                                                          collaborative filtering, content-based filtering and hybrid
+[14]     Q. Zhang, J. Lu, and G. Zhang, “Recommender Systems in E-                                        recommendation system,” Int. J. Comput. Appl., vol. 110, no. 4,
+         learning,” J. Smart Environ. Green Comput., vol. 1, pp. 76–89,                                   pp. 31–36, 2015.
+         2022, doi: 10.20517/jsegc.2020.06.                                                   [32]        D. Wang, Y. Liang, D. Xu, X. Feng, and R. Guan, “A content-
+[15]     Z. Batmaz, A. Yurekli, A. Bilge, and C. Kaleli, “A review on                                     based recommender system for computer science publications,”
+         deep learning for recommender systems: challenges and                                            Knowledge-Based Syst., vol. 157, pp. 1–9, 2018.
+         remedies,” Artif. Intell. Rev., vol. 52, pp. 1–37, 2019.                             [33]        J. Bobadilla, A. Gutiérrez, S. Alonso, and Á. González-Prieto,
+[16]     S. S. Khanal, P. W. C. Prasad, A. Alsadoon, and A. Maag, “A                                      “Neural collaborative filtering classification model to obtain
+         systematic review: machine learning based recommendation                                         prediction reliabilities,” 2022.
+         systems for e-learning,” Educ. Inf. Technol., vol. 25, no. 4, pp.                    [34]        Y. Koren, S. Rendle, and R. Bell, “Advances in collaborative
+         2635–2664, 2020, doi: 10.1007/s10639-019-10063-9.                                                filtering,” Recomm. Syst. Handb., pp. 91–142, 2021.
+[17]     Z. Huang, X. Xu, H. Zhu, and M. C. Zhou, “An Efficient Group                         [35]        G. Geetha, M. Safa, C. Fancy, and D. Saranya, “A hybrid
+         Recommendation Model with Multiattention-Based Neural                                            approach using collaborative filtering and content based filtering
+         Networks,” IEEE Trans. Neural Networks Learn. Syst., vol. 31,                                    for recommender system,” in Journal of Physics: Conference
+         no.        11,        pp.        4461–4474,         2020,      doi:                              Series, 2018, vol. 1000, no. 1, p. 12101.
+         10.1109/TNNLS.2019.2955567.                                                          [36]        D. Bokde, S. Girase, and D. Mukhopadhyay, “Matrix
+[18]     S. Deng, L. Huang, G. Xu, X. Wu, and Z. Wu, “On Deep                                             factorization model in collaborative filtering algorithms: A
+         Learning for Trust-Aware Recommendations in Social                                               survey,” Procedia Comput. Sci., vol. 49, pp. 136–146, 2015.
+         Networks,” IEEE Trans. Neural Networks Learn. Syst., vol. 28,                        [37]        S. Rendle, W. Krichene, L. Zhang, and J. Anderson, “Neural
+         no.        5,        pp.        1164–1177,          2017,      doi:                              collaborative filtering vs. matrix factorization revisited,” in
+         10.1109/TNNLS.2016.2514368.                                                                      Proceedings of the 14th ACM Conference on Recommender
+[19]     S. Zhang, L. Yao, A. Sun, and Y. Tay, “Deep learning based                                       Systems, 2020, pp. 240–248.
+         recommender system: A survey and new perspectives,” ACM                              [38]        W. Chen, Z. Niu, X. Zhao, and Y. Li, “A hybrid
+         Comput. Surv., vol. 52, no. 1, pp. 1–38, 2019.                                                   recommendation algorithm adapted in e-learning environments,”
+[20]     Z. Y. Khan, Z. Niu, S. Sandiwarno, and R. Prince, “Deep                                          World Wide Web, vol. 17, no. 2, pp. 271–284, 2014, doi:
+         learning techniques for rating prediction: a survey of the state-                                10.1007/s11280-012-0187-z.
+         of-the-art,” Artif. Intell. Rev., vol. 54, no. 1, pp. 95–135, 2021,                  [39]        P. Symeonidis and D. Malakoudis, “Multi-modal matrix
+         doi: 10.1007/s10462-020-09892-9.                                                                 factorization with side information for recommending massive
+[21]     K. K. Jena et al., “E-Learning Course Recommender System                                         open online courses,” Expert Syst. Appl., vol. 118, no. 15, pp.
+         Using Collaborative Filtering Models,” Electronics, vol. 12, no.                                 261–271, 2019.
+         1, p. 157, 2022.                                                                     [40]        S. Wan and Z. Niu, “An e-learning recommendation approach
+[22]     E. Aeiad and F. Meziane, “An adaptable and personalised E-                                       based on the self-organization of learning resource,” Knowledge-
+         learning system applied to computer science Programmes                                           Based      Syst.,    vol.    160,   pp.   71–87,     2018,    doi:
+         design,” Educ. Inf. Technol., vol. 24, no. 2, pp. 1485–1509,                                     https://doi.org/10.1016/j.knosys.2018.06.014.
+         2019, doi: 10.1007/s10639-018-9836-x.                                                [41]        S. Zheng, M. B. Rosson, P. C. Shih, and J. M. Carroll,
+
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+         “Understanding student motivation, behaviors and perceptions in                                  2022.
+         MOOCs,” in Proceedings of the 18th ACM conference on                                 [58]        K. Vahidy Rodpysh, S. J. Mirabedini, and T. Banirostam,
+         computer supported cooperative work & social computing,                                          “Model-driven approach running route two-level SVD with
+         2015, pp. 1882–1895.                                                                             context information and feature entities in recommender
+[42]     R. F. Kizilcec, C. Piech, and E. Schneider, “Deconstructing                                      system,” Comput. Stand. Interfaces, vol. 82, p. 103627, 2022,
+         disengagement: analyzing learner subpopulations in massive                                       doi: https://doi.org/10.1016/j.csi.2022.103627.
+         open online courses,” in Proceedings of the third international                      [59]        T. Silveira, M. Zhang, X. Lin, Y. Liu, and S. Ma, “How good
+         conference on learning analytics and knowledge, 2013, pp. 170–                                   your recommender system is? A survey on evaluations in
+         179.                                                                                             recommendation,” Int. J. Mach. Learn. Cybern., vol. 10, no. 5,
+[43]     S. Halawa, D. Greene, and J. Mitchell, “Dropout prediction in                                    pp. 813–831, 2019, doi: 10.1007/s13042-017-0762-9.
+         MOOCs using learner activity features,” Proc. Second Eur.                            [60]        W. Krichene and S. Rendle, “On sampled metrics for item
+         MOOC Stakehold. summit, vol. 37, no. 1, pp. 58–65, 2014.                                         recommendation,” Commun. ACM, vol. 65, no. 7, pp. 75–83,
+[44]     A. Klašnja-Milićević, M. Ivanović, B. Vesin, and Z. Budimac,                                     2022.
+         “Enhancing       e-learning     systems     with     personalized                    [61]        A. Klasnja-Milicevic and D. Milicevic, “Top-N Knowledge
+         recommendation based on collaborative tagging techniques,”                                       Concept Recommendations in MOOCs using a Neural Co-
+         Appl. Intell., vol. 48, no. 6, pp. 1519–1535, 2018, doi:                                         Attention Model,” IEEE Access, vol. 11, pp. 51214–51228,
+         10.1007/s10489-017-1051-8.                                                                       2023.
+[45]     M. Amane, K. Aissaoui, and M. Berrada, “ERSDO: E-learning                            [62]        M. Slokom, A. Hanjalic, and M. Larson, “Towards user-oriented
+         Recommender System based on Dynamic Ontology,” Educ. Inf.                                        privacy for recommender system data: A personalization-based
+         Technol., vol. 27, no. 6, pp. 7549–7561, 2022, doi:                                              approach to gender obfuscation for user profiles,” Inf. Process.
+         10.1007/s10639-022-10914-y.                                                                      Manag., vol. 58, no. 6, p. 102722, 2021, doi:
+[46]     D. Yang, D. Adamson, and C. P. Rosé, “Question                                                   https://doi.org/10.1016/j.ipm.2021.102722.
+         Recommendation with Constraints for Massive Open Online                              [63]        B. Cheng, P. Chen, X. Zhang, K. Fang, X. Qin, and W. Liu,
+         Courses,” in Proceedings of the 8th ACM Conference on                                            “Personalized Privacy Protection-Preserving Collaborative
+         Recommender         Systems,     2014,     pp.    49–56,     doi:                                Filtering Algorithm for Recommendation Systems,” Applied
+         10.1145/2645710.2645748.                                                                         Sciences, vol. 13, no. 7. 2023, doi: 10.3390/app13074600.
+[47]     S. Lazarevic, T. Zuvela, S. Djordjevic, S. Sladojevic, and M.
+         Arsenovic, “Machine learning driven course recommendation
+         system,” in 2022 21st International Symposium INFOTEH-
+         JAHORINA         (INFOTEH),        2022,     pp.    1–5,     doi:
+         10.1109/INFOTEH53737.2022.9751282.
+[48]     X. Jiang, L. Bai, X. Yan, and Y. Wang, “LDA-based online
+         intelligent courses recommendation system,” Evol. Intell., 2022,
+         doi: 10.1007/s12065-022-00810-2.
+[49]     S. Airen and J. Agrawal, “Movie Recommender System Using
+         K-Nearest Neighbors Variants,” Natl. Acad. Sci. Lett., vol. 45,                      SAMINA AMIN received the M.S. degree in computer science from the
+         no. 1, pp. 75–82, 2022, doi: 10.1007/s40009-021-01051-0.                             Institute of Computing, Kohat University of Science and Technology,
+[50]     R. Ahuja, A. Solanki, and A. Nayyar, “Movie recommender                              Kohat, Pakistan in 2020, where she is currently pursuing the Ph.D. degree.
+         system using k-means clustering and k-nearest neighbor,” in                          Her research interests include machine learning, deep learning, data
+         2019 9th International Conference on Cloud Computing, Data                           science, data mining, natural language processing, social media analysis,
+         Science & Engineering (Confluence), 2019, pp. 263–268.                               neural network, recurrent neural networks, convolutional neural networks,
+[51]     M. Gupta, A. Thakkar, Aashish, V. Gupta, and D. P. S. Rathore,                       image processing, health informatics, recommender systems, and
+         “Movie Recommender System Using Collaborative Filtering,” in                         reinforcement learning. She has received the Gold Medal from the Kohat
+         2020 International Conference on Electronics and Sustainable                         University of Science and Technology. She has published several articles
+         Communication Systems (ICESC), 2020, pp. 415–420, doi:                               in reputable journals. She serves as a reviewer for different journals.
+         10.1109/ICESC48915.2020.9155879.
+[52]     K. R, P. Kumar, and B. Bhasker, “DNNRec: A novel deep
+         learning based hybrid recommender system,” Expert Syst. Appl.,
+         vol.        144,        p.       113054,         2020,       doi:
+         https://doi.org/10.1016/j.eswa.2019.113054.
+[53]     H. Tahmasebi, R. Ravanmehr, and R. Mohamadrezaei, “Social
+         movie recommender system based on deep autoencoder network
+         using Twitter data,” Neural Comput. Appl., vol. 33, no. 5, pp.
+         1607–1623, 2021, doi: 10.1007/s00521-020-05085-1.                                                              M. Irfan Uddin is currently working as a
+[54]     S. Amin, M. I. Uddin, H. H. Al-baity, M. A. Zeb, and M. A.                                                     faculty member at the Institute of Computing,
+         Khan, “Machine Learning Approach for COVID-19 Detection                                                        Kohat University of Science and Technology,
+         on Twitter,” C. Mater. Contin., vol. 68, no. 2, pp. 2231–2247,                                                 Kohat, Pakistan. He has received his academic
+         2021, doi: 10.32604/cmc.2021.016896.                                                                           qualifications in computer science and has
+[55]     J. Herce-Zelaya, C. Porcel, J. Bernabé-Moreno, A. Tejeda-                                                      worked as a researcher in European Union
+         Lorente, and E. Herrera-Viedma, “New technique to alleviate the                                                funded projects. He is involved in teaching and
+         cold start problem in recommender systems using information                                                    research activities related to different diverse
+         from social media and random decision forests,” Inf. Sci. (Ny).,                                               topics of computer science and has more than
+         vol.        536,       pp.       156–170,        2020,       doi:                                              eighteen years of teaching plus research
+         https://doi.org/10.1016/j.ins.2020.05.071.                                           experience. He is a member of IEEE, ACM, and HiPEAC. He has been
+[56]     Z. Shahbazi, D. Hazra, S. Park, and Y. C. Byun, “Toward                              actively involved in organising national and international seminars,
+         Improving the Prediction Accuracy of Product Recommendation                          workshops, and conferences. He has published more than hundred research
+         System Using Extreme Gradient Boosting and Encoding                                  papers in reputed international journals and conferences. His research
+         Approaches,” Symmetry, vol. 12, no. 9. 2020, doi:                                    interests include machine learning, data science, artificial neural networks,
+         10.3390/sym12091566.                                                                 deep learning, convolutional neural networks, recurrent neural networks,
+[57]     T. Widiyaningtyas, M. I. Ardiansyah, and T. B. Adji,                                 attention models, reinforcement learning, generative adversarial networks,
+         “Recommendation Algorithm Using SVD and Weight Point                                 computer vision, image processing, machine translation, natural language
+         Rank ( SVD-WPR ),” Big data Cogn. Comput., vol. 6, no. 121,
+
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+                  This article has been accepted for publication in IEEE Access. This is the author's version which has not been fully edited and
+                                            content may change prior to final publication. Citation information: DOI 10.1109/ACCESS.2023.3336676
+
+
+
+
+processing, speech recognition, big data analytics, parallel programming,                     Technology from Claremont Graduate University. He received a Master of
+Multi-core, Many-core and GPUs.                                                               Computer Science from California Lutheran University and a master’s
+                                                                                              degree in information systems and technology from Claremont Graduate
+                                                                                              University. His research interest is centered primarily around Geographic
+                                                                                              Information Systems (GIS), Energy Informatics, Remote Senescing, and
+                                                                                              Machine Learning
+
+
+
+
+                          Wali Khan Mashwani has received MSc in
+                          mathematics from the University of Peshawar,
+                          Khyber Pakhtunkhwa, Pakistan, in 1996, and the
+Ph.D. degree in mathematics from the University of Essex, U.K., in 2012.
+He is currently working as an Associate Professor in mathematics and the
+Director of the Institute of Numerical Sciences, Kohat University of
+Science & Technology (KUST), Khyber Pakhtunkhwa. He has published
+more than 100 academic papers in peer-reviewed international journals
+and conference proceedings. His research interests include evolutionary
+computation, hybrid evolutionary multi-objective algorithms, and
+decomposition-based evolutionary methods for multi-objective
+optimization, mathematical programming, numerical analysis, and
+artificial neural networks.
+   .
+
+
+
+
+                           Ala Abdulsalam Alarood. is an Associate
+                          Professor in The Department of Data Science,
+                          College of Computer Science and Engineering,
+                          University of Jeddah. He holds a Ph.D. in
+                          computer science from the University of
+                          Technology Malaysia (UTM) in 2017. He received
+                          a Master of Computer Science and a Bachelor of
+Computer Science Degrees. His research interests Data Science, Artificial
+intelligent, Internet of Things (IoT), and Cybersecurity.
+
+
+
+
+                                Abdulrahman        Alzahrani     is   an
+                               assistance professor in the Department of
+                               Information System and Technology,
+                               College of Computer Science and
+                               Engineering, University of Jeddah, Jeddah
+                               21493, Saudi Arabia. Alzahrani’s research
+                               is focused on the field of information
+                               technology and innovations in the area of
+                               Data Science, Machine Learning, and
+                               Health Informatics. Abdulrahman teaches
+                               several courses to bachelor and master
+students. He teaches E Commerce, Data Visualization classes. He is
+currently the head of the computer network department.
+
+
+
+
+                        Ahmed Omar Alzahrani is currently an
+                        Assistant Professor at Faculty of Computer
+                        Science and Engineering, University of Jeddah. He
+                        holds a Ph.D. degree in Information Systems and
+
+VOLUME XX, 2017                                                                                                                                                                 9
+
+
+                  This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. For more information, see https://creativecommons.org/licenses/by-nc-nd/4
+

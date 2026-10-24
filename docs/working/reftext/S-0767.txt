@@ -1,0 +1,932 @@
+Received 22 March 2025, accepted 23 April 2025, date of publication 28 April 2025, date of current version 5 May 2025.
+Digital Object Identifier 10.1109/ACCESS.2025.3564677
+
+
+
+
+HMSTNet: A Deep Learning Multimodal
+Approach for Personalized English
+Literature Recommendations
+XIAOPENG WANG AND XUE LIANG
+Langfang Health Vocational College, Langfang, Hebei 065000, China
+Corresponding author: Xue Liang (19822021662@163.com)
+
+
+
+
+  ABSTRACT Recommendation systems serve as fundamental elements of contemporary technology by
+  reshaping how users find content in all fields including educational applications. Academic English
+  literature benefits strongly from recommendation systems because these systems enable customized learning
+  opportunities to help students discover relevant content according to personal learning needs. English
+  literature represents features challenging recommendation systems because it consists of extensive text
+  content combined with multiple stylistic attributes and extensive metadata structures. The study presents
+  a deep learning framework called HMSTNet to manage complex recommendation scenarios. Novel
+  architecture integrates metadata datasets alongside stylistic information and BERT-powered text-based
+  embeddings for understanding of content and user systemic preferences. Through its multi-branch structure
+  Hybrid Multimodal Semantic Text Neural Network (HMSTNet) based on LSTM model to recognize
+  difficult meta-relations between text components while utilizing user embeddings to maintain context
+  awareness. This research serves to unite conventional recommendation algorithms with English literature
+  reading requirements. The complex nature of literary data poses challenges to k-Nearest Neighbors (kNN)
+  and Singular Value Decomposition (SVD) whereas conventional methods show limited success in both
+  context understanding and accuracy. The model HMSTNet outperforms others with outstanding results
+  reaching 95.23% accuracy. Multiple metrics demonstrate the efficiency of this model because they measure
+  highest MBD with KNN model of 6.8m along with Theil’s U-statistic of 0.04 and 90th percentile error
+  is 8.41 to confirm minimized prediction errors and enhanced accuracy and fail-safe capability. Through its
+  reliable framework HMSTNet both delivers personalized content recommendations and supports educational
+  technology development which deepens student engagement with literature and promotes lifelong learning.
+
+
+  INDEX TERMS BERT embeddings, deep-learning, English literature, metadata, recommendation system,
+  users personalization.
+
+
+I. INTRODUCTION                                                                                 examine item characteristics and user preferences at their
+Today’s technology depends heavily on recommendation                                            core to thrive best in environments that heavily rely on
+systems to help users find and interact with content in all                                     metadata and text [2]. The value of recommendation systems
+types of platforms. Such systems use data to show users                                         stands out strongly in English literature. Too many books
+custom results which make navigation simpler and give user                                      now make it hard for readers to easily find reading material
+better experiences [1]. Recommendation systems developed                                        they enjoy. Literature’s wide array of writing approaches and
+advanced content-based filtering alongside their traditional                                    subject material makes it hard for standard systems to match
+approaches over many years. Content-based techniques                                            readers with suitable content [3]. By following individual
+                                                                                                reader preferences, the system suggests specific titles to
+   The associate editor coordinating the review of this manuscript and                          meet their needs and introduce them to fresh entertainment
+approving it for publication was Donato Impedovo               .                                options [4].
+                                                  2025 The Authors. This work is licensed under a Creative Commons Attribution 4.0 License.
+74984                                                    For more information, see https://creativecommons.org/licenses/by/4.0/                 VOLUME 13, 2025
+X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+   Standard recommendation methods show major weak-                assess writings correctly. The study develops personalization
+nesses when used in the detailed field of English literature       abilities by teaching the system to use user embeddings which
+research [5]. The most common recommendation method                let it generate recommendations based on a user’s personal
+called Collaborative Filtering by using user input records to      taste and reading habits. Furthermore, the study strives to
+predict future behavior. In situations with limited user history   fill literature recommendation technology gaps for English
+or new releases the system demonstrates poor performance           works while building a stronger recommendation system for
+despite yielding good outcomes with substantial datasets [6].      readers.
+The system needs user feedback to operate but fails to grasp          The key contributions of the study include:
+content characteristics properly resulting in recommendation          • Integration of BERT-based embeddings with text
+results that miss deep specific connections [7].                          embeddings, stylistic and metadata features for deeper
+   The special nature of English literature makes rec-                    contextual understanding of literary content.
+ommendation systems hard to navigate because of its                   • Context-aware representation learning is achieved using
+complex metadata. Reading a piece of literature requires                  pre-trained BERT embeddings and LSTM networks for
+understanding its different types, thematic elements, and                 improved semantic understanding.
+author’s distinctive style as identified in research [8]. These       • Incorporation of user embeddings to enhance person-
+standard systems cannot properly analyze the many types                   alization and align recommendations with individual
+of metadata available to produce precise recommenda-                      preferences.
+tions [9]. A text’s natural language formation in literary            • Comprehensive evaluation of the proposed system using
+descriptions creates major processing difficulties. Traditional           real-world datasets to validate its effectiveness and
+recommendation systems find it hard to manage texts from                  practical applicability.
+literature because they process texts with complex words           In the remainder of this paper, as defined in figure 1,
+and hidden meanings plus different writing styles [10]. The        Section II provides a review of related work and existing
+system’s problems show that advanced methods must manage           approaches in the field of recommendation systems, par-
+metadata analysis along with natural language processing           ticularly focusing on their application to English literature.
+tasks to give superior recommendations for English litera-         In Section III, the methodology is detailed, covering the data
+ture [11] and graph-based structures can further enhance the       preprocessing steps, feature extraction techniques, and the
+predictive accuracy by incorporating more powerful users’          architecture of the proposed deep learning model. Section IV
+interaction [12].                                                  presents the experimental results and the evaluation of
+   These advanced systems need to recognize user pref-             the model’s performance, demonstrating its effectiveness.
+erences better because customers want custom recom-                Finally, Section V concludes the study by summarizing the
+mendations that match their tastes [13]. Regular systems           key findings and suggesting potential directions for future
+lack accuracy when making personal recommendations,                research.
+so they perform badly with literary materials whose content
+ranges widely. Current recommendation technologies need
+to incorporate deep learning methods and semantic text
+understanding methods for better results [14], although for
+missing rating handled based on generative learning [15]
+in literary recommendations. These missing elements in
+the system make it hard to recommend literary works
+accurately and lower recommendation quality. Specific user
+behavior and preference analysis using user embedding
+techniques has not been fully explored in recommendations
+but has held promise since [16]. Using this approach
+allows us to customize recommendations based on what
+individuals like to read, coupled with multimodal approaches
+to recommend literature which is aligned to the pref-
+erences of individual user [17]. The research aims to              FIGURE 1. Steps showing paper structure.
+overcome previous system constraints by examining how
+innovative technologies enhance literature recommendation
+services.                                                          II. RELATED WORK
+   Our main aim of this research is to creates a content recom-    This section examines different ways to combine Language
+mendation system for English literature. that merges different     Models and recommendation engines to develop more precise
+types of data to make better literary recommendations by           suggestions and tailor recommendations to specific users
+processing metadata information alongside stylistic markers        while generating explanatory reports. These methods employ
+and contextual inputs. The system will generate better literary    diverse methods including hybrid prompting for products,
+recommendations because it uses multiple data types to             sequential learning methods and adding graph features based
+
+VOLUME 13, 2025                                                                                                            74985
+                                                                         X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+on global and users content information for recommendation       measures across different testing datasets. Despite its ability
+systems yet face multiple hurdles in practice [18].              to process text through natural language processing LC-Rec
+   Researchers [19] suggest LLaRA to pair traditional            struggles when making effective recommendations for tasks
+recommendation technologies with big language models to          dependent on non-textual input data [2].
+process user actions and wide world knowledge. The system           The paper presents LC-Rec as a unique recommendation
+combines traditional models that produce item IDs with           model which merges language and collaborative semantics
+text-based item features through a projector to create hybrid    into large language models (LLMs) for solving recom-
+prompts. A training plan starts with text prompts before         mender systems challenges. The system produces item
+mixing them with item-specific behavioral information to         recommendations straight from all available items instead
+help the model blend both types of knowledge. The tests          of using preselected candidates. The model makes two key
+confirm that LLaRA boosts its ability to provide accurate        contributions: The paper uses a learning algorithm and
+recommendations. The model confronts difficulties because        uniform semantic mapping to create understandable item
+it requires pretrained LLMs plus demands excessively             identity matches then adds specialized training steps to
+complex setups with sensitive data quality needs. The            attach collaborative information to LLMs [24]. The system
+research work introduces Rec-former which presents a             uses custom tasks to merge language and collaborative
+special framework for sequential recommendations that            properties to enhance recommendations for LC-Rec per-
+uses language representations to estimate the following          formance in recommendations. Detailed tests prove that
+item in someone’s item viewing order. Recformer uses a           LC-Rec produces better results than numerous benchmark
+bidirectional Transformer design with unique embeddings          alternatives regardless of their LLM or traditional basis. The
+to match sequential recommendations needs like Long              system demands more processing power because it requires
+former [20]. The model combines training approaches to           fine-tuning operations which push up workload in limited
+learn item sequences by combining text understanding skills      computational settings.
+with behavioral recommendation methods. The research                The researchers introduce LLMRec which uses three
+evaluated Recformer using six datasets where the model           unique graph augmentation methods built on language mod-
+achieved high prediction precision in situations with few        els to better suggest items. The strategies use online content
+resources and fresh data. The technique needs to rely on item    from Netflix and MovieLens to enhance user-item connec-
+key-value attributes from descriptions which cannot fully        tions while enriching item nodes and studying user behavior
+manage complex recommendation tasks. Deep learning has           through written input. Using these methods LLMRec solves
+demonstrated significant potential in enhancing personalized     the issues of scant implicit feedback and poor-quality side
+learning experiences across various domains by proposing         information in recommendation systems. The framework
+an optimal approach for predicting cognitive performance in      uses denoised data robustification to improve augmented data
+educational settings, highlighting the effectiveness of AI in    quality through both noisy implicit feedback removal and
+recommending and tailoring learning resources to individual      MAE feature enhancement [25]. The system improves data
+needs [21]. Similarly, Another study, aligned for the need for   quality by ensuring an accurate enhancement result. Research
+intelligent recommendation systems that personalize content      is presented that demonstrates how LLMRec optimizes
+delivery based on learners’ cognitive and behavioral patterns,   models better than other systems. The results demonstrate
+[22] explored factors influencing deep learning adoption         that LLMRec generates better recommendations than current
+among EFL students, emphasizing the role of adaptive             standard techniques based on test dataset analysis. The
+technologies in improving engagement and comprehension           model’s use of extra information leads to more complex
+based on learning content. A research team [23] developed        operations and increased computing expenses. The paper [26]
+P5 which offers a text-to-text system for recommendation         introduces KAR, an LLM based model to acquire two types
+tasks while remaining adaptable and integrated. P5 converts      of external knowledge: The system links knowledge about
+multiple types of recommendation data from user interac-         user preferences through reasoning with knowledge about
+tions, user profiles, product information, and reviews into      specific items from facts. The framework uses factorization
+shared textual form. The model learns hidden patterns in         prompting to find genuine user preference insights. The
+text data and recommends products by sharing language            hybrid-expert adaptor converts generated reasoning and facts
+modeling tasks during training. P5 works as a basis for          into adapted vectors that match the recommendation task
+different recommendation models and helps integrate new          requirements. These vectors help make any recommendation
+input types simply while producing instructions for product      algorithm perform better. LLMs provide knowledge to
+suggestions. The approach takes shallow recommendation           the recommendation system through a preprocessing stage
+models to deep scalable models while making progress             of storage. Through many tests KAR demonstrates better
+toward a single recommendation system for all needs. P5          results than other established platforms while working well
+tailors prompt each user while managing zero-shot and few-       with different recommendation techniques. Another study
+shot predictions so training becomes more efficient. The         deployed KAR on Huawei news and music outlets to see how
+analysis shows that the model achieves solid performance         well it worked in online experiments. News recommendations
+
+
+74986                                                                                                                    VOLUME 13, 2025
+X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+gained 7% extra success while music picks delivered a 1.7%        However, these systems face the following challenges rely
+performance increase. Efficient knowledge storage needs           on Rcollab = f (Xui ) to struggle for accurately modeling
+exist because this method depends on existing stored data.        the intrinsic qualities of items due to their dependence on
+   The paper [27] presents HSS a hierarchical seq2seq             user feedback. This leads to suboptimal recommendations,
+framework with self-cleaning technology that generates            especially in scenarios where user interaction history is
+individualized product suggestions and natural language           sparse, i.e., Sparse (Xui )
+descriptions. The model overcomes the problem of irrele-             Let Mmeta represent the metadata of a literary work (such
+vant user review sentences through feature-aware attention        as genre, theme, and style), and Ttext represent the textual
+processes that identify suitable sentences based on item          description of the item, which includes stylistic features
+characteristics to create more personalized explanations.         and vocabulary. Traditional systems fail to incorporate these
+The system shows better recommendation performance and            rich metadata and textual elements into the recommendation
+explanation updates for several online marketplaces through       process as Rmeta = f (Mmeta ) and Rtext = f (Ttext )
+BLEU, ROUGE, and feature word measurements [28]. User             are inadequately integrated into Rcollab . The challenge is
+reviews serve as their input yet present constraints such         further compounded by the lack of contextual understanding.
+as insufficient or generalized details making personalized        A deeper understanding of the literary content is needed,
+recommendations challenging in sparse review scenarios.           which can be represented as Ctext = g(Ttext ). Where g is a
+Because of its self-cleaning process the model could perform      function that captures the complex meaning, structure, and
+poorly on items with vague characteristics and would need         nuances within the text. Traditional systems do not effectively
+regular updates to match present user changes.                    model Ctext .
+   Another research based on RecMind an autonomous                   Let Uemb represent the user embeddings that capture
+recommender that uses an LLM to recommend items based             user preferences and behaviors. The current recommen-
+on external knowledge while planning tool usage in zero-shot      dation systems do not effectively utilize Uemb , resulting
+mode [29]. The Self-Inspiring (SI) algorithm makes the LLM        in a mismatch between user interests and the system’s
+plan better by referring to previous searches alongside its       suggestions: Remb f (Uemb ) Thus, the objective of this research
+access to historical purchasing data. The experiments prove       is to develop a content-based recommendation system Rnew
+that RecMind produces better recommendation results than          that integrates multiple sources of information: Rnew =
+present zero-shot and few-shot deep learning models while         f (Mmeta , Ttext , Ctext , Uemb ). Where the system combines
+matching the effectiveness of P5 at its best configuration.       metadata Mmeta , textual information Ttext , contextual under-
+RecMind uses the Self-Inspiring technique which merges            standing Ctext , and user embeddings Uemb to provide a more
+multiple reasoning routes into its system to deliver better       accurate, personalized, and context-aware recommendation
+outcomes than CoT and ToT methods. The approach has               for English literature.
+a main weakness because zero-shot recommendations need
+more training for datasets and applications that are hard to      IV. RESEARCH METHODOLOGY
+manage. Guidance by SI helps with reasoning but its benefits      The Proposed Methodology, defined in figure 2 explains
+are reduced in advanced recommendation work and situations        how we built recommendation system using a structured
+with minimal or incomplete stored data [30].                      development process for English literature applications. The
+   Here is a table 1 summarize the details of the research        process starts with Data Preprocessing which explains how
+papers mentioned:                                                 to prepare metadata and text to make them compatible before
+                                                                  merging.
+III. PROBLEM STATEMENT                                               Feature Engineering selects valuable writing style ele-
+Basic recommendation engines that use collaborative fil-          ments and contextual information from literary texts using
+tering run into problems processing the intricate range of        metadata embedding and BERT-based text methods. System
+English literary works. The current systems find it difficult     Design presents the deep learning structure that takes
+to work with deep metadata and contextual details of English      multiple data sources such as metadata, written text, and user
+literature works making their suggestions basic and not           preference records. Algorithm 2 delivers precise literature
+customized to users. The current systems do not properly          recommendation results by combining several distinct types
+merge user preference data into their recommendations which       of deep learning input.
+hampers their ability to customize output. The advanced
+literature-recommendation system needs to combine various         A. DATA PREPROCESSING
+data types including author metadata, language patterns, and      The data preprocessing process begins with reading essential
+reading behavior to produce better tailored English literature    English Literature recommendations data from a CSV file.
+suggestions. Let R represent the recommendation system,           The dataset consists of columns that show genre, author, page
+where the output is a set of recommended items Rrec for           count, summary, and user assignment values. We start by
+a given user u. Traditional recommendation systems, such          putting the dataset into a DataFrame through equation 1.
+as collaborative filtering, rely on user-item interactions Xui
+and produce recommendations based on historical feedback.                       D = dataframe.read(CLGD.csv)                  (1)
+
+VOLUME 13, 2025                                                                                                             74987
+                                                                            X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+TABLE 1. Analysis of existing studies.
+
+
+
+
+The program loads information from CLGD.csv to work                 to process categorical features during training, represented by
+with. The system prepares raw data to become workable               equation 3.
+through the data arrangement. The system stores book
+                                                                           p = [p1 , p2 , p3 , . . . , pn ] (list of pagenumbers)      (3)
+categories into a series.
+                                                                    which are numerical data, are next normalized using a
+               g = [g1 , g2 , . . . , gn ] (list of genres)   (2)
+                                                                    StandardScaler. Normalization ensures that the page numbers
+where each gi corresponds to a specific genre associated            are scaled to a standard range, typically with a mean of
+with a book. Since the genres column contain categorical            0 and a standard deviation of 1. It standardizes the values of
+data, one-hot encoding is applied to this column to convert         the pages to make them more comparable to other features
+the genres into a binary format. This is done by applying           such as user ratings. This is important because it ensures
+the oneHotEncoder function, which transforms each genre             that features with larger numerical ranges are prevented from
+into a separate binary feature indicating the presence or           dominating the learning process, improving the performance
+absence of that genre for each book. One-hot encoding is            of the recommendation model.
+crucial in content-based recommendation systems because                Text data preprocessing is then managed by cleaning
+the relationships between books and genres are allowed to be        the text data. The descriptions of the books are tokenized
+understood in a structured way, making it easier for the model      using the Tokenizer function, which fits a tokenizer to
+
+74988                                                                                                                       VOLUME 13, 2025
+X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+                     FIGURE 2. Steps showing framework of proposed methodology.
+
+
+
+
+the descriptions, and text-to-sequence converts the text into            synopses. The analysis delivers sentimental results that show
+sequences of integers. This step converts the text into a format         how texts feel emotionally to readers. Sentiment integration
+that can be processed by machine learning models. After                  in the model helps us personalize book suggestions by recom-
+tokenization, the sequences of tokens are padded using the               mending books that match a reader’s emotional preferences.
+equation (4).                                                            We normalize user ratings by using Min-Max normalization.
+                                                                         The normalization method guarantees ratings always fall
+   Tpadded = pad_seq(Ttokenized , maxlen
+                                                                         within the range of 0 to 1. Normalizing user ratings before
+             = Lmax , padding =′ post ′ , truc =′ post ′ )        (4)    model input prevents small rating variations from controlling
+This makes sure every text portion comes with matching                   recommendation results. The system takes user preferences
+length. Neural networks depend on padding and truncating                 specifically their favorite book genres. User IDs link separate
+inputs because they need equal sequence lengths and must                 entries holding data about preferred genres as fav-genre. The
+shorten longer sequences to their maximum size. We extract               system learns what each individual user likes to generate
+the Term Frequency-Inverse Document Frequency features                   better customized recommendations.
+from each book summary. Neural networks use this system                     Deep learning model generates dense feature arrays from
+to measure how much specific words matter when reviewing                 books and users to show their unique patterns. The model
+an entire collection. The TF-IDF system evaluates term                   combines user and book representations into a single output
+importance in each document through this equation, which                 vector by using equation 6.
+is multiplied by the log of the entire corpus size divided by
+                                                                            Datasetoutput
+the number of documents.
+                
+                   count of term j in doc i
+                                            
+                                                      N                      = Concatenate(user.Embedding, book.Embedding)          (6)
+  TF − IDFij =                                × log(     ) (5)
+                     Total terms in doc i            DFj                 The input shows how the system has trained each user
+The calculation uses document total count N to determine                 embedding and book embedding. By allowing the embed-
+term value against document frequency DFj                                dings to update during training the model captures new
+   The recommendation system uses TF-IDF values to under-                user choices and book traits as it progresses. Prepro-
+stand book content better. The team employs a sentiment                  cessing methods prepare the data for deep learning by
+analysis pipeline trained for the job to analyze the book                removing errors and normalizing values before transforming
+
+VOLUME 13, 2025                                                                                                                   74989
+                                                                          X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+it into recommendation system training. Processing text           matter and writing approach authors use in their books. The
+and metadata data before recommendation helps systems             Tokenizer manipulates text descriptions before sending them
+recognize and understand user-book relationships effec-           to model for processing. The model analyzes patterns in
+tively. The personalized recommendation system improves           sentences to stop words and phrases that most effectively
+user English Literature experience through deep learning-         show what the work is about. To calculate Lexical Diversity
+powered customization according to each user’s specific           the model uses equation 8.
+preferences.
+                                                                                                         T
+   Deep learning-based recommendation systems need pro-                                      LexDiv =                                (8)
+cessed data as their starting point before they can analyze                                              V
+the dataset. The model requires us to modify categorical          Lexical Diversity is computed by dividing total word count
+inputs to create processed data sets. The process starts by       T by the number of distinct words V found in the book
+converting genre and author data into One-Hot Encoding            description text.
+format. Through One-Hot Encoding we transform categorical            The program uses BERT Tokenizer technology to
+features into binary-coded vectors that use 0s and 1s to depict   extract more precise meaning from book descriptions while
+categories. This conversion technique lets the neural system      relying on Bert pre-trained models for analysis. As a
+grasp categorical patterns in genre and author relationships      transformer-based model BERT processes text from both
+faster than the algorithm could alone. The model gains genre      directions to extract context information from sentences
+and author-specific understanding through its capacity to         and paragraphs more effectively. To process a passage the
+manage binary versions of categorical data. In equation 7         system examines words that appear before and after a targeted
+the phase ‘‘One-Hot Encoding’’ defines how to transform           word to grasp its meaning. BERT Tokenizer transforms book
+categorical data.                                                 descriptions into manageable word pieces for BERT model
+                          (                                       processing. The Bert Model allows us to transform raw text
+                            1 if xi = categoryk                   input into useful numeric contextual embeddings using the
+          OneHot (xi ) =                                    (7)
+                            0 otherwise                           BERT Pre-trained Model. To obtain embeddings features
+                                                                  from BERT output the model uses Equation 9 to process
+where xi represents a category in the data, and categoryk         each word in the input text. The label wi defines its position
+is the specific category that xi is being compared to.            within the description and EBERT represents its embedding
+This step transforms categorical features such as genres          values.
+and authors into binary vectors suitable for the model to
+process.                                                                           EBERT = BERTPretrained (wi )                      (9)
+
+B. FEATURE ENGINEERING                                            where wi is the ith token in the description, and EBERT
+Transforming unprocessed text into useful linguistic features     is the contextual embedding vector for that token. Once
+helps the model better recognize English literature because       the textual features are processed, the model moves to
+it finds important textual details during content prediction.     the next phase, where it builds a complex architecture for
+During feature engineering’s Feature Embedding phase we           making predictions. The Meta Input Layer is constructed by
+turn book and user data into embeddings to prepare them for       combining several processed features: the one-hot encoded
+further analysis. The model absorbs user and book traits in       genre and author information, along with the tokenized text
+separate embeddings that merge to create an undistorted sum-      that has been enriched by the Lexical Diversity measure and
+mary. The model merges user preference and book attribute         BERT embeddings. The Meta Input Layer can be represented
+embeddings to build a better feature space which boosts           as in equation 10.
+predictive accuracy. During Feature Enrichment the process                                         
+                                                                      MetaInput = [OneHot Ggenre
+uses these representations as input to add new data about their
+context and meaning. We evaluate for word variety in texts                         + OneHot (Aauthor ) + LexDiv + EBERT ]
+and add BERT embedding results to the final representation.                                                              (10)
+The measure of lexical variety enriches the features through
+linguistic style representation [31]. BERT embeddings from        where Ggenre and Aauthor are the genre and author features
+a deep learning model help models understand sentences at         after One-Hot Encoding, and EBERT is the embedding for the
+detailed text context levels. After enhancement, the model        book description. The Lexical Diversity feature joins with
+receives input enriched with contextual and detailed infor-       other components to make a complete model input. A Dense
+mation for ongoing processing. The model calculates Lexical       Layer is placed directly after the meta-input. In a Dense Layer
+Diversity with its measurements from book descriptions.           all nodes connect directly to every node from the earlier
+This tool converts each book’s description into distinct word     layer [32]. The transformation operations of the Dense Layer
+units. Vocabulary range statistics in text show how diverse       appear in equation 11.
+and refined a book’s language appears to readers. When we
+know these stats we better understand the range of subject                     hdense = Wdense .MetaInput + bdense                  (11)
+
+74990                                                                                                                     VOLUME 13, 2025
+X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+where Wdense is the weight matrix, bdense is the bias vector,            the algorithm to learn from a rich dataset and provide users
+[33] and hdense is the output of the Dense Layer. The activation         with relevant, high-quality recommendations for English
+function σ is applied to this output to introduce non-linearity.         literature books that align with their tastes and preferences.
+                                                                         The details regarding the implementation of the proposed
+C. PROPOSED MODEL ARCHITECTURE                                           model are given in algorithm 1.
+The Stylistic Dense Layer is applied similarly to the input
+features, capturing stylistic elements of the text. Equation 12           Algorithm 1 Multimodal Deep Learning for Recommen-
+shows the stylistic transformation.                                       dation of English Literature Content
+            hstylistic = Wstylistic .MetaInput + bstylistic       (12)     Input: Enriched pre-processed Comprehensive Literary
+                                                                           Greats Dataset
+where Wstylistic is the weight matrix for the stylistic features,          Output: Predicted ratings based recommended books of
+and bstylistic is the bias vector. The output is passed through            English Literature
+an activation function σ . The Embedding Layer is then                     Eg = OneHotEncod(Gsplit(data[′ genres′ ] ))
+applied to the tokenized text from the book descriptions. The              Ea = OneHotEncoder(Asplit(data[′ author ′ ] ))
+Embedding Layer learns continuous vector representations of                For Every d in dataset D
+words, and the transformation for each token is represented                    Ldiv = LexDiv(Tokenizer(data [description]))
+by equation 13.                                                                TBert = BertTokenizer(PreTrained)
+                                                                               Model_Bert = TFBertModel(PreTrained)
+          Tembedding = Wembedding .Ttokens + bembedding           (13)
+                                                                           End For
+where Ttokens are the tokenized inputs, Wembedding is the                  For Each Layer in Model
+embedding weight matrix, and Tembedding is the resulting                       Metainput = input (shape (genco + aenco + Pnorm))
+vector for each word. Afterward, the LSTM (Long Short-                         Metadense = Dense(n, activation)(Minput )
+Term Memory) layer is applied to the embedded tokens.                          Sstylistic = Dense(u, acitvation)(input (shape, f ))
+LSTM is a type of RNN that can capture long-range                              Tembedding = Embed(Idim = v, Odim =
+dependencies within sequential data. The equation 14 for an                    d)(input(shape, t))
+LSTM layer output.                                                             Tlstm = LSTM (h) (Tembedding)
+                                                                           End For
+                                                                           M = model(input Xmetadata , Xstylistic , Xtext , Youtput
+                                                                                                                        
+                ht = LSTM Tembeddings t                (14)
+where ht is the hidden state at time step t, and Tembeddings                           r̂ = rating − predictedwhere, ŷ
+is the sequence of word embeddings passed into the                                          (
+                                                                                              high rating if r ∧ > 0.5
+LSTM. This allows the model to capture patterns over the                                  =
+entire book description. Once all the features have been                                      low rating if r ∧ ≤ 0.5
+processed through the layers, the model makes its final
+prediction using a Dense Output Layer [34]. This output layer
+computes the predicted rating for each book, represented by
+                                                                         V. EXPERIMENTAL SETUP
+equation 15.
+                                                                         A. DATASET
+             rpred = Woutput .DenseOutput + boutput               (15)   The Literary Greats Dataset is a vast treasure trove which
+                                                                         contains more than 50 thousand books of world literature, the
+where Woutput and boutput are the weight matrix and bias                 best samples of world literature, poetry, and authoring. The
+vector for the output layer, and rpred is the predicted rating.          dataset has a total size of 638MB, as structured information
+The algorithm classifies the predicted ratings as either high            that allows for analyzing literary works from a comprehensive
+or low based on a threshold of 0.5. The classification is                perspective. This reflects the diversity of the dataset in terms
+represented as shown in equation 16.                                     of the genres, languages, and the spans of publication of
+                   (
+                     high rating if rpred > 0.5                          the works. In addition, book ratings, awards, no. of votes
+          yclass =                                         (16)          etc. are included as metadata to evaluate the popularity and
+                     low rating if rpred ≤ 0.5
+                                                                         reception trends of the book. This data set provides all the
+In this classification, yclass represents the final recom-               following information pertaining to each book which can be
+mendation as either high or low based on the predicted                   useful to understand the reception and appraisal of books,
+rating rpred .                                                           as attributes are covered in table 2. Other characteristics
+   The algorithm can generate highly personalized book rec-              are publisher, the number of pages, the book published
+ommendations based on a comprehensive understanding of                   and the first publication date, and the theme which is
+the book content, writing style, genre, and author preferences.          the setting of the stories contained in the books to get a
+The significance of each technique lies in its ability to process        better understanding of the book in consideration and its
+different types of data effectively, from categorical variables          attractions to the readers. This dataset also includes other
+to complex textual content. Together, these techniques enable            useful data including price of the book and cover image also
+
+VOLUME 13, 2025                                                                                                                    74991
+                                                                            X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+TABLE 2. Attributes of dataset.                                      Algorithm 2 Preprocessing Algorithm for Content-Based
+                                                                     Deep Learning Recommendation System for English
+                                                                     Literature
+                                                                      Input: Comprehensive Literary Greats Dataset
+                                                                      Output: Enriched and Pre-processed dataset
+                                                                      D = dataframe.read(CLGD.csv)
+                                                                      g = [g1 , g2 , . . . , gn ] (list of genres)
+                                                                      Gencoded = [one Hot Encoder(G)
+                                                                      p = [p1 , p2 , p3 , . . . , pn ] (list of pagenumbers)
+                                                                      Pnormalized = StandardScaler(P)
+                                                                      For Each i in Words
+                                                                      Tcleaned={removestopwards(remov−punc(lower(t )),S
+                                                                                                                     i stopwards )|
+                                                                      End For
+                                                                      Ttokenized = Tokenizer.fit (T ) &Ttokenized
+                                                                                         = Tokenizer.texts − to − seq(T )
+                                                                      Tpadded = pad_seq(Ttokenized , maxlen = Lmax , padding =′
+                                                                      post ′ , truc =′ post ′ )
+                                                                      idfMatrixij
+                                                                      = transform(idfVect (token) , data[′ synopsis′ ]
+enhances readers’ experience. Although the dataset is rich,           For Every i in Terms
+the cold start problem needs to be managed because there                                                   
+                                                                                                             countoftermjindoci
+                                                                                                                                    
+are no prior interactions between new books and new users.                           TF − IDFij =
+                                                                                                              Totaltermsindoci
+To address this issue, filter content using book attributes                                                     N
+such as genre, description, and author details. Furthermore,                                           × log(      )
+                                                                                                               DFj
+different hybrid techniques of collaborative filtering are
+                                                                      End For
+introduced to improve the model’s capability of prediction            sentiment − scores
+for the newly introduced books. Preprocessing techniques,                             = pipeline (sent − analysis) (books
+such as managing the missing values, standardizing the                                − data[′ synopsis′ ])
+numerical attributes, and encoding the categorical variables                                          rating − min(rating)
+were applied to guarantee data quality. Specifically, these                    ratingnormalized =
+                                                                                                    max (rating) −min(rating)
+steps help to improve the usability of the dataset and facilitate
+better performance of predictive models from it. Content              userfeatures = user − pref [[′ user − id ′ , fav − genre′ ]]
+                                                                      Embedding
+based filtering is used for new books, where the metadata             = Flatten(Embed (user.num, embd. dim i) user|book.input))
+(e.g., genre, author, description, and awards) are used to            Datasetoutput
+find similarity with other books. The model will use Natural          = Concatenate(user.Embedding, book.Embedding)
+Language Processing (NLP) techniques to analyze textual
+descriptions, once the literature is uploaded, to identify how
+new books relate to those that are already in the system and
+can recommend them in the absence of historical interaction         recommendation solutions. Due to the great number of
+data. The model also offers recommendations that depend             books, it allows adopting certain approaches to analyze user
+on demographics as well as the demographic information of           preferences in more detail. The structure of the dataset
+the user in case it is a new user, analyzing user attributes        provides the opportunity to examine at least one two-variable
+and suggesting an initial set of suggestions from popular           relationship including, for example, genres, ratings, or even
+categories. Furthermore, the implicit preference approach           settings of books, which determine whether a reader will pick
+is utilized, and the system suggests books on the trended,          up a particular book or not. The features include rating and
+best-rated and the award-winning books until sufficient             genre of books, and adopting a hybrid deep learning model it
+user interaction data is collected. The Cold start problems         is possible to process and analyze these features to predict
+have been mitigated by a hybrid approach that combines              which books will interest the users and thus make much
+some collaborative filtering and content-based techniques.          more accurate recommendations that will incorporate reader
+For initializing recommendations, personalization improves          engagement with similar books. The use of a vast number
+as more data becomes available, and preference learning             of metadata relates to potential development of effective
+is refined through matrix factorization and hybrid deep             methods for the improved recommendation of literature
+learning-based embeddings when a user interacts with such           content enhancing the experience of both searching users and
+initial recommendations.                                            literary contributors.
+   To this research, where deep learning model is used for             To enhance the dataset, and to fit it to the model we were
+recommending English literature content, this research’ s           following, several modifications were made on the dataset.
+dataset is crucial. In its core it provides a versatile spectrum    The specifications of the above adaptations are provided in
+of tools that can be applied for developing customized              Algorithm 2 below.
+
+74992                                                                                                                       VOLUME 13, 2025
+X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+B. PERFORMANCE EVALUATION MEASURES                                       VI. RESULTS AND DISCUSSION
+Accuracy is a widely used performance evaluation metric for              The results analysis starts by showing how well the
+classification models, measuring the proportion of correctly             HMSTNet model works. This section shows how HMSTNet
+predicted instances out of the total instances. It provides a            performs better than kNN and SVD when we review
+straightforward interpretation of how well a model performs              prediction accuracy levels. The analysis will examine how
+by comparing predicted labels with actual labels. Accuracy is            each model performs through Theil’s U Statistic MBD 90th
+calculated using formula 17:                                             Percentile Error and the correlation strength R2 . This study
+                                                                         evaluates the different models to show which strengths and
+                               TP + FN
+           Accuracy =                       × 100                 (17)   weaknesses make them better or worse at predicting cloud
+                          TP + TN + FP + FN                              workload data.
+This metric is particularly significant in suggesting English               The graph in figure 3 presents orderly steps towards
+language literature content using deep learning, as it                   improved prediction results while demonstrating how the
+ensures that the model accurately captures user preferences              model learned from different aspects and design changes.
+and textual nuances. High accuracy in such applications                  During the earliest phase of training activities, the model
+reflects the model’s ability to recommend relevant and                   struggles to predict outcomes until it starts grasping data
+contextually rich content, enhancing user satisfaction and               patterns. Through Experience 1 to 5 the model demonstrates
+engagement.                                                              enhanced accuracy rates from 72.45% up to 74.2%. With
+   R-squared R2, also known as the coefficient of determina-             random weight values the model continues discovering
+tion, is a statistical measure that represents the proportion of         important features within the dataset. Learning moves slowly
+the variance for a dependent variable that is explained by an            because the network reacts to input data until it reaches
+independent variable or variables in a regression model [35].            its first convergence point. During epochs 6 to 10 the
+For a deep neural network, R2 is used to assess how well the             model demonstrates faster learning which causes its accuracy
+predictions approximate the actual data points. It is given by           to rise from 74.2% to 84.2% at epoch 10. The model’s
+equation 19.                                                             improved performance results from its skillful use of feature
+                                                                         selection and data preparation methods during processing.
+                                     (yi − y∧ )2
+                              PN
+                    R2 = 1 − PNi=1                          (18)         The model benefits from generating better input predictions
+                                            − 2                          because both One-Hot Encoding and normalized numeric
+                                 i=1 (yi − y )
+                                                                         values help it understand multiple data types. The data
+Here N is the number of observations, Yi is the actual value
+                                                                         transformation methods show the model how traits relate to
+of the ith observation, y∧  i is the predicted value of the ith          one another. By using BERT text embeddings, the model
+observation, and y- is the mean of the actual values.
+                                                                         better understands textual descriptions in its input data. The
+  Mean Bias Deviation is a measure used to assess the
+                                                                         deep language processing in BERT produces strong text
+average bias in predictions made by a model [36]. It indicates
+                                                                         embeddings from book or article descriptions to create more
+whether the predictions tend to be systematically higher or
+                                                                         exact prediction results. During epochs 11 to 15 learning
+lower than the actual values. MBD is useful in understanding
+                                                                         progresses fast and reaches 88.5% accuracy by epoch 15.
+the direction of the bias. It suggests that whether the predicted
+                                                                         During this time, the model strengthens its understanding
+values are overestimated or underestimated, as in equation 20.
+                                                                         of how all values interact with one another. The model
+                             1 XN                                        learns both basic feature connections and develops advanced
+                  MBD =                (y∧ − yi )            (19)
+                             N     i=1 i                                 understanding of how different types of data elements
+                                                                         relate to one another. The Long Short-Term Memory unit
+The 90th percentile error is a statistical measure that indicates
+                                                                         layers in model enhance text understanding by tracking
+the value below which 90% of the errors in your predictions
+                                                                         how words and phrases depend on their context in written
+fall [37]. It provides an understanding of the upper bound of
+                                                                         content. The dense layers combine author information and
+most of the prediction errors and it is useful in assessing the
+                                                                         book length metrics to produce better forecasting perfor-
+robustness of the proposed model.
+                                                                         mance from the model. More precise predictions emerge
+    90th Percentile Error = Sorted Errors ⌈0.9 × N⌉               (20)   from the model due to enhanced performance during this
+                                                                         period.
+Theil’s U statistic is used to quantify the disparity, defined in           The model shows enhanced performance from epochs 16 to
+equation 22. It is used to statistically analysis and compare            20 as accuracy rises from 90% to peak at 91.7%. At this phase,
+the distribution of observed values and predicted values [38].           the algorithm has better comprehension of the available data.
+                           v                                             By this stage, the model successfully combines different
+                           u N yi−y∧i 2
+                           uP
+                           t i=1 ( yi )                                  data features to make better evaluation decisions. The model
+                     U=                                      (21)        architecture works successfully by integrating text sequence
+                                   N                                     learning with dense layers to process different data types
+Here N is the number of elements in datasets, yi is actual and           while making them supportive of each other. After epoch
+yj is the predicted value of ith element.                                21 the model maintains its steady evolution but grows less
+
+VOLUME 13, 2025                                                                                                                  74993
+                                                                        X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+                FIGURE 3. HMSTNet prediction results.
+
+
+
+
+efficient in achieving better results. The model moves from     mark. By this stage of training the model has picked up
+notable progress towards a stage where performance levels       essential traits that exist in the dataset. HMSTNet achieves
+remain stable. The model has almost reached its performance     strong performance because its multi-branch design handles
+limit with text dataset accuracy hitting 92.3% at epoch 25.     diverse data types effectively, as shown in figure 4.
+When machine learning models start to converge they need           The network consists of three primary branches: The
+advanced customizations such as adjusting parameters or         model consists of three parallel networks that process
+including new features because their performance growth         metadata, stylistic features, and text embedding data to
+slows down. During epochs 26 through 30 the model exhibits      extract comprehensive data patterns. A dense neural network
+minimal accuracy growth while maintaining its performance.      after processing numerical and one-hot coded metadata data
+At epoch 30 the model achieves 94.1% accuracy. The              helps discover meaningful connections. The stylistic feature
+model now understands most data connections but needs           branch analyzes text content to determine how diverse the
+refined adjustments to make further progress. As models         language choices are in each description. Deep learning
+approach their peak performance limits they show reduced        model LSTM processes word sequences from description
+potential for substantial further improvement. The model        inputs to extract important text context. All branches of
+baseline has reached stability and extra performance gains      HMSTNet work together to absorb different data formats
+need thorough adjustments that include either new training      throughout its training process and achieve strong results
+data or structural model modifications. The model shows         in its later epochs. The architecture demonstrates robust
+consistent improvement between epochs 31 and 35 achieving       learning ability by achieving substantial performance growth
+around 94.5% accuracy. The model’s performance level            throughout the first 10 training sessions. With both recurrent
+demonstrates a standard training halt after reaching its        and convolutional layers in its structure the model can master
+maximum potential. During this phase, the model learned         spatial elements and temporal processes. The model learns
+subtle details that increased accuracy from 94.2% to 94.9%      efficiently and stabilizes fast thanks to advanced activation
+through refined prediction methods. The model understands       techniques and adaptable learning rate algorithms together
+all main relationships in the data but achieving more gains     with optimal weight initialization. The model achieves better
+would demand additional design enhancements. At epoch           results than baseline models including kNN and SVD due to
+50 model demonstrates peak performance at 95.23% through        its advanced design. However, the computational efficiency
+fifty training sessions. This marks the model’s convergence     and scalability of the HMSTNet model are critical factors
+point. During the last five epochs the model’s performance      for real-world deployment in personalized English literature
+grew just 0.24% better from its 94.9% accuracy at epoch 45 to   recommendations. Figure 5 shows the training progress and
+reach its top performance at 95.23% by epoch 50. The model      illustrates the model’s resource utilization: 0.42GB for GPU
+shows small performance increases from epoch 45 to prove        memory and 34.4% for the total system memory. The values
+that it cannot learn more for its current setup.                of these show that the model is computationally efficient and
+   During the first 10 epochs HMSTNet demonstrates steady       no major hardware resources were needed, hence this model
+growth which results in 79.35% accuracy at the tenth epoch      can be used for large scale applications. The training curve
+
+74994                                                                                                                   VOLUME 13, 2025
+X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+            FIGURE 4. Applied models results showing comparion of prediction results.
+
+
+
+
+shows a still increasing in accuracy over epochs, the model                 HMSTNet model is faster than kNN and SVD models. kNN
+achieves strong training accuracy and a fluctuating validating              only reaches 76.4% accuracy at epoch 20 while SVD does
+accuracy. This implies that the model can learn good repre-                 better at 79.5% still trailing HMSTNet’s accuracy. HMSTNet
+sentations and avoid overfitting towards such representations,              shows clear benefits through its architecture that lets it
+so that its recommendations are robust. HMSTNet also                        identify short-term and long-term relationships between input
+includes several optimization techniques for their scalability,             data using LSTM layers. This model design lets the system
+between computational cost and performance. Both batch                      address high-dimensional word data structures and spot the
+processing and gradient checkpointing are used for reducing                 multiple interactions between words in text data. During
+memory during training and quantization for improving                       epochs 21 to 30 the HMSTNet architecture delivers better
+inference efficiency. In addition, knowledge distillation and               results by reaching 92% accuracy.
+model pruning are also applied to decrease the model’s size                    Ongoing improvement results from the model’s capacity
+and computational complexity while only slightly degrading                  to refine its weight settings during its learning process.
+the model performance. The model can be served for real                     The model has finished learning all its parameter settings
+world deployment using cloud-based inference frameworks                     and shows its improved capacity to analyze relationships
+such as TensorFlow Serving or PyTorch Inference Server to                   between both text and metadata inputs. With LSTM layers
+dynamically scale the computational resource according to                   HMSTNet branches learn how workload sequences evolve
+the demand. HMSTNet can achieve this because it ensures                     over time. The LSTM architecture helps the model learn
+that the system remains responsive under high user loads and                from both old and recent observations before predicting
+hence it serves as a viable solution for large scale English                future cloud workloads. The system uses information from
+literature recommendation system.                                           all sources to learn better which makes it perform better
+   The kNN method starts at 65.12% accuracy but climbs                      than its rivals. The findings show that HMSTNet continues
+slowly to 68.5% by epoch ten while SVD begins at 68.35%                     leading at 91.2% accuracy enabling its deep network design
+and reaches 73.2% at the same point. HMSTNet shows higher                   to outperform kNN (84.6%) and SVD (87.2%). HMSTNet
+efficiency compared to these models because its complex                     boosts performance between epochs 31 and 40 as its accuracy
+design enables quicker learning and better training. Between                increases to 94.25%. With training complete the system
+epochs 11 to 20 HMSTNet establishes rapid growth in                         reaches its best performance level. LSTM and convolutional
+accuracy reaching 85.3% The deep structure updates its core                 layers in one model help it detect spatial and temporal data
+parameters steadily to show faster progress in performance.                 patterns successfully. HMSTNet makes reliable future cloud
+HMSTNet uses convolutional layers that decode different                     workload predictions with both temporal and spatial data
+object scales plus recurrent layers that analyze time-based                 patterns. The findings show that HMSTNet advances beyond
+data connections. By combining layers of LSTM model for                     kNN and SVD because its sophisticated structure delivers
+
+VOLUME 13, 2025                                                                                                                    74995
+                                                                                 X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+               FIGURE 5. Computational cost analysis during training.
+
+
+
+
+stronger competence than these basic models. Throughout                 TABLE 3. Attributes of dataset.
+this period the kNN method produces only 88.4% accuracy
+while SVD reaches 90.7% but remains far behind HMSTNet
+which demonstrates exceptional pattern recognition power.
+The HMSTNet model succeeds because of its design which
+allows it to process multiple data types like metadata,
+text style elements, and text vectorizations. During epochs
+41 to 50 HMSTNet demonstrates excellent performance by
+reaching 95.23% accuracy. The completed model shows
+optimal results since training has nearly achieved full
+convergence. The model keeps improving its weight system
+to predict cloud workloads better as the available data grows
+in complexity. HMSTNet delivers faster and more precise
+model adjustments because its advanced structure joins all
+available data types into one processing system. Through
+the process the model becomes highly skilled at recognizing
+different input features from both major and minor aspects of           performance capacity needed for solving complex cloud
+the dataset. The final model makes better predictions through           workload predictions. HMSTNet produces the best results in
+its dense layers that polish refined representations. The kNN           determining the upcoming cloud workload requirements of
+approach scored 89.4 percent accuracy and SVD achieved                  all existing models. Table 3 shows a comparison of Model
+91.98 percent whereas HMSTNet held a substantial lead.                  Performance Metrics and Statistical Validation Methods.
+Whether it is at the start or conclusion of training HMSTNet               MBD shows how well the model matches its forecasts
+shows better results than kNN and SVD. Success of the                   to real values which helps us identify the model’s basic
+network depends on its design as it uses convolutional layers           prediction tendencies. When MBD scores stay high the
+to extract spatial details while LSTM tracks time patterns              model makes significant prediction errors because it either
+followed by dense layers to perfect feature understanding.              predicts too high or too low. When comparing kNN to the
+The model outperforms simple models because it uses                     HMSTNet model the Mean Bias Deviation indicator links
+structured metadata and text data to learn new patterns.                to 6.8012 versus 4.05. kNN shows a clear preference for
+HMSTNet achieves better results because of its advanced                 erroneous predictions that HMSTNet avoids. The HMSTNet
+training processes that adapt speed and protect against                 model’s Total Observed Error drops to 4.05 which gets
+overfitting during the learning phase. HMSTNet thoroughly               it nearer to actual values than kNN. The coefficient R2
+outperforms other models on all cloud workload prediction               shows how closely the model’s predictions match actual
+performance indicators. Persistence in improving results                sample values by revealing what percentage of target variable
+remains limited for kNN and SVD because they lack the                   variance each independent feature explains.
+
+74996                                                                                                                            VOLUME 13, 2025
+X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+TABLE 4. Comprehensive results analysis with existing studies.
+
+
+
+
+   KNN performs poorly because its R2 equal to −0.2071             progress in learning with little overproduction of false
+shows the algorithm fails to do better than using a basic aver-    positives and its ability to correctly label positive instances.
+age prediction. The results reveal that kNN finds difficulty       We also observe similar accuracy for kNN which begins at
+in extracting meaningful relationships between feature inputs      65.12% and rises to 89.40% by epoch 10. We achieved its
+and target data. SVD provides 56.77% accuracy in predicting        precision at 0.60, recall at 0.58, and F1 score at 0.59 and
+target outcomes from the available data. The SVD results           can improve upon this, achieving a precision of 0.88, recall
+demonstrate stronger performance because its positive R2           of 0.86, and F1 score of 0.87. SVD is accurate at 68.35%
+value represents a larger share of the total data variation than   at the 10th epoch and then increases to 91.98% at the 10th
+kNN can achieve.                                                   epoch. The precision starts at 0.61, recall at 0.60 and F1
+   When predictions display greater accuracy the Theil U           Score at 0.60 and goes up to 0.86, 0.84 and 0.85 by the tenth
+Statistic shows smaller numbers closer to zero. Both the           epoch. Remarkably, the proposed HMSTNet model performs
+kNN and SVD methods display good prediction accuracy               better than all the existing state of the art deep learning-based
+as their U-statistic results stay low. Though SVD delivers         recommendation models for the English literature recom-
+more accurate results than kNN it achieves this with an            mendations. The BERT based recommender called RecBERT
+improved pairwise comparison result of 0.0235. SVD delivers        achieves accuracy of 61% and the Transformer model based
+greater accuracy than kNN indicated by its U-statistic value       on RoBERTa increases the accuracy to 73%. By using
+of 0.0235 versus 0.0401. The 90th percentile error sets a          DistilRoBERTa to conduct the querying, the accuracy comes
+value to measure how the model manages extreme errors              out to be 54% (which seems to be lower due to a lower
+because it tracks exactly 90% of where errors usually              weight and fewer parameters on the hybrid model). On the
+happen. When measuring the top 10% worst results kNN               other hand, HMSTNet’s ability to capture complex user
+turns out 8.41 errors which exceeds SVD’s 5.2 output.              preferences and literary themes results in a very impressive
+SVD offers better prediction accuracy across its entire            accuracy of 95%. This significant performance gain implies
+performance range especially when facing outlier or poorly         that HMSTNet successfully exploits the state-of-the-art deep
+performing cases. The results show that SVD proves more            learning architectures, domain specific optimization and
+dependable and accurate than kNN when managing difficult           personalized recommendation strategies, as such it is a
+scenarios.                                                         more trustworthy and efficient method for English literature
+                                                                   recommendation than previous approaches [33].
+A. COMPARISON WITH EXISTING STUDIES                                   Results from the table show that HMSTNet does out-
+In Table 4, we show the performance of three models at             perform kNN and SVD on kNN and SVD on accuracy,
+10 epochs, namely HMSTNet, kNN and SVD. HMSTNet                    precision, recall and finally F1-Score showing that it is the
+accuracy begins at 72.45% and maxes out at 95.23% with the         best model for the task. SVD and kNN show improvement
+tenth epoch. HMSTNet achieves a precision of 0.65, recall of       with time, however, the latter two are unable to glean as
+0.68, and the F1-Score of 0.66 in the first epoch. The values      high a performance as HMSTNet. Both models enhance
+increased progressively by 0.93, 0.91 and 0.92 respectively        precision and recall, but neither can compare to the balance
+in the tenth epoch. Therefore, we have shown the model’s           and performance of HMSTNet.
+
+
+VOLUME 13, 2025                                                                                                               74997
+                                                                                              X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+VII. CONCLUSION AND FUTURE WORK                                                     [10] J. Golbeck, ‘‘Recommender system-induced eating disorder relapse:
+Recommendation systems transform how users access digital                                Harmful content and the challenges of responsible recommendation,’’
+                                                                                         ACM Trans. Intell. Syst. Technol., vol. 16, no. 1, pp. 1–13, Jan. 2025, doi:
+content because they produce personalized recommenda-                                    10.1145/3675404.
+tions relevant to each user’s preferences. The research                             [11] G. M. Dhananjaya, R. H. Goudar, A. A. Kulkarni, V. N. Rathod,
+prioritized solutions specific to English language literature                            and G. S. Hukkeri, ‘‘A digital recommendation system for per-
+                                                                                         sonalized learning to enhance online education: A review,’’ IEEE
+which represents a domain through various vast diverse                                   Access, vol. 12, pp. 34019–34041, 2024, doi: 10.1109/ACCESS.2024.
+landscapes and complicated textual forms and detailed                                    3369901.
+metadata collections. This study implements HMSTNet to                              [12] H. Chen, Y. Bei, W. Huang, S. Chen, F. Huang, and X. Huang,
+                                                                                         ‘‘Graph cross-correlated network for recommendation,’’ IEEE Trans.
+build an advanced framework which delivers personalized                                  Knowl. Data Eng., vol. 37, no. 2, pp. 710–723, Feb. 2025, doi:
+recommendations because it utilizes state-of-the-art artifi-                             10.1109/TKDE.2024.3491778.
+cial intelligence methods to elevate user satisfaction and                          [13] M. M. Talha, H. U. Khan, S. Iqbal, M. Alghobiri, T. Iqbal, and M. Fayyaz,
+                                                                                         ‘‘Deep learning in news recommender systems: A comprehensive survey,
+engagement levels. With 95.23% accuracy level HMSTNet                                    challenges and future trends,’’ Neurocomputing, vol. 562, Dec. 2023,
+demonstrates how the model solves established performance                                Art. no. 126881, doi: 10.1016/j.neucom.2023.126881.
+issues in traditional methods of SVD with 91% accuracy                              [14] H. H. Lathabai, A. Nandy, and V. K. Singh, ‘‘Institutional collaboration
+while KNN obtained accuracy of 89%. The framework                                        recommendation: An expertise-based framework using NLP and network
+                                                                                         analysis,’’ Expert Syst. Appl., vol. 209, Dec. 2022, Art. no. 118317, doi:
+of HMSTNet prompts progress in areas that need tailored                                  10.1016/j.eswa.2022.118317.
+suggestions such as academic institutions and digital library                       [15] Y. Xu, F. Zhuang, E. Wang, C. Li, and J. Wu, ‘‘Learning without missing-
+systems and education platforms. Through its contextual                                  at-random prior propensity—A generative approach for recommender
+                                                                                         systems,’’ IEEE Trans. Knowl. Data Eng., vol. 37, no. 2, pp. 754–765,
+understanding features the method strengthens user inter-                                Feb. 2025, doi: 10.1109/TKDE.2024.3490593.
+action with specialized content for better quality user                             [16] B. Ramzan, I. S. Bajwa, N. Jamil, R. U. Amin, S. Ramzan, F. Mirza, and
+experiences. The successes demonstrated by HMSTNet exist                                 N. Sarwar, ‘‘An intelligent data analysis for recommendation systems using
+                                                                                         machine learning,’’ Sci. Program., vol. 1, Oct. 2019, Art. no. 5941096, doi:
+alongside multiple opportunities to generate more substantial                            10.1155/2019/5941096.
+improvement. Future studies should investigate how adding                           [17] X. Lin, R. Liu, Y. Cao, L. Zou, Q. Li, Y. Wu, Y. Liu, D. Yin,
+multimedia information such as literary content audio or                                 and G. Xu, ‘‘Contrastive modality-disentangled learning for multimodal
+                                                                                         recommendation,’’ ACM Trans. Inf. Syst., vol. 43, no. 3, pp. 1–31,
+visuals could improve recommendation system efficiency.                                  Mar. 2025, doi: 10.1145/3715876.
+User embedding techniques need refinement to capture                                [18] C. Zuo, X. Zhang, L. Yan, and Z. Zhang, ‘‘GUGEN: Global user
+and respond to preference changes that can lead to better                                graph enhanced network for next POI recommendation,’’ IEEE Trans.
+personalized recommendations throughout time.                                            Mobile Comput., vol. 23, no. 12, pp. 14975–14986, Dec. 2024, doi:
+                                                                                         10.1109/TMC.2024.3455107.
+REFERENCES                                                                          [19] J. Liao, S. Li, Z. Yang, J. Wu, Y. Yuan, X. Wang, and X. He, ‘‘LLaRA:
+                                                                                         Large language-recommendation assistant,’’ in Proc. 47th Int. ACM
+[1] D. Roy and M. Dutta, ‘‘A systematic review and research perspective on               SIGIR Conf. Res. Develop. Inf. Retr., New York, NY, USA, Jul. 2024,
+    recommender systems,’’ J. Big Data, vol. 9, no. 1, p. 59, Dec. 2022, doi:            pp. 1785–1795, doi: 10.1145/3626772.3657690.
+    10.1186/s40537-022-00592-5.                                                     [20] Y. Wang, X. Shi, and X. Zhao, ‘‘MLLM4Rec: Multimodal information
+[2] J. Li, ‘‘A recommendation model for college English digital teaching                 enhancing LLM for sequential recommendation,’’ J. Intell. Inf. Syst., vol.
+    resources using collaborative filtering and few-shot learning technology,’’          62, pp. 1–17, Dec. 2024, doi: 10.1007/s10844-024-00915-3.
+    Comput. Intell. Neurosci., vol. 2022, Jul. 2022, Art. no. 1233057, doi:         [21] D. Li, N. Tang, M. Chandler, and E. Nanni, ‘‘An optimal approach for
+    10.1155/2022/1233057.                                                                predicting cognitive performance in education based on deep learning,’’
+[3] J. Zhang, F. Gu, Y. Ji, and J. Guo, ‘‘Personalized scientific and technologi-        Comput. Hum. Behav., vol. 167, Jun. 2025, Art. no. 108607, doi:
+    cal literature resources recommendation based on deep learning,’’ J. Intell.         10.1016/j.chb.2025.108607.
+    Fuzzy Syst., vol. 41, no. 2, pp. 2981–2996, Sep. 2021, doi: 10.3233/jifs-       [22] L. Jiang, M. Lv, M. Cheng, X. Chen, and C. Peng, ‘‘Factors affecting
+    210043.                                                                              deep learning of EFL students in higher vocational colleges under small
+[4] J.-C. Zhang, A. M. Zain, K.-Q. Zhou, X. Chen, and R.-M. Zhang,                       private online courses-based settings: A grounded theory approach,’’
+    ‘‘A review of recommender systems based on knowledge graph embed-                    J. Comput. Assist. Learn., vol. 40, no. 6, pp. 3098–3110, Dec. 2024, doi:
+    ding,’’ Expert Syst. Appl., vol. 250, Sep. 2024, Art. no. 123876, doi:               10.1111/jcal.13060.
+    10.1016/j.eswa.2024.123876.                                                     [23] S. Geng, S. Liu, Z. Fu, Y. Ge, and Y. Zhang, ‘‘Recommendation as
+[5] Y. Huang and J. Zhu, ‘‘A personalized english learning material recommen-            language processing (RLP): A unified pretrain, personalized prompt &
+    dation system based on knowledge graph,’’ Int. J. Emerg. Technol. Learn.             predict paradigm (P5),’’ in Proc. 16th ACM Conf. Recommender Syst.,
+    (iJET), vol. 16, no. 11, p. 160, Jun. 2021, doi: 10.3991/ijet.v16i11.23317.          New        York,     NY,      USA,      Sep.   2022,    pp. 299–315,    doi:
+[6] H. Xian and S. Wu, ‘‘Design of an English vocabulary e-learning recom-               10.1145/3523227.3546767.
+    mendation system based on word bag model and recurrent neural network           [24] X. Li, J. Jin, Y. Zhou, Y. Zhang, P. Zhang, Y. Zhu, and Z. Dou, ‘‘From
+    algorithm,’’ Entertainment Comput., vol. 50, May 2024, Art. no. 100692,              matching to generation: A survey on generative information retrieval,’’
+    doi: 10.1016/j.entcom.2024.100692.                                                   ACM Trans. Inf. Syst., vol. 41, pp. 23–82, Mar. 2025, doi: 10.1145/
+[7] C. Li, I. Ishak, H. Ibrahim, M. Zolkepli, F. Sidi, and C. Li,                        3722552.
+    ‘‘Deep learning-based recommendation system: Systematic review and              [25] W. Wei, X. Ren, J. Tang, Q. Wang, L. Su, S. Cheng, J. Wang,
+    classification,’’ IEEE Access, vol. 11, pp. 113790–113835, 2023, doi:                D. Yin, and C. Huang, ‘‘LLMRec: Large language models with graph
+    10.1109/ACCESS.2023.3323353.                                                         augmentation for recommendation,’’ in Proc. 17th ACM Int. Conf. Web
+[8] M. Husni, T. M. Akhriza, S. Madenda, and E. P. Wibowo, ‘‘Improving                   Search Data Mining, New York, NY, USA, Mar. 2024, pp. 806–815, doi:
+    recentness of the ICT book recommendation using an adaptive rules-based              10.1145/3616855.3635853.
+    recommender system,’’ Int. J. Comput. Appl. Technol., vol. 70, no. 3,           [26] C. Wei, K. Duan, S. Zhuo, H. Wang, S. Huang, and J. Liu, ‘‘Enhanced rec-
+    pp. 254–266, 2022, doi: 10.1504/ijcat.2022.130880.                                   ommendation systems with retrieval-augmented large language model,’’
+[9] Z. Ding, ‘‘Design and evaluation of an English speaking recom-                       J. Artif. Intell. Res., vol. 82, pp. 1147–1173, Feb. 2025.
+    mender system using word networks and context-aware techniques,’’               [27] K. Sun, T. Qian, X. Chen, and M. Zhong, ‘‘Context-aware seq2seq
+    Entertainment Comput., vol. 52, Jan. 2025, Art. no. 100920, doi:                     translation model for sequential recommendation,’’ Inf. Sci., vol. 581,
+    10.1016/j.entcom.2024.100920.                                                        pp. 60–72, Dec. 2021, doi: 10.1016/j.ins.2021.09.001.
+
+74998                                                                                                                                               VOLUME 13, 2025
+X. Wang, X. Liang: HMSTNet: A Deep Learning Multimodal Approach
+
+
+
+
+[28] U. Ishfaq, H. U. Khan, and S. Iqbal, ‘‘Identifying the influential nodes in     [39] X. Ma, ‘‘English teaching in artificial intelligence-based higher vocational
+     complex social networks using centrality-based approach,’’ J. King Saud              education using machine learning techniques for students’ feedback anal-
+     Univ.-Comput. Inf. Sci., vol. 34, no. 10, pp. 9376–9392, Nov. 2022, doi:             ysis and course selection recommendation,’’ JUCS-J. Universal Comput.
+     10.1016/j.jksuci.2022.09.016.                                                        Sci., vol. 28, no. 9, pp. 898–915, Sep. 2022, doi: 10.3897/jucs.94160.
+[29] X. Li, A. Henriksson, M. Duneld, J. Nouri, and Y. Wu, ‘‘Evaluating              [40] H. Xie, ‘‘Recommendation of English reading in vocational colleges using
+     embeddings from pre-trained language models and knowledge graphs for                 linear regression training model,’’ Mobile Inf. Syst., vol. 2022, no. 1,
+     educational content recommendation,’’ Future Internet, vol. 16, no. 1,               May 2022, Art. no. 6786111, doi: 10.1155/2022/6786111.
+     p. 12, Dec. 2023, doi: 10.3390/fi16010012.
+[30] H.-D. Kieu, M. D. Nguyen, T.-S. Nguyen, and D. D. Le, ‘‘Keyword-
+     driven retrieval-augmented large language models for cold-start user
+     recommendations,’’ 2024, arXiv:2405.19612.
+[31] M. Ahmed, H. U. Khan, and E. U. Munir, ‘‘Conversational AI: An explica-
+     tion of few-shot learning problem in transformers-based chatbot systems,’’
+     IEEE Trans. Computat. Social Syst., vol. 11, no. 2, pp. 1888–1906,
+     Feb. 2024, doi: 10.1109/TCSS.2023.3281492.
+[32] W. Ahmad, H. U. Khan, T. Iqbal, and S. Iqbal, ‘‘Attention-based
+     multi-channel gated recurrent neural networks: A novel feature-centric                                     XIAOPENG WANG was born in Langfang, Hebei,
+     approach for aspect-based sentiment classification,’’ IEEE Access, vol. 11,                                China, in 1980. She received the master’s degree
+     pp. 54408–54427, 2023, doi: 10.1109/ACCESS.2023.3281889.                                                   from Langfang Normal University, China. She
+[33] R. Wu, ‘‘RecBERT: Semantic recommendation engine with large language                                       is currently with Langfang Health Vocational
+     model enhanced query segmentation for k-nearest neighbors ranking                                          College. Her research interests include English
+     retrieval,’’ Intell. Converged Netw., vol. 5, no. 1, pp. 42–52, Mar. 2024,                                 education and vocational education.
+     doi: 10.23919/icn.2024.0004.
+[34] J. Seol, M. Gang, S.-G. Lee, and J. Park, ‘‘Proxy-based item representation
+     for attribute and context-aware recommendation,’’ in Proc. 17th ACM
+     Int. Conf. Web Search Data Mining, New York, NY, USA, Mar. 2024,
+     pp. 616–625, doi: 10.1145/3616855.3635824.
+[35] M. M. U. Haque, B. Kotaiah, and J. Ahamed, ‘‘Hybrid course recom-
+     mendation system using SVD, NMF and attention-based neural network,’’
+     Int. J. Inf. Technol., vol. 21, pp. 1–8, Feb. 2025, doi: 10.1007/s41870-025-
+     02440-0.
+[36] E. Trivizakis, G. Ioannidis, V. Melissianos, G. Papadakis, A. Tsatsakis,
+     D. Spandidos, and K. Marias, ‘‘A novel deep learning architecture
+     outperforming ‘off-the-shelf’ transfer learning and feature-based methods
+     in the automated assessment of mammographic breast density,’’ Oncol.
+                                                                                                                XUE LIANG was born in Langfang, Hebei, China,
+     Rep., vol. 42, no. 5, pp. 2009–2015, Sep. 2019, doi: 10.3892/or.2019.7312.
+                                                                                                                in 1981. She received the master’s degree from
+[37] I. Vazquez, M. P. Gronberg, X. Zhang, L. E. Court, X. R. Zhu, S. J. Frank,
+     and M. Yang, ‘‘A deep learning-based approach for statistical robustness
+                                                                                                                Hebei University of Science and Technology,
+     evaluation in proton therapy treatment planning: A feasibility study,’’ Phys.                              China. She is currently with Langfang Health
+     Med. Biol., vol. 68, no. 9, May 2023, Art. no. 095014, doi: 10.1088/1361-                                  Vocational College. Her research interests include
+     6560/accc08.                                                                                               English education and vocational education.
+[38] T. Ali, H. U. Khan, F. K. Alarfaj, and M. AlReshoodi, ‘‘Hybrid
+     deep learning and evolutionary algorithms for accurate cloud workload
+     prediction,’’ Computing, vol. 106, no. 12, pp. 3905–3944, Dec. 2024, doi:
+     10.1007/s00607-024-01340-8.
+
+
+
+
+VOLUME 13, 2025                                                                                                                                                74999
+

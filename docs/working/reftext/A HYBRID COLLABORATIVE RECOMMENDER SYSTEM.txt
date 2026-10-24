@@ -1,0 +1,594 @@
+      A HYBRID COLLABORATIVE RECOMMENDER SYSTEM
+                 BASED ON USER PROFILES
+
+               Marco Degemmis, Pasquale Lops, Giovanni Semeraro, M. Francesca Costabile,
+                                  Oriana Licchelli, Stefano P. Guida
+                      Dipartimento di Informatica, University of Bari, Via E. Orabona, 4, 70125 BARI, Italy
+
+
+
+
+Keywords:         Hybrid recommender systems, Information Filtering, Machine learning, User profiling
+
+Abstract:         Nowadays, users are overwhelmed by the abundant amount of information delivered through the Internet.
+                  Especially in the e-commerce area, largest catalogues offer millions of products and are visited by users
+                  having a variety of interests. It is of particular interest to provide customers with personal advice: Web
+                  personalization has become an indispensable part of e-commerce. One type of personalization that many
+                  Web sites have started to embody is represented by recommender systems, which provide customers with
+                  personalized advices about products or services. Collaborative systems actually represent the state-of-the-art
+                  of recommendation engines used in most e-commerce sites. In this paper, we propose a hybrid method that
+                  aims at improving collaborative techniques by means of user profiles that store knowledge about user interests.
+
+
+
+1 INTRODUCTION                                                                      there is a set of users using the system: user advice is
+                                                                                    based on the item ratings provided by other users.
+Most of the largest e-commerce Web sites is using                                   Hybrid recommender systems combining both
+recommender systems to help their customers find                                    techniques have also been proposed to gain better
+                                                                                    performance with fewer of the drawbacks of any
+products to purchase. A recommender system learns
+from customers and recommends products that they                                    individual technique (Burke, 2002; Balabanovic and
+will find most valuable among the available                                         Shoham, 1997; Konstan, et al., 1998; Pazzani,
+                                                                                    1999). Examples of this kind of hybrid systems are
+products. Recommender systems have been
+revolutionizing the way shoppers and information                                    Fab (Balabanovic and Shoham, 1997) and Ringo
+seekers find what they want, because they                                           (Shardanand and Maes, 1995). Fab maintains user
+                                                                                    profiles based on content analysis, and directly
+effectively help users in selecting items that best
+meet their needs and tastes.                                                        compares the profiles to determine similar users for
+Such systems take input directly or indirectly from                                 collaborative      recommendations.        Items    are
+                                                                                    recommended to a user both when they score highly
+users and, based on user needs, preferences and
+usage      patterns,  they      make     personalized                               against that user profile or when they are highly
+recommendations of products or services.                                            rated by a user with a similar profile.
+Recommender systems are used to either predict                                      Ringo is similar to Fab except that, during a
+whether a particular user will like a particular item                               similarity assessment among users, the system
+(prediction problem), or to identify a set of N items                               selects profiles of users with the highest correlation
+that will be of interest to a certain user (top-N                                   with an individual user. Ringo compares user
+recommendation problem) (Sarwar, et al., 2002).                                     profiles to determine which users have similar tastes.
+The     literature   on      recommender      systems                               Once similar users have been identified, according
+distinguishes primarily between the collaborative                                   to a classical collaborative approach, the system
+and the content-based approaches. In the first                                      predicts how much the user may like an item that
+approach, the content (e.g. text) plays an important                                has not yet been rated by computing a weighted
+role: the system suggests the items similar to those                                average of all the rates given to that item by the
+the user liked in the past, based on the content                                    other users that have similar tastes.
+comparison. In contrast with the content-based                                      In (Tuzhilin and Adomavicius, 1999), it is remarked
+approach, a collaborative approach assumes that                                     that: “In order to provide more accurate
+
+
+
+
+162   Degemmis M., Lops P., Semeraro G., Francesca Costabile M., Licchelli O. and P. Guida S. (2004).
+      A HYBRID COLLABORATIVE RECOMMENDER SYSTEM BASED ON USER PROFILES.
+      In Proceedings of the Sixth International Conference on Enterprise Information Systems, pages 162-169
+      DOI: 10.5220/0002638201620169
+      Copyright c SciTePress
+                         A HYBRID COLLABORATIVE RECOMMENDER SYSTEM BASED ON USER PROFILES
+
+
+
+
+recommendations, it is necessary to base them on a      improvement of U(PE)2, which exploits knowledge
+thorough analysis of the on-line behavior of the user   about the users’ behavior, with respect to UPE,
+that is much broader than the behavior captured by      which implements a pure collaborative filtering
+current content-based filtering systems”. Rules         algorithm. Conclusions are drawn in the last Section.
+describing the on-line behavior of a user can be
+learned from the analysis of his/her transactional
+history using various data mining methods and can
+be included as a part of that user’s profile.
+                                                        2 DIFFERENT APPROACHES TO
+Behavioral profiles can describe much richer types        RECOMMENDATIONS
+of user behavior than user profiles from the content-
+based approach, but they do not provide any             There are many different techniques for
+recommendations by themselves. Therefore, it is         implementing recommender systems (Resnick and
+important to couple the behavioral profiling            Varian, 1997; Schafer, Konstan and Riedl, 1999;
+approach with other techniques.                         Terveen and Hill, 2001):
+We consider the integration of behavioral profiles      – Collaborative filtering is the most successful
+and collaborative methods into one integral                recommender system technology to date. The
+approach. This is in line with basic principles of         main idea is to recommend new items of interest
+marketing,     according     to    which     customer      for a particular user based on other users’ ratings.
+recommendations should be based on understanding           These systems recommend products to a
+behavior of that customer and on the preferences of        customer based on the correlation between that
+similar customers. In our approach, rules describing       customer and other customers who showed
+the customer behavior are used in order to discover        interests in those products, e.g. who have
+                                                           purchased products from the e-commerce site.
+preferences of users, such as product categories. For
+                                                        – Content-based recommender systems suggest items
+example, in a book recommending context, rules
+                                                           based on their associated features. A pure content-
+could be used in order to determine whether a user is      based recommender system is one in which
+interested or not in a specific book category. A           recommendations are made for a user based solely
+simple example of such rules is: “Customers that           on a profile built by analyzing the content of items
+buy at least 3 books belonging to the horror               which that user has rated in the past.
+category are interested in that book category”.         – Demographic recommender systems aim at
+Preferences are stored in personal profiles exploited      categorizing the user based on personal attributes
+to group customers having the same interests. Our          and make recommendations based on
+idea is that profiles could drive the collaborative        demographic classes. The benefit of the
+method by reducing the set of users, on which the          approach is that it may not require a history of
+algorithm is applied, only to users interested in the      user ratings of the type needed by collaborative
+same product categories. Profiles are inferred from        and content-based techniques.
+the analysis of transactional data (browsing and        – Knowledge-based recommenders attempt to
+purchasing history of users), without considering          suggest items based on inferences about a user’s
+any content, and are exploited to discover for each        needs/preferences. In some sense, all
+user a set of “nearest neighbors” to compute               recommendation         techniques      could      be
+collaborative recommendations. An intensive                described as doing some kind of inference.
+experimental session has been carried out to               Knowledge-based approaches have knowledge
+compare a pure collaborative approach to                   about how a particular item meets a particular
+recommendation with respect to the one combined            user need, and can reason about the relationship
+with user profiles of users.                               between a need and a possible recommendation.
+The paper is organized as follows: Section 2
+provides a description of the most frequently
+approaches used in recommender systems, i.e.
+                                                        2.1 Collaborative Filtering Systems
+collaborative and content-based ones. It also
+describes a possible way to combine the approaches      Collaborative filtering is a type of recommendation
+                                                        technique that works by finding patterns of
+to improve the entire recommendation process.
+                                                        agreement among users of the system, leveraging the
+Section 3 gives a description of the two systems,
+                                                        tastes and opinions about quality of all of the users
+namely User Profile Engine (UPE) and Profile            to help each user individually.
+Extractor (PE), we integrated to build a hybrid         Rather than recommending items because they are
+recommender called U(PE)2. Section 4 presents the       similar to items a user has liked in the past, a set of
+experiments performed to evaluate the possible
+
+
+
+
+                                                                                                           163
+ICEIS 2004 - SOFTWARE AGENTS AND INTERNET COMPUTING
+
+
+
+
+items that other similar users have liked is              individual; it permits to recognize the user, know
+recommended. In other words, similarity of users          why he or she did something, and guess what he or
+rather than similarity of the items are computed.         she wants to do next. User profiling is typically
+Typically, for each user a set of “nearest neighbor”      either    knowledge-based       or     behavior-based.
+users is found whose past rates have the strongest        Knowledge-based approaches engineer static models
+correlation. Rates for unseen items are predicted         of users and dynamically match users to the closest
+based on a combination of the rates known from the        model. The knowledge about users can be acquired
+nearest       neighbors.        Pure      collaborative   in different ways. Generally speaking, it could be
+recommendations give the possibility to deal with         acquired through questionnaires, where users select
+any kind of content. Since other users’ feedback          different content types and services from a list of
+influenced what is recommended, there is the              predefined choices. This implies that users must
+potential to maintain effective performance given         manually update their profiles when their interests
+fewer rates from any individual user.                     change. These limitations clearly call for alternative
+Collaborative filtering has a number of advantages        methods that infer preference information implicitly
+over content-based methods:                               and support automated content recommendation.
+– The knowledge engineering problem associated            Behavior-based approaches use the user’ behavior
+    with content-based methods is relieved, since         itself as a model. Machine learning techniques are
+    explicit content representations are not needed.      being used to recognize the regularities in the
+– The quality of collaborative filtering typically        behavior of customers interacting with e-commerce
+    increases with the size of the user population,       Web sites and to infer a model of the interests of a
+    and collaborative recommendations benefit from        user, referred to as user profile or user model. The
+    improved diversity when compared to content-          user model is a collection of information about an
+    based recommendations.                                individual and should be able to recognize the user,
+However collaborative filtering does suffer from a        know why he or she did something, and guess what
+number of significant downsides:                          he or she wants to do next. The typical user profiling
+– It is not suitable for recommending new items           approach for recommender systems is behavioral-
+    because these techniques can only recommend           based, using a binary model (two classes) to
+    items already rated by other users. If a new item
+                                                          represent what users find interesting and
+    is added to the content database, there can be a
+                                                          uninteresting. Machine-learning techniques are then
+    significant delay before this item will be
+    considered for recommendation. Essentially,           used to assess potential items of interest in respect to
+    only when many users have seen and rated the          the binary model.
+    item will it find its way into enough user profiles
+    to become available for recommendation. This          2.3 Integrating Collaborative
+    so-called “latency problem” is a serious                  Recommender Systems with User
+    limitation that often renders a pure collaborative
+    recommendation strategy inappropriate for a               Knowledge
+    given application domain.
+– Collaborative recommendation can prove                  User models have been used in recommender
+    unsatisfactory in dealing with what might be          systems for content processing and information
+    termed an “unusual user”. There is no guarantee       filtering. It could be useful to develop methods for
+    a set of recommendation partners will be              integrating behavioral profiling with collaborative
+    available for a given target user, especially if      filtering into one integral approach. In particular, the
+    there is insufficient overlap between the target      approach we propose integrates collaborative
+    profile and other profiles. If a target profile       techniques with user profiles inferred from the
+    contains a small number of rates or ratings for a     analysis of transactional data (browsing and
+    set of items that nobody else has reviewed, it        purchasing history of users) without considering any
+    may be difficult to make reliable recommendations     content. There are two main alternatives to
+    using the collaborative technique.                    accomplish this task:
+                                                          1. Profiles Drive Collaborative Methods. Profiles
+2.2 User Knowledge                                             are used to reduce the set of items that should be
+                                                               used for computing recommendations. This
+A key issue in the personalization of a Web site is            means that standard collaborative methods will
+the automatic construction of accurate user profiles.          be applied, but they will work on a smaller
+A profile is a collection of information about an              consideration set of data. We expect this to
+                                                               increase the performances of the overall
+
+
+
+164
+                          A HYBRID COLLABORATIVE RECOMMENDER SYSTEM BASED ON USER PROFILES
+
+
+
+
+   technique in comparison to the stand-alone              perceive that there is a benefit providing the rates,
+   collaborative filtering method.                         they may stop providing them.
+2. Profiles Are Used After Collaborative Filtering.           Implicit ratings are much more difficult to
+   Standard collaborative filtering techniques are         determine but they have the following advantages:
+   used to generate a preliminary set of possible          1) every interaction with the system (and every
+   recommendations. Then, profiles are exploited to        absence of interaction) can contribute to implicit
+   re-rank the set of the recommended items or to          rating; 2) can be gathered for free; 3) can be
+   prune some of the items that were preliminarily         combined with several types of implicit ratings for a
+   recommended.                                            more accurate rating; 4) can be combined with
+Our approach exploits the first alternative, but it        explicit ratings for an enhanced rating.
+reduces the set of users on which the algorithm is         Indeed, the method that is quite effective is a mixed
+applied instead of reducing the set of items. In           technique that exploits implicit and explicit ratings
+Section 3.3 we will give more details about the            and we implemented it in UPE. However, especially
+adopted approach.                                          in the case of sites with many pages, we can be in a
+                                                           situation that some pages have not been evaluated by
+                                                           the current user (neither explicit nor implicit ratings
+                                                           are available). To overcome this situation, UPE uses
+3 PERSONALIZATION SYSTEMS                                  an algorithm of collaborative filtering. It predicts
+                                                           user interests on an item not evaluated by taking into
+In previous work, we have developed two                    account the historical data set on rates of a users
+personalization systems, each exploiting a specific        community stored into a database of existing rating
+technique for providing recommendation: UPE,               provided by other users (Buono, et al., 2002).
+described in Section 3.1, is a recommender system          As it is well known, these algorithms are useful but
+that uses filtering techniques (collaborative and          also very time consuming. With the aim to further
+simple filtering), and PE, described in Section 3.2, is    improve UPE performance, we have defined some
+a knowledge-based recommender system.                      heuristics that reduce the number of users involved
+                                                           in the computation of users’ preferences. Such
+                                                           preferences are computed by using weights that
+3.1 User Profile Engine                                    reflect correlation (in this case the Pearson
+                                                           correlation) between pairs of users. The more
+UPE (User Profile Engine) is a recommender system
+                                                           objects two users have rated similarly, the closer the
+that      provides      personalized       suggestions
+                                                           two users are. To reduce the number of
+(recommendations) about pages users might find
+interesting in a product catalogue on the Web              computations, UPE re-calculates only the weights
+(Buono, et al., 2002). The user profiles managed by        for users that at least one of the two users, during his
+UPE have a static component and a dynamic one.             or her interactions with the system, has produced a
+   The static component consists of a set of               number of ratings (explicit or implicit) above a
+information that identifies each user and doesn’t          given threshold m. Furthermore, the system re-
+change (or change rarely). For example: name,              computes the predicted rating of a user for a certain
+nationality and type of user. The information sources      item by taking into account only the users, that since
+come primarily from the registration forms that            the last rating updating, have generated a number of
+some users are required to fill. The dynamic               ratings (explicit or implicit) above a threshold n.
+component of user profile is the changing part of          More specifically the predicted rating is a weighted
+user data. The set of user preferences is part of the      sum of ratings of the users selected for re-
+dynamic profile. UPE obtains this information by           computation.
+using different type of ratings: explicit ratings, i.e.
+the user explicitly indicates what he or she thinks        3.2 Profile Extractor
+about an item; implicit ratings, obtained by tracking
+user navigation (i.e. events as access to a Web page,
+print and/or save action, etc.). Even if explicit rating   In order to provide personal recommendations based
+is fairly precise, it has disadvantages, such as: 1)       on a comprehensive knowledge of who customers
+stopping to enter explicit ratings can alter normal        are and how they behave, we have adopted an
+patterns of browsing and reading; 2) unless users          approach that uses information learned from
+                                                           transactional histories to construct individual
+
+
+
+
+                                                                                                               165
+ICEIS 2004 - SOFTWARE AGENTS AND INTERNET COMPUTING
+
+
+
+
+                                           Figure 1: U(PE)2 architecture
+
+profiles. The advantage of using this technique is          architecture of PE is made up of several sub-
+that profiles generated from a huge number of               modules: (a) XML I/O Wrapper, which is the layer
+transactions tend to be statistically reliable.             responsible for the extraction of data required for the
+The process of learning customer profiles is                learning process; (b) Rules Manager, which is
+performed by the PE (Profile Extractor)                     implemented through one of the WEKA (Frank and
+personalization system (Semeraro, et al., 2003),            Witten, 1998) classifiers. The learning algorithm
+which employs supervised learning techniques to             adopted in the rule induction process is PART
+automatically discover users’ preferences from              (Witten and Frank, 1999), which produces rules
+transactional data recorded during past visits to the       from pruned partial decision trees; (c) Profile
+e-commerce Web site. In Business to Consumer                Manager, which classifies each user on the ground
+(B2C) e-commerce, items are grouped in a fixed              of the users’ transactions and the set of rules induced
+number of categories. For example, at Amazon.com            by the Rules Manager. The classifications, together
+books in the catalogue are organized in many subject        with the interaction details of users, are gathered to
+categories. PE is able to analyze data gathered from        form a user profile.
+sources such as data warehouse or transactions, for
+instance, in order to infer rules describing the            3.3 Integrating UPE and PE: U(PE)2
+customer/user behavior. Rules are exploited to build
+profiles containing preferences such as the product         Our idea is to produce a hybrid method by
+categories the user is interested into.                     integrating behavioral profiles inferred by PE and
+From our point of view, the problem of learning             the collaborative method implemented by UPE into
+user’s preferences can be cast to the problem of            one integral approach in an attempt to demonstrate
+inducing general concepts from examples labelled as         that it outperforms the pure collaborative filtering
+members (or non-members) of the concepts. In this           method. The resulting system U(PE)2 (Fig. 1)
+context, given a finite set of categories of interest       implements a cascade hybrid method: profiles
+C = {c1, c2, …cn}, the task consists in learning the        inferred by PE are exploited by the Profile Analyzer
+target concept Ti “users interested in the category         to group customers having similar preferences. In
+ci”. In the training phase, each user represents a          our case, preferences are the product categories the
+positive example of users interested in the categories      customer is interested in. Our idea is that profiles
+he or she likes and a negative example of users             could drive the collaborative method by reducing the
+interested in the categories he or she dislikes. We         set of users, on which the algorithm is applied, only
+chose an operational description of the target              to users interested in the same product categories.
+concept Ti, using a collection of rules that match          PE is applied to induce rules (describing “classes” of
+against the features describing a user in order to          users) that are exploited to build the profiles. Then,
+decide if he or she is a member of Ti. Transactional        the collaborative filtering algorithm is applied to
+data about customers are arranged into a set of             each group of users selected by the Profile Analyzer.
+unclassified instances (each instance represents a          In this way, it is possible to improve computational
+customer). The subset of the instances chosen to            performance by carrying out parallel computation
+train the learning system has to be labeled by a            for each group of users. We actually use PE to
+domain expert, that classifies each instance as             classify registered users and assign them to the
+member or non-member of each category. The                  content categories of their interest; we then apply
+training instances are processed by the Profile             collaborative filtering algorithm to the users of each
+Extractor, which induces a classification rule set for      class, in order to generate recommendations that fit
+each category of interest. More precisely, the              their interests.
+
+
+
+
+166
+                           A HYBRID COLLABORATIVE RECOMMENDER SYSTEM BASED ON USER PROFILES
+
+
+
+
+4 EXPERIMENTAL WORK                                          To evaluate an individual item prediction we used
+                                                             the Mean Absolute Error (MAE) between ratings
+We have performed two experiments in order to                and predictions. MAE is a measure of the deviation
+compare the performance of the proposed hybrid               of recommendations from their true user-specified
+recommender system U(PE)2 with UPE. The former               values. For the prediction of N items (p1,…,pN) and a
+measures the evaluation of UPE implementing the              real     evaluation      of    a     user     (r1,…,rN),
+classical collaborative filtering technique (see             E = (|p1-r1|,…,|pn-rN|) is calculated. We can compute
+Section 3.1). The latter measures the evaluation of          MAE by first summing the squared absolute errors
+the hybrid system U(PE)2 obtained integrating the            of the N corresponding ratings-prediction pairs and
+behavioral profiles inferred by PE with the UPE              then computing the average. Since the task was to
+collaborative method. The performance of U(PE)2              identify or retrieve items preferred by users from a
+has been compared with the UPE personalization               repository, traditional information retrieval measures
+system. For both experiments we used historical              were adopted, namely Precision (Pr), Recall (Re)
+browsing data from an Italian e-commerce company.            (Sebastiani, 2002). We have adapted the definition
+This dataset contains information about 380 users on         of recall and precision to our case as our experiment
+154 catalogue products; in particular, it contains           is different from standard IR in the sense that we
+explicit rates given by users and implicit rates             have a fixed number of recommended items. In the
+computed by the system on the basis of the user              evaluation phase, the concept of relevant item is
+behavior. Each action performed by a user on a Web           central. An item is considered as relevant by a user if
+page, for example zooming on the picture of a                the score he or she has given is greater than 2.5. An
+product, corresponds to a rate. We divided the
+                                                             item is considered as relevant by a system if the
+dataset into a training set and a test set by using
+                                                             computed numerical recommendation score is
+90%/10% training/test ratio. From each user in the
+test set, ratings for 25% of items were randomly             greater than 2.5. Our goal is to look into the test set
+withheld. Predictions were computed for the                  and match items that both the system and the user
+withheld items using each of the different                   deemed relevant. Then, recall is the proportion of
+algorithms. In the first experiment, the dataset was         relevant items that are classified as relevant, and
+converted into a user-product matrix that had 380            precision is the proportion of items classified as
+rows (i.e., 380 users) and 154 columns (i.e., products       relevant that are really relevant. The fact that both
+that were rated by at least one of the users).               measures are critical for the quality judgment leads
+Predictions were computed for the withheld items             us to use a combination of the two. In particular, we
+using the pure collaborative filtering technique             use the standard F1 metric (Sebastiani, 2002), which
+implemented by UPE. In the second experiment, the            gives equal weight to them both. We also adopted
+dataset was converted into 11 user-product matrices,         the Normalized Distance-based Performance
+each corresponding to a specific product category Ci         Measure (NDPM) (Yao, 1995) to evaluate the
+in which PE classified the users. Each matrix had ni         goodness of the items’ ranking calculated according
+rows (i.e., the number of users that PE has classified       to a certain relevance measure. Specifically, NDPM
+as interested in the category Ci) and 154 columns            was exploited to measure the distance between the
+(i.e., products that were rated by at least one of the       ranking imposed on items by the user ratings and the
+users). In this case, the UPE collaborative filtering        ranking predicted by the system. Values range from
+was applied separately to each matrix. Both                  0 (agreement) to 1 (disagreement). Results of the
+experiments were repeated 5 times selecting a                experiments are divided into two parts: quality
+different test set (the intersection of the five test sets   results and performance results. In assessing the
+was empty). This procedure allows running 5
+                                                             quality of recommendations, we first analyze the
+experiments that are completely different. Finally,
+                                                             results obtained in experiment 1 by UPE (Table 1).
+the results of experiment 1 were averaged over the 5
+runs and ones of experiment 2 were averaged over             Table 1 – Results obtained by UPE (averaged over 5 runs)
+all categories.
+                                                                MAE NDPM Recall Precision F1-measure
+The quality of the predictions was measured by
+                                                                0.421 0.066 0.942 0.905            0.923
+comparing the predicted values for the withheld
+                                                             Notice the high accuracy that can be achieved by the
+ratings to the actual ratings, using several metrics.
+                                                             system on the whole dataset in predicting the
+In general, recommender systems research has used
+                                                             ranking of the products according to the customers
+several types of measures for evaluating the success
+                                                             interests (the NDPM value is close to 0). The high
+of a recommender system. We consider only two
+                                                             value of the F1-measure and the balance between
+types of metrics for evaluating predictions and
+                                                             recall and precision demonstrates that the list of
+recommendations respectively.
+
+
+
+
+                                                                                                                 167
+ICEIS 2004 - SOFTWARE AGENTS AND INTERNET COMPUTING
+
+
+
+
+recommendations presented to users by UPE                         Table 2 – Statistics on the 11 products categories
+contains relevant items correctly ranked.                                                                                                  Mean
+                                                                                       #         U.C.<                           U.C.>
+In the second experiment, we examined separately            DATASET                                          0.3≤U.C.≤0.6                   User
+                                                                                users              0.3                            0.6
+the recommendation accuracy for users grouped                                                                                               Corr.
+according to their behavioral profiles. For each                                                   11                             53
+                                                           UNDERWEAR               74                         10 (13%)                      0.50
+group, Table 2 reports the number of users classified                                            (15%)                           (72%)
+as interested in that category, the number of users                                                10                             43
+poorly, moderately, and strongly correlated, and the        FURNITURE              67
+                                                                                                 (15%)
+                                                                                                              14 (21%)
+                                                                                                                                 (64%)
+                                                                                                                                            0.51
+
+mean correlation value computed over each pair of                                                  10                             43
+users. A correlation coefficient between 0.3 and 0.6       PET SUPPLIES            69
+                                                                                                 (15%)
+                                                                                                              16 (23%)
+                                                                                                                                 (62%)
+                                                                                                                                            0.51
+
+reveals a moderate association, while values above         HOUSEHOLD                               12                             39
+0.6 indicate a strong correlation. A coefficient at          ARTICLES
+                                                                                   68
+                                                                                                 (18%)
+                                                                                                              17 (25%)
+                                                                                                                                 (57%)
+                                                                                                                                            0.49
+
+zero, or close to zero, indicates no relationship.           KITCHEN                                                              21
+In Table 3, we reported the U(PE)2 results. The              UTENSILS
+                                                                                   35          9 (26%)         5 (14%)
+                                                                                                                                 (60%)
+                                                                                                                                            0.42
+
+values of MAE are positive given the small number            SANITARY                                                             37
+of users belonging to each category (from 35 users           ARTICLES
+                                                                                   70          9 (13%)        24 (34%)
+                                                                                                                                 (53%)
+                                                                                                                                            0.50
+
+in the category “kitchen utensils” to the 74 users in                                                                             43
+the category “underwear”). Only for two categories         ELECTRONICS             59          9 (15%)         7 (12%)
+                                                                                                                                 (73%)
+                                                                                                                                            0.49
+
+(“kitchen utensils” and “jewelry”) the value of MAE                                                12                             45
+                                                            HARDWARE               65                          8 (12%)                      0.52
+was over 2.                                                                                      (19%)                           (69%)
+
+In particular, the computed MAE for the category             JEWELRY               70
+                                                                                                   14
+                                                                                                              11 (16%)
+                                                                                                                                  45
+                                                                                                                                            0.51
+“kitchen utensils” is greater than 8. In order to fully                                          (20%)                           (64%)
+
+understand this result it is important to notice that      INFORMATICS             65          9 (14%)        13 (20%)
+                                                                                                                                  43
+                                                                                                                                            0.51
+this category contains the smallest number of users                                                                              (66%)
+
+(35) and reported the lowest value of mean user             BABYHOOD               70          8 (12%)        12 (17%)
+                                                                                                                                  50
+                                                                                                                                            0.51
+correlation.                                                                                                                     (71%)
+
+For the users in the category “kitchen utensils”, the         ENTIRE
+                                                                                  380
+                                                                                                   64
+                                                                                                               41 (11%)
+                                                                                                                                  275
+                                                                                                                                            0.65
+computed value was 0.42 against at least 0.49                DATASET                             (17%)                           (72%)
+
+achieved in all the other categories (see Table 2 for
+more details). In general, NDPM results are very                            Table 3 – Results obtained by U(PE)2
+positive (values do not exceed 0.2), showing a                          DATASET                                MAE          NDPM            F1
+strong correlation between the ranking imposed by                     UNDERWEAR                                1,473         0,040         0,879
+the users and the ranking computed by the system,                      FURNITURE                               0,900         0,166         0,947
+although there is a high degree of variation between                  PET SUPPLIES                             1,228         0,062         0,888
+different categories. NDPM is better for users                    HOUSEHOLD ARTICLES                           1,395         0,135         0,847
+strongly correlated and belonging to “more                         KITCHEN UTENSILS                            8,078         0,195         0,629
+populated” categories: the best values have been                   SANITARY ARTICLES                           1,045         0,049         0,864
+found in the categories “underwear” (74 users) and                    ELECTRONICS                              1,130         0,061         0,799
+“hardware”, which show the highest values of user                      HARDWARE                                0,872         0,048         0,971
+correlation. For the F1 score, we consider the results                     JEWELRY                             2,496         0,109         0,724
+as very positive. Overall, 8 out of the 11 categories                 INFORMATICS                              0,939         0,155         0,862
+reported values that exceed 0.80, while only for one                   BABYHOOD                                1,734         0,072         0,822
+category (“kitchen utensils” again) the system was
+not able to reach a value of at least 0.70.                           Table 4 – Comparison UPE vs. U(PE)2
+                                                                   MAE                             NDPM                     F1-measure
+The aim of the second experiment was to compare
+                                                          UPE      U(PE)2    |Diff.|       UPE      U(PE)2     |Diff.|   UPE      U(PE)2    |Diff.|
+the results obtained by U(PE)2, averaged over all the
+categories, with the results obtained by UPE (see         0.421    1.936     1.515         0.066    0.099      0.033     0.923    0.839     0.084
+
+Table 4).                                                 This result is to be expected, as the collaborative
+As regards MAE, the value achieved by UPE is              filtering algorithm implemented by UPE generates
+                                                          recommendations based on the strength of the
+almost five times better than the value registered for
+                                                          association among users and it is adversely affected
+U(PE)2. UPE outperforms U(PE)2 both for NDPM
+                                                          by reduced training sets containing poorly correlated
+and F1-measure.                                           users. Only 3 categories (“underwear”, “electronics”,
+                                                          “babyhood”) reported at least 70% of users strongly
+                                                          correlated, as in the original dataset, and that the
+
+
+
+168
+                         A HYBRID COLLABORATIVE RECOMMENDER SYSTEM BASED ON USER PROFILES
+
+
+
+
+mean user correlation observed in each category is           Reich, M.M. Tzagarakis and P.M.E. De Bra (Eds.),
+always lower than in the entire dataset. Nevertheless,       Hypermedia: Openness, Structural Awareness and
+the results achieved using behavioral profiles are           Adaptivity, LNCS, vol. 2266, 315-321. Springer, Berlin.
+satisfactory: NDPM is still very close to 0 and F1-      Burke, R., 2002. Hybrid Recommender Systems: Survey
+measure shows a classification accuracy in recognizing       and Experiments. In User Modeling and User-Adapted
+relevant items that is almost 84%. This means that           Interaction, 12, 331-370. Kluwer Academic
+U(PE)2 is able to recommend “good” items,                    Publishers, the Netherlands.
+although the individual item prediction gets worse.      Frank, E. and Witten, I., 1998. Generating accurate rule
+When we focus on performance issues, we find the             sets without global optimization. In 15th International
+main advantage of grouping users according to their          Conference on Machine Learning, 144–151. Morgan
+behavioral      profiles        before       computing       Kaufmann.
+recommendations: the time requested by UPE to            Konstan, J. A., Riedl, J., Borchers, A. and Herlocker, J. L.,
+produce recommendations on the whole dataset of              1998. Recommender Systems: A GroupLens Perspective.
+380 users was 5h 47min, while the time requested by          In Recommender Systems. Papers from 1998 Workshop.
+U(PE)2 was 57min for computing recommendations               Technical Report WS-98-08, 60-64. AAAI Press.
+and 1h 27min for classifying users into 11 categories.   Pazzani, M., 1999. A Framework for Collaborative,
+The total time for completing the process was 2h             Content-Based and Demographic Filtering. In
+24min.                                                       Artificial Intelligence Review, 393-408.
+                                                         Resnick, P. and Varian, H. R., 1997. Recommender
+                                                             Systems. Communications of the ACM, 40 (3),56-58.
+                                                         Sarwar, B. M., Karypis, G., Konstan, J. and Riedl, J., 2002.
+5 CONCLUSIONS                                                Recommender Systems for Large-Scale E-Commerce:
+                                                             Scalable Neighborhood Formation Using Clustering. In
+Recommender systems are a powerful technology                Proceedings of the 5th International Conference on
+that allows a company to get additional value from           Computer and Information Technology (ICCIT 2002).
+its user database. A real problem is that these          Schafer, J. B., Konstan, J. and Riedl, J., 1999.
+systems are being stressed by the huge volume of             Recommender Systems in E-Commerce. In EC ’99:
+user data in existing corporate databases. A strong          Proceedings of the First ACM Conference on
+research issue is to develop methods that can                Electronic Commerce, Denver, CO, 158-166.
+improve the scalability of recommender systems,          Sebastiani, F., 2002. Machine Learning in Automated Text
+still producing high-quality recommendations. In             Categorization. ACM Computing Surveys, 34 (1), 1–47.
+this paper, we have presented a new approach for         Semeraro, G., Abbattista, F., Degemmis, M., Licchelli, O.,
+collaborative-based recommender systems. It                  Lops, P., Zambetta, F., 2003. Agents, Personalisation,
+integrates knowledge about customers stored in               and Intelligent Applications. In Corchuelo, R., Ruiz
+behavioral profiles into the collaborative filtering         Cortés, A. and Wrembel, R. (Eds.), Technologies
+algorithm in order to reduce the computational time          Supporting Business Solutions, Part IV: Data Analysis
+required for generating recommendations. The final           and Knowledge Discovery, Chapter 7, 163-186. Nova
+goal of the work has been to identify some measures          Sciences Books and Journals.
+for evaluating the quality of recommendations. For       Shardanand, U. and Maes, P., 1995. Social Information
+this purpose, we have presented the empirical                Filtering:Algorithms for Automating’Word of Mouth’.
+                                                             In Proceedings of CHI ’95, Denver, CO., 210-217.
+evaluation of the U(PE)2 hybrid recommender
+                                                         Terveen, L. and Hill, W., 2001. Human-Computer
+system. Our results have highlighted the actual
+                                                             Collaboration in Recommender Systems. In J. Carroll
+improvement of the proposed hybrid approach with
+                                                             (Ed.), Human Computer Interaction in the New
+respect to a pure collaborative approach. We can             Millenium, Addison-Wesley, New York.
+conclude that the proposed technique holds the           Tuzhilin, A. and Adomavicius, G., 1999. Integrating user
+promise of allowing collaborative-based algorithms           behaviour and collaborative methods in recommender
+to scale to large data sets, still producing high-           systems. In CHI' 99 Workshop Interacting with
+quality recommendations.                                     Recommender Systems, Pittsburgh, PA, USA.
+REFERENCES                                               Witten, I. H. and Frank, E., 1999. Data Mining: Practical
+                                                             Machine Learning Tools and Techniques with Java
+Balabanovic, M. and Shoham, Y., 1997. Fab: Content-          Implementations. Morgan Kaufmann Publishers, San
+   Based,         Collaborative       recommendation.        Francisco.
+   Communications of the ACM, 40 (3), 66-72.             Yao, Y. Y., 1995. Measuring Retrieval Effectiveness
+Buono, P., Costabile, M. F., Guida, S., Piccinno, A.,        Based on User Preference of Documents. Journal of
+   2002. Integrating User Data and Collaborative             the American Society for Information Science, 46, 2,
+                                                             133–145.
+   Filtering in a Web Recommendation Systems. In S.
+
+
+
+
+                                                                                                                 169
+

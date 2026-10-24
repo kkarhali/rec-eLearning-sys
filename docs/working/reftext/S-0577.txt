@@ -1,0 +1,857 @@
+Received July 2, 2019, accepted August 3, 2019, date of publication August 14, 2019, date of current version November 20, 2019.
+Digital Object Identifier 10.1109/ACCESS.2019.2935417
+
+
+
+
+On Recommendation of Learning Objects Using
+Felder-Silverman Learning Style Model
+SHAIMAA M. NAFEA                      1,2 , FRANÇOIS SIEWE2 , AND YING HE                             2
+1 School of Management Information System, Arab Academy for Science, Technology & Maritime Transport,
+
+Alexandria 13055, Egypt
+2 School of Computer Science and Informatics, De Montfort University, Leicester LE1 9BH, U.K.
+
+Corresponding authors: Shaimaa M. Nafea (P15017421@myemail.dmu.ac.uk), François Siewe (fsiewe@dmu.ac.uk), and Ying He
+(ying.he@dmu.ac.uk)
+This work was supported in part by the Arab Academy for Science Technology and Maritime in Egypt through the Scholarship Program,
+and in part by the De Montfort University in the U.K.
+
+
+
+
+  ABSTRACT The e-learning recommender system in learning institutions is increasingly becoming the pre-
+  ferred mode of delivery, as it enables learning anytime, anywhere. However, delivering personalised course
+  learning objects based on student’s preferences is still a challenge. Current mainstream recommendation
+  algorithms, such as the Collaborative Filtering (CF) and Content-Based Filtering (CBF), deal with only two
+  types of entities, namely users and items with their ratings. However, these methods do not pay attention
+  to student’s preferences, such as learning styles, which are especially important for the accuracy of course
+  learning objects prediction or recommendation. Moreover, several recommendation techniques experience
+  cold-start and rating sparsity problems. To address the challenge of improving the quality of recommender
+  systems, in this paper a novel recommender algorithm for machine learning is proposed, which combines
+  students actual rating with their learning styles to recommend personalised course learning objects (LOs).
+  Various recommendation techniques are considered in an experimental study investigating the best technique
+  to use in predicting student ratings for e-learning recommender systems. We use the Felder-Silverman
+  Learning Styles Model (FSLSM) to represent both the student learning styles and the learning object
+  profiles. The predicted ratings are compared with the actual student ratings to determine the accuracy of the
+  recommendation techniques, using the Mean Absolute Error (MAE) and Root Mean Square Error (RMSE)
+  metrics. This approach has been experimented on 80 students for an online course created in the MOODLE
+  Learning Management System. The results of the experiment show that the best recommendation technique
+  is our proposed hybrid recommendation algorithm that combines the collaborative filtering and the content-
+  based filtering techniques to enhance the accuracy of the predictions, and solves the cold-start and the rating
+  sparsity problems using the FSLSM representations of the student learning styles and the learning object
+  profiles.
+
+
+  INDEX TERMS Collaborative filtering (CF), content-based filtering (CBF), e-learning, Felder-Silverman
+  learning style model (FSLSM), hybrid filtering (HF), rating prediction, recommendation system.
+
+
+
+I. INTRODUCTION                                                                                 navigational overheads, and to enhance overall student satis-
+E-Learning Recommender Systems (E-LRS) have become                                              faction [1]. Besides, the adaptability and diversity of recom-
+popular in recent years. Compared with Learning Manage-                                         mendations are desirable in e-learning recommender systems,
+ment Systems (LMS), which offer limited adaptivity and                                          because learners’ preferences and abilities keep changing.
+personalisation, adaptive educational systems use intelligent                                   The diverse and adaptive Learning Objects (LOs) recom-
+algorithms to adapt to students’ learning style, enhance                                        mendations should be presented to motivate the learning
+learning performance, accelerate goal achievement, reduce                                       potential of learners and to ensure a long-term learning
+                                                                                                experience [2]–[4].
+   The associate editor coordinating the review of this manuscript and                             A lot of learners are moving away from utilising e-learning
+approving it for publication was Fatos Xhafa            .                                       systems, because they do not find them beneficial [24]–[27].
+
+                      This work is licensed under a Creative Commons Attribution 4.0 License. For more information, see http://creativecommons.org/licenses/by/4.0/
+163034                                                                                                                                                                VOLUME 7, 2019
+S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+                                                                    depict the user list, while the columns represent the items
+                                                                    list. The numerical values from 1 to 5 in the matrix reflect
+                                                                    the level of preference for a particular user for each item.
+                                                                    The objective of RS algorithm in this setting is to predict
+                                                                    the missing values in the matrix where users have not pro-
+                                                                    vided their preferences for certain items. However, this RS
+                                                                    always suffers from data sparsity and cold start. Data sparsity
+                                                                    refers to the situation where the amount of information (rat-
+                                                                    ings) of a target user is not sufficient enough to generate
+                                                                    reliable related users (i.e. the number of commonly rated
+                                                                    items among users is very small). Cold start refers to the
+                                                                    situation where an RS encounters new users or items with
+                                                                    no rating [89]. Over the years, researchers have developed
+                                                                    mechanisms and tools for the automatic detection of types
+                                                                    of learning style [39]–[41], [53], [58]–[60], [63]. However,
+                                                                    few of the studies have discussed the mechanisms for gen-
+                                                                    erating an adaptive course content based on detected leaning
+                                                                    styles and the learning objects and materials already provided
+                                                                    by teachers [61], [62], [64].
+                                                                       As a motivating example, let us assume two students
+                                                                    with different learning styles have the same ratings of the
+                                                                    learning objects. Clearly, from a fully personalised perspec-
+                                                                    tive, the top-n LOs list based on predicted ratings cannot
+FIGURE 1. A Traditional recommendation approach.
+                                                                    be the same for both students, because they do not have
+                                                                    the same learning style. Hence, it is important to consider
+                                                                    students’ learning styles when predicting their ratings of LOs
+In particular, this is owing to the fact that this type of learn-
+                                                                    to improve the accuracy of the recommendations. Accord-
+ing environment cannot interact with learners as well as the
+                                                                    ingly, in this study, a novel hybrid recommendation algo-
+traditional face to face one. Moreover, learners usually make
+                                                                    rithm is proposed based on the personalised students profile
+a set of choices during learning, for instance, ‘how to learn’,
+                                                                    presented in [63] and the K-means clustering as a way to
+‘with whom to learn’ and ‘which learning pathway to follow’,
+                                                                    overcome information overload and cold start problems, thus
+and so on. To achieve this goal, it is essential to consider
+                                                                    building an effective course learning objects recommendation
+the students’ learning styles and use them in the design and
+                                                                    system.
+implementation of e-learning environments, to make them
+more realistic and thus, attractive [28].
+                                                                    A. LITERATURE GAP AND RESEARCH CONTRIBUTIONS
+   This paper proposes a novel algorithm to recommend the
+most suitable course LOs taking into consideration student          Current published relevant research papers in the field
+learning styles and LO profiles and the students’ ratings of        of the e-learning recommendation systems, including the
+LOs. This is an extended version of work originally pre-            content-based filtering, collaborative filtering and hybrid rec-
+sented in [64]. A recommender system (RS) enables users             ommendation techniques, are presented in Table 1. Exist-
+to cope with information overload by providing the most             ing e-learning recommendation systems face the following
+appropriate items based on their requirements. Figure 1             problems.
+                                                                      1) First, the majority of the traditional recommendation
+shows the traditional method of a two-dimensional recom-
+                                                                          algorithms have been developed for e-commerce appli-
+mender system, which has three main components: user,
+                                                                          cations that are unable to meet all the requirements
+item, and rating. Rating, in this case, refers to the feed-
+                                                                          of learning environments. In particular, they do not
+back that a user gives for a specific item, being implicit
+                                                                          consider the learning process in their recommendation
+or explicit.
+                                                                          approach [39], [92].
+   • Explicit ratings are when the user rates an item to              2) Second, the recommendation mechanisms that rely
+     express his/her level of interest. Ratings can be in                 exclusively on two dimensions (i.e. users and items)
+     the form of a numeric value on a multi-point scale,                  don’t consider the attributes of learners and learning
+     e.g. 1 to 5 [11].                                                    materials [7]. As a result, rich and vital information,
+   • Implicit ratings are generated by the RS itself, through             such as learner’s learning styles and the properties of
+     inferences from users’ behaviour [11], [91].                         learning objects are overlooked.
+A user-item matrix is shown in Fig. 1, where the elements             3) Third, during the continuous learning process, learn-
+in the matrix are the users’ ratings. In the matrix, the rows             ers do not actively make ratings or give comments,
+
+
+VOLUME 7, 2019                                                                                                               163035
+                                                                                         S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+TABLE 1. Summary of existing personalised e-leaning recommendation systems.
+
+
+
+
+      because they aim to achieve their goals within sched-                   1) In comparison with most of existing e-learning recom-
+      uled but limited learning time [95]. As a result, learn-                   mendation systems such as [32], [36], [78] which used
+      ers’ learning profiles often seem isolated from each                       only rating values, the proposed algorithm takes into
+      other. The extreme data sparsity caused by these fac-                      account multidimensional-attribute (based on FSLSM)
+      tors can render traditional recommendation techniques                      of learning objects profiles and students learning styles
+      ineffective.                                                               in addition to rating values in its recommendation pro-
+   4) Finally, traditional recommendation methods have a                         cess. Thus, compared to these methods, the proposed
+      low ability to capture and perceive the changes in learn-                  method produces more accurate recommendations and
+      ers’ preferences in an adaptive way [66].                                  is more effective in dealing with the cold-start and the
+In order to avoid these drawbacks and improve the accuracy                       the rating sparsity problems using the data from the
+of course learning objects recommendations, the key contri-                      student learning styles and the learning object profiles
+butions of this paper are threefold:                                             (Section III-A)).
+
+163036                                                                                                                             VOLUME 7, 2019
+S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+   2) A new approach is proposed to overcome the new-
+      learner zero-rated profile recommendation issue by
+      determining the nearest learners with a similar his-
+      torical rating and similar learning styles profile
+      (Section III-A.3).
+   3) Several recommendations algorithms have been tested
+      in order to find out the best one for the course learning
+      objects recommendation. The accuracy of the recom-
+      mendations is measured using traditional evaluation
+      metrics, namely the Mean Absolute Error (MAE)
+      and the Root Mean Squared Error (RMSE). The
+      results indicate that the hybrid recommender technique
+      has higher accuracy in comparison with collabora-
+      tive and content-based recommendation techniques
+      (Section IV).
+Our proposed algorithm has been implemented in C++ using
+Visual Studio and Windows Presentation Foundation (WPF)           FIGURE 2. Content-based filtering recommendation.
+
+to design the Graphical User Interface (GUI). It has been eval-
+uated using a real student dataset from AAST’S MOODLE             a profile, recommender systems make a survey to get initial
+(Arab Academy for Science and Technology and Maritime             information about a user to avoid the new-user problem. In the
+Transport - Modular Object-Oriented Dynamic Learning              recommendation process, the engine compares the LOs that
+Environment).                                                     have already been positively rated by learner with the LOs
+   The remainder of the paper is organised as follows. The        he/she has not done so and looks for similarities. Those LOs
+next section defines the main concepts used in the proposed       that are mostly similar to the positively rated ones, will be rec-
+approach. Section III discusses the proposed recommender          ommended to the user. In this case, the profiles of other users
+algorithm, whilst Section IV presents the experimental results    are not essential and they do not influence the recommenda-
+and analysis. Section V concludes the paper and proposes          tions of the user, for they are based on individual information.
+future research directions.                                       Figure 2 presents an illustrative example of CBF. From
+                                                                  Fig. 2, we can see that the recommendation process comprises
+II. PRELIMINARIES                                                 three main steps: item representation, profile learning and
+In the following sub-sections, we present techniques com-         recommendation generation. As an example for e-learning
+monly used in recommender systems. These will be anal-            application, [74] used learners’ recent navigation histories
+ysed later to improve the accuracy of recommendations.            and similarities and dissimilarities among the contents of the
+An overview of the similarity metrics and K-means clustering      learning materials for online automatic recommendations.
+algorithm is also given.                                          Clustering was proposed by [79] to group learning docu-
+                                                                  ments based on their topics and similarities. Since in the
+A. RECOMMENDATION TECHNIQUES                                      e-learning environment learning materials are in a variety
+The underlying techniques used in recommender systems can         of multimedia formats, including text, hypertext, image,
+be categorised into two broad classes: (a) content-based          video, audio and slides, it is difficult to calculate the content
+recommendation (b) collaborative filtering recommendation.        similarity of two items [81]. In fact, the existing metrics in
+New hybrid recommendation algorithms can be generated by          CBF only detect similarity between LOs that share the same
+synthesising these two methods [19].                              attributes. This causes overspecialised recommendations that
+                                                                  only include LOs very similar to those that the learner
+1) CONTENT-BASED FILTERING (CBF)                                  already knows.
+As a traditional recommendation method, the rationale for
+CBF is simple. The items recommended by this method are           2) COLLABORATIVE FILTERING (CF)
+similar to the items of users interest [16], with matching        Collaborative filtering became one of the most researched
+information between items and users being the key proce-          techniques of recommender systems after it was proposed and
+dure. In e-learning recommender systems, the items are the        described by [54]. CF [15] recommends to the target learner
+learning objects in the e-learning systems and the users are      learning resources that other similar learners have registered
+the learners. CBF recommender systems work with profiles          as liking previously. In other words, an important step in CF
+of learners that are created at the beginning. A profile has      is to identify those learners most similar to the target learner.
+information about a learner and his/her preferences, which are    The similarity in taste of two learners is calculated based on
+based on how he/she rates the LOs. Generally, when creating       their rating history. If two learners have the same or almost
+
+
+VOLUME 7, 2019                                                                                                               163037
+                                                                                S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+                                                                FIGURE 4. Hybrid filtering algorithm.
+
+
+                                                                on the portal of the courseware management system. Then,
+FIGURE 3. Collaborative filtering algorithm.
+                                                                the courseware recommendation module finds within the
+                                                                same user interest group of user u the k courseware with
+the same rated LOs in common, then they are deemed to           the same or similar keywords that others have chosen. Ref-
+have similar tastes. Such learners and others of the same ilk   erence [21] applied association rule mining to identify inter-
+form a group or a so-called neighbourhood. A learner gets       esting information through students usage data in the form of
+recommendations to choose LOs that he/she has not rated         IF-THEN recommendation rules and then, used a collabora-
+before, but have already been positively rated by those in      tive recommender system to share and score the recommen-
+his/her neighbourhood, as shown in Fig. 3.                      dation rules obtained by teachers with similar profiles as well
+   To this end, several research efforts have been made to      as other experts in education.
+identify similarity measures so as to identify these users
+with common profiles [37], [77]. CF was used by [32] for        B. SIMILARITY METRICS
+prediction of the most suitable materials for the learner as    Similarity metrics are the backbone of CF and CBF helping
+follows. First, the weight between all users and the active     to predict the ratings of unrated items. Regarding which,
+learner is calculated by the Pearson correlation. Then, the n   in this study, the two most convenient similarity metrics,
+users that have the highest similarity to the active learner    namely, Pearson’s correlation and cosine similarity [64] are
+are selected as belonging to the neighbourhood. Finally,        considered.
+using the weight combination obtained from the neigh-
+bourhood, the rating prediction is calculated. Regardless       1) PEARSON CORRELATION
+of its success in many application domains, collaborative       The Pearson correlation coefficient is a measure of the
+filtering has two serious drawbacks. First, its applicabil-     linear dependence between two variables (real-valued vec-
+ity and quality are limited by the so-called sparsity prob-     tors). Specifically, that of two variables x and y is formally
+lem, which occurs when the available data are insufficient      defined as the covariance of the two variables divided by
+for identifying similar users. Second, it requires knowing      the product of their standard deviations (which acts as a
+many user profiles in order to elaborate accurate recom-        normalisation factor) [72] and it can be equivalently defined
+mendations for a given user. Given in some e-learning           by Eq. (1).
+                                                                                          Pn
+                                                                                            i=1 (xi − x̄) (yi − ȳ)
+environments the learner population is low, recommen-
+dation results with this method in such cases will have                 P(x, y) = qP                  q                    (1)
+                                                                                        n            2 Pn
+                                                                                        i=1 (xi − x̄)      i=1 (yi − ȳ)
+                                                                                                                        2
+poor accuracy.
+                                                                where x and y are the mean values of x and y, respectively.
+3) HYBRID FILTERING (HF)                                           The coefficient P(x, y) ranges from −1 to 1 and is invariant
+In the last few years, researchers of recommender systems       to linear transformations of either variable. The value −1
+have explored hybridisation of recommendation techniques        represents perfect negative linear dependence, 0 no linear
+as an approach for developing effective recommender sys-        dependence, and 1 perfect positive linear dependence. Used
+tems. Table 1 lists some of the techniques that have been       as a similarity metric, negative values indicate dissimilarity,
+used to this end. Hybrid filtering entails combining two or     while positive values measure the similarity between the two
+more recommendation techniques to improve performance,          variables with 1 be the perfect similarity.
+as shown in Fig. 4. In [68], a combination of content-based
+and collaborative filtering was implemented to make person-     2) COSINE SIMILARITY
+alised recommendations for a courseware selection module.       The cosine similarity involves measuring the angle between
+The algorithm starts with user u entering some keywords         two vectors [94] and is calculated by Eq. (2), as the ratio of
+
+
+163038                                                                                                                    VOLUME 7, 2019
+S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+the scalar product by the product of the magnitudes.                    most appropriate learning style model for the use in
+                                 x.y                                    adaptive learning systems such as [18]–[21], as well as
+                    c(x, y) =                               (2)         being easy to implement [30], [57].
+                              ||x||.||y||
+   The values of c(x, y) range from −1 to 1 in gen-                FSLSM describes learning styles by characterising each
+eral, and from 0 to 1 if the coordinates of x and y are            learner according to four dimensions, each of which,
+non-negative values. This paper is interested in the latter        is defined as below.
+where the value 0 represents no similarity and 1 perfect              The information processing dimension (active/reflective)
+similarity.                                                        tells how one prefers to process information. An active learner
+                                                                   wants to try things out, working with others in groups, whilst a
+C. K-MEANS CLUSTERING ALGORITHM                                    reflective one chooses to think things through, working alone
+Clustering is one of the most common data mining techniques        or with a familiar partner.
+used in recommendation systems in order to develop rec-               The information input dimension (visual/verbal) deter-
+ommendation rules or build recommendation models from              mines how one prefers information to be presented. A visual
+large data sets [73]. It can be defined as the process of          learner likes visual presentations, pictures, diagrams, and
+organising objects in a database into clusters (or groups),        flow charts. A verbal learner prefers written and spoken
+such that objects within the same cluster have a high degree       explanations.
+of similarity, while those belonging to different ones have           The information understanding dimension (sequen-
+a high degree of dissimilarity. The K-means algorithm [65]         tial/global) determines how one prefers to organise and
+is one of the most popular clustering algorithms due to its        progress towards understanding information. A sequential
+simplicity and intuitive interpretation. The algorithm has the     learner prefers linear thinking and learning in small incre-
+following steps.                                                   mental steps. By contrast, a global learner prefers holistic
+     Step 1: Select K random points from the dataset as initial    thinking, systems thinking, and learns in large leaps.
+     cluster centroids.                                               The information perception dimension (sensing/intuitive)
+     Step 2: Create K clusters by associating each data            states how one prefers to perceive or take in information.
+     point with its closest cluster centroid, according to the     A sensing learner is attracted to concrete thinking, is prac-
+     Euclidean distance defined by Eq. (3), where x and y are      tical as well as being concerned about facts and proce-
+     two real-valued vectors of size n.                            dures. While an intuitive learner opts for conceptual thinking,
+                               v
+                               u n                                 being innovative, as well as being interested in theories and
+                               uX                                  meanings.
+                    D(x, y) = t (xi − yi )2                (3)        It should be noted that each of these dimensions is
+                                      i=1
+                                                                   characterised by a pair X/Y of learning style attributes
+      Step 3: Recalculate the centroid of each cluster as the      (i.e. active/reflective, sequential/global, visual/verbal, and
+      mean of all the data points in that cluster.                 sensing/intuitive) meaning that the learning style of a learner
+      Step 4: Repeat steps 2 and 3 until the centroids no longer   in a particular dimension ranges from perfect X to perfect Y.
+      change.                                                      For example, in the information processing dimension,
+In our proposed system, we apply data clustering by employ-        the learning style of a student can be 70% active and
+ing the K-means algorithm to improve the computational             30% reflective. Of course, the percentage of X and the
+efficiency, the accuracy and the quality of recommendations.       percentage of Y must sum up to 100%. Felder et al. [17]
+                                                                   developed an Index of Learning Styles (ILS) question-
+D. DESCRIPTION OF THE FELDER-SILVERMAN                             naire, which comprises 44 questions that have been shown
+LEARNING STYLE MODEL                                               to be effective in identifying the learning style of each
+The term ‘learning style’ refers to the preferential way           individual learner. ILS provides a method of calculating
+in which the student perceives, processes, understands and         the percentage values of learning style attributes from
+retains information [45]. Various learning style models have       the learner’s answers to the questionnaire [17], [63].
+been presented in the past by researchers, such as those of        The next section presents a novel algorithm for rec-
+Felder et al. [17], Honey and Mumford [90], Kolb [47],             ommending learning objects based on student learning
+Mayer and Myers [56], Dunn [55] and Pask [48]. In our case,        style.
+we use the Felder and Silverman model (FSLSM) [17] to
+represent both the student learning styles and the learning        III. PROPOSED ALGORITHM FOR RECOMMENDING
+object profiles for the following reasons.                         PERSONALISED LEARNING OBJECTS
+   • First, it is the most widely used in educational systems      In this work, a new algorithm for rating prediction of the
+     thanks to its ability to quantify students learning styles,   learning objects is proposed. The proposed algorithm predicts
+     as shown in Table 2.                                          the ratings for a given learning object and a given student
+   • Second, it is used very often in technology-enhanced          based on the student’s learning style, the learning object’s
+     learning and some researchers even argue that it is the       profile, and the ratings of learning objects. The FSLSM
+
+VOLUME 7, 2019                                                                                                              163039
+                                                                                             S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+TABLE 2. Summary of existing personalised e-leaning systems considering learning styles.
+
+
+
+
+TABLE 3. Examples of student learning style vectors.                         TABLE 4. Examples of learning object profile.
+
+
+
+
+learning style model described above is adopted to represent
+both the student learning styles and the learning object pro-
+files. The rating is given on a scale of 1-5. First, work is                 represented by a FSLSM learning style vector indicating the
+carried out to design an effective algorithm for recommending                category of learners that this learning object is suitable for,
+top-n personalised learning objects in e-Learning systems                    as in Eq. (5).
+based on student learning styles, as presented in (Sect. III-A).                       OP = (act, ref , vis, ver, seq, glo, sen, int)            (5)
+Then an experimental study is undertaken to find out which
+algorithm produces the best accuracy for rating prediction.                  Unlike the student learning styles that are calculated through
+The best performing algorithm is then retained for the rec-                  the ILS questionnaire or behaviour, it is assumed that the
+ommender system. To present this study clearly, we consider                  learning object profile is set by the teacher or an education
+two definitions.                                                             professional. Some examples of learning object profiles are
+   Definition 1 (Student Profile): It is assumed that the student            given in Table 4 for illustration.
+learning style is represented by a vector of real values ranging                In the following subsections, we give a description of the
+from 0 to 1 (or from 0% to 100%) as in Eq. (4), where                        proposed predicated rating algorithms in detail and analyse
+the prefixes of learning style attributes are used as place                  the accuracy of the recommendations.
+holders.
+                                                                             A. RATING PREDICTION ALGORITHMS
+          LS = (act, ref , vis, ver, seq, glo, sen, int)            (4)
+                                                                             We propose three different algorithms for predicting the
+Some examples of student learning style vectors are given                    ratings of learning objects, based on the three approaches:
+in Table 3 and these can be calculated using the student’s                   collaborative filtering, content-based filtering and hybrid
+responses to the ILS questionnaire [63] or according to                      filtering. Unlike traditional approaches, each of these
+his/her learning behaviour [64].                                             algorithms handles the cold-start and the rating sparsity prob-
+   Definition 2 (Object Profile): The learning content mate-                 lems effectively using information from the students learning
+rials are structured into learning objects for each topic.                   styles and the learning objects profiles.
+Learning objects are provided in various formats and media
+in order to meet the learning styles of individual learners.                 1) PREDICTING RATINGS BASED ON
+They can be text documents (e.g. pdf), presentations (e.g.                   COLLABORATIVE FILTERING
+powerpoint slides), images, audios, videos, simulations, etc.                From the description of the previous section, we notice that
+For example, a visual learner will prefer to watch a video                   the traditional CF methods heavily rely on the co-rated items.
+than to read a pdf document, while a verbal one will choose                  However, the similarity computation cannot be performed
+to do opposite. Hence, a learning object profile (OP) can be                 when there are no rated items, which is called cold start
+
+
+163040                                                                                                                                 VOLUME 7, 2019
+S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+problem (see Sect. I). To improve the accuracy and qual-                     b) Let co = the nearest cluster to LS
+ity of recommendation, our research CF is implemented                        c) Foreach x ∈ co
+as follows:                                                                       i) Calculate the predicted rating for x as in
+   Let LS be the learning style vector of the active student.                        Eq. (7)
+   1) Apply K-means to cluster the students learning styles.                 d) Recommend the top-n highly rated LOs in co.
+   2) Select cs the nearest cluster to LS as in Eq. (2)                                      P
+                                                                                                   P(x, u) × r(LS, u)
+   3) Foreach LO x                                                             r̃3 (LS, x) = u∈JP                           (8)
+                                                                                                    u∈J P(x, u)
+        a) Let I = set of the top-n nearest elements to LS in
+            cs that have rated x, as in Eq. (1)                     3) PREDICTING RATINGS BASED ON HYBRID FILTERING
+        b) If kI k > 0 then calculate the predicted rating for
+                                                                    We build a hybrid recommendation algorithm based the CF
+            x as in Eq. (6)
+                                                                    and CBF algorithms presented above as follows:
+        c) If kI k = 0 then calculate the predicted rating for
+                                                                      Let LS be the learning style vector of the active student.
+            x as in Eq. (7)
+                                                                      1) Let α be the weight of CF in the hybrid model;
+   4) Recommend the top-n highly rated LOs.                              0 ≤ α ≤ 1.
+                                                                      2) Apply K-means to cluster the students learning styles
+                             P
+                               u∈I P(LS, u) × r(u, x)
+               r̃1 (LS, x) =      P                         (6)       3) Select cs the nearest cluster to LS
+                                     u∈I P(LS, u)
+                                                                      4) Let O be the set of all learning objects rated by LS.
+                 r̃2 (LS, x) = int(0.5 + P(LS, x) × 5)       (7)      5) Apply K-means to cluster O
+                                                                      6) Foreach LO x
+where r̃(LS, x) denotes the predicted rating value of the LO               a) Let I = set of the top-n nearest elements to LS in
+x for the active student LS. P(LS, u) donates the Pearson                      cs that have rated x
+correlation coefficient (defined as in Eq. (1)) of the two                 b) Let cox = the nearest LO cluster to x
+vectors LS and u; and r(u, x) represents the actual rating of              c) Let J = set of the top-n nearest elements to x in
+the LO x by the student u.                                                     cox
+   Equation (7) is used to solution the cold-start and the rating          d) If kI k > 0 and kJ k > 0 then calculate the
+sparsity problems (case kI k = 0). In this case the predicted                  predicted rating for x as in Eq. (9)
+rating is measured as the similarity between the LO x and the              e) If kI k = 0 and kJ k > 0 then calculate
+active student LS multiplied by the maximum rating value                       the predicted rating for x as in Eq. (8)
+which is 5. The value 0.5 is added so that the result is and               f) If kI k > 0 and kJ k = 0 then calculate the
+integer between 1 and 5.                                                       predicted rating for x as in Eq. (6)
+                                                                           g) If kI k = 0 and kJ k = 0 then calculate the
+2) PREDICTING RATINGS BASED ON CONTENT-BASED                                   predicted rating for x as in Eq. (7)
+FILTERING                                                             7) Recommend the top-n highly rated LOs.
+The general principle of content-based approaches is to
+                                                                          r̃(LS, x) = α × r̃1 (LS, x) + (1 − α) × r̃3 (LS, x)       (9)
+identify the common characteristics of learning objects
+that have received a favourable rating from a learner,                   Note that in Eq. (9), the value of α is between 0 and 1; and
+and then recommend to him/her new learning objects that             r̃1 (LS, x) and r̃3 (LS, x) are defined as in Eq. (6) and Eq. (8),
+share these characteristics. In this work, we proposed an           respectively. Here are some examples:
+algorithm to enhance the accuracy of recommendations                     • r̃(LS, x) = 0.5 × r̃1 (LS, x) + (1 − 0.5) × r̃3 (LS, x)
+as follows:                                                                          = 0.5 × r̃1 (LS, x) + 0.5 × r̃3 (LS, x)
+   Let LS be the learning style vector of the active student.                            r̃1 (LS, x) + r̃3 (LS, x)
+                                                                                     =
+   1) Let O be the set of all learning objects rated by LS.                                          2
+   2) If O 6 = ∅ then
+                                                                      •   r̃(LS, x) = 0.2 × r̃1 (LS, x) + (1 − 0.2) × r̃3 (LS, x)
+         a) Apply K-means to cluster O                                              = 0.2 × r̃1 (LS, x) + 0.8 × r̃3 (LS, x)
+        b) Foreach LO x
+              i) Let cox = the nearest cluster to x as in Eq. (2)     •   r̃(LS, x) = 0.8 × r̃1 (LS, x) + (1 − 0.8) × r̃3 (LS, x)
+             ii) Let J = set of the top-n nearest elements to x                     = 0.8 × r̃1 (LS, x) + 0.2 × r̃3 (LS, x)
+                 in cox as in Eq. (1)
+           iii) Calculate the predicted rating for x as in
+                                                                      •  r̃(LS, x) = 0.75 × r̃1 (LS, x) + (1 − 0.75) × r̃3 (LS, x)
+                 Eq. (8)
+                                                                                   = 0.75 × r̃1 (LS, x) + 0.25 × r̃3 (LS, x)
+         c) Recommend the top-n highly rated LOs.                     ‘‘What is the recommendation algorithm that provides
+   3) If O = ∅ then                                                 the best prediction of student ratings of learning objects?’’
+         a) Apply K-means to cluster all the learning learning      An experimental study is carried out in order to find the
+             objects                                                answer to this question.
+
+VOLUME 7, 2019                                                                                                                  163041
+                                                                                 S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+FIGURE 5. ULearn interface.
+
+
+IV. EXPERIMENTAL STUDY                                             Cold-start was utilised to assess the ability of the algo-
+An experimental study was carried out to determine the most        rithms to predict the ratings for those students with fewer
+effective recommendation techniques to be used for the rec-        previous rating of LOs, so little information was avail-
+ommendation of LOs in e-learning systems. In this section,         able for these students. The goal was to investigate how
+we describe the dataset, performance measurement, and the          additional sources of information, such as students learn-
+results of the proposed approach.                                  ing styles and learning objects profiles, can be used along
+                                                                   with rating information to improve the accuracy of rating
+A. DATASET                                                         prediction.
+The dataset of the MOODLE log-file at AAST is used
+in this study for the autumn and spring semesters in the           B. PERFORMANCE MEASUREMENT
+academic years 2016-2017 and 2017-2018 in the school               In this analysis, accuracy metrics are considered to assess the
+of business. MOODLE (Modular Object-Oriented Dynamic               performance of the proposed recommender system algorithm.
+Learning Environment) is defined as a course management            We use statistical accuracy metrics to evaluate the accuracy
+system (CMS), being a free and open source software pack-          of the rating prediction algorithm.
+age designed using pedagogical principles, to help educators          The frequently used statistical metrics are Mean Abso-
+by creating effective online learning communities. The course      lute Error (MAE) and Root-Mean-Square Error (RMSE)
+of interest is on ‘‘networks and e-commerce’’ and comprises        defined as in Eq. (10) and Eq. (11), respectively, where
+20 topics, with each topic having multiple leaning objects in      ri denotes the actual student rating of the learning object
+various presentation styles. There was a minimum of 15 learn-      i and r̃i is the predicted student’s rating for that learning
+ing objects for each topic. The experimental set up consisted      object, 1 ≤ i ≤ n.
+of 80 students whose learning styles were identified using the        In the computation of MAE, the first sum of absolute value
+ILS questionnaire, as explained in [63]. During the course,        of the difference between the actual and predicted rating is
+the students were asked to rate each learning object using         calculated, and then, it is divided by the total number of
+a 5-level Likert scale, with 1 being ‘‘not at all useful’’ and     learning objects involved. Hence, a smaller value of MAE
+5 be ‘‘very useful’’ to their learning. In order to evaluate the   indicates a better prediction accuracy, as in Eq. (10).
+different aspects of the proposed method, student dataset was
+                                                                                                     n
+split into different parts, including:                                                      1X
+                                                                                      MAE =    |ri − r̃i |                          (10)
+   1) Cold-start students: a set of students with lower than                                n
+                                                                                                   i=1
+       5 ratings;
+   2) Cold-start learning objects: a set of new LOs, not rated     The Root Mean Square Error (RMSE) is calculated by divid-
+       by any students;                                            ing the sum of squares of the differences of the actual and
+   3) All students.                                                predicted ratings by the total number of learning objects on
+
+163042                                                                                                                     VOLUME 7, 2019
+S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+TABLE 5. Showing predicted rating using the proposed algorithm.
+
+
+
+
+FIGURE 6. Accuracy of the recommender algorithm using MAE and RMSE.
+
+
+which the predictions are made. The RMSE is obtained by               conducted on a Windows based PC with an Intel core i5 pro-
+taking the square root of the MSE, as in Eq. (11).                    cessor having a speed of 2.40 GHz and 16 GB of RAM.
+                           v                                          The GUI, which allows for selecting various combinations
+                           u n                                        of similarity metrics, is depicted in Fig. 5. The first experi-
+                           u1 X
+                RMSE = t         (ri − r̃i )2      (11)               ment focused on the accuracy of rating predication, whereas
+                              n
+                                    i=1                               the second one focused on the cold-start. Finally, the last part
+                                                                      of the evaluation is about the integration of recommendation
+C. EXPERIMENTS AND EVALUATION                                         algorithms into AAST-MOODLE for testing them on real
+In this work, a new approach to ratings prediction of the             students. Each experiment will be detailed and discussed in
+course learning objects is proposed. The prototype was imple-         the following subsections.
+mented in C++ using Visual Studio and Windows Presen-
+tation Foundation (WPF) to design the GUI (graphical user             1) EVALUATION ON RATING PREDICTION
+interface), with the SQL server being utilised to access              After performing the preprocess on student dataset, 15 stu-
+the dataset and learners’ ratings. A set of experiments was           dents were selected and 15 learning objects were chosen
+
+VOLUME 7, 2019                                                                                                                 163043
+                                                                                S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+FIGURE 7. Performance comparison for cold students using MAE.    FIGURE 9. Performance comparison for cold LOs using MAE.
+
+
+
+
+                                                                 FIGURE 10. Performance comparison for cold LOs using RMSE.
+FIGURE 8. Performance comparison for cold students using RMSE.
+
+
+randomly and the calculated predicted ratings for these learn-     • New learning objects: The three algorithms can make
+ing objects are shown in Table 5. The experimental results           recommendation for new LOs by measuring the sim-
+in the table show that the HF-0.5 algorithm has the best             ilarity between learning object profile and student
+accuracy. From Fig. 6, it can be inferred that HF-0.5 has            learning styles. From Fig. 9 and Fig. 10 we observe that
+the least value of MAE and thus, provides better predic-             HF-0.5 consistently outperforms in all the experiments,
+tions. The MAE value of HF-0.5 is 0.9, whilst that of CBF            which indicates that our model handles new items better
+is 1.52, which is the greatest compared to all the other             than CF and CBF.
+approaches. Hence, the latter method will produce the least        • New students and learning objects: One special case
+accuracy in prediction. Theoretically and experimentally,            is where neither the student nor the LOs exist in the
+it has already been proven that the root-mean-square error is        previous user-item rating matrix. Most of the existing
+always greater than the Mean Absolute Error. Figure 6 shows          algorithms cannot deal with this situation. However,
+that the proposed HF-0.5 algorithm again delivers a smaller          our proposed algorithm can still make recommendations
+RMSE than the others, which indicates that it is the most            by considering the relations between student and LO
+accurate.                                                            profiles.
+                                                                 The results achieved by the hybrid filtering approach
+2) EVALUATION OF COLD-START                                      (HF-0.5) are impressive. Given the above results, analysis,
+From another point of view, the experiments were repeated to     and discussion, it is concluded that the proposed algorithm
+evaluate the proposed approaches with respect to the handling    performs better than CF and CBF.
+of cold-start problem.
+   • New students: The three different algorithms (CF, CBF       3) REAL STUDENT EVALUATION
+     and HF-0.5) can deal with new students by incorporat-       The last part of the evaluation was to validate our method in
+     ing their personalised learning styles with their rating.   real circumstances by integrating it in the AAST MOODLE.
+     Fig. 7 and Fig. 8 compare the accuracy of the different     The system was modified to be able to read student profiles
+     recommendation algorithms. The results achieved by          and, subsequently, recommend the course LOs. To evalu-
+     the hybrid filtering approach are impressive. Given the     ate the student satisfaction with recommendations, a closed-
+     above results, analysis, and discussion, it is concluded    ended questionnaire was administered to the 80 students
+     that the proposed algorithm HF-0.5 performs better than     who participated in the experiment. Previous studies on rec-
+     CF and CBF.                                                 ommender systems have identified user satisfaction as one
+
+
+163044                                                                                                                    VOLUME 7, 2019
+S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+  FIGURE 11. Questionnaire interface.
+
+
+
+                                                                V. CONCLUSION AND FUTURE DIRECTIONS
+                                                                Whilst recommender systems have been studied in the past
+                                                                decade, the study of rating prediction for recommender sys-
+                                                                tems is a more recent phenomenon. In this paper, we have
+                                                                concentrated on improving the accuracy and quality of rec-
+                                                                ommendation in the case of cold start and data sparsity.
+                                                                To this end, an improved rating prediction algorithm has been
+                                                                proposed. We tested and compared the performances of three
+                                                                main algorithms: hybrid filtering, collaborative filtering, and
+                                                                content-based filtering. The results of the experiments shows
+                                                                that the proposed HF-0.5 hybrid algorithm provides the
+                                                                best prediction accuracy. It was also established that the
+                                                                HF-0.5 hybrid algorithm handles effectively the cold-start
+                                                                and rating sparsity problems.
+                                                                   However, this work has some limitations, which could be
+                                                                addressed in future work. First, the dataset in the current work
+FIGURE 12. Student satisfaction with LO recommendations.        was quite small and a larger one would add more weight
+                                                                to the findings. A second future direction is working on
+                                                                some other challenges of recommendation systems, such as
+of the important evaluation measures [93]. First, they were     scalability.
+asked to fill in the FSLSM questionnaire [63] to create their
+profile, as shown in Fig. 11. After that, they were required    REFERENCES
+to take five lessons over a period of five weeks, with each       [1] S. Sosnovsky and P. Brusilovsky, ‘‘Evaluation of topic-based adaptation
+including a set of LOs. The empirical study was carried out           and student modeling in QuizGuide,’’ Model. Adapted Interact. vol. 25,
+in the Business Information Systems department at AAST.               no. 4, pp. 371–424, 2015.
+                                                                  [2] A. Bennane, ‘‘Adaptive educational software by applying reinforcement
+The questionnaire sought to find out whether the learner              learning,’’ Inform. Educ.-Int. J., vol. 12, no. 1, pp. 13–27, 2013.
+was satisfied or not satisfied with the LO recommenda-            [3] K. I. Ghauth and N. A. Abdullah, ‘‘Learning materials recommendation
+tions. Figure 12 illustrates the responses of the learners to         using good learners’ ratings and content-based filtering,’’ Educ. Technol.
+                                                                      Res. Develop., vol. 58, no. 6, pp. 711–727, 2010.
+the questionnaire with regards to the three recommendation        [4] P. Vu, S. Fredrickson, and C. Moore, Handbook of Research on Innovative
+algorithms.                                                           Pedagogies and Technologies for Online Learning in Higher Education.
+   From Fig. 12, it is evident that the majority (95%) of the         Hershey, PA, USA: IGI Global, 2016.
+                                                                  [5] A. R. Anaya, M. Luque, and T. García-Saiz, ‘‘Recommender system in
+students were satisfied with the LO recommendations from              collaborative learning environment using an influence diagram,’’ Expert
+the HF-0.5 algorithm. On the other hand, just (60% ) and              Syst. Appl., vol. 40, no. 18, pp. 7193–7202, 2013.
+(56%) of the students were satisfied with the recommen-           [6] I. Kamsa, R. Elouahbi, F. El Khoukhi, T. Karite, and H. Zouiten, ‘‘Opti-
+                                                                      mizing collaborative learning path by ant’s optimization technique in
+dations from the CF and CBF recommendation algorithms,                e-learning system,’’ in Proc. 15th Int. Conf. Inf. Technol. Based Higher
+respectively.                                                         Educ. Training (ITHET), Sep. 2016, pp. 1–5.
+
+VOLUME 7, 2019                                                                                                                         163045
+                                                                                                     S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+ [7] G. Adomavicius and A. Tuzhilin, ‘‘Toward the next generation of rec-           [31] F. Ricci, L. Rokach, and B. Shapira, ‘‘Introduction to recommender
+     ommender systems: A survey of the state-of-the-art and possible exten-              systems handbook,’’ in Recommender Systems Handbook. Boston, MA,
+     sions,’’ IEEE Trans. Knowl. Data Eng., vol. 17, no. 6, pp. 734–749,                 USA: Springer, 2011, pp. 1–35.
+     Jun. 2005.                                                                     [32] N. Soonthornphisaj, E. Rojsattarat, and S. Yim-Ngam, ‘‘Smart e-learning
+ [8] O. Bourkoukou and E. El Bachari, ‘‘E-learning personalization based on              using recommender system,’’ in Proc. Int. Conf. Intell. Comput. Berlin,
+     collaborative filtering and learner’s preference,’’ J. Eng. Sci. Technol.,          Germany: Springer, Aug. 2006, pp. 518–523.
+     vol. 11, no. 11, pp. 1565–1581, 2016.                                          [33] Z. Gulzar, A. A. Leema, and G. Deepak, ‘‘PCRS: Personalized course
+ [9] G. Adomavicius and A. Tuzhilin, ‘‘Context-aware recommender sys-                    recommender system based on hybrid approach,’’ Procedia Comput. Sci.,
+     tems,’’ in Recommender Systems Handbook. Boston, MA, USA: Springer,                 vol. 125, pp. 518–524, Jan. 2018.
+     2011, pp. 217–253.                                                             [34] N. Manouselis and C. Costopoulou, ‘‘Experimental analysis of
+[10] R. Turnip, D. Nurjanah, and D. S. Kusumo, ‘‘Hybrid recommender sys-                 design choices in multiattribute utility collaborative filtering,’’
+     tem for learning material using content-based filtering and collaborative           Int. J. Pattern Recognit. Artif. Intell., vol. 21, no. 2, pp. 311–331,
+     filtering with good learners’ rating,’’ in Proc. IEEE Conf. e-Learn., e-            2007.
+     Manage. e-Services (IC3e), Nov. 2017, pp. 61–66.                               [35] M. Yaghmaie and A. Bahreininejad, ‘‘A context-aware adaptive learning
+[11] J. B. Schafer, D. Frankowski, J. Herlocker, and S. Sen, ‘‘Collaborative             system using agents,’’ Expert Syst. Appl., vol. 38, no. 4, pp. 3280–3286,
+     filtering recommender systems,’’ in The Adaptive Web. Berlin, Germany:              2011.
+     Springer, 2007, pp. 291–324.
+                                                                                    [36] M. M. Recker, A. Walker, and K. Lawless, ‘‘What do you recom-
+[12] L. Yao, Q. Z. Sheng, A. H. Ngu, J. Yu, and A. Segev, ‘‘Unified collab-
+                                                                                         mend? Implementation and analyses of collaborative information filter-
+     orative and content-based Web service recommendation,’’ IEEE Trans.
+                                                                                         ing of Web resources for education,’’ Instruct. Sci., vol. 31, nos. 4–5,
+     Services Comput., vol. 8, no. 3, pp. 453–466, May/Jun. 2015.
+                                                                                         pp. 299–316, 2003.
+[13] W. Jian, J. He, K. Chen, Y. Zhou, and Z. Tang, ‘‘Collaborative filtering
+     and deep learning based recommendation system for cold start items,’’          [37] G. Linden, B. Smith, and J. York, ‘‘Amazon.com recommendations: Item-
+     Expert Syst. Appl., vol. 69, pp. 29–39, Mar. 2017,                                  to-item collaborative filtering,’’ IEEE Internet Comput., vol. 7, no. 1,
+                                                                                         pp. 76–80, Jan./Feb. 2003.
+[14] E. Q. da Silva, C. G. Camilo, Jr., L. M. L. Pascoal, and T. C. Rosa, ‘‘An
+     evolutionary approach for combining results of recommender systems             [38] Q. Diao, M. Qiu, C.-Y. Wu, A. J. Smola, J. Jiang, and C. Wang, ‘‘Jointly
+     techniques based on collaborative filtering,’’ Expert Syst. Appl., vol. 53,         modeling aspects, ratings and sentiments for movie recommendation
+     pp. 204–218, Jul. 2016.                                                             (JMARS),’’ in Proc. 20th ACM SIGKDD Int. Conf. Knowl. Discovery
+[15] J. A. R. Nt, L. F. C. Tomaz, J. M. de Souza, and G. Xexéo, ‘‘Bringing               Data Mining, Aug. 2014, pp. 193–202.
+     knowledge into recommender systems,’’ J. Syst. Softw., vol. 86, no. 7,         [39] A. Klašnja-Milićević, B. Vesin, M. Ivanović, and Z. Budimac,
+     pp. 1751–1758, 2013.                                                                ‘‘E-Learning personalization based on hybrid recommendation strat-
+[16] M. J. Pazzani and D. Billsus, ‘‘Content-based recommendation sys-                   egy and learning style identification,’’ Comput. Educ., vol. 56, no. 3,
+     tems,’’ in The Adaptive Web. Berlin, Germany: Springer, 2007,                       pp. 885–899, 2011.
+     pp. 325–341.                                                                   [40] E. Kurilovas, S. Kubilinskiene, and V. Dagiene, ‘‘Web 3.0—Based per-
+[17] R. M. Felder and L. K. Silverman, ‘‘Learning and teaching styles                    sonalisation of learning objects in virtual learning environments,’’ Com-
+     in engineering education,’’ Eng. Educ., vol. 78, no. 7, pp. 674–681,                put. Hum. Behav., vol. 30, pp. 654–662, Jan. 2014.
+     1988.                                                                          [41] A. Latham, K. Crockett, and D. McLean, ‘‘An adaptation algorithm for
+[18] C. A. Carver, Jr., R. A. Howard, and W. D. Lane, ‘‘Enhancing stu-                   an intelligent natural language tutoring system,’’ Comput. Educ., vol. 71,
+     dent learning through hypermedia courseware and incorporation of stu-               pp. 97–110, Feb. 2014.
+     dent learning styles,’’ IEEE Trans. Educ., vol. 42, no. 1, pp. 33–38,          [42] P. Rodríguez, S. Heras, J. Palanca, N. Duque, and V. Julián,
+     Feb. 1999.                                                                          ‘‘Argumentation-based         hybrid     recommender        system      for
+[19] J. Kuljis and F. Liu, ‘‘A comparison of learning style theories on the              recommending learning objects,’’ in Multi-Agent Systems and
+     suitability for elearning,’’ Web Technol., Appl., Services, vol. 2005,              Agreement Technologies. Cham, Switzerland: Springer, 2015,
+     pp. 191–197, Jul. 2005.                                                             pp. 234–248.
+[20] F. Dağ and A. Geçer, ‘‘Relations between online learning and learning          [43] H. L. dos Santos, C. Cechinel, R. M. Araujo, and M.-Á. Sicilia,
+     styles,’’ Procedia-Social Behav. Sci., vol. 1, no. 1, pp. 862–871, 2009.            ‘‘Clustering learning objects for improving their recommendation
+[21] P. García, A. Amandi, S. Schiaffino, and M. Campo, ‘‘Evaluating                     via collaborative filtering algorithms,’’ in Proc. Res. Conf.
+     Bayesian networks’ precision for detecting students’ learning styles,’’             Metadata Semantics Res. Cham, Switzerland: Springer, Sep. 2015,
+     Comput. Educ., vol. 49, no. 3, pp. 794–808, 2007.                                   pp. 183–194.
+[22] R. M. Felder and J. Spurlin, ‘‘Applications, reliability and validity of the   [44] P. Winoto and T. Y. Tang, ‘‘The role of user mood in movie rec-
+     index of learning styles,’’ Int. J. Eng. Educ., vol. 21, no. 1, pp. 103–112,        ommendations,’’ Expert Syst. Appl., vol. 37, no. 8, pp. 6086–6092,
+     2005.                                                                               2010.
+[23] G. Salton and M. J. McGill, Introduction to Modern Information                 [45] H. Pashler, M. McDaniel, D. Rohrer, and R. Bjork, ‘‘Learning styles:
+     Retrieval. New York, NY, USA: McGraw-Hill, 1986.                                    Concepts and evidence,’’ Psychol. Sci. Public Interest, vol. 9, no. 3,
+[24] S. Carr, ‘‘As distance education comes of age, the challenge is keeping             pp. 105–119, 2008.
+     the students,’’ Chronicle Higher Educ., vol. 46, no. 23, 2000.                 [46] P. Honey and A. Mumford, The Manual of Learning Styles. Maidenhead,
+[25] F. A. Inan, E. Yukselturk, and M. M. Grant, ‘‘Profiling potential dropout           U.K.: McGraw-Hill, 1982.
+     students by individual characteristics in an online certificate program,’’
+                                                                                    [47] D. A. Kolb, Englewood Cliffs, NJ, USA, 1984.
+     Int. J. Instruct. Media, vol. 36, no. 2, pp. 163–177, 2009.
+[26] S. B. Kotsiantis, C. J. Pierrakeas, and P. E. Pintelas, ‘‘Preventing student   [48] G. Pask, ‘‘Styles and strategies of learning,’’ Brit. J. Educ. Psychol.,
+     dropout in distance learning using machine learning techniques,’’ in Proc.          vol. 46, no. 2, pp. 128–148, 1976.
+     Int. Conf. Knowl.-Based Intell. Inf. Eng. Syst. Berlin, Germany: Springer,     [49] E. Popescu, C. Badica, and L. Moraret, ‘‘Accommodating learning
+     Sep. 2003, pp. 267–274.                                                             styles in an adaptive educational system,’’ Informatica, vol. 34, no. 4,
+[27] P. A. Willging and S. D. Johnson, ‘‘Factors that influence students’                2010.
+     decision to dropout of online courses,’’ J. Asynchronous Learn. Netw.,         [50] C.-I. Peña, J.-L. Marzo, and J.-L. de la Rosa, ‘‘Intelligent
+     vol. 13, no. 3, pp. 115–127, Oct. 2009.                                             agents in a teaching and learning environment on the Web,’’ in
+[28] A. Niesler and G. Wydmuch, ‘‘User profiling in intelligent tutoring sys-            Proc. Int. Conf. Adv. Learn. Technol. Palmerston North, New
+     tems based on Myers–Briggs personality types,’’ in Proc. Int. Multiconf.            Zealand: IEEE Learning Technology Task Force, Sep. 2002,
+     Eng. Comput. Sci., vol. 1, 2009, pp. 18–20.                                         pp. 21–27.
+[29] C.-M. Chen, H.-M. Lee, and Y.-H. Chen, ‘‘Personalized e-learning system        [51] H. Imran, M. Belghis-Zadeh, T.-W. Chang, Kinshuk, and S. Graf,
+     using item response theory,’’ Comput. Educ., vol. 44, no. 3, pp. 237–255,           ‘‘PLORS: A personalized learning object recommender system,’’ Vietnam
+     2005.                                                                               J. Comput. Sci., vol. 3, no. 1, pp. 3–13, 2016.
+[30] J. Lu, ‘‘A personalized e-learning material recommender system,’’ in           [52] P. Paredes and P. Rodriguez, ‘‘A mixed approach to modelling learning
+     Proc. Int. Conf. Inf. Technol. Appl. Sydney, NSW, Australia: Macquarie              styles in adaptive educational hypermedia,’’ in Proc. Adv. Technol. Learn.,
+     Scientific, 2004, pp. 374–379.                                                      vol. 1, no. 4, pp. 210–215, 2004.
+
+163046                                                                                                                                              VOLUME 7, 2019
+S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+ [53] E. El Bachari, E. H. Abelwahed, and M. El Adnani, ‘‘An adaptive teaching       [76] O. Bourkoukou, E. El Bachari, and M. El Adnani, ‘‘A recommender
+      strategy model in e-learning using learners’ preference: LearnFit frame-            model in e-learning environment,’’ Arabian J. Sci. Eng., vol. 42, no. 2,
+      work,’’ Int. J. Web Sci., vol. 1, no. 3, pp. 257–274, 2012.                         pp. 607–617, 2017.
+ [54] P. Resnick and H. R. Varian, ‘‘Recommender systems,’’ Commun. ACM,             [77] J. Golbeck and J. Hendler, ‘‘Inferring binary trust relationships in Web-
+      vol. 40, no. 3, pp. 56–59, Mar. 1997.                                               based social networks,’’ ACM Trans. Internet Technol., vol. 6, no. 4,
+ [55] R. Dunn, ‘‘Understanding the Dunn and Dunn learning styles model and                pp. 497–529, 2006.
+      the need for individual diagnosis and prescription,’’ Reading, Writing,        [78] Y. Ar and E. Bostanci, ‘‘A genetic algorithm solution to the collaborative
+      Learn. Disabilities, vol. 6, no. 3, pp. 223–247, 1990.                              filtering problem,’’ Expert Syst. Appl., vol. 61, pp. 122–128, Nov. 2016.
+ [56] I. Briggs-Myers and P. B. Myers, Gifts Differing: Understanding Person-        [79] K. Hammouda and M. Kamel, ‘‘Collaborative document clustering,’’ in
+      ality Type. 1995.                                                                   Proc. SIAM Int. Conf. Data Mining, Apr. 2006, pp. 453–463.
+                                                                                     [80] J. Bobadilla, F. Serradilla, and A. Hernando, ‘‘Collaborative filtering
+ [57] G.-J. Hwang, H.-Y. Sung, C.-M. Hung, and I. Huang, ‘‘A learning
+                                                                                          adapted to recommender systems of e-learning,’’ Knowl.-Based Syst.,
+      style perspective to investigate the necessity of developing adaptive
+                                                                                          vol. 22, no. 4, pp. 261–265, 2009.
+      learning systems,’’ J. Educ. Technol. Soc., vol. 16, no. 2, pp. 188–197,
+                                                                                     [81] W. Chen, Z. Niu, X. Zhao, and Y. Li, ‘‘A hybrid recommendation algo-
+      2013.
+                                                                                          rithm adapted in e-learning environments,’’ World Wide Web, vol. 17,
+ [58] Y.-C. Chang, W.-Y. Kao, C.-P. Chu, and C.-H. Chiu, ‘‘A learning style
+                                                                                          no. 2, pp. 271–284, 2014.
+      classification mechanism for e-learning,’’ Comput. Educ., vol. 53, no. 2,
+                                                                                     [82] E. Kurilovas, I. Zilinskiene, and V. Dagiene, ‘‘Recommending suit-
+      pp. 273–285, 2009.
+                                                                                          able learning scenarios according to learners’ preferences: An improved
+ [59] E. Özpolat and G. B. Akar, ‘‘Automatic detection of learning styles for an          swarm based approach,’’ Comput. Hum. Behav., vol. 30, pp. 550–557,
+      e-learning system,’’ Comput. Educ., vol. 53, no. 2, pp. 355–367, 2009.              Jan. 2014.
+ [60] F. A. Dorça, L. V. Lima, M. A. Fernandes, and C. R. Lopes, ‘‘Comparing         [83] R. A. W. Tortorella and S. Graf, ‘‘Considering learning styles and context-
+      strategies for modeling students learning styles through reinforcement              awareness for mobile adaptive learning,’’ Educ. Inf. Technol., vol. 22,
+      learning in adaptive and intelligent educational systems: An experimental           no. 1, pp. 297–315, 2017.
+      analysis,’’ Expert Syst. Appl., vol. 40, no. 6, pp. 2092–2101, 2013.           [84] B. Vesin, M. Ivanović, A. Klašnja-Milićević, and Z. Budimac, ‘‘Protus
+ [61] E. Sangineto, N. Capuano, M. Gaeta, and A. Micarelli, ‘‘Adaptive course             2.0: Ontology-based semantic recommendation in programming tutoring
+      generation through learning styles representation,’’ Universal Access Inf.          system,’’ Expert Syst. Appl., vol. 39, no. 15, pp. 12229–12246, 2012.
+      Soc., vol. 7, nos. 1–2, pp. 1–23, 2008.                                        [85] Ö. Özyurt, H. Özyurt, A. Baki, B. Güven, and H. Karal, ‘‘Evaluation of an
+ [62] S. Graf and Kinshuk, ‘‘Advanced adaptivity in learning management                   adaptive and intelligent educational hypermedia for enhanced individual
+      systems by considering learning styles,’’ in Proc. IEEE/WIC/ACM                     learning of mathematics: A qualitative study,’’ Expert Syst. Appl., vol. 39,
+      Int. Joint Conf. Web Intell. Intell. Agent Technol., vol. 3, Sep. 2009,             no. 15, pp. 12092–12104, 2012.
+      pp. 235–238.                                                                   [86] B. C. L. Christudas, E. Kirubakaran, and P. R. J. Thangaiah, ‘‘An evo-
+ [63] S. M. Nafea, F. Siewe, and Y. He, ‘‘ULEARN: Personalised learner’s                  lutionary approach for personalization of content delivery in e-learning
+      profile based on dynamic learning style questionnaire,’’ in Proc.                   systems based on learner behavior forcing compatibility of learning
+      SAI Intell. Syst. Conf. Cham, Switzerland: Springer, Sep. 2018,                     materials,’’ Telematics Informat., vol. 35, no. 3, pp. 520–533, 2018.
+      pp. 1105–1124.                                                                 [87] S. Schiaffino, P. Garcia, and A. Amandi, ‘‘eTeacher: Providing person-
+ [64] S. M. Nafea, F. Siewe, and Y. He, ‘‘A novel algorithm for course learning           alized assistance to e-learning students,’’ Comput. Educ., vol. 51, no. 4,
+      object recommendation based on student learning styles,’’ in Proc. Int.             pp. 1744–1754, 2008.
+      Conf. Innov. Trends Comput. Eng. (ITCE), Feb. 2019, pp. 192–201.               [88] A. Latham, K. Crockett, D. McLean, and B. Edmonds, ‘‘A conversational
+ [65] T. Kanungo, D. M. Mount, N. S. Netanyahu, C. D. Piatko, R. Silverman,               intelligent tutoring system to automatically predict learning styles,’’ Com-
+      and A. Y. Wu, ‘‘An efficient k-means clustering algorithm: Analysis and             put. Educ., vol. 59, no. 1, pp. 95–109, 2012.
+      implementation,’’ IEEE Trans. Pattern Anal. Mach. Intell., vol. 24, no. 7,     [89] G. Guo, ‘‘Improving the performance of recommender systems by alle-
+      pp. 881–892, Jul. 2002.                                                             viating the data sparsity and cold start problems,’’ in Proc. 23rd Int. Joint
+ [66] A. I. Schein, A. Popescul, L. H. Ungar, and D. M. Pennock, ‘‘Methods and            Conf. Artif. Intell., Jun. 2013.
+      metrics for cold-start recommendations,’’ in Proc. 25th Annu. Int. ACM         [90] P. Honey and A. Mumford, The Manual of Learning Styles. 1992.
+      SIGIR Conf. Res. Develop. Inf. Retr., Aug. 2002, pp. 253–260.                  [91] M. P. P. Liyanage, K. S. L. Gunawardena, and M. Hirakawa, ‘‘Detecting
+                                                                                          learning styles in learning management systems using data mining,’’
+ [67] T. Y. Tang and G. McCalla, ‘‘Smart recommendation for an evolving
+                                                                                          J. Inf. Process., vol. 24, no. 4, pp. 740–749, 2016.
+      e-learning system,’’ in Proc. Workshop Technol. Electron. Documents
+      Supporting Learn. Int. Conf. Artif. Intell. Educ., Jul. 2003, pp. 699–710.     [92] P. Resnick, N. Iacovou, M. Suchak, P. Bergstrom, and J. Riedl, ‘‘Grou-
+                                                                                          pLens: An open architecture for collaborative filtering of netnews,’’
+ [68] G. Liang, K. Weining, and L. Junzhou, ‘‘Courseware recommendation
+                                                                                          in Proc. ACM Conf. Comput. Supported Cooperat. Work, Oct. 1994,
+      in e-learning system,’’ in Proc. Int. Conf. Web-Based Learn. Berlin,
+                                                                                          pp. 175–186.
+      Germany: Springer, Jul. 2006, pp. 10–24.
+                                                                                     [93] M. Erdt, A. Fernández, and C. Rensing, ‘‘Evaluating recommender sys-
+ [69] Z. Yu, Y. Nakamura, S. Jang, S. Kajita, and K. Mase, ‘‘Ontology-based
+                                                                                          tems for technology enhanced learning: A quantitative survey,’’ IEEE
+      semantic recommendation for context-aware e-learning,’’ in Proc. Int.
+                                                                                          Trans. Learn. Technol., vol. 8, no. 4, pp. 326–344, Oct./Dec. 2015.
+      Conf. Ubiquitous Intell. Comput. Berlin, Germany: Springer, Jul. 2007,
+                                                                                     [94] G. Salton and C. Buckley, ‘‘Term-weighting approaches in automatic
+      pp. 898–907.
+                                                                                          text retrieval,’’ Inf. Process. Manage., vol. 24, no. 5, pp. 513–523,
+ [70] H. Tan, J. Guo, and Y. Li, ‘‘E-learning recommendation system,’’ in Proc.           1988.
+      Int. Conf. Comput. Sci. Softw. Eng., vol. 5, Dec. 2008, pp. 430–433.
+                                                                                     [95] H. Drachsler, K. Verbert, O. C. Santos, and N. Manouselis, ‘‘Panorama
+ [71] K. I. B. Ghauth and N. A. Abdullah, ‘‘Building an e-learning recom-                 of recommender systems to support learning,’’ in Recommender Systems
+      mender system using vector space model and good learners average                    Handbook. Boston, MA, USA: Springer, 2015, pp. 421–451.
+      rating,’’ in Proc. 9th IEEE Int. Conf. Adv. Learn. Technol., Jul. 2009,
+      pp. 194–196.
+ [72] J. L. Rodgers and W. A. Nicewander, ‘‘Thirteen ways to look at the                                    SHAIMAA M. NAFEA received the B.S. degree
+      correlation coefficient,’’ Amer. Statist., vol. 42, no. 1, pp. 59–66, 1988.                           in business informatics and the M.S. degree in
+ [73] J. B. Schafer, ‘‘Application of data mining to recommender systems,’’                                 information system mechanical engineering from
+      in Encyclopedia of Data Warehousing and Mining. Hershey, PA, USA:                                     Arab Academy for Science, Technology & Mar-
+      IGI Global, 2005, pp. 44–48.                                                                          itime Transport, Egypt, in 2009 and 2013, respec-
+ [74] M. K. Khribi, M. Jemni, and O. Nasraoui, ‘‘Automatic recommendations                                  tively. She is currently pursuing the Ph.D. degree
+      for e-learning personalization based on Web usage mining techniques and                               in computer science with De Montfort University,
+      information retrieval,’’ in Proc. 8th IEEE Int. Conf. Adv. Learn. Technol.,                           U.K. Her main research interests include in adap-
+      Jul. 2008, pp. 241–245.                                                                               tation and personalization of e-learning environ-
+ [75] M. Salehi and I. N. Kmalabadi, ‘‘A hybrid attribute–based recommender                                 ment, learning styles, algorithms, recommender
+      system for e–learning material recommendation,’’ IERI Procedia, vol. 2,       systems and collaborative filtering, artificial intelligence, and machine
+      pp. 565–570, Jan. 2012.                                                       learning.
+
+VOLUME 7, 2019                                                                                                                                                163047
+                                                                                            S. M. Nafea et al.: On Recommendation of LOs Using FSLSM
+
+
+
+
+                         FRANÇOIS SIEWE received the B.Sc. degree                                     YING HE received the Ph.D. degree in computer
+                         in mathematics and computer science, the M.Sc.                               science from Glasgow University, U.K. She is cur-
+                         and Doctorat de Troisième Cycle degrees in com-                              rently a Senior Lecturer of computer science with
+                         puter science from the University of Yaounde I,                              the School of Computer Science and Informatics,
+                         Cameroon, and the Ph.D. degree in computer sci-                              De Montfort University, U.K. Her research inter-
+                         ence from De Montfort University (DMU), U.K.                                 ests include cyber threat intelligence, security risk
+                         He is a Reader in computer science and the Head                              management, decision-making, business analytics,
+                         of the Software Technology Research Labora-                                  control systems architecture, and human’s aspects
+                         tory (STRL), School of Computer Science and                                  of security. She also looks at how security man-
+                         Informatics, De Montfort University (DMU). His                               agement frameworks can be applied in different
+research interests include software engineering, formal methods, cyber     industries, such as healthcare and finance.
+security, context-aware and pervasive computing, and the Internet of
+Things (IoT).
+
+
+
+
+163048                                                                                                                                     VOLUME 7, 2019
+

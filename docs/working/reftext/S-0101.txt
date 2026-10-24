@@ -1,0 +1,488 @@
+IX Congresso Brasileiro de Informática na Educação (CBIE 2020)
+Anais do XXXI Simpósio Brasileiro de Informática na Educação (SBIE 2020)
+
+
+
+
+            Recommender System for Learning Objects
+ based in the Results of Learner Choices in E-learning Systems
+             Application in the MERLOT Platform
+                         Alessandro da Silveira Dias, Leandro Krug Wives
+
+                              Universidade Federal do Rio Grande do Sul
+                    alessandrosdias@gmail.com, leandro.wives@ufrgs.br
+
+         Abstract. In this paper, we briefly review the recommendation approach of
+         learning objects (LOs) that uses the result of the choices made by the learner
+         user during learning (“what to learn”, “how to learn”, etc.) as a source of
+         information. This LO recommendation approach is an implementation of
+         collaborative filtering based on an instance-based machine learning method.
+         The goals of this paper are: to present how to apply this LO recommendation
+         approach in an e-learning platform used for non-formal learning – the
+         MERLOT platform, and to perform an experimental evaluation on the
+         MERLOT’s dataset. The evaluation showed that the LO recommendation
+         approach presents higher prediction accuracy than the baseline approaches.
+
+ 1. Introduction
+ During a systematic review on recommender systems of learning objects (LOs) we
+ noticed that learner usually perform a set of choices during learning (e.g., “what to
+ learn”, “how to learn”, “in which learning pathway to learn”, among others), depending
+ on the e-learning platform. This set of choices belongs to a learning paradigm known as
+ Learner-driven Learning.
+         The Learner-driven Learning paradigm focuses on the process by which the
+ learner takes control of his own learning, in particular, how he sets his own learning
+ goals, how he finds the appropriate resources, how he decides what learning methods he
+ uses, and how he evaluates his progress [Alexander et al. 2004]. For Watkins et al.
+ [2007] active learning, collaborative learning, learner-driven learning, and learning
+ about learning are classroom processes for promoting effective learning.
+        In this paper, we briefly review the LO recommendation approach that uses these
+ choices made by the learner during learning in e-learning systems as a source of
+ information [Dias and Wives 2019]. Specifically, the results of the learner’s choices
+ (“what to learn”, “how to learn”, etc.) are used to fulfill a multidimensional user
+ preference model, and then it is used as implicit feedback for the recommender system.
+         In Dias and Wives [2019] this LO recommendation approach was used in an
+ e-learning platform used for formal learning: the AdaptWeb1; and we performed
+ experimental evaluations (offline and online experiments), with higher education
+ students.
+
+
+ 1
+     http://ead.joinville.udesc.br/adaptweb/
+
+
+DOI: 10.5753/cbie.sbie.2020.922                                                           922
+IX Congresso Brasileiro de Informática na Educação (CBIE 2020)
+Anais do XXXI Simpósio Brasileiro de Informática na Educação (SBIE 2020)
+
+
+         In this paper, we focus on the application of this LO recommendation approach
+ in an e-learning platform used for non-formal learning: the MERLOT2, and we
+ performed an experimental evaluation (offline experiment), with data of a larger and
+ diversified user community.
+        Specifically, our goal with the evaluation (our research question) was to verify if
+ the LO recommendation approach generates accurate recommendations for learner by
+ using the learner choices of the Learner-driven Learning paradigm – in an e-learning
+ system used for non-formal learning and by a diversified public (different ages,
+ countries, education levels, learning goals, etc.).
+        In this experimental evaluation, we compared the prediction accuracy of the LO
+ recommendation approach with the prediction accuracy of baseline recommendation
+ approaches. For this, we used cross-validation, that is a statistical method used to
+ estimate the skill of machine learning models.
+         The evaluation results showed that in the MERLOT platform, the prediction
+ accuracy of the LO recommendation approach varies according to the combination of
+ used learner choices, and the LO recommendation approach presents the higher usage
+ prediction accuracy than the baseline approaches. This result is statistically significant.
+
+ 2. Related Work
+ Patrick et al. [2013] use the choices of the Learner-driven Learning paradigm to define
+ the term “personalized learning”. For this, personalized learning is tailoring learning for
+ each student’s strengths, needs, and interests – including enabling student voice and
+ choice in what, how, when, and where they learn – to provide flexibility and supports to
+ ensure mastery of the highest standards possible.
+         Zhuhadar and Butterfield [2014] present a LO collaborative recommendation
+ approach for MOOCs: through the log of user interactions within the MOOC is mounted
+ a graph, which links users to the LOs accessed by. From this graph are discovered
+ communities of users, using techniques of social networks analysis, then users similar to
+ the target user of the recommendation are discovered within the community, and finally,
+ the LO recommendation is generated. The edges of the graph (links between users and
+ the LOs accessed by them) correspond to “how to learn” choices.
+         Drachsler et al. [2015] present a review on recommender systems in Technology
+ Enhanced Learning. According to this, recommender systems are filtering systems that
+ usually reduce a considerable number of options in a user choice to a smaller subset and
+ then leave it to the user to select an option from the subset. This work presents different
+ recommendation tasks, such as, to find good LOs, to find peer learners and to
+ recommend learning pathways. These three recommendation tasks are related to these
+ learner choices: “what to learn”, “with whom to learn”, and “in which learning pathway
+ to learn”. Therefore, when the learner has many options in a choice, a recommender
+ system can help him to deal with the overload of options.
+
+
+
+
+ 2
+     http://www.merlot.org/
+
+
+                                                                                          923
+IX Congresso Brasileiro de Informática na Educação (CBIE 2020)
+Anais do XXXI Simpósio Brasileiro de Informática na Educação (SBIE 2020)
+
+
+         Intayoad et al. [2020] propose a method to provide personalized recommendation
+ for online learning systems that guides learners to the right LOs at the right time. This
+ method is based on contextual bandits and reinforcement learning problems.
+ It uses the past student behaviors and current student state as the contextual information
+ to create the policy for the reinforcement agent to make the optimal decision. This
+ method uses the past LOs chosen by learners and their learning pathways. These
+ information are related to these learner choices “what to learn”, “how to learn”, and
+ “in which learning pathway to learn”.
+
+ 3. The LO Recommendation Approach based on the Learner Choices
+ The LO recommendation approach, that we proposed in Dias and Wives [2019] and
+ briefly review in this section, extends the User-based Nearest Neighbor (uNN)
+ recommendation approach [Jannach et al. 2010]. Therefore it is an implementation of
+ collaborative filtering based on an instance-based machine learning method.
+         In the User-based Nearest Neighbor recommendation approach, user preferences
+ about items are stored in a user-item rating matrix, and it can be stored as explicit or as
+ implicit feedback, depending on the system. In this user modeling approach, each row of
+ this matrix represents one user profile.
+         In the LO recommendation approach, we developed (I) a multidimensional user
+ preference model for user profiling, instead of a rating matrix (1 dimension). In this new
+ user model, the dimensions correspond to the results of the learner choices of the
+ Learner-driven Learning paradigm. Moreover, (II) a new similarity measure between
+ users (used in the collaborative filtering) based on this multidimensional model.
+         Figure 1 depicts the developed LO recommendation approach. The recommender
+ system receives implicit feedback (the results of the learner choices of the Learner-
+ driven Learning paradigm) and the active user (the target of the recommendation) as
+ input, and produces a list of recommended items (LOs) as output.
+
+
+
+
+         Figure 1. The LO recommendation approach based on the learner choices
+
+         This approach can be represented in a three-step algorithm: in the first step, the
+ similarities between the active user and each one of the remaining users are computed.
+        For this, we use a developed similarity measure presented in Subsection 3.1–B.
+ At the Neighborhood Development step, the set of the k most similar users to the active
+ user are chosen to form the neighborhood. Finally, at the Computation of
+ Recommendation step, the list of recommended items is produced with the most
+ frequently used items by the users of the neighborhood.
+
+
+                                                                                          924
+IX Congresso Brasileiro de Informática na Educação (CBIE 2020)
+Anais do XXXI Simpósio Brasileiro de Informática na Educação (SBIE 2020)
+
+
+        This algorithm is a nearest neighbor algorithm. Another example of nearest
+ neighbor algorithm is the k-Nearest Neighbors (kNN) for classification, often used in
+ data mining.
+        The choices made by the learner user during learning can vary among e-learning
+ systems. For example, in Moodle3, by default, the user can only make choices of types
+ “where to learn” and “when to learn” during learning. In AdaptWeb, the user can make
+ the choices “what to learn”, “how to learn”, “in which learning pathway to learn”,
+ “where to learn”, and “when to learn”. In many MOOCs using the edX4 system, the user
+ can choose “where to learn”, “when to learn”, and “with whom to learn” (for peer learning).
+
+ 3.1. Definition of the Learner Choices for e-Learning Systems
+ The choices of the Learner-driven Learning paradigm were defined for e-learning
+ systems by Dias and Wives [2018]. Below we present only the definitions of the choices
+ used for the application of the LO recommendation approach in the MERLOT
+ e-learning platform (Section 4).
+        A choice of type “what to learn” means the topic of knowledge a user preferred
+ or wanted to learn. For instance, when the user is learning UML, this user has different
+ diagrams to learn, e.g., Sequence diagram, Class diagram, Activity diagram, and so on.
+ Ahead of these options, let’s suppose the user chooses the Activity diagram to learn.
+        The sequence of topics over time the user preferred to follow to learn results in
+ an upper-level type of choice “in which learning pathway to learn”. For instance, when
+ the user is learning UML and prefers to start learning the Activity diagram, this user
+ may choose the Class diagram, then the Sequence Diagram, and so on.
+         A choice of type “how to learn” specifies what LOs a user preferred to use to
+ learn a topic. For example, a subject can be learned by a hypertext, a simulator, a video;
+ let’s say that ahead of these options, the user chooses the simulator.
+         A choice of type “when to learn” means the time the user preferred to use to
+ learn; for instance, on Tuesdays and Sundays.
+ A) Multidimensional User Preference Model: The result of the choices discussed in the
+ previous subsection reflects the learner preferences during learning. We store them in
+ different data structures. For instance, the result of “how to learn”, which corresponds to
+ the LOs the user preferred to use, is stored in a Boolean user-LO matrix. When the user
+ u chooses a new LO j to learn a topic, the matrix’s compartment (u, j) is set with the 1
+ value. In Subsection 4.1, we show how to store each type of choice.
+ B) Computing Similarity between Learner Users: Learner users’ similarity is calculated
+ by Equation 1, where sim (u, v) is the (total) similarity of a pair of users u (the active
+ user) and v (another user). This similarity is calculated by the sum of the sub-similarities
+ concerning each user’s choice in the e-learning system. Variable n corresponds to the
+ number of user choices within the system. For example, if there are seven types of
+ choices, therefore n=7. Also, each sub-similarity i have a tuned weight pi, which
+ indicates how much it contributes to the value of the (total) similarity.
+
+ 3
+     http://moodle.org/
+ 4
+     http://www.edx.org/
+
+
+                                                                                           925
+IX Congresso Brasileiro de Informática na Educação (CBIE 2020)
+Anais do XXXI Simpósio Brasileiro de Informática na Educação (SBIE 2020)
+
+
+
+                                                                                     (1)
+
+         The calculation of each sub-similarity is defined according to the e-learning
+ system. For instance, to calculate the sub-similarity “how to learn” between users, we
+ consider the vectors of both users in the Boolean user-LO matrix and compute the
+ similarity using the Jaccard coefficient. We use this coefficient because the matrix is the
+ same of the user-item rating matrix in the User-based Nearest Neighbor
+ recommendation approach, and [Fazeli et al. 2016] showed that this measure is better
+ for LO recommendation over implicit feedback. In Subsection 4.2, we define how to
+ compute each sub-similarity in the MERLOT e-learning platform.
+        The sim (u,v) value ranges into [0, 1], as well as in the uNN recommendation
+ approach, where 0 indicates that the user pair is entirely dissimilar, 1 is entirely similar.
+        As mentioned, the computation of each one of these sub-similarities must be
+ defined according to the characteristics of the e-learning system where the LO
+ recommendation approach is applied. Some systems allow the user to make some
+ choices; others enable the user to make others. Moreover, the results of the learner
+ choices can be obtained in different ways, depending on the e-learning system used; for
+ instance, in some e-learning systems, it is obtained with data fusion of logs and data
+ sensors.
+         Therefore, the computation of sub-similarities depends on the characteristics of
+ the e-learning system, where the LO recommendation approach is applied. In the next
+ section, we show how to apply the LO recommendation approach in the MERLOT.
+
+ 4. Application of the LO Recommendation Approach in the MERLOT
+ MERLOT e-learning platform allows the learner to make many different types of
+ choices during learning: almost all choices of the Learner-driven Learning paradigm. It
+ is available on the Web and contains a large and active user community. The user learns
+ knowledge topics in an iterative self-directed way.
+
+ 4.1. Getting the Results of the User Choices
+ The MERLOT’s dataset has different types of information (LO’s metadata, LO reviews,
+ user’s metadata, set of knowledge topics, etc.) and relations between data.
+        Using only this dataset, we were able to extract the following types of user
+ choices: “what to learn”, “in which learning pathway to learn”, “how to learn” and
+ “when to learn”. Thus, with these data, we were able to fulfill four dimensions of the
+ developed multidimensional user preference model.
+         Figure 2 shows the data visualization of this dataset, illustrating three users
+ (y-axis) over time (x-axis). Each LO has coverage metadata represented by T learning
+ topics. For instance, with LO168 the user learns the T70 topic. In a learning section
+ (square) the user can learn from a set of LOs; for instance, U1 uses 3 LOs in a learning
+ section (first LO168, then LO98, and, finally, LO243). U1 uses 3 LOs to learn in day t1,
+ 5 LOs in day t2, and so on. Each flow represents the pathway between learning sections.
+ We can see the intersection between users’ learning pathways and between LOs used by
+ learners.
+
+
+                                                                                            926
+IX Congresso Brasileiro de Informática na Educação (CBIE 2020)
+Anais do XXXI Simpósio Brasileiro de Informática na Educação (SBIE 2020)
+
+
+
+
+                   Figure 2. Data visualization of the MERLOT’s dataset
+
+
+
+         The results of the “how to learn” choices correspond to the set of LOs that the
+ learner preferred use over time. We store it in a Boolean LO-user matrix. The results of
+ the “what to learn” choices correspond to the set of knowledge topics that the learner
+ preferred to learn over time. We store it in a Boolean topics-user matrix. The results of
+ the “in which learning pathway to learn” choices correspond to the sequence of
+ knowledge topics that the learner preferred to follow to learn over time. We store it in a
+ queue because the order of learned topics in the sequence is important. Moreover, the
+ results of the “when to learn” correspond to the days of the week the learner prefers to
+ learn. This result of choices we obtained with statistical data analysis: we discovered
+ which days of the week the learner mostly prefers to learn. We store it in a Boolean
+ daysOfWeek-user matrix.
+         As previously mentioned, with the data from the MERLOT’s dataset, we were
+ able to fulfill four dimensions of the developed user preference model. Figure 3 presents
+ the multidimensional user preference model of the user U1 (from Figure 2). This logic
+ user preference model is related to the data structures that store the result of the learner
+ user choices during learning.
+        With this data storage, we see that a user has in her profile three dimensions that
+ correspond to rows of Boolean matrices and one dimension that corresponds to a queue.
+
+ 4.2. Computing Sub-Similarities
+ To compute the sub-similarity “how to learn” we used the Jaccard coefficient, for the
+ reason presented in Subsection 3.1–B, over the LO-user matrix.
+         To compute the sub-similarities “what to learn” and “when to learn” we used the
+ Cosine similarity over the topics-user matrix and daysOfWeek-user matrix, respectively.
+ We choose this measure following the Vector Space model from the field of Information
+ Retrieval. Then topics/daysOfWeek are considered as document vectors of a n-dimen-
+ sional space, and their similarity is computed as the cosine of the angle that they form.
+
+
+
+                                                                                           927
+IX Congresso Brasileiro de Informática na Educação (CBIE 2020)
+Anais do XXXI Simpósio Brasileiro de Informática na Educação (SBIE 2020)
+
+
+
+
+              Figure 3. Multidimensional user preference model of the user U1
+         To compute “in which learning pathway to learn” we reduced this computational
+ similarity problem to a ranking correlation problem [Dias and Wives 2019].
+ We transform the topics in the queue in indexes and thus compute the Kendall rank
+ correlation coefficient.
+         Once all sub-similarities are computed between the active user and all remaining
+ users, the total similarity between the active user and all remaining users is computed
+ using Equation 1. It completes step 1 (Computation of Similarities). The other two steps
+ are performed as described in Section 3.
+
+ 5. Experimental Evaluation
+ We performed an experimental evaluation of the LO recommendation approach applied
+ on MERLOT platform. We made an offline evaluation with its dataset and evaluated the
+ usage prediction accuracy of lists of recommended LOs.
+
+ 5.1. MERLOT’s Dataset
+ We obtain the MERLOT’s dataset using a web crawler [Cechinel et al. 2011] updated.
+ As previously mentioned, the dataset has different types of information, such as LO’s
+ metadata, user’s metadata, LO ratings, LO reviews, and set of knowledge topics.
+ It contains 1,771 users (students – of different education levels, ages, countries, etc.),
+ 62,008 items (LOs), and 3,347 LO usages.
+
+ 5.2. Experimental Protocol
+ A) Process Evaluation: The LO recommendation approach seeks to recommend items
+ that users may use; in this case, the LOs the learner will use to learn. As it returns a list
+ of recommended LOs, we applied an offline evaluation of usage prediction accuracy.
+         We defined to perform the experimental evaluation in two stages: (1) isolated
+ evaluation and (2) comparative evaluation. In the first one, the LO recommendation
+ approach is analyzed alone by modifying its variables and then measuring the usage
+ prediction accuracy. In the second one, the LO recommendation approach is compared
+ with baseline recommendation approaches (Subsection 5.2-B), measuring the usage
+ prediction accuracy. In both stages, accuracy is measured using the F1-measure, which
+ is the harmonic mean of Precision and Recall. Also, we defined to compute the
+ F1-measure over the top-10 items in the recommendation list, that is, F1-measure@10.
+          For the isolated evaluation stage, we defined to use cross-validation, which is a
+ statistical method used to estimate the skill of machine learning models.
+
+
+                                                                                            928
+IX Congresso Brasileiro de Informática na Educação (CBIE 2020)
+Anais do XXXI Simpósio Brasileiro de Informática na Educação (SBIE 2020)
+
+
+          Specifically, we defined to use an 80/20 cross-validation technique, as follows.
+ The dataset is randomly divided into two sub-datasets. The training dataset receives
+ 80% of user profiles, and the testing dataset receives the 20% remaining user profiles.
+ The training dataset is used to undercover the optimal values of the parameters of the
+ LO recommendation approach that lead to the higher usage prediction accuracy
+ (neighborhood k size - of the recommendation algorithm – Section 3, and weights pi of
+ the sub-similarities – of Equation. 1). Once the optimal parameter values are uncovered,
+ that is, the parameters are tuned, the recommendation approach is set with these optimal
+ values, and it is performed over the testing dataset.
+         At the end of the isolated evaluation stage, the configuration of parameters that
+ leads to generating LO recommendations with the greatest usage prediction accuracy is
+ known. The recommendation approach with this configuration is used in the next stage.
+        For the comparative evaluation stage, the recommendation approach is compared
+ with the recommendation baseline approaches. We also defined to use the same 80/20
+ cross-validation technique to train and test the baseline recommendation approaches. At
+ the end, the configuration of parameters of each recommendation baseline approach that
+ leads to generating recommendations with the greatest usage prediction accuracy is
+ known. The usage prediction accuracy of the recommenders are compared side by side.
+        Finally, to ensure that the results obtained were reliable it was decided to apply
+ the Wilcoxon signed rank test. For offline experiments of recommender systems, this
+ test is applied to a pair of algorithms, matching the usage prediction accuracy
+ (f1-measure) by user profile. A statistical significance test of the proposed
+ recommendation approach must be performed with each one of the baseline approaches.
+ B) Baseline Approaches: We used the following baseline approaches, defined by Dias
+ and Wives [2019] during a systematic review on LO recommender systems: (I) pure-
+ neighborhood-user-based-CF: a uNN recommendation approach; (II) optimized-neigh-
+ borhood-item-based-CF: a collaborative neighborhood recommendation approach based
+ on item similarity using non-negative quadratic optimizer; and (III) model-ALS-matrix-
+ factorization-CF: a collaborative recommendation approach based on latent factors.
+
+ 5.3. Test Platform
+ We used Apache Mahout for the offline evaluation of usage prediction accuracy. With
+ this, we implemented the four recommendation approaches.
+        After implementing these recommendation approaches, we implemented the
+ multidimensional user preference model developed in this work and included it in the
+ user profile used by Apache Mahout. Then we ran a script that filled this user model of
+ each user profile using the MERLOT’s dataset, following the procedure presented in
+ Section 4. Finally, we performed the experimental protocol.
+
+ 5.4. Results of the Experimental Evaluation
+ In the isolated evaluation stage, the usage prediction accuracy of the LO recommendation
+ approach was measured under the 15 possible combinations of the four actual
+ dimensions of the multidimensional user preference model. Figure 4 presents the result
+ of this evaluation; it is showing only the four combinations that generated recommenda-
+
+
+
+                                                                                        929
+IX Congresso Brasileiro de Informática na Educação (CBIE 2020)
+Anais do XXXI Simpósio Brasileiro de Informática na Educação (SBIE 2020)
+
+
+ tions with the highest usage prediction accuracy.
+
+
+
+
+           Figure 4. The four combinations of learner choices that generated LO
+              recommendations with the highest usage prediction accuracy
+
+       The highest usage prediction accuracy occurred when combining these three
+ dimensions of user preferences: “what to learn”, “how to learn” and “in which learning
+ pathway to learn”.
+        Furthermore, we stated that using all available dimensions may not lead to the
+ highest prediction accuracy. In the MERLOT, the results of the “when to learn” choices
+ were not relevant for the recommendation process. We performed a data analysis and
+ discovered that in this dataset, the results of the “when to learn” choices have low
+ variance. The vast majority of the learners use LOs on Tuesdays and Wednesdays.
+        In the comparative evaluation stage, the configuration of the LO recommender
+ approach that leads to the highest usage prediction accuracy was compared with the
+ baseline recommendation approaches. Figure 5 presents this result.
+
+
+
+
+       Figure 5. The usage prediction accuracy of the recommendation approaches
+
+         The developed LO recommender approach presented the highest usage
+ prediction accuracy concerning the baseline approaches in the MERLOT platform
+ (p-value < 0.05 with 95% confidence, for all paired tests).
+
+ 6. Conclusions and Discussion
+ In this paper, we review the recommendation approach of learning objects that uses the
+ result of different types of choices made by the learner user during learning in e-learning
+ systems as a source of information [Dias and Wives 2019]. This LO recommendation
+ approach is an implementation of collaborative filtering based on an instance-based
+ machine learning method.
+
+
+                                                                                          930
+IX Congresso Brasileiro de Informática na Educação (CBIE 2020)
+Anais do XXXI Simpósio Brasileiro de Informática na Educação (SBIE 2020)
+
+
+        We presented the application and evaluation of this LO recommendation
+ approach in the MERLOT platform. The results, statistically significant, showed that the
+ usage prediction accuracy of the LO recommendation approach is higher than the
+ baseline approaches in this system.
+         Therefore, answering our research question, it is possible to generate accurate
+ recommendations of LOs for learner users in e-learning systems by using the learner
+ choices during learning – in an e-learning system used for non-formal learning and by a
+ diversified public (different ages, countries, education levels, learning goals, etc.).
+
+ Acknowledgment
+ This study was financed in part by the Coordenação de Aperfeiçoamento de Pessoal de
+ Nível Superior - Brasil (CAPES) - Finance Code 001.
+
+ References
+ Alexander, S.; Kernohan, W. and Mccullagh, P. “Self directed and lifelong learning”. In
+   Global Health Informatics Education - Studies in Health Technology and
+   Informatics. v.109. 2004. p.152-66.
+ Cechinel, C.; Sánchez-Alonso, S.; García-Barriocanal, E. (2011) “Statistical profiles of
+   highly-rated learning objects”. In Comput. Educ. 57, 1 (Aug. 2011), p.1255-1269.
+ Dias, A. S. and Wives, L. K. (2018) “Definition of Learner Choices from Learner-
+   Driven Learning for Ubiquitous e-Learning Systems and its Application in the
+   AdaptWeb Platform”. Proc. Simpósio Brasileiro de Informática na Educação (SBIE).
+ Dias, A. S. and Wives, L. K. (2019) Recommender system for learning objects based in
+   the fusion of social signals, interests, and preferences of learner users in ubiquitous
+   e-learning systems, Personal and Ubiquitous Computing, v.23, ed.2, p. 249–268.
+ Drachsler, H.; Verbert, K.; Santos, O. and Manouselis, N. (2015) Panorama of Recom-
+   mender Systems to Support Learning. In: Recommender Systems Handbook. Springer.
+ Fazeli, S.; Rajabi, E.; Lezcano, L.; Drachsler, H. and Sloep, P. B. (2016) “Supporting
+   Users of Open Online Courses with Recommendations: An Algorithmic Study,”
+   Proc. IEEE 16th International Conference on Advanced Learning Technologies.
+ Intayoad, W., Kamyod, C. and Temdee, P. (2020). Reinforcement Learning Based on
+    Contextual Bandits for Personalized Online Learning Recommendation Systems.
+    In Wireless Personal Communications, 1-16.
+ Jannach, D.; Zanker, M.; Felfernig, A. and Friedrich, G. (2010) Recommender Systems:
+    An Introduction. Cambridge Univ. Press, USA.
+ Patrick, S.; Kennedy, K. and Powell, A. (2013) Mean What You Say: Defining and
+    Integrating Personalized, Blended and Competency Education. International
+    Association for K-12 Online Learning (iNACOL).
+ Watkins, C.; Carnell, E. and Lodge, C. (2007) Effective learning in classrooms. Paul
+   Chapman Publishing, London.
+ Zhuhadar, L. and Butterfield, J. (2014) “Analyzing Students Logs in Open Online
+ Courses Using SNA Techniques”, Proc. 20th Americas Conf. on Information Systems.
+
+
+                                                                                        931
+

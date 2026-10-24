@@ -1,0 +1,980 @@
+IEEE TRANSACTIONS ON LEARNING TECHNOLOGIES,                   VOL. 9,     NO. 1, JANUARY-MARCH 2016                                                    67
+
+
+
+
+Learning Object Recommendations for Teachers
+  Based On Elicited ICT Competence Profiles
+           Stylianos Sergis, Student Member, IEEE and Demetrios G. Sampson, Senior Member, IEEE
+
+       Abstract—Recommender systems (RS) offer personalized services for facilitating the process of appropriate item selection. To
+       perform this task, user profiling mechanisms should be implemented to automatically construct and update meaningful user profiles.
+       These profiles can drive the RS in providing informed recommendations suited to the unique characteristics of each user. In the context
+       of technology enhanced learning (TeL) Recommender Systems, the majority of research focus directly on learners’ profiling and ignore
+       the potential benefits of profiling teachers’ professional capacities too. As a result, limited previous works exist on effectively capturing
+       and utilizing individual teachers’ particular professional characteristics, such as their Digital Competences (commonly referred to as
+       ICT Competences) and exploiting these in systems that support their teaching preparation and practice, for example in the selection of
+       appropriate educational resources. This paper proposes a RS which targets to support teachers in selecting learning objects (LO) from
+       existing LO repositories (LORs) in a unified manner, namely by (a) automatically constructing their ICT Competence Profiles based
+       on their actions within these LORs and (b) exploiting these profiles for more efficient LO selection. Experiments with data from three
+       real-life LORs are presented and evaluation results are discussed to demonstrate the benefits of the proposed system.
+
+       Index Terms—Learning objects, personalized E-learning, web services, recommender systems
+
+                                                                                       Ç
+1    INTRODUCTION
+
+R     ECOMMENDER systems (RS) are software tools designed
+      to assist users in tackling the information overload
+problem by highlighting suitable items in a personalized
+                                                                                              In order to provide their personalized services, RS are
+                                                                                           usually implemented to automatically gather data from the
+                                                                                           users towards capturing their unique attributes, creating
+manner [1]. They have been used in a wide range of applica-                                and updating individual profiles [9]. The reason for this is
+tion contexts, spanning from the movie industry [2] to e-                                  that users tend to either not manually provide personal
+commerce [3] and technology enhanced learning (TeL) [4].                                   data, or they do not provide them in an accurate manner, at
+    RS have been implemented based on an increasing num-                                   a great cost to the RS prediction capacity in both occassions
+ber of techniques, the most prominent and commonly used                                    [9]. Therefore, and in-line with the general need for con-
+being the content-based filtering, the collaborative filtering,                            structing and exploiting highly granulated user profiles in
+the demographic filtering and the hybrid approaches [1].                                   RS applications [10], intelligent mechanisms should be
+The content-based filtering systems generate recommenda-                                   employed in order to collect and process meaningful user
+tions based on users’ past choices and the content similarity                              data for infering essential user characteristics that could
+between the items that were favored in the past to novel                                   provide added value in the quality of recommendations.
+ones that have not yet been discovered [5]. The collaborative                                 In the context of TeL, RS have been primarily utilized
+filtering systems utilize the users’ ratings over the available                            for the recommendation of different types of learning
+items for providing recommendations based on information                                   objects (LO) based on individual teachers’ and learners’
+provided by the “like-minded” neighbors of the active user                                 profiles. Nevertheless, although learners’ profiling has
+(i.e., the user currently using the system and receiving the                               been extensively considered, teachers’ profiling is almost
+generated recommendations) [6]. The demographic filtering                                  neglected [11]. Taking into consideration, the important
+relies on the assummed commonalities that users with simi-                                 role of teachers in adopting technology-supported school-
+lar demographic backgrounds will have [7]. Finally, hybrid                                 based educational innovations [12], the complexity of
+approaches combine techniques from the other approaches                                    technology-supported teaching practice [13] and the cur-
+in order to reap the benefits of all, while tackling their indi-                           rent diversity of individual teachers’ digital competences
+vidual drawbacks [8].                                                                      [14], it is safe to assume that individual teachers’ profes-
+                                                                                           sional ICT competences profiling is an important element
+                                                                                           to be considered in educational RSs and, thus, it is worthy
+ S. Sergis is with the Department of Digital Systems, University of Piraeus,              to investigate this topic.
+  Piraeus GR-18532, Greece, and the Information Technologies Institute,                       In our previous work, we have proposed and evaluated a
+  Centre for Research and Technology Hellas, Greece.
+                                                                                           LO recommendation approach that aimed to support teach-
+  E-mail: steliossergis@iti.gr.
+ D.G. Sampson is with the School of Education, Curtin University, and the                 ers in identifying and selecting educational resources for
+  Information Technologies Institute, Centre for Research and Technology                   their course design and delivery, taking into consideration
+  Hellas, Greece. E-mail: sampson@iti.gr.                                                  the individual teacher’s current ICT competence status [15].
+Manuscript received 5 Jan. 2015; revised 20 Apr. 2015; accepted 2 May 2015.                Furthermore, we have proposed and evaluated a mecha-
+Date of publication 18 May 2015; date of current version 16 Mar. 2016.                     nism for eliciting Fuzzy teachers’ ICT Competence Profile
+For information on obtaining reprints of this article, please send e-mail to:
+reprints@ieee.org, and reference the Digital Object Identifier below.                      (ICT-CP) based on their behavior patterns within learning
+Digital Object Identifier no. 10.1109/TLT.2015.2434824                                     object repositories (LOR) [16].
+                                   1939-1382 ß 2015 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+                                       See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+68                                               IEEE TRANSACTIONS ON LEARNING TECHNOLOGIES,     VOL. 9, NO. 1,   JANUARY-MARCH 2016
+
+
+    Following these initial works, in this paper we propose         either unwilling to provide such information or when they
+and study a Recommender System that supports teachers,              do, the validity and completeness of the provided data can-
+in a holistic manner, to select appropriate learning objects        not be ensured [25]. Therefore, the elicitation process is usu-
+from existing LO Repositories (LORs) based on their                 ally based on the users’ relevance feedback data [26].
+dynamically updated ICT competence profile. The contribu-               Relevance feedback data can be attained in two ways,
+tion of the proposed system is twofold. First, the RS utilizes      namely explicit feedback and implicit feedback [27]. The
+the teachers’ ICT Competence profiles, which are automati-          former requires users to perform specific actions that will
+cally elicited and dynamically updated based on the                 inform and update their profile attributes, e.g., assign rat-
+teachers’ continuous usage behavior patterns within LORs.           ings to items or download items. This approach provides a
+Second, the recommendation process itself adopts a new              set of benefits for the hosting RS system, such as increased
+method for generating the LO recommendations by exploit-            development simplicity and enhanced accuracy in the pro-
+ing the previously mentioned elicited ICT Competence pro-           file update process [28]. Users’ implicit feedback refers to
+files, i.e., (a) by creating an ICT Competence-based                mechanisms that monitor the users’ interaction with the sys-
+neighborhood and (b) by promoting the LOs that the active           tem in an unobtrusive manner. Such approaches have been
+teacher is currently competent in using.                            developed in order to completely detach the user from the
+    The proposed system is presented and evaluated follow-          explicit feedback providing process and maximize the
+ing a two-layer presentation in line with the commonly              amount of data that are being harvested by the system [29].
+accepted layered evaluation methodology [17] of adaptive            Examples of user actions that are being monitored for profil-
+learning systems, which has been extended to RS in [18].            ing purposes include browsing time in each item and type
+More specifically, a separate presentation and evaluation of        of items accessed, uploaded or ignored [21].
+the “Teacher ICT Competence Profile Elicitation” Layer and
+the “Learning Object Recommendation Generation” Layer is
+performed.                                                          2.2 User Profiling in Teacher-Oriented
+    The remainder of this paper is structured as follows.                 Recommender Systems
+Section 2 presents the background of the present study, as          In the context of TeL, the majority of the implemented RS tar-
+well as the identified research problem. Section 3 presents         gets the learners and aims to provide them with personalized
+the proposed approach to teacher ICT Competence-based               learning material and sequences of learning activities
+LO recommendations. This approach includes both a                   towards specific educational goal attainment [30]. The main
+method for eliciting the teachers’ ICT-CP based on their            learner attributes that are being used in such processes include
+usage behavior within learning object repositories as well as       their prior knowledge, learning preferences/styles, individ-
+the manner in which these profiles are exploited towards            ual goals and other cognitive characteristics [31]. Subse-
+providing more informed ICT Competence-based LO recom-              quently, user profiling approaches have been primarily
+mendations, compared to existing, commonly used RS meth-            focused on accommodating the attributes of the learners [32].
+ods (described in Section 4). Section 4 presents a detailed            However, despite the fact that learners are indeed the
+analysis of the evaluation methodology employed. Section 5          main focus of learning processes, other actors are also
+presents the evaluation results for both Layers of the pro-         important for the successful implementation of effective
+posed RS. Finally, Section 6 contains the conclusions of the        learning procedures. More specifically, teachers also play a
+present work and the future work in this research agenda.           vital part in the educational processes and, amongst other
+                                                                    reasons, their ICT competences [12], [14] and personal atti-
+                                                                    tudes towards ICT use [33] can greatly affect the level and
+2    BACKGROUND                                                     the quality of their technology-supported teaching practice.
+2.1 User Profiling                                                  Therefore, systematic accommodation of teachers’ profes-
+User profiling is a technique that has been widely applied in       sional characteristics should be an important design consid-
+a range of software applications, including adaptive web            eration for educational RS. Within this context, our previous
+systems [19] and recommender systems [20]. It involves              work [11] included a literature review of existing teacher-
+gathering data from the users in order to create a profile for      oriented educational RS. The 22 identified approaches are
+each of them, depicting their unique attributes in the context      summarized in Table 1. Table 1 also contains information
+of the system’s application [21]. The latter could involve, for     on the types of relevance feedback data that are being har-
+example, movie genre preferences in a movie recommender             vested. These relevance feedback data include Explicit and
+system [2], or learner preferences in an educational RS [22].       Implicit data. The former include Social data (e.g., ratings
+   The process of creating individual user profiles in soft-        and bookmarks) and user Demographic data, while the lat-
+ware applications is essential because each user has his/her        ter include, for example number of views of LO. Moreover,
+own characteristics and needs. Therefore, capturing these           Table 1 presents information on whether these data are
+user attributes is necessary for enabling the provision of          being utilized only for ad-hoc similarity calculations (i.e.,
+personalized services [23]. A user profile, therefore,              they do not incorporate profile creation) or if they are being
+presents the system’s full interpretation of the users’ prefer-     automatically processed and exploited to create dynamic
+ences and personal characteristics.                                 and adaptive user profiles for providing personalized rec-
+   In many cases, user profiles are not provided by the users       ommendations (i.e., they do incorporate profile creation).
+themselves but they are being elicited automatically through           Only (completed) systems utilizing the above techniques
+the identification, collection and processing of relevant user      were considered. Table values designated as “no” either a
+actions’ data [24]. The reason for this is that users are usually   lack of user profiling mechanism in the corresponding
+SERGIS AND SAMPSON: LEARNING OBJECT RECOMMENDATIONS FOR TEACHERS BASED ON ELICITED ICT COMPETENCE PROFILES                          69
+
+
+                           TABLE 1                                importance of each LO that they create or browse. This
+     Existing Teacher-Oriented TeL Recommender Systems            importance is derived from lexical analysis of the LOs and
+      RS      Relevance Feedback Data         Profile Creation    is calculated against the existing teacher profile.
+                                                                      A careful analysis of the existing approaches highlights
+1     [34]    Explicit: Demographic                  no
+              Explicit: Social                                    the fact that key teachers’ individual professional capacity
+              Implicit                                            characteristics, such as their aforementioned ICT Competen-
+2     [35]    Explicit: Social                       no           ces, are not being currently exploited for providing personal-
+3     [36]    -                                      no           ized recommendations to support their daily teaching
+4     [37]    Explicit: Demographic                  no           practice of course design and delivery. Incorporating such
+              Explicit: Social                                    information can lead to more focused recommendations by
+5     [38]    Explicit: Social                       no
+                                                                  forming better teacher neighborhoods and by filtering candi-
+6     [39]    Explicit: Social                       no
+7     [40]    Implicit                               yes          date LOs to identify the most appropriate for each individual
+8     [41]    Implicit                               yes          teacher’s ICT competences. Our previous work [15] has pre-
+              Explicit: Social                                    sented initial evidence that incorporating this type of teacher
+9     [42]    Explicit: Social                       yes          characteristics in the LO recommendation process depicted
+10    [43]    -                                      no           in a formal manner (i.e., the UNESCO ICT Competency
+11    [44]    -                                      no           Framework for teachers [55]) and appropriately mapping
+12    [45]    Explicit: Social                       no
+                                                                  them (e.g., [11]) to the specific LO metadata schema that each
+13    [46]    Explicit: Social                       no
+14    [47]    Explicit: Social                       no           dataset employs (e.g., the open discovery (ODS) space Repos-
+15    [48]    -                                      no           itory LO Metadata Application Profile [56]) can have a signifi-
+16    [49]    Explicit: Social                       no           cant positive impact on the predictive accuracy of the RS.
+17    [50]    Explicit: Social                       yes              Moreover, due to the fact that (a) competences are not
+              Implicit                                            reified characteristics, but evolve over time, and (b) that
+18    [51]    Explicit: Social                       no           such data are rarely (much less correctly) provided by the
+19    [52]    Explicit: Demographic                  yes
+              Explicit: Social                                    teachers themselves, profiling mechanisms should strive to
+20    [53]    Explicit: Social                       no           construct, and maintain up-to-date, highly granulated ICT
+21    [54]    Explicit: Demographic                  no           Competence profiles for teachers based on their relevance
+              Explicit: Social                                    feedback data [26].
+22    [22]    Explicit: Social                       yes              In the light of the above, a research problem can be iden-
+              Implicit                                            tified, namely how can a teacher ICT Competence profile be
+                                                                  (a) elicited based on the implicit and explicit relevance feed-
+system or lack of specific presentation of relevant data in the   back data of the teachers and (b) utilized for delivering
+presenting paper. As Table 1 depicts, existing teacher-ori-       more informed LO recommendations. To the best of our
+ented RS utilize a wide range of “raw” relevance feedback         knowledge, such an approach has not been previously con-
+data types for creating user profiles. More specifically, most    sidered in the field of RS. Such a system could provide a
+RS utilize “Explicit: Social” relevance feedback data (N ¼        unified solution for providing personalized LO recommen-
+17, x ¼ 77%). “Implicit” (N ¼ 5, x ¼ 23%) and “Explicit:          dations to individual teachers, since it would both automati-
+Demographic” (N ¼ 4, x ¼ 18%) relevance feedback data             cally create and update teacher ICT competence profiles and
+are used less often. However, regardeless of the type of the      exploit them towards informed LO suggestions.
+relevance feedback utilized, the Table 1 data signify that            The contribution of this paper, therefore, is the presenta-
+only a small portion of existing teacher-oriented RS (N ¼ 6,      tion of a proposed solution towards tackling this identified
+x ¼ 27%) create, maintain and exploit user profiles for pro-      research problem. The first step, namely, teachers’ ICT-CP
+viding enhanced recommendations to teachers, based on             elicitation, has already been analysed in our previous work
+these relevance feedback data. This can be considered as          [16]. In the context of this paper, however an additional
+potential drawback, since systematic and efficient user           evaluation of this step was performed in order to further
+modeling is an essential element of successful RSs [10].          enhance validattion of its robustness. The second step of the
+   More specifically, Shelton et al. [40] describe a system       research problem, namely the exploitation of the generated
+that utilizes the teachers’ clicks and time on each webpage       ICT-CP for enhanced LO recommendations, is the original
+to detect their preferences and alter the recommendations         contribution of this paper.
+accordingly. Brusilovsky et al. [41] propose a social naviga-
+tion approach for assisting teachers to identify useful educa-    3        ICT COMPETENCE-BASED LEARNING OBJECT
+tional resources within web-based repositories, through                    RECOMMENDATIONS FOR TEACHERS
+manipulation of their usage history and explicit feedback.        This section presents the proposed solution to the identified
+Schoeffeger et al. [42] (and [50]) proposed a method for          research problem, i.e., a new RS for providing enhanced LO
+identifying emergent topics that teachers are dealing with        recommendations to teachers based on their elicited ICT-
+and are interested in. Fazeli et al. [52] proposed a method       CP. The proposed system is schematically depicted in Fig. 1.
+for collecting both demographic and social data from teach-          It essentially comprises two main layers, as follows:
+ers towards utilizing them for building trust networks.
+Finally, Ferreira-Satler et al. [22] propose an ontology-based        1.    Teacher ICT competence profile elicitation layer. The first
+fuzzy teacher profile inference system. The main idea is to                 Layer, which is described in detail in Section 3.1,
+elicit the preferences of the teachers based on the semantic                relates to the elicitation of the active teacher’s ICT-CP
+70                                              IEEE TRANSACTIONS ON LEARNING TECHNOLOGIES,      VOL. 9, NO. 1,   JANUARY-MARCH 2016
+
+
+                                                                      A set of four types of relevance feedback data (from now
+                                                                   on referred to as “Usage Data”), commonly used in the liter-
+                                                                   ature, was selected, as follows:
+
+                                                                     1.     Rating history. This category included the ratings
+                                                                            teachers had provided over the available LO. To
+                                                                            accommodate the unique rating patterns of each
+                                                                            teacher (e.g., some tend to rate high by default), all
+                                                                            ratings were first normalized by subtracting the rat-
+                                                                            ing mean of the active teacher. Rating data could
+                                                                            provide a solid proxy of ICT competence due to the
+                                                                            fact that a high rating could imply that the user has
+                                                                            either actually used the LO or, at least, is comfortable
+                                                                            with it [5]. A low rating on the other hand, was not
+                                                                            considered as an indicator of low competence,
+                                                                            because a person would probably not rate an item
+                                                                            low just because they would not be able to use it.
+                                                                      2. Bookmarking history. In the same vein as before, book-
+Fig. 1. Proposed recommender system overview.                               marking a specific LO type repeatedly could provide
+       based on their relevance feedback data. More specifi-                insight on the fact that the active teacher utilizes this
+       cally, the system creates a unified representation of                type of resources frequently in their daily teaching
+       the active teacher by harvesting his/her “Usage Data”                practice. Therefore, it could provide a solid proxy for
+       from the LOR. Following that, this unified representa-               inferring the level of relevant ICT competence of
+       tion is fed to the ICT-CP Elicitation mechanism and                  teachers.
+       the fuzzy ICT-CP of the teachers is generated.                 3. Learning object access history. The access patterns of
+   2. ICT competence-based learning object recommendation                   teachers could be exploited for capturing their ICT
+       generation layer. The second Layer of the proposed                   competences in the accessed LO types. More spe-
+       RS is the LO recommendation generation. This is                      cifically, if specific LO types had been repeatedly
+       performed by utilizing the output data generated                     accessed from a teacher, they could be regarded as
+       from the first Layer. More specifically, as it will be               commonly used by him/her. This could infer use-
+       further described in Section 3.2, it utilizes these out-             ful information about the teacher’s ICT compe-
+       put data in a dual manner, i.e., (a) for the selection of            tence profile.
+       the active teacher’s neighbors, in terms of their ICT-         4. Learning object creation history. The last “Usage Data”
+       CP similarity to the active teacher and (b) for weight-              category referred to active teachers’ sharing history,
+       ing each candidate LO in terms of its appropriate-                   i.e., the number of LOs that each teacher had
+       ness for the active teacher’s ICT-CP. This is a                      uploaded to the LOR. These data could provide
+       promising approach, which was introduced in our                      insight on the teachers’ ICT Competence based on
+       previous work [15] and was shown to result to more                   the assumption that a teacher, who had created (and
+       accurate LO recommendations.                                         shared) a specific LO type, would be competent in
+   The presentation of the RS will be performed in two steps                actually using them.
+in accordance to the two Layers of the RS, i.e., the teacher          These “Usage Data” types were utilized by the system for
+ICT Competence Profile Elicitation Layer and the ICT Com-          eliciting the teachers’ ICT Competence profiles. More specif-
+petence-based LO Recommendation Generation Layer.                  ically, for each teacher, this process included an initial har-
+                                                                   vesting of all LOs that any of the “Usage Data” were
+                                                                   available for. This information was then fed to the ICT Com-
+3.1    Teachers’ ICT Competence Profile Elicitation                petence Profile Elicitation mechanism, towards inferring the
+       Layer                                                       teachers’ ICT-CP.
+3.1.1 Teacher Relevance Feedback Data
+The first Layer of the proposed RS relates to the elicitation of   3.1.2.   The Teacher ICT Competence Profile Elicitation
+the teachers’ ICT Competence profiles based on their rele-                  mechanism
+vance feedback data from their interaction within any LOR.         The ICT-CP Elicitation mechanism comprised two phases,
+    Towards tackling this issue, a specific and appropriate        namely the “Aggregation” Phase and the “Fuzzification”
+set of relevance feedback data had to be selected. More spe-       Phase (Fig. 2).
+cifically, this set should provide a valid proxy of teachers’
+ICT competence over the the available LO type in the LOR.            1.     The aggregation phase. The aim of this phase is to cre-
+More specifically, the LO types referred to the distinct meta-              ate a unified representation of the teachers’ interac-
+data attributes which are used to characterize LO in LORs.                  tions within the LOR. More specifically, for each
+It should be noted that these attributes are flexible and can               teacher, all four “Usage Data” information per LO
+be adapted to meet the IEEE LOM Application Profile that                    metadata attribute are merged in one “Interactions”
+each LOR adopts, in line with the official IANA MIME type                   metric. This aggregated metric provides an overview
+extensions (http://tinyurl.com/ol2lv34).                                    of the level of interaction that each teacher had with
+SERGIS AND SAMPSON: LEARNING OBJECT RECOMMENDATIONS FOR TEACHERS BASED ON ELICITED ICT COMPETENCE PROFILES                         71
+
+
+
+
+                                                                    Fig. 3. Membership functions of the proposed RS.
+
+                                                                               Therefore, for each teacher t, the “Interactions”
+                                                                            metric presents a unified and combinative depiction
+                                                                            of their usage pattern in a LOR, for each LO meta-
+                                                                            data attribute type by considering all four “Usage
+                                                                            Data”. This is done by considering together (a)
+Fig. 2. Overview of the proposed RS Layer 1.                                the significance that each LO metadata attribute type
+                                                                            had to each teacher (i.e., the weights) and (b) the
+        the diverse LO metadata types, by considering all                   number of LO per metadata attribute type that
+        four “Usage Data”.                                                  the teacher had interacted with.
+           In order to calculate this metric, each LO metadata        2.    The fuzzification phase. After the completion of the
+        attribute type received a weight representing the                   Aggregation Phase process, and the construction
+        level of significance that it had for each teacher, i.e.,           of the active teacher’s unified “Interactions” met-
+        the level of preference that the active teacher demon-              ric, the Fuzzification Phase is activated. This step
+        strated to this particular LO attribute type compared               is responsible for inferring the level of the
+        to the rest within the same “Usage Data” category.                  teacher’s ICT competence (their ICT-CP) by trans-
+           The weights are calculated using the following                   lating the aggregated “Interactions” metrics for
+        formula for each teacher t:                                         each teacher to their fuzzy equivalents. The latter
+                                                                            would be the final proxy of the teachers’ ICT Com-
+                                 #LOi                                       petence. The reason for employing fuzzy logic is
+                         wti ¼ PI        ;                    (1)           due to the fact that it is considered as an appropri-
+                                i¼1 #LOi
+                                                                            ate means of depicting data that are “vague” and
+        where i refers to each metadata attribute type within               difficult to assign to crisp categories [57]. There-
+        the same “Usage Data” category and I refers to the                  fore, apart from the extensive use of this approach
+        overall cardinality of the metadata attribute set                   for creating user profiles in different application
+        (which can vary between different LOR) within the                   contexts [22], [58], fuzzy logic is selected due to
+        same “Usage Data” category. The possible values for                 the “fluid” nature of competences. More specifi-
+        each weight range from [0 . . . 1]. A weight value of               cally, competences are not crisp characteristics, but
+        “zero” for a specific LO metadata type signifies that               can be attained in a continuum of proficiency lev-
+        the teacher has interacted with no LO of this type                  els and can be constantly updated [59].
+        regarding the specific “Usage Data” category (e.g.,
+                                                                        The adopted fuzzification process uses a set of five lin-
+        no ratings provided for any LO of type “video”). On
+                                                                    guistic variables depicting levels of competence, i.e., Very
+        the other hand, a weight value of “one” for a specific
+                                                                    Low, Low, Medium, High and Very High. The use of five
+        LO metadata type signifies that the teacher has inter-
+                                                                    linguistic variables is a typical method in the literature (e.g.,
+        acted solely with LO of this particular type regarding
+                                                                    [29]). Additionaly, a triangular membership function was
+        a specific “Usage Data” category (e.g., the teacher
+                                                                    utilized, which is presented in Fig. 3. The latter was used
+        has provided bookmarks only for LO of type “video”).
+                                                                    due to the fact that it is a commonly used membership func-
+           Moreover, (1) also normalizes the available
+                                                                    tion type for depicting characteristics similar to ours [24],
+        “Usage Data”, since the different “Usage Data” cate-
+                                                                    where mðaÞ represents the membership function value and it
+        gories would probably not have the same cardinality
+                                                                    is calculated for all five linguistic variables each time, xi rep-
+        of LO (i.e., there would probably be more “Access”
+                                                                    resents the “Interactions” metric value and the xmin and
+        data than “Bookmark” data).
+                                                                    xmax depict the minimum and maximum marginal values
+           Therefore, building on the weights calculated in
+                                                                    for each Fuzzy linguistic variable. The membership function
+        (1) for each LO metadata type, the combined
+                                                                    is schematically depicted in Fig. 4.
+        “Interactions” metric is computed using the follow-
+        ing formula, for each teacher t:
+                                   PJ       t
+                               t      j¼1 wj  #LOj
+                  Interactionsj ¼       PJ      t
+                                                    ;       (2)
+                                           j¼1 wj
+
+        where, Interactionstj is the resulting “Interactions”
+        metric for each LO metadata attribute type j, J is the
+        cardinality of the “Usage Data” set and wtj is the
+        weight of the j LO metadata attribute, as calculated        Fig. 4. Schematic Representation of the Membership function of the
+        by (1).                                                     proposed RS.
+72                                                   IEEE TRANSACTIONS ON LEARNING TECHNOLOGIES,    VOL. 9, NO. 1,   JANUARY-MARCH 2016
+
+
+                                                                              teacher based on the similarity of their fuzzy ICT
+                                                                              competence profiles instead of the commonly used
+                                                                              rating similarity. In this way, the active teacher is
+                                                                              provided with recommendations based on the opin-
+                                                                              ions of colleagues that have the same ICT compe-
+                                                                              tence background with him/her, and thus (s)he is
+                                                                              recommended with LO which will potentially be
+                                                                              both useful and appropriate for them.The method
+                                                                              employed for calculating this similarity is the Euclid-
+                                                                              ean Distance, which is commonly used for similar
+                                                                              processes [60].
+                                                                         2. The defuzzification phase: this phase aims to translate
+Fig. 5. Overview of the proposed RS Layer 2.
+                                                                              the unified fuzzy teacher ICT-CP in a single factor
+                                                                              depicting the combined level of ICT competence of
+   To give a brief example of the above, supposing that a                     the teacher and incorporating all fuzzy levels. This
+teacher had a resulting aggregated “Interactions” value of                    factor will be utilized for weighting each candidate
+“0.9” (from the Aggregation Phase of the ICT Competence                       LO in terms of its suitability for the active teacher.
+Elicitation mechanism) regarding a specific type of LO (e.g.,                 The method employed for this Phase is the com-
+“inquiry-based” Lesson Plans), their generated fuzzy ICT-                     monly used Center of Gravity method [61], which
+CP for this LO type would be:                                                 computes the center of gravity of the area under the
+                                                                              membership function. The resulting factor of the
+VL                L              M             H               VH             Defuzzification Process is utilized in the second
+                                                                              Phase of the ICT Competence-based Recommenda-
+0                 0              0             0.4             0.6
+                                                                              tions Layer of the RS.
+                                                                         3. The recommendation generation phase: this phase aims
+   More specifically, this means that the particular teacher is               to generate and deliver the ICT Competence-based
+40 percent Highly Competent in utilizing inquiry-based les-                   LO recommendations. As aforementioned, the pro-
+son plans and 60 percent Very Highly competent. Therefore,                    posed recommendation method utilizes the teachers’
+upon completion of the process of the Fuzzification Phase,                    ICT-CP profiles in a dual manner.
+each teacher’s ICT-CP has been modeled in a fuzzy manner                 First, the active teacher’s neighbors are selected in Phase
+for all LO metadata types, based on his/her “Usage Data”              1 (“Neighbor Selection Phase”), based on the similarity
+within the LOR. The utilization of fuzzy logic for capturing          between their fuzzy ICT-CP. Second, the defuzzified ICT-
+and representing teachers’ ICT Competences allows for                 CP factor is utilized as a filtering method of candidate LOs
+more granulated construction of profiles. In turn, this               in terms of their appropriateness for the active teacher’s
+enhanced level of teacher profile granularity can assist in           level of competence.
+providing more informed recommendations [22].                            Based on the above, for each LO i that is being consid-
+   The exact manner in which this is realized in the pro-             ered for recommendation, the system assesses its appropri-
+posed RS is described in the next section.                            ateness score (AS) for the active teacher t using the
+                                                                      following formula:
+3.2   ICT Competence-Based Recommendations                                                                 PN
+                                                                                                            j¼1 wj  rji
+      Layer                                                                         ASit ¼ COGtype of ðiÞ  PN           ;        (3)
+After the completion of the processes of the first Layer, the                                                 j¼1 wj
+active teacher has been assigned with a unique fuzzy ICT
+Competence profile depicting their personal competences               where N is the amount of neighbors that had rated the spe-
+in each of the distinct LO metadata attribute types stored in         cific LO, rji is the rating provided for LO i by neighbor teacher
+the LOR. At this stage, the second Layer of the RS is acti-           j and wj is the Euclidean Distance between the active teacher
+vated, i.e., the LO recommendation generator (Fig. 5).                and neighbor j. The Euclidean Distance is, therefore, utilized
+   As aforementioned, the contribution in the proposed                as a weighting factor in order to assign more gravity to the
+approach in this Layer related to the novel manner in which           opinions of “closer” neighbors. Finally, the COGtype of (i) is the
+these recommendations were generated. More specifically,              output of the defuzzification process of the active teacher t.
+the elicited fuzzy ICT-CPs were utilized (a) as a means for           The resulting AS value represents the predicted rating for the
+alternative neighbor selection and (b) as a weighting factor          active LO for the active teacher.
+for determining the appropriateness of each candidate LO                  This section presented the proposed solution to the
+to the active teacher’s level of ICT competence.                      identified research problem, i.e., a unified approach for
+   The second Layer is divided in three phases, namely: (a)           eliciting and exploiting teacher ICT-CP towards more
+the Neighbor Selection Phase, (b) the ICT Competence                  informed LO recommendations. The next section presents
+Defuzzification Phase and (c) the Recommendation Genera-              the methodology employed and results generated for
+tion Phase.                                                           evaluating the performance of the proposed system,
+                                                                      in terms of (a) the accuracy of the ICT-CP elicitation
+     1.   The neighbor selection phase: this phase aims at select-    mechanism and (b) the predictive accuracy of the RS for
+          ing the most suitable set of neighbors for the active       generating LO recommendations.
+SERGIS AND SAMPSON: LEARNING OBJECT RECOMMENDATIONS FOR TEACHERS BASED ON ELICITED ICT COMPETENCE PROFILES                                                  73
+
+
+4   EVALUATION                                                       predictions of the RS, lesser values of RMSE designate a bet-
+4.1 Methodology                                                      ter predictive accuracy of the RS.
+                                                                         As aforementioned, our proposed FH approach was
+The evaluation methodology adopted in this paper follows
+                                                                     benchmarked against a set of “control” recommendation
+the layered evaluation approach [17]. More specifically,
+                                                                     methods, which are (a) commonly used in the literature and
+monolithic evaluation of RS has been identified to lead to
+                                                                     (b) have been reported to provide high levels of accuracy.
+limited remedying potential in case of low RS accuracy.
+                                                                     More specifically, the control set included two types of rec-
+Essentially, this means that a potentially low accuracy of the
+                                                                     ommendation approaches, namely user-based collaborative
+RS cannot be linked to the specific element of the RS that is
+                                                                     filtering (U) and item-based collaborative filtering (I) [62].
+causing this level of performance. To alleviate this issue, the
+                                                                     The former computes similarities between users to find the
+layered evaluation process proposes separate evaluation
+                                                                     most similar users and predicts ratings based on how the
+Phases for each of the RS Layers, namely Phase 1 refers to
+                                                                     item was rated by the most like-minded users. The latter
+the evaluation of the Teacher Profiling Layer and Phase 2
+                                                                     approach shares the same idea but it is based on similarity
+refers to the evaluation of the ICT Competence-based Rec-
+                                                                     between items rather than between users. For each of these
+ommendation Layer. In this way, any underperforming
+                                                                     two recommendation approaches one similarity measure
+Layer can be highlighted and focused remedying actions
+                                                                     was implemented, namely the Pearson correlation coeffi-
+can be performed, towards increasing the accuracy of the
+                                                                     cient (PCC) for the user-based collaborative filtering [64]
+specific Layer, and by extension, of the overall RS.
+                                                                     and the Adjusted Cosine correlation coefficient (CCC) for
+   In the context of the present study, the Phase 1 evaluation
+                                                                     the item-based collaborative filtering [65]. Both similarity
+focuses on the proposed system’s accuracy in re-creating
+                                                                     measures have been selected due to their reported high per-
+existing teacher ICT-CP. More specifically, the system gen-
+                                                                     formance in terms of predictive accuracy in the context of
+erates a set of teacher ICT-CP based on their relevance feed-
+                                                                     their specific recommendation approach [64], [65].
+back data. The generated ICT-CPs will then be contrasted
+                                                                         The Pearson correlation coefficient is calculated based on
+against the existing ICT-CPs, which have already been pro-
+                                                                     the following formula:
+vided voluntarily by the teachers themselves in the context
+of the ODS Project. Moreover, it should be mentioned that                               P
+the existing ICT-CPs were provided by the teachers in a                                      i2I ðrui  ru Þ  ðrwi  rw Þ
+                                                                               PCC ¼ qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+                                                                                      P                                                              ﬃ;     (5)
+manual manner, using a webform and following the well-                                                              2P                              2
+                                                                                           i2I ðrui  ru Þ                 i2I ðrwi  rw Þ
+known UNESCO ICT Competency Profile for teachers.1 The
+metric used for implementing this benchmark was the Jac-
+                                                                     where I is the set of items that both users u and w have
+card co-efficient [62].
+                                                                     rated, rui and rwi denote the ratings of the users u and w on
+   The Phase 1 evaluation has already been performed and
+                                                                     the item i, while ru and rw denote the average ratings of the
+reported in our previous work [16]. In the context of this
+                                                                     two users respectively.
+paper, however, we retrieved an updated version of the
+                                                                        The Adjusted Cosine correlation coefficient is calculated
+same dataset and further validated the results, towards
+                                                                     based on the following formula:
+enhancing the robustness of the proposed method. The
+updated evaluation results of Phase 1, as well as a compari-                             P                                                 
+son to the initial evaluation results described in [16], are dis-                             u2U ðrui  ru Þ  ruj  ru
+                                                                            CCC ¼ qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+                                                                                   P                               ﬃ q ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+                                                                                                                       P                            2 ;   (6)
+cussed in Section 5.1 of this paper.                                                                              2
+                                                                                        u2U    ð r ui      r u Þ           u2U      r uj       r u
+   Regarding the Phase 2 evaluation, the main focus was
+assessing the accuracy of the Layer 2 of the proposed
+                                                                     where U is the set of users that have rated both items i and j,
+approach to predict the ratings of the active teacher on LO
+                                                                     rui and ruj denote the ratings of the user u on items i and j
+they had not interacted with, using the process described in
+                                                                     respectively while ru denotes the average ratings of the user.
+(3). This evaluation phase aims at providing evidence on
+                                                                         Therefore, the overall control recommendation method
+the positive added value and the increased accuracy of the
+                                                                     set consisted of two alternatives, i.e., user-based pearson
+proposed RS (depicted as fuzzy hybrid, abbreviated as FH)
+                                                                     correlation coefficient (UPCC) and the item-based adjusted
+compared to existing approaches. The commonly used root
+                                                                     cosine correlation coefficient (ICCC).
+mean squared error (RMSE) metric was selected for measur-
+                                                                         For all three cases (two control approaches plus the pro-
+ing the predictive accuracy [63]. This metric is calculated
+                                                                     posed approach), the predictive accuracy evaluation pro-
+based on the formula:
+                                                                     cess was based on the standard “Leave-N-out” technique
+                       sﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ         [66]. More specifically, this method includes splitting the
+                        1 X
+                RMSE ¼               ðrui  rui Þ2            (4)   available dataset in two sub-sets, namely the “training” set
+                        T u;i2T                                      and the “test” set. The former contained 70 percent of the
+                                                                     overall data and was used for training the RS and generat-
+whererui is the set of generated predicted ratings for users u      ing the recommendations. The latter contained the remain-
+on items i, rui is the set of known ratings and T is the set of      ing 30 percent of the overall data and was used for
+users and items for which the ratings are known. It should           evaluating the system accuracy, i.e., the recommendations
+be noted that since this metric aims to capture errors in the        generated from the training set [62]. Finally, the evaluation
+                                                                     experiment was run for an increasing number of neighbor-
+   1. http://unesdoc.unesco.org/images/0021/002134/213475e.pdf       hood size (one through twenty) in order to monitor the
+[Accessed 10 May 2015]                                               behavior of each approach in each occasion.
+74                                             IEEE TRANSACTIONS ON LEARNING TECHNOLOGIES,     VOL. 9, NO. 1,   JANUARY-MARCH 2016
+
+
+4.2 Datasets                                                                               TABLE 2
+The present study utilized three educational datasets for                        Educational Datasets Overview
+supporting the two evaluation Phases, all of which were
+                                                                                               ODS            DtC           OSR
+retrieved from existing learning object repositories which
+                                                                                              Dataset        Dataset       Dataset
+are currently in use. More specifically, the LORs used in
+                                                                                             AL1 AL2        AL1   AL2       AL1
+our experiments were the ODS Repository http://portal.
+opendiscoveryspace.eu, the discover the cosmos (DtC)             Overall Sample Size (N) 794 519           92,709 629       1,545
+Repository http://portal.discoverthecosmos.eu, and the           Rating Data              240 173           835   7,469     1,148
+                                                                 Access Data             3,308 392          183    708      5,026
+open science resources (OSR) Repository http://www.
+                                                                 Creation Data            794 519          92,709 629       1,545
+osrportal.eu/en/repository.                                      Bookmark Data            177    45          47     39       345
+   The ODS dataset, an earlier version of which was used in      Unique Users                686            209    281       829
+previous work [11], [15], [16], contained (a) existing, manu-
+ally provided teachers’ ICT Competence profiles, depicted
+using the UNESCO ICT Competency Framework for teach-             corresponding “Usage Data” were provided for. As
+ers (ICT-CFT) [55], (b) LO metadata records characterized        aforementioned, these four “Usage Data” categories were
+using a specific IEEE LO Metadata Application Profile [56]       exploited by the proposed RS for eliciting the teachers’
+and (c) “Usage Data” of the teachers as they were defined in     ICT-CP.
+Section 3.1.1. Due to the unique availability of existing           The OSR dataset only contained usable data for Aggrega-
+teachers’ ICT-CP, the ODS dataset was utilized for the           tion Level 1 Learning Objects. Finally, as “unique users” for
+Phase 1 evaluation process, for benchmarking the proposed        the ODS dataset were only considered those who had
+teacher ICT Competence elicitation method. As aforemen-          contributed their ICT-CP, since the purpose of this dataset
+tioned, this evaluation process was initially described in       was to evaluate the first Layer of the proposed RS.
+[16], where it was performed on an earlier instance of the          Furthermore, regarding the Phase 2 evaluation process,
+ODS dataset. In the context of the work presented in this        in order to allow for a more informed overview of the evalu-
+paper, an up-to-date version of the ODS dataset was              ation results (presented in Section 5), an analysis of specific
+retrieved towards further validating these initial promising     characteristics of the datasets utilized (i.e., DtC AL1, DtC
+evaluation results. In both experiments, towards the evalua-     AL2 and OSR) was performed. More specifically, this analy-
+tion of the re-creation accuracy of the proposed method,         sis was performed due to the reported high dependence of
+mapping rules were utilized for connecting ICT Competen-         all RS’s performance to the dataset to which they are fed
+ces as they were described in ICT-CFT and LO metadata            [62], [68] and the resulting need to robustly understand the
+attributes as they were described in the IEEE LOM Applica-       shift in performance of the selected RS benchmark
+tion Profile of the ODS dataset [56]. These mapping rules        approaches between the different datasets. Based on the
+were presented and evaluated in previous work [11].              works of [68], [69], we selected a set of two dataset charac-
+   The ODS dataset was not utilized in the Phase 2 evalua-       teristics that have been reported to greatly influence the
+tion process, in order to fully adhere to the layered evalua-    level of performance of RS. These are:
+tion framework adopted, namely to not only evaluate the
+different layers of the proposed RS individually, but also to      1.    Rating density. It is defined as the ratio of known rat-
+utilize unique datasets for evaluating each layer.                       ings against the number of all possible ratings that
+   The DtC dataset (http://portal.discoverthecosmos.eu)                  can be provided (i.e., jRatings j=jU j  jI j, where U and
+and the OSR dataset [67] contained (a) LO metadata                       I are the number of users and items respectively). A
+records and (b) “Usage Data” of teachers that had been                   logarithmic transformation was performed in order
+registered to the corresponding portals. The DtC and OSR                 to normalize its values. Rating Density has been
+datasets did not contain existing teacher ICT Competence                 attributed with a high positive correlation to collabora-
+profiles. Therefore, they were used only in the Phase 2                  tive filtering RS performance, i.e., denser datasets can
+evaluation process, i.e., for evaluating the predictive accu-            allow for more accurate recommendations [68].
+racy of the proposed ICT Competence-based RS for teach-             2. Rating standard deviation. It is defined as the standard
+ers, by exploiting teachers’ ICT-CP elicited by the first                deviation of the ratings provided by the users in the
+Layer of the proposed RS.                                                dataset. Rating Standard Deviation has been attrib-
+   An overview of all three datasets is provided in the fol-             uted with a high negative correlation to collaborative
+lowing Table 2. aggregation level (AL) 1 LOs refer to stand-             filtering RS performance, i.e., lower levels of Rating
+alone Educational Resources (e.g., flash simulations,                    Standard Deviation can lead to more accurate recom-
+educational games, text documents), while aggregation                    mendations [68].
+level 2 LOs refer to Lesson Plans and/or Educational Sce-            The instantiations of the abovementioned dataset charac-
+narios (i.e., flows of learning activities supported by Educa-   teristics for the selected datasets for the Phase 2 Evaluation
+tional Resources).                                               are depicted in Table 3.
+   Overall Sample Size (N) refers to the total number of LOs         As Table 3 depicts, the densest dataset is the DtC AL2,
+in each AL category. The number of unique users refers to        followed by the OSR and the DtC AL1. Therefore, based on
+the cardinality of the set of teachers that had contributed at   the conclusions of [68], we should expect that evaluation
+least in one “Usage Data” category. The remaing four data        result accuracy in each of the three datasets should follow
+categories, namely Rating Data, Access Data, Creation Data       the same correspondingly descreasing order. This intuition
+and Bookmark Data, refer to the number of LOs that the           is supported by the Rating Standard Deviation data, which
+SERGIS AND SAMPSON: LEARNING OBJECT RECOMMENDATIONS FOR TEACHERS BASED ON ELICITED ICT COMPETENCE PROFILES                          75
+
+
+                          TABLE 3
+             Educational Dataset Characteristics
+
+                                  DtC Dataset         OSR Dataset
+                                 AL1        AL2          AL1
+Rating Density               4,365       1,386        3,047
+Rating Standard Deviation     0,966        0,875         0,901
+
+
+(given its negative correlation to RS accuracy) also signify
+the same correspondingly descreasing order in terms of
+expected evaluation accuracy.
+   Table 4 presents an overview of the evaluation methodol-
+ogy and datasets described in Sections 4.1 and 4.2.
+   The following section presents the results for Phase 1 and
+Phase 2 of the evaluation methodology described in this
+section.
+
+5     RESULTS
+                                                                     Fig. 6. Accuracy results for the two evaluation experiments of the
+Following the layered evaluation approach, the results for           Phase 1 of the teacher ICT Competence Elicitation Mechanism.
+each of the two Layers of the proposed RS are presented
+separately in the following sections.                                prominent reason that teachers could have provided incor-
+                                                                     rect descriptions of their ICT competences to begin with.
+                                                                        This is a very common issue in the user profiling litera-
+5.1   Teacher ICT Competence Profile Elicitation
+                                                                     ture, where users provide incomplete or false profiling data
+      Method Evaluation
+                                                                     [21], [25]. Therefore, the manually-provided data would not
+As aforementioned, an initial evaluation of the Phase 1 was          always correctly represent the current level of ICT compe-
+conducted in our previous work [16]. These preliminary               tence of the teacher that provided them, as opposed to the
+evaluation results (Experiment #1) are presented in                  automatic elicitation method, which captures the teachers’
+Fig. 6 along with the new Phase 1 evaluation results gen-            actual usage patterns in using LOs and can therefore provide
+erated from the updated version of the ODS dataset                   a more solid indicator of preference and competence [29].
+(Experiment #2). Both sets of results provide evidence               Nonetheless, the re-creation accuracy results are signifi-
+of the proposed method’s high efficiency to elicit the               cantly high in all experiments and for both Aggregation
+ICT-CP of teachers based on their “Usage Data”.                      Levels despite this known shortcoming.
+   More specifically, for Educational Resources (AL1 LOs)               Moreover, regarding the result differences between Exper-
+the proposed system re-created the existing ICT-CP, which,           iment #1 and Experiment #2, despite their small size, they
+as aforementioned, where provided by the teachers                    could be attributed to the updated sets of “Usage Data” that
+themselves in a manual manner through a web-form, with               the ODS dataset contained. These potential data alterations
+70 percent accuracy in the initial Experiment #1 and with            could have triggered these minor accuracy changes of the sys-
+73 percent accuracy in the updated Experiment #2. For Les-           tem, since the actual teachers’ usage patterns could have been
+son Plans (AL2 LOs) the ICT-CP re-creation accuracy level            slightly altered since the initial version, without a correspond-
+was 81 percent in the initial evaluation Experiment #1 and           ing manual change in the ICT-CP by the teacher. In any case,
+79 percent accuracy in the new evaluation Experiment #2.             however, as Fig. 6 depicts, the evaluation result deviations
+   Regarding the evaluation results’ accuracy levels in their        between the two Experiments are very small and the absolute
+own regard, they are very promising for both evaluation              evaluation results are consistent between Experiments, indi-
+experiments. The reported deviations from the original,              cating the proposed elicitation method’s robustness.
+user-provided ICT-CPs can be mainly attributed to the                   Overall, the evaluation results for the first Layer of the pro-
+                                                                     posed system were promising and provided with evidence
+                          TABLE 4
+             Overview of Evaluation Methodology                      that the teacher ICT-CP Elicitation Method could be utilized
+                                                                     within learning object repositories, in order to elicit the teach-
+                                 Evaluation                          ers ICT-CP. As aforementioned, this information could allow
+RS Layer                                                             for enhanced LO recommendations. The evaluation results
+           Dataset   Benchmark         Evaluation      Evaluation
+                                       Focal Point     Metric        for the latter, which represents the second Layer of the pro-
+                      Existing          ICT-CP                       posed system, are presented in the following section.
+Layer 1     ODS       teacher           Re-creation    Jaccard
+                      ICT-CP            accuracy       Coefficient   5.2 ICT Competence-Based Learning Object
+                      UPCC              Rating                            Recommendations Evaluation
+Layer 2     DtC,                        Predictive     RMSE
+                                                                     The second Phase in the layered evaluation of the proposed
+            OSR                         Accuracy
+                      ICCC                                           approach to LO recommendations focused on the added
+                                                                     value it could provide in terms of predictive accuracy, by
+76                                                     IEEE TRANSACTIONS ON LEARNING TECHNOLOGIES,           VOL. 9, NO. 1,   JANUARY-MARCH 2016
+
+
+
+
+Fig. 7. Preditive accuracy evaluation results for AL1 Learning Objects in   Fig. 8. Preditive accuracy evaluation results for AL2 Learning Objects in
+the DtC dataset.                                                            the DtC dataset.
+
+
+utilizing the generated teacher ICT-CP from the first Layer.                        characteristics of the DtC AL2 dataset and its compari-
+As aforementioned, the DtC (for AL1 and AL2 LO) and OSR                             son to its AL1 equivalent. More specifically, as Table 3
+(for AL1 LO) datasets were utilized in this process. The eval-                      depicted, the DtC AL2 dataset was much denser (Rat-
+uation results for each dataset will be presented in separate.                      ing Density) and had a lesser value of Rating Standard
+                                                                                    Deviation. Therefore, building on (and confirming)
+     1.   Discover the Cosmos dataset. Figs. 7 and 8 depict the                     the findings of [68], we mainly attribute the difference
+          evaluation results of the DtC dataset for the two                         of the results of Figs. 7 and 8 (and the enhanced pre-
+          Aggregation Levels of learning objects that the data-                     dictive accuracy of the RS in the DtC AL2 dataset), to
+          set contained. As the Fig. 7 depicts, the proposed                        these two dataset characteristics’ values.
+          approach outperfoms both control recommendation                              Moreover, the significant improvement of Rating
+          methods for the AL1 LOs.                                                  Density (compared to the DtC AL1 dataset) increased
+             Even though the accuracy of the two benchmark                          the NS threshold that provided better predictive accu-
+          methods increases considerably as the neighborhood                        racy for all three recommendation methods. More
+          size (NS) grows, they are outperformed by the pro-                        specifically, the NS threshold for the UPCC control
+          posed FH approach for all NS values. Moreover, in                         method was increased to around 17 and for the pro-
+          the user-based control method, the threshold neigh-                       posed FH, as well as for the ICCC control method, the
+          borhood size is around 10, meaning that increasing                        NS threshold is around 18.
+          the neighbors above that threshold does not offer                            Overall, despite the significant improvement in all
+          significant increase in accuracy.                                         three RS methods in the DtC AL2 datasets (compared
+             This is due to the fact that relatively few ratings                    to the DtC AL1), the proposed FH still outperformed
+          and users were available in the DtC dataset for the                       the two benchmark methods and, essentially, deliv-
+          AL1 LOs. Therefore, the user neighborhoods had                            ered more accurate LO recommendations.
+          limited data to be built on. This is closely related to             2.    Open science resources dataset. As aforementioned, the
+          the influence of dataset characteristics described in                     OSR dataset only contained usable data for AL1
+          Section 4.2, and more specifically, the Rating Density                    LOs. The accuracy evaluation results are presented
+          [68]. For the ICCC method this occurs at a smaller                        in Fig. 9.
+          degree, since, regarding candidate neighbors at least,                    As the Fig. 9 depicts, the proposed approach again
+          there is a larger pool to choose from (i.e., the AL1                      ourperforms both benchmark methods for all neigh-
+          LOs of the dataset). The ICCC accuracy (as well as                        borhood sizes.
+          the proposed FH’s accuracy), therefore, continues to                      Moreover, the predictive accuracy of all approaches
+          improve for a larger NS span, and begins to plateu at                     is decreased compared to the DtC AL2 dataset, but
+          around 15 neighbors. Therefore, the findings from                         are better that the DtC AL1 dataset. This finding can
+          this dataset conclude that the proposed FH approach                       be explained by considering the dataset characteris-
+          provides more accurate LO recommendations,                                tics presented in Table 3. More specifically, as the
+          throughout the NS span.                                                   Table 3 data depict, the values for both OSR dataset
+             Regarding AL2 LOs (Fig. 8), the proposed                               charasteristics (i.e., Rating Density and Rating Stan-
+          approach similarly outperfoms both control recom-                         dard Deviation) are better that the DtC AL1 and
+          mendation methods for all NS values. Moreover, it is                      worse than the DtC AL2. Therefore, the predictive
+          important to notice that all three methods’ predictive                    accuracy results depicted in Fig. 9 (and their connec-
+          accuracy is considerably increased, compared to                           tion to the results of Figs. 7 and 8) can be attributed
+          their AL1 equivalents.                                                    to these facts. Regarding the NS thresholds, the
+             The reason for this universal performance                              results follow a similar pattern, i.e., they are
+          improvement can be attributed to the dataset                              increased compared to the DtC AL1 dataset and
+SERGIS AND SAMPSON: LEARNING OBJECT RECOMMENDATIONS FOR TEACHERS BASED ON ELICITED ICT COMPETENCE PROFILES                                77
+
+
+                                                                            method robustness. Overall, both individual Layer evalua-
+                                                                            tions, as well as in combination (as a holistic system), pro-
+                                                                            vided with evidence that the proposed approach can
+                                                                            generate LO recommendations to teachers, which are per-
+                                                                            sonalized to their level of ICT competence. Moreover, the
+                                                                            increased granularity offered by the fuzzy depiction of ICT
+                                                                            competences was shown to have provided an added value
+                                                                            in the overall RS performance.
+                                                                               Therefore, the evaluation results show that the proposed
+                                                                            RS has the potential to be used for assisting teachers in their
+                                                                            everyday tasks of course design, lesson planning as well as
+                                                                            their implementation and delivery, by facilitating the pro-
+                                                                            cess of selecting and retrieving appropriate LOs that match
+                                                                            the teachers’ ICT competence levels.
+                                                                               Future work in this research agenda could include the
+                                                                            investigation in a granulated manner of the level of influ-
+                                                                            ence that the different levels of teachers’ ICT competence
+Fig. 9. Preditive accuracy evaluation results for AL1 Learning Objects in   can have on the predictive accuracy of the proposed sys-
+the OSR dataset.
+                                                                            tem. Moreover, it would be interesting to investigate the
+                                                                            potential of adaptive neighbor selection. More specifically,
+        decreased compared to the DtC AL2 dataset. More                     this strand will aim to extend the work presented in this
+        specifically, the UPCC control method plateus at                    paper which included selecting the active teacher neigh-
+        around 16 neighbors, and the ICCC control method,                   bors based on their ICT-CP similarity. The next step will
+        as well as the proposed FH approach plateu at                       be to select neighbors in an adaptive manner depending
+        around 17 neighbors.                                                on (a) the specific metadata attribute type of candidate LO
+        Therefore, the OSR dataset re-validated the promis-                 to be recommended and (b) the specific ICT competences
+        ing results of the two DtC datasets, i.e., that the pro-            of the candidate neighbors in this particular LO type. By
+        posed FH approach can deliver more accurate LO                      performing this dynamic neighborhood creation, the
+        recommendations to teachers, for all NS.                            “gravity” of each neighbor in the recommendation process
+   Overall, a consolidated overview of the predictive accu-                 will be properly adjusted to reflect not only their similar-
+racy of the proposed FH approach provides with evidence                     ity to the active teachers’ ICT-CP, but also their
+of the added value that it can offer. More specifically, the                “credibility” to recommend this particular LO metadata
+reported promising results from Phase 2 evaluation experi-                  attribute type. Put simply, from the initial pool of ICT
+ments in the DtC (for both AL1 and AL2 LOs) and OSR                         competence-based neighbors (proposed in the present
+datasets show that the proposed approach can deliver more                   paper), those that are more highly competent in the partic-
+accurate LO recommendations to teachers based on their                      ular LO type (that is to be recommended) will have an
+elicited ICT Competence profiles. This is in line with the                  increased “gravity” of opinion.
+findings of our previous work [15] which presented initial                     Finally, further research should be focused on incorpo-
+evidence that incorporating (existing) teachers’ ICT-CP in                  rating additional contextual factors in the LO recommenda-
+the LO recommendation process can provide with increased                    tion process for teachers, such as the ICT Competences of
+accuracy and, essentially, better results.                                  their school [70], [71]. The reason for this is that such contex-
+                                                                            tual factors (e.g., school infrastructure and school leader ICT
+                                                                            competences) have been repeatedly reported as significant
+6    CONCLUSIONS AND FUTURE WORK                                            in the level of uptake of ICT in the formal learning processes
+This paper introduced and evaluated a new RS for provid-                    [72]. Therefore, accommodating them within the LO selec-
+ing LO recommendations to teachers based on their ICT-CP                    tion process would potentially extend the scope of the pro-
+elicited from their relevance feedback data.                                posed RS and improve its capacity to facilitate teachers in
+   More specifically, the proposed system was divided in                    selecting appropriate LOs for their unique context of work
+two Layers, namely (a) the teacher ICT Competence Profile                   and, therefore, to optimize their instructional design and
+Elicitation Layer, which was targeted at eliciting and con-                 delivery efforts.
+structing the teachers’ ICT-CP based on their relevance
+feedback data, and (b) the ICT Competence-based LO Rec-                     ACKNOWLEDGMENTS
+ommendation Layer, which utilized the elicited teacher
+                                                                            The work presented in this paper has been partially sup-
+ICT-CP from Layer 1 for providing more informed LO
+                                                                            ported by (a) the “Open Discovery Space: A socially-
+recommendations.
+   The RS evaluation followed the same layered approach                     powered and multilingual open learning infrastructure to
+and provided with evaluation results for each system Layer.                 boost the adoption of eLearning Resources” Project that is
+Regarding the Layer 1 evaluation, the expreriment pre-                      funded by the European Commission’s CIP-ICT Policy Sup-
+sented in this paper was the second one being conducted                     port Programme (Project Number: 297229) and (b)
+and the consistency between the two Experiments provides                    “Inspiring Science: Large Scale Experimentation Scenarios
+with additional evidence of the proposed elicitation’s                      to Mainstream eLearning in Science, Mathematics and
+78                                                         IEEE TRANSACTIONS ON LEARNING TECHNOLOGIES,              VOL. 9, NO. 1,    JANUARY-MARCH 2016
+
+
+Technology in Primary and Secondary Schools” Project that                        [19] P. Brusilovsky and E. Millan, “User models for adaptive
+                                                                                      hypermedia and adaptive educational systems,” in The Adap-
+is funded by the European Commission’s CIP-ICT Policy                                 tive Web Lecture Notes in Computer Science, vol. 4321, P. Brusi-
+Support Programme (Project Number: 325123). Moreover,                                 lovsky, A. Kobsa, and W. Nejdl, Eds. New York, NY, USA:
+the authors would like to acknowledge the Discover the                                Springer, 2007, pp. 3–53.
+                                                                                 [20] F. Ricci, L. Rokach, and B. Shapira, “Introduction to recommender
+Cosmos and the Open Science Resources Projects for pro-                               systems handbook,” in Recommender Systems Handbook, F. Ricci, L.
+viding the corresponding educational datasets. Until Sep-                             Rokach, B. Shapira, and P. B. Kantor, Eds. New York, NY, USA:
+tember 2015, D. G. Sampson was with the Department of                                 Springer, 2011, pp. 1–35.
+                                                                                 [21] S. Schiaffino and A. Amandi, “Intelligent user profiling,” in Artifi-
+Digital Systems, University of Piraeus, Greece.                                       cial Intelligence: An International Perspective, M. Bramer, Ed. New
+                                                                                      York, NY, USA: Springer, 2009, pp. 193–216.
+REFERENCES                                                                       [22] M. Ferreira-Satler, F. P. Romero, V. H. Menendez-Dominguez, A.
+                                                                                      Zapata, and M. E. Prieto, “Fuzzy ontologies-based user profiles
+[1]    J. Bobadilla, F. Ortega, A. Hernando, and A. Gutierrez,                       applied to enhance e-learning activities,” Soft Comput., vol. 16,
+       “Recommender systems survey,” Knowl.-Based Syst., vol. 46,                     no. 7, pp. 1129–1141, 2013.
+       pp. 109–132, 2013.                                                        [23] X. Qi, “Research on user profiling technology for personalized
+[2]    J. Bobadilla, F. Ortega, A. Hernando, and J. Alcala, “Improving                demands,” in Proc. Int. Conf. Intell. Comput. Technol. Automation,
+       collaborative filtering recommender system results and perfor-                 2010, vol. 3, pp. 198–201.
+       mance using genetic algorithms,” Knowl.-Based Syst., vol. 46, no. 8,      [24] M. Y. H. Al-Shamri and K. K. Bharadwaj, “Fuzzy-genetic
+       pp. 1310–1316, 2011.                                                           approach to recommender systems based on a novel hybrid user
+[3]    Z. Huang, D. Zeng, and H. Chen, “A comparison of collaborative-                model,” Expert Syst. Appl., vol. 35, no. 3, pp. 1386–1399, 2008.
+       filtering recommendation algorithms for e-commerce,” IEEE                 [25] M. Belk, E. Papatheocharous, P. Germanakos, and G. Samaras,
+       Intell. Syst., vol. 22, no. 5, pp. 68–78, Sep. 2007.                           “Modeling users on the world wide web based on cognitive fac-
+[4]    N. Manouselis, H. Drachsler, K. Verbert, and E. Duval,                         tors, navigation behavior and clustering techniques,” J. Syst.
+       “Introduction and background,” in Recommender Systems for Learn-               Softw., vol. 86, no. 12, pp. 2995–3012, 2013.
+       ing, N. Manouselis, H. Draschler, K. Verbert, and E. Duval, Eds.          [26] L. Marin, A. Moreno, and D. Isern, “Automatic preference learn-
+       New York, NY, USA: Springer, 2013, pp. 1–20.                                   ing on numeric and multi-valued categorical attributes,” Knowl.-
+[5]    P. Lops, M. de Gemmis, and G. Semeraro, “Content-based recom-                  Based Syst., vol. 56, pp. 201–215, 2014.
+       mender systems: State of the art and trends,” in Recommender Sys-         [27] M. de Gemmis, L. Iaquinta, P. Lops, C. Musto, F. Narducci, and G.
+       tems Handbook, F. Ricci, L. Rokach, B. Shapira and P. B. Kantor,               Semeraro, “Learning preference models in recommender sys-
+       Eds. New York, NY, USA: Springer, 2011, pp. 73–105.                            tems,” in Preference Learning, F. F€   urnkranz and E. H€    ullermeier,
+[6]    J. B. Schafer, D. Frankowski, J. Herlocker, and S. Sen,                        Eds. New York, NY, USA: Springer, 2011, pp. 387–407.
+       “Collaborative filtering recommender systems,” in The Adaptive            [28] M. Zanker and M. Jessenitschnig, “Case-studies on exploiting
+       Web, P. Brusilovsky, A. Kobsa, W. Nejdl, Eds. New York, NY,                    explicit customer requirements in recommender systems,” User
+       USA: Springer, 2007, pp. 291–324.                                              Model. User-Adapted Interaction, vol. 19, nos. 1/2, pp. 133–166, 2009.
+[7]    R. Burke, “Hybrid recommender systems: Survey and                         [29] L. Marin, D. Isern, A. Moreno, and A. Valls, “On-line dynamic
+       experiments,” User Model. User-Adapted Interaction, vol. 12, no. 4,            adaptation of fuzzy preferences,” Inf. Sci., vol. 220, pp. 5–21, 2013.
+       pp. 331–370, 2002.                                                        [30] N. Manouselis, H. Drachsler, K. Verbert, and E. Duval, “TEL as a
+[8]    R. Burke, “Hybrid web recommender systems,” in The Adaptive                    recommendation context,” in Recommender Systems for Learning,
+       Web, P. Brusilovsky, A. Kobsa, W. Nejdl, Eds. New York, NY,                    N. Manouselis, H. Drachsler, K. Verbert, and E. Duval, Eds. New
+       USA: Springer, 2007, pp. 377–408.                                              York, NY, USA: Springer, 2013, pp. 21–36.
+[9]    L. Marin, D. Isern, and A. Moreno, “Dynamic adaptation of                 [31] K. Chrysafiadi and M. Virvou, “Student modeling approaches: A
+       numerival attributes in a user profile,” Appl. Intell., vol. 39, no. 2,        literature review for the last decade,” Expert Syst. Appl., vol. 40,
+       pp. 421–437, 2013.                                                             no. 11, pp. 4715–4729, 2013.
+[10]   G. Adomavicius and A. Tuzhilin, “Toward the next generation of            [32] S. Garcia-Martinez and A. Hamou-Lhadj, “Educational recom-
+       recommender systems: A survey of the state-of-the-art and possi-               mender systems: A pedagogical-focused perspective,” in Multime-
+       ble extensions,” IEEE Trans. Knowl. Data Eng., vol. 17, no. 6,                 dia Services in Intelligent Environments, G. A. Tsihrintzis, M. Virvou,
+       pp. 734–749, Jun. 2005.                                                        and L. C. Jain, Eds. New York, NY, USA: Springer, 2013,
+[11]   S. Sergis, P. Zervas, and D. G. Sampson, “Towards learning                     pp. 113–124.
+       object recommendations based on teachers’ ICT competence                  [33] J. Tondeur, M. Cooper, and C. P. Newhouse, “From ICT coordina-
+       profiles,” in Proc. 14th IEEE Int. Conf. Adv. Learn. Technol.,                 tion to ICT integration: A longitudinal case study,” J. Comput.
+       2014, pp. 534–538.                                                             Assisted Learn., vol. 26, no. 4, pp. 296–306, 2010.
+[12]   Y. Goktas, N. Gedik, and O. Baydas, “Enablers and barriers to the         [34] A. Zapata, V. H. Menendez, M. E. Prieto, and C. Romero, “A
+       use of ICT in primary schools in Turkey: A comparative study of                framework for recommendation in learning object repositories:
+       2005–2011,” Comput. Educ., vol. 68, pp. 211–222, 2013.                         An example of application in civil engineering,” Adv. Eng. Softw.,
+[13]   M. Solar, J. Sabattin, and V. Parada, “A maturity model for assess-            vol. 56, pp. 1–14, 2013.
+       ing the use of ICT in school education,” Educ. Technol. Soc., vol. 16,    [35] N. Manouselis, R. Vuorikari, and F. Van Assche, “Collaborative
+       no. 1, pp. 206–218, 2013.                                                      recommendation of E-learning resources: An experimental inves-
+[14]   G. Sang, M. Valcke, J. van Braak, and J. Tondeur, “Student                     tigation,” J. Comput. Assisted Learn., vol. 26, no. 4, pp. 227–242,
+       teachers’ thinking processes and ICT integration: Predictors of                2010.
+       prospective teaching behaviors with educational technology,”              [36] C. Limongelli, A. Miola, F. Sciarrone, and M. Temperini,
+       Comput. Educ., vol. 54, no. 1, pp. 103–112, 2010.                              “Supporting teachers to retrieve and select learning objects for
+[15]   S. Sergis, P. Zervas, and D. G. Sampson, “ICT competence-based                 personalized courses in the moodle_LS environment,” in Proc.
+       learning object recommendations for teachers,” in Proc. IADIS                  12th Int. Conf. Adv. Learn. Technol., 2012, pp. 518–520.
+       11th Int. Conf. Cognition Exloratory Learn. Digital Age, 2014,            [37] J. Bozo, R. Alarc   on, and S. Iribarra, “Recommending learning
+       pp. 150–157.                                                                   objects according to a teachers’ contex model,” in Proc. 5th Eur.
+[16]   S. Sergis and D. G. Sampson, “Eliciting teachers’ ICT competence               Conf. Technol. Enhanced Learn. Conf. Sustaining TEL: From Innova-
+       profiles based on usage patterns within learning object                        tion Learn. Practice, 2010, pp. 470–475.
+       repositories,” in Proc. 6th IEEE Int. Conf. Technol. Educ., 2014,         [38] A. Walker, M. M. Recker, K. Lawless, and D. Wiley,
+       pp. 99–105.                                                                    “Collaborative information filtering: A review and an educa-
+[17]   P. Brusilovsky, C. Karagiannidis, and D. Sampson, “Layered eval-               tional application,” Int. J. Artif. Intell. Educ., vol. 14, no. 1,
+       uation of adaptive learning systems,” Int. J. Continuing Eng. Educ.            pp. 3–28, 2004.
+       Lifelong Learn., vol. 14, nos. 4/5, pp. 402–421, 2004.                    [39] S. Rafaeli, M. Barak, Y. Dan-Gur, and E. Toch, “QSIA—A web-
+[18]   N. Manouselis, C. Karagiannidis, and D. Sampson, “Layered eval-                based environment for learning, assessing and knowledge sharing
+       uation in recommender systems: A retrospective assessment,”                    in communities,” Comput. Educ., vol. 43, no. 3, pp. 273–289, 2004.
+       Comput. Sci. Inf. Syst., vol. 10, no. 1, pp. 109–127, 2014.
+SERGIS AND SAMPSON: LEARNING OBJECT RECOMMENDATIONS FOR TEACHERS BASED ON ELICITED ICT COMPETENCE PROFILES                                                79
+
+[40] B. E. Shelton, J. Duffin, Y. Wang, and J. Ball, “Linking open course       [59] D. Sampson and D. Fytros, “Competence models in technology-
+     wares and open education resources: Creating an effective search                enhanced competence-based learning,” in Handbook on Information
+     and recommendation system,” Procedia Comput. Sci., vol. 1, no. 2,               Technologies for Education and Training, H. H. Adelsberger, Kin-
+     pp. 2865–2870, 2010.                                                            shuk and J. M. Pawlowski, Eds. New York, NY, USA: Springer,
+[41] P. Brusilovsky, L. N. Cassel, L. M. Delcambre, E. A. Fox, R. Furuta,            2008, pp. 155–177.
+     D. D. Garcia, and M. Yudelson, “Social navigation for educational          [60] L. Candillier, F. Meyer, and M. Boulle, “Comparing state-of-the-
+     digital libraries,” Procedia Comput. Sci., vol. 1, no. 2, pp. 2889–2897,        art collaborative filtering systems,” in Proc. 5th Int. Conf. Mach.
+     2010.                                                                           Learn. Data Mining Pattern Recog., 2007, pp. 548–562.
+[42] K. Schoefegger, P. Seitlinger, and T. Ley, “Towards a user model           [61] W. V. Leekwijck and E. E. Kerre, “Defuzzification: Criteria and
+     for personalized recommendations in work-integrated learning: A                 classification,” Fuzzy Sets Syst., vol. 108, no. 2, pp. 159–178, 1999.
+     report on an experimental study with a collaborative tagging sys-          [62] K. Verbert, H. Drachsler, N. Manouselis, M. Wolpers, R.
+     tem,” Procedia Comput. Sci., vol. 1, no. 2, pp. 2829–2838, 2010.                Vuorikari, and E. Duval, “Dataset-driven research for improving
+[43] Y. Wang and K. Sumiya, “Semantic ranking of lecture slides based                recommender systems for learning,” in Proc. 1st Int. Conf. Learn.
+     on conceptual relationship and presentational structure,” Procedia              Anal. Knowl., 2011, pp. 44–53.
+     Comput. Sci., vol. 1, no. 2, pp. 2801–2810, 2010.                          [63] G. Shani and A. Gunawardana, “Evaluating recommendation sys-
+[44] V. A. Zaldivar and D. Burgos, “Meta-mender: A meta-rule based                   tems,” in Recommender Systems Handbook, F. Ricci, L. Rokach,
+     recommendation system for educational applications,” Procedia                   B. Shapira, and P. B. Kantor, Eds. New York, NY, USA: Springer,
+     Comput. Sci., vol. 1, no. 2, pp. 2877–2882, 2010.                               2011, pp. 257–297.
+[45] H. Avancini and U. Straccia, “User recommendation for collabora-           [64] J. Herlocker, J. A. Konstan, and J. Riedl, “An empirical analysis of
+     tive and personalised digital archives,” Int. J. Web Based Communi-             design choices in neighborhood-based collaborative filtering algo-
+     ties, vol. 1, no. 2, pp. 163–175, 2005.                                         rithms,” Inf. Retrieval, vol. 5, no. 4, pp. 287–310, 2002.
+[46] S. El Helou, C. Salzmann, and D. Gillet, “The 3A personalized,             [65] B. Sarwar, G. Karypis, J. Konstan, and J. Riedl, “Item-based collab-
+     contextual and relation-based recommender system,” J. Universal                 orative filtering recommendation algorithms,” in Proc. 10th Int.
+     Comput. Sci., vol. 16, no. 16, pp. 2179–2219, 2010.                             Conf. World Wide Web, 2001, pp. 285–295.
+[47] K. H. Tsai, T. K. Chiu, M. C. Lee, and T. I. Wang, “A learning             [66] J. L. Herlocker, J. A. Konstan, L. G. Terveen, and J. T. Riedl,
+     objects recommendation model based on the preference and onto-                  “Evaluating collaborative filtering recommender systems,” ACM
+     logical approaches,” in Proc. 6th Int. Conf. Adv. Learn. Technol.,              Trans. Inf. Syst., vol. 22, no. 1, pp. 5–53, 2004.
+     2006, pp. 36–40.                                                           [67] D. G. Sampson, P. Zervas, and S. Sotiriou, “Learning object reposi-
+[48] G. Sielis, C. Mettouris, A. Tzanavari, and G. Papadopoulos,                     tories for science education: The case of the open science resources
+     “Context-aware recommendations using topic maps technology                      repository,” in Proc. 11th IEEE Int. Conf. Adv. Learn. Technol., 2011,
+     for the enhancement of the creativity process,” in Educational                  pp. 358–359.
+     Recommender Systems and Technologies: Practices and Challenges,            [68] G. Adomavicius and J. Zhang, “Impact of data characteristics on
+     O. Santos and J. Boticatio, Eds. Hershey, PA, USA: IGI-Global,                  recommender systems performance,” ACM Trans. Manage. Inf.
+     2012, pp. 43–66.                                                                Syst., vol. 3, no. 1, pp. 3:1–3:17, 2012.
+[49] M. Garcıa-Valdez and B. Parra, “A hybrid recommender system               [69] J. Bobadilla and F. Serradilla, “The effect of sparsity on collabora-
+     architecture for learning objects,” in Evolutionary Design of Intelli-          tive filtering metrics,” in Proc. 20th Austral. Conf. Austral. Database,
+     gent Systems in Modeling, Simulation and Control, O. Castillo                   2009, vol. 92, pp. 9–18.
+     and W. Pedrycz, Eds. New York, NY, USA: Springer, 2009,                    [70] S. Sergis, I. Sholla, P. Zervas, and D. Sampson, “Supporting school
+     pp. 205–211.                                                                    ICT uptake: The ASK school ICT competence management sys-
+[50] R. Schirru, S. Baumann, M. Memmel, and A. Dengel, “Extraction                   tem,” in Proc. Int. Conf. Interactive Mobile Commun. Technol. Learn.,
+     of contextualized user interest profiles in social sharing                      2014, pp. 359–363.
+     platforms,” J. Universal Comput. Sci., vol. 16, no. 16, pp. 2196–2213,     [71] S. Sergis, P. Zervas, and D. Sampson, “A holistic approach for
+     2010.                                                                           managing school ICT competence profiles towards supporting
+[51] H. Drachsler, D. Pecceu, T. Arts, E. Hutten, L. Rutledge, P. Van                school ICT uptake,” Int. J. Digital Literacy Digital Competence,
+     Rosmalen, and R. Koper, “Remashed—Recommendations for                           vol. 5, no 4, pp. 33–46, 2014.
+     mash-up personal learning environments,” in Learning in the Syn-           [72] S. Sergis and D. G. Sampson, “From teachers’ to schools’ ICT com-
+     ergy of Multiple Disciplines, U. Cress, V. Dimitrova, and M. Specht,            petence profiles,” in Digital Systems for Open Access to Formal and
+     Eds. New York, NY, USA: Springer, 2009, pp. 788–793.                            Informal Learning, D. Sampson, D. Ifenthaler, J. M. Spector and
+[52] S. Fazeli, H. Drachsler, F. Brouns, and P. Sloep, “Towards a social             P. Isaias, Eds., New York, NY, USA: Springer, 2014, pp. 307–327.
+     trust-aware recommender for teachers,” in Recommender Systems
+     for Technology Enhanced Learning, N. Manouselis, H. Drachsler,
+     K. Verbert, and O. C. Santos, Eds. New York, NY, USA: Springer,
+     2014, pp. 177–194.
+[53] J. Dron, R. Mitchell, P. Siviter, and C. Boyne, “Cofind—An experi-
+     ment in N-dimensional collaborative filtering,” J. Netw. Comput.
+     Appl., vol. 23, no. 2, pp. 131–142, 2000.
+[54] C. Cobos, O. Rodriguez, J. Rivera, J. Betancourt, M. Mendoza, E.
+     Leon, and E. Herrera-Viedma, “A hybrid system of pedagogical
+     pattern recommendations based on singular value decomposition
+     and variable data attributes,” Inf. Process. Manage., vol. 49, no. 3,
+     pp. 607–625, 2013.
+[55] P. Zervas, K. Chatzistavrianos, and D. Sampson, “Towards
+     modeling teachers’ ICT competence profile in Europe,” in ICT in
+     Education in Global Context, R. Huang, Kinshuk and J. K. Price Eds.
+     New York, NY, USA: Springer, 2014, pp. 163–184.
+[56] N. Athanasiadis, S. Sotiriou, P. Zervas, and D. G. Sampson, “The
+     open discovery space portal: A socially-powered and open feder-
+     ated infrastructure,” in Digital Systems for Open Access to Formal
+     and Informal Learning, D. G. Sampson, D. Ifenthaler, J. M. Spector,
+     P. Isaias Eds. New York, NY, USA: Springer, 2014, pp. 11–23.
+[57] T.-C. Hsieh, T.-I. Wang, C.-Y. Su, and M.-C. Lee, “A fuzzy logic-
+     based personalized learning system for supporting adaptive
+     english learning,” Educ. Technol. Soc., vol. 15, no. 1, pp. 273–288,
+     2012.
+[58] D. Anand and B. S. Mampilli, “Folksonomy-based fuzzy user pro-
+     filing for improved recommendations,” Expert Syst. Appl., vol. 41,
+     no. 5, pp. 2424–2436, 2014.
+80                                                     IEEE TRANSACTIONS ON LEARNING TECHNOLOGIES,            VOL. 9, NO. 1,   JANUARY-MARCH 2016
+
+                        Stylianos Sergis received the BSc degree in                                  Demetrios G. Sampson (SM’04) received the
+                        informatics and telecommunications from the                                  diploma in electrical engineering from the Demo-
+                        Department of Informatics and Telecommunica-                                 critus University of Thrace, Greece, in 1989, and
+                        tions, National and Kapodistrian University of                               the PhD degree in electronic systems engineer-
+                        Athens, Greece, in June 2010, and the MSc                                    ing from the University of Essex, United King-
+                        degree in informatics in education from the Fac-                             dom, in 1995. From October 2015, he is a
+                        ulty of Primary Education, National and Kapodis-                             professor of learning technologies at the School
+                        trian University of Athens, Greece, in June 2012.                            of Education, Curtin University, Western
+                        Since July 2013, he has been working toward the                              Australia. He was a professor of digital systems
+                        PhD degree at the Department of Digital Sys-                                 for learning and education at the Department of
+                        tems, University of Piraeus. His PhD research                                Digital Systems, University of Piraeus, Greece,
+focuses on Recommender Systems for Technology enhanced Educa-               from 2003 to 2015, and a research fellow at the Information Technolo-
+tion. He is a student member of the IEEE.                                   gies Institute (ITI), Centre of Research and Technology Hellas (CERTH)
+                                                                            since 2000. Since 1999, he has been the founder and director of the
+                                                                            Advanced Digital Systems and Services for Education and Learning
+                                                                            (ASK). His main scientific interests are in the area of learning technolo-
+                                                                            gies. He is the coauthor of 345 publications in scientific books, journals,
+                                                                            and conferences with at least 1,620 known citations (h-index: 21). He
+                                                                            has received eight times Best Paper Award in international conferences
+                                                                            on Advanced learning technologies. He is a coeditor-in-chief of the Edu-
+                                                                            cational Technology and Society Journal (5-year impact factor 1.34). He
+                                                                            has served or serves as a member of the Steering Committee of the
+                                                                            IEEE Transactions on Learning Technologies, member of the Advisory
+                                                                            Board of the Journal of King Saud University-Computer and Information
+                                                                            Sciences and the International Journal of Digital Literacy and Digital
+                                                                            Competence, member of the Editorial Board of 23 International/National
+                                                                            Journals, and a guest coeditor in 28 Special Issues of International Jour-
+                                                                            nals. His participation in the organization of scientific conferences
+                                                                            involves: General and/or Program Committee chair for 40 International
+                                                                            Conferences, and Program Committees member for 400 International/
+                                                                            National Scientific Conferences. He has been a Keynote/Invited Speaker
+                                                                            at 65 International/National Conferences. He has been project director,
+                                                                            principle investigator, and/or consultant for 65 R&D projects with exter-
+                                                                            nal funding at the range of 14 Million € (1991-2016). He was the elected
+                                                                            Chair of the IEEE Computer Society Technical Committee on Learning
+                                                                            Technologies (2008-2011). He is the recipient of the IEEE Computer
+                                                                            Society Distinguished Service Award (July 2012). He is a senior and
+                                                                            golden core member of the IEEE.
+

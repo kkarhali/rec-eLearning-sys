@@ -1,0 +1,933 @@
+Received May 22, 2018, accepted July 6, 2018, date of publication July 17, 2018, date of current version August 20, 2018.
+Digital Object Identifier 10.1109/ACCESS.2018.2856753
+
+
+
+
+A Group-Oriented Recommendation Algorithm
+Based on Similarities of Personal Learning
+Generative Networks
+HAIPING ZHU1,2,3 , (Member, IEEE), YIFU NI1,2 , FENG TIAN 2,4 , (Member, IEEE), PEI FENG2,3 ,
+YAN CHEN1,2,3 , AND QINGHUA ZHENG1,2,3 , (Member, IEEE)
+1 Department of Computer Science and Technology, Xi’an Jiaotong University, Xi’an 710049, China
+2 MOEKLINNS Lab, Xi’an Jiaotong University, Xi’an 710049, China
+3 School of Electronic and Information Engineering, Xi’an Jiaotong University, Xi’an 710049, China
+4 Systems Engineering Institute, Xi’an Jiaotong University, Xi’an 710049, China
+
+Corresponding author: Feng Tian (fengtian@mail.xjtu.edu.cn)
+This work was supported in part by the National Key Research and Development Program of China under Grant 2018YFB1004500, in part
+by the National Science Foundation of China under Grant 61472315, in part by the Innovative Research Group of the National Natural
+Science Foundation of China under Grant 61721002, in part by the Innovation Research Team of the Ministry of Education under Grant
+IRT_17R86, and in part by the Project of the China Knowledge Centre for Engineering Science and Technology.
+
+
+
+
+  ABSTRACT To solve the lack of consideration of the learning time sequence and knowledge dependencies
+  in group-based recommendation, we proposed a novel group-oriented recommendation algorithm which is
+  characterized by mapping the user’s learning log to a personal learning generative network (PLGN) based on
+  a knowledge map. In this paper, we first provide calculation methods of similarity and temporal correlation
+  between knowledge points, where we provide the construction method of the PLGN. Second, a method for
+  measuring the similarities between any two PLGNs is proposed. According to the similarities, we perform
+  the CURE clustering algorithm to obtain learning groups. Third, based on the group clustering, the group
+  learning generative network using a graph overlay method is generated. We calculate the importance of the
+  vertices on the different learning needs and propose a group-oriented recommendation algorithm. Finally,
+  we compare the effect of the proposed recommendation to that of a group-based collaborative filtering
+  recommendation for the aspects of precision rate, recall rate, normalized discounted cumulative gain, and
+  the average accuracy of parameters (MAP). The experimental results show that the group-oriented learning
+  recommendation based on the learning generated network outperforms the group recommendation-based
+  collaborative filtering when the amount of data is large enough.
+
+
+  INDEX TERMS Graph similarity, group recommendation, knowledge map, learning generative network.
+
+
+I. INTRODUCTION                                                                                 Although the most widely used collaborative filtering algo-
+Most recommendation systems focus on recommendations                                            rithm can work on learning resource recommendations,
+for a single user. However, in many applications, it is nec-                                    it mainly uses score information but ignores the temporal and
+essary to make recommendations for groups. In recent years,                                     relational information of the recommended items, which can
+the group recommendation system has gradually become one                                        be of equal importance [2]. In recent years, research on rec-
+of the hot topics in the field of recommendation systems. It is                                 ommender systems has shown that knowledge maps are ben-
+the main task of group recommendation to integrate group                                        eficial for hybrid recommender systems, which concerning
+members’ preferences [1]. In particular, the users’ interest                                    the semantic relationships of the resources. Therefore, how
+preferences will change during the learning process. It is                                      to use the time sequence information and resource semantic
+necessary to update the corresponding recommendations in                                        relationships effectively and how to improve the accuracy of
+time. However, unlike movies, books, and music recommen-                                        the group-oriented recommendation algorithm are the core
+dations, learning resources contain rich semantic and cog-                                      issues of this paper.
+nitive relationships. Therefore, the recommended resource                                          In this paper, we propose a novel group-oriented recom-
+sequence directly affects the user’s cognitive learning.                                        mendation algorithm based on a learning generative network
+
+                                            2169-3536 2018 IEEE. Translations and content mining are permitted for academic research only.
+VOLUME 6, 2018                                    Personal use is also permitted, but republication/redistribution requires IEEE permission.           42729
+                                           See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+                                                                  H. Zhu et al.: Group-Oriented Recommendation Algorithm Based on Similarities of PLGNs
+
+
+
+
+that is characterized by mapping the users’ learning logs to                 generative networks of different users are also not the same
+a personal learning generative network (PLGN), which pro-                    at all, but it is obvious that some personal learning genera-
+vides the retention of learning time sequences and knowledge                 tive network structures are similar. This paper mainly exam-
+dependencies based on a knowledge map. Then, we construct                    ines how to make group learning subgraph recommendations
+the group learning generative network (GLGN) based on                        based on an analysis of the group learning characteristics and
+group clustering, which will duly capture group learners’                    group learning requirements with a reasonable time slice.
+interests, to provide flexible and accurate recommendations
+for the group.                                                               B. INNOVATION
+                                                                             The innovation of this study mainly includes the following:
+A. PROBLEM PRESENTATION                                                         The main idea of the PLGN is to map the temporal learning
+The basic idea of the learning generative network is to trans-               logs into a computable network model that takes full account
+form learning logs into a graph model, in which the vertices                 of the learning time sequences and diverse users’ behavior.
+are learning resources and the edges are learning relationships              First, learning logs are divided by different data quantities
+between resources. By analyzing the time slice of the learn-                 to generate the PLGNs. This approach will reflect the users’
+ing logs on a Java course, we extract the user vertices and                  dynamic learning processes. Second, different from the exist-
+the resource sequences and then construct the corresponding                  ing personal learning networks [3]–[5], which contain only
+learning generative network (see the fourth chapter of the                   user vertices and edges based on social relationships, the ver-
+specific construction method). In this paper, the learning                   tices in PLGNs represent the knowledge points. By extracting
+resources represent the knowledge points. Fig. 1 shows the                   the users’ learning behavior related to the knowledge points,
+different PLGNs of the same user on different time slices.                   the edge weights between the knowledge points and the
+Fig. 2 shows different PLGNs of different users at the same                  sequence relationships of the edges are calculated, in such a
+time slice. Among these figures, the redder vertices represent               way as to embody the diverse learning processes of different
+earlier learning times.                                                      users in the PLGNs.
+                                                                                A similarity calculation method based on PLGN content
+                                                                             and structure is proposed by means of graph kernel theory [6],
+                                                                             which allows user similarities to be calculated. The users are
+                                                                             divided into learning groups by using the CURE clustering
+                                                                             method. Most of the existing grouping methods rely on the
+                                                                             users’ explicit or implicit scores on the learning resources,
+                                                                             but they seldom consider the users’ temporal resource access
+                                                                             preferences during the learning process. In this paper, a clus-
+                                                                             tering method based on graph similarities of different time
+                                                                             slices is proposed to solve this problem.
+                                                                                The group learning generative network is constructed to
+FIGURE 1. An example of constructing the personal learning generative
+network (PLGN) in different time slices.                                     represent the common learning characteristics of the user
+                                                                             group. A multi-constraint model for vertex importance is used
+                                                                             for pertinent subgraph recommendations. The key point is
+                                                                             to obtain the common preferences of the group members,
+                                                                             to alleviate the preference conflicts among group members,
+                                                                             and, finally, to make the recommendation results satisfac-
+                                                                             tory for as many group members as possible. Based on the
+                                                                             graph fusion, this study mines the learning characteristics
+                                                                             and learning requirements of most users in the group, gives
+                                                                             the importance of nodes in the GLGN on different learning
+                                                                             needs, and builds a multi-constraint model for vertex impor-
+                                                                             tance. This paper uses the GLGN to recommend learning
+                                                                             subgraphs, which breaks through the monotony of the linear
+                                                                             ordering approach that appears in traditional recommenda-
+                                                                             tion systems.
+                                                                                In summary, this paper focuses on the construction and
+FIGURE 2. An example of constructing the personal learning generative        similarity computation method based on time-sliced learning
+network (PLGN) of different users in the same time slice.                    generative networks and proposes a group-oriented recom-
+                                                                             mendation algorithm based on a graph similarity calculation.
+   From Fig. 1 and Fig. 2, it can be seen that the learning                  In the second chapter, we introduce the related research on
+generative networks of the same user on different time slices                group division and group recommendations. In the third chap-
+are different in structure. On the same time slice, the learning             ter, we give the basic definitions of the user-knowledge-point
+
+42730                                                                                                                                    VOLUME 6, 2018
+H. Zhu et al.: Group-Oriented Recommendation Algorithm Based on Similarities of PLGNs
+
+
+
+
+heterogeneous network (UKN) and two types of learning                          hesitation about their preferences, which will be used in the
+generative networks (LGN). The fourth chapter proposes the                     group recommendation process.
+generation method of PLGN and gives the similarity calcu-                         It can be found from the above literature that user fea-
+lation method between PLGNs while considering both the                         ture selection is of great importance in the group divisions,
+PLGNs’ contents and structures. Then, the users are divided                    and it is usually required to combine the users’ static and
+into groups according to the PLGN similarities. In the fifth                   dynamic characteristics before establishing the best group
+chapter, based on the results of the group division, the con-                  model. In the field of e-learning, a learning group usually
+struction method of GLGN and the group-oriented learning                       refers to users with similar learning interests, including the
+subgraph recommendation algorithm based on the GLGN                            users’ accesses to the same learning resources. Users’ explicit
+are given. Then, the experiment data, experimental design                      scores on learning resources and the implicit attributes of
+and evaluating indicator are introduced, and the experimental                  access to resources, such as learning time and learning fre-
+results are analyzed. The sixth chapter is the summary and                     quency, are often used together to calculate the similarities
+prospects.                                                                     between users. However, most of the existing methods lack
+                                                                               consideration of the users’ cognitive processes. For example,
+II. RELATED WORK                                                               two users who have learned the same two knowledge points
+Group recommendation methods are usually divided into two                      but at different times can be considered dissimilar according
+categories: fusion based on individual recommendation mod-                     to the forgetting curve proposed by H. Ebbinghaus. Thus, it is
+els and fusion based on individual recommendation result [7].                  not sufficient to divide the group by only judging whether the
+The former method is to aggregate the user preferences into a                  users have access to the resources.
+group preference and then recommend a preference service to
+the group users. The more similar the user preferences are in                   B. GROUP RECOMMENDATION
+the group, the better the group recommendations. The latter                    Group recommendation refers to the recommendation of
+method obtains each user’s personalized recommendation list                    information or projects that could meet the needs or interests
+and fuses all of the lists into the same list as the group recom-              of the group users. Roy et al. [17] examined the problem
+mendation result [8]. The following is summarized from the                     of enabling the flexibility of updating one’s preferences in
+existing group division and group recommendation research.                     group recommendations. According to the preference vector,
+                                                                               state dynamic adjustment is made to recommend a suitable
+A. GROUP DIVISION                                                              resource set for the group users. Zapata et al. [18] used a
+A group division method is the most important component                        collaborative search method to select, evaluate and recom-
+for group recommendations [9]. Wang et al. [7] proposed a                      mend learning objects and recommended a series of learning
+hidden factor graph model, which used a variety of implicit                    objects to the learning group. Yuan et al. [3] proposed a prob-
+and explicit social recognition and text information on the                    abilistic model called COM (COnsensus Model) to model the
+user groups and trained a user group recognition model.                        generative process of group activities and make group rec-
+Chen and Yang [10] made a quantitative analysis of user                        ommendations. Wang and Dong [8] proposed a latent group
+characteristics based on their interests, course information,                  recommendation (LGR) based on a dynamic probabilistic
+knowledge level, and so on and then used genetic algorithms                    matrix factorization model integrated with a convolutional
+to generate the learning groups. Boratto and Carta [11] eval-                  neural network (DPMFM-CNN). He et al. [19] considered
+uated group modeling strategies in a group recommendation                      the interactions among group members and reconstructed the
+scenario in which the groups were detected by clustering                       dynamic decision-making process within a group based on
+the users. Once the users were clustered, strategies were                      the inspiration of Pareto Improvement. Sacharidis [20] pro-
+tested to find the strategy that obtained the best accuracy.                   posed two group recommendation models and attempted to
+Tao et al. [12] proposed to use locality sensitive hashing tech-               solve the discrepancy between individual and group behavior
+nology (LSH) to achieve groups rapidly. Tan et al. [13] pre-                   evaluations. Villavicencio et al. [21] presented a multi-agent
+sented the typical user group (TUG) concept, which compares                    approach for group recommendation called PUMAS-GR.
+the contribution of new typical users to typical user groups                   This approach leverages on negotiation techniques to inte-
+and expands the scale of the typical user groups one by one,                   grate the recommendations obtained for each group member
+to ultimately achieve higher recommendation coverage and                       into a list for the group. Bok et al. [22] proposed a group
+accuracy. Zhang et al. [14] proposed a clustering algorithm                    recommendation scheme using users’ profiles and collabo-
+for user group recommendations that uses the singular value                    rative filtering over a social network. Their approach uses
+decomposition algorithm to extract the characteristics of the                  the profiles from other users in the collaborative filtering
+main users and simplifies the calculation by reducing the                      group to recommend the user groups. Ji et al. [23] proposed
+dimension of the user feature vectors. Se et al. [15] proposed                 a topic-based probabilistic model called GIST to infer group
+an upward leveling (UL) aggregation method that considers                      activities and make group recommendations. This approach
+deviations for group recommendations. Castro et al. [16] pro-                  jointly considers individual members’ choices and sub-
+posed to keep all group member preferences by using hesitant                   groups’ choices for group recommendations. Xiao et al. [24]
+fuzzy sets (HFSs) and retaining information such as the group                  investigated the group recommendation problem from a novel
+
+VOLUME 6, 2018                                                                                                                          42731
+                                                          H. Zhu et al.: Group-Oriented Recommendation Algorithm Based on Similarities of PLGNs
+
+
+
+
+approach, which is to attempt to maximize the satisfaction of        B. LEARNING GENERATIVE NETWORK (LGN)
+each group member while minimizing the unfairness between            The Learning Generative Network is a network topology
+them. Jing et al. [25] proposed a group recommendation               graph that is dynamically generated based on the knowledge
+based on user topical influence analysis. Four user-factors          point relationship of the user learning logs and user similari-
+are introduced to calculate the user social influence on the         ties. The learning generative network is a directed graph that
+topical sub-groups. Wang et al. [26] presented a hierarchy           is composed of learning resources viewed by all users in the
+visualization method for the group recommender (HVGR)                learning logs as vertices and learning dependencies between
+systems to provide a visual presentation and intuitive expla-        resources as edges. Learning generative networks can be
+nation. Boratto et al. [9] analyzed the influence of predicting      divided into personal learning generative networks (PLGN)
+the ratings to accurately rate a group recommender system            and group learning generative networks (GLGN). Its formal
+and used it to avoid data sparsity.                                  representation is shown in (2):
+   In summary, the research of the existing group recom-
+                                                                                   PLGNux = G(Vux , Eux , T1 , T2 )
+                                                                                 
+mendation mainly focused on group preference acquisition,                        
+                                                                                 
+group recommendation visualization, group recommendation                         GLGN = G(V , E , T , T )
+                                                                                 
+                                                                                          ga         ga  ga   1 2
+                                                                                                                                 (2)
+utility evaluation, and so on. However, these recommen-                          
+                                                                                  V ux ⊆ V  , Vga ⊆  V
+dation results show that few studies have considered the                         
+                                                                                 
+                                                                                   Eux ⊂ V × V , Ega ⊂ V × V
+sequences and dependencies of the recommended resources.
+For e-learning, the sequences and dependencies of the rec-           where PLGNux refers to the learning generative network of
+ommendation resources will directly affect the user learning.        user ux from time T1 to time T2 . Vux refers to the resource
+In recent years, research on recommender systems has shown           set that user ux ever viewed from time T1 to time T2 . Each
+that a knowledge map is beneficial for hybrid recommender            resource represents a vertex in the learning generative net-
+systems to build learning dependencies. In this paper, the pro-      work and has a timestamp. Eux is the set of relationships
+posed group-oriented recommendation algorithm based on               between the resources that user ux learned from time T1 to
+a learning generating network is characterized by providing          time T2 . The group learning generative network GLGNga has
+a recommendation subgraph that is based on a knowledge               a similar structure to the PLGNux where ga refers to a group
+map, which is more conducive to the construction of users’           of users.
+cognitive processes.
+                                                                     C. KNOWLEDGE MAP (KM)
+III. CORRELATION DEFINITION                                          The knowledge map of a course is composed of all knowledge
+A. USER-KNOWLEDGE-POINT HETEROGENEOUS                                points and learning orders between the knowledge points.
+NETWORK (UKN)                                                        The formal representation of the knowledge maps is shown
+The user-knowledge-point heterogeneous network is a net-             in Eq. (3):
+work topology map that is generated from user learning
+                                                                              KM = Vkg , Ekg
+                                                                                                 
+logs, user information, knowledge point information and                     
+                                                                            
+                                                                            
+                                                                            V = {v|v ∈ KG} = V
+knowledge maps. The vertices are composed of users and                           kg
+                                                                                                                             (3)
+                                                                                 kg = { vi , vj |vi ∈ KG,
+                                                                                               
+knowledge points, while the edges are composed of the                       
+                                                                             E
+                                                                            
+relationships between the users, the relationships between                             vj ∈ KG, vi , vj ∈ KG} ⊂ V ×V
+                                                                                                      
+the knowledge points and the learning relationships between
+the users and knowledge points. Its formal representation is         where the vertex set Vkg equals the knowledge point set V .
+shown in (1):                                                        The edge set Ekg is composed of the learning dependencies
+                                                                    between the knowledge points, which given by the experts in
+               UKN = G(V , E, T1 , T2 )
+                                                                    the related field.
+                 V = Vu , Vp                             (1)
+                 E = Eu , Ep , Eup                                   IV. CONSTRUCTION OF THE PLGN AND
+               
+                    
+                                                                     ITS CHARACTERISTIC ANALYSIS
+where UKN is the user-knowledge-point association network            The group-oriented learning subgraph recommendation algo-
+from time T1 to time T2 . Network vertices are composed of           rithm based on GLGN includes three steps: the construction
+a user set Vu and knowledge point set Vp . Network edges             of the PLGN, the grouping of the PLGN, the construction
+are composed of the user relationships Eu , knowledge point          of the GLGN and the group recommendation. The overall
+relationships Ep and user learning knowledge point rela-             process is shown in Fig. 3.
+tionships Eup . The user-knowledge-point association network            The construction of the PLGN requires the user infor-
+indicates the correlations between the users and knowledge           mation, knowledge point information and user logs. Within
+points. The user-knowledge-point related network ignores the         a time slice (T1 , T2 ) a user’s knowledge-point learning
+                                                                                           0
+differences between types for the three types of relationships       sequence, such as S1 − S2 − S3 − S4 − S50 , is extracted
+between the users and knowledge points, and it unifies them          from his/her user log to build the learning generative net-
+as edge weights instead.                                             work. In this study, a learning generative network’s generative
+
+42732                                                                                                                            VOLUME 6, 2018
+H. Zhu et al.: Group-Oriented Recommendation Algorithm Based on Similarities of PLGNs
+
+
+
+
+                                                                               words, this paper takes the sequential threshold γ = 4 and
+                                                                               the time threshold δ = 7 ∗ 24h.
+                                                                                  When there are already i vertices in the PLGN, the newly
+                                                                               added vertex is the (i+1)th. The formalization of the temporal
+                                                                               correlation is expressed as
+                                                                                                               seq       time
+                                                                                                       2 ∗ tpli+1,k ∗ tpli+1,k
+                                                                                          tpl
+                                                                                          
+                                                                                               i+1,k =      seq        time
+                                                                                          
+                                                                                          
+                                                                                                         tpli+1,k + tpli+1,k
+FIGURE 3. Research framework.                                                                   seq     i + 1   − k                       (4)
+                                                                                             tpli+1,k =
+                                                                                          
+                                                                                          
+                                                                                                            γ
+                                                                                          tpl time = Ti+1 − Tk
+                                                                                          
+                                                                                          
+                                                                                          
+algorithm is based on the knowledge points’ similarities, and
+                                                                                                i+1,k         δ
+their sequence relationships are used to transform the learning                where γ and δ are normalized coefficients. The temporal cor-
+sequences of the knowledge points that were extracted from                     relation tpli+1,k between the(i+1)th vertex and the kth vertex
+the user logs into PLGNs. To determine the number of new                       is determined by the harmonic mean of the order correlation
+                                                                                  seq                               time · T
+vertices and edges that must be generated, the ‘matching                       tpli+1,k and the time correlation tpli+1,k   i+1 − Tk represents
+degree’ matki is proposed to quantify the matching degree of                   the time distance between user the learning knowledge point
+the (i + 1)th vertex and the existing kth vertex. The matching                 i + 1 and the knowledge point k.
+degree depends on the similarity of the knowledge points and
+the temporal correlation of the knowledge points that the user                  C. CONSTRUCTION OF THE PLGN
+learned. To divide the PLGNs into groups, a graph similarity                   As the similarities between knowledge points and the tem-
+measurement method based on the content and structure is                       poral correlation of user learning knowledge points are
+proposed.                                                                      obtained, the matching degree between two knowledge points
+                                                                               from the user’s learning sequence can be calculated to gener-
+A. SIMILARITY OF KNOWLEDGE POINTS                                              ate the learning dependencies and build the PLGN. The for-
+To calculate the similarities between the knowledge points,                    mula of the matching degree between the (i + 1)th knowledge
+this study first constructs the relationships between the users                point and the kth knowledge point is
+based on whether they are in the same profession, in the same
+                                                                                          mati+1,k = α ∗ disi+1,k + β ∗ tpli+1,k           (5)
+batch, or have the same level of education, and it constructs
+the relationships between the knowledge points based on                        where α and β are the weight coefficients. In this study,
+whether they have a sequential relationship and whether they                   α = β = 0.5.
+belong to the same chapter. It constructs the user-knowledge-                     Using the matching degree, mati+1,k allows us to syntheti-
+point relationships based on the cumulative learning length                    cally consider the similarities between the knowledge points
+and number of times. Then, the three types of relationships                    and the temporal correlations of the user learning knowledge
+are quantified and normalized into edge weights to form                        points. The smaller the value of mati+1,k is, the more rea-
+the user-knowledge-point heterogeneous network. Finally, a                     sonable the addition of the edges (k, i + 1) appears to be.
+random walk method proposed by Fouss et al. [27] is used                       Thus, it is required to calculate and sort all of the mati+1,k
+to calculate the similarities disij between any two knowledge                  values to determine which edge or edges should be added to
+points i and j in the heterogeneous network.                                   the PLGN when the (i+1) vertex is added to it. Table 1 shows
+                                                                               the algorithm for generating the PLGN.
+B. TEMPORAL CORRELATION OF KNOWLEDGE POINTS
+The temporal correlation of knowledge points indicates the                     D. GROUP DIVISION BASED ON THE
+learning sequential correlation and the learning time cor-                     SIMILARITIES OF THE PLGNS
+relation between any two knowledge points that the user                        The group division of the PLGN is achieved by measuring
+learns. It is necessary to give a certain temporal threshold                   the similarities of the PLGNs. The composition of the graph
+when calculating the temporal correlations of the knowledge                    similarity indicators used in this study is as follows:
+points. Researchers at the University of Missouri-Columbia                                 
+found that the brain can remember up to 3-4 things in a                                    Content similarity 
+                                                                                           
+                                                                                           
+short period of time [28]. At the same time, according to                                  
+                                                                                           
+                                                                                           
+                                                                                                                   
+                                                                                                                     Vertex number
+the forgetting curve proposed by Ebbinghaus, the learning                                                          
+                                                                                                                      Edge number
+                                                                                           
+                                                                                                                   
+                                                                                                                    
+                                                                                                                    
+                                                                                Similarity
+                                                                                           
+dependence of a certain vertex in a PLGN only generates
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    Average vertex degree
+from the vertex he/she learned in a week, which is in line                      of PLGNs     Structural similarity
+                                                                                           
+                                                                                                                   Average vertex strength
+with people’s cognitive laws. Therefore, this study calculates                             
+                                                                                           
+                                                                                                                   
+                                                                                                                    
+                                                                                                                    
+only the temporal correlations between one vertex and at most
+                                                                                           
+                                                                                           
+                                                                                           
+                                                                                           
+                                                                                                                    
+                                                                                                                    
+                                                                                                                     Round number
+                                                                                                                   
+the previous 4 vertices that a user learned in a week. In other                                                       Average round size
+                                                                                                                    
+
+VOLUME 6, 2018                                                                                                                           42733
+                                                            H. Zhu et al.: Group-Oriented Recommendation Algorithm Based on Similarities of PLGNs
+
+
+
+
+TABLE 1. The algorithm for generating the PLGN.                           The structural similarities of the PLGNs are reflected in the
+                                                                       vertex number, edge number, average vertex degree, average
+                                                                       vertex strength, round number and average round size of the
+                                                                       PLGNs. The value PLGNCntDisux ,uy can be calculated by the
+                                                                       weighted sum of the normalized differences of the six indexes
+                                                                       as the following formula:
+                                                                                PLGNStrDisux ,uy = 6i=1 diskuxi ,uy ∗ impki
+                                                                                                      P
+                                                                              
+                                                                              
+                                                                              
+                                                                              disu ,u = norm(valuekuix − valuekuiy )
+                                                                               ki
+                                                                              
+                                                                                    x y
+                                                                                                      |value|                       (7)
+                                                                              
+                                                                               norm(value) =
+                                                                              
+                                                                              
+                                                                                                Max({|value|})
+                                                                                ki ∈ {ver, edg, deg, str, rnd, rSize}
+                                                                              
+
+                                                                       where diskuxi ,uy is the similarity value between PLGNux and
+                                                                       PLGNuy on attribute ki . Here impki means the weight of
+                                                                       attribute ki and ki means one of the six aspects that mea-
+                                                                       sure the similarity. disver     ux ,uy
+                                                                                                               is the vertex number distance
+                                                                       that is calculated by normalizing the difference between the
+                                                                       vertex numbers of PLGNux and PLGNuy . Similarly, disedg                    ux ,uy
+                                                                       is the edge number distance, disdge          ux ,uy
+                                                                                                                           is  the average     vertex
+                                                                       degree distance, disstr   ux ,uy
+                                                                                                         is   the average     vertex strength dis-
+                                                                       tance, disrnd
+                                                                                 ux ,uy
+                                                                                         is the round      number    distance,   and disrSize
+                                                                                                                                        ux ,uy
+                                                                                                                                                is the
+                                                                       average round size distance. Additionally, norm(value) is the
+                                                                       normalizing function. In this study, impver = impedg = 0.1,
+                                                                                impdeg = impstr = imprnd = imprSize = 0.2.
+   The content similarity of PLGNux and PLGNuy can be                    Finally, a weighted method is used to derive the overall
+calculated using the graph kernel theory[6]. The principle is          similarities PLGNDisux ,uy between PLGNux and PLGNuy .
+to calculate the proportion of the same paths between any
+                                                                        PLGNDisux ,uy = α ∗ PLGNCntDisux ,uy
+pairs of vertices in two PLGNs and to take the average to
+obtain the content similarity value between the two PLGNs.                                                       + β ∗ PLGNStrDisux ,uy             (8)
+The normalized value PLGNCntDisux ,uy is represented as the            where α and β are the weights. In this study, α = 0.7 and
+following formula:                                                     β = 0.3.
+                                                                         After completing the PLGN similarity calculation, this
+
+
+ PLGNCntDisux ,uy                                                     study uses the Cure hierarch ical clustering algorithm to
+
+                 1     Pi<N ,i6=j Pj<N        i,j                     divide the PLGNs into groups.
+
+        =                 i=0        j=0 ppDisux ,uy
+             N (N  −1)
+
+
+
+     i,j
+ppDisux ,uy v
+
+
+                                                                      V. GROUP-ORIENTED RECOMMENDATION
+
+             u i,j 2
+               u (scux ,uy )                                           BASED ON THE GLGN
+                                      i,j           i,j
+                               , if tcux > 0 and tcuy > 0
+             
+
+             
+             
+              t
+                    i,j    i,j
+                                                                       The group recommendation system fuses the preference of
+              tcux ∗ tcuy
+            
+
+
+
+                                                                      each group member to obtain the group preference and gen-
+
+
+
+        =     0.5,
+                                      i,j           i,j
+                                 if tcux = 0 and tcuy = 0              erates the group recommendation according to the group
+            
+
+
+
+             
+             
+             
+                                                                      preference. In this study, a group learning generative net-
+
+
+            
+                                                                      work (GLGN) that embodies the learning trajectory of group
+               0,                otherwise
+            
+                                                                       network learning behaviors is generated based on group
+                                                             (6)       division, to realize resource recommendations for a variety
+                                                                       of purposes. To better retain the dependencies between the
+where N is the total number of knowledge points of the course          knowledge points, this paper presents the recommendations
+to which the PLGN belongs, and i and j represent the index             in the form of graphs.
+                                                   i,j
+of the knowledge points in the course. Here, ppDisux ,uy is the
+similarity between the knowledge points i and j of PLGNux              A. GENERATION OF THE GLGN
+                               i,j
+and PLGNuy . Additionally, tcux means the number of paths              An LGN corresponds to a matrix of edge weights between
+that exist between knowledge points i and j of PLGNux and              vertices. Therefore, a GLGN can be generated by the super-
+                 i,j
+PLGNuy , and scux ,uy means the number of paths that exist in          position of the PLGNs from one group. In other words, all
+both PLGNux and PLGNuy .                                               matrices that the PLGNs correspond with are calculated first;
+
+42734                                                                                                                                   VOLUME 6, 2018
+H. Zhu et al.: Group-Oriented Recommendation Algorithm Based on Similarities of PLGNs
+
+
+
+
+then, all of the matrices are added together to form a group                   not effectively learned, and leak-filling learning is required.
+matrix, and finally, the GLGN is restored from the group                       If more than 50% of the users need leak-filling learning of a
+matrix. The formal representation is as follows:                               vertex, the strength of this vertex is calculated and normalized
+                                                                              as the leak-filling-learning factor w3 .
+                 GLGNga = getLGN (LWu )
+               
+               
+               
+               LW = P W                                                          To be able to recommend knowledge points under different
+                    u         ux
+                                                          (9)                  learning requirements, we use the constraint 8 = (α, β, γ ) to
+               
+               
+                Wux = getW (PLGNux )                                          adjust the importance of vertexvj . In other words, we have the
+               
+                 PLGNux ∈ Clusterga                                            following:
+where Clusterga represents one group of PLGNs. Wux is the                                     w8
+                                                                                               i = (α ∗ w1 , β ∗ w2 , γ ∗ w3 )               (11)
+corresponding user matrix of PLGNux · LWu is the superposi-
+tion of all of the user matrices that belong to Clusterga .                    where α, β, γ are the given constants in the range of [0,1].
+                                                                               For those who want to focus on extensional learning, key
+B. GROUP-ORIENTED LEARNING SUBGRAPH                                            learning or leak-filling learning, it is proper to use the learning
+RECOMMENDATION ALGORITHM                                                       factor 81 = (1, 0, 0), 82 = (0, 1, 0) or 83 = (0, 0, 1).
+BASED ON THE GLGN                                                              For those who want to perform key learning and leak-filling
+The GLGN can reflect the knowledge points and learning                         learning,84 = (0, 0.5, 0.5) can be used. The specific impor-
+dependencies that most users learned and used in the group.                    tance value is the modulus of the importance vector, which is
+For a group of users, different vertices in the GLGN can                       the following:
+have different degrees of importance and could be suitable                                          q
+                                                                                  w8         8       2
+for users to learn in different scenarios. Therefore, this study                    i = wi      = (α ∗ w1 )2 + (β ∗ w2 )2 + (γ ∗ w3 )2
+referred to a multi-constraint learning path recommendation                                                                                  (12)
+algorithm [29] and conducted the construction of multi-
+constraint models based on the importance of the vertices;                     2) LEARNING SUBGRAPH RECOMMENDATION ALGORITHM
+then, it used the constructed models to design a group-                        Under a certain learning requirement with the given con-
+oriented learning subgraph recommendation algorithm.                           straint 8, the importance of the vertices can be calculated
+                                                                               according to the model of the vertex importance to recom-
+1) CONSTRUCTION OF A MULTI-CONSTRAINT                                          mend the learning subgraphs. When recommending learn-
+MODEL FOR VERTEX IMPORTANCE                                                    ing subgraphs for users, the recommendation system should
+The group-oriented learning subgraph recommendation algo-                      consider not only the importance of the vertex but also the
+rithm must focus on three types of weights of vertices, which                  learning dependencies of the vertices in the GLGN. This
+are the extensional-learning weight, key-learning weight and                   study separately calculates the importance of each vertex in
+leak-filling-learning weight. This study transforms the vertex                 the extended GLGN and marks the top 15% of the vertices
+into a three-dimensional vector. For the vertex vi , the vector                with the largest importance on the GLGN. Then, all of the
+form is expressed as                                                           connected subgraphs are found from these top-15% vertices,
+                                                                               and their average vertex importance can be calculated. The
+                        wi = (w1 , w2 , w3 )                        (10)
+                                                                               subgraph with the top average vertex importance is recom-
+where w1 , w2 , w3 respectively represent the importance of                    mended to the group. The algorithm is shown in Table 2.
+vertex vj in extensional learning, key learning and leak-filling
+learning.                                                                       C. EXPERIMENTAL RESULTS AND ANALYSIS
+   The group-oriented learning subgraph recommendation                         Unlike traditional recommendation systems, the data sets
+algorithm must focus on three types of vertices. The first ver-                required for group recommendation must include group infor-
+tex is the extensional-learning vertex, which is the vertex that               mation. However, there are few data sets that contain group
+the group users ignore but need to learn. If there is a learning               information. The commonly used method is to construct
+dependency between vertex vi and vertex vj on the knowledge                    groups from these data sets according to the group char-
+map, vertex vj exists in GLGNga and vertex vj does not                         acteristics needed for the experiment[30], [31]. Based on
+exist in GLGNga ; Then, vertex vi is an extensional-learning                   the existing e-learning logs and knowledge map, this study
+vertex. The similarity of the knowledge points in IV A is used                 constructed PLGNs and GLGNs to obtain group division and
+as its extensional-learning factor w1 . The extended GLGN                      recommendation results. For group-based recommendations,
+                    0
+is denoted GLGNga . The second vertex is the key-learning                      its accuracy rate, recall rate, normalized discounted cumula-
+vertex. This vertex computes the vertex strength (the sum of                   tive gain (NDCG), and mean average precision (MAP) were
+the weights of the connected vertex edges) for each vertex in                  calculated.
+        0
+GLGNga as the key-learning factor w2 . The last vertex is the
+leak-filling-learning vertex. If the total learning time length of             1) EXPERIMENTAL DATA SET
+a user on a knowledge point is less than 90% of its intrinsic                  This research used the log data of the Java course from
+time length, then it is considered that the knowledge point is                 May 9, 2014 to November 30, 2017, including 11 batches
+
+VOLUME 6, 2018                                                                                                                              42735
+                                                               H. Zhu et al.: Group-Oriented Recommendation Algorithm Based on Similarities of PLGNs
+
+
+
+
+TABLE 2. The learning subgraph recommendation algorithm based on the      recommendations, and experimental schemes were designed
+vertex importance model.
+                                                                          to verify the pros and cons of their recommendations.
+                                                                             The key and leak-filling learning knowledge points recom-
+                                                                          mendation results are used as the recommendation result for
+                                                                          a group and compared the results with the recommendation
+                                                                          results of the group-based collaborative filtering algorithm.
+                                                                          The formal representation of the group-based collaborative
+                                                                          filtering algorithm is as follows:
+                                                                                                  ux ∈ga w(ux , ga ) ∗ rat(ux , pi )
+                                                                                               P
+                                                                                rat(ga , pi ) =
+                                                                              
+                                                                              
+                                                                                                          ux ∈ga w(ux , ga )
+                                                                              
+                                                                                                      P
+                                                                              
+                                                                              
+                                                                                                    gb ∈{g} sim(ga , gb ) ∗ rat(gb , pi )
+                                                                              
+                                                                                                P
+                                                                              
+                                                                                pred(ga , pi ) =                                          (13)
+                                                                                                            gb ∈{g} sim(ga , gb )
+                                                                                                          P
+                                                                              
+                                                                              
+                                                                                w(ux , ga ) = uy ∈ga PLGNDisux ,uy
+                                                                              
+                                                                                              P
+                                                                              
+                                                                              
+                                                                              
+                                                                              sim(g , g ) = P
+                                                                                                         P
+                                                                                      a b          ux ∈ga    uy ∈gb PLGNDisux ,uy
+
+                                                                          where rat(ga , pi ) is the score of group ga on knowledge
+                                                                          point pi . Here, rat(ux , pi )is the score of user ux on knowl-
+                                                                          edge point pi · w(ux , ga ) is the weight of user ux in group
+                                                                          ga , the value of which is the summation of the similarities
+                                                                          between ux and all of the other users in group ga · sim(ga , gb )
+                                                                          represents the similarity between group ga and group gb ,
+                                                                          the value of which is the summation of all of the similarities
+                                                                          between the users from group ga and the users from group
+                                                                          gb · PLGNDisux ,uy is the similarity between user ux and user
+                                                                          uy .
+
+                                                                          3) EVALUATION INDICATOR
+                                                                          This study provides the corresponding evaluation indexes
+                                                                          from four aspects, namely, the accuracy rate, recall rate,
+                                                                          normalized discounted cumulative gain (NDCG), and mean
+                                                                          average precision (MAP). The final evaluation results take
+                                                                          the average of the evaluation results for all of the users.
+
+                                                                          a: ACCURACY RATE AND RECALL RATE
+                                                                          The formal description of the accuracy rate and recall rate
+                                                                          based on the list-form recommendation for a single user is as
+                                                                          follows:
+                                                                          
+                                                                              ux                            |pred(ux ) ∩ real(ux )|
+                                                                          Pp = P(pred(ux ), real(ux )) =
+                                                                          
+                                                                                                                 |pred(ux )|
+                                                                                                            |pred(ux ) ∩ real(ux )|
+                                                                          Rupx = R(pred(ux ), real(ux )) =
+                                                                          
+                                                                                                                 |real(ux )|
+                                                                                                                                    (14)
+                                                                          where p = pred(ux ) represents the set of knowledge points
+of 247 learners. The knowledge map of the Java course con-                recommended to user ux , and real(ux ) represents the set of
+tains 70 knowledge points and 79 edges. A total of 156 learn-             knowledge points that were actually learned by user ux .
+ers were selected to perform the group recommendation and                    The accuracy rate and the recall rate of the collaborative
+verify the recommendation effect.                                         filtering algorithm recommendation results can be calculated
+                                                                          using the above method. Since the recommendation form of
+2) EXPERIMENTAL CONTRASTED ALGORITHM                                      the algorithm proposed in this study is the learning subgraph,
+This study used the above methods to recommend learning                   this study proposed a method for calculating the accuracy rate
+subgraph for groups. At the same time, a group-based                      and recall rate of the learning subgraph.
+K-nearest neighbor collaborative filtering recommendation                    This approach requires the recommendation sets and test
+algorithm was synchronously used for contrast. The rec-                   sets to calculate the accuracy and recall rate. For the col-
+ommendations made in this study were group-specific                       laborative filtering algorithm, both are lists of knowledge
+
+42736                                                                                                                                 VOLUME 6, 2018
+H. Zhu et al.: Group-Oriented Recommendation Algorithm Based on Similarities of PLGNs
+
+
+
+
+points, and as a result, there is no problem in the com-                           on the results of the evaluation. For a recommended knowl-
+putation. For the group-oriented recommendation algorithm                          edge point list p = {p1 , p2 , p3 , . . .}, if the score list is relp =
+                                                                                    realp1 , realp2 , realp3 , . . . , the discounted cumulative gain
+                                                                                   
+proposed in this paper, the recommendation sets contain not
+only knowledge points but also learning dependencies. Thus,                        DCG is as follows:
+the corresponding test sets must be converted into the same                                                           X 2relpi − 1
+structure. For example, if the sequence of knowledge points                                             DCGp =                                        (17)
+                                                                                                                         i log(i+1)
+actually learned by the user is 0 S1 − S2 − S3 − S4 − S50 ,                                                                    2
+then the converted test set of he/she should be real(ux ) =                        If the score list is sorted in descending order, in other
+{S1 , S2 , S3 , S4 , S5 , (S1 , S2 ), (S2 , S3 ), (S3 , S4 ), (S4 , S5 )}. Ther-   words, for a o        recommended knowledge point
+                                                                                                                                                   0
+                                                                                                                                        n list   p =
+efore, for the group-oriented learning subgraph recommen-
+                                                                                   n  0    0     0                                  0       0        0
+                                                                                     p1 , p2 , p3 , . . . , if the score list is relp = realp1 , realp2 ,
+dation algorithm proposed in this study, the accuracy rate                              0
+                                                                                                   o                     0            0
+and recall rate can be calculated from the collective accuracy                     realp3 , . . . and satisfies realpi ≥ realpj , ∀i < j, then the
+rate and recall rate of the recommended knowledge points                           DCG value is the ideal discounted cumulative gain:
+and learning dependencies. At the same time, the accuracy                                                                    0
+rate and recall rate of a traditional collaborative filtering rec-                                                 X 2relpi − 1
+                                                                                                      IDCGp =                                        (18)
+ommendation algorithm can be calculated using the original                                                             i   log2
+                                                                                                                                 (i+1)
+method. Therefore, this study has unified the accuracy rate
+and recall rate for the recommended graphs and lists.                              Then, by normalizing the discounted cumulative gain DCG
+   In addition, for a single group ga recommendation,                              with the ideal discounted cumulative gain INCG, the normal-
+the accuracy rate and recall rate can be reflected in those of                     ized discounted cumulative gain is calculated as follows:
+the recommendation results on a single user within the group,                                                           DCGp
+which is formally expressed as                                                                            NDCGp =                                    (19)
+                                                                                                                       IDCGp
+                                     w(ux ) ∗ Pupx
+                         P
+            Pp = uP
+                 g            x ∈ga                                                where the range of values for NDCGp is [0,1].
+            
+                  a
+                                         w(ux )
+            
+            
+                          P ux ∈ga
+            
+                                                 ux
+                 ga          ux ∈ga  w(u  x ) ∗ Rp                          (15)   D. EVALUATION RESULTS
+                R     =
+             p                                                                    In the contrasted group-based collaborative filtering algo-
+                            P
+            
+                                ux ∈ga  w(u  x )
+                                                                                   rithm, the number of groups used is 5, and the number of
+            
+            w(u , g ) = P
+            
+                     x a             uy ∈ga PLGNDisux ,uy
+                                                                                   neighbors used in K-nearest neighbor collaborative filtering
+where w(ux ) indicates the importance of user ux in group ga .                     is 10. Under the different time slices, the group learning
+If a user has a large degree of similarity with the majority                       generative network generated by this study is different; thus,
+of users in the group, the user will have a large influence                        the recommended number of knowledge points is also differ-
+on the group recommendation. Therefore, this study uses the                        ent. In this regard, the number of knowledge points recom-
+average of the similarity PLGNDisux ,uy between the user ux                        mended by the collaborative filtering algorithm must be kept
+and other users in the group as the importance of user ux .                        consistent with this research method.
+                                                                                      The experiment used the user logs on the Java course after
+b: MEAN AVERAGE PRECISION (MAP)                                                    September 1, 2015. It started at the time slice of 2 weeks and
+The mean average precision of a recommended knowledge                              took an increment of 2 weeks at each time. Finally, the GLGN
+point list is the average of the accuracy rate of each recom-                      was generated and used on recommendations 9 times. The
+mended knowledge point. For a recommended knowledge                                GLGN recommendation result is learning subgraphs whose
+point list p = {p1 , p2 , p3 , . . .} and for a list that actually                 sizes are not fixed. Therefore, for each learning group, it is
+                                                1 , p2 , p3 , . . .
+needs to be recommended ptrue = ptrue                true true                     necessary to ensure that the recommended list size of the
+                                            
+
+(which has size N), if there exist n knowledge points that are                     CF recommendation algorithm stays in step with that of the
+in both list p and listptrue and if its sequence number in list                    GLGN recommendation algorithm. Table 3 and Table 4 com-
+p is rankp = {rank1 , rank2 , . . . , rankn }, the mean average                    pare the effectiveness of the two recommendation algorithms:
+precision of the recommended knowledge point list is as                               It is not difficult to determine from the data that when
+follows:                                                                           the data quantity is not large, the scale of the GLGN is not
+                            1 Xn              i                                    either, and the size of the recommended list is unable to reach
+                  MAPp =       ∗                               (16)                the expected number (which is approximately 10). However,
+                            N          i=1 ranki
+                                                                                   since the 5th experiment (data of 10 weeks), the amount
+where the range of values for MAPp is[0,1].                                        of data is relatively sufficient, and thus, the GLGN recom-
+                                                                                   mendation effect is relatively stable. Its precision rate and
+c: NORMALIZED DISCOUNTED CUMULATIVE GAIN (NDCG)                                    recall rate are better than the group-based CF recommenda-
+The normalized discounted cumulative gain can be used to                           tion algorithm. At the same time, its MAP and NDCG are
+evaluate recommendation results in the list forms, and the                         also better, which indicates that the recommended learning
+higher the ranking of items in the list, the greater the impact                    subgraphs are reasonable.
+
+VOLUME 6, 2018                                                                                                                                      42737
+                                                                         H. Zhu et al.: Group-Oriented Recommendation Algorithm Based on Similarities of PLGNs
+
+
+
+
+TABLE 3. Comparison I of the results of two recommendation algorithms.               [2] M. K. Najafabadi, M. N. Mahrin, S. Chuprat, and H. M. Sarkan, ‘‘Improv-
+                                                                                         ing the accuracy of collaborative filtering recommendations using cluster-
+                                                                                         ing and association rules mining on implicit data,’’ Comput. Hum. Behav.,
+                                                                                         vol. 67, pp. 113–128, Feb. 2017.
+                                                                                     [3] Q. Yuan, G. Conga, and C.-Y. Lin, ‘‘COM: A generative model for group
+                                                                                         recommendation,’’ in Proc. ACM SIGKDD, 2014, pp. 163–172.
+                                                                                     [4] L. D. Camiel, J. D. Goldman-Levine, M. D. Kostka-Rokosz, and
+                                                                                         W. W. McCloskey, ‘‘Twitter as a medium for pharmacy students’ personal
+                                                                                         learning network development,’’ Currents Pharmacy Teach. Learn., vol. 6,
+                                                                                         no. 4, pp. 463–470, 2014.
+                                                                                     [5] N. A. Cooke, ‘‘Professional development 2.0 for librarians: Developing an
+                                                                                         online personal learning network (PLN),’’ Library Hi Tech News, vol. 29,
+                                                                                         no. 3, pp. 1–9, 2012.
+                                                                                     [6] M. A. Alvarez, X. Qi, and C. Yan, ‘‘A shortest-path graph kernel for
+                                                                                         estimating gene product semantic similarity,’’ J. Biomed. Semantics, vol. 2,
+                                                                                         no. 1, pp. 1–9, 2011.
+                                                                                     [7] Z. Q. Wang, S. S. Li, and G. D. Zhou, ‘‘Personal group recommendation
+                                                                                         via textual and social information,’’ (in Chinese), J. Softw., vol. 28, no. 9,
+                                                                                         pp. 2468–2480, 2017. [Online]. Available: http://www.jos.org.cn/1000-
+                                                                                         9825/5267.htm
+TABLE 4. Comparison II of the results of two recommendation algorithms.
+                                                                                     [8] H. Y. Wang and M. W. Dong, ‘‘Latent group recommendation based on
+                                                                                         dynamic probabilistic matrix factorization model integrated with CNN,’’
+                                                                                         J. Comput. Res. Develop., vol. 54, no. 8, pp. 1853–1863, 2017.
+                                                                                     [9] L. Boratto, S. Carta, G. Fenu, F. Mulas, and P. Pilloni, ‘‘Influence of rating
+                                                                                         prediction on the accuracy of a group recommender system that detects
+                                                                                         groups,’’ IEEE Intell. Syst., to be published.
+                                                                                    [10] L. Chen and Q.-H. Yang, ‘‘A group division method based on collab-
+                                                                                         orative learning elements,’’ in Proc. Chin. Control Decis. Conf., 2014,
+                                                                                         pp. 1071–1075.
+                                                                                    [11] L. Boratto and S. Carta, ‘‘Modeling the preferences of a group of users
+                                                                                         detected by clustering: A group recommendation case-study,’’ in Proc.
+                                                                                         ACM WIMS, 2014, pp. 1–7.
+                                                                                    [12] T. Jin, J. Xie, and Z. Yang, ‘‘Research on fast build group and group
+                                                                                         recommendation in social networks,’’ J. Chin. Comput. Syst., vol. 38, no. 3,
+                                                                                         pp. 483–488, 2017.
+                                                                                    [13] C. Tan, Q. Liu, and L. Wu, ‘‘Finding and applying typical user group
+                                                                                         in recommender systems,’’ Pattern Recognit. Artif. Intell., vol. 28, no. 5,
+                                                                                         pp. 462–471, May 2015.
+                                                                                    [14] C. Zhang, J. Zhou, and W. Xie, ‘‘A users clustering algorithm for group
+                                                                                         recommendation,’’ in Proc. ACIT-CSII-BCD, 2017, pp. 352–356.
+VI. CONCLUSION                                                                      [15] Y.-D. Se, Y.-G. Kim, E. Lee, K.-S. Seol, and D.-K. Baik, ‘‘An enhanced
+                                                                                         aggregation method considering deviations for a group recommendation,’’
+Aiming at group recommendation in online learning, this                                  Expert Syst. Appl., vol. 93, pp. 299–312, Mar. 2018.
+paper proposed combining user learning logs and curricu-                            [16] J. Castro, M. J. Barranco, R. M. Rodríguez, and L. Martínez, ‘‘Dealing
+lum knowledge maps to generate a personal learning gener-                                with diversity and novelty in group recommendations using Hesitant fuzzy
+                                                                                         sets,’’ in Proc. IEEE FUZZ, Jul. 2017, pp. 1–6.
+ation network to represent the user learning process. Then,
+                                                                                    [17] S. B. Roy, S. Thirumuruganathan, S. Amer-Yahia, G. Das, and C. Yu,
+a learning group division method based on the similarities of                            ‘‘Exploiting group recommendation functions for flexible preferences,’’ in
+the PLGNs is given to generate the GLGN. On this basis,                                  Proc. IEEE 30th Int. Conf. Data Eng., Mar./Apr. 2015, pp. 412–423.
+                                                                                    [18] A. Zapata, V. H. Menéndez, M. E. Prieto, and C. Romero, ‘‘Evaluation and
+a group-oriented learning subgraph recommendation algo-
+                                                                                         selection of group recommendation strategies for collaborative searching
+rithm is designed and implemented. To measure the effect of                              of learning objects,’’ Int. J. Hum.-Comput. Stud., vol. 76, pp. 22–39,
+the recommendations, four indexes for learning subgraph rec-                             Apr. 2015.
+ommendations are used, which are the accuracy, recall rate,                         [19] M. He, W. Gu, and Y. Kong, ‘‘Group recommendation: By mining users’
+                                                                                         check-in behaviors,’’ in Proc. ACM UbiComp, ISWC, 2017, pp. 65–68.
+NDCG and MAP. Compared with the traditional group-based                             [20] D. Sacharidis, ‘‘Group recommendations by learning rating behavior,’’ in
+recommendation algorithm based on collaborative filtering,                               Proc. ACM UMAP, 2017, pp. 174–182.
+the proposed group-oriented recommendation algorithm can                            [21] C. P. Villavicencio, S. Schiaffino, J. A. Díaz-Pace, and A. Monteserin,
+                                                                                         ‘‘A group recommendation system for movies based on MAS,’’ Adv.
+better adapt to large-scale network learning environment such                            Distrib. Comput. Artif. Intell. J., vol. 5, no. 3, p. 1, 2016.
+as MOOC when the group size is larger. Considering that                             [22] K. Bok, J. Lim, H. Yang, and J. Yoo, ‘‘Social group recommendation
+there are some differences between the users’ learning behav-                            based on dynamic profiles and collaborative filtering,’’ Neurocomputing,
+                                                                                         vol. 209, pp. 3–13, Oct. 2016.
+ior characteristics for different courses and majors, the next                      [23] K. Ji, Z. Chen, R. Sun, K. Ma, Z. Yuan, and G. Xu, ‘‘GIST: A generative
+group recommendation can be applied to performance com-                                  model with individual and subgroup-based topics for group recommenda-
+parisons and algorithm optimization in different majors and                              tion,’’ Expert Syst. Appl., vol. 94, pp. 81–93, Mar. 2018.
+                                                                                    [24] L. Xiao, Z. Min, Z. Yongfeng, G. Zhaoquan, L. Yiqun, and M. Shaoping,
+courses.                                                                                 ‘‘Fairness-aware group recommendation with Pareto-efficiency,’’ in Proc.
+                                                                                         ACM RecSys, 2017, pp. 107–115.
+                                                                                    [25] J. Wang, H. Zhao, and Z. Liu, ‘‘Exploring user influence for topical group
+REFERENCES                                                                               recommendation,’’ Chin. J. Electron., vol. 26, no. 1, pp. 106–111, 2017.
+ [1] Y. J. Zhang, Y. L. Du, and X. W. Meng, ‘‘Research on group recom-              [26] W. Wang, G. Zhang, and J. Lu, ‘‘Hierarchy visualization for group
+     mender systems and their applications,’’ Chin. J. Comput., vol. 39, no. 4,          recommender systems,’’ IEEE Trans. Syst., Man, Cybern., Syst., to be
+     pp. 745–764, 2016.                                                                  published.
+
+42738                                                                                                                                                  VOLUME 6, 2018
+H. Zhu et al.: Group-Oriented Recommendation Algorithm Based on Similarities of PLGNs
+
+
+
+
+[27] F. Fouss, A. Pirotte, J.-M. Renders, and M. Saerens, ‘‘Random-walk                                      PEI FENG received the B.S. degree in mathe-
+     computation of similarities between nodes of a graph with application to                                matics and applied mathematics from the Hefei
+     collaborative recommendation,’’ IEEE Trans. Knowl. Data Eng., vol. 19,                                  University of Technology, China, in 2017. She
+     no. 3, pp. 355–369, Mar. 2007.                                                                          is currently pursuing the M.S. degree in applied
+[28] Accessed: Jul. 20, 2017. [Online]. Available: http://www.sohu.                                          statistics with Xi’an Jiaotong University, China.
+     com/a/144194865_559441                                                                                  Her current research interests include machine
+[29] H. Zhu et al., ‘‘A multi-constraint learning path recommendation                                        learning and learning analytics.
+     algorithm based on knowledge map,’’ Knowl.-Based Syst., vol. 143,
+     pp. 102–114, Mar. 2018.
+[30] T. De Pessemier, S. Dooms, and L. Martens, ‘‘Comparison of group recom-
+     mendation algorithms,’’ Multimedia Tools Appl., vol. 72, no. 3, pp. 2497–
+     2541, Oct. 2014.
+[31] M. Kompan and M. Bielikova, ‘‘Group recommendations: Survey and
+     perspectives,’’ Comput. Inform., vol. 33, no. 2, pp. 1–31, 2014.
+
+
+
+
+                          HAIPING ZHU (M’18) received the B.S. degree
+                          in electronic science from Northwest Univer-
+                          sity in 1996, the M.S. degree in information
+                          and communication engineering from the Chinese
+                          Academy of Sciences in 1999, and the Ph.D.
+                          degree in computer science from Xi’an Jiaotong
+                          University, China.
+                             She is currently a Lecturer and a Graduate
+                          Supervisor with the Department of Computer                                          YAN CHEN received the B.S., M.S., and Ph.D.
+                          Science and Technology, Xi’an Jiaotong Univer-                                      degrees in computer science and technology from
+sity. She is a member of the National Engineering Lab of Big Data                                             Xi’an Jiaotong University in 1993, 1996, and
+Analytics, the Innovation Team of the Ministry of Education, and the                                          2005, respectively.
+Satellite-Terrestrial Network Technology R&D Key Laboratory, Shaanxi.                                            She is currently an Associate Professor and
+Her research interests include educational data mining, learning analytics,                                   a Graduate Supervisor with the Department of
+and personalized recommendation. Dr. Zhu received the First Prize of the                                      Computer Science and Technology, Xi’an Jiaotong
+Science and Technology Progress Award of the Shaanxi Institution of Higher                                    University. She is a member of the National Engi-
+Learning, China.                                                                                              neering Lab of Big Data Analytics, the Innova-
+                                                                                                              tion Team of the Ministry of Education, and the
+                                                                                   Satellite-Terrestrial Network Technology R&D Key Laboratory, Shaanxi.
+                                                                                   Her research interests include educational data mining and learning analytics.
+                           YIFU NI received the B.S. degree in computer
+                           science and technology from Xi’an Jiaotong Uni-
+                           versity, China, in 2016.
+                              He is currently pursuing the M.S. degree in
+                           computer science and technology with Xi’an
+                           Jiaotong University. His current research inter-
+                           ests include learning analytics and personalized
+                           recommendation.
+
+
+
+
+                           FENG TIAN (M’08) was born in Xi’an, Shaanxi,
+                           China, in 1972. He received the B.S. degree in
+                           industrial automation and the M.S. degree in com-
+                           puter science and technology from the Xi’an Uni-
+                           versity of Architecture and Technology, Xi’an,                                   QINGHUA ZHENG received the B.S. degree
+                           in 1995 and 2000, respectively, and the Ph.D.                                    in computer software, the M.S. degree in com-
+                           degree in control theory and application from                                    puter organization and architecture, and the Ph.D.
+                           Xi’an Jiaotong University, Xi’an, in 2003.                                       degree in system engineering from Xi’an Jiaotong
+                              He has been with Xi’an Jiaotong University                                    University, China, in 1990, 1993, and 1997,
+                           since 2004, where he is currently with the National                              respectively. He did his post-doctoral research at
+Engineering Lab of Big Data Analytics and also with the Systems Engineer-                                   Harvard University in 2002 and was a Visiting
+ing Institute as a Professor. His research interests include big data analytics,                            Professor of Research with The Hong Kong Uni-
+learning analytics, system modeling and analysis, and cloud computing.                                      versity from 2004 to 2005. He is currently a Pro-
+He is a member of the Satellite-Terrestrial Network Technology R&D Key                                      fessor with the Department of Computer Science
+Laboratory, Shaanxi.                                                               and Technology, Xi’an Jiaotong University, where he also serves as the Vice
+   Dr. Tian received the First Class Prize of the Science and Technology           President. His research interests include intelligent e-learning theory and
+Progress Award of the Chinese Electronical Society (fifth position, 2013),         algorithm, computer network, and trusted software.
+the first class price of the MOE Science and Technology Progress Award                Dr. Zheng received the First Prize for National Teaching Achievement,
+of China (fourth position, 2015), the Second Class Prize of the National           State Education Ministry, in 2005, and the First Prize for the Scientific
+Science and Technology Progress Award of China (fourth position, 2017),            and Technological Development of Shanghai City and Shaanxi Province,
+and the TOP Grade Prize of the Teaching Achievement Award of the Shaanxi           in 2004 and 2003, respectively.
+Province Award, China (second position, 2017).
+
+VOLUME 6, 2018                                                                                                                                            42739
+

@@ -1,0 +1,681 @@
+                                                   (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                            Vol. 17, No. 2, 2026
+
+
+             A Context-Aware Hybrid Recommendation
+               Framework for E-Learning Platforms
+
+                            Kaoutar Errakha1 , Amina Samih2 , Sanaa Dfouf3 , Abderrahim Marzouk4
+                 Doctor of Computer Science and Artificial Intelligence-Faculty of Sciences and Techniques,
+                                           University Hassan First, Settat, Morocco1
+           Artificial Intelligence Research and Applications Laboratory, University Hassan First, Settat, Morocco2
+  Doctor of Economic and Management Sciences, Faculty of Legal Economic and Social Sciences, Mohammedia, Morocco3
+             Teacher Researcher-Faculty of Sciences and Techniques, University Hassan First, IR2M, Morocco4
+
+    Abstract—E-learning platforms provide learners with ex-             learners to identify and select content that aligns with their
+tensive digital resources that enable self-paced and location-          academic objectives, learning styles, and personal preferences.
+independent study. However, the overwhelming volume of learn-
+ing materials offered by a wide range of institutions and content           In this context, recommender systems (RSs) play a crucial
+providers makes personalized guidance increasingly essential for        role in helping learners discover relevant educational resources
+effective knowledge acquisition. As a result, recommender systems       from large collections of courses [2][3]. In domains such as
+have become fundamental components of modern e-learning en-             e-commerce, entertainment, and social media, recommender
+vironments, helping to reduce information overload and support          systems based on Collaborative Filtering (CF) and Content-
+individualized learning experiences. In general, the richer and         Based Filtering (CBF) have demonstrated strong performance.
+more diverse the available data, the more accurate and relevant
+                                                                        CF predicts user interests by identifying similarities among
+the resulting recommendations. Despite these advantages, con-
+ventional recommendation approaches often fail to fully exploit         users and items using interaction histories such as ratings,
+the contextual and relational information inherent in e-learning        clicks, and browsing behavior [4], [5]. In contrast, CBF
+ecosystems, which limits their adaptability and predictive preci-       recommends items by analyzing content features, including
+sion. This study proposes a hybrid recommendation framework             course descriptions, topics, and keywords, and matching them
+that integrates collaborative filtering, content-based filtering, and   to a user’s previous preferences [6], [7]. This approach relies
+context-aware modeling to generate more accurate and adaptive           on comparing new items with those previously consumed to
+course recommendations. The proposed system infers learner              determine suitable recommendations.
+preferences by combining historical interaction data, contextual
+attributes, and course characteristics, while also incorporating            Despite their success, these techniques exhibit important
+temporal and environmental factors that influence learning be-          limitations when applied to e-learning environments. CF suf-
+havior. Experimental evaluations based on SVD, TF-IDF, and              fers from the cold-start problem and data sparsity, particularly
+RNN models applied to a well-established benchmark dataset              when new users or new courses have limited interaction history
+demonstrate that the proposed hybrid framework significantly            [8], [9]. CBF, on the other hand, relies on static content
+improves recommendation accuracy, coverage, and adaptability
+                                                                        representations and therefore struggles to adapt to learners’
+compared with baseline methods. Furthermore, the integration
+of contextual information effectively alleviates the cold-start         evolving goals and situational learning contexts [10].
+problem and better captures learners’ evolving goals and learning           To overcome these limitations, recent research has focused
+trajectories. Overall, the results confirm that combining multiple      on hybrid recommender systems that combine multiple recom-
+recommendation paradigms within e-learning platforms enables
+more adaptive, personalized, and scalable learning pathways,
+                                                                        mendation strategies to exploit their complementary strengths.
+making the proposed system suitable for diverse educational             Several studies [11], [12] have shown that incorporating ad-
+contexts and learner profiles.                                          ditional information especially contextual data—significantly
+                                                                        enhances recommendation performance. In e-learning envi-
+   Keywords—E-learning; recommender systems; hybrid ap-                 ronments, contextual factors such as the device used, time
+proach; personalized learning; course                                   of access, location, and session duration strongly influence
+                                                                        learners’ behavior and course preferences. For example, a
+                       I.   I NTRODUCTION                               learner accessing the platform from a mobile device may
+                                                                        prefer short tutorials, whereas the same learner using a desktop
+    The flexibility of e-learning systems has fundamentally             computer at home may be more inclined to engage in longer
+transformed the way students learn and how education is                 and more comprehensive learning modules [13].
+delivered. These platforms enable self-directed and personal-
+ized learning experiences, allowing learners to acquire new                 The present work proposes a hybrid e-learning recom-
+skills and knowledge beyond the traditional classroom. The              mender system that integrates Collaborative Filtering, Content-
+COVID-19 pandemic further highlighted the critical role of e-           Based Filtering, and contextual modeling to provide personal-
+learning technologies, as they were rapidly adopted to ensure           ized and context-aware course recommendations. Contextual
+educational continuity during periods of disruption. However,           information is modeled using predictive LSTM neural net-
+modern e-learning platforms offer an enormous number of                 works to capture temporal and behavioral patterns, while SVD
+courses and digital learning resources [1]. This abundance              is employed for matrix factorization and TF-IDF for textual
+often leads to information overload, making it difficult for            feature extraction and natural language processing.
+                                                           www.ijacsa.thesai.org                                         792 | P a g e
+                                                  (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                           Vol. 17, No. 2, 2026
+
+
+    This study makes several important contributions. First, it            Nonetheless, many CARS approaches for context modeling
+introduces a hybrid recommendation framework that jointly              remain rudimentary or involve only fragmentary contextual
+leverages collaborative, content-based, and contextual model-          details, leading to unfulfilled personalization. Moreover, con-
+ing techniques to enhance personalization in e-learning envi-          text modeling intricacy might lead to scalability issues and
+ronments. Second, it integrates SVD, TF-IDF, and LSTM to               pose problems for real-time adaptation which, in turn, limits
+address key challenges such as data sparsity, cold-start issues,       responsiveness in swiftly evolving learning settings, as noted
+and evolving learner behavior. Third, the framework is ex-             in [23]. This is why CF, CBF, hybrid and context-aware
+tensively evaluated using real edX course data, demonstrating          models still default most of the time in handling the interplay
+superior performance over traditional CF and CBF methods in            of collaborative, content, and contextual pieces. In addition,
+terms of accuracy, relevance, and contextual adaptability.             they tend to be responsive inflexibly to learner’s situational
+                                                                       alterations, state of cold start, and real-time adjustments of
+    The remainder of this study is organized as follows: Sec-          behavior or situational aspects of the environment [22].
+tion II reviews related work on hybrid recommender systems
+and discusses the limitations of existing approaches. Section III          In light of these challenges, this research aims to develop a
+presents the proposed framework and methodology. Section IV            hybrid e-learning recommender system that combines elements
+describes the experimental setup, including evaluation metrics         of collaboration, content, and contextual strategies within a
+and results. Finally, Section V concludes the study and outlines       single framework. This system develops sophisticated SVD
+directions for future research.                                        models for matrix factorization, employs TF-IDF for feature
+                                                                       embedding, and uses RNNs for sequential behavior modeling.
+                     II.   R ELATED W ORK                              By dealing with user-specific preferences and shifting contex-
+                                                                       tual factors, the integrated approach improves the precision,
+    With the use of recommender systems, user experiences              diversity, and contextual relevance of recommendations. On a
+across many areas, including e-learning, have been personal-           wider frontier, this fully personalized system addresses scala-
+ized to individual user needs [14], [15]. These systems suggest        bility and adaptive challenges while providing personalization
+activities based on users’ previous activities [16], [17]. The first   within the learning pathways for a diverse learner’s spectrum
+recommender systems relied on Collaborative Filtering (CF)             and within a robust and dynamic real-world e-learning context,
+and Content-Based Filtering (CBF). CF analyzes user-item               as detailed in [21, 24].
+interactions based on attribution, clicks, and behavior to find
+patterns of similarity among users or items [17]. CF is effective          Proposed system considers the issues in previous works and
+in many scenarios, but sparse data, new users, and the absence         focuses on providing an adaptive solution that offers flexibility
+of interaction data (cold-start) is highly problematic. Other          and overcomes the many restrictions traditional e-learning rec-
+techniques, such as predictive analytics, have been proposed to        ommender systems face. For instance, cold-start, data sparsity,
+solve these issues, but CF continues to have difficulty adapting       overspecialization, and an adaptive approach towards changing
+to changing environments and user preferences.                         user preferences are stick points for Collaborative Filtering
+                                                                       (CF) and Content-Based Filtering (CBF) systems. Although
+    CBF improves on CF by using items features (keywords,              hybrid approaches try to associate CF and CBF, many fail
+topics, and metadata). In e-learning, CBF analyzes course              to consider the user context while learner interactions and
+materials to recommend resources that adjust to learner pref-          user preferences are adjusted. The proposed system overcomes
+erences based on their previous activities [15]. CBF’s major           this shortcoming by providing context-aware integration of-
+problem is its over-specialization. It limits user exploration by      collaborative, content, and CBF approaches. Thus, achieving
+not encouraging them to search outside the narrowly defined            a comprehensive, synergistic recommendation framework.
+parameters of their needs [14]. Additionally, its use of static
+features fails to capture the user’s evolving needs [16], [18].            One of the strengths of this system is the management of
+                                                                       user behavior over time. User behavior on e-learning platforms
+    Hybrid recommender systems integrate the strengths of              is not fixed; it changes as users learn new topics, reorganize
+Collaborative Filtering (CF) and Content Based Filtering               their study plans, or adapt to other external factors like the
+(CBF) techniques to provide the users of e-learning platforms          availability of devices and location. Fleeting and situational
+engaged and more targeted suggestions [19]. The addition of            conditions allow the system to revise recommendations in real
+deep learning methods, such as neural collaborative filtering,         time, attuned to the user’s present needs, offering resources
+which provides the ability to work on and analyse intricate            that are relevant and actionable. The ability to track changes
+relationships and non-linear user-item interactions, is a recent       user behavior over time and in real time is a significant
+and notable advancement in this area [20].                             improvement over traditional CF and CBF, which tend to
+                                                                       provide users with recommendations that are the same over
+    Although hybrid systems have progressed in many ways,
+                                                                       extended periods and are based on stale historical behavior
+they still have a critical oversight of failing to integrate contex-
+                                                                       patterns or unchanging attributes of the content.
+tual data which includes how, when, and where a user interacts
+with the learning materials [21][22]. CARS approaches this                 In addition, system parameters that analyze the user’s
+oversight with contextual data such as study times, types              context, including limitations and learning goals, are vital to
+of devices, locations, and other time constraints for learning         personalization in e-learning. Session length, time of access,
+materials [18]. For instance, recommending longer courses for          and device type are examples of context variables that help to
+uninterrupted study times and shorter tutorials for commuting          adapt recommendations to user learning environments. In addi-
+is likely to improve learning and the perceived value of the           tion, learning goals help the system to prioritize targets aligned
+recommendations. Including context data in recommendations             with users–whether for skill building, exams, or professional
+has been shown to improve accuracy and user satisfaction [19].         learning. Context and goal alignment together ensure that the
+                                                          www.ijacsa.thesai.org                                          793 | P a g e
+                                                  (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                           Vol. 17, No. 2, 2026
+
+
+system moves beyond offering vague, unhelpful recommenda-             histories. It analyzes user–item interaction matrices and rec-
+tions to the user and supports actionable recommendations.            ommends courses that have been highly rated or frequently
+                                                                      accessed by users with similar profiles. However, CF suffers
+     Overall, the proposed hybrid system is a significant im-         from data sparsity and cold-start problems, particularly when
+provement over the previous work which is focused on e-               dealing with new users or newly introduced courses.
+learning recommendation systems. It closes the gaps between
+the collaborative, content-based, and context-approaches, fa-             Content-Based Filtering (CBF) relies on course attributes
+cilitating the generation of adaptive, flexible, and personalized     such as keywords, topics, descriptions, and metadata to match
+learning paths. This not only contributes to higher recom-            learning resources with individual learner profiles. This ap-
+mendation accuracy and user satisfaction, but also to the             proach is effective in recommending courses aligned with a
+advancement of intelligent context-aware e-learning systems           learner’s past interests and completed materials. Nevertheless,
+aimed at meeting the needs of a variety of learners in real-life      CBF often leads to over-specialization, as it tends to recom-
+educational environments.                                             mend content that is too similar to previous selections, thereby
+                                                                      limiting exploration and discovery of new topics.
+    Recent research in e-learning recommendation systems
+has shown a clear trend toward hybrid and context-aware                   Contextual Data Models capture situational factors that
+approaches, which combine multiple techniques to improve              influence learning behavior, including temporal variables (e.g.,
+personalization and system adaptability in response to the            study schedules and session duration) and spatial or environ-
+diversity of learners and learning contexts. For instance, hybrid     mental attributes such as location, device type, and learning
+approaches integrating user and content-based techniques with         context. To model these complex and sequential relationships,
+collaborative methods have been proposed to address the               we employ Long Short-Term Memory (LSTM) networks, a
+cold-start problem in personalized course recommendation              class of recurrent neural networks capable of learning long-
+systems, demonstrating increased user satisfaction without            term dependencies in user behavior. Through LSTM, the
+relying solely on historical user ratings [25]. Similarly, context-   system analyzes how learners’ preferences and contexts evolve
+aware recommendation engines integrating hybrid reinforce-            over time and predicts which courses are most suitable at a
+ment learning have been developed to dynamically adapt rec-           given moment. For instance, the system may recommend short
+ommended content according to learner profiles, preferences,          tutorials during commuting or brief study sessions, while sug-
+and real-time performance, illustrating the integration of vari-      gesting more comprehensive modules during extended learning
+ous contextual data such as learning pace and individual trajec-      periods.
+tories [26]. Moreover, systematic reviews of recent advances
+in context-aware recommender systems highlight the impor-                 Each component—CF, CBF, and the LSTM-based con-
+tance of structured contextual representations and integrated         textual model—operates independently to generate candidate
+methods to capture complex interactions among users, items,           recommendations. These outputs are then combined through
+and context, while emphasizing the need for more unified              a fusion mechanism that considers user reliability, behavioral
+frameworks for context management [27] [28]. Other studies            profiles, and contextual relevance. This hybrid aggregation
+explore group or multi-criteria recommendation mechanisms,            strategy provides dynamic recommendation capabilities, allow-
+showing the addition of diverse contextual factors and dynamic        ing the system to adapt to changes in learner preferences and
+attention mechanisms to better serve collaborative or multi-          environmental conditions in real time.
+dimensional educational environments [29] [30]. Federated                 By integrating collaborative, content-based, and contextual
+hybrid approaches have also been proposed to address chal-            modeling approaches, the proposed framework offers a flexi-
+lenges related to inter-institutional diversity and data privacy,     ble, scalable, and context-sensitive solution for e-learning per-
+constructing heterogeneous representations that integrate his-        sonalization. It simultaneously exploits historical interaction
+torical and contextual interactions within distributed learning       patterns, course attributes, and situational factors to deliver
+graphs [27] [28]. Finally, research on hybrid and context-aware       highly relevant and adaptive recommendations, ultimately en-
+recommendations in adjacent domains demonstrate the positive          hancing learner engagement, effectiveness, and satisfaction.
+impact of combining multiple paradigms on recommendation
+accuracy and adaptability, providing a solid conceptual foun-
+                                                                      A. Framework Overview
+dation for hybrid context-aware frameworks in e-learning [31].
+                                                                          Fig. 1 will help to explain the elements of the blended
+   III.   P ROPOSED F RAMEWORK AND M ETHODOLOGY                       recommendation framework. There are four blended recom-
+                                                                      mendation framework parts that are unified, which help to gen-
+    We aim to enhance personalization and flexibility in e-           erate hyper-personalized course recommendations. The modu-
+learning recommendations by designing a hybrid recommen-              lar approach also allows the recommendation system to gain
+dation framework that integrates Collaborative Filtering (CF),        different facets of a learner’s behavior, a course’s content, and
+Content-Based Filtering (CBF), and Contextual Data Modeling           contexts, leading to comprehensive recommendations. Since
+(CDM) using Long Short-Term Memory (LSTM) networks. By                diverse aspects of learner behavior and content are accounted
+combining these three approaches, the framework overcomes             for, the recommendations are comprehensive and accurate.
+the limitations of relying on a single recommendation tech-
+nique and enables more accurate, diverse, and context-aware               1) Collaborative Filtering (CF) with SVD (User-Based
+learning recommendations.                                             Collaborative Filtering – UBCF): The first segment uses the
+                                                                      previously discussed user-item historical interaction data of
+   Collaborative Filtering (CF) identifies users and groups           ratings, clicks, or engagement trails to locate and analyze user
+with similar preference patterns, behaviors, and interaction          similarities. SVD (Singular Value Decomposition) transforms
+                                                         www.ijacsa.thesai.org                                          794 | P a g e
+                                               (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                        Vol. 17, No. 2, 2026
+
+
+the user-item interaction matrix by decomposing it into a set      the instructor; iii) contextual data which includes timestamps,
+of latent factors that the system can use to uncover hidden user   device types, and session information. The cleaning process
+preferences and help outline custom course recommendations         for this phase involves removing outliers and handling missing
+by analyzing the adjusted suggestions of comparable users.         values, which requires the use of either imputation or removal
+The UBCF (User-Based Collaborative Filtering) approach,            techniques. Categorical variables such as user demographics
+which focuses on learners with comparable profiles, also           and course categories are encoded through one-hot or label
+improves the relevance of recommendations. Latent factor           encoding, while numerical features such as ratings and time
+modeling UBCF also solves some of the sparsity issues.             spent are normalized to a consistent scale.
+    2) Content-Based Filtering (CBF) with TF-IDF: The sec-             Moreover, feature engineering refines user interactions to
+ond module analyzes each course and matches it with user           create the user-item interaction matrix for collaborative filter-
+profiles. Using TF-IDF (Term Frequency-Inverse Document            ing (CF). For content-based filtering (CBF), course metadata
+Frequency) algorithm, the system analyzes course descriptions,     is used to extract TF-IDF features. Additionally, time-series
+keywords and other textual features and metadata, and assesses     structured contextual data is prepared for training the RNN-
+the relevance of each course in relation to the learner’s prior    based models.
+choices. This component guarantees that the recommendations
+correspond to the learner’s interests and areas of knowledge.          2) Independent model implementations:
+In contrast to CF, CBF can algorithmically recommend new               •   Collaborative Filtering using SVD: The interaction
+courses, thus alleviating cold-start challenges for new items.             matrix is split into latent factors for users and courses.
+    3) Contextual modeling with LSTM networks: Incorpo-                    Ratings for non-evaluated items are predicted using
+rating the third constituent, the bloc incorporates contextual             the dot product of these vectors, enabling user-specific
+information that makes it possible to understand the temporal              recommendations to be tailored.
+and situational aspects of user behavior. Using Recurrent              •   Content-Based Filtering using TF-IDF: For textual
+Neural Networks (RNNs) with Long Short Term Memory                         features of the courses, TF-IDF scores are calculated.
+(LSTM) units, it tracks the sequence of data in learner in-                Using cosine similarity, a user’s preference profile is
+teractions and analyzes the timestamps, devices, and contexts              measured against course content to rank and recom-
+of each session. LSTM networks are designed to remember                    mend the most relevant ones, thus enabling course
+information for long periods which allows the system to                    ranking and recommendation.
+change recommendations as user behavior and preferences
+shift, enabling situational personalization. For example, it can       •   Contextual Model using RNN: Sequences of user
+offer short tutorials when users are likely to be commuting and            behaviors along with contextual variables like device
+more comprehensive modules are reserved for heavier study                  used and time are formatted as ordered sequences and
+sessions which increases relevance and engagement.                         used to train the RNN. The RNN LSTM captures
+                                                                           temporal regularities and makes predictions for user
+    4) Hybrid aggregation mechanism: This last building block
+                                                                           preference scoring to recommend relevant courses.
+combines the results from CF, CBF, and the LSTM-based
+contextual model. Based on the relevance, reliability, and             3) Score normalization: Each model’s CF, CBF, and RNN
+contextual appropriateness of each module, the recommen-           outputs are normalized to the [0, 1] range using Min-Max Scal-
+dations are weighted and aggregated into a comprehensive,          ing. This normalization guarantees model output comparability
+context-aware recommendation list. This fusion mechanism           and is crucial for effective aggregation.
+maintains equilibrium in the hybrid system while interlocking
+each model’s pivots. Whereas CF focuses on the community               Before fusion, the outcomes generated by each model,
+trends, CBF captures the content relevance, and the LSTM-          specifically the Collaborative Filtering, Content-Based Filter-
+based CDM integrates the situational and temporal aspects.         ing, and the Recurrent Neural Network, are scaled down to
+                                                                   the [0, 1] interval using the Min-Max scaling method. This
+    Collectively, these four components provide a powerful,        step is crucial since the models feature scores that differ
+flexible, and expandable framework capable of offering highly      in terms of numerical consistency, distribution, and in the
+personalized e-learning recommendations. In addition to en-        case of CBF, may even utilize a distinct calculating method.
+hancing prediction accuracy, the architecture improves learner     Model outputs entail dissimilar Merits, valued predictions,
+satisfaction and engagement by resolving challenges associ-        range estimates, or probabilities. Without the Min-Max scaling,
+ated traditional models, such as the cold-start problem, static    the more significant the range of a score, the more influence
+content dependence, and the absence of contextualization.          it would have on the fusion process leading to skewed and
+                                                                   unreliable recommendations.
+B. Framework Development Process
+                                                                      In relation to a specific predictive score si , that a model
+    Constructing the hybrid framework is based on an orga-         outputs for a single learner x item combination, the Min-Max
+nized multi-step pipeline where all parts are built on the edX     normalization is described as follows:
+Course Data dataset.
+    1) Data preprocessing: The information in the dataset                                          si − smin
+                                                                                        snorm
+                                                                                         i    =
+falls into three categories: i) the history of user interactions                                  smax − smin
+with items, including clicks, ratings, enrollments, and course
+completions; ii) course metadata which encompasses descrip-           where, smin and smax denote the minimum and maximum
+tion, categories and keywords, as well as information about        scores generated by the model for a given learner–item pair,
+                                                       www.ijacsa.thesai.org                                         795 | P a g e
+                                                (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                         Vol. 17, No. 2, 2026
+
+
+
+
+                                                       Fig. 1. Framework overview.
+
+
+
+
+respectively, thereby rescaling all outputs to a common range              This formulation ensures that models with lower prediction
+between 0 and 1.                                                       errors receive higher weights, thereby exerting greater influ-
+                                                                       ence on the final recommendation score. For instance, if the
+    With the normalization process, the same score level is be-        RNN model achieves the lowest RMSE among the three, it is
+stowed upon each model, proving a fair ground for comparison,          assigned the largest weight, followed by the TF–IDF and SVD
+and in-turn a more precise aggregation technique is applied to         models.
+the weighted fusion layer. This directly increases the quality of
+each component in the score fusion process and adds more to                Let Si (u, k) represent the normalized score produced by
+the system as a whole in terms of reliability, consistency, and        model i for user u and course k. The final hybrid recommen-
+more comprehensibility to the hybrid recommender system.               dation score is then computed as:
+
+    4) Result aggregation: The normalized outputs of the three
+recommendation models namely the SVD-based collabora-                                S(u, k) = wSVD SSVD (u, k)
+tive filtering module, the TF–IDF content-based module, and                                    + wTF-IDF STF-IDF (u, k)              (2)
+the RNN-based contextual module—are combined using a
+                                                                                               + wRNN SRNN (u, k)
+weighted hybrid aggregation strategy. Each model is assigned
+a weight according to its predictive performance on the valida-
+tion set, such that models achieving higher accuracy (i.e., lower          This adaptive fusion mechanism enables the recommender
+prediction error) contribute more to the final recommendation;         system to dynamically balance collaborative, content-based,
+the corresponding computed weight values are reported in               and contextual signals according to their reliability under the
+Table I.                                                               current data conditions. As a result, the hybrid model achieves
+                                                                       greater robustness and predictive accuracy than any individual
+    Let Ei denote the prediction error of model i, measured            component, while remaining responsive to variations in learner
+using RMSE or MAE. The adaptive weight wi associated with              behavior and contextual factors.
+each model is computed as the normalized inverse of its error:             5) Evaluation: Evaluate the performance of the individual
+                                                                       models and the hybrid system using the following metrics:
+                                   1                                   Precision@K: Measures the proportion of relevant items in
+                        wi = P3Ei    1
+                                                              (1)      the top-K recommendations, and the Recall@K: Assesses the
+                                 j=1 Ej                                fraction of relevant items retrieved out of all applicable items,
+                                                        www.ijacsa.thesai.org                                            796 | P a g e
+                                                 (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                          Vol. 17, No. 2, 2026
+
+
+    TABLE I. A DAPTIVE W EIGHTING OF SVD, TF–IDF, AND RNN           the collaborative filtering component to learn user preferences,
+                   M ODULES BASED ON RMSE.                          while the TF–IDF descriptive and textual resource data learn
+                                                                    user content preferences. Additionally, the data collected over
+                    Module   RMSE    Weight wi                      time helps the RNN capture and model the time dimensions
+                     SVD     0.902     0.30
+                                                                    of learning behaviors to address the shift in learners’ interests
+                    TF–IDF   0.856     0.32
+                     RNN     0.812     0.38
+                                                                    and learning paths.
+                                                                        A standard hold-out protocol was used to split the dataset
+                                                                    into two non-overlapping subsets for model training and
+Normalized Discounted Cumulative Gain (NDCG): Takes into            evaluation: 80% of the dataset was allocated for training,
+account the rank position of recommendations, giving higher         while the remaining 20% was set aside for testing. Such
+importance to higher-ranked items,Root Mean Squared Error           a split guarantees that the models being learned will only
+(RMSE): Evaluates the accuracy of the predicted ratings,            be evaluated on previously unseen interactions, which gives
+comparing the difference between predicted and actual values.       a trustworthy assessment of their generalization capability.
+Algorithm 1 and Algorithm 2 presents the hybrid recommen-           Thanks to the user diversity, content richness, and the presence
+dation systems.                                                     of temporal interaction data, the edX dataset stands out to
+                                                                    evaluate context-aware and hybrid recommender systems in
+              IV.    R ESULTS AND D ISCUSSION                       real-world e-learning environments.
+    This section describes how we evaluated hybrid e-learning
+recommender systems using the rich edX Course Data. As              B. Hyperparameters
+data collected from millions of learners around the globe, it
+incorporates different views to analyze learner disposition. As         The performance of the proposed hybrid recommender
+we developed and tested advanced recommendation systems,            system strongly depends on the appropriate tuning of the
+the data also allows us to understand learner behavior, course      hyperparameters of its three constituent modules, namely the
+content and the context within which the recommendations            SVD-based collaborative filtering model, the TF–IDF content-
+were made.                                                          based model, and the LSTM-based contextual model. To
+                                                                    ensure a fair and reproducible evaluation, the hyperparameters
+    The dataset consists of three major parts. The first part       were selected through validation experiments and empirical
+containing data of user interactions records course enrollments     tuning, balancing model complexity and generalization ability.
+and completions, audit, ratings, and detailed activity logs.        The final configuration adopted for all experiments is reported
+Every interaction captures unique and important behavioral          in Table II.
+components of learners thus helping to model long-term inter-
+est and short-term engagement. Such user behavior data allows           For the SVD component, the number of latent factors
+the recommender system to not only find and cluster learners        controls the dimensionality of the user–item interaction space
+with similar and competing interests but also track the dynamic     and directly influences the model’s ability to capture hidden
+order and sequence of courses to predict the next course a          preference patterns. The learning rate and regularization term
+learner might be interested in.                                     were carefully adjusted to ensure stable convergence and
+                                                                    prevent overfitting, as summarized in Table II. In the TF–IDF
+    The course metadata contains both structured and unstruc-       module, parameters such as the n-gram range, vocabulary size,
+tured texts, for example, course titles, descriptions, types,       and document frequency thresholds were optimized to generate
+keywords, and other content descriptors. This information           informative and discriminative content representations while
+is essential for the content-based filtering component, as it       reducing noise and sparsity.
+allows cross matriculation of learner profiles and courses with
+pertinent characteristics. The richly developed text features           For the LSTM-based contextual model, key hyperparam-
+provide enough information for the model to capture the             eters, including the embedding dimension, number of hidden
+semantics of various courses, allowing it to recommend those        units, sequence length, dropout rate, and optimization settings,
+that best align with what the learner has engaged with or           were tuned to effectively model temporal dependencies in
+indicates interest in.                                              learners’ interaction histories without excessive complexity.
+                                                                    These settings, detailed in Table II, enable the LSTM to cap-
+A. Dataset                                                          ture evolving learning behaviors while maintaining stable and
+                                                                    efficient training. Overall, the hyperparameter configuration
+    The datasets used in this research study are collected          reported in Table II ensures that the three modules operate
+from edX, a popular resource for academic research in e-            in a balanced and complementary manner, allowing the hybrid
+learning and educational recommendation systems. The dataset        framework to fully exploit collaborative, content-based, and
+includes a total of five thousand learners, one thousand learning   contextual information in the recommendation process.
+resources, and five thousand unique user-to-resource interac-
+tions, indicating a collection of diverse learning behaviors and
+content engagement patterns.                                        C. Evaluation Results and Discussion
+    User-resource interactions can be classified to indicate            Alongside evaluating the proposed hybrid recommender
+whether a learner has performed an action with a particular         system’s overall performance, we also examined its perfor-
+educational resource. Actions may include registering for a         mance with and without contextual data. The results indicate
+course, browsing content, watching videos, or submitting as-        that including contextual information considerably improves
+signments. These action behaviors are used as signals within        the system’s effectiveness, as demonstrated in Fig. 2. While
+                                                        www.ijacsa.thesai.org                                         797 | P a g e
+                                                (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                         Vol. 17, No. 2, 2026
+
+Algorithm 1 Hybrid Recommendation System
+ 1: Input: dataset, weights
+ 2: Output: final scores, precision, recall, ndcg, rmse
+ 3: Step 1: Data Preprocessing
+ 4: function P REPROCESS DATA(dataset)
+ 5:    CLEAN dataset by handling missing values and outliers
+ 6:    NORMALIZE numerical features to a uniform scale
+ 7:    ENCODE categorical variables if required
+ 8:    user_item_matrix = CREATE_USER_ITEM_MATRIX(dataset)                                                                ▷ For CF
+ 9:    textual_features = EXTRACT_TEXTUAL_FEATURES(dataset)                                                             ▷ For CBF
+10:    contextual_data = ORGANIZE_CONTEXTUAL_DATA(dataset)                                                              ▷ For RNN
+11:    return user item matrix, textual features, contextual data
+12: end function
+13: Step 2: Independent Model Implementations
+14: function C OLLABORATIVE F ILTERING (user item matrix)
+15:    [U, S, Vt] = SVD(user_item_matrix)
+16:    predicted_ratings = PREDICT_RATINGS(U, S, Vt)
+17:    rmse = CALCULATE_RMSE(predicted_ratings)
+18:    return predicted ratings, rmse
+19: end function
+20: function C ONTENT BASED F ILTERING(textual features)
+21:    tfidf_matrix = COMPUTE_TFIDF(textual_features)
+22:    similarities = COSINE_SIMILARITY(tfidf_matrix)
+23:    ranked_courses = RANK_COURSES_BY_SIMILARITY(similarities)
+24:    return ranked courses
+25: end function
+26: function C ONTEXTUAL M ODEL(contextual data)
+27:    sequences = PREPARE_SEQUENCES_FOR_RNN(contextual_data)
+28:    rnn_model = TRAIN_RNN(sequences)
+29:    context_predictions = PREDICT_WITH_RNN(rnn_model)
+30:    return context predictions
+31: end function
+
+
+Algorithm 2 Hybrid Recommendation System 2
+   Step 4: Result Aggregation (Weighted Hybrid)
+ 2: function AGGREGATE R ESULTS(cf scores, cbf scores, contextual scores, weights)
+       final_scores = weights[0] * cf_scores + weights[1] * cbf_scores + weights[2] *
+    contextual_scores
+ 4:    return final scores
+    end function
+ 6: Step 5: Evaluation
+    function E VALUATE S YSTEM(final scores, ground truth)
+ 8:    precision = CALCULATE_PRECISION_AT_K(final_scores, ground_truth)
+       recall = CALCULATE_RECALL_AT_K(final_scores, ground_truth)
+10:    ndcg = CALCULATE_NDCG(final_scores, ground_truth)
+       rmse = CALCULATE_RMSE(final_scores, ground_truth)
+12:    return precision, recall, ndcg, rmse
+    end function
+
+
+session time, device type, user location, and interaction se-        0.71 F1-score, while the CF results were 0.68 precision, 0.60
+quences are used as contextual data, this information helps the      recall, and 0.63 F1-score, and CBF results were 0.70 precision,
+model to adapt its recommendations to the learner’s situation,       0.64 recall, and 0.67 F1-score. The hybrid system delivered
+increasing engagement and the relevance of recommended               a 0.18 MAE, underscoring the improved predictive accuracy
+courses.                                                             with the combination of user behavior and contextual data from
+                                                                     the edX dataset. This compares to 0.21 with CF and 0.20 with
+   The hybrid recommender system continues to achieve                CBF.
+higher results across all the evaluation measures—Precision,
+Recall, F1-Score, and Mean Absolute Error (MAE)—than the                 The hybrid framework, SVD-based CF, and deep learning-
+baseline models [e.g., standalone Collaborative Filtering (CF)       based (LSTM) models were additionally analyzed compara-
+and Content-Based Filtering (CBF)], as shown in Fig. 3. The          tively. Evaluation through all four primary metrics validates
+hybrid system results include, 0.75 precision, 0.68 recall, and      that, in most instances, the hybrid method performed best,
+                                                       www.ijacsa.thesai.org                                         798 | P a g e
+                                                     (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                              Vol. 17, No. 2, 2026
+
+
+                                 TABLE II. H YPERPARAMETERS OF THE SVD, TF–IDF, AND LSTM M ODULES
+
+     Module               Hyperparameter                      Description                                                    Value / Setting
+                          Latent factors (k)                  Dimensionality of the user/item latent space                   50
+                          Learning rate (η)                   Step size for gradient updates                                 0.005
+                          Regularization (λ)                  L2 penalty to reduce overfitting                               0.02
+     SVD (CF)
+                          Epochs                              Number of training iterations                                  50
+                          Initialization                      Latent vector initialization strategy                          Random (Gaussian)
+                          Loss function                       Optimization objective for rating/implicit signal prediction   MSE
+                          n-grams                             Token range for feature extraction                             (1,2)
+                          Vocabulary size                     Maximum number of features retained                            20,000
+                          Minimum document        frequency   Ignore rare terms below threshold                              2
+     TF–IDF (CBF)         (min df)
+                          Maximum document        frequency   Ignore overly frequent terms above threshold                   0.90
+                          (max df)
+                          Normalization                       Vector normalization scheme                                    L2
+                          Similarity metric                   Similarity computation between course profiles                 Cosine
+                          Embedding dimension                 Size of interaction/context embedding                          128
+                          Hidden units                        Number of LSTM hidden neurons                                  128
+                          Number of LSTM layers               Depth of the recurrent network                                 1
+                          Dropout                             Dropout rate for regularization                                0.30
+     LSTM (Context)       Sequence length (T )                Number of past interactions used as input                      20
+                          Batch size                          Number of samples per training batch                           64
+                          Optimizer                           Optimization algorithm                                         Adam
+                          Learning rate                       Step size for optimizer                                        0.001
+                          Epochs                              Number of training iterations                                  30
+
+
+
+
+                                    Fig. 2. Performance comparison of hybrid e-learning recommender systems.
+
+
+
+                                 TABLE III. C OMPARATIVE P ERFORMANCE OF R ECOMMENDATION M ETHODS
+
+                                     Method                                 Precision     Recall     F1-Score      MAE
+                                     DL-based (NN)                            0.73         0.66        0.69        0.17
+                                     SVD (Classic MF)                         0.68         0.60        0.63        0.22
+                                     SVD + Tf-IDF + RNN (Our method)          0.75         0.68        0.71        0.18
+
+
+
+see Fig. 4. For precision, the hybrid method achieved 0.75,                     DL-based’s 0.66 and SVD’s 0.60, as shown in Table III. The
+ahead of the DL-based method’s 0.73 and SVD’s 0.68. The                         hybrid system also achieved the best F1-score of 0.71, while
+hybrid method also led in recall, attaining 0.68, greater than                  the DL-based models scored 0.69 and SVD scored 0.63. The
+
+                                                              www.ijacsa.thesai.org                                                            799 | P a g e
+                                                (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                         Vol. 17, No. 2, 2026
+
+
+
+
+                                        Fig. 3. Performance comparison of our system with baselines.
+
+
+
+
+                                              Fig. 4. Comparison of recommendation methods.
+
+
+
+
+DL-based method had a slight edge in MAE, scoring 0.17,                 predicting preferences based on user behavior, but it does not
+while the hybrid scored 0.18, and SVD scored 0.22. The hybrid           work well in the case of new users or courses with sparsely
+system makes a balanced improvement by confirming active                populated interaction history. CBF somewhat mitigates the
+adjustments to the accuracy, as well as the error reduction, as         cold-start problem, but is not able to adapt to shifting user
+it provides concrete evidence to the system’s reliability and           behavior and situational dynamics. The hybrid approach im-
+robustness.                                                             proves on this by combining the methods with contextual data
+                                                                        and producing suggestions based on learner preferences and
+    As highlighted in this analysis, there are benefits to inte-        situational constraints present in the real-world. For example,
+grating CF, CBF, and contextual information. CF is good at              if users are engaged in short study sessions, the system
+
+                                                         www.ijacsa.thesai.org                                          800 | P a g e
+                                                 (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                          Vol. 17, No. 2, 2026
+
+
+suggests quick, shorter courses, while in the case of longer         in real e-learning systems to ensure compatibility with varying
+study sessions, it suggests comprehensive longer modules. This       user demographics and learning situations. Use hybrid systems
+recommend system improves user satisfaction and engagement,          maximize contextual information; they effectively improve
+which is especially important in the dynamic context of e-           outcomes, adjust learning personalization and support high
+learning.                                                            flexibility educational systems, paving the way for advanced
+                                                                     smart educational frameworks.
+    There are, however, unsolved issues. In some cases, sparse
+contextual data for user profiles, new users especially, or under-
+enrolled courses, may constitute a limit to system performance,                            V.   C ONCLUSION
+even with contextual data augmentation. Furthermore, the need            This work was the first to combine Collaborative Filtering,
+to combine multiple data sources poses a significant challenge       Content-Based Filtering, and Contextual Data Modeling into
+in terms of real-time recommendations. This is likely due to the     a hybrid e-learning recommender system to create context-
+system requiring excess processing power on large platforms          aware, personalized e-learning course recommendations. Using
+like edX, making it a scalability barrier. Future work could         the additional and overlapping strengths of the aforementioned
+target this problem by optimizing, for example, distributed          frameworks decreased some of the major drawbacks of conven-
+computing or incremental learning coupled with lightweight           tional recommender systems, including underexploited cold-
+neural nets to improve processing speed while preserving the         start and data sparsity situations, excessive overspecialization
+quality of the recommendations.                                      of recommendations, and a failure to address shifting user
+    Enriching the contextual data surrounding users in an e-         needs and preferences. Some of the advanced algorithms
+learning environment increases the value of the recommenda-          implemented in this hybrid system include Singular Value
+tions provided. While recommender systems like Collaborative         Decomposition (SVD) for latent factor analysis, TF-IDF for
+Filtering (CF) and Content-Based Filtering (CBF) offer the           content feature extraction, and Long Short-Term Memory
+basics of personalized recommendations based on historical           (LSTM) networks for temporal and contextual user behavior
+interactions or static content features, they do not capture the     modeling.
+dynamic situations the learner is in. Thousands of interactions          The hybrid system, which was evaluated on the edX course
+provide contextual data on patterns, such as duration of content     dataset, consistently surpassed solo CF and CBF baseline
+sessions and timing of access, while device type and geo-            models on metrics such as precision, recall, F1 score, and
+location add further dimensions. By these measures, the hybrid       Mean Absolute Error (MAE), as well as on multiple other
+recommender system is able to escape the proposition of              metrics. Contextual data such as the user’s device, session
+static recommendations and deliver relevant and actionable           duration, and location accessed data, which was incorporated
+suggestions based on the learner’s context.                          into the system, significantly improved the precision and utility
+                                                                     of the recommendations. Lastly, the fusion mechanism, which
+    Precision and relevance of the recommendations are en-
+                                                                     integrates the disparate evaluation systems within each of the
+hanced with the addition of contextual data. For instance,
+                                                                     three components, offers the system a high degree of flexibility
+learners accessing the platform when taking short breaks
+                                                                     and robustness in addition to balance, accuracy, diversity, and
+would appreciate brief modules or quick tutorials. In contrast,
+                                                                     adaptability in its recommendations.
+learners engaging in longer study periods are eligible for more
+extensive courses or multi-part learning paths. This temporal            Research contributions are as follows: First, this work
+and situational awareness can make recommendations relevant          presents a unified hybrid framework combining collaborative,
+for learners, focusing on their attention spans and immediate        content-based, and context-aware strategies for e-learning. Sec-
+needs. This increases the probability of completion and active       ond, this work illustrates the synergistic use of SVD, TF-IDF,
+utilization of recommended courses. Real-time adaptation to          and LSTM in tackling common problems in recommendation
+changes in conditions creates unprecedented flexibility, accom-      systems. Third, this work uses educational real-world data as
+modating user behavior and preferences, and external limi-           evidence that the proposed framework offers a more personal-
+tations, and their behavioral and contextual changes without         ized approach to recommend courses and improves the overall
+requiring overriding manual control.                                 learning experience.
+    Learning contextual data enhances learner motivation and             Although there are achievements, limitations and chal-
+engagement. Improved engagement and motivation primarily             lenges still exist. The system in use is guided by historical and
+stem from the interaction of contextual information with the         contextual data which may not be complete and accurate, and
+designed learning activities. Users are more likely to con-          real-time adaption to user behavior shifts and cross-platform
+tinue engaging with the platform when contextual data is             access still can be improved. Furthermore, the protective use
+incorporated into the recommendations. The hybrid system’s           of real-time contextual and behavioral data and the systems’
+ability to incorporate contextual factors creates a purposeful       data acquired for situational context reveals core challenges of
+and meaningful learning environment that enhances immersion          privacy and security.
+and satisfaction.
+                                                                         Subsequent work will target the use of reinforcement
+    Incorporating context-aware hybrid recommender systems           learning and deep learning because they can enhance the
+sets a new standard in personalized e-learning. Differing from       systems understanding of nuanced user preferences and ad-
+conventional models that rely on fixed features or merely his-       vanced sequence of learning patterns. The system will be more
+torical features, these systems dynamically adjust to learners as    personalized by incorporating learner goals, motivation, and
+they progress, updating suggestions in real-time with contex-        affect. Finally, system extensibility to permit multi-platform
+tual and behavioral information. Such flexibility is important       systems, in conjunction with the use of privacy-conscious
+                                                        www.ijacsa.thesai.org                                          801 | P a g e
+                                                           (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                                    Vol. 17, No. 2, 2026
+
+
+strategies for system deployment in e-learning environments                        [13]  K. D. Brinton, M. Chiang, and H. V. Poor, “Learning networks for
+is imperative for system’s ethical and responsible scalability.                        smart education,” Proc. IEEE, vol. 107, no. 9, pp. 1703–1713, 2019.
+                                                                                   [14] P. Mateos and A. Bellogı́n, “A systematic literature review of recent
+    The proposed hybrid and context-aware recommender sys-                             advances on context-aware recommender systems,” Artif. Intell. Rev., vol.
+tem represents a strong, adaptable, and extensible approach to                         58, art. 20, 2025.
+personalization in e-learning. Incorporating elements of collab-                   [15] M. E. Chafiki, O. Stitini, and S. Kaloun, “A systematic review of
+orative, content-based, and contextual mechanisms yields not                           advancements in context-aware recommendation systems,” Knowl. Inf.
+only enhanced precision and pertinence in recommendations                              Syst., vol. 1, 2025.
+but also sets a foundation for more sophisticated, evolving, and                   [16] S.-Y. Jeong and Y.-K. Kim, “Deep learning-based context-aware rec-
+                                                                                       ommender system considering change in preference,” Electronics, vol.
+learner-focused approaches to education in the digital age.                            12, no. 10, art. 2337, 2023.
+                                                                                   [17] S. Raza et al., “A comprehensive review of recommender systems:
+                          ACKNOWLEDGMENT                                               Transitioning from theory to practice,” preprint, arXiv:2407.13699, 2024.
+    The authors would like to thank the editors and anony-                         [18] Y. Zhang, L. Chen, and H. Wang, “Neural collaborative filtering with
+mous reviewers for their valuable comments and constructive                            attention mechanisms for personalized recommendations,” Expert Syst.
+                                                                                       Appl., vol. 178, p. 115049, 2022.
+suggestions which greatly helped improve the quality and
+                                                                                   [19] “CNNRec: Convolutional neural network-based recommender systems
+clarity of this manuscript. We also gratefully acknowledge the                         – a survey,” Eng. Appl. Artif. Intell., vol. 133, 2024.
+support of our institution and colleagues who contributed to                       [20] M. Bukhari, M. Maqsood, and F. Adil, “An actor-critic based recom-
+the completion of this work.                                                           mender system with context-aware user modeling,” Artif. Intell. Rev., vol.
+                                                                                       58, art. 138, 2025.
+                               R EFERENCES                                         [21] M. Almasi et al., “Context-sensitive recommender systems: A survey
+[1] C. D. Kintu, C. Zhu, and E. Kagambe, “Blended learning effectiveness:              of current methods and trends,” ACM Comput. Surv., vol. 54, no. 2, pp.
+     The relationship between student characteristics, design features and             1–40, 2022.
+     outcomes,” Int. J. Educ. Technol. Higher Educ., vol. 14, no. 7, pp. 1–20,     [22] F. Ricci et al., Recommender Systems Handbook, 3rd ed., Springer,
+     2017.                                                                             2022.
+[2] J. Lu, D. Wu, M. Mao, W. Wang, and G. Zhang, “Recommender system               [23] C. C. Aggarwal et al., Recommender Systems: The Textbook, 2nd ed.,
+     application developments: A survey,” Decision Support Systems, vol. 74,           Springer, 2022.
+     pp. 12–32, 2018.                                                              [24] C. Zhong, Y. Liu, J.-S. Wang, and Z.-F. Li, “RBFNN Fault Diagnosis
+[3] A. Aggarwal et al., “Collaborative filtering and hybrid models in recom-           Method of Rolling Bearing Based on Improved Ensemble Empirical
+     mender systems: A review and future directions,” Inf. Process. Manage.,           Mode Decomposition and Singular Value Decomposition,” IAENG In-
+     vol. 58, no. 6, p. 102657, 2021.                                                  ternational Journal of Computer Science, vol. 49, no. 3, 2022.
+[4] S. Zhang, L. Yao, A. Sun, and Y. Tay, “Deep learning-based recom-              [25] H. Pu and Y. Hua, “Adaptive course recommendation using federated
+     mender system: A survey and new perspectives,” ACM Comput. Surv.,                 learning and graph convolutional networks in IoT-enhanced e-learning,”
+     vol. 52, no. 1, pp. 1–38, 2019.                                                   Sci. Rep., vol. 15, Art. 42040, 2025.
+[5] X. Su and T. M. Khoshgoftaar, “A survey of collaborative filtering             [26] A. N. Hasoon, S. K. Abdulateef, R. S. Abdulameer, and
+     techniques,” Adv. Artif. Intell., vol. 2009, no. 4, pp. 1–19, 2009.               M. L. Shuwandy, “An intelligent hybrid AI course recommendation
+[6] P. Lops, M. de Gemmis, and G. Semeraro, “Content-based recommender                 framework integrating BERT embeddings and Random Forest classifi-
+     systems: State of the art and trends,” Recommender Systems Handbook,              cation,” Computers, vol. 14, no. 9, Art. 353, 2025.
+     Springer, 2011, pp. 73–105.                                                   [27] D. A. Hakim, N. Wilantika, B. A. B. Fikri, R. Yosral, and N. B. Kurni-
+[7] M. Akbari and C. C. Chi, “Context-aware recommender systems for                    awan, “A modified hybrid content-aware course recommendation model
+     learning resources: A survey,” IEEE Trans. Learn. Technol., vol. 14, no.          for Moodle-based Learning Management System,” Inform: J. Teknol. Inf.
+     1, pp. 28–49, Jan.–Mar. 2021.                                                     dan Komunik., vol. 11, no. 1, pp. 65–70, 2026.
+[8] J. Bobadilla, F. Ortega, A. Hernando, and A. Gutiérrez, “Recommender          [28] S. Kim and J. Lee, “Recent advances in context-aware recommender
+     systems survey,” Knowl.-Based Syst., vol. 46, pp. 109–132, Jul. 2013.             systems: A systematic review,” ACM Comput. Surv., vol. 56, no. 3, pp.
+                                                                                       1–38, 2024.
+[9] T. Bogers and M. Koolen, “Defining and evaluating context for person-
+     alized recommendations in digital libraries,” J. Assoc. Inf. Sci. Technol.,   [29] J. Zou, C. Lin, W. Guo, Z. Wang, J. Wei, Y. Yang, and H. Shen,
+     vol. 69, no. 6, pp. 742–753, 2018.                                                “Multi-type context-aware conversational recommender systems via
+                                                                                       mixture-of-experts,” arXiv preprint, arXiv:2504.13655, 2025.
+[10] H. Wei, J. Liu, and X. Chen, “Context-aware e-learning recommender
+     system using hybrid approach,” IEEE Access, vol. 7, pp. 73450–73461,          [30] N. L. Le and M. H. Abel, “From individual to group: Developing a
+     2019.                                                                             context-aware multi-criteria group recommender system,” arXiv preprint,
+                                                                                       arXiv:2503.22752, 2025.
+[11] Y. Liu et al., “A neural collaborative filtering model enhanced with
+     attention mechanism for personalized recommendations,” Expert Syst.           [31] S. Huang, H. Yang, Y. Yao, X. Lin, and Y. Tu, “Deep Adaptive Interest
+     Appl., vol. 164, p. 113992, 2021.                                                 Network: Personalized recommendation with context-aware learning,”
+                                                                                       arXiv preprint, arXiv:2409.02425, 2024.
+[12] A. Jameson et al., “Contextual effects on recommender systems in e-
+     learning platforms,” ACM SIGKDD Explor. Newslett., vol. 22, no. 1, pp.
+     19–25, 2020.
+
+
+
+
+                                                                    www.ijacsa.thesai.org                                                      802 | P a g e
+

@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+dist/
+*.log
+.DS_Store
+# raw datasets are downloaded by scripts in data/ — keep only small samples in git
+data/raw/
+data/cache/
+*.tmp
+~$*.docx
+~$*.pptx

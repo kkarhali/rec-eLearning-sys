@@ -1,0 +1,813 @@
+Received March 29, 2018, accepted June 13, 2018, date of publication June 25, 2018, date of current version July 12, 2018.
+Digital Object Identifier 10.1109/ACCESS.2018.2850376
+
+
+
+
+A Personalized Group-Based Recommendation
+Approach for Web Search in E-Learning
+MOHAMMAD MUSTANEER RAHMAN AND NOR ANIZA ABDULLAH , (Member, IEEE)
+Faculty of Computer Science and Information Technology, University of Malaya, Kuala Lumpur 50603, Malaysia
+Corresponding author: Nor Aniza Abdullah (noraniza@um.edu.my)
+This work was supported in part by the University of Malaya Research Grant under Grant RP032D-16SBS and in part by the Postgraduate
+Research Grant under Grant PG276-2015B.
+
+
+
+
+  ABSTRACT The unprecedented growth of the Internet, its pervasive accessibility, and ease of use have
+  increased students’ dependencies on the Web for quick search and retrieval of learning resources. However,
+  current search engines tend to rely on the correct keywords. This excludes other characteristics, such as the
+  individual’s learning capability and readiness for specific learning materials. As a result, the same set of
+  search-keywords delivers the same search results. This situation hinders the optimization of the Web search
+  engines in supporting the heterogeneity of its users in their learning endeavors. This paper aims to address
+  the issue. It attempts to augment Web search engines with personalized recommendations of search results
+  which match students’ learning competencies and behaviors. The results drawn from our experiments suggest
+  that our novel approach can provide a notable improvement in terms of performance and satisfaction for the
+  students.
+
+  INDEX TERMS E-learning, group-based recommendation, personalised Web search, recommender system,
+  students profiling.
+
+
+
+I. INTRODUCTION                                                                                 results for all the students in the group regardless of their
+The progression of multimedia and computer technologies                                         learning proficiencies [5]–[8]. Moreover, it was identified
+has inspired both the industry experts/professionals and                                        that when a dominant search engine was used to fetch educa-
+researchers into developing a more fascinating environment                                      tional materials, four results were found profoundly educative
+for learning which can help to improve students’ learning                                       among the topmost 50 returned documents [9]. However,
+apprehension [1], [2]. E-learning, which refers to learning                                     the relevancy of the results mainly relies on the right com-
+through the use of electronic tools usually on the Internet                                     bination of keywords used in the query. Many students, espe-
+such as web search engines, in current situations, enables                                      cially novice learners often struggle with finding the right
+learners of all ages, competencies and preferences, to look for                                 keywords particularly when they are new to the learning
+information or knowledge ‘‘anywhere and anytime’’ [3], [4].                                     topics [6], [10], [11]. In addition, students may also
+It also allows learners instant access to particular informa-                                   have difficulties in selecting the most relevant links from
+tion [5]. Nevertheless, behaviours, outlooks, learning styles,                                  the huge number of link results returned by the search
+and potentials may vary from one student to another. These                                      engines [5], [6], [12]. Moreover, commercial search engines
+differences can eventually make an impact on their learning                                     often place sponsored advertisements in the form of
+processes. Viewed from that perspective, it can be seen that                                    CPM (Cost per thousand viewers), CTR (Click-through
+giving learners the same learning materials may not create                                      rates), CPC (Cost per click), or CPA (Cost per action)
+similar learning experiences. Instead, it may reduce their                                      over relevant items which also distract students from choos-
+learning performances [5].                                                                      ing the right sources of content from the returned search
+   Keywords are required in making a web search and it                                          results [6], [13], [14]. In fact, previous investigations have
+appears that learners or students are given the same keywords                                   found that users only consider the first 10 to 20 links of the
+when making their search through any major commercial                                           results returned by search engines [15]. Inadvertently, this
+search engines such as Google, Yahoo or Bing). Without                                          lands some learners with difficulties in searching for contents
+doubt, this process is likely to return the same set of search                                  that match their requirements. Related to this is that search
+
+                                            2169-3536 2018 IEEE. Translations and content mining are permitted for academic research only.
+34166                                             Personal use is also permitted, but republication/redistribution requires IEEE permission.       VOLUME 6, 2018
+                                           See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+engines are often assessed with respect to the relevancy of                  materials within unfamiliar topics or complex to understand
+web pages to particular inquiries [16] whereas in reality,                   the materials. Therefore, it is essential to augment the Web
+the search request may barely represent a portion of the user’s              search engines with the ability to provide personalised rec-
+overall information requirement. This is because the same                    ommendations of search results in the e-learning domain.
+query may require different sets of information, depending on                   In this paper, we present a personalised group-based rec-
+users’ needs. In this context, user’s profile information should             ommendation approach for Web search in e-learning. The
+be considered together with their queries by Web links. This is              primary motivation of this study is to present an adaptive
+particularly important in the educational environment where                  e-learning method for students of different learning capa-
+students have different educational backgrounds and learning                 bilities when using the popular search engines. To achieve
+behaviours which indirectly, influence their learning progress               this, a Web search recommender system was developed as
+and acceptability. As an example, a tutorial video prepared for              a gateway between the Google search engine and the insti-
+an advanced level of students is not going to be suitable for a              tutional e-learning portal so as to enable the search engine
+novice learner due to dissimilarity in level of understanding                to deliver personalised search results as recommendations
+among them. It appears that the relevancy of the search results              for students based on their individual needs. The rest of this
+do not always convey users’ satisfaction [17]. An ideal search               paper is organized as follows. An overview encompassing
+result could be one that is based on a personal evaluation of                other related works on finding learning materials from the
+the user’s daily information needs derived from the returned                 Web using search engines as stated in the literature is pro-
+links or contents of the Web search engine [17]. Similarly, in a             vided. This is followed by an explanation of the framework
+collaborative learning environment, an assessment taken from                 and methodology employed to develop the proposed system.
+a group of similar learner profiles can reveal more significant              A section illustrating the experimental setup follows before
+input for the learners rather than just the relevancy of the                 the findings are discussed and concluded.
+webpages [18], [19].
+   Also, worth noting is how personalised service on the                     II. LITERATURE REVIEW
+Web can increase sales and this is one aspect of technology                  Most educational programs and online systems offer similar
+that needs to be emphasized on Web-based learning. Usu-                      learning tools to all students [32]. In order to accommodate
+ally, when rendering personalised services, majority of the                  customized learning materials for the individual students,
+personalised systems ponder on user interests, user prefer-                  upon investigating their profiles, researchers have strived to
+ences and user’s browsing behaviours [20]. Literature [20]                   come up with numerous recommendation systems or adap-
+has also pointed out that the best performance comes from                    tive learning mechanisms [1], [32]–[39]. Studies [40] show
+personalization algorithms where a big chunk of data about                   that about 80% of students use and prefer search engines as
+an individual is ready to be used [21]. Using data that are                  educational tools. Nonetheless, very few studies have been
+gathered from various individuals is one way to augment the                  conducted to investigate how the popular search engines can
+individual’s profile [19], [22]–[24]. In addition, the behav-                be utilized to leverage students by providing them with per-
+ioral information of a group of people can also be acquired                  sonalised e-learning materials.
+to be used to refine the personalization outcome. This is                       LOBSTER is a specialized search assistant tool based
+especially true for certain groups and inquiries related to                  on the Google search engine. It was developed to help
+certain groups [19], [25]–[29]. By learning how other people                 teachers find learning objects (LO) more easily [6].
+undertook the same task previously, these individual users can               The number of instances where teachers were able to
+also improve their own searching experiences through Web                     obtain the required learning objects fairly quickly through
+search engines [12]. Therefore, synthesizing one individual                  LOBSTER has increased significantly compared with just
+user’s data with the data of other members in a similar group’s              using Google search engine independently. LOBSTER con-
+profile can amplify their personalised search and searching                  tains a few special characteristics such as term sugges-
+experience.                                                                  tions and a bilingual search which improve users search
+   There are many search applications which support                          results. The major augmentation this study was to present
+individual users with their shopping, travelling, entertain-                 a set of assistive elements that operate simultaneously with
+ment or personal requirements. One example is Agoda.com                      the Google search engine in assisting teachers to find
+which recommends personalised tourist places and hotels                      LOs throughout the whole search process. Teachers receive
+for users. Another is Amazon.com that recommends prod-                       assistance from the time they start drafting their inquiry
+ucts to its consumers and YouTube.com that makes person-                     by using the text boxes such as bilingual topics related
+alised video recommendation [30], [31]. In comparison to the                 term suggestion, clustering of search results according to
+learning or teaching domain, it appears that there is hardly                 required language and LO types, advanced searches and sug-
+any application that is available in supporting e-learners to                gestions for appropriate query terms. Although researchers
+find learning materials that match their learning competen-                  have shown that the LOBSTER search assistant may help
+cies when using Web search engines. Researchers [12] have                    teachers to find learning materials more efficiently than using
+shown that users’ profound feeling towards the need for                      Google, the main characteristic missing from the system is
+search guidance is higher when they are looking for learning                 the personalization of learning materials based on individual
+
+VOLUME 6, 2018                                                                                                                        34167
+                                         M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+TABLE 1. Comparison of different web search engines for educational purpose.
+
+
+
+
+users’ profiles. As a result, LOBSTER also returns same                        Table 1 is an overview and comparison of the search engines
+results regardless of the users’ learning competencies.                        which were specifically designed for educational purposes.
+   Many popular Web search engines such as Yahoo, Google,                      The findings noted from literature revealed that:
+and Bing provide term suggestions for queries. When a search                     1) Web search engines provide limited capabilities in per-
+has been performed, users will obtain a list of returned                             sonalizing the search results according to the student’s
+search results and suggestions of relevant queries with                              profile even though the Web search engines were the
+some sponsored advertisements. However, it does not dis-                             most popular tool used by students in searching for
+play additional information with regards to the personalised                         educational materials.
+recommendations [6], [41].                                                       2) Majority of research looking at adaptive learning
+   In 2013, Microsoft started a beta version of its ‘‘Bing                           approaches had concentrated mainly on the person-
+For Schools’’ program which promises to provide the                                  alization of learning materials in various e-learning
+K-12 students with access to an ad-free search activity that                         systems but not on the Web search engines.
+comes with added privacy protections, content filters and a                      3) Several studies have examined the use of the Web
+couple of functional and specific learning attributes [42]. The                      search engines as e-learning tools but thus far, to the
+primary motivation of the program was to provide a separate                          best of our knowledge no study was performed in pro-
+search engine for educational purposes and it is opened to                           viding personalised recommendations to students using
+all K-12 schools in the United States of America (U.S.).                             Web search engines.
+Microsoft revealed that the program had previously attracted                     4) Groupization algorithm has not yet been implemented
+schools in the five largest districts of the U.S. and is currently                   in personalizing the delivery of learning materials
+used by about 4.5 million students. It was also asserted that                        through Web search engines.
+the program in total has served around 35 million ad-free
+queries. Given that the student population of this program is                  III. DEVELOPMENT OF A PERSONALISED GROUP-BASED
+4.5 million, this means that there is just under eight queries                 WEB SEARCH RECOMMENDATION SYSTEM
+per student, which is not exactly a very high number since                     FOR E-LEARNING
+most people do more than eight Google searches per day.                        This study proposes a personalised group-based recommen-
+Microsoft, however, reported that the program is currently                     dation system for Web search. It comprises a Web interface
+growing by more than a million queries per day [43].                           that acts as a gateway between the Google search engine
+   Alongside the most used search engines (such as Google,                     and the institution’s Web portal. Fig. 1 demonstrates the
+Yahoo, Bing) are a few more search engines which are quite                     flow diagram of the online process. The Web portal provides
+beneficial in assisting students to figure out the Web contents.               a secure login and authentication in the proposed system.
+
+34168                                                                                                                                 VOLUME 6, 2018
+M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+                                                                             before sending the information to a ranking analyzer to be
+                                                                             processed for re-ranking. The process aims to present the
+                                                                             right set of recommendation links to the appropriate group
+                                                                             of students.
+
+                                                                             A. STUDENT PROFILING MODULE
+                                                                             This module aims to construct and maintain the profile of
+                                                                             each individual student. It allows the system to understand
+                                                                             the different learning needs and capabilities of each indi-
+                                                                             vidual student. It then uses this information to improve the
+                                                                             relevancy of the returned Web search results by selecting
+                                                                             the most relevant personalised links. This is achieved by
+                                                                             prioritizing the links according to each profile. To accomplish
+                                                                             this, the module has two functional components: Academic
+                                                                             Record Analyzer and Behavioral Activity Analyzer.
+FIGURE 1. Online process diagram.                                               Learner profile is the key component of any e-learning
+                                                                             system [46]. Therefore, this study uses the most well-known
+                                                                             user profiling model, the IEEE PAPI standard [47] to model
+When a user logs into the system, the proposed system will                   the student’s profile. This model is further expanded by
+automatically identify the user through the institution’s Stu-               adding a learner profile design model [46]. It considers the
+dent Management Information System (Student MIS) and via                     following elements: Academic, Behavioral and Contextual
+a local server record. When a student submits a query to the                 record as shown in Table 2.
+system, it goes to both the Google search engine and the
+                                                                             TABLE 2. Categorization of learner profile data.
+system’s local server. As usual, Google will return a list of
+links that satisfies the keywords used in the query. If every
+student uses the same query, the returned links will be the
+same for all of them. However, through the proposed system,
+the local server will also return a list of recommended links
+that are personalised based on the student’s profile.
+   In the profiling process, students are categorized into three
+groups: Beginner, Intermediate, and Master. This is derived
+from their academic records and learning behaviours. The
+students’ profiles are automatically updated based on their
+learning behaviours when searching for e-learning materials
+using the Google search engine through the proposed system.                     The academic record is used to measure the individual
+The behavioral data were obtained from the students’ Web                     student’s past and present academic performance. This infor-
+browsing history and session logs when using the system.                     mation is derived from the Student MIS. The system also
+Moreover, when the system detects any change in the aca-                     observes the student’s learning behavioural activities through
+demic records, it also fetches the updated information and                   his/her browsing histories and session data. The goal is to
+it dynamically updates the user’s profile. For each type of                  assess the interest level and the activeness of the student
+student group, the students’ implicit feedbacks such as link                 towards learning while using the Web search engine. Any
+selections, search activities and log histories are analyzed and             change noted in the student’s academic and behavioral record
+then stored in the local server. By consistently comparing this              will result in his/her profile update. The system also identifies
+information with other students who carry similar profiles,                  other coherent contexts [48] by tracking any change exhibited
+a dynamic link recommendation outcome can be achieved.                       in his/her academic and behavioral records for a time span
+   A Web crawler is used to dynamically update the students’                 and not just a few sessions or over a few days. The time
+profiles and content ranking lists. This is based on the changes             span may range crossing months of data as contextual infor-
+noted in their academic records, learning behaviours and                     mation begins to correspond to the dynamic profile needs.
+other related contextual records. The crawling is a cyclical                 Figure 2 demonstrates the processes involved in the student’s
+process. The crawler visits both the Student MIS and the                     profiling module.
+local Web server in every 72 hours’ time span. The goal is
+to fetch any changes appeared in the students’ profiles and                  1) ACADEMIC RECORD ANALYZER
+ranking lists. Any change exhibited will be sent to a profile                The Academic Record Analyzer module is responsible for
+analyzer to be processed so that the students’ profiles can be               identifying the signed-in students by retrieving their pro-
+dynamically updated. The analyzer also identifies changes                    files from the Student MIS. It mainly retrieves students’
+that occur in the students’ log histories and session data                   previous and current academic information and then stores
+
+VOLUME 6, 2018                                                                                                                          34169
+                                      M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+                                                                         analyzed so as to classify the students’ level of interest
+                                                                         towards learning while searching for the relevant learning
+                                                                         materials from the Web search engine.
+                                                                            Due to the dynamism of students’ learning behaviours
+                                                                         through Web search, their behaviours and interests can
+                                                                         only be interpreted within a fuzzy setting. Fuzzy rules
+                                                                         are generated by applying the decision trees proposed by
+                                                                         Sendhilkumar [52]. The fuzzy rules permit the students’
+                                                                         learning behaviours to be classified into four levels: Low,
+                                                                            Low Medium, Medium and High. The classification also
+                                                                         regards the pattern of the students’ behaviours as representing
+                                                                         the students’ level of interest towards learning.
+
+                                                                         3) STUDENT PROFILE CLASSIFICATION
+                                                                         From the earlier sections, the student’s knowledge point (KP)
+                                                                         and level of interest are obtained. These outputs require
+                                                                         further processing so as to enable every student’s pro-
+                                                                         files to be classified. The students’ profiles are classified
+                                                                         according to their academic performance (knowledge point)
+                                                                         and learning behaviours (level of interest towards learning).
+                                                                         In order to achieve this, the extended classification rule is
+                                                                         applied [5], [10], [52]. A decision tree model is created from
+                                                                         the data set by using the C4.5 algorithm [53]. This enables the
+                                                                         students to be further classified into three groups (Beginner,
+                                                                         Intermediate and Master) as shown in Figure 3. The deci-
+FIGURE 2. Student profiling module.                                      sion trees can be utilised for inducing classification models
+                                                                         usually alluded to as a statistical classifier. The C4.5 algo-
+                                                                         rithm is also a popular algorithm that has appeared in the
+the information in the local server for further processing.
+                                                                         Top 10 Algorithms for Data Mining [54]. Studies [55] have
+Subsequently, the module calculates the standard T-Scores
+                                                                         confirmed that the C4.5 algorithm is the most preferred and
+extracted from the raw scores of the academic records for
+                                                                         most powerful method in use. In this study, the decision tree
+each student using the grading policy used by the University
+                                                                         (Figure 3) is translated into the following rules by using the
+of Texas at Austin [49]. The T-Score is one form of stan-
+                                                                         student’s Knowledge Point (KP) and interest level:
+dardized test statistics that transform individual raw scores
+into standardized forms of scores for ease of comparison.
+It provides a constant of the mean and standard deviation
+on any set of data [50], [51]. Furthermore, the T-Score also
+reduces natural variations that occur within grade points
+thereby rendering a way to ascertain whether the scores are
+high or low. By averaging the calculated standard T-Scores,
+an average score is achieved for each student. This helps to
+classify the students’ profiles. In this study, we define it as
+Knowledge Point (KP).
+
+2) BEHAVIOURAL ACTIVITY ANALYSER
+The Behavioral Activity Analyzer module is responsible for
+continuously monitoring and capturing the students’ learning
+behaviours. This is accomplished through their Web search
+activities while they use the proposed system. Each student’s
+learning activities are recorded and stored individually as
+extracted from their browsing histories and session logs.
+All information is stored inside the local server. The data
+captured comprises the number of times they login, the num-
+ber of search per login, the issued queries, the selected docu-
+ments, page names, page sizes, average scrolls, links clicked,
+and time spent. Subsequent to that, the stored activities are            FIGURE 3. Decision tree for student profile classification.
+
+34170                                                                                                                                  VOLUME 6, 2018
+M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+   1) Students with KP higher than 80 will be assigned a                     as type and length of members’ relationship among the search
+      Master Class.                                                          engine users [29]. Hence, the available search engines are
+   2) Students with KP less than 63 will be assigned a Begin-                unable to identify information regarding the relationships
+      ner Class.                                                             among the group members due to unavailability of users’ pub-
+   3) Students with KP<= 80, >= 63 are classified based                      lic data and privacy concern. On the other hand, our proposed
+      on the following:                                                      personalised group-based recommendation approach is able
+        • If his/her interest level is Low, then he/she will be              to use the advantage of the Groupization algorithm to dis-
+          assigned a Beginner Class.                                         cover different users’ profiles within the homogeneous group
+        • If his/her interest level is Low Medium, then he/she               of users (students) in an educational institution environment.
+          will be assigned an Intermediate Class.                            This process helps to strengthen the approach in delivering
+        • If his/her interest level is Medium, then he/she will              more accurate personalised recommendations within the e-
+          be assigned an Intermediate class.                                 learning domain.
+        • If his/her interest level is High, then he/she will be                This study employs the Groupization technique in the
+          assigned a Master Class.                                           content analyzer module (Figure 4) for the purpose of
+                                                                             re-ranking the returned search results into a custom sequence
+B. CONTENT RE-RANKING MODULE                                                 and prioritize them in a way that is more pertinent to the
+For a given query, a Web search engine having personalised                   group members based on member similarity and level of
+features can return different search results for dissimilar indi-            preference. The motivation behind using the technique is to
+viduals. Alternatively, it can match the search outcomes in                  improve the ranking of the Web search results thereby making
+a different way according to the user’s intent [56] based on                 it more relevant according to student’s profile. To achieve
+the user’s information needs and preferences [57]. However,                  this, the Groupization algorithm performs group assessments
+it is very challenging to collect user’s data which should be                on the Web contents. Specific groups are given priorities to
+rich enough that can understand the user’s precise needs and                 certain contents based on what is useful for group members
+preferences. One way to address this challenging task is by                  of similar profiles. To execute Groupization on a set of search
+combining related data gathered from other individuals with                  results returned from the Google search engine for a search
+similar profiles when building personalization features. In the              query, few steps are involved. First, a personalization score
+‘Groupization’ technique, personalization is established by                  is calculated for every single returned search result for every
+assigning higher weights to pages that are apposite with the                 member of a group. Next, the Groupization score is calculated
+predominance of the members of the group. This is achieved                   as the grand total of the personalization scores of every
+by harmonizing with every group member’s document term                       member of the group. Subsequently, a weighted combination
+frequencies and Web histories [23]–[26], [29]. The require-                  of the Groupization score and the search result’s original rank
+ment for group recommendations has emerged in many situ-                     is considered. This helps to conserve valuable information
+ations such as suggesting a destination of travel for a family               that is utilized by the Web search engine i.e. the result’s
+to spend a holiday break, a movie for a group of friends to                  ‘‘authoritativeness’’ [23], [60].
+watch together, a good restaurant for co-workers to have a
+weekday lunch or even a set of learning materials to assist
+students of similar profiles in understanding a topic. Intu-
+itively, items that are interesting to a member of a group can
+also be interesting to other members of the same group. Fur-
+thermore, students learn better in well-structured cooperative
+group environment rather than in the traditionally structured
+classroom environment [58].
+   Groupization is one of the methods that can improve the
+value of collaborative search tools. This can be performed
+by using personalization with shared interests [19], [29].
+In the collaborative filtering technique, the recommender
+system suggests items depending on how identical users
+desire the item. It endeavors to uncover others with sim-
+ilar or related concerns/interests [18], [59]. However, the
+matches are constructed based solely on queries [18] or on
+suggestions or community connectedness not rankings [59].
+                                                                             FIGURE 4. Content re-ranking module.
+Groupization takes into account the shared interests of the
+group members so as to generate better personalization
+results (document ranking level) [29].                                          In this study, let p1, p2, p3...pi represent the set of pages
+   The shared information is usually insignificant or unavail-               returned by a search query from a search engine (where
+able to search engines which encompasses information such                    i = 1,2,3. . . n). Let N be the total number of students in
+
+VOLUME 6, 2018                                                                                                                         34171
+                                     M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+a sample, ni is the total number of students in the sample              B. MATERIAL
+who are classified as Beginner, Intermediate or Master. In this         In the experiment, the participants were requested to use
+context, R is the total number of students who visited pi, and          the Google search engine through our developed proto-
+ri is the total number of students who visited page pi and              type to solve their given problems. The problem comprises
+who are Beginners, Intermediate or Master. The weight of the            25 multipurpose questions which deal with the advanced
+page pi is,                                                             level of JAVA programming. The decision to ask the students
+                                                                        to solve the JAVA advanced level programming problems
+                       (ri + 0.5) (N − ni + 0.5)                        is because the users’ interactions with the search engine is
+           Wpi = log                                           (1)
+                       (ni + 0.5) (R − ri + 0.5)                        greater when it involves more complex tasks [12]. For further
+   A higher page weight indicates higher ranking. The top               intricate tasks, participants expect assistance from the Web
+five most relevant recommendation results are presented                 search engine to find the information that can help them
+since students spend more time on documents and learn                   to solve the given problems. It is expected that participants
+better when the size of the search engine result pages                  would profit from the more complicated tasks. Using the
+decreases [61]. Different types of recommendation links will            advanced level of difficulty will also bring more willingness
+be presented to different groups of students as is exemplified          among the participants to use a Web search engine to find
+by:                                                                     the desired materials to solve their given problems, which is
+                                                                        the key factor in this experiment. Once the participants have
+  • Individual. This group comprises the learning behavior              completed all the 25 questions within a given time frame,
+    of the current student. Within this group, related search           they were asked to complete a questionnaire form. This helps
+    tasks, queries and link selections are taken entirely from          to determine their level of acceptance towards the proposed
+    the prevailing user’s long-term history.                            system. This questionnaire consists of 12 questions as shown
+  • Group (Global). Within this group, similar tasks,
+                                                                        in Table 3.
+    queries, and link selections are taken from each person’s
+    Web search history, in this case, all students involved in          TABLE 3. Questionnaire based on tam model.
+    the experiment.
+  • Group (Class). Within this group, similar tasks, queries,
+    and link selections are gathered from each person’s
+    search history from a particular class such as Beginner,
+    Intermediate or Master.
+
+IV. EVALUATION METHOD
+To appraise the ease of use, usefulness, and effectiveness
+of the proposed personalised Web search recommendation
+system, an experimentation was designed and conducted on
+the undergraduate students of our university. A prototype was
+developed using PHP and MySQL and then hosted in the said
+university’s local server. Google API was used to integrate
+the Google search engine with the prototype. For the purpose
+of the experiments, the prototype was made available for
+the participants to access the system by creating individual
+accounts.
+
+A. PARTICIPANTS
+In total, 70 students were approached to participate in the
+experiment. The second-year students from the Faculty of                   The questionnaire was adapted from the Technology
+Computer Science and Information Technology were chosen                 Acceptance Model (TAM) proposed by Davis [62]. A TAM
+as participants. The intention of working with Computer Sci-            questionnaire model is used to explain how eagerly a user
+ence students was derived from the assumption that they were            comes across the cold face of technology before accepting
+more technically sound than others in using a search engine.            and using it [63], which has been used in several stud-
+The experiment aims to measure how easy these students can              ies [64], [65]. This instrument measures the user’s perception
+search for their learning materials from the Google search              on the usefulness and the ease of use of the system. Ease of
+engine by using our proposed system. Among the 70 invited               use is determined as the degree to which a person perceives
+students, 60 students participated in the experiment. Four              the specific system would be effortless to use. Usefulness is
+groups were made by randomly selecting 15 students regard-              determined by the extent to which a person anticipates that
+less their academic records from the 60 participants to partic-         adopting a specific system would improve the performance
+ipate in four different sessions.                                       of his/her task. In this study, questions Q1-Q6 measure the
+
+34172                                                                                                                             VOLUME 6, 2018
+M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+participants’ perception regarding the ease of use of the pro-                  During the experiments, students were given a set of prob-
+posed system while searching for learning materials. Simi-                   lems. They were given access to the developed prototype
+larly, questions Q7-Q12 measure the participants’ perception                 system to search for resources that can help them to address
+about the usefulness of the proposed system. Each of the                     those problems. The proposed system permitted the students
+participants filled a Google survey form of all the statements               to get personalised recommended links of the returned search
+using the 5-point Likert scale with values varying from (1)                  results that matched their queries (such as ‘TreeSet and
+completely agree to (5) completely disagree.                                 SortedSet’) and their learning profiles (such as Beginner,
+                                                                             Intermediate) as shown in Figure 5. Note that the left side
+C. PROCEDURE
+                                                                             of Figure 5 displays the typical search results returned by
+                                                                             Google search engine which are the same for all students.
+The experiments were conducted in four different sessions.
+                                                                             On the other hand, the recommended links returned by the
+Each session belongs to each succeeding group. Each session
+                                                                             system (as shown on the right side), appears to be dissimilar
+begins by asking the participants to solve all the 25 problems
+                                                                             for different types of students’ profiles. Each profile belongs
+in 40 minutes. The single restraint placed on the participants
+                                                                             to one of the following three groups: Beginner, Intermediate,
+throughout the session was to search for the solutions by
+                                                                             and Master.
+employing the Google search engine that is accessible from
+                                                                                The proposed system presents the top five personalised
+the proposed system. The browsing history, session logs and
+                                                                             recommended links based on the group the students belong
+time to complete the test were recorded. After solving the
+                                                                             to. For instance, the same queries submitted by students
+given problems, participants were requested to respond to a
+                                                                             from Intermediate and Master group will respectively receive
+set of questionnaires on Google survey form. The same sets of
+                                                                             different results as shown in Figure 6. It is worthy to note that
+problems and questionnaires were given to all the subsequent
+                                                                             the order of the recommended links is sorted based on the
+groups. Once the first group finishes their session, the other
+                                                                             most relevant weighted page. For instance, ‘Java Collection
+three sessions were conducted with the remaining groups
+                                                                             Tutorial - Java Sorted Set’ link appears in 2nd order in the rec-
+successively.
+                                                                             ommended list for the Intermediate profile while it is unavail-
+   There are two phases of data collections. First is the stu-
+                                                                             able from the Master profile. This is because ‘Groupization’
+dents’ personal and academic information which were auto-
+                                                                             algorithm assigns higher weight to it as the page is preferred
+matically retrieved from the Students MIS and stored in a
+                                                                             by many members of the Intermediate group. On other hand,
+local server. Second is the students’ learning activities which
+                                                                             the page is not preferred by most members of the Master
+were obtained from their browsing histories and session data
+                                                                             group hence lower weight is assigned to it, so much lower
+were collected while they were using the proposed system.
+                                                                             than the weights of the top five links in the recommended list
+                                                                             for the Master profile. The weight is determined by the total
+V. RESULTS AND DISCUSSION                                                    number of hits (descending order) made by students within
+A. ANALYSIS OF DEVELOPMENT OUTCOME                                           the same group. The group is determined by the students’
+To recall, the vastness and diversity of the contents in                     academic record assessments and their learning behaviours
+the Web has spurred the need to revisit the concept of                       detected while using the system. Therefore, students of dif-
+‘one search results to fit all users’ proposition of the current             ferent groups will receive different sets of recommended links
+Web search engine. Even though there are indeed noteworthy                   based on the different arrangement of priorities.
+personalised search applications to support users with their
+shopping, travelling, entertainment or personal requirements,                B. ANALYSIS OF STUDENTS’ ACCEPTANCE
+we believe that one community that also urges urgent consid-                 In order to determine students’ acceptance of the proposed
+eration is the students where recommendations for suitable                   system, a survey was conducted using the TAM question-
+e-learning materials from the Web need to be addressed.                      naire. In this study, to measure the scale of reliability of
+To match this gap, we designed and developed a novel per-                    the questionnaire set, we performed Cronbach’s Alpha test.
+sonalised Group-based recommendation system for the Web                      In statistics, Cronbach’s Alpha is widely used to estimate
+search engine users. It aims to deliver a more personalised                  of the reliability of an instrument. The test shows that our
+search result recommendation that matches individual stu-                    questionnaire has high reliability score which is around 95%.
+dents’ profiles. To measure the reliability and acceptability of             To recall, the focus of the survey was to gauge the level
+the proposed system, we conducted experiments with a group                   of ease of use and the usefulness of the proposed system.
+of second year undergraduate students from the Faculty of                    Table 4 demonstrates the results. The outcome of the one-way
+Computer Science and Information Technology. In this study,                  ANOVA test and the post-hoc test of the four groups of par-
+the users’ level of satisfaction in terms of the ease of use and             ticipants are presented. A one-way ANOVA is preferred more
+usefulness of the system were measured. We also evaluated                    than the T-Test because this experiment compares averages of
+the searching performance and time taken by the users of four                more than two groups. The Tukey HSD post-hoc test indicates
+groups while using the proposed system. The search results’                  which groups were significantly different from the others. For
+accuracy such as the precision and recall evaluation were,                   instance, ‘a < b’ and ‘b < c’ indicate that mean score of
+however, excluded from this study.                                           group one is significantly lower than group two and group
+
+VOLUME 6, 2018                                                                                                                          34173
+                                           M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+FIGURE 5. Search Interface and recommendations list display.
+
+
+
+
+  FIGURE 6. Display of personalised recommendation list for (a) Intermediate profile, and (b) Master profile.
+
+
+
+
+two’s mean score is significantly lower than group 3, and                      between the means of all the four groups. In both dimensions
+so forth. The results obtained for both perceived ease of use                  in terms of perceived ease of use and perceived usefulness,
+(F = 6.11, p <.05) and perceived usefulness (F = 4.19,                         group one has the lowest mean score and group four has
+p <.05) denote that there were significant differences                         the highest. The mean score for group two was higher than
+
+34174                                                                                                                                   VOLUME 6, 2018
+M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+TABLE 4. Anova results of the four groups (tam questionnaire).
+
+
+
+
+                                                                             FIGURE 7. The result of overall students’ perception towards the
+                                                                             proposed system.
+
+
+
+                                                                             TABLE 5. Anova results of the four groups (searching time).
+
+
+
+
+group one but lower than group three. This implies that
+those students who participated in session four revealed the
+highest degree of satisfaction in terms of perceived ease of use
+and perceived usefulness in comparison with the rest of the
+groups. When group four was asked to find solutions to the
+given questions, the personalised group-based recommenda-
+tion technique enabled them to find solutions more easily and
+faster than the rest of the groups. This is because the system
+has gathered sufficient information from the completion of
+the previous sessions of the three groups thereby enabling the               6.33 minutes shorter then group two, and so forth. Group
+system to produce better recommendations of links for their                  four found their desired learning materials within the shortest
+solutions. On the other hand, when group one participated in                 time. Each of the groups, starting from group one to group
+the first session, they did not get any recommendation at all                four, had shown a decrease in searching time as each group
+since the system had not accumulated enough information to                   received better recommendations over time, for finding wor-
+produce recommendations. The initial group had to search for                 thy materials to solve the given problems. Group one did
+answers based on the default results returned by the Google                  not benefit from the personalised recommendation due to
+search engine. Therefore, their level of satisfaction in respect             insufficient information gathered for the recommendation.
+of perceived usefulness and perceived ease of use was modest.                In this respect, they were dependent on the default links
+Similarly, group three disseminated better level of satisfaction             returned by Google search. Only a few participants from
+as compared to group two. Figure 7 shows that most of the                    the group were facilitated through run-time searching history
+students identified the proposed recommendation system as                    that were created by other participants from the same group
+very easy to use and useful. The proposed system had helped                  in the same session. Group four utilized the shortest time
+them to find the relevant learning materials hence they were                 to solve the problems as they were able to receive quality
+able to solve the given problems successfully and effortlessly.              recommendations from the proposed system. This implies
+they were able to solve the given problems successfully and                  that the personalised group-based recommendation approach
+effortlessly.                                                                had a significant impact in reducing students’ search time for
+                                                                             relevant e-learning materials using the Web search engine.
+C. ANALYSIS OF SEARCHING TIME
+Table 5 shows the result obtained from the ANOVA test of the                 D. ANALYSIS OF SEARCHING PREFERANCE
+searching time for the four groups. We investigated the period               In order to determine the students’ preference towards the
+of time the students of each group took to search for answer                 links displayed in each search results, we monitored their
+materials so as to complete their given tasks. The ANOVA                     links selections. Figure 8 shows the total number of clicks on
+result (searching time) shows that there was significant time                the Google returned links and the recommended links of each
+difference among the four groups (p < 0.05). For instance,                   experimental group. When comparing group one to group
+the mean searching time for group one is 3.87 minutes longer                 four, it was observed that the number of clicks identified
+than group two, and the mean searching time for group 3 is                   on the recommendation links increases while the number
+
+VOLUME 6, 2018                                                                                                                                  34175
+                                           M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+                                                                              recommendation system is helpful in improving the
+                                                                              effectiveness of the students’ Web search and learning
+                                                                              performance.
+                                                                                 The survey results also indicate that the highest percentage
+                                                                              of students who perceived the proposed system to be useful
+                                                                              were those from group four with 52% strongly agree and
+                                                                              48% agree. This is followed by group three, group two and
+                                                                              group one (see Fig. 7) respectively. Further to this, 98% of
+                                                                              the students from group four found the system easy to use
+                                                                              (66% strongly agree and 32% agree) when searching for
+                                                                              relevant learning materials (see Fig. 7). The students’ percep-
+                                                                              tion about the ease of use of the system was noted as 54%
+                                                                              from group one, 78% from group 2 and 88.5% from group
+FIGURE 8. Links clicked by the participants.
+                                                                              three (see Fig. 7). This finding suggests that the personalised
+                                                                              group-based recommendation approach was able to make the
+                                                                              process of searching for learning materials using the Web
+of clicks on Google returned links decreases. This exhibits                   search engine more effective thereby less exhaustive. In other
+an inverse relationship between recommendation links and                      words, it offers better support and promotes successful col-
+the Google returned links when compared chronologically                       laborative Web based learning attitude.
+among the groups. One possible reason for the high number of                     To provide a personalised Web search, the recommender
+clicks on the links displayed by Google is due to the students’               system needs to access users’ personal profiles, description
+familiarity with Google as compared to the recommended                        of user interest and user behavior [67], [68]. However, it is
+links section. The exciting finding obtained from this exper-                 challenging for any recommender system to collect users’
+iment shows that there is an incremental interest to select                   data [68], thus more innovative approaches need to be con-
+the recommended links. As mentioned in the earlier part                       sidered. In this study, the proposed system employed in the
+of this paper, as the participations of each group increases,                 educational institutional environment where student data can
+their browsing histories also become richer hence making it                   be obtained from the Students’ Management Information
+possible for the proposed system to recommend links that                      System. This therefore enriches the data of the students to
+were personalised to their profiles.                                          construct rich user profile. By utilizing a rich user profile and
+                                                                              by identifying students with similar learning potential and
+VI. DISCUSSION AND CONCLUSION                                                 attitude, the search engine can provide a more personalised
+Although search engines have been extensively used by the                     recommendation of the search results. However, the current
+students for educational purposes, they deliver similar con-                  setup of the proposed system has a limitation because the
+tents regardless of students’ profiles [66]. This is not ben-                 custom Google Search API limits to only 100 free search
+eficial to the students because the same contents may not                     queries per day. Nonetheless, the most challenging task is
+meet the requirements of every student. Web search results                    to encourage students to use Web search engine through an
+that are personalised to a student’s learning profile is there-               institutional e-learning portal. Therefore, future work should
+fore, necessary. In this study, a personalised group-based                    consider the use of add-ons into the respective browsers for
+recommendation approach for Web search in e-learning was                      delivering a seamless personalised recommended links to stu-
+proposed. We designed an adaptive system that comprises                       dents. Additionally, the possibility of incorporating students’
+dynamic profiling and content re-ranking mechanisms that                      social identities from their social networks for richer students’
+will cater to students in finding Web-based learning materials                profiles and more desirable recommendation outcomes would
+based on their academic records and learning behaviours. The                  also be an appealing topic to explore.
+proposed system augments the Google search engine with the
+ability to recommend and prioritize the top five most suitable                REFERENCES
+links to students depending on their personal profiles.
+                                                                               [1] C. K. Hsu, G. J. Hwang, and C. K. Chang, ‘‘A personalized
+   The results from the experimental study revealed that                           recommendation-based mobile learning approach to improving the reading
+students from group four had benefitted the most from the                          performance of EFL students,’’ Comput. Educ., vol. 63, pp. 327–336,
+personalised recommendation links provided by the proposed                         Apr. 2013.
+system. They gained a significantly better learning com-                       [2] J.-M. Chen, M.-C. Chen, and Y. S. Sun, ‘‘A novel approach for enhancing
+                                                                                   student reading comprehension and assisting teacher assessment of liter-
+prehension as compared to the earlier three groups through                         acy,’’ Comput. Educ., vol. 55, no. 3, pp. 1367–1382, 2010.
+greater Web search experiences. Students from the preceding                    [3] S. Suguna, V. Sundaravadivelu, and B. Gomathi, ‘‘A novel semantic
+three groups had achieved better performance as compared                           approach in E-learning information retrieval system,’’ in Proc. 2nd IEEE
+                                                                                   Int. Conf. Eng. Technol. (ICETECH), Mar. 2016, pp. 884–889.
+to their immediately preceding groups (for instance, group
+                                                                               [4] K. D. Rajab, ‘‘The effectiveness and potential of E-learning in war zones:
+three achieved better performance than group two, and so                           An empirical comparison of face-to-face and online education in Saudi
+on). This finding implies that the personalised group-based                        Arabia,’’ IEEE Access, vol. 6, pp. 6783–6794, 2018.
+
+34176                                                                                                                                         VOLUME 6, 2018
+M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+ [5] K. R. Premlatha, B. Dharani, and T. V. Geetha, ‘‘Dynamic learner profiling     [30] F. Xia, N. Y. Asabere, A. M. Ahmed, J. Li, and X. Kong, ‘‘Mobile mul-
+     and automatic learner classification for adaptive e-learning environment,’’         timedia recommendation in smart communities: A survey,’’ IEEE Access,
+     Interact. Learn. Environ., vol. 24, no. 6, pp. 1054–1075, 2016.                     vol. 1, pp. 606–624, Sep. 2013.
+ [6] C. Curlango-Rosas, G. A. Ponce, and G. A. Lopez-Morteo, ‘‘A specialized        [31] F. Ricci, L. Rokach, and B. Shapira, Recommender Systems Handbook,
+     search assistant for learning objects,’’ ACM Trans. Web, vol. 5, no. 4,             vol. 54. New York, NY, USA: Springer, 2015.
+     pp. 1–29, Oct. 2011.                                                           [32] T. Y. Tang and G. McCalla, ‘‘Smart recommendation for an evolving
+ [7] Y. Li, J. Luo, and T. Mei, ‘‘Personalized image recommendation for Web              e-learning system,’’ in Proc. Int. Conf. Artif. Intell. Educ. Workshop Tech-
+     search engine users,’’ in Proc. IEEE Int. Conf. Multimedia Expo, Jul. 2014,         nol. Electron. Documents Supporting Learn., 2003, pp. 699–710.
+     pp. 1–6.                                                                       [33] I.-H. Hsiao, S. Sosnovsky, and P. Brusilovsky, ‘‘Guiding students to the
+ [8] H. Wang and K. Wong, ‘‘Recommendation-assisted personal Web,’’                      right questions: Adaptive navigation support in an E-learning system for
+     in Proc. IEEE 9th World Congr. Services, SERVICES, Jun. 2013,                       Java programming,’’ J. Comput. Assist. Learn., vol. 26, no. 4, pp. 270–283,
+     pp. 136–140.                                                                        2010.
+ [9] S. Hassan and R. Mihalcea, ‘‘Learning to identify educational materials,’’     [34] T.-C. Yang, G.-J. Hwang, and S. J.-H. Yang, ‘‘Development of an adap-
+     ACM Trans. Speech Lang. Process., vol. 8, no. 2, pp. 1–18, Nov. 2011.               tive learning system with multiple perspectives based on students’ learn-
+[10] C. Yathongchai, T. Angskun, W. Yathongchai, and J. Angskun, ‘‘Learner               ing styles and cognitive styles,’’ Educ. Technol. Soc., vol. 16, no. 4,
+     classification based on learning behavior and performance,’’ in Proc. IEEE          pp. 185–200, 2013.
+     Conf. Open Syst., Dec. 2013, pp. 66–70.
+                                                                                    [35] J.-J. Lo, Y.-C. Chan, and S.-W. Yeh, ‘‘Designing an adaptive Web-based
+[11] A. Kumar and M. Ashraf, ‘‘Personalized Web search engine using dynamic
+                                                                                         learning system based on students’ cognitive styles identified online,’’
+     user profile and clustering techniques,’’ in Proc. 2nd Int. Conf. Comput.
+                                                                                         Comput. Educ., vol. 58, no. 1, pp. 209–222, 2012.
+     Sustain. Global Develop. (INDIACom), 2015, pp. 2105–2108.
+                                                                                    [36] Y. Wu, ‘‘Adaptive learning diagnosis mechanisms for E-learning,’’ in
+[12] R. Capra, J. Arguello, A. Crescenzi, and E. Vardell, ‘‘Differences in the
+                                                                                         Intelligent Information and Database Systems (Lecture Notes in Computer
+     use of search assistance for tasks of varying complexity,’’ in Proc. 38th
+                                                                                         Science and Lecture Notes in Artificial Intelligence and Lecture Notes in
+     Int. ACM SIGIR Conf. Res. Develop. Inf. Retr. (SIGIR), 2015, pp. 23–32.
+                                                                                         Bioinformatics), vol. 7196. Berlin, Germany: Springer, 2012, pp. 102–110.
+[13] Wikipedia Contributors. (2017). Search Advertising. Accessed:
+     Mar. 21, 2017. [Online]. Available: https://en.wikipedia.org/w/index.          [37] E. Triantafillou, A. Pomportsis, S. Demetriadis, and E. Georgiadou, ‘‘The
+     php?title=Search_advertising&oldid=829469812                                        value of adaptivity based on cognitive style: An empirical study,’’ Brit. J.
+[14] C. Sherman. (2001). Consumer Watchdog Files Complaint Against                       Educ. Technol., vol. 35, no. 1, pp. 95–106, 2004.
+     Eight Search Engines for ’Crass Commercialism. Accessed:                       [38] E. Reategui, E. Boff, and J. A. Campbell, ‘‘Personalization in an interactive
+     Nov. 30, 2017. [Online]. Available: http://newsbreaks.infotoday.                    learning environment through a virtual character,’’ Comput. Educ., vol. 51,
+     com/NewsBreaks/Consumer-Watchdog-Files-Complaint-AgainstEight-                      no. 2, pp. 530–544, 2008.
+     Search-Engines-for-Crass-Commercialism-17544.asp                               [39] M.-H. Hsu, ‘‘A personalized English learning recommender system for
+[15] D. Lewandowski, ‘‘Evaluating the retrieval effectiveness of Web search              ESL students,’’ Expert Syst. Appl., vol. 34, no. 1, pp. 683–688, 2008.
+     engines using a representative query sample,’’ J. Assoc. Inf. Sci. Technol.,   [40] N. Dogruer, R. Eyyam, and I. Menevis, ‘‘The use of the Internet for
+     vol. 66, no. 9, pp. 1763–1775, 2015.                                                educational purposes,’’ Procedia Social Behav. Sci., vol. 28, pp. 606–611,
+[16] A. Hassan, R. Jones, and K. L. Klinkner, ‘‘Beyond DCG user behavior as a            Jan. 2011.
+     predictor of a successful search,’’ in Proc. 3rd ACM Int. Conf. Web Search     [41] D. Kelly, A. Cushing, M. Dostert, X. Niu, and K. Gyllstrom, ‘‘Effects of
+     Data Mining, 2010, pp. 221–230.                                                     popularity and quality on the usage of query suggestions during informa-
+[17] B. Liu, ‘‘Personal evaluations of search engines: Google, Yahoo! and                tion search,’’ in Proc. SIGCHI Conf. Hum. Factors Comput. Syst., 2010,
+     MSN,’’ Ph.D. dissertation, Dept. Comput. Sci., Univ. Illinois, Chicago, IL,         pp. 45–54.
+     USA, 2006.                                                                     [42] Microsoft. Bing in the Classroom—Microsoft Education. Accessed:
+[18] Y.-J. Lee, ‘‘VisSearch: A collaborative Web searching environment,’’ Com-           Nov. 30, 2017. [Online]. Available: https://www.bing.com/classroom
+     put. Educ., vol. 44, no. 4, pp. 423–439, 2005.                                 [43] Program Exits Beta, Opens To All U.S. Schools. Microsoft’s Ad-
+[19] M. R. Morris, J. Teevan, and S. Bush, ‘‘Enhancing collaborative Web                 Free ’Bing in The Classroom. Accessed: Nov. 1, 2017. [Online].
+     search with personalization: Groupization, smart splitting, and group hit-          Available: https://techcrunch.com/2014/04/23/microsofts-ad-free-bing-in-
+     highlighting,’’ Comput. Supported Cooperative Work, 2008, pp. 481–484.              the-classroom-program-exits-beta-opens-to-all-u-s-schools/
+[20] C. M. Chen, H. M. Lee, and Y. H. Chen, ‘‘Personalized e-learning system        [44] iSEEK—Education. Accessed: Dec. 12, 2017. [Online]. Available:
+     using item response theory,’’ Comput. Educ., vol. 44, no. 3, pp. 237–255,           http://education.iseek.com/iseek/home.page
+     2005.                                                                          [45] The Directory of the Web. Accessed: Dec. 12, 2017. [Online]. Available:
+[21] F. Qiu and J. Cho, ‘‘Automatic identification of user interest for personal-        http://dmoztools.net/
+     ized search,’’ in Proc. 15th Int. Conf. World Wide Web, 2006, pp. 727–736.     [46] X. Wei and J. Yan, ‘‘Learner profile design for personalized E-learning
+[22] J. Lu, D. Wu, M. Mao, W. Wang, and G. Zhang, ‘‘Recommender system                   systems,’’ in Proc. Int. Conf. Comput. Intell. Softw. Eng. (CiSE), 2009,
+     application developments: A survey,’’ Decision Support Syst., vol. 74,              pp. 1–4.
+     pp. 12–32, Jun. 2015.
+                                                                                    [47] IEEE P1484.2.1/D8, PAPI Learner—Core Features. (2002).
+[23] M. R. Morris, J. Teevan, and S. Bush, ‘‘Enhancing collaborative Web
+                                                                                         ISO/IEC JTC1 SC36 N0175 ISO/IEC JTC1 SC36 Information
+     search with personalization,’’ in Proc. ACM Conf. Comput. Supported
+                                                                                         Technology for Learning, Education, and Training Title. Accessed:
+     Cooperative Work (CSCW), p. 481, 2008.
+                                                                                         Feb. 6, 2018. [Online]. Available: http://metadata-standards.org/
+[24] C. Anuradha, ‘‘An effective method for personalized image search using
+                                                                                         Document-library/Meeting-reports/SC32WG2/2002-05-Seoul/WG2-
+     query expansion,’’ Middle East J. Sci. Res., vol. 12, no. 12, pp. 1741–1744,
+                                                                                         SEL-042_SC36N0175_papi_learner_core_features.pdf
+     2012.
+                                                                                    [48] R. Guha, V. Gupta, V. Raghunathan, and R. Srikant, ‘‘User modeling for
+[25] E. Ben Ahmed, A. Nabli, and F. Gargouri, Performing Groupization in
+                                                                                         a personal assistant,’’ in Proc. WSDM Eighth ACM Int. Conf. Web Search
+     Data Warehouses: Which Discriminating Criterion to Select?, vol. 7337.
+                                                                                         Data Min., 2015, pp. 275–284.
+     Berlin, Germany: Springer, 2012.
+[26] S. Amer-Yahia, S. B. Roy, A. Chawlat, G. Das, and C. Yu, ‘‘Group recom-        [49] B. Iverson. Detailed Grading Policy. Accessed: Nov. 30, 2017.
+     mendation: Semantics and efficiency,’’ Proc. VLDB Endowment, vol. 2,                [Online].       Available:       http://iverson.cm.utexas.edu/courses/310N/
+     no. 1, pp. 754–765, 2009.                                                           MainPagesSp06/GradingPolicy.html
+[27] L. Quijano-Sánchezz, J. A. Recio-García, and B. Díaz-Agudo, ‘‘Group            [50] G. L. Iverson, ‘‘T Scores,’’ in Encyclopedia of Clinical Neuropsychology.
+     recommendation methods for social network environments,’’ in Proc. Rec-             New York, NY, USA: Springer, 2011, pp. 2459–2460.
+     ommender Syst. Social Web, 2011, p. 24.                                        [51] J. J. Carey and M. F. Delaney, ‘‘T scores and z scores,’’ Clin. Rev. Bone
+[28] E. Ben Ahmed, A. Nabli, and F. Gargouri, ‘‘A new semi-supervised                    Mineral Metabolism, vol. 8, no. 3, pp. 113–121, 2010.
+     hierarchical active clustering based on ranking constraints for analysts       [52] S. Sendhilkumar, K. Selvakumar, and G. S. Mahalakshmi, ‘‘Application
+     groupization,’’ Appl. Intell., vol. 39, no. 2, pp. 236–250, 2013.                   of fuzzy logic for user classification in personalized Web search,’’ Int. J.
+[29] R. W. White, W. Chu, A. Hassan, X. He, Y. Song, and H. Wang, ‘‘Enhanc-              Cybern. Inf., vol. 3, no. 3, pp. 23–49, 2014.
+     ing personalized search by mining and modeling task behavior,’’ in Proc.       [53] J. R. Quinlan, C4.5: Programs for Machine Learning, vol. 1.
+     22nd Int. Conf. World Wide Web (WWW), 2013, pp. 1411–1420.                          San Francisco, CA, USA: Morgan Kaufmann, 1992, no. 3.
+
+VOLUME 6, 2018                                                                                                                                                 34177
+                                                 M. M. Rahman, N. A. Abdullah: Personalized Group-Based Recommendation Approach for Web Search in E-Learning
+
+
+
+
+[54] Wikipedia. (2017). C4.5 Algorithm. Accessed: Mar. 21, 2017. [Online].                                      MOHAMMAD MUSTANEER RAHMAN received
+     Available: https://en.wikipedia.org/w/index.php?title=C4.5_algorithm&                                      the B.S. degree in computer science and engineer-
+     oldid=825055847                                                                                            ing from Khulna University, Khulna, Bangladesh.
+[55] B. Hssina, A. Merbouha, H. Ezzikouri, and M. Erritali, ‘‘A comparative                                     He is currently pursuing the master’s degree in
+     study of decision tree ID3 and C4.5,’’ Int. J. Adv. Comput. Sci. Appl., vol. 4,                            computer science with the University of Malaya,
+     no. 2, pp. 13–19, 2014.                                                                                    Kuala Lumpur, Malaysia. He has six years of
+[56] K. W.-T. Leung, D. L. Lee, and W.-C. Lee, ‘‘Personalized Web search with                                   industry experience in software development. He
+     location preferences,’’ in Proc. Int. Conf. Data Eng., 2010, pp. 701–712.
+                                                                                                                is also a Graduate Research Assistant with the
+[57] K. W.-T. Leung, D. L. Lee, W. Ng, and H. Y. Fung, ‘‘A framework for
+                                                                                                                Faculty of Computer Science and Information
+     personalizing Web search with concept-based user profiles,’’ ACM Trans.
+     Internet Technol., vol. 11, no. 4, pp. 1–29, 2012.                                                         Technology, University of Malaya. His research
+[58] S. R. R. Institute. Collaborative Group Techniques. Accessed:                     interests include E-learning, recommender systems, interactive learning,
+     Nov. 30, 2017. [Online]. Available: https://www.srri.umass.edu/topics/            technology-enhanced learning, spatial crowdsourcing, decision support sys-
+     collaborative-group-techniques/                                                   tem, machine learning, and big data.
+[59] J. Freyne and B. Smyth, ‘‘Cooperating search communities,’’ in Adaptive
+     Hypermedia and Adaptive Web-Based Systems (Lecture Notes in Computer
+     Science and Lecture Notes in Artificial Intelligence and Lecture Notes in
+     Bioinformatics), vol. 4018. Berlin, Germany: Springer, 2006, pp. 101–110.
+[60] J. Teevan, S. T. Dumais, and E. Horvitz, ‘‘Personalizing search via auto-
+     mated analysis of interests and activities,’’ in Proc. 28th Annu. Int. ACM
+     SIGIR Conf. Res. Develop. Inf. Retrieval (SIGIR), 2005, p. 449.
+[61] D. Kelly and L. Azzopardi, ‘‘How many results per page? A study of SERP
+     size, search behavior and user experience,’’ in Proc. 38th Int. ACM SIGIR
+     Conf. Res. Develop. Inf. Retrieval (SIGIR), 2015, pp. 183–192.
+[62] F. D. Davis, ‘‘Perceived usefulness, perceived ease of use, and user accep-
+     tance of information technology,’’ MIS Quart., vol. 13, no. 3, pp. 319–340,                                  NOR ANIZA ABDULLAH received the bache-
+     1989.                                                                                                        lor’s degree (Hons.) in computer science from
+[63] M. G. Morris and A. Dillon, ‘‘How user perceptions influence software                                        the University of Malaya, the master’s degree in
+     use,’’ IEEE Softw., vol. 14, no. 4, pp. 58–65, Jul./Aug. 1997.                                               interactive multimedia from Westminster Univer-
+[64] R. Capra, G. Marchionini, J. S. Oh, F. Stutzman, and Y. Zhang, ‘‘Effects                                     sity, London, and the Ph.D. degree in computer
+     of structure and interaction style on distinct search tasks,’’ in Proc. Conf.                                science from Southampton University, U.K. She
+     Digit. Libraries (JCDL), 2007, pp. 442–451.                                                                  is currently an Associate Professor with the Fac-
+[65] C.-K. Huang, L.-F. Chien, and Y.-J. Oyang, ‘‘Relevant term suggestion in                                     ulty of Computer Science and Information Tech-
+     interactive Web search based on contextual information in query session                                      nology, University of Malaya, Malaysia. She has
+     logs,’’ J. Amer. Soc. Inf. Sci. Technol., vol. 54, no. 7, pp. 638–649, 2003.                                 authored or co-authored over 50 refereed publi-
+[66] K. Sugiyama, K. Hatano, and M. Yoshikawa, ‘‘Adaptive Web search based
+                                                                                       cations in international journals, book chapters, and conferences. She has
+     on user profile constructed without any effort from users,’’ in Proc. 13th
+                                                                                       supervised several Ph.D. and master’s students in the University of Malaya.
+     Conf. World Wide Web, vol. 4, 2004, pp. 675–684.
+[67] Y. Cai and Q. Li, ‘‘Personalized search by tag-based user profile and             She also co-supervised several Master by Research students in the Moratuwa
+     resource profile in collaborative tagging systems,’’ in Proc. CIKM, 2010,         University of Sri Lanka. Her research interest is in personalized and adaptive
+     pp. 969–978.                                                                      learning, recommender system, decision support system, big data analytics,
+[68] M. Speretta and S. Gauch, ‘‘Personalized search based on user search              and content-based image/video retrieval. She serves as a reviewer for several
+     histories,’’ in Proc. IEEE/WIC/ACM Int. Conf. Web Intell., Sep. 2005,             ISI-indexed journals.
+     pp. 622–628.
+
+
+
+
+34178                                                                                                                                                 VOLUME 6, 2018
+

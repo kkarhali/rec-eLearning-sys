@@ -1,0 +1,1170 @@
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/330266154
+
+
+
+An Adaptive Mechanism for Recommendation Algorithm Ensemble
+
+Article in IEEE Access · January 2019
+DOI: 10.1109/ACCESS.2019.2891561
+
+
+
+
+CITATION                                                                                               READS
+
+1                                                                                                      233
+
+
+5 authors, including:
+
+            Heng-Ru Zhang                                                                                         Fan Min
+            Southwest Petroleum University                                                                        Southwest Petroleum University
+            49 PUBLICATIONS 679 CITATIONS                                                                         225 PUBLICATIONS 3,208 CITATIONS
+
+               SEE PROFILE                                                                                           SEE PROFILE
+
+
+
+
+ All content following this page was uploaded by Heng-Ru Zhang on 01 June 2019.
+
+ The user has requested enhancement of the downloaded file.
+        This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                               10.1109/ACCESS.2019.2891561, IEEE Access
+
+
+
+
+ Date of publication xxxx 00, 0000, date of current version xxxx 00, 0000.
+ Digital Object Identifier 10.1109/ACCESS.2017.DOI
+
+
+
+
+ An Adaptive Mechanism for
+ Recommendation Algorithm Ensemble
+ QI HUANG1 , YUAN-YUAN XU1 , YONG CHEN2 , HENG-RU ZHANG1 , AND FAN MIN1 , (Member,
+ IEEE)
+ 1
+     School of Computer Science, Southwest Petroleum University, Chengdu 610500, China
+ 2
+     School of Mathematics and Computer Science Shaanxi University of Technology, Hanzhong 723001, China
+ Corresponding author: F. Min (minfanphd@163.com).
+ This work was supported in part by the National Natural Science Foundation of China under Grant 41604114; in part by the Shaanxi
+ Provincial Department of Education Special Research Project under Grant 18JK0142 and in part by the Department of Science and
+ Technology of Sichuan Province under Grant 2019JY0513.
+
+
+
+
+       ABSTRACT Popular recommendation algorithms such as k-nearest neighbors and Slope One are
+       appropriate for different situations. In this paper, we propose an approach which will be called adaptive
+       mechanism for recommendation algorithm ensemble (AMRE). AMRE consists of three parts, including
+       a set of agents, a reward-function and a roulette. First, each agent corresponds to a recommendation
+       algorithm. It also contains a reward value to determine whether it should be retained or replaced. Second,
+       a reward-function is designed to update the reward value according to recommendation results. Wrong
+       recommendations bring punishments, while right ones bring rewards. Finally, a roulette chooses another
+       agent when the reward value is below a given threshold. Experimental results on MovieLens datasets show
+       that AMRE outperforms eleven well-known algorithms and two classical ensemble methods on Accuracy,
+       Recall, and F1-measure.
+
+
+       INDEX TERMS Adaptive learning; Collaborative filtering; Ensemble learning; Recommender systems.
+
+
+ I. INTRODUCTION                                                                                        reduction and Yu et al. [11] proposed a general cluster
+       OLLABORATIVE filtering (CF) [1] is one of the most                                               ensemble framework for both two-way decision clustering
+ C     successful and popular algorithms in recommendation
+ systems (RSs). It aims at identifying interesting items for
+                                                                                                        and three-way decision. In RSs, Jahrer et al. [12] improved
+                                                                                                        Accuracy by blending the traditional Bagging with other
+ users based on available user preferences. Various CF algo-                                            approaches. Bar et al. [13] also proposed an adaptation of
+ rithms have been generated for different situations. Matrix                                            several ensemble techniques for CF to decrease the root
+ factorization (MF) algorithms [2] mine potential factors of                                            mean square error (RMSE). Adaptive learning adjusts and
+ users and items to estimate missing values. They perform                                               optimizes itself with the least manual tuning [14] during
+ well when the rating data is relatively sparse. Slope One                                              data processing and analysis. It has been successfully used in
+ algorithms [3] consider the difference between ratings of                                              various fields, such as granular computing [15], [16], sensor
+ items for users who rated both. They are appropriate for the                                           drift [17], congestion control [18] and fuzzy control [19]. In
+ situation where items are not updated frequently and items                                             RSs, Luo et al. [20] adopted the gradient descent method
+ are significantly less than users. k-nearest neighbors (k-NN)                                          adapting to the prediction error. Deng et al. [21] proposed
+ algorithms [4] take advantage of users with similar purchase                                           a dynamic adaptive CF to allow new data to enter the system
+ histories or items that tend to be rated similar. They are                                             at a rapid rate. To the best of our knowledge, there are few
+ suitable for the situation [2] where most users have rated                                             works on the combination of adaptive learning and ensemble
+ many items.                                                                                            learning in RSs.
+
+    Recently, ensemble learning and adaptive learning have                                                 In this paper, we propose an approach called adaptive
+ attracted much attention in building RSs. Ensemble learning                                            mechanism for recommendation algorithm ensemble (AM-
+ [5], [6] such as Bagging [7], Boosting [8] and Stacking [9]                                            RE). The goal is to obtain better predictions for each item
+ are previously proposed to handle classification problems.                                             through dynamically switching to an appropriate recommen-
+ Yang et al. [10] proposed an ensemble selector for attribute                                           dation algorithm. AMRE consists of three parts, including a
+
+ VOLUME 4, 2016                                                                                                                                                                                     1
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+                                                                                                    Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+ set of agents, a reward-function and a roulette. First, each                                         TABLE 1. Notations.
+
+ agent corresponds to a recommendation algorithm and a
+                                                                                                      Notation Meaning
+ reward value, which determines whether it should be retained                                         U        The set of all users, |U | = n
+ or replaced. The candidate recommendation algorithms in-                                             T        The set of all items, |T | = m
+ clude k-NN with different similarity/distance measures and                                           A        The set of all agents, |A| = M
+                                                                                                      R        The rating matrix
+ weighted Slope One. The reward value is employed to in-                                              P        The prediction matrix
+ dicate the goodness of the current agent. Second, based on                                           ui       The i-th user
+ the correctness of the current recommendation, the reward-                                           tj       The j-th item
+                                                                                                      ak       The k-th agent
+ function feeds back a reward or a punishment to update the                                           ri,j     The rating of ui to tj
+ reward value. Finally, the roulette is implemented to switch                                         pi,j     The prediction of ui to tj
+ among agents by a randomly selected strategy. Once the                                               α        The rating threshold
+                                                                                                      β        The prediction threshold
+ reward value is below a given threshold, the roulette will                                           w−       The punishment feedback
+ choose another agent. AMRE is similar to a game with                                                 w+       The reward feedback
+ players, a referee and a coach corresponding to the agents,                                          v0       The initial reward value
+                                                                                                      vmin     The threshold for switching among agent
+ reward-function and roulette, respectively.                                                          vmax     The upper bound of reward value
+    AMRE is different from existing ensemble learning and                                             γ        The ratio of initial known ratings, γ ∈ (0, 1)
+ adaptive learning methods on RSs. Most ensemble learn-                                               ρ        The ratio of consecutive non-recommendation, ρ ∈ (0, 1]
+                                                                                                      CN       The upper bound of consecutive non-recommendation, CN = ρM
+ ing methods (see, e.g., [12], [13]) obtain a final prediction                                        Cj,q     The set of co-rating users who have rated both tj and tq .
+ through weighting the predictions of several recommendation                                          Uj       The set of users who have rated tj , |Uj | = nj
+ algorithms. In contrast, AMRE dynamically selects an appro-                                          U0       The set of users with known ratings to tj , U 0 ⊂ Uj
+ priate recommendation algorithm for rating prediction. Most
+ adaptive learning methods (see, e.g., [21]) adjust parameters
+ within an individual recommendation algorithm. In contrast,                                          i ≤ n, and 1 ≤ j ≤ m. ri,j = 0 indicates that user ui has
+ AMRE adaptively switches among different recommenda-                                                 not rated item tj . Cj,q = {ui |1 ≤ i ≤ n, ri,j 6= 0, ri,q 6= 0}
+ tion algorithms.                                                                                     is the set of co-rating users who have rated both item tj and
+    Experiments are undertaken on two MovieLens datasets                                              item tq .
+ (943 users × 1,682 movies and 706 users × 8,570 movies)                                                 Table 2 lists an example rating system, where V =
+ with two screening rate. We adopt the “leave-item-out” s-                                            {1, 2, 3, 4, 5}. C2,4 = {u3 , u6 , u9 } is the set of co-rating
+ cenario to compare AMRE with individual recommendation                                               users who have rated both item t2 and item t4 .
+ algorithms as well as ensemble methods. Results show that
+                                                                                                      TABLE 2. A rating matrix (R).
+ AMRE outperforms eleven well-known individual CF al-
+ gorithms and two classical ensemble methods in terms of                                                                   UID \ TID          t1     t2      t3     t4      t5
+ Accuracy, Recall, and F1-measure.                                                                                            u1               3      0       1      3       2
+    The rest of paper is organized as follows: Section II                                                                     u2               4      3       0      0       0
+                                                                                                                              u3               3      1       2      1       2
+ presents some preliminary knowledge including rating sys-                                                                    u4               0      0       1      1       0
+ tem, CF, ensemble learning and adaptive learning. Section                                                                    u5               3      2       0      0       1
+ III describes AMRE in detail. Section IV presents the experi-                                                                u6               5      1       0      1       2
+                                                                                                                              u7               0      0       2      1       0
+ mental results on two Movielens datasets. Finally, a summary                                                                 u8               2      2       5      0       4
+ and the future outlook of our work are presented in Section                                                                  u9               2      1       0      2       2
+ V.                                                                                                                           u10              0      0       2      1       0
+
+
+ II. RELATED WORK
+ This section reviews preliminary knowledge such as rating                                            B. COLLABORATIVE FILTERING
+ system, CF, ensemble learning and adaptive learning. Table 1                                         Most CF algorithms calculate similarity/distance among
+ lists the notations used throughout this paper.                                                      items for rating prediction. Table 3 summarizes some popular
+                                                                                                      similarity/distance measures for CF.
+ A. RATING SYSTEM                                                                                     1) BC [23], [24] is defined to measure similarity between
+ In a recommender system, it can be supposed that each user                                              two probability distributions. Let pdj,x and pdq,x be the
+ has rated some items. Let U = {u1 , u2 , . . . , un } be the set of                                     probability distribution of the rating x in item tj and item
+ users and T = {t1 , t2 , ..., tm } be the set of items. The rating                                      tq , respectively.
+ function is [22]                                                                                     2) Cosine [25] is defined to measure the angle be-
+                        R : U × T → V,                           (1)                                     tween the rating vectors of two items. Let ~rj =
+                                                                                                         (r1,j , r2,j , . . . , rn,j )T and ~rq = (r1,q , r2,q , . . . , rn,q )T be
+ where V is the rating level used by users to evaluate items.                                            the rating vector of item tj and item tq , respectively.
+ For convenience, the rating system is represented with an n×                                         3) Pearson [26] is defined to consider the linear correlation
+ m rating matrix R = (ri,j )n×m , where ri,j = R(ui , tj ), 1 ≤                                          between two ratings vectors. Let rj and rq be the average
+ 2                                                                                                                                                                                VOLUME 4, 2016
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+ Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+     rating of item tj and item tq , respectively.                                                       Denote the prediction obtained in agent ak as pki,j . The
+ 4) CPCC [27] is defined to consider the impact of positive                                           simple averaging method for dealing with continuous predic-
+     and negative ratings on the basis of Pearson. Let rmed be                                        tions is represented as
+     the median rating of V .                                                                                                             PM k
+                                                                                                                                                pi,j
+ 5) Jaccard [28] is defined as the number of the intersection                                                                      pi,j = k=1        .                 (5)
+     divided by the number of the union of the rating users. Let                                                                             M
+     Uj = {ui |1 ≤ i ≤ n, ri,j 6= 0} and Uq = {ui |1 ≤ i ≤                                               Denote the prediction marker set as {c1 , c2 , . . . , cH }. The
+     n, ri,q 6= 0}.                                                                                   predictions of agent ak are represented as an H-dimensional
+ 6) PIP [29] consists of three factors, namely Proximity, Im-                                         vector (d1k ; d2k ; . . . ; dH           z                   k
+                                                                                                                                   k ), where dk is the output of pi,j on
+     pact, and Popularity. Let Pr(ri,j , ri,q ), Im(ri,j , ri,q ) and                                 predictive marker cz . The plurality voting method for dealing
+     Po(ri,j , ri,q ) be the value of Proximity, Impact and Popu-                                     with discrete predictions is represented as
+     larity between rating ri,j and rating ri,q , respectively.                                                                   pi,j = carg max PM              z   .                           (6)
+                                                                                                                                                      z      k=1 dk
+ 7) MCFV [30] is defined to measure the angle between the
+     multi-channel feature vectors of two items. Let d~j and d~q                                      D. ADAPTIVE LEARNING
+     be the multi-channel feature vectors of item tj and item                                         Adaptive learning usually optimizes itself by adjusting pa-
+     tq , respectively.                                                                               rameters during data processing and analysis [38]. Its appli-
+ 8) TMJ [31] is defined to integrate Triangle [31] and Jaccard                                        cation in RSs has also received widespread attention. Shahabi
+     similarities. Triangle considers both the length and the                                         et al. [39] structured a model to automatically learn the confi-
+     angle between the rating vectors of two items, namely the                                        dence values by utilizing implicit users’ relevance feedback.
+     information of co-rating users, while Jaccard considers                                          Deng et al. [21] proposed an adaptive personalized recom-
+     more information of non co-rating users.                                                         mendation with fast learning ability. It allows new users,
+ 9) ED [32], [33] is defined as the linear distance between two                                       items and ratings to enter the system at a rapid rate. Luo et
+     points in Euclidean space.                                                                       al. [20] adopted the gradient descent method to minimize the
+10) MD [34] is defined as the difference between the average                                          prediction error and set the deviation coefficient to adaptive
+     ratings of two item.                                                                             the prediction error.
+    To predict the rating of user ui to item tj , we first find
+ item tj ’s k nearest neighbors, which are already rated by ui .                                      III. AMRE MECHANISM
+ Denote this neighbor set as N (tj ), the prediction is given by                                      In this section, we describe the adaptive mechanism in the
+                                 P                                                                    following three aspects. First, we introduce the framework of
+                                    tq ∈N (tj ) ri,q                                                  AMRE. Then, we define the reward-function to update the
+                        pi,j =                       .             (2)
+                                         k                                                            reward value. Finally, we illustrate the adaptive recommen-
+    Slope One algorithms calculate predictions directly with-                                         dation process through agent switching and recommendation
+ out using distance measures. The weighted Slope One algo-                                            by one agent.
+ rithm [3] computes the prediction as
+                       P                                                                              A. THE PROPOSED FRAMEWORK
+                          tq ∈Ti (devj,q + ri,q ) × |Cj,g |
+              pi,j =              P                         ,      (3)                                Figure 1 shows our AMRE framework. It is a continuous it-
+                                     tq ∈Ti |Cj,q |                                                   erative process with four aspects. First, the roulette randomly
+ where Ti = {tj |1 ≤ j ≤ m, ri,j 6= 0}, devj,q is defined as                                          selects an agent from the agent set A = {a1 , a2 , . . . , aM }.
+                          X ri,j − ri,q                                                               Each agent corresponds to a recommendation algorithm and
+                 devj,q =                   .              (4)                                        a reward value v. Second, ratings are predicted by the rec-
+                                    |Cj,q |                                                           ommendation algorithm in the current agent. Third, based on
+                                        ui ∈Cj,q
+                                                                                                      the correctness of the current recommendation, the reward-
+ C. ENSEMBLE LEARNING                                                                                 function feeds back a reward or a punishment to update v.
+ Ensemble learning integrates multiple algorithms to achieve                                          Fourth, the roulette is triggered to choose another agent when
+ better predictive performance than any of them [35], [36].                                           v < vmin .
+ The current ensemble methods can be broadly divided into
+ two categories, namely serialization methods and paralleliza-                                        B. THE REWARD-FUNCTION
+ tion methods. Serialization methods make strong depen-                                               To illustrate the reward-function, we introduce two matrices.
+ dencies among algorithms and their representative method                                             One is the interest matrix RM , the other is the recommenda-
+ is Boosting [8]. Parallelization methods do not have such                                            tion matrix P M .
+ dependency and their representative methods are Bagging [7]                                             According to the threshold α, the rating matrix R =
+ and Random Forest [37].                                                                              (ri,j )n×m can be transferred to the interest matrix RM =
+    Bagging combines different predictions that individual                                            (rmi,j )n×m , where
+ algorithms trained in their respective sampling sets. It usually
+                                                                                                                            
+                                                                                                                             −1, if 0 < ri,j < α;
+ employs the averaging method for regression tasks and the                                                         rmi,j =      1,    if ri,j ≥ α;              (7)
+ voting method for classification tasks.                                                                                    
+                                                                                                                                0,    otherwise.
+ VOLUME 4, 2016                                                                                                                                                                                    3
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+                                                                                                      Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+ TABLE 3. Similarity/distance measures for CF.
+
+
+                                    Measures                            Description
+                                                                                       P p
+                                    BC [23], [24]                       BC(tj , tq ) =     pdj,x × pdq,x
+                                                                                         x∈V
+                                                                                                 r ·~
+                                                                                                 ~
+                                                                                               j q  r
+                                    Cosine [25]                         Cosine(tj , tq ) = |~r |×|~
+                                                                                                  r |
+                                                                                                 j        q      P
+                                                                                                                         (ri,j −r j )(ri,q −r q )
+                                                                                                              ui ∈Cj,q
+                                    Pearson [26]                        Pearson(tj , tq ) = s                                  s
+                                                                                                                (ri,j −r j )2 ×               (ri,q −r q )2
+                                                                                                       P                               P
+                                                                                                     ui ∈Cj,q                      ui ∈Cj,q
+                                                                                                               P
+                                                                                                                     (ri,j −rmed )(ri,q −rmed )
+                                                                                                          ui ∈Cj,q
+                                    CPCC [27]                           CPCC(tj , tq ) = s                                    s
+                                                                                                              (ri,j −rmed )2 ×                (ri,q −rmed )2
+                                                                                                      P                                P
+                                                                                                ui ∈Cj,q                           ui ∈Cj,q
+                                                                                                |U ∩U |
+                                    Jaccard [28]                        Jaccard(tj , tq ) = |Uj ∪Uq |
+                                                                                          P j q
+                                    PIP [29]                            PIP(tj , tq ) =         Pr(ri,j , ri,q )×Im(ri,j , ri,q )× Po(ri,j , ri,q )
+                                                                                         ui ∈Cj,q
+                                                                                               ~j ·d
+                                                                                               d   ~q
+                                    MCFV [30]                           MCFV(tj , tq ) =       ~j |×|d
+                                                                                                     ~q |
+                                                                                              |d       qP
+                                                                                                                 u ∈C        (ri,j −ri,q )2              |U ∩U |
+                                                                                                      i    j,q
+                                    TMJ [31]                            TMJ(tj , tq ) = (1 − qP           2
+                                                                                                                qP
+                                                                                                                             2
+                                                                                                                                 ) × |Uj ∪Uq |
+                                                                                                                                           q
+                                                                                                ui ∈Cj,q ri,j +    ui ∈Cj,q ri,q
+                                                                                                                                       j
+                                                                                       r P
+                                    ED [32]                             ED(tj , tq ) =         (ri,j − ri,q ) 2
+                                                                                            ui ∈Cj,q
+                                    MD [34]                             MD(tj , tq ) = |rj − rq |
+
+
+
+                                                                                                        The numbers of user-item pairs in the four regions are given
+                                           Agent set                                                    by
+                                                                                                               RY = |{hi, ji|rmi,j = 1, pmi,j = 1}|;
+                                !      "                $       #
+                                               !$%                                                             RN = |{hi, ji|rmi,j = −1, pmi,j = 1}|;
+                                                                                                                                                                  (9)
+                                                                                                               N Y = |{hi, ji|rmi,j = 1, pmi,j = −1}|;
+                                           …                …
+                                                                                                               N N = |{hi, ji|rmi,j = −1, pmi,j = −1}|.
+                                               !"#
+                                                                                                          Thus, based on the correctness of the recommendation, the
+                                                                                                        reward-function is defined as
+                                                                                                                             −
+                                                     Roulette                                                                w , if hi, ji ∈ RN ;
+                                                                                                                     fi,j =     w+ , if hi, ji ∈ RY ;         (10)
+                                                                                                                                0,    otherwise,
+                                                                                                                            
+
+     Reward or punishment
+                                    Recommender system
+                                                                           Recommend                    where w− and w+ indicate punishment and reward, respec-
+                                                                                                        tively.
+ FIGURE 1. The framework of AMRE.                                                                          Then we introduce the update process of the reward value
+                                                                                                        v. For the item tj , when it is recommended to the user ui , ui
+                                                                                                        will be added to the user set U 0 . For any i ∈ U 0 , the reward
+ In other words, 1 and −1 indicate that the user likes and                                              value is updated as
+ dislikes the item, respectively. 0 indicates unknown.                                                                                    X
+                                                                                                                              v = v0 +        fi,j .                (11)
+    According to the threshold β, the prediction matrix P =                                                                                              ui ∈U 0
+ (pi,j )n×m can be transferred to the recommendation matrix
+ P M = (pmi,j )n×m , where                                                                                If the reward value v is less than the threshold vmin , the
+                                                                                                        roulette will be triggered to choose another agent.
+                                     
+                                           −1, if pi,j < β;
+                       pmi,j =                                                            (8)           C. ADAPTIVE RECOMMENDATION
+                                           1,  if pi,j ≥ β.
+                                                                                                        There are two processes of adaptive recommendation for
+ In other words, 1 and −1 indicate the recommend and non-                                               each item. One is agent switching and the other is recom-
+ recommend behaviors, respectively.                                                                     mendation by one agent.
+    By comparing P M with RM , the set of user-item pairs
+ {hi, ji|ri,j 6= 0} are classified into four regions, namely, true                                      1) Agent switching
+ recommendation (RY ), false recommendation (RN ), false                                                Algorithm 1 illustrates the process of agent switching for
+ non-recommendation (N Y ) and true non-recommendation                                                  item tj . We employ “leave-item-out" scenario which first
+ (N N ). For example, α = 3.5 and β = 4, with ri,j = 5                                                  leaves out all ratings of the current item. Then, ratings of the
+ and pi,j = 2.4, user-item pair hi, ji is classified into N Y .                                         users in user set U 0 are given to predict the remaining ratings.
+ 4                                                                                                                                                                                VOLUME 4, 2016
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+ Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+ Algorithm 1 Agent switching                                                                          Algorithm 2 Recommendation by one agent
+ Input: R, A, CN , γ                                                                                  Input: R, ak
+ Output: P                                                                                            Output: cn, U 0 , P
+  1: cn = 0;                                                                                           1: v = v0 ;
+  2: initialize P ;                                                                                    2: while (|U 0 | < nj ) do
+  3: initialize U 0 = {ui |1 ≤ i ≤ γ · nj }, |U 0 | = γ · nj ;                                         3:   Predict ratings for all ui ∈ Uj − U 0 , and denote the
+  4: while (true) do                                                                                        prediction of ui as qi ;
+  5:    Choose agent ak ∈ A;                                                                           4:   i∗ = arg maxui ∈Uj −U 0 qi ;
+  6:    Predict and recommend using agent ak , update cn, P                                            5:   if (recommend tj to ui∗ ) then
+        and U 0 accordingly;                                                                           6:      cn = 0; //Reset this value
+  7:    if (cn = CN or |U 0 | = nj ) then                                                              7:      if (ui∗ likes tj ) then
+  8:       break;                                                                                      8:         v = min{v +w+ , vmax }; //Reward with an upper
+  9:    end if                                                                                                    bound
+ 10: end while                                                                                         9:      else
+ 11: return P ;                                                                                       10:         v = v + w− ; //Punishment
+                                                                                                      11:      end if
+                                                                                                      12:      U 0 = U 0 ∪ {ui∗ };
+    Step 1 (lines 1-3) initialize cn, P and U 0 . Where cn indi-                                      13:      pi∗ ,j = qi∗ ;
+ cates the actual number of consecutive non-recommendation,                                           14:      if (v < vmin ) then
+ the user set U 0 is initialized as the top γ of the total number                                     15:         break;
+ of users who have rated item tj .                                                                    16:      end if
+    Step 2 (line 5) selects an agent ak ∈ A by a random                                               17:   else
+ selection technique in the roulette.                                                                 18:      cn++;//Not recommend
+    Step 3 (line 6) performs predictions and recommendations                                          19:      break;
+ by agent ak . During the execution of the agent ak , cn, P and                                       20:   end if
+ U 0 will be updated accordingly. Since it is an important part,                                      21: end while
+ Section III-C2 is designed to illustrate it in particular.                                           22: return cn, U 0 , P ;
+    Step 4 (lines 7-9) determines whether to terminate the
+ adaptive recommendation of item tj when agent ak is re-
+ placed. If cn reaches the upper bound CN , or |U 0 | reaches                                            Step 2.2 (lines 17-20) shows the non-recommended situa-
+ the upper bound nj , the adaptive recommendation for item                                            tion. If it happens, the current agent will be replaced directly
+ tj will be terminated directly. Otherwise, the loop continues                                        after updating cn.
+ and the roulette will be triggered to choose another agent.
+                                                                                                      D. A RUNNING EXAMPLE
+ 2) Recommendation by one agent                                                                       We now explain the adaptive recommendation process. Here
+ Algorithm 2 illustrates the recommendation process by one                                            we set α = 3, β = 3.5, w− = −0.75, w+ = 0.5, v0 = 0.1,
+ agent for item tj .                                                                                  vmin = 0, vmax = 1 and CN = 3.
+    Step 1 (line 3-4) predicts the remaining ratings by the                                              Figure 2 shows a running example for item t1 in Table 2.
+ recommendation algorithm in agent ak . Then item tj is                                               At the beginning, the ratings r1,1 = 3 and r2,1 = 4 are given.
+ recommended to the user ui∗ with the highest prediction qi∗                                          The ratings of the user set {u3 , u5 , u6 , u8 , u9 } are predicted
+ (line 4).                                                                                            based on r1,1 and r2,1 . In this process, the roulette selects
+    Step 2 (lines 5-20) discusses two situations of recommend-                                        agents a1 , a3 and a2 in turn.
+ ed and non-recommended, respectively. If prediction qi∗ is                                              Figure 2(a) depicts the recommendations by agen-
+ no less than the threshold β, item tj will be recommended to                                         t a1 . In the first round, the recommendation algorithm
+ user ui∗ . Otherwise, it will not be recommended to user ui∗ .                                       of agent a1 is in charge of predicting ratings of user-
+    Step 2.1 (lines 5-16) shows the recommended situation:                                            s in {u3 , u5 , u6 , u8 , u9 }. After sorting predictions in de-
+    (1) If user ui∗ likes item tj (lines 7-8), the reward-function                                    scending order, the candidate list of the first round is
+ will feed back a reward w+ to update the reward value v                                              (u6 , u5 , u8 , u3 , u9 ). Because the highest prediction of 4.5 is
+ of agent ak . In addition, an upper bound vmax is set for the                                        higher than the threshold β = 3.5, item t1 is recommended
+ reward value v.                                                                                      to user u6 . Table 2 shows the actual rating of user u6 to item
+    (2) If user ui∗ dislikes item tj (lines 9-11), the reward-                                        t1 is 5 which is higher than the threshold α = 3, namely the
+ function will feed back a punishment w− .                                                            recommendation is correct. Then the reward-function feeds
+    After obtaining the feedback (lines 12-13), user ui∗ is                                           back a reward of w+ = 0.5 to update the reward value v
+ added to the user set U 0 and the prediction pi∗ ,j is updated.                                      to 0.6, and cn remains at 0. The rating of user u6 is set to
+ When the reward value v is lower than the threshold vmin                                             be known accordingly. In the second round, ratings of users
+ (lines 14-16), the current agent will be replaced directly.                                          in {u3 , u5 , u8 , u9 } are predicted. The sorted candidate list of
+ VOLUME 4, 2016                                                                                                                                                                                   5
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+                                                                                                       Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+
+                                                4.5    √   !
+                                                                                                                      4.2   √   !
+                                                3.7        !
+                                                                     : 0.1    0.6                                                    : 0.6       -0.15
+                 !   "    #   $   %    &   '                                        !    "   #    $      %   &    '   3.9       !                          !    "    #   $   %    &     '
+                                                3.1        !
+                3    4    0   0   0    0   0                                        3    4   0   0      5    0    0   3.7       !                          3    4    0   0   5   2      0
+                                                2.9        !          cn: 0                                                            cn: 0
+                                                                                                                      2.8       !                               = -0.15 < 0 =
+                                                2.2                                                                                                                              !"#
+                                                           !
+
+
+
+                                                                                                      (a) Agent   !
+
+
+
+
+                                                3.9    √       !     : 0.1    0.6                                                            : 0.6
+                 !    "   #   $    %   &    '                                        !   "   #    $      %   &    '   3.3       !                          !    "    #   $   %    &     '
+                                                 3.2       !
+                 3   4    0   0   5    2   0                                        3    4   0   3      5    2    0   3.1       !                          3    4    0   3   5   2      0
+                                                 2.6       !          cn: 0                                                           !: 0          1               $% = 1 > 0
+
+                                                                                                      (b) Agent   !
+
+
+
+
+                                                                     : 0.1    0.6                                                    : 0.6       -0.15
+                 !   "    #   $   %    &   '    3.6    √   !                         !   "   #    $      %   &    '                                       "# "$ "% "& "' "( ")
+                                                                                                                      3.5   √   !
+                3    4    0   3   5    2   0    2.9        !                        3    4   3   3      5    2    0                                        3    4    3   3   5   2      2
+                                                                     !: 1     0                                                         cn: 0
+
+                                                                                                      (c) Agent   !
+ FIGURE 2. A running example for item t1 .
+          Version 10.22                                            A running example for item !
+
+ the second round is (u8 , u5 , u3 , u9 ). Then item t1 is recom-                                       IV. EXPERIMENTS
+ mended to user u8 . Since this recommendation is incorrect,                                            In this section, we design the sets of experiments to answer
+ the reward-function feeds back a punishment w− = −0.75                                                 the following questions:
+ to update the reward value v to −0.15. Because −0.15 is                                                  i) Does AMRE mechanism outperform individual well-
+ lower than the threshold vmin = 0, the roulette is triggered to                                             known CF algorithms?
+ choose another agent a3 after setting the rating of user u8 to                                          ii) Does AMRE mechanism outperform classical ensemble
+ be known.                                                                                                   methods?
+    Figure 2(b) depicts the recommendations by agent a3 . In
+ the first round, ratings of users in {u3 , u5 , u9 } are predicted.                                    A. DATASETS
+ The sorted candidate list of the first round is (u5 , u3 , u9 ).                                       We use two MovieLens datasets (943 users × 1,682 movies
+ Then item t1 is recommended to user u5 , and the reward-                                               and 706 users × 8,570 movies). AMRE requires an appro-
+ function feeds back a reward w+ to update the reward value v                                           priate number of ratings to better implement adaptive recom-
+ to 0.6. The rating of user u5 is set to be known accordingly. In                                       mendations, so we discard unpopular items that only have a
+ the second round, ratings of users in {u3 , u9 } are predicted.                                        small number of ratings. For each dataset, we first calculate
+ The sorted candidate list of the second round is (u9 , u3 ).                                           the number of ratings for each item. Then the maximum of
+ Since the prediction of item t1 is below the threshold β, item                                         these numbers is selected in each dataset. Finally, we discard
+ t1 is not recommended to user u9 . Therefore, cn is updated to                                         items whose ratings are less than the product of the screening
+ 1 and the roulette is triggered to choose a2 as the next agent.                                        rate θ and the maximum. Table 4 lists the detail of four
+                                                                                                        datasets with different θ.
+    Figure 2(c) depicts the recommendations by agent a2 . In
+ the first round, ratings of users in {u3 , u9 } are predicted. The                                     TABLE 4. Datasets.
+ sorted candidate list is (u3 , u9 ). Then item t1 is recommend-
+                                                                                                                        Dataset                θ        Users       Items    Ratings
+ ed to user u3 and the reward-function feeds back a reward                                                            ML943u (0.2)            0.2        943         290     60,133
+ w+ . The reward value v is updated to 0.6, cn is updated                                                             ML943u (0.3)            0.3        943         151     40,310
+ to 0. The rating of user u3 is set to be known accordingly.                                                          ML706u (0.2)            0.2        706         322     38,038
+                                                                                                                      ML706u (0.3)            0.3        706         158     24,842
+ In the second round, the rating of user u9 is predicted and
+ item t1 is recommended to user u9 . Then the reward-function
+ feeds back a punishment w− to update the reward value v to
+ -0.15. Since ratings for all users have received feedbacks, the                                        B. EVALUATION METRICS
+ adaptive recommendation process for item t1 is terminated.                                             Based on the four regions mentioned in Eq. (9), we evaluate
+                                                                                                        performances by adopting four metrics, namely Accuracy,
+                                                                                                        Recall, Precision and F1-measure.
+ 6                                                                                                                                                                                     VOLUME 4, 2016
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+ Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+    Accuracy is the ratio of the number of correct predictions                                        TABLE 5. The Accuracy comparison.
+
+ to the total, which is defined as
+                                                                                                       Algorithm ML943u (0.2) ML943u (0.3) ML706u (0.2) ML706u (0.3)
+                                  N N + RY                                                                BC      0.7988 (03)  0.8107 (03)  0.8114 (03)  0.8148 (04)
+            Accuracy =                               .    (12)                                           Cosine   0.7445 (07)  0.7523 (08)  0.7774 (07)  0.7845 (07)
+                          N N + RY + RN + N Y
+                                                                                                         CPCC     0.7887 (04)  0.8007 (04)  0.8039 (04)  0.8205 (03)
+    Recall is the ratio of the number of correct recommenda-                                              ED      0.7121 (10)  0.7230 (11)  0.7460 (10)  0.7572 (11)
+ tions to the number of actual likes, which is defined as                                               Jaccard   0.7702 (06)  0.7828 (06)  0.7979 (05)  0.8072 (05)
+                                                                                                        MCFV      0.8102 (02)  0.8166 (02)  0.8247 (02)  0.8248 (02)
+                                    RY                                                                  Pearson   0.7440 (08)  0.7670 (07)  0.7629 (09)  0.7792 (08)
+                      Recall =              .             (13)                                            PIP     0.7217 (09)  0.7287 (10)  0.7640 (08)  0.7678 (09)
+                                 RY + N Y
+                                                                                                          TMJ     0.7703 (05)  0.7834 (05)  0.7947 (06)  0.8033 (06)
+    Precision is the ratio of the number of correct recommen-                                            MBR      0.6904 (11)  0.7309 (09)  0.7328 (11)  0.7639 (10)
+ dations to the total number of recommendations, which is                                              Slope One 0.6572 (12)   0.6882 (12)  0.6855 (12)  0.7134 (12)
+                                                                                                        AMRE      0.8721 (01)  0.8865 (01)  0.8960 (01)  0.9079 (01)
+ defined as
+                                      RY
+                    Precision =               .           (14)                                        TABLE 6. The Recall comparison.
+                                  RY + RN
+    F1-measure is the harmonic mean of Recall and Precision,                                           Algorithm ML943u (0.2) ML943u (0.3) ML706u (0.2) ML706u (0.3)
+ which is defined as                                                                                      BC      0.8695 (03)  0.8731 (03)  0.8669 (03)  0.8610 (04)
+                             2 × Precision × Recall                                                      Cosine   0.7832 (08)  0.7886 (08)  0.8116 (07)  0.8124 (08)
+             F1-measure =                           .     (15)                                           CPCC     0.8523 (04)  0.8578 (04)  0.8555 (04)  0.8620 (03)
+                                Precision + Recall                                                        ED      0.7679 (09)  0.7698 (09)  0.7918 (10)  0.7978 (09)
+                                                                                                        Jaccard   0.8202 (05)  0.8315 (05)  0.8436 (05)  0.8430 (05)
+ C. EXPERIMENT DESIGN                                                                                   MCFV      0.8849 (02)  0.8843 (02)  0.8840 (02)  0.8758 (02)
+                                                                                                        Pearson   0.7995 (07)  0.8155 (07)  0.8081 (08)  0.8159 (07)
+ We design two sets of experiments to answer the questions                                                PIP     0.7551 (10)  0.7605 (10)  0.7951 (09)  0.7922 (10)
+ raised at the beginning of this section.                                                                 TMJ     0.8182 (06)  0.8297 (06)  0.8368 (06)  0.8366 (06)
+    Exp1. We add eleven individual well-known CF algorithm-                                              MBR      0.7048 (11)  0.7568 (11)  0.7528 (11)  0.7869 (11)
+                                                                                                       Slope One 0.6442 (12)   0.6880 (12)  0.6835 (12)  0.7166 (12)
+ s to AMRE as agents, including Slope One and 10 k-NN                                                   AMRE      0.9872 (01)  0.9868 (01)  0.9850 (01)  0.9838 (01)
+ measures: BC, Cosine, Pearson, CPCC, Jaccard, PIP, MCFV,
+ TMJ, ED and MD. Then, we compare the performance of
+ AMRE with the above eleven individual recommendation                                                 7.1% and 8.3%, respectively. The Recall is higher by 10.1%,
+ algorithms on different datasets in four metrics.                                                    10.3%, 10.1% and 10.8%, respectively. The F1-measure is
+    Exp2. We generate eleven data subsets (with replacement)                                          higher by 4.0%, 4.4%, 4.4% and 5.0%, respectively. The Pre-
+ containing 80% of the original dataset, and each of them                                             cision is lower by 6.6%, 5.1%, 4.7% and 3.8%, respectively.
+ is used for one CF algorithm, respectively. Then, we adopt                                              Figures 3, 4, 5 and 6 compare AMRE and other individual
+ the voting method and the averaging method to combine                                                recommendation algorithms by setting different k values (i.e,
+ predictions obtained in different subsets. By integrating the                                        number of the nearest neighbors) on different datasets with
+ predictions of the above eleven CF algorithms, we compare                                            four metrics. As is seen, AMRE mechanism always performs
+ the performance of AMRE with these two ensemble methods                                              the best in terms of Accuracy, Recall and F1-measure regard-
+ on dataset ML706u (0.2).                                                                             less of the k value, but not Precision.
+    We employ “leave-item-out" scenario which first leaves
+ out all ratings of the current item. Then the initial known ratio                                    2) Comparison with ensemble methods
+ γ is given, which indicates that the top γ of the total ratings                                      Figure 7 compares AMRE with other two ensemble methods
+ for the current item are used as the initial known rating.                                           on dataset ML706u (0.2) by setting different k values. Similar
+    Parameters are set as follows. γ = 20%, α = 3, β = 3.6,                                           to the last set of experiment, AMRE always obtains the best
+ w− = −0.7, w+ = 0.5, v0 = 1, vmin = 0, vmax = 5 and                                                  in Accuracy, Recall and F1-measure regardless of the k value,
+ ρ = 1.                                                                                               but obtains a lower Precision. Compared with two ensemble
+                                                                                                      methods, Accuracy of AMRE is higher by 7.2% - 14.5%
+ D. RESULTS                                                                                           and 5.2% - 13.3%, Recall is higher by 12.0% - 18.4% and
+ Two sets of experiments are undertaken to answer each of the                                         9.6% - 17.0%, Precision is lower by 2.1% - 3.5% and 2.1% -
+ questions raised at the beginning of the section.                                                    3.5%, F1-measure is higher by 4.3% - 9.0% and 3.0% - 8.2%,
+                                                                                                      respectively.
+ 1) Comparison with individual CF algorithms
+ Tables 5, 6, 7 and 8 compare the four metrics obtained                                               E. DISCUSSIONS
+ by AMRE and other individual recommendation algorithms.                                              AMRE obtains the best in Recall indicates that there are
+ The AMRE mechanism achieves the best performance in                                                  many recommended behaviors in mechanism. With the in-
+ terms of Accuracy, Recall, and F1-measure, but achieves a                                            crease of recommended behaviors, the Precision will de-
+ lower in Precision.                                                                                  crease accordingly. In other words, Recall and Precision are
+    Compared with the best individual algorithms on four                                              contradictory in the current situation. Therefore, we intro-
+ datasets, the Accuracy of AMRE is higher by 6.2%, 7.0%,                                              duce F1-measure to consider them comprehensively. Experi-
+ VOLUME 4, 2016                                                                                                                                                                                   7
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+                                                                                                               Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+                                   BC       CPCC        Jaccard       Pearson       TMJ       Slope one                                          BC         CPCC               Jaccard         Pearson               TMJ            Slope one
+                                   Cosine   ED          MCFV          PIP           MBR       AMRE                                               Cosine     ED                 MCFV            PIP                   MBR            AMRE
+                         0.9                                                                                                       0.9
+
+
+                        0.85
+                                                                                                                                 0.85
+
+
+                         0.8
+                                                                                                                                   0.8
+             Accuracy
+
+
+
+
+                                                                                                                      Accuracy
+                        0.75
+
+                                                                                                                                 0.75
+                         0.7
+
+
+                                                                                                                                   0.7
+                        0.65
+
+
+                         0.6                                                                                                     0.65
+                               1      2     3       4       5         6         7         8    9          10                             1          2       3          4           5           6             7              8        9           10
+                                                                  K                                                                                                                        K
+                                                (a) ML943u (0.2)                                                                                                    (b) ML943u (0.3)
+
+                                   BC       CPCC        Jaccard       Pearson       TMJ       Slope one                                           BC            CPCC            Jaccard            Pearson            TMJ            Slope one
+                                   Cosine   ED          MCFV          PIP           MBR       AMRE                                                Cosine        ED              MCFV               PIP                MBR            AMRE
+                         0.9                                                                                                       0.95
+
+
+                                                                                                                                    0.9
+                        0.85
+
+
+                                                                                                                                   0.85
+                         0.8
+            Accuracy
+
+
+
+
+                                                                                                                        Accuracy
+                                                                                                                                    0.8
+
+                        0.75
+                                                                                                                                   0.75
+
+
+                         0.7
+                                                                                                                                    0.7
+
+
+                        0.65                                                                                                       0.65
+                               1      2     3       4        5        6         7         8    9          10                                 1          2       3          4           5           6             7              8        9        10
+                                                                  K                                                                                                                        K
+                                                   (c) ML706u (0.2)                                                                                                    (d) ML706u (0.3)
+
+ FIGURE 3. The Accuracy of AMRE and other individual recommendation algorithms on four datasets.
+
+
+
+ TABLE 7. The Precision comparison.                                                                             TABLE 8. The F1-measure comparison.
+
+
+  Algorithm ML943u (0.2) ML943u (0.3) ML706u (0.2) ML706u (0.3)                                                  Algorithm ML943u (0.2) ML943u (0.3) ML706u (0.2) ML706u (0.3)
+     BC      0.8971 (08)  0.9103 (09)  0.9192 (08)  0.9308 (09)                                                     BC      0.8831 (03)  0.8914 (03)  0.8923 (03)  0.8946 (04)
+    Cosine   0.9119 (03)  0.9216 (03)  0.9327 (04)  0.9436 (04)                                                    Cosine   0.8427 (08)  0.8499 (08)  0.8679 (07)  0.8731 (07)
+    CPCC     0.9005 (07)  0.9128 (08)  0.9212 (07)  0.9362 (07)                                                    CPCC     0.8757 (04)  0.8845 (04)  0.8872 (04)  0.8976 (03)
+     ED      0.8874 (11)  0.9046 (11)  0.9149 (11)  0.9260 (11)                                                     ED      0.8233 (10)  0.8318 (11)  0.8489 (10)  0.8571 (11)
+   Jaccard   0.9078 (06)  0.9166 (06)  0.9255 (06)  0.9396 (06)                                                   Jaccard   0.8618 (05)  0.8720 (05)  0.8826 (05)  0.8887 (05)
+   MCFV      0.8965 (09)  0.9073 (10)  0.9184 (10)  0.9282 (10)                                                   MCFV      0.8907 (02)  0.8956 (02)  0.9009 (02)  0.9012 (02)
+   Pearson   0.8963 (10)  0.9132 (07)  0.9190 (09)  0.9338 (08)                                                   Pearson   0.8452 (07)  0.8616 (07)  0.8600 (08)  0.8709 (08)
+     PIP     0.9112 (04)  0.9207 (04)  0.9332 (03)  0.9444 (03)                                                     PIP     0.8258 (09)  0.8330 (10)  0.8586 (09)  0.8617 (09)
+     TMJ     0.9098 (05)  0.9190 (05)  0.9284 (05)  0.9414 (05)                                                     TMJ     0.8616 (06)  0.8720 (05)  0.8802 (06)  0.8859 (06)
+    MBR      0.9227 (02)  0.9273 (02)  0.9385 (02)  0.9452 (02)                                                    MBR      0.7991 (11)  0.8334 (09)  0.8355 (11)  0.8588 (10)
+  Slope One 0.9463 (01)   0.9469 (01)  0.9546 (01)  0.9591 (01)                                                  Slope One 0.7666 (12)   0.7970 (12)  0.7966 (12)  0.8203 (12)
+   AMRE      0.8808 (12)  0.8961 (12)  0.9075 (12)  0.9207 (12)                                                   AMRE      0.9310 (01)  0.9393 (01)  0.9447 (01)  0.9512 (01)
+
+
+
+ mental results show that AMRE is superior to the above CF                                                           on four datasets.
+ algorithms and ensemble methods in general.                                                                     ii) AMRE outperforms two classical ensemble methods
+    The two comparative experiments illustrate that different                                                        in terms of Accuracy, Recall and F1-measure on four
+ users are suitable for different recommendation algorithms                                                          datasets.
+ (i.e., to obtain better predictions) for each item. Therefore,
+ AMRE dynamically switches to an appropriate recommen-                                                          V. CONCLUSION AND FURTHER WORK
+ dation algorithm to achieve higher recommendation quality                                                      In this paper, we proposed AMRE with three parts, namely
+ than individual algorithms and ensemble methods.                                                               a set of agents, a reward-function and a roulette. AMRE ob-
+    According to the above analysis, we can answer the ques-                                                    tains appropriate predictions by adaptively switching among
+ tions raised at the beginning of this section.                                                                 recommendation algorithms. Experimental results show that
+     i) AMRE outperforms eleven individual well-known CF                                                        AMRE is superior to well-known CF algorithms and classical
+        algorithms in terms of Accuracy, Recall and F1-measure                                                  ensemble methods in terms of Accuracy, Recall and F1-
+ 8                                                                                                                                                                                                                                       VOLUME 4, 2016
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+ Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+                                 BC        CPCC            Jaccard        Pearson       TMJ       Slope one                                   BC       CPCC        Jaccard       Pearson       TMJ       Slope one
+                                 Cosine    ED              MCFV           PIP           MBR       AMRE                                        Cosine   ED          MCFV          PIP           MBR       AMRE
+                       1                                                                                                              1
+
+                     0.95                                                                                                          0.95
+
+                      0.9
+                                                                                                                                    0.9
+
+                     0.85
+                                                                                                                                   0.85
+
+
+
+
+                                                                                                                          Recall
+            Recall
+
+
+
+
+                      0.8
+                                                                                                                                    0.8
+                     0.75
+
+                                                                                                                                   0.75
+                      0.7
+
+                     0.65                                                                                                           0.7
+
+
+                      0.6                                                                                                          0.65
+                            1       2      3           4       5          6         7         8    9          10                          1      2     3       4       5         6         7         8    9          10
+                                                                      K                                                                                                      K
+                                                  (a) ML943u (0.2)                                                                                            (b) ML943u (0.3)
+
+                                  BC           CPCC         Jaccard       Pearson       TMJ       Slope one                                   BC       CPCC        Jaccard       Pearson       TMJ       Slope one
+                                  Cosine       ED           MCFV          PIP           MBR       AMRE                                        Cosine   ED          MCFV          PIP           MBR       AMRE
+                        1                                                                                                            1
+
+
+                      0.95
+                                                                                                                                   0.95
+
+                       0.9
+                                                                                                                                    0.9
+
+                      0.85
+             Recall
+
+
+
+
+                                                                                                                          Recall
+                                                                                                                                   0.85
+                       0.8
+
+                                                                                                                                    0.8
+                      0.75
+
+                                                                                                                                   0.75
+                       0.7
+
+
+                      0.65                                                                                                          0.7
+                             1       2     3           4        5         6         7         8    9          10                          1      2     3       4        5        6         7         8     9         10
+                                                                      K                                                                                                      K
+                                                      (c) ML706u (0.2)                                                                                        (d) ML706u (0.3)
+
+ FIGURE 4. The Recall of AMRE and other individual recommendation algorithms on four datasets.
+
+
+
+ measure. Since AMRE is based on real-time feedback from                                                            [6] T. Sun and Z.-H. Zhou, “Structural diversity for decision tree ensemble
+ users, it is especially suitable for online recommendation.                                                            learning,” Frontiers of Computer Science, vol. 12, no. 3, pp. 560–570,
+                                                                                                                        2018.
+     The following research topics deserve further investiga-                                                       [7] L. Breiman, “Bagging predictors,” Machine Learning, vol. 24, no. 2, pp.
+ tion.                                                                                                                  123–140, 1996.
+                                                                                                                    [8] R. E. Schapire, “The strength of weak learnability,” Machine Learning,
+    i) New agents with diverse base recommendation algo-                                                                vol. 5, no. 2, pp. 197–227, 1990.
+       rithms. For better recommendation, we will integrate                                                         [9] D. H. Wolpert, “Stacked generalization,” Neural Networks, vol. 5, no. 2,
+       more types of recommendation algorithms into AMRE.                                                               pp. 241–259, 1992.
+                                                                                                                   [10] X.-B. Yang and Y. Y. Yao, “Ensemble selector for attribute reduction,”
+   ii) New selection strategies for the roulette. One way of im-                                                        Appllied Soft Computing, vol. 70, pp. 1–11, 2018.
+       proving the effectiveness of AMRE might be weighted                                                         [11] H. Yu and G. Wang, “An efficient gradual three-way decision cluster
+       selection strategies.                                                                                            ensemble approach,” in Proceedings of the 17th International Conference
+                                                                                                                        on Information Processing and Management of Uncertainty in Knowledge-
+     We hope that this work opens a new door to adaptive                                                                Based Systems. Springer, 2018, pp. 711–723.
+ learning for recommendation problems.                                                                             [12] M. Jahrer, A. Töscher, and R. Legenstein, “Combining predictions for
+                                                                                                                        accurate recommender systems,” in Proceedings of the 16th ACM SIGKD-
+                                                                                                                        D International Conference on Knowledge Discovery and Data Mining.
+ REFERENCES                                                                                                             ACM, 2010, pp. 693–702.
+  [1] J. Wang, A. P. de Vries, and M. J. T. Reinders, “Unified relevance models                                    [13] A. Bar, L. Rokach, G. Shani, B. Shapira, and A. Schclar, “Improv-
+      for rating prediction in collaborative filtering,” ACM Transactions on                                            ing simple collaborative filtering models using ensemble methods,” in
+      Information Systems, vol. 26, no. 3, pp. 1–42, 2008.                                                              Proceedings of the 11th International Workshop on Multiple Classifier
+  [2] X. Su and T. M. Khoshgoftaar, “A survey of collaborative filtering tech-                                          Systems. Springer, 2013, pp. 1–12.
+      niques,” Advances in Artificial Intelligence, vol. 2009, pp. 1–19, 2009.                                     [14] M. D. Zeiler, “ADADELTA: an adaptive learning rate method,” Technical
+  [3] D. Lemire and A. Maclachlan, “Slope One predictors for online rating-                                             Report arXiv:1212.5701, 2012.
+      based collaborative filtering,” in Proceedings of the SIAM International                                     [15] H. Zhao, P. Wang, and Q. Hu, “Cost-sensitive feature selection based on
+      Conference on Data Mining, 2005, pp. 471–475.                                                                     adaptive neighborhood granularity with multi-level confidence,” Informa-
+  [4] R. M. Bell and Y. Koren, “Scalable collaborative filtering with jointly                                           tion Sciences, vol. 366, pp. 134–149, 2016.
+      derived neighborhood interpolation weights,” in Proceedings of the 7th                                       [16] A. Fan, H. Zhao, and W. Zhu, “Test-cost-sensitive attribute reduction on
+      IEEE International Conference on Data Mining. IEEE, 2007, pp. 43–                                                 heterogeneous data for adaptive neighborhood model,” Soft Computing,
+      52.                                                                                                               vol. 20, no. 12, pp. 4813–4824, 2016.
+  [5] T. G. Dietterich, “Ensemble methods in machine learning,” in Proceed-                                        [17] Q.-H. Liu, X. Li, M. Ye, S. S. Ge, and X. Du, “Drift compensation
+      ings of the 1st International Workshop on Multiple Classifier Systems.                                            for electronic nose by semi-supervised domain adaption,” IEEE Sensors
+      Springer, 2000, pp. 1–15.                                                                                         Journal, vol. 14, no. 3, pp. 657–665, 2014.
+
+ VOLUME 4, 2016                                                                                                                                                                                                           9
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+                                                                                                    Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+ [18] Q. Wu, R. Zheng, J. Pu, and S. Sun, “An adaptive control mechanism for
+      mitigating DDoS attacks,” in Proceedings of the 2009 IEEE International
+      Conference on Automation and Logistics. IEEE, 2009, pp. 1760–1764.
+ [19] J.-S. R. Jang, “Self-learning fuzzy controllers based on temporal back-
+      propagation,” IEEE Transactions on Neural Networks, vol. 3, no. 5, pp.
+      714–723, 1992.
+ [20] Z. H. Luo and Y. Yang, “Adaptive ensemble learning recommendation
+      algorithm,” in Proceedings of the Frontiers of Energy, Materials and
+      Information Engineering, vol. 1044. Trans Tech Publications, 2014, pp.
+      1433–1436.
+ [21] W.-Y. Deng, Q.-H. Zheng, S. Lian, and L. Chen, “Adaptive personalized
+      recommendation based on adaptive learning,” Neurocomputing, vol. 74,
+      no. 11, pp. 1848–1858, 2011.
+ [22] H.-R. Zhang, F. Min, and X. He, “Aggregated recommendation through
+      random forests,” The Scientific World Journal, vol. 2014, pp. 1–11, 2014.
+ [23] A. Bhattacharyya, “On a measure of divergence between two statistical
+      populations defined by their probability distributions,” Bulletin of the
+      Calcutta Methematical Society, vol. 35, pp. 99–109, 1943.
+ [24] B. K. Patra, R. Launonen, V. Ollikainen, and S. Nandi, “A new similar-
+      ity measure using Bhattacharyya coefficient for collaborative filtering in
+      sparse data,” Knowledge-Based Systems, vol. 82, pp. 163–177, 2015.
+ [25] G. Salton and M. J. McGill, Introduction to modern information retrieval.
+      McGraw-Hill, 1983.
+ [26] P. Resnick, N. Iacovou, M. Suchak, P. Bergstrom, and J. Riedl, “Grouplens:
+      an open architecture for collaborative filtering of netnews,” in Proceedings
+      of the 5th ACM Conference on Computer Supported Cooperative Work.
+      ACM, 1994, pp. 175–186.
+ [27] U. Shardanand and P. Maes, “Social information filtering: algorithms
+      for automating ‘ word of mouth 0 ,” in Proceedings of the 13th SIGCHI
+      Conference on Human Factors in Computing Systems, 1995, pp. 210–217.
+ [28] P. Jaccard, “Nouvelles recherches sur la distribution florama,” Bulletin de
+      la Societe Vaudoise des Sciences Naturelles, no. 44, pp. 223–270, 1908.
+ [29] H. J. Ahn, “A new similarity measure for collaborative filtering to alleviate
+      the new user cold-starting problem,” Information Sciences, vol. 178, no. 1,
+      pp. 37–51, 2008.
+ [30] H.-R. Zhang, F. Min, Z.-H. Zhang, and S. Wang, “Efficient collaborative
+      filtering recommendations with multi-channel feature vectors,” Interna-
+      tional Journal of Machine Learning and Cybernetics, pp. 1–8, 2018.
+ [31] S.-B. Sun, Z.-H. Zhang, X.-L. Dong, H.-R. Zhang, T.-J. Li, L. Zhang, and
+      F. Min, “Integrating Triangle and Jaccard similarities for recommenda-
+      tion,” PLOS ONE, vol. 12, no. 8, pp. 1–16, 2017.
+ [32] K. L. Elmore and M. B. Richman, “Euclidean distance as a similarity
+      metric for principal component analysis,” Monthly Weather Review, vol.
+      129, no. 3, pp. 540–549, 2001.
+ [33] Z.-A. Xue, F. Cen, and L.-P. Wei, “A weighting fuzzy clustering algorithm
+      based on euclidean distance,” in Proceedings of the 5th International
+      Conference on Fuzzy Systems and Knowledge Discovery, vol. 1, 2008,
+      pp. 172–175.
+ [34] M. Zheng, F. Min, H.-R. Zhang, and W.-B. Chen, “Fast recommendations
+      with the M-distance,” IEEE Access, vol. 4, pp. 1464–1468, 2016.
+ [35] R. Polikar, “Ensemble based systems in decision making,” IEEE Circuits
+      and Systems Magazine, vol. 6, no. 3, pp. 21–45, 2006.
+ [36] L. Rokach, “Ensemble-based classifiers,” Artificial Intelligence Review,
+      vol. 33, no. 1-2, pp. 1–39, 2010.
+ [37] L. Breiman, “Random forests,” Machine Learning, vol. 45, no. 1, pp. 5–32,
+      2001.
+ [38] X.-Y. Jia, W.-W. Li, L. Shang, and J.-J. Chen, “An adaptive learning
+      parameters algorithm in three-way decision-theoretic rough set model,”
+      Acta Electronica Sinica, vol. 39, no. 11, pp. 2520–2525, 2011.
+ [39] C. Shahabi and Y.-S. Chen, “An adaptive recommendation system without
+      explicit acquisition of user relevance feedback,” Distributed and Parallel
+      Databases, vol. 14, no. 2, pp. 173–192, 2003.
+
+
+
+
+ 10                                                                                                                                                                               VOLUME 4, 2016
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+ Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+
+                                     BC       CPCC        Jaccard       Pearson       TMJ        Slope one                                      BC           CPCC               Jaccard         Pearson        TMJ       Slope one
+                                     Cosine   ED          MCFV          PIP           MBR        AMRE                                           Cosine       ED                 MCFV            PIP            MBR       AMRE
+                         0.95                                                                                                 0.95
+
+
+                         0.94
+                                                                                                                              0.94
+
+                         0.93
+                                                                                                                              0.93
+
+
+
+
+                                                                                                                  Precision
+             Precision
+
+
+
+
+                         0.92
+                                                                                                                              0.92
+                         0.91
+
+                                                                                                                              0.91
+                          0.9
+
+                                                                                                                                  0.9
+                         0.89
+
+
+                         0.88                                                                                                 0.89
+                                1       2     3       4        5        6         7         8     9          10                         1          2         3          4           5           6          7         8    9          10
+                                                                    K                                                                                                                       K
+                                                  (a) ML943u (0.2)                                                                                                   (b) ML943u (0.3)
+
+                                     BC       CPCC        Jaccard       Pearson       TMJ       Slope one                                         BC             CPCC            Jaccard         Pearson       TMJ       Slope one
+                                     Cosine   ED          MCFV          PIP           MBR       AMRE                                              Cosine         ED              MCFV            PIP           MBR       AMRE
+                         0.955                                                                                                     0.96
+
+                          0.95
+                                                                                                                                  0.955
+                         0.945
+                                                                                                                                   0.95
+                          0.94
+                                                                                                                                  0.945
+                         0.935
+            Precision
+
+
+
+
+                                                                                                                      Precision
+
+
+
+
+                          0.93                                                                                                     0.94
+
+                         0.925
+                                                                                                                                  0.935
+                          0.92
+                                                                                                                                   0.93
+                         0.915
+                                                                                                                                  0.925
+                          0.91
+
+                         0.905                                                                                                     0.92
+                                 1      2     3       4       5         6         7         8    9           10                             1            2       3          4           5        6         7         8     9         10
+                                                                    K                                                                                                                       K
+                                                     (c) ML706u (0.2)                                                                                                   (d) ML706u (0.3)
+
+ FIGURE 5. The Precision of AMRE and other individual recommendation algorithms on four datasets.
+
+
+
+
+ VOLUME 4, 2016                                                                                                                                                                                                                           11
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+                                                                                                                 Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+
+                                     BC       CPCC        Jaccard       Pearson       TMJ       Slope one                                              BC           CPCC               Jaccard               Pearson               TMJ           Slope one
+                                     Cosine   ED          MCFV          PIP           MBR       AMRE                                                   Cosine       ED                 MCFV                  PIP                   MBR           AMRE
+                          0.94                                                                                                       0.94
+
+                          0.92                                                                                                       0.92
+
+                           0.9
+                                                                                                                                         0.9
+                          0.88
+                                                                                                                                     0.88
+            F1-measure
+
+
+
+
+                                                                                                                        F1-measure
+                          0.86
+                                                                                                                                     0.86
+                          0.84
+                                                                                                                                     0.84
+                          0.82
+                                                                                                                                     0.82
+                           0.8
+                                                                                                                                         0.8
+                          0.78
+
+                          0.76                                                                                                       0.78
+
+                          0.74                                                                                                       0.76
+                                 1      2     3       4       5         6         7         8    9          10                                 1          2         3          4           5                 6             7             8        9           10
+                                                                    K                                                                                                                                K
+                                                     (a) ML943u (0.2)                                                                                                       (b) ML943u (0.3)
+
+                                     BC       CPCC        Jaccard       Pearson       TMJ       Slope one                                                BC             CPCC             Jaccard                 Pearson            TMJ           Slope one
+                                     Cosine   ED          MCFV          PIP           MBR       AMRE                                                     Cosine         ED               MCFV                    PIP                MBR           AMRE
+                          0.96                                                                                                            0.96
+
+                          0.94                                                                                                            0.94
+
+                          0.92
+                                                                                                                                          0.92
+                           0.9
+                                                                                                                                           0.9
+                                                                                                                            F1-measure
+             F1-measure
+
+
+
+
+                          0.88
+                                                                                                                                          0.88
+                          0.86
+                                                                                                                                          0.86
+                          0.84
+                                                                                                                                          0.84
+                          0.82
+
+                           0.8                                                                                                            0.82
+
+                          0.78                                                                                                             0.8
+                                 1      2     3       4        5        6         7         8    9          10                                     1            2       3          4             5               6             7             8        9        10
+                                                                    K                                                                                                                                    K
+                                                     (c) ML706u (0.2)                                                                                                       (d) ML706u (0.3)
+
+ FIGURE 6. The F1-measure of AMRE and other individual recommendation algorithms on four datasets.
+
+
+
+
+ 12                                                                                                                                                                                                                                                   VOLUME 4, 2016
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+                                               http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+      This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI
+                                                                             10.1109/ACCESS.2019.2891561, IEEE Access
+
+ Author et al.: Preparation of Papers for IEEE TRANSACTIONS and JOURNALS
+
+
+
+
+                                    Vote        Average       AMRE                                                                     Vote       Average         AMRE
+                          0.9                                                                                                 1
+
+                         0.88
+
+                                                                                                                            0.95
+                         0.86
+
+                         0.84
+                                                                                                                             0.9
+            Accuracy
+
+
+
+
+                         0.82
+
+
+
+
+                                                                                                               Recall
+                          0.8
+                                                                                                                            0.85
+                         0.78
+
+                         0.76
+                                                                                                                             0.8
+
+                         0.74
+
+                         0.72                                                                                               0.75
+                                1     2     3             4     5        6   7   8   9   10                                        1     2    3             4       5         6   7   8   9   10
+                                                                     K                                                                                                    K
+                                                          (a) Accuracy                                                                                          (b) Recall
+
+                                     Vote       Average       AMRE                                                                     Vote       Average          AMRE
+                         0.97                                                                                               0.96
+
+
+                         0.96                                                                                               0.94
+
+
+                         0.95
+                                                                                                                            0.92
+                                                                                                               F1-measure
+             Precision
+
+
+
+
+                         0.94
+                                                                                                                             0.9
+                         0.93
+
+                                                                                                                            0.88
+                         0.92
+
+
+                                                                                                                            0.86
+                         0.91
+
+
+                          0.9                                                                                               0.84
+                                1      2    3             4     5        6   7   8   9   10                                        1      2   3             4       5         6   7   8   9   10
+                                                                     K                                                                                                    K
+                                                          (c) Precision                                                                                 (d) F1-measure
+
+ FIGURE 7. The four metrics on AMRE and ensemble methods.
+
+
+
+
+ VOLUME 4, 2016                                                                                                                                                                                    13
+
+
+2169-3536 (c) 2018 IEEE. Translations and content mining are permitted for academic research only. Personal use is also permitted, but republication/redistribution requires IEEE permission. See
+      View publication stats                   http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+

@@ -1,0 +1,549 @@
+Intelligent Automation & Soft Computing                                                          Tech Science Press
+DOI:10.32604/iasc.2022.018985
+Article
+
+
+
+
+     User Interaction Based Recommender System Using Machine Learning
+                     R. Sabitha1, S. Vaishnavi2,*, S. Karthik1 and R. M. Bhavadharini3
+
+           1
+            Department of Computer Science and Engineering, SNS College of Technology, Coimbatore, 641035, India
+           2
+            Department of Information Technology, Sri Ramakrishna Engineering College, Coimbatore, 641022, India
+          3
+           Department of Computer Science and Engineering, SRM Eswari Engineering College, Chennai, 600089, India
+                           
+                             Corresponding Author: S. Vaishnavi. Email: svaishnavi1731@gmail.com
+                                      Received: 28 March 2021; Accepted: 03 July 2021
+
+
+
+                   Abstract: In the present scenario of electronic commerce (E-Commerce), the in-
+                   depth knowledge of user interaction with resources has become a signiﬁcant
+                   research concern that impacts more on analytical evaluations of recommender
+                   systems. For staying in aggressive E-Commerce, various products and services
+                   regarding distinctive requirements must be provided on time. Moreover, because
+                   of the large amount of product information available online, Recommender Sys-
+                   tems (RS) are required to analyze the availability of consumers, which improves
+                   the decision-making of customers with detailed product knowledge and reduces
+                   time consumption. With that note, this paper derives a new model called User
+                   Interaction based Recommender System (UI-RS) that utilizes the data from multiple
+                   sources and opinion-based analysis for sensing the consumer needs and interests. For
+                   that, Content-Based Filtering (CBF) analyses various products and determines the
+                   likeliness of products based on User Interaction to recommend that to consumers.
+                   Then, the product information from multiple sources is combined with Dempster-
+                   Shafer (D-S) evidence theory, and then, decision making for product recommenda-
+                   tion is performed with CBF. Moreover, the modiﬁed Radial Basis Function Neural
+                   Networks (RBFNN) technique has been incorporated for measuring product recom-
+                   mendations. The results show that the proposed model produces better results in pro-
+                   viding accurate recommendations to Consumers with a higher rate of coverage and
+                   precision, thereby enhancing signiﬁcant growth in E-Commerce.
+
+                   Keywords: Recommender system; content-based ﬁltering; radial basis function
+                   neural networks; user interaction; e-commerce
+
+
+1 Introduction
+     With the enormous growth of Internet usage for E-Commerce, personalized product recommendation for
+each consumer has contributed signiﬁcantly to business society for its improvements. Moreover, it is also to
+be considered that the number of consumers is signiﬁcant, and conventional techniques are insufﬁcient for
+providing personalized recommendations. In today’s business scenario, E-Commerce is considered to be
+associated with user satisfaction, and the success rate of business society is connected to customer loyalty
+[1]. In recently advanced Internet inducement in many applications, E-Commerce recommender systems
+
+
+                         This work is licensed under a Creative Commons Attribution 4.0 International License, which
+                         permits unrestricted use, distribution, and reproduction in any medium, provided the original
+                         work is properly cited.
+1038                                                                               IASC, 2022, vol.31, no.2
+
+
+can aid people to live in a better way. In the process of online learning, acquiring an intelligent and
+personalized RS provide more quality of service than using traditional modes of services [2].
+     Moreover, the intelligence-based personalized product recommender models have attained great
+development in present days, according to the enormous growth of the E-Commerce domain and online
+transactions. RS are Machine Learning (ML) algorithms that ﬁlter information from vast volumes of data
+and provide personalized services to customers. The personalization ideas are provided to users based on
+items searched and interaction between user and item. The main aim of the RS is to handle information
+overload by providing relevant E-service. However, based on the enormous amount of user information,
+developing a product recommender model based on user interests is a tedious process. Fig. 1 explains the
+typical process of the RS in providing product recommendations.
+
+
+
+
+                Figure 1: Typical process of recommender model based on user interests
+
+     The huge data contains enormous potential for bringing revolt in people’s life, speciﬁcally in
+recommender models. Nevertheless, overloading user information is an extraordinary confrontation in
+using big data. And, the process of extracting relevant or required data from complex user data is still a
+big challenge. The RS is used to derive the items based on the user’s interests from the huge data
+collection, and the derived results are provided as recommendations for the user in the form of exciting
+product lists. The usefulness of an item to a user is identiﬁed by a function called Utility function, which
+measures the degree of likeliness of a user towards a product that is frequently characterized by ratings
+given to a product. The recommender models are generally used in commercial, social networking, and
+E-Commerce applications such as Amazon, Flipkart, Instagram, Google and Twitter.
+    For example, an E-Commerce site uses item to item collaborative ﬁltering for providing personalized
+content to its users. Furthermore, a recommendation can be provided to the users based on the user’s
+previous data through the system. For instance, when a user searches for beauty products online, the RS
+tends to provide notiﬁcations or prompts similar beauty products when the user surfs the web next time.
+Thus, these systems help individuals to evaluate the alternatives/options based on their interests. The
+general framework of RS comprises User Interface, Database, Recommending Engine, Database and
+Results presented in Fig. 2.
+IASC, 2022, vol.31, no.2                                                                               1039
+
+
+
+
+                                   Figure 2: General framework of RS
+
+    In conventional methods of RS, the ﬁlters that are utilized are given below:
+    a. Collaborative Filtering:
+     The Collaborative Filtering model works based on the relationship between products and consumers.
+Users are clustered into the group with similarities; if a customer shows interest in a product liked by
+others, then recommendations related to other products, which is shown interest by others in the cluster,
+will be given in addition to the user. However, the model has some constraints over data sparsity and
+Cold Start Problem.
+    b. Content Based Filtering:
+    The CBF techniques acquire the products that the consumers have chosen to identify similar products for
+providing buying suggestions. Since there are huge amounts of heterogeneous data, the model uses user
+behaviours to provide personalized suggestions.
+    c. Hybrid Filtering:
+    This technique combines the multiple sources of heterogeneous user data to solve the Cold Start problem
+and data sparsity issues in collaborative ﬁltering. However, because of the heterogeneity of user data, the
+process may face uneven data distribution and have some complexities and challenges in implementations.
+     In present days, ML techniques have attained notable results in image processing, voice and language
+processing and speech and pattern recognition. Moreover, the ML-based models can handle the data
+heterogeneity. Hence, recommender methods are integrated with ML to cope with the limitations of
+traditional RS. The proposed model develops a UI-RS for supporting business society in E-Commerce.
+The contributions of UI-RS are listed as follows,
+    a) A novel RS based on UI is developed using CBF to analyze user’s interest in products.
+    b) Product information from multiple sources is integrated with the D-S evidence theory.
+    c) Weight Determination is performed with Modiﬁed RBFNN for effectively sorting and listing out the
+       product recommendations.
+     The rest of this paper is framed as follows: Section 2 discusses the existing RS in E-Commerce. Section
+3 clearly describes the computations and procedures for implementing the proposed UI-RS in E-Commerce
+based business models. The experimental results are provided in Section 4 with some evidence and
+comparisons for substantiating the proposed model. Lastly, conclusions and future enhancement-based
+discussions are presented in Section 5.
+1040                                                                                IASC, 2022, vol.31, no.2
+
+
+2 Literature Survey
+     The E-Commerce based RS is the system to help customer’s decision making based on their purchasing
+behaviour and their product preferences [3]. Moreover, E-Commerce websites' business platforms and
+product recommendations are broadly used to give users personalized buying services or advertisements
+in recent electronic markets scenarios. The authors of [4] developed the ﬁrst RS, and other researchers
+have developed a wide range of related models for product recommendations based on the data mining
+process [5] and ﬁltering techniques. In Benbasat et al. [6], a strategic RS has been developed based on
+CBF techniques. Unlike the traditional techniques that concentrated on some technical recommendation
+features [7], a few other research works focused on the purchase decisions made by the users or
+customers [8]. RS conﬁne their usage to E-Commerce and different kinds of needs such as movie
+recommendations, books, songs, etc., and use different recommendation models to attract and satisfy
+customer interests [9]. For example, the proposed work discussed the RS for supporting tourism to
+provide hotel suggestions to the customers before booking [10]. The recommendations were provided
+based on the opinions and preferences of the customers. Such recommendations face the problems [11] of
+gathering known ratings, cold start problem, sparsity, scalability and lack of data. Since the model had to
+be dealt with distinctive user data formats, including numbers, letters, voice, visuals and so on, the RS
+has been developed in such a manner to support heterogeneous user data [12]. The paperwork in Scholz
+et al. [13] analyzed that some recent product recommendations could handle multiple data sources, and
+the customer feedback was used to process the recommendations.
+     Moreover, the model used multiple feedback types, including voting, ratings, and reviews provided through
+social media. The RS developed in Xiao et al. [14] intended to achieve relevant suggestions. The relevant
+recommendations were considered as the recommendations based on the user’s choice and likeliness.
+Furthermore, the paper handled multiple data and customer’s opinion-based evaluations for deriving the
+customer’s thoughts and views on a product search through the web. In paper [15], a simple and easy to use
+recommendation algorithm has been developed, which can be used by non-experts in the ﬁeld [16].
+    The quality of product recommendations was considered in Zhang et al. [17]. It was provided in the
+paper that massive data of consumer reviews and ranks were utilized for giving efﬁcient and quality
+recommendations since the product suggestion qualities were very much important. Moreover, online
+purchases and product suggestions have had a great impact on E-commerce. A Recommendation System
+provides information to ﬁnd the exact products that the customers searched for and the relevant
+supporting products. In paper [18], different RS was developed based on different recommendation
+protocols following the past data consisting of product ratings and reviews. Furthermore, Trust-Aware
+Recommender System (TARS) has been developed in Hsieh et al. [19] that provided recommendations on
+shopping, entertainment, sports, etc. And, Knowledge-based Recommender System (KRS) was provided
+and discussed in [20], which extracted knowledge from users’ preferences and product alignment for
+providing the recommendation lists.
+     Furthermore, in Burke [21], elaborated survey work has been presented about different RS. The paper
+explained different RS and the Hybrid Filtering model that combined both the collaborative and CBF
+techniques. The trends and advantages of a content-based RS have been provided in Burke [22]. The model
+worked based on collected customer ratings for products and the connectivity between consumers and
+products for providing the most similar recommendations to the customers. The proposed work in Lops
+et al. [23] describes using neural networks and genetic algorithms with improved prediction performance.
+Neural network algorithms like multilayer perceptron, feed-forward network and coactive neuro-fuzzy
+inference systems were trained and tested with widely used Movielens 100 k and 1 M datasets. Combining
+genetic algorithms with neural networks improves its performance for the prediction of movies.
+IASC, 2022, vol.31, no.2                                                                                   1041
+
+
+3 Proposed Model
+     The proposed UI-RS uses multiple sources to observe customer requirements and opinions. Moreover, CBF
+is used for computing the likeliness of products based on weights. The data from multiple sources are integrated
+using D-S evidence theory. Further, the ﬁnal listing of product recommendations is processed with modiﬁed
+RBFNN for supporting E-Commerce effectively. The proposed work contains the following sub-sections.
+    a) Acquiring Multiple-Data Sources
+    b) CBF based Weight Computation
+    c) Decision Integration with D-S Evidence Theory
+    d) Modiﬁed RBFNN for Final Results.
+
+3.1 Acquiring Multiple-Data Sources
+     The RS requires accurate and integrated user data in the E-Commerce-based business that comprises the
+customer features and requirements. Here, the proposed RS model uses microformats for customer data
+representation, fusion, storage and administration. The foreign commercial sites have used micro-formats
+for data integration and achieved greatly in YouTube, Amazon, etc. The user data such as Gender, Name,
+Age and Locations are needed by the RS required for shopping zones. However, the inclusion of data
+such as potential requirements of customers, immediate product requirements, user’s recent interests, etc.,
+are still to be done for framing efﬁcient product recommendations. This paper proposes that the RS can
+acquire user data based on applications and usage.
+     Moreover, for providing timely product recommendations, the data sharing process can be used. The RS
+can obtain the personal behaviours and customer’s recent interests using their social platform activities and
+mobile numbers. Additionally, customers’ purchase history is also obtained from the databases of their
+shopping platforms from the mobile number of customers. Hence, the model acquires two categories of user
+data based on the UI with the shopping platforms, and the process of data acquisition is presented in Fig. 3.
+
+
+
+
+                            Figure 3: Acquiring multiple-data sources of users
+1042                                                                               IASC, 2022, vol.31, no.2
+
+
+3.2 CBF Based Product Similarity Computation
+     Here, CBF evaluates products and performs similarity identiﬁcations with the active customers to
+provide product recommendations. The model acquires the user interactions according to the data
+retrieval and analysis and the user’s purchase history from the databases of shopping platforms. The data
+can be described with the classes that are provided with weights. Computing similarities between items or
+users calculate these weights. It is signiﬁcant to compute the similarity as it is essential to ﬁnd items or
+users similar to a users’ interest. Based on the classes and the customer preferences, the products are
+recommended to the active users, and a set of features are derived from that. The features are evaluated
+based on keywords that denote recommendations. Further, weights are computed based on the occurrence
+rate of keywords called Term Frequency (TF). And, the TF is calculated as follows, Eq. (1)
+            f a;b
+TFa;b ¼                                                                                                  (1)
+          maxm; f m;b
+where, ‘f a;b ’ is the number of occurrences of keywords ‘ka ’ that are presented in the document db and the
+maximum frequency is given as ‘f m;b ’. ‘f m;b ’ is the number of occurrences of all keywords ‘kz ’ that are
+presented in. ‘db ’. Further, the Inverse Document Frequency (IDF) is calculated as Eq. (2)
+             N
+IDFa ¼ log                                                                                               (2)
+             na
+    Then, the weight of each keyword for providing product recommendation is computed as, Eq. (3)
+Wa;b ¼ TFa;b IDFa                                                                                       (3)
+     Similarity measurement is related to the distance between the items. Here, TF–IDF is used to compute
+weight, which focuses on feature extraction. Using this weight, similarity measurement is done. Finally,
+search keywords are gathered, based on which similarity with an unseen item has been computed. Based
+on the results, a content-oriented proﬁle has been generated for customers based on their product
+likeliness, product ratings, keywords and other features. The work process of the proposed RS is
+presented in Fig. 4.
+
+
+
+
+                                  Figure 4: Work ﬂow of proposed RS
+IASC, 2022, vol.31, no.2                                                                                      1043
+
+
+3.3 Data Integration with Dempster-Shafer (D-S) Theory
+    This evidence theory is developed in such a manner to support Reasoning under Uncertainty (RUU).
+The fusion rules of evidence {e1 ; e2 ; . . . ; en } are provided in the following Eq. (4) as,
+        (
+          0;                                             A¼j
+eðAÞ ¼             1 P      Q
+           ð1  KÞ                ej ðAi Þ               A 6¼ j                                  (4)
+                         \Ai ¼A ijn
+                                                            P                           P P
+    From that, the probability assignment persuades              ej ðAi Þ¼ 1 and K ¼                ej ðAi Þ denotes
+                                                             i                         \Ai ¼j   i
+divergences between the evidence. Moreover, for efﬁcient data integration, reliability-based modiﬁcations
+and local divergence allocations have been done. And, the modiﬁcations in general D-S theory in the
+proposed work is presented below.
+    i) Reliability-based modiﬁcations in evidence structure are performed. The evidence authority is given
+as ai ðai 1Þ denotes the relative accountability between the evidence. For compelling performances, the
+highest rate of accountability is set as 1, where ai is considered as the correction parameter that changes
+the base evidence structure E0 . Then, the additional probability is constructed for the anonymous
+condition e(Q). The value of the probability assignment of the changed evidence body (E) is derived
+from the following Eq. (5).
+E ¼ ½eðA1 ÞeðA2 Þ. . .eðAn ÞeðQÞ                                                                               (5)
+     ii) Local Divergence Allocation for integration rule framing is performed next. The division between
+two focal ends that causes the divergences is done as given below Eq. (6)
+8               P
+>
+> e jK ð A Þ ¼       ej ðYÞek ðZÞþf ðXÞ
+<              Y\Z¼X                                  !
+               P      e2j ðXÞek ðDÞ   e 2
+                                          ðX Þe   ðDÞ                                                  (6)
+>                                               j
+: f ðXÞ ¼
+>                                   þ   K
+           X\D¼j     e ðXÞþe ðDÞ e ðDÞþe ðAÞ
+                     j        k         j   k
+
+     Here, B, C, D  fA1 ; A2 ; . . . ;AQ g and a new evidence structure. ‘ejK ðAÞ’ are derived and given for
+normalization. Moreover, in this work, the product information, customer information, location, past
+customer purchases, and other activities are considered evidence, and statistical evaluations are processed
+to deﬁne their reliability.
+
+3.4 Modiﬁed RBFNN for Generating Product Recommendations
+    Modiﬁed RBF Neural Networks are used to generate the product recommendation lists based on the
+previous data integration results in the proposed model. The network structure comprises three layers:
+Input, Middle, and Output layer, as presented in Fig. 5.
+     RBFNN neural networks are preferred over other neural networks due to their rapid learning capability.
+This neural network covers three layers, where the network architecture’s input layer is considered, the linear
+layer containing the data sources for gathering user interactions. The user’s evidence integrated into the
+previous step is given as input for the neural network. The next hidden or Gaussian Layer is considered
+the middle layer consisting of activation units implemented as Gaussian functions. The Radial Basis
+function assigns an absolute real value for each input, measuring distance. The output layer is the
+Softmax layer to produce the list of product recommendations as output. In the middle layer, Gauss-
+function is framed as presented in the following Eq. (7).
+1044                                                                                   IASC, 2022, vol.31, no.2
+
+                            !
+            kazi k2
+  bi ¼ exp  2                                                                                               (7)
+             si ðaÞ
+
+
+
+
+                                   Figure 5: RBFNN architecture in UI-RS
+
+     Here, ‘zi ’ is considered as the central position, and ‘σ’ represents the variance value obtained from input
+sources. Furthermore, the output layer utilizes the transfer function as given in (8), where ‘z’ is the number of
+classiﬁed product recommendations and ‘bi ’ is the neuron output, Eq. (8)
+         expðai Þ
+ bi ¼ P z                                                                                                    (8)
+        i¼1 expðai Þ
+
+     For providing appropriate or relevant product recommendations to the users, effective decision making
+is processed in this section. Since the multiple sources of users are variant and have different impacts, those
+play a vital role. Hence, the Rating of different data sources varies concerning the purpose of RS. Here, the
+trained and modiﬁed RBFNN is used to provide the product recommendations to the users with respect to the
+previous computations. Finally, the output is given as, Eq. (9)
+Btot ¼ fbtot
+         1 ; b2 ; . . . ; bsum g
+              tot          tot
+                                                                                                             (9)
+     Here, ‘sum’ represents the total number of data sources based on the UI with the online shopping
+websites and ‘Btot ’ is the weight for product recommendations that are computed from the deﬁned
+                                                                   i ’ is the measure of relative support of
+architecture and the integrated sources. Furthermore, the factor ‘btot
+data between multiple sources. Based on this deep learning concept, the highest weight rates of sources
+are given as product recommendations. With ‘Btot ’, weight rates of sources, i.e., user interactions details,
+have been found. RBFNN gives an absolute real distance between the sources, which helps to identify
+the similarities and weight computation. On ﬁnding the similarity weight, users’ interests are discovered,
+which aids in suggesting product recommendations.
+
+3.5 Modiﬁed RBFNN for Generating Product Recommendations
+     The performance of the proposed UI-RS is performed based on the accuracy rates of product
+recommendations that are very much productive and proﬁtable for the E-Commerce environment. Here,
+the factors such as Result Precision, Recall, Error Rate, Rate of Coverage (RoC) and Processing Speed in
+presenting recommendations are considered for model analysis. Moreover, the evaluations are carried out
+based on the acceptance ratio of the targeted customers. Finally, the performance analysis is done to show
+IASC, 2022, vol.31, no.2                                                                                          1045
+
+
+that the proposed work provides practical product recommendations. For example, the Result Precision is
+calculated based on the following Eq. (10)
+                             X
+Result Precision ðRPÞ ¼         100%                                                                              (10)
+                            YþX
+     With respect to the multiple combined sources, ‘X’ denotes the number of likeliness obtained for a
+particular product, and ‘Y’ denotes the number of products that the users do not like. And, ‘Y þ X ’
+derives the total amount of product recommended by UI-RS to a single customer. Hence, the recall result
+can be calculated by good product recommendations to the model’s total number of product
+recommendations. Further, the recall rate is computed as in Eq. (11).
+                        X
+Recall Rate ðRRÞ ¼         100%                                                                                   (11)
+                       ZþX
+    ‘Z’ denotes the number of effective products but not provided on the product recommendation lists.
+Further, F-Measure is derived from RP and RR as given in Eq. (12).
+                   RP  RR
+F‐Measure ¼ 2                                                                                                     (12)
+                   RP þ RR
+    Additionally, Mean Absolute Error (MAE) for computing the exact rate of error between the predicted
+and the actual rates for measuring the accuracy rate of recommendations and the equation for MAE is
+computed as, Eq. (13)
+        PN
+              ðxi yi Þ
+MAE ¼ i¼1                                                                                          (13)
+              N
+   ‘xi ’ is the predicted rate and ‘yi ’ is the actual rate. And, Rate of Coverage (RoC) is calculated as, Eq. (14)
+             X                       X
+RoC ðtÞ ¼        ðRRðtÞ \ RSðtÞÞ=           RRðtÞ                                                                   (14)
+
+    ‘RRðtÞ’ is the set of products recommended, and ‘RSðtÞ’ denotes the list of selected resources by the UI-
+RS at an instant ‘t’. For an efﬁcient RS, the RoC must be higher for satisfying the user requirements.
+     On applying the user interaction model to the data, user interactions are gathered in various formats from
+multiple data sources. Collected user and data items are analyzed for computing similarity. The parameter
+“result precision” considered in the model identiﬁes how close the data points are. This has been
+achieved by computing the similarities between data items. Ratings have been used to identify the
+likeliness of a product by a user. Recall rate is used to identify the item or document relevant to the
+query/request of the customers. These relevant items are gathered by providing input sources to RBFNN,
+and the hidden layer employing the Gaussian function provides the list of product recommendations.
+     Furthermore, the accuracy of the recommendations is measured by F-measure by combining the result
+precision and recall rate calculated earlier. In terms of the error rate, the difference between the observed and
+true values yields the mean absolute error, which is used to calculate the error rate of the UI model. Finally,
+RoC is calculated to ensure the coverage of items for recommendation as comprehensive product coverage
+contributes to correct recommendations. RoC shall be determined by combining a list of suggested products
+with a set of products drawn from different resources at a given time.
+
+4 Results and Discussions
+     For experimentations, the raw data from the online shopping site www.askboutique.com is considered,
+and the data of 120 customer samples are chosen for the proposed model to process. Each sample comprises
+1046                                                                               IASC, 2022, vol.31, no.2
+
+
+the customer’s age, gender, product feedback, and purchase history. With respect to products of the sites,
+product quality-based reviews, ratings and discounts are mainly considered for presenting that for
+recommendations. Based on the input sources from sites, the operations are carried out in UI-RS,
+depending on the user interaction with the shopping site. Moreover, the model is evaluated with respect
+to the factors presented in Section 3.5. Finally, the results are compared with the existing models such as
+TARS and KRS.
+     In Figs. 6 and 7, the precision and recall rates of proposed UI-RS for providing product
+recommendations are evaluated and presented. In Fig. 6, it is observed that the proposed model obtained
+a higher rate of precision than other models in producing similar product recommendations to the users
+based on their interactions and interests over the online purchases. Based on user interactions with the
+online shopping site, relevant recommendations are provided to the customers. The recall rate results are
+presented in Fig. 7, as mentioned earlier, which is also greater among other works for the exact
+recommendation for users. Moreover, it is measured against the number of users in the considered
+shopping sites.
+
+
+
+
+                               Figure 6: Comparison of precision models
+
+
+
+
+                                Figure 7: Recall rate vs. Number of users
+
+     For an efﬁcient RS, the error rate in providing product recommendations must be lesser than other
+works, and the results are plotted in Fig. 8 with respect to the number of users. The obtained error rate in
+the proposed model is about 0.00755 (on average), which is comparatively lower than the other works.
+    Fig. 9 displays that with the seamless enhancement of customer data in the RS, the coverage rates raise
+continuously till the targeted customer numbers are reached. Moreover, the proposed model uses effective
+techniques and optimization methods, thereby providing the highest coverage rate, computed as in
+IASC, 2022, vol.31, no.2                                                                                     1047
+
+
+Bobadilla et al. [24]. The highest RoC results in a great change in the customer number utilizing the particular
+business domain with respect to product promotions, advertisements and other deeds [25].
+
+
+
+
+                                       Figure 8: Analysis of error rate
+
+
+
+
+                                     Figure 9: RoC of users with time
+
+     The processing speed of RS in providing product recommendations is a signiﬁcant factor to be
+considered in performance analysis. In standard RS, the transaction database is taken into account for
+recommendations, and wherein the proposed model uses the multiple source acquisition that speeds up
+the process considerably [26]. The values obtained for processing time measurement in the traditional and
+proposed model are presented in Tab. 1. And, Fig. 10 presents the values plotted against the number of
+users on the online shopping website. Observing the graph shows that the proposed RS takes minimal
+time for providing recommendations to the customers, which increases the sales rate of the site in an
+effective manner [27–29].
+
+                 Table 1: Values for processing time analysis by recommending products
+ Models             20              40               60              80               100              120
+ TARS               0.213           0.223            0.223           0.222            0.275            0.377
+ KRS                0.09            0.182            0.251           0.252            0.368            0.425
+ UI-RS              0.069           0.087            0.15            0.155            0.201            0.249
+1048                                                                                        IASC, 2022, vol.31, no.2
+
+
+
+
+                            Figure 10: Processing time evaluations and comparisons
+
+5 Conclusions and Future Work
+     In this paper, a novel User Interaction based Recommendation System (UI-RS) is proposed for handling
+multiple user sources such as the location of data, product and customer information, social platform activities,
+images, videos, voices and texts for enhancing the accuracy in generating product recommendations with
+minimal processing speed. Moreover, the proposed model utilizes CBF to determine customers' likeliness
+over the products of a particular business website. And further, D-S Evidence theory is enforced for data
+integration and RBFNN is used for processing the inputs and presenting the lists of product
+recommendations based on their computed weights. The result evaluations show that the proposed RS
+results provide good product suggestions to the customers with more precision in minimal time. And, the
+results also show that UI-RS generates the highest RoC than other traditional models. In future, the work
+can be extended in such a manner to provide recommendations for particular products by considering
+advanced options such as navigational actions of users, cookies data and so on.
+Funding Statement: The authors received no speciﬁc funding for this study.
+
+Conﬂicts of Interest: The authors declare that they have no conﬂicts of interest to report regarding the
+present study.
+
+References
+[1]    J. Davidson, B. Liebald, J. Liu, P. Nandy, T. V. Vleet et al., “The you tube video recommendation system,” in
+       Proc. of ACM, New York, pp. 293–296, 2010.
+[2]    W. D. Mcdonald and S. M. Ackerman, “Expertise recommender: A ﬂexible recommendation system and
+       architecture,” in Proc. of the 2000 ACM Conf. on Computer Supported Cooperative Work, New York, pp.
+       231–240, 2000.
+[3]    Y. Guo, M. X. Wang and X. Li, “An interactive personalized recommendation system using the hybrid algorithm
+       model,” Symmetry, vol. 9, no. 10, pp. 216–224, 2017.
+[4]    I. Yuto, U. Takahiro and T. Ichi, “Design and evaluation of a movie recommendation system showing a review for
+       evoking interested,” International Journal of Web Information Systems, vol. 13, no. 2, pp. 72– 84, 2017.
+[5]    G. Shani and A. Gunawardana, “Evaluating recommendation systems,” in Recommender Systems Handbook.
+       Berlin, Germany: Springer, pp. 257–297, 2011.
+[6]    I. Benbasat and W. Wang, “Trust in and adoption of online recommendation agents,” Journal of the Association
+       for Information Systems, vol. 6, no. 3, pp. 72–101, 2005.
+[7]    D. Goldberg, D. Nichols, B. M. Oki and D. Terry, “Using collaborative ﬁltering to weave an information tapestry,”
+       Communications of the ACM, vol. 35, no. 12, pp. 61–70, 1992.
+IASC, 2022, vol.31, no.2                                                                                        1049
+
+
+[8]  M. Masoud and S. Mehdi, “Improving recommender system’s performance on cold-start users and controversial items
+     by a new similarity model,” International Journal of Web Information Systems, vol. 12, no. 2, pp. 126–149, 2016.
+[9] M. Buvana, K. Muthumayil and T. Jayasankar, “Content-based image retrieval based on hybrid feature extraction
+     and feature selection technique pigeon inspired based optimization,” Annals of the Romanian Society for Cell
+     Biology, vol. 25, no. 1, pp. 424–443, 2021.
+[10] K. W. Cheung, J. T. Kwok, M. H. Law and K. C. Tsui, “Mining customer product ratings for personalized
+     marketing,” Decision Support Systems, vol. 35, no. 2, pp. 231–243, 2003.
+[11] Z. J. Lin, “An empirical investigation of user and system recommendations in e-commerce,” Decision Support
+     Systems, vol. 68, no. 3, pp. 111–124, 2014.
+[12] L. C. Cheng and M. J. Jhang, “A novel approach to exploring maximum consensus graphs from users’ preference
+     data in a new age environment,” Electronic Commerce Research, vol. 15, no. 4, pp. 543–569, 2015.
+[13] M. Scholz, V. Dorner, M. Franz and O. Hinz, “Measuring consumer’s willingness to pay with utility-based
+     recommendation systems,” Decision Support Systems, vol. 72, no. 2, pp. 60–71, 2015.
+[14] B. Xiao and I. Benbasat, “E-Commerce product recommendation agents: Use, characteristics, and impact,”
+     Management Information Systems Quarterly, vol. 31, no. 1, pp. 137–209, 2007.
+[15] H. Liu, J. He, T. Wang, W. Song and X. Du, “Combining user preferences and user opinions for accurate
+     recommendation,” Electronic Commerce Research and Applications, vol. 12, no. 1, pp. 14–23, 2013.
+[16] M. Ibrahim and I. Bajwa, “Design and application of a multi-variant expert system using apache hadoop
+     framework,” Sustainability, vol. 10, no. 11, pp. 4280–4293, 2018.
+[17] J. J. Zhang and Z. Mao, “Image of all hotel scales on travel blogs: Its impact on customer loyalty,” Journal of
+     Hospitality Marketing & Management, vol. 21, no. 2, pp. 113–131, 2012.
+[18] Y. Koren, R. Bell and C. Volinsky, “Matrix factorization techniques for recommender systems,” Computer IEEE
+     Computer Society, vol. 42, no. 8, pp. 30–37, 2009.
+[19] M. Y. Hsieh, W. K. Chou and K. C. Li, “Building a mobile movie recommendation service by user rating and APP
+     usage with linked data on Hadoop,” Multimedia Tools and Applications, vol. 76, no. 3, pp. 3383–3401, 2017.
+[20] M. Paolo and A. Paolo, “Trust-aware recommender systems,” in Proc. of RecSys'07: ACM Conf. on Recommender
+     Systems, Madison, pp. 17–24, 2007.
+[21] R. Burke, “Knowledge-based recommender systems,” Encyclopedia of Library and Information Systems,
+     Supplement, vol. 32, pp. 175–186, 2000.
+[22] R. Burke, “Hybrid recommender systems: Survey and experiments,” User Modeling and User-Adapted
+     Interaction, vol. 12, no. 4, pp. 331–370, 2002.
+[23] P. Lops, M. D. Gemmis and G. Semeraro, “Content-based recommender systems: State-of-the-art and trends,” in
+     Recommender Systems Handbook. Boston, MA, USA: Springer, pp. 73–105, 2011.
+[24] J. Bobadilla, F. Ortega, A. Hernando and A. Gutiérrez, “Recommender systems survey,” Knowledge-Based
+     Systems, vol. 46, no. 4, pp. 109–132, 2013.
+[25] G. Adomavicius and A. Tuzhilin, “Toward the next generation of recommender systems: A survey of the state-
+     of-the-art and possible extensions,” IEEE Transactions on Knowledge and Data Engineering, vol. 17, no. 6,
+     pp. 734–749, 2005.
+[26] S. Berna, B. Erkan and G. Mehmet Serdar, “Evolutionary neural networks for improving the prediction
+     performance of recommender systems,” Turkish Journal of Electrical Engineering & Computer Sciences, vol.
+     29, no. 1, pp. 62–77, 2021.
+[27] M. Nitin, “Research problems in recommender systems,” in Proc. J. Phys.: Conf. Ser. 1717 012002, 2021.
+[28] G. Namita, C. Prasenjit and C. Tanupriya, Smart and sustainable intelligent systems. Sustainable Computing and
+     Optimization, John Wiley & Sons, pp. 173–180, 2021. [Online]. Available: https://onlinelibrary.wiley.com/doi/
+     book/10.1002/9781119752134.
+[29] Kim Falk, Practical Recommender Systems. Shelter Island: Manning Publications Co., 2019.
+

@@ -1,0 +1,703 @@
+                                                             (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                                      Vol. 13, No. 6, 2022
+
+
+         Trace Learners Clustering to Improve Learning
+          Object Recommendation in Online Education
+                           Platforms
+                Zriaa Rajae1                                   Amali Said2                          El Faddouli Nour-eddine3
+      Informatics and Applications                  Informatics and Applications                  RIME Team, MASI Laboratory
+   Laboratory (IA), Faculty of Sciences                Laboratory (IA), FSJES                       E3S Research Center, EMI
+   Moulay Ismail University of Meknes             Moulay Ismail University of Meknes                Mohammed V University
+                Morocco                                       Morocco                                      Morocco
+
+
+    Abstract—E-learning       platforms    propose      pedagogical     great difficulty in choosing the most relevant and useful
+pathways where learners are invited to mobilize their autonomy          learning resources. Recommender systems are promising new
+to achieve the learning objectives. However, some learners face a       technologies in online learning environments, as they can
+set of cognitive barriers that require additional learning objects      mitigate the problem of information overload [4-5], while
+to progress in the course. A mediating recommendation system is         highlighting what is most relevant and interesting based on the
+one of the efficient solutions to reinforce the resilience of online    learner's profile. The recommendation of personalized
+platforms, while suggesting learning objects that will be               learning resources is based on the different types of
+interesting for them according to their needs. The objective of         knowledge identified in the learner's profile, such as:
+this contribution is to design a new mediator recommendation
+                                                                        preferences, learning styles and contextual information [6].
+model for e-learning platforms to suggest learning objects to the
+learner based on collaborative filtering. To this end, the proposed
+                                                                        Several works have been proposed in the application of
+system relies on the implicit behaviors estimation function as an       recommender systems, which help users to get the desired
+underlying technique to convert tacit traces into explicit              information through some filtering processes, such as:
+preferences allowing to compute the similarity between learners.        recommending movies on Netflix, videos on Youtube, articles
+                                                                        on Amazon and courses on Byju and Gooru.
+   Keywords—e-learning;      recommendation      system;   learning         This paper presents a recommendation system based on
+objects; tacit behaviors
+                                                                        Tacit Learner Preferences (TLP), supported by a new
+                        I.   INTRODUCTION                               methodological approach for extracting their tacit preferences,
+                                                                        in order to provide learners with learning resources that
+    E-learning has become, in recent years, the fundamental             perfectly match their preferences without the tutor's
+pillar of any educational system [1], as it allows everyone to          intervention. The recommendation system is based on a
+learn easily, at any time, from any place and through any tool          learner model that gathers all personal information (age,
+(laptops, smart phones, ...). In addition, several universities,        education level, language, ...), pedagogical characteristics
+institutes and schools have started using e-learning platforms          (learning styles, ...) and competency profiles (prerequisites,
+to evolve their educational systems under any circumstances.            performance, expertise level, ...). All this information is
+    E-learning is considered as a process by which a set of             extracted from the learner's interactions within the online
+educational activities and resources are delivered through              platform. However, the problem is the difficulty of extracting
+digital devices to help learners achieve their learning                 tacit traces from the learning platform.
+objectives in the best possible conditions [2]. Moreover, these             The objective of this paper is to convert the tacit traces
+platforms are based on two fundamental aspects: the                     into explicit ratings, in order to estimate the learner's
+technological aspect (platform infrastructure) and the                  preferences for a resource in the learner model of the
+pedagogical aspect (learning content and its exploitation) [3],         recommender system.
+moreover, they are generally designed for heterogeneous
+learners with diverse pedagogical characteristics, including               The rest of the paper is organized as follows. In Section II,
+those related to experience levels, preferences, learning styles,       we highlight the main techniques proposed in the literature. In
+etc. To this end, it is necessary to take full advantage of new         Section III, we represent related research work. In Section IV,
+technologies to improve the context of the pedagogical tool             we describe our proposed approach: Model for Converting
+and also to adapt the learning strategies according to the              Tacit Behaviors into Explicit Behaviors and in Section V, we
+learners' profiles.                                                     conclude the paper and suggest possible future work.
+    Today, the application of recommender systems in e-                             II. TYPES FOR RECOMMENDER SYSTEMS
+learning has become an important field of research, as learning
+                                                                           Recommender system is defined as a strategy that helps
+platforms have grown considerably, resulting in a massive
+                                                                        users make decisions in complex and evolving information
+increase in online digital resources. As a result, learners face
+
+
+
+                                                                                                                            684 | P a g e
+                                                           www.ijacsa.thesai.org
+                                                           (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                                    Vol. 13, No. 6, 2022
+
+spaces [7-8]. The recommender system suggests items for the           affects the ability of the system to recommend less accurate
+user to evaluate based on their profile and the target domain.        items.
+In addition, recommender systems address the problem of
+information overload and lack of domain knowledge, which              C. Hybrid Filtering
+users usually encounter, by providing personalized and                    Hybrid filtering (HF): aims at combining the strengths of
+exclusive content and service recommendations [9].                    the previously explained recommendation approaches in order
+Recommender systems are classified into three main                    to benefit from their complementary advantages and to
+categories namely: Content-Based Filtering (CBF),                     overcome the problems identified before. Several techniques
+Collaborative Filtering (CF), Hybrid Filtering (HF).                  have been proposed to combine the basic techniques to create
+                                                                      a new hybrid system. In 2018, R. Shanthi and colleagues
+A. Content-Based Filtering
+                                                                      proposed a hybrid recommender system to recommend
+    Content-based filtering (CBF) is used to suggest articles         products to users based on users' opinions and ratings [22]. In
+similar to those previously liked by the user [10]. For               2002, Burke describes a taxonomy that proposes seven ways
+example, the recommendation of research articles is based on          of hybridization: weighted, switching, mixed, feature
+the content-based approach, where the procedure uses the              combination, cascade, feature augmentation, and meta-level
+descriptive content of the articles and the users' needs without      [23].
+considering the ratings of other users [11]. The main problem
+with the content-based filtering recommender method is                                       III. RELATED WORK
+serendipity                                                               Several recommender systems have been developed for
+   1) This problem of serendipity is more known in content-           online learning, such as: In 2018, Feng Zhang et al. proposed a
+based recommender systems, as these systems only                      recommender system based on the collaborative filtering
+                                                                      approach to recommend learning resources that are valued by
+recommend items that match the user's profile. At this point,
+                                                                      learners most similar to the active learner [24]. In 2018,
+the user has no chance to receive unexpected                          Hayder Murad et al. designed a recommender system that
+recommendations, which leads to a certain weariness with the          detects students' profiles and knowledge levels, with the aim
+proposed recommendations.                                             of automatically recommending online video learning
+B. Collaborative Filtering                                            materials that are perfectly suited to students' needs [25]. In
+                                                                      2017, Tarus et al. propose a hybrid ontology-based
+     Collaborative filtering (CF) is the most common and              recommender system with sequential pattern mining to
+effective technique in recommender systems, as it compares            recommend online learning resources to learners [26]. In
+users' ratings with other users' ratings to find the users who are    2015, Bokde et al. develop an academic recommender system,
+"most similar" based on a similarity criterion and to                 which provides engineering school students with
+recommend the articles that similar users have previously             recommendations that meet their past preferences, based on a
+liked [12]. In 2016, QusaiShambour et al. developed a                 hybrid technique that combines article-based multi-criteria
+personalized recommendation system based on collaborative             collaborative filtering with a dimensionality reduction
+multi-criteria filtering of articles, while exploiting multi-         approach [27]. In addition, a tutoring system based on a
+criteria ratings and semantic information of articles, to             recommendation engine Protus (ProgrammmingTUtorting
+overcome the problem of data sparsity and cold start of               System) [28] was designed to recommend materials of interest
+articles [13]. Collaborative filtering is considered the most         to learners, while taking into account their pedagogical
+popular and widespread method in recommender systems.                 differences such as: preferences, knowledge, learning goals
+They have been massively exploited in companies and                   and learner progress, etc. The initial recommendation in
+universities. Some of these systems include PHOAKS [14],              Portus is based on the default sequence of lessons and the
+which helps users find accurate and relevant information on           surveys previously assigned to the lessons.
+the web, GroupLens [15], BellcoreVideoRecommender [16],
+etc.                                                                      Most of the works proposed in e-learning context are
+                                                                      based on collaborative filtering, with the aim of
+   The main problem with the collaborative filtering                  recommending educational resources based on the profile and
+recommendation method is data sparsity and the cold start             explicit   evaluations      of   similar     learners.   These
+problem:                                                              recommendation systems are designed to provide a
+    1) The cold start problem [17-18]: is caused by the lack          personalized list of suggestions (educational resources,
+of data on new items or new users. Indeed, a new item cannot          learning activities or videos). However, these systems ignore
+                                                                      the importance of assisting learners in their learning journey,
+be recommended until a user has evaluated it. Similarly, for a
+                                                                      through the recommendation of additional resources to help
+new user, we cannot predict his preferences without knowing           them overcome cognitive difficulties and also to maintain their
+his item evaluation history.                                          perseverance throughout the online training. Moreover, these
+    2) The sparsity problem [19-20-21]: is generated when             recommender systems only exploit explicit user ratings to
+the number of items rated by users is very small compared to          make recommendations.
+the total number of items available in the system. Parity
+                                                                          Explicit evaluations are sometimes poorly expressed or
+results in a very low density of the matrix (items/user). This        ignored by users, which leads to a decrease in the performance
+                                                                      of recommender systems [29]. In other words, implicit user
+
+
+
+                                                                                                                          685 | P a g e
+                                                        www.ijacsa.thesai.org
+                                                           (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                                    Vol. 13, No. 6, 2022
+
+feedback is poorly considered in most existing recommender            traces during their interactions with the e-learning system.
+systems compared to explicit feedbacks, knowing that implicit         Furthermore, the preference matrix is generated based on
+behaviors can serve as a means to overcome several problems           these interactions, in order to select the most relevant learning
+that plague recommender systems, such as: data sparsity and           objects. Tacit behavioral indicators and explicit ratings are
+cold start.                                                           used to build a model of the learner in an e-learning system by
+                                                                      analyzing the learner's interactions with the learning objects
+    Moreover, to improve the accuracy of recommendations,             implicitly or explicitly.
+several works have been done to better capture and know
+users' preferences based on their behaviors in the system; In             In order to maintain interoperability of CEHL, a set of
+2009, Rendle et al. proposed an article recommendation                standards have been considered in the literature to model
+system based on users' implicit comments to predict a                 learners [34] such as:
+personalized ranking on a set of articles [30]. In 2008, Hu et
+al. developed a recommender system based mainly on implicit                The PAPI Learner Model (Public and Private
+user interactions which are considered as user preferences, the             Information for Learner) is a standard developed by the
+proposed approach is based on converting expressed trust into               IEEE P1484.2 Learner Model Working Group and is
+user preference [31]. In 2006, Zigoris et al. proposed a                    one of the first proposals to model the learner. Various
+Bayesian model technique to combine implicit and explicit                   information is presented in this model: personal or
+user behaviors [32]. In 2005, Adomavicius et al. focused on                 demographic information, relational information,
+exploiting implicit user interactions to make relevant                      information on preferences, information on the
+recommendations [33].                                                       learner's history and learning progress, etc.
+
+    Designing a recommender model based on a preference                    The IMS-LIP Learner Model ((IMS Learner
+matrix that generates the different implicit interactions and               Information Package), is a standard that allows the
+explicit evaluations of learners is one of the challenges.                  necessary characteristics of a learner to be modeled
+Indeed, implicit feedbacks represent an objectivity towards a               using XML technology in order to ensure
+learning resource, while explicit feedbacks indicate a                      interoperability between CEHL. The characteristics
+subjectivity, through the learners' rating of the learning                  presented in this model are the learner's personal
+objects. This combination allows for a more personalized                    information, acquired skills, information related to
+learning environment that is more appropriate to the learners'              qualifications, information about the learner's
+expectations.                                                               preferences and interests, etc.
+                                                                          Our system is based on the PAPI model for modeling the
+                      IV. PROPOSED MODEL
+                                                                      learner in the learning system, because, the objective of this
+    The     model      proposed   illustrates   the     general       contribution is to collect and exploit the information about the
+recommendation process that is based on the tacit behaviors           learner's history in the recommendation process (see Fig. 2).
+(objective preferences) and explicit evaluations (subjective          Thus, we used the demographic information as initial
+preferences) of learners in e-learning, in order to build a           information to start the learner profiling process, and the
+preference matrix that represents the set of learning objects         behavioral information to describe the objective preferences in
+with their ratings. In addition, this model also allows to            his profile [35].
+suggest learning objects that help learners to overcome
+cognitive obstacles and to progress easily in their training
+path, without any personal experience required in the search of
+alternatives (see Fig. 1).
+    First, the implicit user data is extracted from the log files.
+Then, this data is processed in such a way that it is combined
+with the explicit evaluations stored in the database of the LMS
+used. Subsequently, the prepared data are used in a learner
+preference matrix for learning objects "LPLO" that combines
+objective and subjective learner preferences. Then, a
+classification of learners into virtual communities of similar
+interest is done, using the clustering approach. Finally, the
+recommended learning objects are presented to the learner in
+order to help him in his learning path. In this way, the learner
+can interact with the recommended learning objects and start
+to exploit the ones that match his cognitive level and
+preferences.
+A. Model of Conversion from Tacit to Explicit Behaviors
+   Our proposal is based on the exploration of the log files                          Fig. 1. Recommender System Model.
+and the database of the used LMS, which record the learners'
+
+
+
+
+                                                                                                                          686 | P a g e
+                                                        www.ijacsa.thesai.org
+                                                               (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                                        Vol. 13, No. 6, 2022
+
+                                                                          InterestEstimator" formula, to compute the implicit scores
+                                                                          defined by Philip K. Chan in 2003, in an e-learning context,
+                                                                          which uses the user traces to define the interest of a user for an
+                                                                          article (web page) [36-37]. In our context, the implicit interest
+                                                                          estimation function is defined as follows:
+                                                                              (         )     (     )     (       )                       (1)
+                                                                          Where:
+                                                                              la is active learner, lok is a learning Object, D(la,lok)
+                                                                          indicate the duration, F (la,lok) the frequency and B (la,lok)
+                                                                          denotes the bookmarks.
+                                                                              4) Learner interest weighting function: The learner
+                                                                          interest weighting function (Wli) (2) is used to combine tacit
+                                                                          behavioral indicators and variant ratings between 1 and 5 (see
+                                                                          Table I).
+
+                                                                                       TABLE I.   THE LEARNING OBJECT RATING SCALE
+
+                                                                            Linking                               Rating scale
+                                                                            Very like                                 5
+                                                                            Like                                      4
+                                                                            Normal                                    3
+                                                                            Not like                                  2
+           Fig. 2. Behavioural Analysis for LOs Selection.
+                                                                            Do not like                               1
+
+    1) Learner demographic information: name, gender, age,                   On the other hand, the value 0 indicates that the learning
+nationality, languages, education level, etc. This type of                object is not evaluated by the learner.
+information is used during the learner's first interactions with
+the system, in order to overcome the cold start problem.                      The learner interest weights function (2) is defined as
+                                                                          follows:
+Demographic filtering is used to begin the process of building
+the learner's profile.                                                        (         )            (        )       (      )             (2)
+    2) Behavioral information: duration of use of a learning
+                                                                          Where:
+object, frequency of access to a learning object, learning
+object marked as important to the learner. This type of                       Exp(la ,lok)) la is the current learner and lok is the learner's
+information is used to transform tacit behaviors into explicit            explicit score, where k is the number of learning object, the
+preferences.                                                              rating is normalized according to the scale [1-5], in case the
+    3) Estimation function for implicit behaviors: The                    lok is no longer rated by the learner, the value assigned to the
+learner's browsing history is recorded in a log file, hence the           Exp(la ,lok) function is '0'.
+need to prepare the log file (their extraction and analysis), in              5) Matrix of learner preferences for learning objects
+order to generate a scoring matrix based on the following                 (LPLO): After the normalization of ratings, the basic matrix
+indicators:                                                               LRLO (Learners' Ratings for Learning Objects) contains the
+    Duration (D): indicates the time a learner spends when               explicit ratings of the learners, this matrix is transformed into
+     operating a learning object.                                         matrix LPLO (Learners' Preferences for Learning Objects)
+                                                                          contains the implicit and explicit preferences of the learners,
+    Frequency (F): indicates how often the learner requests              where the rows represent the learners L {l1,l2,l3,...}. And the
+     the learning object.
+                                                                          columns represent the learning objects LO {lo1,lo2,lo3,...}.
+    Bookmark(s): indicates the learning objects that are                 Moreover, the unknown notations are defined by the function
+     marked by the learner as important.                                      (      ), which is computed based on the implicit interest
+    The implicit interest estimation function (1) allows to               estimation function (1), with the aim of defining the implicit
+define the implicit score for each learning object, visited or            score for each learning object, visited or accessed by the
+consulted by the learner through the use of the indicators                learner through the exploitation of the following indicators:
+mentioned above; In this respect, we have relied on the "Page             Duration, frequency and bookmark (see Fig. 3).
+
+
+
+
+                                                                                                                                 687 | P a g e
+                                                             www.ijacsa.thesai.org
+                                                            (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                                     Vol. 13, No. 6, 2022
+
+
+                                                                         TABLE II.      EDUCATIONAL CRITERIA AND THEIR ASSOCIATED VALUES
+
+                                                                        Function               Criteria                                  Values
+                                                                                                                                         5,10, 15, …
+                                                                                               Duration (D)
+                                                                                                                                         min
+                                                                                               Difficulty level (DL)
+                                                                                               LOT(Lower Order Thinking)                        1
+                                                                                               MOT (Middle Order Thinking)                      2
+                                                                                               HOT (Higher Order Thinking)                      3
+                                                                        Content
+                                                                              f(c)             Objective Level (OL)
+                   Fig. 3. Matrix Transformations.                                             Remember                                         1
+                                                                                               Comprehension                                    2
+    The LPLO matrix is less sparse compared to the basic
+LRLO matrix , the saprsity level (3) is calculated as the ratio                                Application                                      3
+of the number of unevaluated learning objects (empty entries)                                  Analysis                                         4
+to the total number of learning objects in the matrix (LxLO)                                   Evaluation                                       5
+(Matrix Size).
+                                                                                               Preferences(P)
+                                                               (3)                             Theory                                           1
+
+    The number of missing ratings for the LRLO matrix is 14,                                   Exercises                                        2
+while for the LPLO matrix is 7, moreover the size of both                Presentation          Examples                                         3
+matrices is 36. The level of sparsity for the LRLO matrix is             f(p)                  Real-life applications/ Simulation               4
+39%, however for the LRLO matrix is 19%. Also, when the
+matrix is less sparsity data, i.e. the number of missing ratings                               case study                                       5
+is low; the recommendations will be more accurate.                                             Demonstration                                    6
+
+    6) Preference matrix weighted by educational criteria;                                     Assessment tests                                 7
+Learning objects are tagged with a set of pedagogical criteria,                                Learning material (LM)
+which are defined by the course designer. These criteria are                                   Text                                             1
+transcribed by values and are used to personalize the                    Media                 Image                                            2
+recommendations according to the learner's level of                      f(m)
+involvement in the learning system and his preferences                                         Audio                                            3
+expressed in his profile.                                                                      Video                                            4
+
+   The Table II illustrates the different educational criteria
+                                                                           TABLE III.    LEARNING OBJECTS-PEDAGOGICAL CRITERIA-RATING
+with their values.                                                                              MATRIX BY LEARNER
+    So, for each learner 'cl', there exists in his profile a set of
+                                                                               c1       c2       c3          ..        ..     cp         rcl
+learning objects LOcl={locli∈ LO, i=1…mcl }, where locli are
+the learning objects consulted by the current learner 'cl', the         lo1    v11      v12      v 13                         v 1p       rcl1
+values of the pedagogical criteria are described by vcli and the        lo2    v21      v22      v 23                         v 2p       rcl2
+notations generated on the basis of the function Wli (2) for the
+                                                                        lo3    v 31     v32      v 33                         v 3p       rcl3
+pair {learner, learning object} are expressed by r cli. (see
+Table III).                                                             lo4    v 41     v 42     v 43                         v 4p       rcl4
+B. Classification of Learners into Clusters                             ..     ..       ..       ..                           ..         ..
+                                                                        ..     ..       ..       ..                           ..         ..
+    1) Pearson correlation coefficient (PCC): is one of several
+measures such as: Manhattan distance, Jaccard similarity,               lom    v m1     v m2     v m3                         vmp        rclm
+Cosine similarity and Euclidean distance [38], all these                   In our context, we use the Pearson correlation; given that
+measures are used to calculate the degree of similarity between        the variables of the matrix are associated in a linear way, i.e.
+learners based on a set of criteria, where similar learners are        when a change is made to one variable, a proportional change
+assigned to the same cluster; each of these measures has been          is made to the other variable. Moreover, since the values of
+applied to millions of clustering applications in the measure of       the variables are quantitative and have a Gaussian distribution,
+creating virtual communalities of similar interest.                    the use of the Pearson correlation is adequate to define the
+                                                                       degree of similarity between the learners. On the other hand,
+                                                                       the De Jaccard similarity coefficient is sufficiently appropriate
+                                                                       for use in documents or word similarity measurement.
+
+
+
+
+                                                                                                                                     688 | P a g e
+                                                         www.ijacsa.thesai.org
+                                                                        (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                                                 Vol. 13, No. 6, 2022
+
+    Pearson Correlation Coefficient (PCC) known as Pearson                                                               ∑   ∑
+                                                                                                             ∑
+Product-Moment Correlation Coefficient "r", PCC is one of                                                                                                       (8)
+the most popular coefficients for measuring the dependence of                                                (∑      )               (∑     )
+                                                                                                √ ∑(     )               √ ∑(    )
+two variables, i.e. the relationship between two quantitative
+variables and the degree of similarity between these two
+variables.                                                                                TABLE V.       DETAILS OF NOTATIONS USED IN PCC METRIC
+      Dependency Coefficient (DC): is calculated through                           Notation           Description
+       the Pearson Correlation Coefficient in order to identify
+       the degree of association between the ratings provided                                           Score assigned by the learner 'cl' for the learning object
+                                                                                                        „loi‟
+       by the learner for all the learning objects consulted.
+                                                                                                        Pedagogical criterion 'vj' for the learning object ' loi'
+      Pearson Correlation Coefficient (PCC) (8): is a                                                  consulted by the learner 'cl'
+       statistical measure of the linear relationship between
+       two variables and it ranges between [-1,+1]; the                                                 Number of learning objects consulted by the current
+                                                                                                        learner 'cl'
+       positive correlation indicates that the variables increase
+       or decrease in parallel, however a negative correlation
+       means that one variable increases while the other                               7) K-means clustering: The main goal of clustering is to
+       decreases. Furthermore, correlation (4) is a measure of                     divide learners into groups based on similarity characteristics
+       effect where the strength of the correlation is described                   with the aim of recommending learning objects that the active
+       as follows, with -1.0≤ r ≤+1.0 (see Table IV).                              learner has never visited [39]. In a first step, learners with
+                                                                                   similar interests will be grouped in the same cluster, in order
+                TABLE IV.        INTERPRETATION OF R VALUES                        to recommend them appropriate learning objects, for this
+ r value                         Interprétation
+                                                                                   purpose, we opt for the K-means algorithm which refers to the
+                                                                                   preference matrix "LPLO" (learner-learning object) generated
+ +.80 to +1.0                     Very strong positive relationship
+                                                                                   in the previous step.
+ +.60 to +.79                    Strong positive relationship
+                                                                                       The K-means algorithm is well known for its efficiency
+ +.40 to +.59                    Moderate positive relationship
+                                                                                   and power in clustering a large data set compared to other k-
+ +.20 to +.39                     Weak positive relationship                       nearest neighbors‟ algorithm [40]. Moreover, it is considered
+ +.01 to+.19                     Negligible relationship                           one of the most popular clustering algorithms for unsupervised
+                                                                                   learning.
+ 0                               No relationship
+ -.01 to -.19                    Negligible relationship
+                                                                                      The procedure for assigning learners into clusters via the
+                                                                                   k-means algorithm is done according to the following pseudo
+ -.20 to -.39                    Weak negative relationship                        code:
+ -.40 to -.59                    Moderate negative relationship
+                                                                                    Input: k // Number of desired clusters
+ -.60 to -.79                    Strong negative relationship                        L= {l1,l2,l3,……...Ln) // Set of learners
+ -.80 to -1.0                    Very strong negative relationship
+                                                                                    Output: a set of k clusters
+     The correlation value 'r' is calculated as follows:
+                                                                                    Process:
+                                                                          (4)
+                                                                                    Arbitrarily select k learners form L as the initial cluster
+Where:                                                                              centers;
+
+           ∑                ̅̅                                            (5)       Repeat:
+                                                                                      1-(re) assign each learner to the clusters with the most similar
+                                                                                      interests based on the Pearson correlation coefficient 'PCC' of the
+       √∑             ̅                                                   (6)         current learner and the mean value of the learners in the cluster
+                                                                                      2-Update the cluster means; calculate new mean value of learners
+                                                                                      for each cluster;
+       √∑            ̅                                                   (7)
+                                                                                    Until no change;
+   Based on the formula proposed by Manuel J. Barranco and
+Luis Martinez, the Pearson correlation coefficient is associated                       8) Selecting learning objects: The learning objects
+with two variables (see Table V):                                                  recommended to the current learner is made, by the
+                                                                                   association between the profile of the current learner and the
+      rcl : The ratings assigned by the current learner 'cl' for                  learning objects repository. Moreover, the learning objects
+       the learning objects.
+                                                                                   that are well evaluated by the closest neighbors‟ to the active
+      vcl : The pedagogical criteria of the learning objects                      learner and having a score higher than three will be
+       consulted by the current learner.                                           recommended to the current user (see Fig. 4).
+
+
+
+                                                                                                                                                  689 | P a g e
+                                                                      www.ijacsa.thesai.org
+                                                               (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                                        Vol. 13, No. 6, 2022
+
+                                                                               TABLE VI.       MODULE NO. 1: GENERALITIES ON COMPUTER SYSTEMS
+
+                                                                                                            Common Core
+                                                                                                             Letter
+                                                                           Content               Schedule           Original Science            Technologies
+                                                                                                             & Arts
+                                                                           Definition and
+                                                                           basic                 2h
+                                                                           Vocabulary
+                                                                           Definition of
+                                                                                                             2         2             2          2
+                                                                           information
+                                                                           Definition of
+                                                                                                             2         2             2          2
+                                                                           treatment
+                                                                           Definition of
+                                                                           computer                          2         2             2          2
+                                                                           Science
+                                                                           Definition of the
+                  Fig. 4. The Selected Learning Objects.                                                     2         2             2          2
+                                                                           computer system
+                                                                           Basic structure of
+Rate [lo20] = 4  Rate [lo6] = 1                                           a computer
+                                                                                                 4h
+
+Rate [lo12] = 2 Rate [lo15] = 5                                           Functional
+                                                                           diagram of a                      2         2             3          3
+Rate [lo29] = 6  Rate [lo80] = 2                                          Computer
+                                                                           Peripherals                       2         2             3          3
+                          V. EXPERIMENTATION
+                                                                           Central processing
+   This section presents a performance analysis of the                     unit
+                                                                                                             2         2             3          3
+proposed methodology. The performance of this work is
+evaluated against the recommendation based only on the                     Types of software     1h
+explicit preferences of the users.                                         Basic software                    2         2             2          2
+
+    The participants in this experiment are 100 learners from a            Application
+                                                                                                             2         2             2          2
+                                                                           software
+high school in the delegation of Chefchaouen, Morocco.
+However, the learners had to study four modules in the                     Fields of
+                                                                                                 1h          2         2             2          2
+computer science subject, namely: "Generalities of Computer                application
+Systems", "Software", "Algorithms and Programming" and
+"Networks and the Internet"; each module consists of a set of                                   TABLE VII.       THE DEGREE OF DEPTH
+lessons, which are well defined in the pedagogical guidelines
+                                                                           Degree of depth                                     Descriptor
+of computer science in high school. Our first experiment is
+based on the first module "Generalities of Computer                        1                                                   Initiation
+Systems", which contains three lessons: lesson 1 "Basic                    2                                                   Appropriation
+Definitions and Vocabulary", lesson 2 "Basic Structure of a
+                                                                           3                                                   Master
+Computer" and lesson 3 "Software and Application Areas of
+Computer Science" (see Table VI).
+                                                                                            measure of variation within a cluster
+    The Table VII expresses the degree of depth of the concepts
+for each notion.                                                                                      Sparse Matrix              Dense Matrix
+    Our approach is tested on learning objects stored in the
+                                                                                      40
+LMS database. The first module "General Computer Systems"
+provides an assessment dataset of 50 learning objects                                 30
+containing 36 ratings from 26 learners. The ratings are
+                                                                                SSe
+
+
+
+
+                                                                                      20
+integers ranging from 1 to 5. The experiments are performed
+on an HP computer with CORE i5 processors.                                            10
+
+   The Sum Squared Error (SSE) (8) is used to find an                                 0
+appropriate k by plotting the number of clusters against the                                      2                        3                        4
+SSE, while evaluating SSE for different values of k.                                                             Number of cluster
+
+         ∑            ̂                                          (9)
+                                                                               Fig. 5. The Appropriate Number of Clusters in respect to the Matrices.
+Where:
+                                                                             From the above graph (see Fig. 5), we notice that the SSE
+i is test set,   is predicted value and ̂ is actual value.                value is high in the sparse matrix unlike the dense matrix. For
+                                                                          both matrices, when the number of cluster increases, the SES
+
+
+
+                                                                                                                                               690 | P a g e
+                                                             www.ijacsa.thesai.org
+                                                                   (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                                            Vol. 13, No. 6, 2022
+
+value decreases. This means that the number of clusters is                    for Learning Objects", the majority of learners are classified in
+independent to the type of matrix. For this distribution of 100               the appropriate clusters, thanks to the elicitation of preferences
+learners, the most appropriate number of clusters for both                    through the combination of explicit ratings and implicit
+matrix types (sparse or dense) is 4 clusters.                                 interactions of learners with the learning objects.
+    The silhouette is used to determine the degree of                             The mean absolute error (MAE) "(10)" is a measure of
+separation between clusters. The silhouette plot in (Fig. 6),                 prediction accuracy. It indicates the absolute value of the
+illustrates the proximity of learners in neighboring clusters                 difference between the predicted value and the actual value.
+using a measure of [-1 , +1]. A value of +1 indicates that the
+learners are far apart, 0 indicates that the observations are very               This measure is used to indicate the effectiveness of our
+close, and -1 indicates that the learners can be assigned to the              recommendation system based on implicit and explicit learner
+wrong cluster.                                                                feedback and recommendation systems based on explicit
+                                                                              feedback only. The lower the MAE value, the smaller the
+                                                                              magnitude of the error.
+                                                                                               ∑   ∈
+                                                                                                                                                      (10)
+
+                                                                              Where:
+                                                                                   n is the total number of ratings-prediction pairs in the test
+                                                                              set,                  is the predicted rating for learner u on
+                                                                              learning object j, and           is the actual rating in the real
+                                                                              dataset (see Table VIII).
+                                                                                  In the graph (see Fig. 7), we see that with the variation of
+                                                                              the number of clusters, the magnitude of the error is gradually
+                                                                              decreased for the dense matrix "LPLO", which is based on the
+                                                                              implicit and explicit preferences of the learners; contrary to
+                                                                              the LRLO matrix where the magnitude of the error gradually
+                                                                              increases. This is due to the insufficient ratings explicitly
+                                                                              expressed by the learner, which leads to a loss of accuracy
+                                                                              when assigning learners to clusters. This is also shown in
+                                                                              Fig. 6, where we can infer that the less sparse the matrix is, the
+                                                                              better the learners are assigned to clusters with similar
+                                                                              learning needs. Therefore, the recommendations will be more
+                                                                              appropriate.
+
+                                                                                    TABLE VIII.         MAE VALUE ACCORDING TO THE TYPE OF MATRIX
+
+                                                                                                       Mean Absolute Error
+                                                                               Number of
+                                                                               cluster                 Dense Matrix                 Sparse Matrix
+                                                                                                       LPLO                         LRLO
+                                                                               2                       0.18386                      1.7154
+                                                                               3                       0.08716                      2.4421
+                                                                               4                       0.06501                      2.6225
+
+
+                                                                                                       Accuracy of Clustering by Matrix
+                                                                                           3
+                                                                                         2.5
+                                                                                           2
+                                                                                   MAE
+
+
+
+
+                                                                                         1.5
+                                                                                           1
+                                                                                         0.5
+        Fig. 6. Silhouette Analysis for Sparse and Dense Matrix.                           0
+                                                                                                          2                  3                 4
+    For the sparse matrix LRLO "Learners Ratings for                                                               Number of Cluster
+Learning Objects", we find that some learners are assigned to
+the wrong cluster, due to lack of ratings of learning objects in
+                                                                                                   Dense Matrix LPLO             Sparse Matrix LRLO
+this Matrix. Since, some learners do not rate all these objects,
+their assignments to some clusters may be inappropriate.
+However, for the dense matrix LPLO "Learners Preferences                                 Fig. 7. The Accuracy of Clustering the Learners by Matrix.
+
+
+
+
+                                                                                                                                             691 | P a g e
+                                                               www.ijacsa.thesai.org
+                                                                     (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                                              Vol. 13, No. 6, 2022
+
+                 VI. CONCLUSION AND FUTURE WORK                                 [10] Javed, U., Shaukat, K., Hameed, I. A., Iqbal, F., Alam, T. M., & Luo, S.
+                                                                                     (2021). A Review of Content-Based and Context-Based
+    Recommender systems have become a promising solution                             Recommendation Systems. International Journal of Emerging
+for improving the efficiency of e-learning systems. Preference                       Technologies in Learning (iJET), 16(3), 274-306.
+matrices are the basic inputs of recommender systems,                           [11] Philip, S., Shola, P., &Ovye, A. (2014). Application of content-based
+because based on these matrices, systems can suggest                                 approach in research paper recommendation system for a digital library.
+                                                                                     International Journal of Advanced Computer Science and Applications,
+personalized learning objects and adapt them to the learner's                        5(10).
+profile. On the other hand, the lack of ratings in the preference
+                                                                                [12] Shi, Y., & Yang, X. (2020). A Personalized Matching System for
+matrices can handicap their functioning and consequently the                         Management Teaching Resources Based on Collaborative Filtering
+recommendations will be less personalized.                                           Algorithm. International Journal of Emerging Technologies in Learning
+                                                                                     (iJET), 15(13), 207-220.
+    To this end, we have proposed a model of a mediating
+                                                                                [13] Shambour, Q., Hourani, M., & Fraihat, S. (2016). An item-based multi-
+recommendation system based on a matrix that combines the                            criteria collaborative filtering algorithm for personalized recommender
+tacit and explicit behaviors of the learner. Through the                             systems. International Journal of Advanced Computer Science and
+exploration of the log file, while exploiting some indicators                        Applications, 7(8), 274-279.
+such as duration, frequency and bookmarks in the preference                     [14] Felfernig A., Friedrich G., Jannach D., and Zanker M.,(2006) An
+matrix, in order to obtain better performances.                                      Integrated Environment for the Development of Knowledge-Based
+                                                                                     Recommender Applications, International Journal of Electronic
+    The k-means clustering algorithm is used to group learners                       Commerce,, 11(2), 11-34.
+with similar preferences into clusters, in order to recommend                   [15] Resnick P., Iacovou N., Suchak M., Bergstrom P., and Riedl J., (1994),
+to the active learner new learning objects that have not yet                         GroupLens: An Open Architecture for Collaborative Filtering of
+                                                                                     Netnews, In Proceedings of ACM Conference on Computer Supported
+been viewed or visited by him and that have been well rated                          Cooperative Work, Chapel Hill, NC, USA, 175-186.
+by his closest neighbors.
+                                                                                [16] Shih Y. and Liu D.,2005, Hybrid Recommendation Approaches:
+    The results obtained in the experimentation phase illustrate                     Collaborative Filtering via Valuable Content Information, In the
+                                                                                     Proceedings of the 38th Annual Hawaii International Conference HICSS
+the importance of hybridizing implicit traces and explicit                           '05, 217-223.
+ratings of learners to improve the accuracy of assignment of
+                                                                                [17] Adomavicius G, Tuzhilin A, 2005 June, Toward the next generation of
+learners to appropriate clusters.                                                    recommender systems: a survey of the state-of-the-art and possible
+                                                                                     extensions. Knowledge and Data Engineering, IEEE Transactions
+    In our future work, we plan to study the recommendation                          on.;17(6):734–749.
+of sequences of objects and learning activities, based on the                   [18] Schein AI, Popescul A, Ungar LH, et al. 2002, Methods and metrics for
+dynamic prediction of the learning strategy adapted to the                           cold-start recommendations. In: SIGIR ‟02: Proceedings of the 25th
+active learner, through evolutionary meta-heuristic algorithms                       annual international ACM SIGIR conference on Research and
+such as: Ant Colony Optimization (ACO) and Particle Swarm                            development in information retrieval. New York, NY, USA: ACM;. p.
+Optimization (PSO). This will allow recommending the                                 253–260.
+learner a personalized learning path (scenario).                                [19] Da Silva, J. F. G., de Moura Junior, N. N., &Caloba, L. P. (2018, July).
+                                                                                     Effects of data sparsity on recommender systems based on collaborative
+                                REFERENCES                                           filtering. In 2018 International Joint Conference on Neural Networks
+[1]   Bezovski, Z., & Poorani, S. (2016, March). The evolution of e-learning         (IJCNN) (pp. 1-8). IEEE.
+      and new trends. In Information and Knowledge Management (Vol. 6,          [20] F. Ricci, L. Rokach, B. Shapira, and P. B. Kantor, 2010, Recommender
+      No. 3, pp. 50-57). IISTE.                                                      Systems Handbook. Springer.
+[2]   Clark, R. C., & Mayer, R. E. (2016). E-learning and the science of        [21] Arwar, B., Karypis, G., Konstan, J., & Riedl, J. (2000, October).
+      instruction: Proven guidelines for consumers and designers of                  Analysis of recommendation algorithms for e-commerce. In Proceedings
+      multimedia learning. john Wiley & sons.                                        of the 2nd ACM Conference on Electronic Commerce (pp. 158-167).
+[3]   Devedžic, V. (2006). Semantic web and education (Vol. 12). Springer       [22] Shanthi, R., & Rajagopalan, S. P. (2018). A Personalized Hybrid
+      Science & Business Media.                                                      Recommendation Procedure for Internet Shopping Support.
+[4]   Maes, P. (1995). Agents that reduce work and information overload. In          International Journal Of Advanced Computer Science And Applications,
+      Readings in human–computer interaction (pp. 811-821). Morgan                   9(12), 363-372.
+      Kaufmann.                                                                 [23] Burke, R. (2002). Hybrid recommender systems: Survey and
+[5]   Sarwar, B., Karypis, G., Konstan, J., & Riedl, J. (2000, October).             experiments. User modeling and user-adapted interaction, 12(4), 331-
+      Analysis of recommendation algorithms for e-commerce. In Proceedings           370.
+      of the 2nd ACM Conference on Electronic Commerce (pp. 158-167).           [24] Feng Zhang, Victor E. Lee, Ruoming Jin, Saurabh Garg, Chi Cheng,
+[6]   Joshi, N., & Gupta, R. May (2020). “A personalized web based e-                Privacy-aware smart city: A case study in collaborative, 2018.filtering
+      learning recommendation system to enhance and user learning                    recommender systems, in: Journal of Parallel and Distributed
+      experience”, International Journal of Recent Technology and                    Computing.
+      Engineering (IJRTE) ISSN 2277-3878, 9(1),1186-1195.                       [25] Murad, H., & Yang, L. (2018). Personalized e-learning recommender
+[7]   Rashid, A. M., Albert, I., Cosley, D., Lam, S. K., McNee, S. M.,               system using multimedia data. International Journal of Advanced
+      Konstan, J. A., & Riedl, J. (2002, January). Getting to know you:              Computer Science and Applications, 9(9), 565-567.
+      learning new user preferences in recommender systems. In Proceedings      [26] Tarus, J. K., Niu, Z., & Yousif, A. (2017). A hybrid knowledge-based
+      of the 7th international conference on Intelligent user interfaces (pp.        recommender system for e-learning based on ontology and sequential
+      127-134).                                                                      pattern mining. Future Generation Computer Systems, 72, 37-48.
+[8]   Nafea, S. M., Siewe, F., & He, Y. (2019). On Recommendation of            [27] Bokde, D. K., Girase, S., & Mukhopadhyay, D. (2015, December). An
+      Learning Objects using Felder-Silverman Learning Style Model. IEEE             approach to a university recommendation by multi-criteria collaborative
+      Access, 7, 163034-163048.                                                      filtering and dimensionality reduction techniques. In 2015 IEEE
+[9]   Lalitha, T. B., & Sreeja, P. S. (2020). Personalised Self-Directed             International Symposium on Nanoelectronic and Information Systems
+      Learning Recommendation System. Procedia Computer Science, 171,                (pp. 231-236). IEEE.
+      583-592.                                                                  [28] Vesin, B., Ivanović, M., Klašnja-Milićević, A., & Budimac, Z. (2012).
+
+
+
+                                                                                                                                            692 | P a g e
+                                                                  www.ijacsa.thesai.org
+                                                                    (IJACSA) International Journal of Advanced Computer Science and Applications,
+                                                                                                                             Vol. 13, No. 6, 2022
+
+     Protus 2.0: Ontology-based semantic recommendation in programming         [35] Zriaa, R., & Amali, S. (2020, December). Recommendation of Learning
+     tutoring system. Expert Systems with Applications, 39(15), 12229-              Objects Through Dynamic Learning Style Identification and k-means
+     12246.                                                                         Clustering Algorithm. In International Conference on Advanced
+[29] Kulkarni, P. V., Rai, S., & Kale, R. (2020). Recommender system in             Intelligent Systems for Sustainable Development (pp. 730-748).
+     elearning: a survey. In Proceeding of International Conference on              Springer, Cham.
+     Computational Science and Applications (pp. 119-126). Springer,           [36] Kim, H. R., & Chan, P. K. (2003, January). Learning implicit user
+     Singapore.                                                                     interest hierarchy for context in personalization. In Proceedings of the
+[30] Rendle, S., Freudenthaler, C., Gantner, Z., & Schmidt-Thieme, L.               8th international conference on Intelligent user interfaces (pp. 101-108).
+     (2012). BPR: Bayesian personalized ranking from implicit feedback.        [37] Núñez-Valdez, E. R., Quintana, D., Crespo, R. G., Isasi, P., & Herrera-
+     arXiv preprint arXiv:1205.2618.                                                Viedma, E. (2018). A recommender system based on implicit feedback
+[31] Hu, Y., Koren, Y., & Volinsky, C. (2008, December). Collaborative              for selective dissemination of ebooks. Information Sciences, 467, 87-98.
+     filtering for implicit feedback datasets. In 2008 Eighth IEEE             [38] Egghe, L., & Leydesdorff, L. (2009). The relation between Pearson's
+     International Conference on Data Mining (pp. 263-272). IEEE.                   correlation coefficient r and Salton's cosine measure. Journal of the
+[32] Zigoris, P., & Zhang, Y. (2006, November). Bayesian adaptive user              American Society for information Science and Technology, 60(5), 1027-
+     profiling with explicit & implicit feedback. In Proceedings of the 15th        1036.
+     ACM international conference on Information and knowledge                 [39] DUBEY, Ankita and CHOUBEY, Asso Prof Dr Abha, “ A Systematic
+     management (pp. 397-404).                                                      Review on K-Means Clustering Techniques”, International Journal of
+[33] Adomavicius, G., & Tuzhilin, A. (2005). Toward the next generation of          Scientific Research Engineering & Technology (IJSRET), ISSN, vol.6,
+     recommender systems: A survey of the state-of-the-art and possible             6,pp. 2278-0882,June 2017.
+     extensions. IEEE transactions on knowledge and data engineering,          [40] Zriaa, R., & Amali, S. (2020, October). A Comparative Study Between
+     17(6), 734-749.                                                                K-Nearest Neighbors and K-Means Clustering Techniques of
+[34] Oubahssi, L., & Grandbastien, M. (2007, June). Un modèle pour                  Collaborative Filtering in e-Learning Environment. In The Proceedings
+     améliorer l'interopérabilité des données pédagogiques apprenant. In            of the Third International Conference on Smart City Applications (pp.
+     3ième conférence en Environnement Informatique pour l'Apprentissage            268-282). Springer, Cham.
+     Humain-EIAH 2007 (pp. 437-448). INRP.
+
+
+
+
+                                                                                                                                             693 | P a g e
+                                                                 www.ijacsa.thesai.org
+

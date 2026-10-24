@@ -1,0 +1,548 @@
+                           Proceedings of the Twenty-Fifth International Joint Conference on Artificial Intelligence (IJCAI-16)
+
+
+
+
+              Collaborative Evolution for User Profiling in Recommender Systems
+                         Zhongqi Lu,† Sinno Jialin Pan,‡ Yong Li,] Jie Jiang,⇤ Qiang Yang†
+                           †
+                             Hong Kong University of Science and Technology, Hong Kong
+                                    ‡
+                                      Nanyang Technological University, Singapore
+                                           ]
+                                             VIPSHOP, China ⇤ Tencent, China
+                                 †
+                                   {zluab,qyang}@cse.ust.hk, ‡ sinnopan@ntu.edu.sg,
+                                       ]
+                                         pignju@gmail.com, ⇤ zeus@tencent.com
+
+                               Abstract                                             Though the MF techniques in recommender systems are
+                                                                                 proven to be promising for user profiling, they have a ma-
+        Accurate user profiling is important for an online                       jor assumption that if a user shows interests in some items in
+        recommender system to provide proper personal-                           the historical records, he/she should be always interested in
+        ized recommendations to its users. In many real-                         these types of items in the future. In other words, current MF
+        world scenarios, the user’s interests towards the                        techniques assume users have constant interests towards the
+        items may change over time. Therefore, a dynamic                         item set. This could only be true for the off-line experiments,
+        and evolutionary user profile is needed. In this                         in which training data and testing data are drawn uniformly
+        work, we come up with a novel evolutionary view                          from a static data set. However, in many real-world scenar-
+        of user’s profile by proposing a Collaborative Evo-                      ios, a user’s interests towards an item set can change over
+        lution (CE) model, which learns the evolution of                         time [Lathia et al., 2010]. Firstly, a user’s interests towards
+        user’s profiles through the sparse historical data in                    some items can be diminishing. For example, a user may loss
+        recommender systems and outputs the prospective                          the interest in mobile phones if he/she has just purchased one.
+        user profile of the future. To verify the effective-                     Secondly, some items may raise as new favorites for a user.
+        ness of the proposed model, we conduct experi-                           For example, a new father may start to look for infant educa-
+        ments on a real-world dataset, which is obtained                         tion courses, which he has never thought of before. Thirdly,
+        from the online shopping website of Tencent Inc.—                        users’ interests on some items may vary upon time. For in-
+        www.51buy.com and contains more than 1 million                           stance, thick coats may only get interests in the cold winters.
+        users’ shopping records in a time span of more than
+                                                                                    In order to model the interests of users, there are two keys:
+        180 days. Experimental analyses demonstrate that
+                                                                                 one is to quantitatively calculate the interests of users at cer-
+        our proposed CE model can be used to make better
+                                                                                 tain time point; the other is to include the changes of interests
+        future recommendations compared to several state-
+                                                                                 in future predictions. As suggested by previous researches,
+        of-the-art methods.
+                                                                                 users’ static latent interests can be learned collaboratively
+                                                                                 from the sparse dataset in a particular time interval via the MF
+1       Introduction                                                             model. A straightforward solution is to perform an individual
+                                                                                 MF model to profile users’ interests at each time point, and
+Many real-world recommender systems provide users with                           then discover evolutionary patterns by using time series anal-
+recommendations based on their interests. Therefore, to make                     ysis or sequential pattern mining. However, historical data at
+proper personalized recommendations to a user, an accurate                       certain time point can be extremely sparse. In this case, the
+user profile that reflects the user’s interests is crucial. Typ-                 learned individual MF models may be very inaccurate, which
+ically, user profiling is either knowledge-based or machine-                     result in the failure of the subsequent discovery of evolution-
+learning-based [Middleton et al., 2004]. Knowledge-based                         ary patterns. In this paper, we propose a method named Col-
+approaches make use of users’ meta information, such as age,                     laborative Evolution (CE) to integrate MF and vector autore-
+gender etc., to design some rules or patterns for recommen-                      gressive [Lütkepohl, 2005] into a unified learning framework,
+dations. Machine-learning-based approaches build models to                       where users’ interests at each time point and their evolutions
+learn users’ interests from users’ historical behaviours au-                     are learned simultaneously and collaboratively.
+tomatically. The majority of current recommender systems
+adopt the machine-learning-based approaches for user profil-                        As an intuitive sketch of the CE model, iteratively we learn
+ing [Adomavicius and Tuzhilin, 2005]. One of the most pop-                       the users’ latent interests in a collaborative filtering fashion,
+ular approaches is based on matrix factorization (MF), which                     and then model the evolution of these latent interests to fur-
+learns the latent interests of a user as the user’s profile by                   ther guide the learning of the users’ latent interests in the fu-
+collaboratively factorizing the rating matrix over historically                  ture. The collaborative learning and the evolutionary learning
+recorded user-item preferences [Koren et al., 2009].                             iteratively affect each other. The CE model outputs the pre-
+                                                                                 dictions of users’ evolutionary interests in the future. Then,
+    ⇤
+        Corresponding author                                                     based on the predictions of users’ evolutionary interests as
+
+
+
+                                                                          3804
+user profiles, we make personalized recommendations for the                                 2.3   Model the Changes of User’s Interests
+users on certain day of the future. Here is a running example                               A proper recommendation should not only rely on users’ cur-
+for the CE model to make recommendations: a man is ob-                                      rent interests, but also need to consider their evolutions. In
+served to purchase roses in an online shopping system, and                                  online shopping scenarios, it is very likely that users change
+the CE model may learn the latent information that this man                                 their interests before the next browsing on the shopping web-
+is possibly in love. Because collaboratively from all men’s                                 site. Therefore, it is crucial for online shopping websites to
+records, roses are associated to the latent status “in-love”. Af-                           capture the changes in users’ interests.
+ter knowing men’s “in-love” status, another information we                                     Intuitively, on one hand, an interest can be changing due
+could get from the training data is statistically what would be                             to the trend of this particular interest. On the other hand, dif-
+their future gifts (such as a ring) and when to buy? Then the                               ferent interests may be related and affect each other. There-
+CE model shall timely recommend a proper item to the man                                    fore, a desirable estimation of an interest should consider
+when it comes to the right time.                                                            both the history of the interest and the influence from the
+                                                                                            other interests. In light of the above intuition, we propose to
+2     Preliminary                                                                           model the user’s latent interests into the vector autoregressive
+                                                                                            model [Lütkepohl, 2005].
+2.1    Notations and Problem Statement                                                         Based on the vector autoregressive model, the feature vec-
+                                                                                            tor of a user i in the time interval t can be modeled by the
+We first introduce some general notations in this paper. Other                              feature vectors of the user in the previous ( < t) time
+specific notations of the proposed method will be further in-                               intervals, i.e., t 1, . . . , t :
+troduced in the subsequent sections. For a fixed time inter-
+val t, the browsing history is recorded by an m ⇥ n matrix                                    Uti = A1i Uti 1 + A2i Uti 2 + . . . + Ai Uti           + "ti ,   (2)
+Rt , where m represents the number of users, n represents the                               where "ti   is an uncorrelated Gaussian noise with a zero-
+number of items and Rti,j is the value of the cell (i, j) of Rt ,                           mean and a covariance matrix Di 2 Rk⇥k to be estimated,
+which can be either a missing value or a rating given by user                               and {Aji 2 Rk⇥k }j=1 is the set of coefficient matrices to
+i on item j. We use the superscript > to denote the transport                               be learned, each matrix of which represents the correlation
+of a matrix. Given a sequence of user browsing behaviors                                    of features in each of the previous time intervals. After
+of T time intervals, R1 , R2 , . . . , RT , we aim to model the
+users’ k-dimensional interests, Ut 2 Rk⇥m , in each of the                                  {Aji 2 Rk⇥k }j=1 and Di are learned, one can use them and
+time intervals, t 2 {1, 2, . . . , T }, where k is the parameter                            the observed time series of the user’ interests {Uti }Tt=1 to pre-
+of the number of users’ implicit interests, and explore their                               dict the user’s future interests {Uti }t=T +1 , recursively. In the
+evolutionary processes. We finally make future recommen-                                    following, we present how to estimate the parameters in (2)
+dations to users in time intervals{T + 1, T + 2, . . .} based                               for a particular user.
+on their evolutionary interests. Note that each Rt is much                                  Least Square Estimation with Fixed
+sparser than the aggregation of all the {Rt }’s. However, this                              Suppose that for a particular user i, a series of k-dimensional
+aggregation makes the evolutionary information discarded.                                   feature vectors of T time intervals {Uti }Tt=1 is available. The
+                                                                                            parameters {Ati }t=1 and Di are to be estimated. For con-
+2.2    Probabilistic Matrix Factorization                                                   venience in presentation, we introduce the operator vec(·),
+Recently, many MF methods have been proposed for CF                                         which transforms a matrix into a vectors by stacking the
+in recommender systems. In this paper, we start from the                                    columns. Other notations used for parameter estimation are
+probabilistic matrix factorization (PMF) method [Mnih and                                   in Table 1.
+Salakhutdinov, 2007]. PMF aims to factorize a user-item rat-
+ing matrix by maximizing the following conditional distribu-                                                           Table 1: Notations
+tion over the observed ratings at the time interval t,
+                              n ⇣
+                            m Y                                     ⌘Iij
+                                                                                                   Symbol               ⇥ Definition      ⇤     Deminsion
+                            Y                                         t
+                                                                                                                           1            T
+p(Rt | Ut , Vt ,   2
+                       )=
+                                                   >
+                                      N (Rtij | Uti Vjt ,   2
+                                                                )          ,   (1)                   Yi                 hUi , . . . , Ui i        k⇥T
+                            i=1 j=1                                                                     Bi               A1i , . . . , Ai        k⇥k
+                                                                                                                 h                         i
+                                                                                                                                          > >
+where U 2 R
+         t         k⇥m
+                       is the latent factor matrix for users (i.e.,                                     Zti
+                                                                                                                         >
+                                                                                                                     Uti , . . . , Uti          (k ) ⇥ 1
+users’ k-dimensional interests) at time interval t, Vt 2 Rk⇥n                                                           ⇥ 1             T
+                                                                                                                                          ⇤
+is the latent factor matrix for items (i.e., items’ k-dimensional                                       Zi              ⇤Zi1, . . . , ZTi ⇤     (k ) ⇥ T
+properties) at time interval t, N (x | µ, 2 ) is the probability                                         i               ["i , . . . , "i         k⇥T
+density function of the Gaussian distribution with the mean µ,                                          yi                 vec(Yi )             (kT ) ⇥ 1
+and the variance 2 , and Iij is the indicator function which is                                           i                vec(Bi )             (k 2 ) ⇥ 1
+equal to 1 if user i browsed item j in the time interval t, and 0
+otherwise. Besides, we use a subscript of a matrix to denote
+the corresponding column of the matrix, e.g., Uti 2 Rk⇥1                                       To calculate {Ati }t=1 , following the mathematical deriva-
+and Vjt 2 Rk⇥1 denote the vector for user i and the vector                                  tion in [Neumaier and Schneider, 2001], we obtain
+                                                                                                                        >   1
+for item j respectively.                                                                                      i = ((Zi Zi )   Zi ⌦ Ik )yi ,                    (3)
+
+
+
+                                                                                     3805
+where Ik is the k⇥k identity matrix, ⌦ denotes the Kronecker                          with the initial sequence of user factor matrices, {Ut }Tt=1
+                                                                                                                                                 0
+                                                                                                                                                   .
+product. Based on the definition of i , one can recover Bi                            However, to use Gaussian elimination accurately, the length
+and thus obtain {Ati }t=1 .                                                           of the initial sequence, T0 , is required to satisfy some con-
+  To calculate the covariance matrix Di ,                                             straint, which is shown in the following proposition.
+                                      T                                               Proposition 1. Suppose the evolution is of order and the
+                           1          X
+               Di =
+                                                    >
+                                             ⌘it ⌘it ,                   (4)          dimensionality of a user’s feature vector is k, then the mini-
+                      T          1
+                                     t= +1
+                                                                                      mum number of the time intervals to be used in the bootstrap
+                                                                                      step is k .
+                      P        l t l
+where ⌘it = Uti           l=1 Ai Ui .                                                 Proof. According to (3), in order to avoid for underestimation
+                                                                                      when using Gaussian elimination, the number of rows in y
+3     Collaborative Evolution                                                         should be greater than the number of rows in . Note that the
+A primary problem in recommender systems is to know how                               number of rows in y is kT0 , where T0 is the number of time
+likely a user is interested in an item on a future day. This                          intervals in the bootstrap step, and the number of rows in
+likelihood could be measured by the probability that the user                         is k 2 . kT0     k 2 implies T0     k . That is, the minimum
+would browse the item on the particular day. Given histori-                           number of time intervals in the bootstrap step is k . The
+cal records, e.g., browsing log, a desirable recommender sys-                         proof is completed.
+tem makes future recommendations based on the predictions                                Above all, the Proposition 1 suggests that T0 is required to
+of the user’s interests on the item set. Note that the histori-                       satisfy T0 k .
+cal records can only reveal the users’ historical interests. To
+make proper item recommendations in a future time, we need                            3.2   Collaborative Evolution
+to infer the users’ interests at the time when the recommen-
+                                                                                      After the bootstrap step, we obtain the factor matrix for items,
+dations are being made. In this section, we describe our pro-
+                                                                                      V0 , and for each user i, we have an initial sequence of factor
+posed method for making recommendations based on users’
+evolutionary interests in detail.                                                     matrices {Uti }Tt=1
+                                                                                                       0
+                                                                                                          and an initial sequence of coefficient matri-
+                                                                                      ces, {Ai }t=1 . All that remains is the collaborative evolution
+                                                                                              t
+
+3.1     Bootstrap                                                                     (CE) step, which is to learn the factor matrices Vt and Ut in
+Before applying the vector autoregressive method to model                             each time interval in {T0 + 1, . . . , T }, and update {Ati }t=1
+the evolutionary process of users’ interests, one needs to ob-                        for each user i by performing PMF on the rating matrices,
+tain an initial sequence of users’ latent feature vectors. Given                      {Rt }Tt=T0 +1 , and applying the vector autoregressive model
+a series of user-item rating matrices of T time intervals,                            on {Uti }Tt=T0 +1 recursively and simultaneously. The overall
+{Rt }Tt=1 , we propose use the first T0 (T0  T ) rating matri-                       optimization problem to be solved can be written as follows,
+ces {Rt }Tt=1
+            0
+                to learn the initial sequence of factor matrices,                                 T   n ⇣
+                                                                                                    m Y           ⇣                             ⌘⌘Iij
+    t T0                                                                                          X Y                                              t
+{U }t=1 , for users. Instead of learning the factor matrices                            max
+                                                                                                                             >
+                                                                                                                 N Rtij | Uti Vjt ,         2
+                                                                                                                                                        ,   (5)
+independently, we further propose to learn them jointly by                         {Ati }t=1 , t=T +1 i=1 j=1
+                                                                                                  0
+enforcing the factor matrices for items to be shared over dif-                   {Ut ,Vt }T
+                                                                                          t=T0 +1
+ferent time intervals, i.e., V1 = . . . = VT0 . In the sequel, we
+use V0 to denote the shared factor matrix for items over time.                        where the following two priors are placed on Ut and Vt re-
+The motivations behind this are two-folds: 1) though users’                           spectively,
+interests are changing over time, the properties of items are                                                         n
+                                                                                                                      Y
+relatively stable, and 2) since rating matrices in each time in-                              p(Vt | V0 ,   2
+                                                                                                            v)   =         N (Vjt | V0 ,        2
+                                                                                                                                                v Ik ),     (6)
+terval can be very spare, jointly factorizing all the matrices                                                       j=1
+can obtain more precise factor matrices for both users and                                                            m
+                                                                                                                     Y
+items. Therefore, in the bootstrap step, we aim to learn the                                 p(Ut | Wit ,   2
+                                                                                                                           N (Uti | Wit ,       2
+                                                                                                                                                            (7)
+                                                                                                            u)   =                              u Ik ),
+initial factor matrices, {Ut }Tt=10
+                                      and V0 by solving the fol-                                                     i=1
+lowing optimization problem,
+                                                                                      and Wit is recursively updated via
+                  T0 Y
+                  X    n ⇣
+                     m Y             ⇣                       ⌘⌘Iij
+                                                                t
+                                                   >
+         max                     N Rtij | Uti Vj0 ,      2
+                                                                     ,                       Wit = A1i Uti 1 + A2i Uti 2 + . . . + Ai Uti               .   (8)
+           T0
+      {Ut }t=1 ,V0 t=1 i=1 j=1
+                                                                                      The prior in (6) is to constrain the new factorized latent ma-
+where we place zero-mean spherical Gaussian priors [Dueck                             trix Vt for items not to be very different from V0 , since the
+and Frey, 2004; Mnih and Salakhutdinov, 2007] on V0 and                               properties of items are assumed to be stable over time. The
+each Ut .                                                                             prior in (7) aims to use the evolutionary process to affect the
+   We conduct theoretical study on how many time intervals                            shape of the new factorized latent matrix Ut for users.
+should be used in the bootstrap step, i.e., how to set the value                         As shown in [Mnih and Salakhutdinov, 2007], maximiz-
+of T0 . In general, without considering any additional infor-                         ing the log-posterior is equivalent to minimizing the sum-of-
+mation, e.g., rating matrices in time intervals from T0 to T ,                        squared errors with quadratic regularization terms, the opti-
+one can apply the Gaussian elimination approach to solve (2)                          mization problem in (5) can be rewritten into the following
+
+
+
+                                                                               3806
+Algorithm 1 Collaborative Evolution                                                                         3.4    Analysis of the Evolution Coefficients
+  Input: Users’ browsing records {Rt }Tt=1 , number of latent                                               We use data from the first T0 time intervals to estimate ini-
+  features k, number of evolution coefficients                                                              tial parameters in the bootstrap step, and data of the last
+  Bootstrap:                                                                                                N = T         T0 time intervals to estimate the parameters of
+  for t = 1 to T0 do                                                                                        the CE model. Besides, we suggest the minimum value of
+               >
+     Rtij ⇠ Uti Vj0                                                                                         T0 to estimate accurate initial parameters. Now, we study the
+  end for                                                                                                   reliability of the evolution coefficients {At }t=1 in terms of
+  Initialize {At }t=1 via (3).                                                                              N . Specifically, we fix all other parameters, i.e., {Ut }t and
+  Collaborative Evolution:                                                                                  {Vt }t , and analyze {Ati }t=1 for a particular user i. For the
+  for t = T0 + 1 to T do                                                                                    ease of notations, we omit the subscript i in the following
+     Update Wi via (8).                                                                                     analysis. To start with, we first define the covariance matrix
+     while Ut and Vt are not converge do                                                                    estimate for vec(B̂) as,
+        Update Ut and Vt via (10), respectively
+     end while                                                                                                                   T
+                                                                                                                                 X
+                                                                                                                        ˆB = (
+                                                                                                                        ⌃              Ut (Ut )> ) 1 ⌦ D,              (12)
+     Update {At }t=1 via (3).
+  end for                                                                                                                        t=1
+  Output: The evolution coefficients {At }t=1 and the fea-                                                  where D is defined in (4). For convenience in presentation,
+  ture vectors {Ut }Tt=1 for each user, and the shared factor                                               we define the operator [·]j as the j-th element in a vector, and
+  matrices {V0 } for items.                                                                                 [·]ij as the (i, j) element of a matrix.
+                                                                                                                Following [Neumaier and Schneider, 2001], a confidence
+                                                                                                            interval for      = [vec(B)]j of the parameter matrix B can
+equivalent form,                                                                                                                                                      ˆ
+                                                                                                            be constructed from the distribution of the t-ratio, t = ˆ ,
+                               T
+                               X   n ✓
+                                 m X
+                                 X                        ⇣                              ⌘2
+                                                       t                         >                          where ˆ = [vec(B̂)]j , and ˆ 2 = [⌃ˆ B ]jj .
+        min J =                                       Iij   Rtij           Uti Vjt
+    {Ati }t=1 ,                                                                                                Assume that the t-ratio follows Student’s t-distribution,
+                         t=T0 +1 i=1 j=1
+  {Ut ,Vt }T
+           t=T0 +1
+                                                                                                            t(·), with N degrees of freedom. Then with the (↵ ⇥ 100)%
+                               2                               2
+                                                                                         ◆                  confidence, the margin of error for a parameter estimation ˆ
+                                                 2                                   2
+                     +         2
+                                    Uti       Wit +            2
+                                                                    Vjt          Vj0          (.9)          is defined as
+                               u                               v                                                                         ✓            ◆
+                                                                                                                        ˆ± = ˆ                1+↵
+   Note that there are three types of parameters in CE, i.e.,                                                                        = t N,              ˆ           (13)
+                                                                                                                                                 2
+{Ut }’s, {Vt }’s and {Ati }t=1 . We propose to optimize the
+objective in (9) by alternatively updating {Ut }’s, {Vt }’s, and                                            where ↵ 2 [0, 1] and t(d, ✓) is the ✓-quantile of a t-
+{Ati }t=1 . The updating rule for {Ati }t=1 is given by Least                                               distribution with d degrees of freedom.
+Square Estimation in the previous section, and the updating                                                 Proposition 2. The reliability of the CE Model is improved
+rules for Ut and Vt in each time interval t are shown as fol-                                               monotonously when T increases.
+lows respectively,
+                                                                                                            Proof. Based on (13), ˆ± is defined by a t-distribution with
+                                   @J                                   @J
+            Ui
+               t
+                         Ui
+                           t
+                                        ,     and Vjt        Vj
+                                                               t
+                                                                             ,                (10)          N = T         T0 degrees of freedom. When the number of
+                                   @Uti                                 @Vjt
+                                                                                                            time intervals T increases, the degrees of freedom N also
+where                                                                                                       increases. Moreover, a fixed ↵ ⇥ 100% confidence interval
+                     n
+                     X                                              2                                       for a t-distribution with larger degrees of freedom leads to
+      @J
+      @Uti
+           =     2
+                               t   t
+                           (Iij Vj (Rij
+                                          t      t>     t
+                                               Ui Vj )) + 2         2
+                                                                        (Ui
+                                                                           t         t
+                                                                                 Wi ),                      smaller values of the margin of error of the parameter esti-
+                     j=1                                            u
+                                                                                                            mate. Therefore, the CE model is improved monotonously
+                                                                                                            by decreasing the margin of error of the parameter estimate,
+                     m
+                     X                                              2
+      @J                 t   t   t               t>     t                  t         0
+           =     2     (Iij Ui (Rij            Ui Vj )) + 2             (Vj      Vj ).
+      @Vjt           i=1
+                                                                    2
+                                                                    v                                       when the number of time intervals for training is increasing.
+                                                                                                            This completes the proof.
+The overall algorithm of CE is summarized in Algorithm 1.
+
+3.3     Item Recommendations in Future time                                                                 4     Experiments
+With the evolution coefficients matrices {A }t=1 , the shared       t                                       In this section, we conduct experiments on a real-world on-
+factor matrix V0 for items, and the feature vectors {Ut }Tt=1                                               line shopping dataset to verify the effectiveness of CE in the
+for each user learned in the previous section, to provide rec-                                              recommender system.
+ommendations to users at a particular time interval T + , we
+first compute WT + by recursively applying (8), and then                                                    4.1    The Dataset
+make predictions on which items the user would be interested                                                The real-world dataset used for experiments is from a Chinese
+by computing the following ratings for each item,                                                           e-commerce website, www.51buy.com. The dataset covers all
+                                                        >
+                                                                                                            users’ browsing records from April 2013 to September 2013.
+                            RTij+ = WiT +                   Vj0 .                         (11)              The long time span of the data makes it suitable to evaluate
+
+
+
+                                                                                                     3807
+the effect of changing in users’ interests. For further evalu-
+ations and future researches, the full dataset and the code in
+the experiments are released at http://zhongqi.me.
+4.2   Experimental Settings
+A primary problem in the recommender system is to know
+how likely a user is interested in an item on a future day. This
+likelihood could be measured by the probability that the user
+tends to browse the item on a particular day. In our experi-
+ments, we make the duration of each time interval to be one
+day. From the browsing log, we first construct an user-item
+matrix for each day. The cell value of the matrix is the count
+of a user’s daily browsing an item. We further normalize each
+user-item matrix such that for each user, the sum of the item
+browsing, if is not 0, is equal to 1. With these normalized
+user-item matrices, we apply our proposed CE model to make
+predictions for a particular future day.                                  Figure 1: Performance Comparison. The training set contains
+   For evaluation, we use the “Root Mean Square Error”                    browsing history of more than 270, 000 items from March 1,
+(RMSE). The RMSE is widely adopted as the evaluation ma-                  2013 to August 21, 2013.
+tric in the evaluation of recommender systems, such as the
+Netflix Prize [Bennett and Lanning, 2007]. In our settings,
+the RMSE indicates the difference between the true and pre-                  Secondly, our CE method achieves the best performance
+dicted likelihood that a user browsing an item.                           comparing with both BPMF and timeSVD++. Besides, we
+                                                                          observe that both timeSVD++ and our CE methods demon-
+4.3   Performance Comparison                                              strate advantage when predicting in the future. This is be-
+The comparison experiments are conducted on the dataset,                  cause both methods are designed to tackle the temporal dy-
+which contains about 1 million users and more than 270, 000               namics in recommender systems. Other than better perfor-
+items in a time span of 180 days. To show the effectiveness               mance in terms of prediction accuracy, our CE method is
+of our proposed method, we compare CE with the following                  more stable timeSVD++ as the RMSE of the CE method
+baseline methods:                                                         would not raise in the long future.
+                                                                             Thirdly, all the methods have regular drop of performance
+   • PMF [Mnih and Salakhutdinov, 2007]. PMF is an effec-                 in nearly every 7 days and these drops happen on the week-
+     tive MF method for missing value prediction. In order                ends. We find that on the weekends, the users usually browse
+     to demonstrate the effect of the changes in users’ inter-            different items, comparing to those they view on the week-
+     ests in the training data, we trained PMF with differ-               days. This suggests that we may need to consider a different
+     ent training sets: “PMF rcnt60d”, “PMF rcnt30d” and                  model for user behaviors on the weekends, which is beyond
+     “PMF rcnt15d”, which use the most recent 60, 30 and                  the scope of this paper, and is a potential future extension.
+     15 days’ records in the training set respectively.
+   • BPMF [Salakhutdinov and Mnih, 2008]. BPMF is a                       4.4   Size of Time Intervals in Training
+     fully Baysian treatment of the PMF models. Although
+     the BPMF approach is computationally expensive than                  We have analyzed the confidence intervals of CE’s parame-
+     PMF, it usually leads to better performance.                         ter estimations, and conclude that the performance of CE can
+                                                                          be improved monotonously when increasing the number of
+   • timeSVD++ [Koren, 2009]. timeSVD++ tracks the                        time intervals in training. In this section, we show the exper-
+     changes throughout the life span of the data. This                   imental results of varying the size T of time intervals in CE’s
+     method is reported to achieve excellent performance on               training. Experimental results are shown in Figure 2.
+     the Netflix dataset [Bennett and Lanning, 2007] by con-                 In the experiments, we gradually increase the size of
+     sidering temporal dynamics.                                          time intervals for training the CE model. “CE 5Train”,
+We present the results of these baselines with fine-tuned pa-             “CE 15Train”, “CE 30Train”, and “CE 50Train” represent
+rameters. Figure 1 shows the performance comparison.                      the training with the data from 5, 15, 30, and 50 consecu-
+   Firstly, we aim to verify the claim that the historical data           tive days before testing respectively. For testing, we use data
+and the future data have different distributions. For the                 from August 22, 2013 onwards. On one hand, we empirically
+three PMF baselines, i.e. “PMF rcnt15d”, “PMF rcnt30d”,                   justify Proposition 2, which states that the reliability of the
+“PMF rcnt60d”, which use the recent 15, 30, 60 days of his-               CE model increases monotonously as the size of the training
+torical data for training respectively, we can observe that us-           time intervals increases. As can be seen in Figure 2, when the
+ing the recent 30 days of historical data achieves best perfor-           size of the training time intervals increases from 5 to 50, the
+mance among the three. Empirically on this dataset, using                 RMSE of CE decreases for all future predictions. Because
+30 days of data happens to be a balance between the training              the decrease of RMSE reflects that the model better captures
+data insufficiency (15 days of data) and the change of users’             the changes of the user’s interests, we conclude that the re-
+interests (60 days of data).                                              liability of the model increases when the size of the training
+
+
+
+                                                                   3808
+                                                                            proach is by utilizing the state-based models, such as the
+                                                                            Markov chain model [Rendle et al., 2010; Zhao et al., 2012;
+                                                                            Wang and Zhang, 2013; McAuley and Leskovec, 2013].
+                                                                            However because the item set is extreme large in the online
+                                                                            shopping scenario, it would usually not be possible to com-
+                                                                            pute the transition functions over the item set effectively nor
+                                                                            efficiently.
+                                                                            Concept drift is a phenomenon when the observed data is
+                                                                            generated from a distribution that changes over time [Tsym-
+                                                                            bal, 2004]. The strategies can be summarized into three
+                                                                            groups. The first is to discount the data that are not relevant
+                                                                            for prediction [Cunningham et al., 2003]. The second is to
+                                                                            build an ensemble of models, each of which is fitted to a dif-
+                                                                            ferent subset of the data [Street and Kim, 2001]. The third
+                                                                            is mining data instances ordered by time, which is known as
+                                                                            data stream mining [Fan, 2004; Gao et al., 2007]. Though
+Figure 2: Different sizes T of the Time Intervals in Training.              those research problems are related to deal with the changing
+As T increases, the performance always becomes better and                   of data distributions, the settings of our Collaborative Filter-
+eventually approaches a limit.                                              ing for recommender systems is quite different: while most
+                                                                            existing techniques under concept drift tracked a single con-
+time intervals increases. On the other hand, when the size T                cept, the user of a recommender system often shows multiple
+of the time intervals for training is larger than a certain value,          interests, which usually influence each other and only associ-
+i.e. 50, increasing T does not lead to significant decrease of              ated with limited data instances [Koren, 2009].
+RMSE. To balance the computational cost and the prediction                  Markov decision process An MDP-based recommender sys-
+accuracy, we propose to use 30 time intervals for training the              tem views the problem of generating recommendations as a
+CE model on our dataset.                                                    sequential optimization problem [Shani et al., 2002]. Be-
+                                                                            cause of the nature of Markov decision process, this approach
+                                                                            needs a strong initial model built with plenty of data, which is
+5   Related Works                                                           not practical in the sparse dataset of real-world applications.
+Our work is mostly related to collaborative filtering with tem-
+poral dynamics, concept drift and Markov decision process                   6   Conclusion
+(MDP).
+Collaborative Filtering is an approach of making automatic                  We proposed a Collaborative Evolution (CE) model to em-
+prediction (filtering) about the interests of a user by col-                bed an evolutionary view of users’ profiles to MF. In the
+lecting interests from many users (collaborating). Some                     CE model, two processes, i.e. the collaborative learning of
+of the best results are obtained based on matrix factoriza-                 the users’ profiles in each time interval and the evolutionary
+tion techniques [Marlin, 2003; Singh and Gordon, 2008;                      learning of the user’s profiles along the consecutive time in-
+Koren et al., 2009; Lu et al., 2015]. However, most of col-                 tervals, are iteratively guided by each other. As an output of
+laborative filtering methods assumed that a user’s interests to-            the CE model, we aim to predict users’ profiles in a certain
+wards a fixed item set do not change, which does not hold in                day of the future by the vector autoregressive model obtained
+most current online shopping scenarios.                                     from the evolutionary learning. This evolutionary learning
+   Being aware of the change of users’ interests, several re-               of the users’ profiles is a breakthrough of the current collab-
+cent works have attempted to integrate temporal dynamics                    orative filtering techniques. The CE method is particularly
+into collaborative filtering methods. A major approach is                   useful in a scenario where the users demonstrate frequently
+by introducing a time decay function to weight the item set                 changing behaviours and long-term predictions in the future
+according to the data age [Koren, 2009; Liu et al., 2010;                   are needed, such as the online shopping scenario. We per-
+Nakatsuji et al., 2012]. In practice, the changes in users’ in-             form experiments on the real-world dataset from the online
+terests are too complex to be modeled by a time decay func-                 shopping website www.51buy.com, which contains more than
+tion. The time decay function may only be able to approx-                   180 days of records for 1, 000, 000 users and 270, 000 items.
+imate some short-term changes in users’ interests, but fail                 The dataset will be released and a sample has been published
+to model the long-term ones. Besides, the time decay ap-                    online. With the evolutionary learning of users’ profiles, we
+proaches are usually not able to explore when would users                   enhanced the current online shopping recommender systems
+change their interests. Currently the temporal dynamics re-                 by providing predictions for the long future.
+searches cover many specific scenario [Pálovics et al., 2014;
+Liu and Aberer, 2014; Liu, 2015], and we are the first to ex-               7   Acknowledgement
+plore the evolution of user’s interest by mining a complete
+dataset from a real world recommender system.                               We thank the support of China National 973 project
+   Some works try to capture the changes of users’ inter-                   2014CB340304 and Hong Kong CERG projects 16211214
+ests by taking sequential patterns into account. A major ap-                and 16209715. Sinno Jialin Pan is supported by the NTU
+
+
+
+                                                                     3809
+Singapore Nanyang Assistant Professorship (NAP) grant                [McAuley and Leskovec, 2013] Julian John McAuley and
+M4081532.020.                                                           Jure Leskovec. From amateurs to connoisseurs: model-
+                                                                        ing the evolution of user expertise through online reviews.
+                                                                        In WWW, pages 897–908. International World Wide Web
+References                                                              Conferences Steering Committee, 2013.
+[Adomavicius and Tuzhilin, 2005] Gediminas Adomavicius               [Middleton et al., 2004] Stuart E Middleton, Nigel R Shad-
+  and Alexander Tuzhilin. Toward the next generation of                 bolt, and David C De Roure. Ontological user profiling in
+  recommender systems: A survey of the state of the art                 recommender systems. ACM Trans. Inf. Syst., 22(1):54–
+  and possible extensions. IEEE Trans. Knowl. Data Eng.,                88, 2004.
+  17(6):734–749, 2005.
+                                                                     [Mnih and Salakhutdinov, 2007] Andriy Mnih and Ruslan
+[Bennett and Lanning, 2007] James Bennett and Stan Lan-                 Salakhutdinov. Probabilistic matrix factorization. In NIPS,
+  ning. The netflix prize. In KDD cup and workshop, 2007.               pages 1257–1264, 2007.
+[Cunningham et al., 2003] Pádraig Cunningham, Niamh                 [Nakatsuji et al., 2012] Makoto Nakatsuji, Yasuhiro Fuji-
+  Nowlan, Sarah Jane Delany, and Mads Haahr. A case-                    wara, Toshio Uchiyama, and Hiroyuki Toda. Collabora-
+  based approach to spam filtering that can track concept               tive filtering by analyzing dynamic user interests modeled
+  drift. In ICCBR, 2003.                                                by taxonomy. In ISWC, pages 361–377. Springer, 2012.
+[Dueck and Frey, 2004] Delbert Dueck and Brendan Frey.               [Neumaier and Schneider, 2001] Arnold Neumaier and
+  Probabilistic sparse matrix factorization. University of              Tapio Schneider. Estimation of parameters and eigen-
+  Toronto technical report PSI-2004-23, 2004.                           modes of multivariate autoregressive models. ACM Trans.
+                                                                        Math. Softw., 27(1):27–57, 2001.
+[Fan, 2004] Wei Fan. Systematic data selection to mine
+   concept-drifting data streams. In KDD, pages 128–137.             [Pálovics et al., 2014] Róbert Pálovics, András A Benczúr,
+   ACM, 2004.                                                           Levente Kocsis, Tamás Kiss, and Erzsébet Frigó. Exploit-
+                                                                        ing temporal influence in online recommendation. In Rec-
+[Gao et al., 2007] Jing Gao, Wei Fan, Jiawei Han, and S Yu              Sys, pages 273–280. ACM, 2014.
+  Philip. A general framework for mining concept-drifting
+                                                                     [Rendle et al., 2010] Steffen Rendle, Christoph Freuden-
+  data streams with skewed distributions. In SDM. SIAM,
+  2007.                                                                 thaler, and Lars Schmidt-Thieme. Factorizing personal-
+                                                                        ized markov chains for next-basket recommendation. In
+[Koren et al., 2009] Yehuda Koren, Robert Bell, and Chris               WWW, pages 811–820. ACM, 2010.
+  Volinsky. Matrix factorization techniques for recom-               [Salakhutdinov and Mnih, 2008] Ruslan Salakhutdinov and
+  mender systems. Computer, 42(8):30–37, 2009.                          Andriy Mnih. Bayesian probabilistic matrix factorization
+[Koren, 2009] Yehuda Koren. Collaborative filtering with                using markov chain monte carlo. In ICML, pages 880–887.
+  temporal dynamics. In KDD, pages 447–456. ACM, 2009.                  ACM, 2008.
+[Lathia et al., 2010] Neal Lathia, Stephen Hailes, Licia             [Shani et al., 2002] Guy Shani, Ronen I Brafman, and David
+  Capra, and Xavier Amatriain. Temporal diversity in rec-               Heckerman. An mdp-based recommender system. In UAI,
+  ommender systems. In SIGIR, pages 210–217. ACM,                       pages 453–460. Morgan Kaufmann Publishers Inc., 2002.
+  2010.                                                              [Singh and Gordon, 2008] Ajit P Singh and Geoffrey J Gor-
+[Liu and Aberer, 2014] Xin Liu and Karl Aberer. Towards                 don. Relational learning via collective matrix factoriza-
+   a dynamic top-n recommendation framework. In RecSys,                 tion. In KDD, pages 650–658. ACM, 2008.
+   pages 217–224. ACM, 2014.                                         [Street and Kim, 2001] W Nick Street and YongSeog Kim.
+                                                                        A streaming ensemble algorithm (SEA) for large-scale
+[Liu et al., 2010] Nathan N Liu, Min Zhao, Evan Xiang, and
+                                                                        classification. In KDD, pages 377–382. ACM, 2001.
+   Qiang Yang. Online evolutionary collaborative filtering.
+   In RecSys, pages 95–102. ACM, 2010.                               [Tsymbal, 2004] Alexey Tsymbal. The problem of concept
+                                                                        drift: definitions and related work. Technical report, Com-
+[Liu, 2015] Xin Liu. Modeling users dynamic preference for              puter Science Department, Trinity College Dublin, 2004.
+   personalized recommendation. In IJCAI, 2015.
+                                                                     [Wang and Zhang, 2013] Jian Wang and Yi Zhang. Opportu-
+[Lu et al., 2015] Zhongqi Lu, Zhicheng Dou, Jianxun Lian,               nity model for e-commerce recommendation: right prod-
+  Xing Xie, and Qiang Yang. Content-based collaborative                 uct; right time. In SIGIR, pages 303–312. ACM, 2013.
+  filtering for news topic recommendation. In AAAI, pages            [Zhao et al., 2012] Gang Zhao, Mong Li Lee, Wynne Hsu,
+  217–223, 2015.
+                                                                        and Wei Chen. Increasing temporal diversity with pur-
+[Lütkepohl, 2005] Helmut Lütkepohl. New introduction to               chase intervals. In SIGIR, pages 165–174. ACM, 2012.
+   multiple time series analysis. Cambridge Univ Press,
+   2005.
+[Marlin, 2003] Benjamin M Marlin. Modeling user rating
+  profiles for collaborative filtering. In NIPS, 2003.
+
+
+
+                                                              3810
+

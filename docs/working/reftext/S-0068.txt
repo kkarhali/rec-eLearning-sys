@@ -1,0 +1,1131 @@
+                                                       International Journal of Continuing Engineering Education
+                                                       and Life-Long Learning
+
+                                                       ISSN online: 1741-5055 - ISSN print: 1560-4624
+                                                       https://www.inderscience.com/ijceell
+
+
+
+                                   English learning    behaviour   analysis                                     and   intelligent
+                                   recommendation system driven by big data
+
+                                   Shuling Yang, Dongqing Hao
+
+                                   DOI: 10.1504/IJCEELL.2026.10077378
+
+                                   Article History:
+                                   Received:                    30 July 2025
+                                   Last revised:                19 November 2025
+                                   Accepted:                    29 January 2026
+                                   Published online:            18 May 2026
+
+
+
+
+                                                               Copyright © 2026 Inderscience Enterprises Ltd.
+
+
+Powered by TCPDF (www.tcpdf.org)
+214      Int. J. Cont. Engineering Education and Life-Long Learning, Vol. 36, No. 9, 2026
+
+
+English learning behaviour analysis and intelligent
+recommendation system driven by big data
+
+          Shuling Yang
+          School of Foreign Languages,
+          Jilin Normal University,
+          Siping 136000, Jilin, China
+          Email: yangshuling@jlnu.edu.cn
+
+
+          Dongqing Hao*
+          School of Foreign Language Studies,
+          Inner Mongolia Medical University,
+          Hohhot 010110, Inner Mongolia Autonomous Region, China
+          Email: 835772912@qq.com
+          *Corresponding author
+
+          Abstract: This paper proposes a dynamic privacy preserving intelligent
+          recommendation method under a joint learning framework to address the
+          contradiction between privacy protection and recommendation accuracy caused
+          by cross platform data silos in English learning recommendations. Firstly, this
+          paper conducts an in-depth analysis of multimodal English learning behaviour
+          and uses transformers to capture cross modal semantic associations. Secondly,
+          this paper innovatively designs a data sensitivity evaluation mechanism based
+          on Kullback Leibler (KL) divergence to achieve dynamic allocation of
+          differential privacy budget. Finally, this paper proposes a federated attention
+          mechanism to achieve cross platform user interest transfer. The experiment
+          shows that this method increases the hit rate by 37% in cold start scenarios,
+          reduces communication overhead by 76%, and controls the success rate of
+          member inference attacks at 0.13, effectively solving the collaborative
+          optimisation problems of privacy security, recommendation accuracy, and
+          communication efficiency in cross platform English learning recommendations.
+
+          Keywords: dynamic privacy protection; English learning behaviour analysis;
+          cross-platform recommendation; intelligent recommendation system; federated
+          learning.
+
+          Reference to this paper should be made as follows: Yang, S. and Hao, D.
+          (2026) ‘English learning behaviour analysis and intelligent recommendation
+          system driven by big data’, Int. J. Continuing Engineering Education and
+          Life-Long Learning, Vol. 36, No. 9, pp.214–239.
+
+          Biographical notes: Shuling Yang is an Associate Professor at the Jilin
+          Normal University with a Master’s degree. She obtained both her Master’s and
+          Bachelor’s degrees from the Jilin Normal University. Her main research
+          interests include business English, cross-border e-commerce, and innovation
+          and entrepreneurship education.
+
+
+
+
+Copyright © The Author(s) 2026. Published by Inderscience Publishers Ltd. This is an Open Access Article
+distributed under the CC BY-NC-ND license. (http://creativecommons.org/licenses/by-nc-nd/4.0/)
+      English learning behaviour analysis and intelligent recommendation system         215
+
+         Dongqing Hao received her Master’s degree from the Inner Mongolia Normal
+         University, China. Now, she works in the School of Foreign Language Studies,
+         Inner Mongolia Medical University. Her research interests include English
+         language education and English pedagogy.
+
+
+
+
+1   Introduction
+
+With the acceleration of digital transformation of education, the field of English learning
+has accumulated a massive amount of multi-source heterogeneous user behaviour data
+(Susanty et al., 2021; Nugroho and Atmojo, 2020; Soyoof et al., 2023). The personalised
+recommendation system based on big data has significantly improved the learning
+efficiency through the unique learning trajectory of English (such as vocabulary
+forgetting curve, grammatical error clustering pattern), knowledge mastery and
+interaction mode (Lahiassi et al., 2023; Raj and Renumol, 2022; Khanal et al., 2020).
+However, existing systems face dual challenges in cross-platform collaborative
+recommendation: on the one hand, over-reliance on centralised data aggregation leads to
+a surge in the risk of sensitive data leakage, such as oral practice recordings and writing
+content, and the constraints on data circulation imposed by regulations such as the EU
+General Data Protection Regulation (GDPR) exacerbate the problem of data silos
+between platforms (Javeed et al., 2023; Ogunseyi et al., 2023; Chronis et al., 2024). On
+the other hand, the traditional differential privacy protection mechanism adopts a static
+noise injection strategy, which seriously damages the accuracy of diagnosing language
+skill weaknesses while ensuring privacy security (Feng et al., 2024; Chen et al., 2025),
+especially in the cold start scenario, the conversion rate of new users drops by more than
+30%. This inherent contradiction between privacy protection and recommendation utility
+has become a key bottleneck restricting the development of educational recommendation
+systems (Da Silva et al., 2023).
+    For English learning scenarios, this study needs to solve three core problems: first,
+the feature fusion and sensitivity quantification of multimodal learning behaviour data
+(such as vocabulary retrieval frequency in click streams and grammatical error
+distribution in answering questions) (Sharma and Giannakos, 2020); second, the dynamic
+allocation mechanism of privacy budget for non-independent and identically distributed
+(non-IID) data (such as differences in listening proficiency among users in different
+regions) under the cross-platform federated learning framework (Zhang et al., 2024);
+third, the communication efficiency bottleneck caused by real-time oral practice
+streaming in large-scale distributed training (Wang et al., 2024). These issues directly
+affect the educational value of the system: multimodal modelling determines the depth of
+cognition of the laws of language skill transfer (such as the relationship between reading
+ability and writing), and the privacy mechanism affects the accuracy of grammar
+correction recommendations for cold-start users (Jangid and Kumar, 2025). Existing
+solutions generally have defects such as large feature alignment deviation, coarse privacy
+protection granularity, and high communication overhead when dealing with these
+problems (Yang and Li, 2025). Existing solutions generally have defects such as
+large feature alignment deviation, coarse privacy protection granularity, and high
+communication overhead when dealing with these problems. Although the multimodal
+216      S. Yang and D. Hao
+
+fusion method proposed by Cao et al. (2022) improves the recommendation classification
+performance, it fails to cover the privacy protection requirements of highly sensitive data
+such as writing. Chen et al. (2023) used the k-randomised response (kRR) mechanism to
+introduce a dynamic privacy budget strategy in multidimensional data collection.
+However, since the complexity of behavioural semantics in educational scenarios was not
+considered, it was easy to cause language feature distortion. Ali et al. (2024) built a
+blockchain-enabled asynchronous federated recommendation framework. Although it
+enhanced the traceability of the model, the semantic consistency and interest migration
+support in federated recommendation were insufficient, which may cause fluctuations in
+recommendation results. These shortcomings reflect that educational recommendation
+systems urgently need to coordinate privacy, semantic modelling, and collaborative
+efficiency at the system level.
+     In response to the cross-platform recommendation problem, Zeng et al. (2025)
+proposed a pioneering cross-platform federated group recommendation (FedGR)
+system. FedGR combines hypergraph convolution, attention aggregation, and fully
+connected fusion components with federated learning. In terms of privacy protection,
+Huang et al. (2023) proposed an AutoRec++ (autoencoder for recommendation)
+model to comprehensively address various biases in user behaviour data. Regarding
+communication optimisation, Chen et al. (2022) designed a gradient descent method with
+sparsification and error correction (GD-SEC) to improve communication efficiency in a
+general worker-server architecture. Gong et al. (2023) proposed a model contract that
+includes preconditions and postconditions of pre-trained models to achieve better model
+reuse. Current methods generally handle privacy protection, feature modelling, and
+communication efficiency issues separately (Jegadeesan et al., 2022; Li et al., 2021), and
+fail to solve the problem of feature migration for cold-start users.
+     This study aims to establish a collaborative optimisation paradigm for privacy
+protection, recommendation accuracy, and communication efficiency. First, drawing on
+the experience of Wu et al. (2025) in integrating digital cognitive behavioural therapy
+with eye movement desensitisation and reprocessing in medicine, it innovatively
+constructs a multimodal data sensitivity assessment matrix to dynamically increase the
+noise injection intensity of high-frequency sensitive data and increase the privacy budget
+release rate of low-sensitivity data. Secondly, this paper integrates the construction and
+application of professional knowledge graph based on educational big data by Wu and Jia
+(2022), designs transformer-bidirectional long short-term memory (Bi-LSTM) hybrid
+network, and uses transformer to capture cross-modal semantic associations. By
+modelling temporal behaviour patterns through Bi-LSTM, this paper combines the
+review results of knowledge graph embedding model by Gesese et al. (2021). At the
+federated framework level, inspired by the federated learning model of the cross-context
+recommendation system based on the self-attention mechanism proposed by Singh et al.
+(2023), a federated attention mechanism is designed to dynamically adjust the knowledge
+transfer weight by calculating the similarity of cross-platform user interests, thereby
+improving the feature matching accuracy of new users in the cold start phase.
+Finally, drawing on the algorithm technology of Cui et al. (2020) that applied the
+blockchain-assisted federated learning compression algorithm to content caching, the
+top-k gradient prediction algorithm is introduced to dynamically select important
+parameters based on the historical update direction, reducing the communication
+bandwidth overhead by 76% while maintaining the model convergence stability.
+Different from pure technical research, the goal of this paper is to achieve in-depth
+      English learning behaviour analysis and intelligent recommendation system        217
+
+analysis of cross-platform English learning behaviour (such as error pattern mining, skill
+association modelling) and personalised recommendations through privacy computing
+and federated learning technology. Experiments have shown that this method improves
+the accuracy of recommendations while ensuring the privacy security of language
+learning data and the effectiveness of teaching.
+
+
+2   Algorithm design
+
+2.1 Federated learning architecture design
+A cross-platform collaborative architecture based on the federated averaging (FedAvg)
+protocol is adopted to deploy multi-learning platform clients and central servers. Each
+client locally trains the model of user behaviour data with LightGBM or two-layer
+LSTM, generates gradient vectors and automatically labels them; after training, the
+encrypted gradients with signature verification are uploaded to the server through the
+transport layer security (TLS) 1.3 channel. After the server receives the gradients of each
+                                                                    ni
+client, it dynamically calculates the weighted coefficient α i =           according to the
+                                                                
+                                                                    N
+                                                                       nj
+                                                                    j =1
+
+proportion of data volume, where ni represents the number of samples of the ith client and
+N is the total number of clients. The aggregation parameter update follows the standard
+federated average formula:
+
+                    α ⋅θ
+                      N           (t )
+      θ (t +1) =             i   i                                                      (1)
+                      i =1
+
+
+where θi(t ) represents the local model parameters of client i in round t. To avoid the
+deviation caused by uneven distribution of client data, the server introduces the
+temperature balance factor Ti in the initial aggregation stage and modifies the weights as
+follows:
+                          log ni 
+                   exp           
+      α i′ =              Ti                                                          (2)
+                              log n j 
+               
+                   N
+                        exp           
+                   j =1
+                              Tj 
+Ti is defined as a normalised soft-maximisation weight adjustment factor that
+simultaneously responds to the local sample size imbalance and the discrepancy between
+local and global gradient distributions. We define Di as a weighted combination of local
+imbalance and distribution discrepancy, where Di equals alpha multiplied by the sample
+size imbalance term plus beta multiplied by the gradient distribution discrepancy term.
+Here, the sample size imbalance term is calculated as the difference between the
+logarithm of the local sample size and the mean of the logarithms of the global sample
+sizes, normalised by the sample standard deviation of the logarithms of the sample sizes.
+The gradient distribution discrepancy term employs the Kullback-Leibler (KL)
+divergence between the local gradient distribution and the global average gradient
+distribution, with momentum estimation introduced to suppress fluctuations in
+218      S. Yang and D. Hao
+
+mini-batches. Let s be the temperature adjustment coefficient; then, Ti is defined as
+exp(s ∗ Di) divided by the sum of exp(s ∗ Dj) for all clients j. According to this definition,
+when the local sample size is extremely small or the local distribution significantly
+deviates from the global distribution, Ti will relatively amplify the aggregation weight of
+that client. Conversely, when the distributions of all clients are similar, Ti will approach
+the standard weight based on sample size. The relevant hyperparameters alpha, beta, and
+s are provided with candidate ranges in the methodology section and determined through
+grid search on a validation set.
+    To improve the participation of low-sample clients, the aggregation results are then
+sent to the client through the same secure channel to keep the model synchronised.
+Subsequent incremental aggregation is performed every 30 minutes to integrate new
+behavioural features in real time. Integrity verification and retransmission mechanisms
+are embedded in the communication process. If packet loss is detected, differential
+retransmission is triggered to ensure that the training process is continuous and traceable.
+The entire architecture achieves dual protection of model performance and data privacy
+in cross-platform collaborative training through protocol layer encryption and dynamic
+weight adjustment of the aggregation layer. The parameter transmission format is shown
+in Table 1.
+
+2.2 Dynamic privacy protection mechanism
+The dynamic allocation strategy of differential privacy budget quantifies the sensitivity of
+client data based on KL divergence. To correct the bias introduced by gradient sparsity in
+KL divergence estimation, this paper introduces a sparsity correction term to the original
+KL estimate. The corrected sensitivity estimate is defined such that the corrected KL
+value equals the original KL value plus lambda multiplied by the sparsity correction term.
+Here, sparsity is defined as the proportion of elements in the local gradient vector with
+absolute values less than a threshold theta. To reduce the impact of instantaneous
+fluctuations on the estimation, the sparsity correction term is accumulated using
+exponential smoothing and the threshold theta is initialised based on short-term statistics
+from the early stages of training. The correction coefficient lambda is determined through
+grid search on a validation set. The corrected KL value is used as the input to the privacy
+budget mapping function, replacing the uncorrected KL value directly used in the original
+text. This correction effectively reduces distribution estimation bias when gradients
+exhibit zero-inflation or high sparsity, thereby avoiding unreasonable privacy budget
+allocation based on unstable estimates. Before each round of update, the KL divergence
+of the local gradient distribution Pi of the client i and the global average gradient
+distribution PG is calculated:
+
+                            P (k ) log  P (k ) 
+                              d               Pi (k )
+      DKL ( Pi || PG ) =             i                                                    (3)
+                              k =1
+                                               G
+
+Map DKL to the privacy budget λi, use the normalisation function to adjust the allocation
+interval, set the maximum budget to λmax, and the mapping formula is:
+       English learning behaviour analysis and intelligent recommendation system                          219
+
+                        DKL ( Pi || PG )
+      λi = λmax ⋅                                                                                         (4)
+                    
+                        N
+                                DKL ( Pj || PG )
+                         j =1
+
+Table 1        Parameter transmission format table
+
+ Field name                     Data type                      Description                 Example value
+ Client_ID                       String            Unique identifier for each learning     client_ENG_032
+                                                            platform client
+ Round_Index                     Integer             Current federated training round            18
+                                                                 number
+ Local_Sample_Size               Integer           Number of user behaviour samples            2,317
+                                                        used in local training
+ Model_Type                      String                Local model used by client            Bi-LSTM
+ Gradient_Vector            Float array            Encrypted gradient vector after local   [0.032, –0.117,
+                                                                training                       0.061]
+ Alpha_Weight                     Float        Calculated weight αi for aggregation            0.0281
+                                                     based on local data size
+ Temp_Balancer_Ti                 Float             Temperature factor for balancing            0.85
+                                                         low-sample clients
+ Adj_Weight                       Float             Adjusted weight αi′ after applying         0.0396
+                                                         temperature balancing
+ KL_Sensitivity                   Float        KL divergence-based data sensitivity             1.57
+                                                           estimation
+ Differential privacy             Float        Allocated differential privacy budget            0.32
+ (DP)_Budget                                              for this client
+ Noise_Scale                      Float             Gaussian noise standard deviation          0.074
+                                                          injected for privacy
+ Compression_Rate                 Float       Top-k gradient compression ratio used             0.10
+                                                 for communication efficiency
+ Integrity_Check                Boolean        Whether the gradient package passed              True
+                                                     checksum verification
+ Retransmit_Flag                Boolean        Whether retransmission was triggered            False
+                                                        due to packet loss
+ Model_Version                   String         Semantic version identifier for the            v2.1.0
+                                               local model architecture and weights
+ Transmission_Time          Timestamp          Time when the encrypted parameters            2025-07-16
+                                                       were transmitted                       08:12:34
+
+In the local gradient update phase, zero-mean Gaussian noise N (0, σ i2 ) is injected into
+each parameter. Its standard deviation is dynamically adjusted according to the current
+budget and the differential privacy strength parameter ϵ. Let δ be the failure probability,
+then the noise scale satisfies:
+               2 log(1.25 / δ )
+      σ i2 ≥                                                                                              (5)
+                    2 ⋅ λ2i
+220        S. Yang and D. Hao
+
+Figure 1    Privacy budget allocation flowchart
+       English learning behaviour analysis and intelligent recommendation system          221
+
+
+The exponential decay function σ i(t ) = σ i(0) ⋅ exp(− β t ) is used to control the standard
+deviation of noise to decay with rounds. The error feedback module re-adds the residual
+introduced by the previous round of noise at the end of each round to improve the
+stability of the update. The server-side aggregation process is weighted according to the
+remaining budget of the client to prevent highly sensitive data from dominating the
+global model. The moment accounting technology records the actual budget consumption
+of each round throughout the process, calculates the cumulative privacy loss  , and
+ensures that the training process always meets the (ϵ, δ) differential privacy constraint.
+The dynamic budget control module can reallocate λi in real time according to the change
+in sensitivity, enhancing the system’s adaptability to client data distribution drift. The
+privacy budget allocation process is shown in Figure 1.
+
+2.3 Learning behaviour feature modelling
+The clickstream sequence is divided into fixed time windows, each window contains
+several jump event IDs, and after being mapped to a 128-dimensional vector sequence by
+the embedding layer, it is input into a 4-layer multi-head self-attention transformer
+(8 heads, 512 hidden units) encoding to extract jump context features. The attention
+weight of each head is calculated by the following formula:
+                                      QK  
+      Attention(Q, K , V ) = softmax       V                                            (6)
+                                      dk 
+ Q, K , V ∈ R n×dk are query, key and value matrices, respectively, and dk is a dimension
+factor.
+    The answer records are classified by language skill type (vocabulary/grammar/
+reading, etc.), and the time series is constructed by combining the question ID, error type
+(tense error/collocation error, etc.), and timestamp. After normalisation, it is input into a
+two-layer Bi-LSTM (hidden unit 256). The forward and reverse LSTM output state
+              
+sequences ht , ht respectively, which are merged into a hidden state vector:
+              
+        ht = ht ⊕ ht                                                                      (7)
+Extract the change trend of answer consistency and accuracy. The dwell time data is
+fitted with gamma distribution through maximum likelihood estimation, and the
+concentration index s is calculated using shape parameter k and scale parameter θ, which
+is defined as:
+           k
+      s=                                                                                  (8)
+           θ
+To validate the suitability of the gamma distribution for modelling user dwell time, a
+comprehensive goodness-of-fit analysis was performed on the aggregated dataset. The
+Kolmogorov-Smirnov (K-S) test and Anderson-Darling (A-D) test were employed to
+statistically evaluate the fit between the empirical dwell time data and the theoretical
+gamma distribution derived via maximum likelihood estimation. The results, summarised
+in Table 7, indicate a strong fit. The K-S test yielded a statistic of 0.028 with a p-value of
+0.412, and the A-D test produced a statistic of 0.315. Both results (p-value > 0.05 for K-S
+222       S. Yang and D. Hao
+
+and A-D statistic < critical value) suggest that we fail to reject the null hypothesis that the
+sample data follows a gamma distribution. This statistical validation confirms that the
+gamma distribution is an appropriate and robust choice for characterising the dwell time
+behaviour in our English learning context. The course knowledge graph is trained under
+the translation-based relation (TransR) model framework. Entities and relations are
+mapped to different vector spaces respectively. Random walk sampling is used to
+construct a triple training set to generate a 128-dimensional knowledge point embedding
+vector. In the feature fusion stage, the transformer output, Bi-LSTM hidden state,
+focus scalar and knowledge point embedding are linearly transformed and aligned to
+256 dimensions, then spliced and fused through a layer of fully connected network to
+form a unified learning behaviour feature vector. This vector retains multimodal
+behaviour dynamic information and incorporates knowledge dependencies, and is directly
+input into the federated recommendation module to improve the accuracy of
+cross-platform interest transfer. The association matrix between knowledge points and
+typical error types is shown in Table 2.
+Table 2       Association matrix between knowledge points and typical error types
+
+ Knowledge       Tense    Collocation Word order     Pronunciation    Redundancy       Topic
+ point           error      error       error            error           error      irrelevance
+ Vocabulary       0.32       0.88          0.21           0.27            0.19         0.14
+ Grammar          0.91       0.66          0.78           0.23            0.41         0.25
+ Reading          0.44       0.47          0.39           0.18            0.62         0.57
+ Listening        0.21       0.23          0.19           0.85            0.16         0.31
+ Speaking         0.35       0.41          0.33           0.79            0.29         0.38
+ Writing          0.58       0.62          0.49           0.22            0.87         0.73
+
+
+2.4 Generation of federated recommendation strategy
+The client inputs the fused learning behaviour feature vector into a two-layer fully
+connected network [128 hidden units, activation function rectified linear unit (ReLU)],
+and outputs a 256-dimensional interest vector zi ∈ R256. To clarify the rationale and
+impact of kernel function selection in the maximum mean discrepancy (MMD) loss,
+this study supplements the methodology section with a kernel function selection and
+comparison process. The candidate kernel functions selected include the Gaussian radial
+basis function (RBF) kernel, the polynomial kernel, and the Laplacian kernel. For the
+Gaussian kernel, the median of pairwise sample distances is used to initialise the
+bandwidth, which is then fine-tuned via grid search on the validation set. For the
+polynomial kernel, the optimal combination of polynomial degree and constant term is
+searched on the validation set. For the Laplacian kernel, the same distance metric as the
+Gaussian kernel is employed to ensure comparability. In the experimental setup,
+empirical MMD reductions are computed for each of the three kernel functions, while
+recommendation metrics for downstream tasks, such as Precision@Top 10 and
+normalised discounted cumulative gain (NDCG)@Top 10, are also evaluated. Based on
+these metrics, the kernel function that demonstrates optimal performance under the given
+data heterogeneity is selected. The server measures the deviation between the client
+interest distribution and the target distribution based on the MMD loss, and its loss
+function is defined as:
+       English learning behaviour analysis and intelligent recommendation system                223
+
+                                                                                     2
+                   1                                  1
+                                   φ ( zi( s ) ) −                 φ ( z (jt ) )
+                                n                             m
+       L MMD =                                                                                   (9)
+                   n         i =1                     m       j =1
+
+
+φ(·) is the kernel mapping function, zi( s ) , z (jt ) are the client interest representations in the
+source domain and target domain respectively, and n, m are the number of samples. The
+server incorporates this loss into the global optimisation goal to achieve interest
+alignment. To ensure robustness against extreme distribution shifts, an outlier detection
+and re-alignment mechanism is introduced. For each client, the server calculates the
+cosine similarity between its local interest vector vi and the current global context vector
+cg. If this similarity falls below a dynamic threshold θoutlier (empirically set as the fifth
+percentile of all client similarities in the current round), the client is flagged as an outlier.
+For flagged clients, a two-step re-alignment is triggered:
+1    The server withholds their interest vector from the current global aggregation to
+     prevent contamination.
+2    In the subsequent round, the server sends a ‘re-initialisation’ signal, prompting the
+     client to perform a local fine-tuning using a small, curated set of canonical learning
+     trajectories (e.g., the top 10 most common error patterns for new users) before
+     re-submitting its interest vector.
+This mechanism ensures the global model’s stability while giving anomalous
+clients a chance to recalibrate, preventing a few extreme cases from degrading the
+recommendation quality for the majority.
+    The server further constructs the global context vector c and obtains the attention
+weight through the dot product of the interest vector and the context vector:
+
+                 exp ( zi c )
+       αi =                                                                                     (10)
+              
+                  N
+                         exp ( z j c )
+                  j =1
+
+
+Global interest vector:
+
+               αz
+                  N
+       zg =               i i                                                                   (11)
+                  i =1
+
+When the client uploads new behaviour features, fine-tuning is automatically triggered
+and the interest vector increment Δzi is uploaded. The server uses the current attention
+weight αi weighted fusion zg to implement global representation update.
+   The recommendation priority module uses cosine similarity as the scoring basis:
+                         zi ⋅ z j
+       sim(i, j ) =                                                                             (12)
+                         zi ⋅ z j
+
+The similarity between the client interest vector and the candidate course vector is sorted,
+and the course set is filtered based on the top N strategy. The attention weighting
+mechanism works together with the real-time incremental update to ensure that the global
+representation reflects the dynamic changes of behaviour, enhance the cross-platform
+migration generalisation ability and the personalised adaptability of the recommendation
+results. The federated recommendation strategy generation process is shown in Figure 2.
+224        S. Yang and D. Hao
+
+Figure 2    Flowchart of federated recommendation strategy generation
+      English learning behaviour analysis and intelligent recommendation system   225
+
+Figure 3   Federated top-k sparsification and FedAdam optimisation architecture
+226        S. Yang and D. Hao
+
+2.5 Federated optimisation algorithm
+In the federated optimisation phase, the client performs top-k sparse operation on the
+local gradient ∇θi: extract the k gradient indexes with the largest absolute value for each
+update to form a sparse gradient ∇    θi , set the rest to zero, and transmit them after
+fixed-point quantisation encoding. The error feedback mechanism introduces a residual
+accumulation term:
+
+       gi(t ) = Topk ( ∇θi(t ) + ri(t −1) )                                               (13)
+
+       ri(t ) = ∇θi(t ) + ri(t −1) − g i(t )                                              (14)
+
+ri(t ) is the residual cache of client i in the t round, ensuring that long-term information is
+not lost.
+      After receiving the sparse gradients uploaded by all clients, the server reconstructs the
+global update direction and uses the federated Adam (FedAdam) optimiser to update the
+model parameters. The first-order and second-order moments of each parameter θj are
+estimated as:
+
+       m(jt ) = β1m(jt −1) + (1 − β1 ) g (jt )                                            (15)
+
+                                             (        )
+                                                          2
+       v (jt ) = β 2 v (jt −1) + (1 − β 2 ) g (jt )                                       (16)
+
+where g (jt ) is the weighted average gradient of round t, and the final parameter update
+rule is:
+                                    m(jt )
+       θ (jt +1) = θ (jt ) − η ⋅                                                          (17)
+                                   v (jt ) + 
+
+The momentum hyperparameters β1 and β2 for the FedAdam optimiser were determined
+through a systematic grid search to optimise global model convergence speed and
+stability under our non-IID data setting. The search space was defined as β1 ∈ {0.9, 0.95,
+0.99} and β2 ∈ {0.99, 0.999, 0.9999}, following common practices in adaptive
+optimisation. For each (β1, β2) pair, we trained the model for 50 rounds and evaluated its
+performance using the validation set Precision@10 at convergence and the standard
+deviation of Precision@10 over the last ten rounds (as a measure of stability). The final
+values selected were β1 = 0.95 and β2 = 0.999, which achieved the best trade-off between
+rapid convergence and low performance variance. This optimisation strategy maintains
+the integrity of gradient update information after introducing error feedback, and the
+FedAdam mechanism improves global convergence efficiency through momentum
+accumulation and adaptive adjustment. The federated top-k sparsification and FedAdam
+optimisation architecture is shown in Figure 3.
+      English learning behaviour analysis and intelligent recommendation system             227
+
+3   Experiments and verification
+
+3.1 Experimental settings
+The dataset comes from the English Liulishuo platform, covering a variety of English
+learning behaviour types, with multimodal, non-IID and long-tail distribution
+characteristics, simulating a real online learning environment. The federated learning
+experiment is deployed on multiple GPU servers. The hardware environment settings and
+communication bandwidth control are used to restore the delay and resource constraints
+in actual applications. The specific data and configuration are detailed in Tables 3 and 4.
+Table 3     Statistical characteristics of the dataset
+
+ Feature category                            Description                        Value
+ Total number of users           Number of de-identified learners              80,000
+                                             involved
+ Total behaviour records         Logged multi-modal user actions             65,000,000
+ Time range                                 Log period                  Jan. 2024–Jun. 2024
+ Avg. records per user            Average user activity volume                 812.5
+ Distribution type               Data heterogeneity across clients       Long-tail, non-IID
+                                                                              (≈ 70%)
+ Client count                 Number of federated clients (simulated            200
+                                      learning endpoints)
+ Modalities                     Types of learning data integrated      Text, audio, clickstream
+ Task categories                      Learning task types                Listening, reading,
+                                                                          speaking, writing
+ Avg. session duration          Mean time per learning session               24.6 minutes
+ Oral practice records         Number of speaking-related logs                9,800,000
+ Grammar correction         Logged writing/grammar feedback events            6,200,000
+ logs
+ Avg. user active days       Mean active days per user over 6 months             38
+
+The statistical characteristics of the dataset in Table 3 show the multi-dimensional
+characteristics of real user behaviour on the English Liulishuo platform, reflecting the
+complexity and real application value of the platform data. The data covers 80,000 users,
+with a total of 65 million behavioural data records, an average of 812.5 behavioural
+records per user, and an average of 38 active days, reflecting the continuous learning
+characteristics of users. In terms of data modality, it integrates three types of modalities:
+text, voice, and clickstream, covering four major task categories: listening, speaking,
+reading and writing. Among them, there are 9.8 million oral practice records and
+6.2 million grammar correction data, indicating that oral and writing are high-frequency
+items in user learning behaviour. To complete the processing pipeline for oral practice
+records, this study establishes unified definitions and parameter settings for speech and
+text modalities during the data preprocessing stage. All audio files are uniformly
+resampled to a 16,000 Hz, mono, 16-bit PCM format. For each speech segment,
+pre-emphasis filtering is first applied, followed by the computation of the short-time
+Fourier transform (STFT) using a window length of 25 milliseconds and a step size of
+10 milliseconds. The filtered energy spectrum is then obtained through a 40-dimensional
+Mel filter bank, from which 13-dimensional Mel-frequency cepstral coefficients
+228       S. Yang and D. Hao
+
+(MFCCs) are calculated, along with their first and second-order differential terms. Prior
+to training, each speech segment undergoes mean-variance normalisation on a per-frame
+basis for each sample. For speech segments, voice activity detection is first performed to
+remove silent segments using an energy threshold method, and a pre-trained end-to-end
+speech recogniser is employed to generate text transcriptions along with confidence
+scores. The transcriptions are aligned with timestamps through forced alignment, and the
+confidence scores are used as inputs for subsequent privacy budget allocation and feature
+weighting. The feature-engineered speech vectors are aligned to the model’s dimensions
+through mini-batch normalisation and dimensionality reduction mapping before entering
+the model. For the text modality, standardised tokenisation and subword segmentation are
+performed using the same tokeniser as the recommendation model to map the text into a
+sequence of token IDs, with subword-level embedding initialisation. Spelling or
+recognition errors in oral text are annotated with confidence labels and treated as an
+uncertainty feature in the model input. The distribution type is long-tail and non-IID,
+accounting for about 70%, showing significant differences in data volume and behaviour
+patterns among different users, which increases the complexity of model building. In
+addition, the number of clients is 200, and each client simulates the learning behaviour of
+400 users on average. With an average learning time of 24.6 minutes per round, the
+federated learning setting in a cross-end heterogeneous environment is truly restored.
+Table 4      Hardware configuration table
+
+ Configuration item                         Description                         Value
+ Number of GPU servers       Federated nodes participating in model              20
+                                            training
+ GPU model                   Graphics processing unit model used for     NVIDIA A100 40 GB
+                                            training
+ Total number of GPUs          Total GPU units across all servers                80
+ CPU model                   Central processing unit model for general   Intel Xeon Gold 6338
+                                           computation                         (32 cores)
+ RAM per server                Available system memory per GPU                  512 GB
+                                               server
+ Storage per server          Local disk space for data caching/logging        4 TB SSD
+ Inter-node bandwidth         Simulated average network bandwidth             200 Mbps
+                                    between federated clients
+ Latency simulation range      Range of simulated communication               15–60 ms
+                                       delays across clients
+ Federated                       Protocol used for model update          gRPC + secure TLS
+ communication protocol                     aggregation                        channel
+ Privacy mechanism             Library used for noise injection and      Opacus (PyTorch DP
+ support module                differential privacy implementation             Library)
+ Optimiser for local           Optimiser used within local training      Adam with learning
+ training                                      loops                          rate 0.001
+ Global aggregation              Federated optimisation strategy           FedAdam with
+ optimiser                                                               adaptive momentum
+ Model update                 Communication reduction mechanism          Top-k sparsification
+ compression                                                                (k = 0.2 × d)
+ System scheduler                 Task distribution and training         Kubernetes + PySyft
+                                      orchestration system                   integration
+      English learning behaviour analysis and intelligent recommendation system          229
+
+Table 4 shows the hardware configuration used for the federated learning
+recommendation system experiment in this study, which reflects the balance between
+high performance and real communication constraints. The experiment is deployed on
+20 GPU servers, each equipped with 4 NVIDIA A100 (40 GB) graphics cards, a total of
+80 GPUs, supporting large-scale parallel processing and multimodal feature extraction
+tasks. The server is equipped with an Intel Xeon Gold 6338 processor and 512 GB of
+memory, which can support high-load training of deep models such as transformer and
+Bi-LSTM. The 4 TB SSD provides stable support for local cache and logs. In terms of
+communication, the simulated average bandwidth is 200 Mbps, and the delay range is
+controlled between 15–60 ms, which is close to the unstable network environment of user
+terminals in real online education platforms. To improve system security, federated
+communication uses gRPC and TLS dual-layer encryption protocols, and integrates the
+Opacus library to perform differential privacy injection to ensure that data is not leaked
+during training.
+
+3.2 Evaluation of the prediction performance of intelligent recommendation
+    system
+The leave-one-out cross-validation protocol is used to retain the latest interaction (click
+or answer) of each user as a test, and the remaining behaviours are used for model
+training and local updates. In the test phase, a candidate set is constructed for each test
+interaction: the corresponding positive sample is merged with 99 randomly selected
+negative samples to form 100 candidate records. The model sorts the candidate set
+according to the scoring function and takes the top‑10 list.
+     Precision@10 is calculated according to the hit rate of positive samples in the top‑10
+list, Precision@10 = number of hits / 10. NDCG@10 calculates the ranking position
+                                          2reli − 1
+                                
+                                   n
+discount gain, using DCG =                          and normalisation to get NDCG@10.
+                                   i =1 log (i + 1)
+                                            2
+
+Coverage@10 counts the number of different course coverages in the top‑10
+recommendation set of all test users and divides it by the total number of courses to
+reflect the diversity of recommendations.
+     The two baseline models, centralised BERT4Rec and FedProx, were compared by
+executing the same leave-one-out process in a centralised and federated environment,
+respectively. During the performance evaluation, the same evaluation script was used to
+batch calculate each indicator, and the average of 50 global aggregation results was
+taken. The Precision@10 and NDCG@10 results were used to measure the accuracy of
+recommendations and the quality of ranking, and Coverage@10 was used to measure the
+diversity of recommended courses. To comprehensively evaluate the business value and
+user experience impact of the recommendation system, two additional key performance
+indicators (KPIs) were collected:
+1   User satisfaction score (USS), measured via an in-app five-point Likert scale survey
+    (1 = very dissatisfied, 5 = very satisfied) presented after three consecutive
+    recommendation interactions.
+2   Seven-day retention rate, defined as the percentage of users who returned to the
+    platform for at least one learning session within seven days of their initial interaction
+    with the recommendation system.
+230        S. Yang and D. Hao
+
+These metrics provide critical insights into the system’s ability to drive user engagement
+and long-term platform loyalty. The comparison of the performance indicators of the
+intelligent recommendation system is shown in Figure 4.
+
+Figure 4    Comparison of performance indicators of intelligent recommendation systems,
+            (a) Precision@10 (b) NDCG@10 (c) Coverage@10 (see online version for colours)
+
+
+
+
+               (a)                              (b)                            (c)
+
+Figure 4 shows the comparison of performance indicators of intelligent recommendation
+systems in English learning behaviour analysis. The data comes from the leave-one-out
+cross-validation of 8,000 user behaviour data, comparing the three models of FedProx,
+centralised BERT4Rec and proposed method (the method in this paper). Precision@10:
+proposed method has the highest score (0.447), indicating that proposed method is
+significantly ahead in accurately identifying user interests. NDCG@10: proposed method
+(0.394) is better than FedProx (0.328) and centralised BERT4Rec (0.375), highlighting
+its advantage in ranking quality. Coverage@10: proposed method (0.239) far exceeds
+FedProx (0.124) and centralised BERT4Rec (0.152), proving that the recommendation
+diversity is stronger. Overall, proposed method is superior in all indicators and effectively
+balances privacy and utility.
+Table 5      Business value and user experience metrics
+
+                           User satisfaction      Δ vs.      7-day retention          Δ vs.
+ Method
+                             score (USS)         FedProx        rate (%)             FedProx
+ FedProx                        3.5 ± 0.2              -          52%                   -
+ Centralised BERT4Rec           3.8 ± 0.2             0.3         59%                  7%
+ Proposed method                4.2 ± 0.1             0.7         68%                 16%
+      English learning behaviour analysis and intelligent recommendation system          231
+
+3.3 Quantitative verification of privacy protection strength
+In the member inference attack experiment, three shadow models are trained for each
+client, and the shadow model parameters are generated using the same federated process.
+For each test record, the shadow model inputs behavioural features to generate predicted
+probabilities and compares them with the output of the real attack target model. An attack
+discriminator is constructed based on the cross-entropy difference to classify whether it is
+a member of the training data. The attack success rate (ASR) is calculated as the ratio of
+the number of correctly identified member samples to the total number of member
+samples; the privacy leakage risk is evaluated by ASR and false alarm rate.
+    Budget consumption monitoring uses moments accountant technology to record the ε
+budget usage after each round of noise injection and generate a budget consumption
+curve. This paper sets the threshold εmax = 1. If the cumulative amount εmax = 1, the
+subsequent training rounds are stopped, and the convergence rounds are recorded to
+compare the budget consumption rate and task completion under different budget
+allocation strategies.
+    In the experiment, the ASR difference between the fixed budget strategy and the
+dynamic allocation strategy is compared. This verification process accurately quantifies
+the defence effect and budget utilisation efficiency of the privacy protection mechanism
+in actual attack scenarios. The comparison of attack success rate and privacy budget
+consumption is shown in Figure 5.
+    Figure 5 shows the comparison of attack success rate (ASR) and cumulative privacy
+budget consumption under dynamic and fixed privacy budget strategies. The ASR of the
+dynamic strategy drops rapidly from the initial to 0.13 in 50 rounds; the ASR of the fixed
+strategy drops more volatile. Regarding the cumulative privacy budget consumption of
+the dynamic and fixed strategies, the dynamic strategy has consumed ε = 0.54 in
+20 rounds, while the fixed strategy only consumes ε = 0.40, but the ASR drop of the
+dynamic strategy is significantly higher than that of the fixed strategy. The dotted line
+marks the threshold of εmax =1, indicating that the dynamic strategy achieves better
+privacy protection effect under the premise of not exceeding the budget limit.
+    To quantify the impact of privacy protection on recommendation quality, the
+recommendation performance of dynamic privacy mechanism and non-privacy federated
+learning under the same experimental conditions is compared. The privacy-utility
+trade-off comparison is shown in Table 6.
+    Table 6 shows that when the privacy budget ε = 1, the dynamic mechanism reduces
+Precision@10 by only 4.3%, while static differential privacy (ε = 1) reduces
+Precision@10 by 12.4% (0.409), proving that the dynamic strategy significantly
+alleviates the damage of privacy protection to precision.
+    To comprehensively evaluate the robustness of the proposed privacy-preserving
+mechanism, this experiment not only employs attack success rate (ASR) as the primary
+metric but also introduces the area under the receiver operating characteristic curve
+(AUC-ROC) as a supplementary evaluation metric. AUC-ROC comprehensively
+measures the attack model’s ability to distinguish between member and non-member
+samples across different thresholds. A value closer to 0.5 indicates better privacy
+protection (i.e., poorer discriminatory capability of the attack model), while a value closer
+to 1.0 suggests a higher risk of privacy leakage. By combining ASR and AUC-ROC, we
+can more rigorously quantify the strength of privacy protection from two dimensions:
+attack success rate at a single threshold and overall discriminatory capability.
+232        S. Yang and D. Hao
+
+Figure 5    Comparison of attack success rate and privacy budget consumption (see online version
+            for colours)
+
+
+
+
+Table 6      Privacy-utility trade-off comparison
+
+ Method                                        Precision@10               Δ vs. non-private
+ Non-private federated learning (FL)                0.467                          -
+ Proposed method (ε = 1)                            0.447                        –4.3%
+ Static DP (ε = 1)                                  0.409                        –12.4%
+
+Table 7 presents the AUC-ROC values of the attack model under dynamic and fixed
+privacy budget strategies. The experimental results demonstrate that the dynamic privacy
+protection mechanism can more effectively confuse the attack model, leading to a
+significant reduction in its AUC-ROC values. This further validates the superiority of this
+mechanism in defending against membership inference attacks.
+Table 7      Multi-metric evaluation of membership inference attack resistance
+
+ Privacy protection strategy                    ASR                         AUC-ROC
+ No privacy protection                         0.82%                             0.91
+ Static DP (ε = 1)                             0.31%                             0.68
+ Dynamic DP (proposed, ε = 1)                  0.13%                             0.57
+
+
+3.4 Federated communication efficiency
+During the federated training process, the client records the amount of local uploaded
+gradient data and transmission delay before each round of aggregation: the completion
+time of a single client gradient upload is measured under a 1 Gbps bandwidth restriction
+environment, and the average value of each client is taken as the single-round delay
+indicator. The server records the peak bandwidth usage after receiving all client gradients
+in each round. To evaluate the robustness of the top-k transmission mechanism under
+real-world unstable network conditions, a network jitter simulation experiment was
+      English learning behaviour analysis and intelligent recommendation system               233
+
+conducted. For this test, the baseline 200 Mbps inter-node bandwidth was dynamically
+perturbed using a Gaussian noise model (mean = 0, standard deviation = 50 Mbps),
+simulating sudden bandwidth drops and spikes. Additionally, the latency range was
+expanded from 15–60 ms to 15–200 ms with a uniform random distribution to mimic
+severe packet queuing delays. Under this jittery environment, the ‘transmission success
+rate’ was measured as the percentage of global aggregation rounds in which all
+200 clients successfully uploaded their compressed gradients within a 5-second timeout
+window. A round was marked as failed if any client exceeded the timeout or if packet
+loss triggered a retransmission that could not be completed within the window. This test
+was run for 100 consecutive rounds for each of the three schemes (FedAvg, top-k,
+FedAdam + top-k) to gather statistically significant data on system stability. The
+convergence round stops when the global model no longer improves Precision@10 by
+more than 0.1% in the validation set, and the required aggregation rounds are recorded.
+Table 8     Robustness of communication schemes under simulated network jitter
+
+                           Avg.     Avg.              Success rate   Success              Δ
+                                          Convergence
+ Scheme                   upload  latency               (stable    rate (under         success
+                                            rounds
+                        size (MB)   (ms)               network)       jitter)            rate
+ Original FedAvg           2        120          50           99%           85%        –14%
+ Top-k sparsification    0.004      0.8          62           98%           76%        –22%
+ FedAdam + top-k         0.004      0.8          38           99%           95%         –4%
+
+The experiment compares three schemes: original FedAvg (no compression, fixed
+learning rate), top-k sparse compression (0.1% significant gradient retention) and
+FedAdam adaptive learning rate scheduling + top-k compression. The experiment
+measures the single-round uploaded data volume, average bandwidth usage, delay and
+convergence rounds for each scheme. The comparative analysis of the federated learning
+communication efficiency optimisation scheme is shown in Figure 6.
+
+Figure 6   Comparative analysis of federated learning communication efficiency optimisation
+           schemes (see online version for colours)
+234      S. Yang and D. Hao
+
+Figure 6 compares the efficiency indicators of three federated learning communication
+schemes. The original FedAvg uploads 2 MB of data in a single round, with an average
+latency of 120 ms, a bandwidth peak of 900 Mbps, and requires
+50 rounds of convergence. Top-k sparsification compresses the upload volume to
+0.004 MB and shortens the latency to 0.8 ms, but the number of convergence rounds
+increases to 62. FedAdam + top-k maintains a compression ratio of 0.004 MB, with a
+latency of 0.8 ms. The number of convergence rounds is reduced to 38 rounds through
+adaptive learning rate scheduling. FedAdam has the ability to accelerate convergence
+while maintaining efficient communication.
+
+3.5 Cross-platform collaborative gain verification
+For cold start users, 10% of all users are randomly selected as the experimental group.
+Only the five earliest behaviour records of each user are retained for local model
+initialisation, and the remaining behaviours are used as the test set. To examine the
+sensitivity of the initial record count to the effectiveness of cold-start recommendations,
+this study supplemented multiple sets of controlled experiments with varying initial
+record counts in the cold-start experiments. The initial record counts were set to
+five groups: 1, 3, 5, 10 and 20. Experiments were repeated under the same random seed
+to ensure result comparability. For each group of experiments, we recorded the cold-start
+hit rate (Precision@Top 10), NDCG@Top 10, the proportion of privacy budget
+consumption, and the success rate of membership inference attacks. Paired statistical tests
+were conducted to analyse performance differences across varying initial record counts,
+utilising Student’s t-test and reporting p-values and confidence intervals. The results were
+presented in tabular form and performance curves were plotted against changes in the
+initial record count to quantify the impact of the initial record count on recommendation
+effectiveness and privacy consumption. After each round of global aggregation, the client
+generates a top-10 recommendation list based on the local initialisation model and the
+latest global model, and matches the list with the first behaviour in the test set. If the first
+behaviour course appears in the recommendation list, it is recorded as a successful
+conversion.
+     The effect of cross-platform interest alignment is quantified by cosine similarity: for
+each cold-start user, the cosine similarity between the local interest vector and the global
+interest representation is calculated before and after the federated attention mechanism
+alignment. Before alignment, the original FedAvg global model output without MMD
+alignment is used as a reference; after alignment, the global interest representation output
+by the federated attention mechanism is used as a reference. The cosine similarities of all
+cold-start users are averaged to obtain the alignment gain index. The comparison between
+the cold-start behaviour hit rate and interest alignment is shown in Figure 7.
+     Figure 7 shows the comparison of cold start hit rate and interest alignment effect of
+the federated cross-platform recommendation system. FedProx-hit rate shows that the
+cold start behaviour hit rate of the baseline method is 0.213; proposed method-hit rate
+shows that the method in this paper increases the hit rate to 0.292, and the cold start hit
+rate increases by 37%, mainly due to the grammar enhancement recommendation of
+cross-platform migration: the system prioritises highly relevant courses that match the
+initial error pattern for new users. The effect of the federated attention mechanism on
+interest alignment was compared before and after alignment: the cosine similarity before
+alignment was 0.48, and it increased to 0.65 after alignment (an increase of 35%). The
+       English learning behaviour analysis and intelligent recommendation system              235
+
+annotation emphasises that the experiment is based on 80,000 user behaviour records,
+verifying the dual advantages of the federated attention mechanism in improving
+recommendation efficiency and cross-domain interest consistency.
+
+Figure 7   Federated cross-platform performance: cold start behaviour hit rate and interest
+           alignment comparison (see online version for colours)
+
+
+
+
+Notes: Experiment based on 80,000 user behaviour records. Federated attention improves
+       hit rate by 37%. Interest alignment improve by 35%.
+
+3.6 Dynamic mechanism adaptability test
+The sensitivity monitoring module maintains a recent gradient batch window of length
+W = 50 on each client, and uses the KL divergence between the gradient distribution of
+each batch in the sliding window and the gradient distribution of the previous window,
+that is, ΔKL, as the sensitivity change. Whenever ΔKL > τ (τ = 0.05), a privacy budget
+redistribution is triggered. The trigger time t1 and the corresponding noise injection
+parameter update completion time t2 are recorded, and the response delay δ = t2 – t1 is
+calculated (both the average and the 95% quantile are recorded). The trigger event and δ
+value are output in the federated training log throughout the process.
+     After the global aggregation process is completed, the budget reallocation frequency
+statistics summarise the number of triggers per client in units of hours to obtain the
+trigger frequency fi(t) for hour t. To account for the continuity of dynamic data changes,
+the adjustment of the subsequent KL divergence threshold τ for each client is based on a
+smoothed trigger frequency, calculated as a 3-hour moving average: fi,smooth(t) = (fi(t)
++ fi(t – 1) + fi(t – 2)) / 3. The threshold τ is then adaptively adjusted according to
+fi,smooth(t): when fi,smooth(t) > fmax (fmax = 5 times/hour), τ is adjusted upward by 10%; when
+fi,smooth(t) < fmin (fmin = 1 time/hour), τ is adjusted downward by 10%. This smoothing
+mechanism ensures the system responds to sustained trends rather than transient spikes or
+drops in sensitivity. The adaptively adjusted τ value is synchronously updated to the local
+monitoring module. In the experimental environment, 50 rounds of federated training are
+run continuously for 200 non-IID clients. The ‘privacy budget utilisation’ metric reported
+236       S. Yang and D. Hao
+
+in Table 6 represents the percentage of the total allocated privacy budget (ε = 1.0) that
+was actually consumed by the system to complete its 50 training rounds. It is calculated
+by dividing the cumulative privacy cost recorded by the moments accountant at the end
+of training by the total budget limit (1.0), then multiplying by 100 to express it as a
+percentage. A higher utilisation rate indicates that the mechanism is more efficient at
+spending its privacy allowance to achieve model convergence, meaning it extracts more
+utility from the same privacy guarantee. The performance comparison of the dynamic
+mechanism is shown in Table 9.
+Table 9     Dynamic mechanism performance comparison table
+
+                                   Avg.                     Comm.                  Privacy
+                                              δ95  Client            Cold-start
+                                 trigger                   overhead                 budget
+ Method type                               latency fi std.           hit rate ↑
+                                  delay                    reduction              utilisation
+                                             (ms)   dev.                (%)
+                                δmean (ms)                    (%)                     (%)
+ Static DP baseline             280 ± 15    450     1.2    22 ± 3%      15%       45 ± 5%
+ Dynamic (fixed threshold)      140 ± 10    250     0.8    65 ± 4%      32%       78 ± 3%
+ Dynamic (adaptive threshold)    120 ± 8    210     0.4    76 ± 2%      37%       89 ± 2%
+ Dynamic (adaptive w/            118 ± 7    205     0.2    75 ± 2%      38%       88 ± 2%
+ smoothing)
+ Non-private baseline               -        -      2.1    85 ± 3%      45%         100%
+
+Table 9 shows the performance comparison of different privacy protection mechanisms
+in the federated recommendation system, highlighting the advantages of dynamic
+mechanisms in multiple indicators. The trigger delay of static differential privacy (static
+DP baseline) is as high as 280 ms, the 95% delay is 450 ms, the standard deviation of
+client trigger frequency is 1.2, the communication overhead is only reduced by 22%, the
+cold start hit rate is 15%, the privacy budget utilisation rate is 45%, and the overall
+performance is limited. After adopting the dynamic mechanism with fixed threshold, the
+delay was reduced to 140 ms, δ95 was reduced to 250 ms, the standard deviation was
+reduced to 0.8, the communication overhead was reduced by 65%, the hit rate was
+increased to 32%, and the budget utilisation rate reached 78%. After further introducing
+the dynamic mechanism with adaptive threshold, the average trigger delay was the
+lowest, only 120 ms, the 95% delay was 210 ms, the trigger standard deviation was 0.4,
+the communication overhead was reduced by 76%, the cold start hit rate was increased to
+37%, and the privacy budget utilisation rate was increased to 89%. Although the
+non-privacy mechanism has the highest overhead and hit rate (85%, 45%), the privacy
+budget utilisation is 100%, which lacks protection. The data clearly shows that the
+dynamic mechanism, especially the adaptive threshold strategy, takes into account both
+the recommendation effect and system efficiency while protecting privacy.
+
+
+4     Conclusions
+
+This paper proposes an intelligent recommendation framework that integrates dynamic
+privacy mechanism and federated learning to address the core contradiction between
+privacy protection and recommendation utility in English learning recommendation
+systems. In the speech modality, the phonological characteristics of different languages
+and the availability of speech recognition resources will directly impact the quality of
+       English learning behaviour analysis and intelligent recommendation system             237
+
+oral features, thereby influencing dynamic privacy allocation and cold-start transfer
+strategies. In the text and knowledge graph modalities, differences in writing systems and
+the cross-lingual consistency of knowledge point mappings will affect the quality of
+knowledge embeddings. Therefore, when applying the method to multilingual scenarios,
+it is necessary to introduce multilingual pre-trained models or perform cross-lingual
+alignment of knowledge graphs, and account for variations in automatic speech
+recognition confidence scores and sparsity across different languages in privacy budget
+mapping. The paper identifies these limitations and proposes directions for future work,
+including conducting transfer experiments on multilingual public datasets to evaluate the
+impact of adopting multilingual pre-trained models and cross-lingual knowledge
+alignment on recommendation accuracy, privacy consumption and communication
+efficiency. Related experimental plans are outlined as follow-up work to validate the
+generalisation of this method in non-English environments. The KL divergence is used to
+quantify the sensitivity of multimodal data, and the dynamic allocation of differential
+privacy budget is realised. Combined with the adaptive Gaussian noise injection strategy,
+the cold start hit rate is improved by 37% through language error pattern diagnosis and
+knowledge point association recommendation while protecting user privacy. This paper
+uses a hybrid model of transformer and Bi-LSTM to model learning behaviour temporal
+features and cross-modal semantic associations, introduces knowledge graph embedding
+technology to enhance feature representation capabilities, designs a federated attention
+mechanism to achieve cross-platform interest migration, aligns distribution differences
+through MMD loss, and uses top-k gradient compression and FedAdam optimiser
+to collaboratively optimise communication efficiency, compress single-round
+communication overhead, and improve convergence speed. Experimental verification
+shows that this method effectively balances privacy security and recommendation
+accuracy on a dataset of 80,000 users. The Precision@10 and NDCG@10 indicators
+reach 0.447 and 0.394 respectively, and the attack success rate is controlled at 0.13,
+providing a technical path that takes into account compliance and commercial value for
+cross-platform collaborative recommendations in the field of education.
+
+
+Declarations
+
+Conflicts of interest: The authors declare no conflict of interest.
+Funding: This work was supported by Research on the Training Model for Intercultural
+Communication Competence Development in Foreign Language Majors under the New
+Liberal Arts Initiative (GH23417).
+
+
+References
+Ali, W., Kumar, R., Zhou, X. et al. (2024) ‘Responsible recommendation services with blockchain
+     empowered asynchronous federated learning’, ACM Transactions on Intelligent Systems and
+     Technology, Vol. 15, No. 4, pp.1–24.
+Cao, B., Zhong, W., Xie, X. et al. (2022) ‘A multi-modal feature fusion-based approach for mobile
+     application classification and recommendation’, Journal of Internet Technology, Vol. 23,
+     No. 6, pp.1417–1427.
+238       S. Yang and D. Hao
+
+Chen, C., Liu, J., Tan, H. et al. (2025) ‘Trustworthy federated learning: privacy, security, and
+     beyond’, Knowledge and Information Systems, Vol. 67, No. 3, pp.2321–2356.
+Chen, X., Wang, C., Yang, Q. et al. (2023) ‘The opportunity in difficulty: a dynamic privacy
+     budget allocation mechanism for privacy-preserving multi-dimensional data collection’, ACM
+     Transactions on Management Information Systems, Vol. 14, No. 1, pp.1–24.
+Chen, Y., Blum, R.S., Takáč, M. et al. (2022) ‘Distributed learning with sparsified gradient
+     differences’, IEEE Journal of Selected Topics in Signal Processing, Vol. 16, No. 3,
+     pp.585–600.
+Chronis, C., Varlamis, I., Himeur, Y. et al. (2024) ‘A survey on the use of federated learning in
+     privacy-preserving recommender systems’, IEEE Open Journal of the Computer Society,
+     Vol. 5, No. 5, pp.227–247.
+Cui, L., Su, X., Ming, Z. et al. (2020) ‘CREAT: blockchain-assisted compression algorithm of
+     federated learning for content caching in edge computing’, IEEE Internet of Things Journal,
+     Vol. 9, No. 16, pp.14151–14161.
+Da Silva, F.L., Slodkowski, B.K., Da Silva, K.K.A. et al. (2023) ‘A systematic literature review on
+     educational recommender systems for teaching and learning: research trends, limitations and
+     opportunities’, Education and Information Technologies, Vol. 28, No. 3, pp.3289–3328.
+Feng, C., Feng, D., Huang, G. et al. (2024) ‘Robust privacy-preserving recommendation systems
+     driven by multimodal federated learning’, IEEE Transactions on Neural Networks and
+     Learning Systems, Vol. 36, No. 5, pp.8896–8910.
+Gesese, G.A., Biswas, R., Alam, M. et al. (2021) ‘A survey on knowledge graph embeddings with
+     literals: which model links better literal-ly?’, Semantic Web, Vol. 12, No. 4, pp.617–647.
+Gong, L., Zhang, J., Wei, M. et al. (2023) ‘What is the intended usage context of this model?
+     An exploratory study of pre-trained models on various model repositories’, ACM Transactions
+     on Software Engineering and Methodology, Vol. 32, No. 3, pp.1–57.
+Huang, T., Liang, C., Wu, D. et al. (2023) ‘A debiasing autoencoder for recommender system’,
+     IEEE Transactions on Consumer Electronics, Vol. 70, No. 1, pp.3603–3613.
+Jangid, M. and Kumar, R. (2025) ‘Deep learning approaches to address cold start and long
+     tail challenges in recommendation systems: a systematic review’, Multimedia Tools and
+     Applications, Vol. 84, No. 5, pp.2293–2325.
+Javeed, D., Saeed, M.S., Kumar, P. et al. (2023) ‘Federated learning-based personalized
+     recommendation systems: an overview on security and privacy challenges’, IEEE
+     Transactions on Consumer Electronics, Vol. 70, No. 1, pp.2618–2627.
+Jegadeesan, S., Obaidat, M.S., Vijayakumar, P. et al. (2022) ‘Efficient privacy-preserving
+     anonymous authentication scheme for human predictive online education system’, Cluster
+     Computing, Vol. 25, No. 4, pp.2557–2571.
+Khanal, S.S., Prasad, P.W.C., Alsadoon, A. et al. (2020) ‘A systematic review: machine learning
+     based recommendation systems for e-learning’, Education and Information Technologies,
+     Vol. 25, No. 4, pp.2635–2664.
+Lahiassi, J., Aammou, S. and Warraki, O.E.L. (2023) ‘Enhancing personalized learning with a
+     recommendation system in private online courses’, Conhecimento & Diversidade, Vol. 15,
+     No. 39, pp.176–189.
+Li, Q., Wen, Z., Wu, Z. et al. (2021) ‘A survey on federated learning systems: vision, hype and
+     reality for data privacy and protection’, IEEE Transactions on Knowledge and Data
+     Engineering, Vol. 35, No. 4, pp.3347–3366.
+Nugroho, A. and Atmojo, A.E.P. (2020) ‘Digital learning of English beyond classroom: EFL
+     learners’ perception and teaching activities’, Journal of English Education and Linguistics
+     Studies (JEELS), Vol. 7, No. 2, pp.219–243.
+Ogunseyi, T.B., Avoussoukpo, C.B. and Jiang, Y. (2023) ‘A systematic review of privacy
+     techniques in recommendation systems’, International Journal of Information Security,
+     Vol. 22, No. 6, pp.1651–1664.
+       English learning behaviour analysis and intelligent recommendation system                239
+
+Raj, N.S. and Renumol, V.G. (2022) ‘A systematic literature review on adaptive content
+     recommenders in personalized learning environments from 2015 to 2020’, Journal of
+     Computers in Education, Vol. 9, No. 1, pp.113–148.
+Sharma, K. and Giannakos, M. (2020) ‘Multimodal data capabilities for learning: what can
+     multimodal data tell us about learning?’, British Journal of Educational Technology, Vol. 51,
+     No. 5, pp.1450–1484.
+Singh, N.K., Tomar, D.S., Shabaz, M. et al. (2023) ‘Self-attention mechanism-based federated
+     learning model for cross context recommendation system’, IEEE Transactions on Consumer
+     Electronics, Vol. 70, No. 1, pp.2687–2695.
+Soyoof, A., Reynolds, B.L., Vazquez-Calvo, B. et al. (2023) ‘Informal digital learning of English
+     (IDLE): a scoping review of what has been done and a look towards what is to come’,
+     Computer Assisted Language Learning, Vol. 36, No. 4, pp.608–640.
+Susanty, L., Hartati, Z., Sholihin, R. et al. (2021) ‘Why English teaching truth on digital trends as
+     an effort for effective learning and evaluation: opportunities and challenges: analysis of
+     teaching English’, Linguistics and Culture Review, Vol. 5, No. S1, pp.303–316.
+Wang, S., Zheng, H., Wen, X. et al. (2024) ‘Distributed high-performance computing methods for
+     accelerating deep learning training’, Journal of Knowledge Learning and Science Technology,
+     Vol. 3, No. 3, pp.108–126, ISSN: 2959-6386 (online).
+Wu, J.Y., Tsai, Y.Y., Chen, Y.J. et al. (2025) ‘Digital transformation of mental health therapy by
+     integrating digitalized cognitive behavioral therapy and eye movement desensitization and
+     reprocessing’, Medical & Biological Engineering & Computing, Vol. 63, No. 2, pp.339–354.
+Wu, Z. and Jia, F. (2022) ‘Construction and application of a major-specific knowledge graph based
+     on big data in education’, International Journal of Emerging Technologies in Learning (iJET),
+     Vol. 17, No. 7, pp.64–79.
+Yang, M. and Li, D. (2025) ‘Personalized intelligent recommendation model for educational games
+     based on data mining’, Information Technology and Control, Vol. 54, No. 1, pp.64–83.
+Zeng, J., Huang, Z., Wu, Z. et al. (2025) ‘FedGR: cross-platform federated group recommendation
+     system with hypergraph neural networks’, Journal of Intelligent Information Systems, Vol. 63,
+     No. 1, pp.227–257.
+Zhang, K., Xing, S. and Chen, Y. (2024) ‘Research on cross-platform digital advertising user
+     behavior analysis framework based on federated learning’, Artificial Intelligence and Machine
+     Learning Review, Vol. 5, No. 3, pp.41–54.
+

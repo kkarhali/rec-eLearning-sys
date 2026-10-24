@@ -1,0 +1,277 @@
+            ICSPIS 2016, 14-15 Dec. 2016, Amirkabir University of Technology, Tehran, Iran.
+
+
+                  CodERS: A Hybrid Recommender System for an E-learning System
+
+                               MohammadHossein Ansari1, Mohammad Moradi1, Omid NikRah2, Keyvan M. Kambakhsh3
+                                      1
+                                        Young Researchers and Elite Club, Qazvin Branch, Islamic Azad University ,Qazvin, Iran
+                     2
+                         Faculty of Computer and Information Technology Engineering, Qazvin Branch, Islamic Azad University ,Qazvin, Iran
+                                       3
+                                         Faculty of Computer Science and Engineering , Shahid Beheshti University, Tehran, Iran
+                                      Mha@codelearnr.com; {Moradi.c85|Omidnikrah} @gmail.com; Keyvan@codelearnr.com
+
+
+     Abstract— For years, E-learning systems are around to                         equipped with some platform-specific features and processes.
+provide students and learners with virtual educational                             In this paper, the architecture and details of CodERS are
+environments in which they have no need to others’ assistance in                   described and its front-end results for users as well as initial
+the process of learning. From technical point of view, the major                   experiments are presented. To our knowledge, CodERS is the
+goal of such systems is to improve education and learning levels                   first recommender system for online programming learning
+of users through leveraging the system’s facilities. In this regard,               platforms and the authors believe it could inspire researchers
+it is essential for the system to be able to analyze users’ functions              to develop next generation of such systems. The rest of the
+and behaviors to prepare them with most appropriate learning                       paper is organized as follows:
+materials. In other words, the core component of a working and
+efficient e-learning system is its recommender system. Since                          Related works and background of the present study are
+requirements and processes of any recommender system strongly                      discussed in section 2 and 3 respectively. CodERS architecture
+depends on the context, users’ behaviors and case-specific goals,                  and workflow are explained in next sections, 4 and 5. Finally,
+in most of situations they should be designed exclusively. Due to                  the preliminary experiments and the current features and
+this fact, in this paper we present a hybrid and context-specific                  benefits of the system and possible future works are presented
+recommender system (CodERS) for our interactive programming                        in section 6 and 7, respectively.
+e-learning system, CodeLearnr, and provide an overview on its
+features including conceptual architecture, workflow and sample                                          II. RELATED WORKS
+outputs.
+                                                                                       Due to importance of personalization of e-learning
+   Keywords—component; Recommender system; e-learning;                             platforms, developing recommender systems for such systems
+behavior analysis; Programming education; Data fusion                              has been become one of the most important research areas in
+                                                                                   the field. In this regard, some of notable works are as follows:
+                             I. INTRODUCTION                                       in [5] a personalized e-learning recommender system, PLRS,
+    To improve and develop educational approaches and with                         has been proposed with the goal of helping students finding
+respect to the technological advancements, e-learning systems,                     learning materials they need to study. In another work, authors
+specifically in the new millennium, have been gained a                             in [6] introduced an ontology-based hybrid recommender
+                                                                                   system. The main benefit of this system is its ability to
+notable attention. In fact, development of such systems is a
+                                                                                   semantic search of learning materials. Another similar
+natural answer to the reasonable demand of a large number of                       research conducted in [7]. The underlying idea of the work
+people who want to be educated beyond the border of                                reported in [8] is to recommend learning materials to students
+traditional systems in the form of self-learning, time and                         based on the content similarity and learners’ feedbacks in the
+location independent and technology-driven platforms. To                           form of rating. As a step further, the recommender system
+address this issue, over the recent years many academic and                        proposed in [9] had no need to explicit feedback and provides
+practical1 works have been done, such as [1- 3].                                   automatic personalization based on recent navigation history
+     Due to intrinsic nature of such systems and to preserve                       of users. Moreover, similarity between learning materials and
+quality of learning, lack of teachers/instructors should be                        users’ preferences is another factor to make proper
+compensated in some way. In other words, an efficient and                          recommendations. Notion of leveraging web mining to build
+working e-learning platform should be designed in such a way                       recommender agent for e-learning has been introduced in [10].
+to investigate individual needs, functions and performance of
+learners to provide them with learning materials. Therefore,                                                III. BACKGROUND
+the core component of a working and effective e-learning                              Regarding the importance of programming education,
+system is its recommendation component. Of course, since                           specifically for juveniles and young students, we have
+any e-learning system has its own features and requirements,                       designed and implemented the first interactive programming
+managing and improving the system is a case-specific task.
+                                                                                   learning platform for Persian-speaking users, called
+This led us to design a special recommender system for our
+system, CodeLearnr2 [4], the first interactive programming e-                      CodeLearnr[4]. Within its user-friendly environment and
+learning platform for Persian-speaking users. Since the                            without any additional requirements but a web browser, users
+learning materials in CodeLearnr are programming courses,                          can easily study the programming courses and take their
+our proposed recommender system, CodERS, has been                                  learning into practice through its live programming facilities.
+                                                                                   Moreover, the system (specifies and) notifies users of their
+1
+    https://www.codecademy.com/
+                                                                                   errors and mistakes. In fact, it manages and guides the
+2
+    https://www.CodeLearnr.com                                                     learning process as a virtual, dedicated teacher/instructor.
+
+
+
+
+                                                         978-1-5090-5820-4/16/$31.00 ©2016 IEEE
+                          Fig.1. The conceptual architecture of CodERS
+
+   Nonetheless, this is the first step in a long journey of an e-            a relationship between a group of connected users
+learning system since the vision is improving education level                and their coding style and common errors.
+and users’ learning performance. In this regard, the
+CodeLearnr’s ultimate goal is to simulate presence of an                         ( )=           (      ,   ,     ,       ,         ,     ) (1)
+intelligent teacher in a virtual dedicated classroom that
+provides students with personalized and tailored learning                •   System Analysis Component: This component (2)
+materials, exercises and experiences.                                        that could also be named Matching Component is in
+    To reach this achievement and equipping the system with                  charge of matching users’ features and needs with the
+capability of analyzing behavior and performance of learners                 system’s facilities and different capabilities for
+for preparing user-specific educational materials, the core                  further decisions. In other words, it considers that for
+component of this e-learning system is its recommender
+system. Doing so, we designed Codelearnr’s recommender                       a given user (ui), what type of recommendations
+system, CodERS, that its architecture and details will be                    should be generated by the system and how they
+discussed in the following sections.                                         should be presented to enhance his/her learning and
+                                                                             performance. In other words, it specifies how the
+                IV. SYSTEM ARCHITECTURE                                      system could help a given users with its features and
+   According to the intended applications and functionalities,               possibilities. The underlying algorithm for the
+the conceptual architecture of CodERS is illustrated in                      matching process is neural network (Fig. 3).
+Fig.1.The system is comprised of four main components as
+follows:                                                                                    (       ( ), ) ⇒ (       ,       ,…,       ) (2)
+     • User Analysis Component: This subsystem is the
+         most important and determining component of the                 •   Recommendation engine: All results of the previous
+         system. Code learners’ behaviors and activities,                    steps would be aggregated in this component to
+         namely their coding patterns, feedbacks, interactions,              generate most appropriate recommendations for users
+         connections and preferences, would be analyzed in                   (3). These recommendations will be presented to the
+         this step (as in (1)) to specify their requirements and             user both explicitly in the form of notifications and
+         needs. In fact, such data are main sources of system                implicitly within the learning process (through
+         for further processes and operations. Moreover,                     adapting materials and user interface elements based
+         users’ social media information (uiSM) will be                      on users’ needs).
+         investigated for more accurate and personalized
+         decisions and recommendations. To integrate these
+         different types of data, a data fusion process will be
+         leveraged. The anticipated results of this procedure
+         are a list of user-specific (behavioral) patterns for
+         further decision making (Fig. 2).
+         Specifically, such patterns uncover hidden
+         relationships between different characteristics of                  Fig.2. Schematic representation of user analysis component
+         users. For example, it may be discovered that there is
+Fig.3. Workflow of system analysis (matching) component
+
+          Moreover, some managerial advices will be presented
+          to the system for the sake of improving the current
+          processes.                                                              Fig.4. Internal process of recommendation engine
+
+
+                                                                                 (AR) by users will be analyzed and evaluated in this
+                       ,   ( ),             ⇒ (    ,      ,…,   ) (3)
+                                                                                 step to build up a knowledge base for the decision
+                                                                                 making processes and improving future suggestions
+          The detailed underlying process within the                             (4).
+          recommendation engine is as follows (Fig.4.):
+               1. First, all data that come from different                                          =          ( )+        +         ( )   (4)
+                  sources will be integrated into a specific
+                  format to be used for decision making by the
+                  component.
+                                                                                            V. SYSTEM WORKFLOW
+               2. Based on characteristics of the data, users’
+                  needs and system’s capabilities, quality of                Principally, CodERS is a hybrid recommendation system
+                  recommendation(s) will be specified in this           that takes benefits of both content-based and collaborative
+                  sub-step. It includes course-specific                 filtering recommendation strategies. Clearly, when it comes to
+                                                                        suggesting further learning resources, content-based approach
+                  recommendations, educational resources and
+                                                                        comes in handy and when new courses or friends should be
+                  so on.                                                recommended, collaborative filtering method would be
+               3. Based on the previous steps, the most                 leveraged. Nonetheless, the central concept that CodERS
+                  appropriate      algorithm     (collaborative         shaped around is recommendation based on the user
+                  Filtering, content-based, etc) or a specific          behavior/activity analysis, similar to concepts presented in
+                  combination of several algorithms (hybrid             [14, 15].
+                  approach) will be dynamically determined.                  Input data that are subject to analysis and will be leveraged
+               4. The outcome of applied algorithm(s) in step           to specify users’ characteristics and needs to generate
+                  3 will be resulted in generating user-                recommendations are (but not limited to) followings:
+                  specific/system-specific recommendation(s).                 • User-generated codes (patterns, errors, etc.)
+                  In addition to the common advices to users,                 • Course/step/exercise completion duration
+                  user interface elements will be rearranged                  • Users’ questions and (implicit)feedbacks
+                  and repositioned in an adaptive manner to                   • Internal and external social media connections and
+                  improve user experience within the learning                     interaction data
+                  process.                                                  The results of the process depicted in Fig.1. are of two
+               5. Finally, the recommendations will be                  types: recommendations for the system and users (Fig.3). The
+                                                                        former refers to the system self-recommendations - based on
+                  presented in the form of notifications in the
+                                                                        activities and performance of learners- to identify drawbacks
+                  user’s profile. This process relies on                and deficiencies of educational materials, system architecture,
+                  capability of the system to provide adaptive          user-experience design and so on. Moreover, students’
+                  user interface.                                       progress records may be leveraged to redesign courses and
+     •    Evaluation Component: All the recommendations                 learning materials. In addition to the explicit feedback of users
+          and their effects on users’ performance (Pe) and              in the form of questions, ratings, etc., the system implicitly
+          system maintenance (Sm) as well as acceptance rate            infers similar information based on their usage patterns.
+   In addition to the special feature of self-recommendation,
+CodERS, based on several factors including learners’
+progress, efficiency and their detailed records, provides
+students with some recommendations such as (Fig.5):
+     • Further educational resources such as related books
+     • Specific courses and steps
+     • Redoing exercises
+     • User-specific exercises and content
+     • Adaptive courses in which based on the user’s
+         records, some specific steps and exercises would be
+         presented again
+     • Friends (code learners with similar interests and
+         performance within the system-wide social network)
+In addition to the system-generated recommendations, it is
+possible for users to ask for customized recommendations
+through the specified form (Fig.6).
+                 VI. PRELIMINARY EXPERIMENT
+    We are currently finalizing the implementation of
+CodERS, however, to evaluate its efficiency we have
+conducted a preliminary experiment. In this limited test, 12
+randomly selected users provided with four recommendations
+based on their courses and performances, namely
+                                                                     Fig.6. facilities to ask for customized recommemdations
+recommendations on further learning materials and
+complementary exercises.
+  Users’ acceptance rates of the generated recommendations             All in all, since this test was mainly based on content-based
+are depicted in the chart presented in Fig.7. This measure           recommendations and took benefit of a limited set of users’
+could be regarded as an appropriate precision indicator of           data, the results were satisfactory and in accordance with
+recommended items.                                                   expectations. In this regard, it is anticipated that incorporating
+   Moreover, to specify total satisfaction of users with the         users’ social data and taking benefits of collaborating filtering,
+recommended items, they asked to express their views by              CodERS could provide users with more accurate and useful
+choosing between 1 (imperfect) to 5 (perfect). The results are       suggestions.
+as in the Fig. 8.
+                                                                          VII. CURRENT FEATURES AND FUTURE EXTENSIONS
+                                                                        However CodERS is yet another recommender system for
+                                                                     e-learning platforms, its special context (namely programming
+                                                                     education) and unique features make it an interesting
+                                                                     contribution that could be inspirational for the future works in
+                                                                     the field.
+
+
+
+
+                                                                     Fig.7. Acceptance rates (or Precisions) of recommended items
+
+Fig.5. Recommendations based on the user’s courses and performance
+                                                                    is its focus on analyzing users’ generated programming codes
+                                                                    to infer their coding (and mistake) patterns for better
+                                                                    recommendations.
+
+                                                                                                 References
+
+                                                                    [1]  M. J. Huang, H. S. Huang, and M. Y. Chen, "Constructing a
+                                                                         personalized e-learning system based on genetic algorithm and case-
+                                                                         based reasoning approach," Expert Systems with Applications, vol. 33,
+                                                                         no. 3, pp. 551-564, October 2007.
+                                                                    [2] N. Soonthornphisaj, E. Rojsattarat, and S. Yim-Ngam, "Smart e-
+                                                                         learning using recommender system," In Computational intelligence,
+                                                                         Springer Berlin Heidelberg, pp. 518-523, August 2006.
+                                                                    [3] C. M. Chen,"Personalized E-learning system with self-regulated learning
+                                                                         assisted mechanisms for promoting learning performance," Expert
+Fig.8. Users’ total satisfaction with the recommended Items
+                                                                         Systems with Applications, vol. 36, no. 5, pp. 8816-8829, July 2009.
+                                                                    [4] M. H. Ansari, et al., " CodeLearnr: The First Interactive Programming
+To summarize its characteristics, they could be mentioned as             Learning Platform for Persian-speaking Users," In Proceedings of 1st
+follows:                                                                 International Conference on New Research Achievements in Electrical
+     • To our knowledge CodERS is the first recommender                  and Computer Engineering, 2016.
+         system for programming learning platforms                  [5] J. Lu, "Personalized e-learning material recommender system," In
+                                                                         Proceedings of International conference on information technology for
+     • Beside the common approaches, it works based on                   application (ICITA), pp. 374-379, 2004.
+         users behavior analysis                                    [6] L. Zhuhadar, O. Nasraoui, R. Wyatt, and E. Romero, "Multi-model
+     • User-generated codes and programs are subject to                  ontology-based hybrid recommender system in e-learning domain," In
+         analysis for generating recommendations                         Proceedings of the 2009 IEEE/WIC/ACM International Joint
+                                                                         Conference on Web Intelligence and Intelligent Agent Technology, pp.
+     • Providing self-recommendations for the system to                  91-95, 2009.
+         improve itself                                             [7] O. C. Santos, and J. G. Boticario,"Requirements for semantic
+     • Providing learners with adaptive courses based on                 educational recommender systems in formal e-learning scenarios,"
+         their usage patterns                                            Algorithms, vol.4, no. 2, pp. 131-154, July 2011.
+     • Providing explicit and implicit recommendations              [8] K. I. B. Ghauth, and N. A. Abdullah, "Building an e-learning
+                                                                         recommender system using vector space model and good learners
+     • Facilities for asking customized recommendations by               average rating," In Proceedings of Ninth IEEE International Conference
+         the users                                                       on Advanced Learning Technologies, ICALT'09, pp. 194-196, 2009.
+To make CodERS even more efficient and intelligent, some of         [9] M. K. Khrib, M. Jemn,and O. Nasraoui,"Automatic recommendations
+the future plans to enhance the system are as follows:                   for e-learning personalization based on web usage mining techniques
+                                                                         and information retrieval," In Proceedings of Eighth IEEE International
+     • Leveraging process mining and machine learning                    Conference on Advanced Learning Technologies, ICALT'08, pp. 241-
+         techniques to extract hidden patterns from the                  245, 2008.
+         system’s log and users’ behaviors                          [10] O. R. Zaíane, "Building a recommender agent for e-learning systems,"
+     • Analyzing social media for more personalization of                In Proceedings of International Conference on Computers in Education,
+                                                                         pp. 55-59, 2002.
+         the system based on users’ interests and connections
+                                                                    [11] T. Y. Tang, G. McCalla, "Smart Recommendation for an Evolving E-
+     • Providing facilities for allowing users to build their            Learning System: Architecture and Experiment," International Journal
+         customized educational materials and on-demand                  on E-Learning, vol 4, no. 1, pp. 105–129, 2005.
+         courses.                                                   [12] K. I. Ghauth, and N. A. Abdullah,"Measuring learner’s performance in
+                                                                         e-learning recommender systems," Australasian Journal of Educational
+                          VIII. CONCLUSION                               Technology, vol.26, no. 6, pp. 764-774, January 2010.
+    In this paper we have presented a context-specific              [13] J. E. S. U. S. Bobadilla, F. Serradilla, and A. Hernando, "Collaborative
+                                                                         filtering adapted to recommender systems of e-learning," Knowledge-
+recommender system, CodERS, for the first interactive                    Based Systems, vol. 22, no. 4, pp. 261-265, May 2009.
+programming learning platform for Persian-speaking users            [14] Z. Yan, P. Zhang, and R. H. Deng, "TruBeRepec: a trust-behavior-
+(CodeLearnr). The main goal of CodERS is to improve                      based reputation and recommender system for mobile applications,"
+learning level and performance of students through providing             Personal and Ubiquitous Computing, vol. 16, no. 5, pp. 485-506, Jun
+                                                                         2012.
+them with personalized and user-specific recommendations
+                                                                    [15] A. Geyer-Schulz, M. Hahsler, A. Neumann,               and A. Thede,
+and educational materials. The core concept behind the system            "Behaviorbased recommender systems as value-added services for
+is analyzing users’ behavior and activities within the system to         scienti.c libraries," in Statistical Data Mining & Knowledge Discovery,
+provide them with most appropriate suggestions. The unique               H. Bozdogan, Ed. Chapman & Hall/CRC, 2003, pp. 433–454.
+contribution of this study, which made it a pioneer in the field,
+

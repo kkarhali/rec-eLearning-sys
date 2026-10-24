@@ -1,0 +1,473 @@
+Hindawi
+Wireless Communications and Mobile Computing
+Volume 2022, Article ID 9054149, 7 pages
+https://doi.org/10.1155/2022/9054149
+
+
+
+
+Research Article
+Online Course Recommendation Using Deep Convolutional
+Neural Network with Negative Sequence Mining
+
+         Ming Gao ,1 Yonghan Luo,1 and Xiaonan Hu2
+         1
+             Computer School, Beijing Information Science & Technology University, Beijing 100101, China
+         2
+             Department of Economics and Related Studies, University of York, York YO10 5DD582343, UK
+
+         Correspondence should be addressed to Ming Gao; gm@bistu.edu.cn
+
+         Received 11 May 2022; Revised 6 July 2022; Accepted 13 July 2022; Published 4 August 2022
+
+         Academic Editor: Yifan Zhu
+
+         Copyright © 2022 Ming Gao et al. This is an open access article distributed under the Creative Commons Attribution License,
+         which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.
+
+         Massive Open Online Course (MOOC) has been criticized for low completion rates, and one of the major reasons is that it fails to
+         oﬀer personalized course recommendations for diﬀerent users with diﬀerent demands. To solve this problem, this paper proposes
+         a personalized course recommendation model based on convolutional neural network combined with negative sequence pattern
+         mining. The model ﬁrst models the course-learning sequence as a negative sequence pattern according to the user’s course
+         registration, degree of completion, and ﬁnal grades, in which, the negative term means that students should not choose and
+         misoperate the principle of courses. Then, it employs a convolutional neural network structure to extract the internal features
+         of negative sequence patterns for representation learning. Finally, through the convolutional sequence-embedding model, each
+         user is recommended with a course list that includes the user’s maximized needs in recent temporal terms and the courses that
+         are easy to be misselected. Experiment results show that the recommended model achieves higher recommendation
+         performance with lower course dropout rate compared to baselines, which provides a new insight for both online and oﬄine
+         course recommendation.
+
+
+
+1. Introduction                                                        [10–12], hybrid recommendation [13–15], and sequence-
+                                                                       based (SB) recommendation [16–18]. Content-based recom-
+With the rapid development of online course technology                 mendation helps to solve the problem of cold start, but it is
+and Internet technology, Massive Open Online Course                    greatly aﬀected by data, often resulting in low recommenda-
+(MOOC) has grown rapidly in recent years, attracting mil-              tion accuracy [19, 20]. Collaborative ﬁltering-based course
+lions of online users [1–3]. For example, Coursera already             recommendation focuses on mining the similarity of
+has more than 4,300 courses and more than 200 university               learners (i.e., users) and courses, with the basic assumption
+partners from 27 countries with over 50 million learners               that similar users would take similar courses, but it can only
+(as of 2022). According to the survey, MOOCs are very ben-             make recommendations based on users with similar behav-
+eﬁcial to learners who have completed the courses [4]. Previ-          iours with target users, failing to solve the cold start prob-
+ous surveys also suggested that 61% of the respondents said            lems, such as recommendation for new registered users
+that MOOCs have educational beneﬁts and 72% believed                   [21, 22]. Hybrid recommendation is a combination
+that MOOCs have professional beneﬁts, which conﬁrms                    approach by mixing content and collaborative ﬁltering-
+the signiﬁcance of online learning, especially during the epi-         based methods to help solve the problems of missing recom-
+demic of COVID-19 [5].                                                 mendation values and cold start [23–25]. Sequence-based
+    The issue of accurate personalized course recommenda-              approaches focus on mining learning behaviour sequences
+tion in MOOC is the focus of both academia and industry [6,            of users. SB methods are further mainly divided into two cat-
+7]. The roadmap of course recommendation is mainly                     egories: the ﬁrst one is to update data through sequences,
+divided into content-based (CB) recommendation [8, 9],                 and the other is to model learning behaviour sequences
+collaborative ﬁltering-based (CFB) recommendation                      using time series technology [25].
+2                                                                         Wireless Communications and Mobile Computing
+
+    Therefore, although the existing model has tackled the       overhead of online, oﬄine, and update calculations in CF
+course recommendation problem existing in MOOC plat-             recommendation process. Later, Pang et al. [30] proposed
+form to a certain extent, MOOC still faces many new chal-        an adaptive MOOC recommendation (ARM) solution to
+lenges. The high dropout rate is one of the most serious         the problem of high dropout rate due to low satisfaction
+challenges facing MOOCs. According to statistics, the course     and loneliness on MOOC platforms. Their proposed method
+completion rate of a MOOC platform is often less than 5%         combines collaborative ﬁltering with time series to improve
+[1]. For users, when a large number of learning resources        the recommendation accuracy.
+and activities are presented on the Internet at the same time,        Deep learning methods have also been used to predict
+learners are inevitably confused by the overload of informa-     learning behaviours of online learners. For example, Fei
+tion resources, and it is diﬃcult to quickly ﬁnd learning        and Yeung [31] combined sequence markers with an
+resources suitable for them. Therefore, how to reduce the        RNN-based model to predict the dropout probability of stu-
+dropout rate and how to achieve personalized recommenda-         dents. Wang et al. [32] proposed a hybrid deep neural net-
+tion to users are the main research issues in the ﬁeld of        work dropout prediction model by combining both CNN
+online learning recommendation [26].                             and RNN. In order to improve the learning eﬃciency and
+    In order to improve the personalized recommendation          enthusiasm of learners, Zhang et al. [33] proposed a high-
+performance of MOOC learning platform, this paper pro-           precision oriented resource recommendation model based
+poses a personalized online course recommendation model          on deep belief network (DBN) in the MOOC environment.
+based on convolutional neural network combined with neg-         In this method, the learner characteristics and course con-
+ative sequence pattern mining by combining the preference        tent attributes are deeply mined, and the user-course feature
+of learning users, the correlation between course, and selec-    vector is constructed based on the learner behaviour charac-
+tion order of courses. The model ﬁrst represents the course      teristics as the input of the deep model. Later, Zhang et al.
+sequence as a negative sequence pattern according to the         [34] proposed a course recommendation model, namely,
+user’s course selection sequence, degree of completion, and      MCRS, based on distributed computing framework to solve
+ﬁnal grades. Then, feature extraction of negative sequence       the problem that traditional recommendation system could
+pattern is carried out by convolutional neural network.          not be directly and eﬀectively applied to MOOC platform
+Finally, a course list is recommended to each user through       in a closed education environment with relatively stable
+the convolutional sequence embedding model, which                number of courses and users. The basic algorithm of MCRS
+includes the user’s maximized needs in recent temporal           is an improved distributed association rule mining algorithm
+terms and the courses that are easy to be misselected.           based on Apriori algorithm. It is also useful to mine course
+    The rest of this paper is organized as follows: In Section   rules hidden in course registration data. Cristea et al. [35]
+2, we make a brief review on course recommendation. Then,        proposed a light-weighted method that can predict users’
+the detail of the proposed method is presented in Section 3.     dropout situation before they start learning only according
+We performed experiments on real-world data and reported         to their registration date. In addition to the prediction model
+the results in Section 4. Section 5 gives the conclusion.        itself, Nagrecha et al. [36] focused on the interpretability of
+                                                                 existing dropout prediction methods. Dalipi et al. [37]
+2. Related Work                                                  reviewed dropout prediction techniques and made some
+                                                                 insightful recommendations for this task. Qiu et al. [38]
+With the rapid development of MOOC platforms, online             studied the relationship between student engagement as well
+learning resources are also sharply increasing. Due to the       as certiﬁcate rate and proposed a potential dynamic factor
+diﬀerences in cognitive ability and knowledge structure of       graph (LadFG) to model and predict learning behaviour in
+learners, they cannot quickly identify and select the learning   MOOCs. However, the current research has not considered
+resources they are interested as well as demanded [27].          the information gain that learners’ negative behaviour of
+Therefore, it is urgent to make the intelligent model study      course evaluation can bring to the recommendation model.
+how to recommend useful and interesting learning resources       In other words, the utility of introducing users’ negative
+for learners eﬃciently and accurately. Early course recom-       behaviour to the course recommendation model in online
+mendation models are mainly transformation of generalized        learning platform needs further research.
+linear models (including logistic regression and linear sup-
+port vector machines) to predict learning behaviour of users     3. Materials and Methods
+[19]. For instance, Balakrishnan and Coetzee [28] proposed
+a hybrid model, which combined hidden Markov model               This section describes data materials and the proposed rec-
+(HMM) and logistic regression to predict the student reten-      ommendation model. We ﬁrst introduce the acquisition of
+tion rate of a single course. Pang et al. [29] proposed a mul-   MOOC data and the representation of negative sequence.
+tilayer self-adaptive recommendation method to                   Then, we introduce the course recommendation model
+recommend courses on MOOC by combining the eﬀective-             based on convolution sequence embedding. Figure 1 is the
+ness and eﬃciency of a collaborative ﬁltering recommenda-        overall architecture diagram of the personalized online
+tion method. Their method transforms the learner’s vectors       course recommendation model based on convolutional neu-
+into the same length dimension and disperses them into           ral network combined with negative sequence pattern min-
+clusters containing similar learners with more common les-       ing. The model is mainly divided into three modules,
+sons. At the same time, the proposed model reduces the time      among which data preprocessing includes data acquisition,
+Wireless Communications and Mobile Computing                                                                                                                      3
+
+
+                         Online learning
+                         platform                         Su1
+
+
+
+
+                                                  Negative sequence mode
+                          500 users with                                                            Conv.         Max pool.
+                          behaviour information
+                                                                           L
+
+                         User and course
+                         encoding                                          T                                                                 y (u,t)
+                                                                                         E (u,t)
+
+
+                                                  Pu
+                         Sequence construction
+
+               Data acquisition and pre-process                                Negative sequence mining based CNN                      Prediction
+                              (a)                                                                           (b)
+
+Figure 1: The general architecture of course recommendation model based on convolutional sequence embedding with negative sequence
+mining.
+
+                                                     Table 1: Symbol and denotations.
+
+Symbols                                                                                                                  Description
+U                                                                                                  U = fu1 , u2 , ⋯, um g is the set containing m users
+I                                                                                                  I = fi1 , i2 , ⋯, in g is the set containing n courses
+¬i                                                                                                                 Negative example course
+Su                                                                                  Su = fiu1 ,¬iu1 , ⋯,¬iud g represents the course selection sequence of the user
+
+
+
+collation, and negative sequence construction. The convolu-                                sented as I = fi1 , i2 , ⋯, in g, where I contains n courses. For
+tional neural network layer consists of embedding negative                                 a user u who is associated with some courses in I, this paper
+sequence patterns, convolution, and maximum pooling.                                       uses the sequence Su = fiu1 ,¬iu1 , ⋯,¬iud g to express such asso-
+The fully connected layer mainly connects user features with                               ciation, where iut denotes the course which the user comple-
+convolution sequences.                                                                     tion rate is greater than 50% and the score is higher than 5,
+                                                                                           namely, positive example course. Conversely, ¬iut denotes
+3.1. Dataset. In order to verify the eﬀectiveness of the pro-                              negative example course, and iut or ¬iut ∈ I. t represents the
+posed method, this paper uses a web crawler to randomly                                    order in which the user took lessons, in instead of the time-
+crawl the usage information of 500 learner users who have                                  stamp. For all user sequences Su , the goal of this paper is to
+studied no less than 20 courses in the internationally                                     recommend to each user a list of courses that includes the
+renowned course evaluation platform, namely, “Coursetalk.”                                 user’s most recent needs and the ones that users are prone
+The collected content includes the basic information of each                               to misselection, by taking into account their general prefer-
+user, course selection list, completion status, evaluation                                 ences and course selection ordering patterns.
+result, and ﬁnal grades. Based on users’ overall rating and                                    The convolutional sequence embedding model uses the
+completion status of the course, this paper divides the course                             convolutional neural network to learn the characteristics of
+into positive cases and negative cases (i.e., truancy/dropout                              the user’s behaviour sequence and uses the latent factor model
+course). For example, if users’ completion of the course is                                (LFM) to learn the user’s own characteristics of preferences. In
+less than 50%, this paper considers the course as a negative                               order to train the network, for each user u, the model extracts
+case. Considering that the range of users’ grading of courses                              every L consecutive items (i.e., courses) from the user’s
+is [0,10], the graded courses less than 5 are also deﬁned as                               sequence Su as input and their next T item as the target, as
+negative examples, and those greater than 5 are deﬁned as                                  shown in Figure 1(a). The network establishes this by sliding
+positive examples. Then, according to the class time of each                               a window with size L + T on the user’s course selection
+user, the user’s courses are arranged in sequence to form the                              sequence. Each window generates a training instance for u,
+class sequence of the user. The user’s course sequence is then                             represented by a triplet ðu, L, TÞ, where L represents the ﬁrst
+embedded by deep neural network.                                                           L items in each sliding time window of the user and T repre-
+                                                                                           sents the last T items after the same time window.
+3.2. Preprocess of Data. Table 1 shows the main symbol and
+denotations of the proposed method. All users are repre-
+sented as U = fu1 , u2 , ⋯, um g, where U contains m users,                                3.3. Convolution Sequence Embedding-Based Course
+and each user represents a sequence. All courses are repre-                                Recommendation. The proposed convolution sequence
+4                                                                                Wireless Communications and Mobile Computing
+
+embedding-based course recommendation model is mainly                  preferences of users, the basic characteristics of users are
+composed of three parts, namely, sequence embedding layer,             vectorized and expressed as Pu as we mentioned in the pre-
+convolution layer, and fully connected layer. Among them,              vious section. By concatenating Pu and o together, the fully
+the sequence embedding layer represents the user’s course              connected layer projects them to the output layer with jIj
+selection activity record as a sequence and carries out vector-        nodes, which is formulated as
+ization; the convolution layer convolves the embedded
+                                                                                                                "        #
+sequence according to the sliding time window; the fully                                                            z
+                                                                                                ðu,t Þ
+connected layer connects the user’s features with the convo-                                y            = w′                = b′,            ð5Þ
+lution sequence so as to recommend the most suitable                                                                Pu
+course sequence for users.
+                                                                       where w ′ ∈ ℝjIj×2d and b ′ ∈ ℝjIj are learnable weight trans-
+3.3.1. Sequence Embedding Layer. The convolutional                     formation and bias matrix, respectively.
+sequence model captures sequence features in potential
+space by embedding the ﬁrst L term into the neural network.            3.3.4. Loss Function. To train the entire network, we transfer
+For the embedding factor of item i, qi ∈ ℝd , where d is the           the yðu,tÞ from output layer into recommendation probability
+number of hidden dimensions, and similarly, the representa-            as
+tion of users is denoted as Pu ∈ ℝd . The embedding search                                                                        
+operation retrieves the embeddings of the previous L items                                                                  ðu,t Þ
+                                                                                    pðSut ∣ Sut−1 , Sut−2 , ⋯, Sut−L Þ = σ ySu ,              ð6Þ
+as the embedding base and hews them together. For user L                                                                                 t
+
+
+with time step t, the result matrix is Eðu,tÞ ∈ ℝl×d , which is
+represented by                                                         where σðxÞ = 1/ð1 + e−x Þ is the sigmoid function. C u repre-
+                                                                       sents the set of time steps that the model predicts for user
+                               2            3                          u. The possibilities of all sequences in the dataset can be
+                                   Qsut−L
+                                 6   7                                 described by
+                       Eðu,t Þ = 6   7
+                                 4 ⋯ 5:                         ð1Þ
+                                                                                              Y                     Y              
+                                                                                                              ðu,t Þ           ðu,t Þ
+                                   Qsut−1                                        pðs ∣ θÞ =              〠 σ ySut         1 − ySut ,          ð7Þ
+                                                                                                 u τ∈C u                     f ≠Sut
+
+3.3.2. Convolution Layer. The user behaviour sequence is
+obtained through the sequence embedding layer, and the                      and thereby the loss function of the model is formulated
+convolution layer is used to process the sequence with length          as
+L after partition. If there are n ﬁlter layers, then F k ∈ ℝd , 1                                     Y              
+                                                                                                ðu,t Þ             ðu,t Þ
+ ≤ k ≤ n, h ∈ f1, ⋯, Lg is the height of the convolution ker-                  L = 〠 〠 − log σ ySut           1 − ySut :                      ð8Þ
+nel. For example, assuming L = 4, then h = f1, 2, 3, 4g, and                         u τ∈Cu                                     f ≠Sut
+assuming that each h corresponds to two convolution layers,
+then n = 8. F k slides from E from top to bottom. For the
+                                                                       4. Results
+term i, its sliding range is 1 ≤ i ≤ L − h + 1. The convolution
+process is formulated as                                               4.1. Evaluation Metrics. In this paper, we evaluate the pro-
+                                                                       posed model comprehensively by using Precision@N,
+                     Cki = ϕc ðEi:i+h−1 ⊙ F k Þ,                ð2Þ    Recall@N, and mean average precision (MAP). During the
+                                                                       test, the model predicts a course sequence which contains
+where ⊙ denotes the convolution operation and ϕc ð∙Þ is the            N courses for one user, denoted as R1:N , and we compare
+activation function. Equation (2) represents the inner prod-           R1:N with the last 20% course sequence which the user actu-
+uct of the submatrix of F k from the row i to row i − h + 1 of         ally took and were masked in the training process, denoted
+E, i.e., Ei:i+h−1 . Therefore, the ﬁnal result of F k ﬁlter convolu-   as R. Under these conditions, Precision@N and Recall@N
+tion is formulated as                                                  for measuring the performance of recommendation are,
+                                                                       respectively, calculated as
+                       h                        i
+                   Ck = C k1 , Ck2 , ⋯, C kL−h+1 :              ð3Þ
+                                                                                                                         jR ∩ R1:N j          ð9Þ
+                                                                                        Precision@N rec =                            ,
+                                                                                                                             N
+    The max pooling operation is then applied to Ck to
+extract the maximum from all the values produced by this                                                            jR ∩ R1:N j
+particular ﬁlter. Generally, the maximum captures the most                               Recall@N rec =                         :            ð10Þ
+                                                                                                                       jRj
+important features extracted by the ﬁlter. Therefore, for n ﬁl-
+ters in this layer, the output value o ∈ ℝn is calculated by               In order to distinguish between dropout strategy in deep
+                                                                 learning and real incomplete courses, we use the term “tru-
+           o = max c1 , max c2 , ⋯, max ðcn Þ :                 ð4Þ    ancy” to distinguish them. Suppose that the course sequence
+                                                                       of truancy is M and the actual truancy course sequence is W,
+3.3.3. Fully Connected Layer. In order to obtain the general           then Precision@W and Recall@W for measuring the
+Wireless Communications and Mobile Computing                                                                                                                  5
+
+                                    Table 2: Recommendation performance among the proposed method and baselines.
+
+                          Our method                                                    Hybrid [39]                                       Ensemble [40]
+N       P@N             R@N      P@W                      R@W            P@N          R@N      P@W              R@W           P@N        R@N      P@W     R@W
+1        0.27            0.14               —              —             0.20         0.10           —           —                0.14   0.10      —       —
+5        0.39            0.21              0.45           0.52           0.23         0.11          0.34        0.44              0.26   0.17     0.39    0.41
+10       0.17            0.09              0.67           0.66           0.15         0.04          0.53        0.54              0.10   0.05     0.53    0. 56
+
+
+                         1                                                                          1
+
+
+                        0.8                                                                        0.8
+
+
+                        0.6                                                                        0.6
+                MAP
+
+
+
+
+                                                                                             MAP
+                        0.4                                                                        0.4
+
+
+                        0.2                                                                        0.2
+
+
+                         0                                                                          0
+                                1      2      3      4      5    6        7     8      9                   10          20          30    50     100
+
+                                                           L                                                                        d
+                                     T=1                                                                    T=1
+                                     T=2                                                                    T=2
+                                     T=3                                                                    T=3
+                                                    (a)                                                                     (b)
+
+Figure 2: MAP variation with diﬀerent hyperparameters: (a) MAP variation corresponds to the change value of the L; (b) MAP variation
+corresponds to the change in the potential dimension d.
+
+
+truancy behaviour can be calculated as                                                              (i) Hybrid Method [39]. This method uses the basic
+                                                                                                        information of courses and users as well as the
+                                                     jW ∩ M j                                           actions taken by users to generate personalized rec-
+                  Precision@W truancy =                       ,                     ð11Þ                ommendation of courses. The candidate courses
+                                                       jW j
+                                                                                                        were obtained by vectorization, weighting, and mul-
+                                                                                                        tirelational graph construction of the data collected
+                                                  jW ∩ M j                                              from the website, and then, the courses were ranked
+                      Recall@N truancy =                   :                        ð12Þ                according to their relevance to the target users by 3A
+                                                    jM j
+                                                                                                        ranking algorithm
+     Then, the mean average precision is calculated by                                              (ii) Ensemble Method [40]. This method can ﬁnd pat-
+                                                                                                         terns in user rating data and handle complex objects
+                                            ∑Ti=1 APi                                                    well. CBF attempts to recommend projects based on
+                              MAP =                   ,                             ð13Þ                 similarity in content, hence the project-to-project
+                                                T
+                                                                                                         association approach. Project description and user
+where T denotes number of users in the test set. For one                                                 positioning play an important role in CBF
+user, AP denotes the average precision which is calculated by
+                                                                                              4.3. Results and Performance Evaluation. In this experiment,
+                                                                                              Equation (8) is used as the loss function for training the
+                          ∑RN=1 Precision@N × relðN Þ                                         model, and the Adam optimizer was utilized [41]. As men-
+                AP =                                                 ,              ð14Þ
+                                              jRj                                             tioned above, there are 500 online learning users in our data-
+                                                                                              set. In this paper, 100 users with truancy records (negative
+where relðNÞ is the ratio of R1:N and R.                                                      cases) are randomly selected as the test dataset, and the
+                                                                                              remaining 400 users are used for training model parameters.
+4.2. Baselines. In this paper, two representative course rec-                                 The model performance was evaluated by comparing the
+ommendation methods, namely, hybrid [39] and ensemble                                         performance calculated by the aforementioned metrics.
+[40], were adopted to verify the eﬀectiveness of the proposed                                      The main experimental results are shown in Table 2. As
+method. The two models are brieﬂy introduced below.                                           we observed from Table 1, when N is set to 5, the overall
+6                                                                           Wireless Communications and Mobile Computing
+
+highest precision rate of predicting on course recommenda-        sponding author with a formal application form to access
+tion is 0.391, and the corresponding recall rate is 0.210.        the data.
+Because the result is too incidental when the W = 1 for pre-
+dicting course truancy, we only report the experiment results
+when N is 5 or 10. The precision and recall rates of the pro-
+                                                                  Conflicts of Interest
+posed method are much higher than the predicted result of         The authors declare that there is no conﬂict of interest
+the baseline models. Therefore, the eﬀectiveness of the method    regarding the publication of this paper.
+proposed in this paper is signiﬁcant, especially in predicting
+users’ truancy. Compared with hybrid method and ensemble
+method, the method presented in this paper improved by            Acknowledgments
+35% and 92%, respectively, in Precsion@1, indicating the pro-
+posed method has a signiﬁcant eﬀect in improving the order of     The authors would like to thank Ms. Jun Yang for giving
+recommended courses at ﬁrst few items.                            insightful suggestions for this work. This work was sup-
+                                                                  ported in part by the Professional Site Construction Project
+4.4. Parameter Study. In this paper, we further study the inﬂu-   in Electronic Information (Computer Science) of Beijing
+ence of hyperparameters. When testing the inﬂuence of d on        Information Science and Technology University under
+the model, other parameters were freeze, and L was changed        Grant 5112211038.
+accordingly to obtain Figure 2(a). Similarly, the inﬂuence of
+d on the model is veriﬁed and shown in Figure 2(b).               References
+Figure 2(a) shows the change trend of MAP values of the
+model when T is 1, 2, and 3, respectively, with the increasing     [1] W. Feng, J. Tang, and T. X. Liu, “Understanding dropouts in
+number of ﬁrst L terms for the recommendation model.                   MOOCs,” in Proceedings of the AAAI Conference 321 on Arti-
+Figure 2(b) shows the change trend of MAP values corre-                ﬁcial Intelligence, pp. 517–524, USA, 2019.
+sponding to the model when T is 1, 2, and 3, respectively, with    [2] Y. Qian, C. X. Li, X. G. Zou, X. B. Feng, M. H. Xiao, and Y. Q.
+the increasing of potential dimension d. As can be observed            Ding, “Research on predicting learning achievement in a
+from Figure 2(a), the performance of the model ﬁrst keeps ris-         ﬂipped classroom based on MOOCs by big data analysis,”
+                                                                       Computer Applications in Engineering Education, vol. 30,
+ing with the increase of L and then tends to be ﬂat. Among
+                                                                       no. 1, pp. 222–234, 2021.
+them, when L = 7 and T = 2, the performance of the model
+                                                                   [3] J. Fan, Y. C. Jiang, Y. Z. Liu, and Y. H. Zhou, “Interpretable
+can reach the optimal. As we also observed from Figure 2(b),
+                                                                       MOOC recommendation: a multi-attention network for per-
+the performance of the model does not improve continuously             sonalized learning behavior analysis,” Internet Research,
+with the increase of d. When d = 50 and T = 2, the perfor-             vol. 32, no. 2, pp. 588–605, 2022.
+mance of the model derives the optimal performance.                [4] Coursera, “About partners,” 2020, https://www.corsera.org/
+     In summary, by ﬁxing other parameters used in this                about/partners.
+model and changing speciﬁc hyperparameter, we ﬁnally               [5] J. Shen, H. Yang, J. Li, and Z. Cheng, “Assessing learning
+found that L = 7, T = 2, and d = 50 are the optimal conﬁgu-            engagement based on facial expression recognition in
+ration combinations.                                                   MOOC’s scenario,” Multimedia Systems, vol. 28, no. 2,
+                                                                       pp. 469–478, 2022.
+5. Conclusion                                                      [6] C. L. Li and W. L. Xing, “Natural language generation using
+                                                                       deep learning to support MOOC learners,” International Jour-
+In view of the shortcomings of high truancy rate and poor per-         nal of Artiﬁcial Intelligence in Education, vol. 31, no. 2,
+sonalized recommendation eﬀect in traditional online learning          pp. 186–214, 2021.
+platforms, this paper combines convolutional neural network        [7] R. Cobos and J. C. Ruiz-Garcia, “Improving learner engage-
+with negative sequence pattern mining into online course rec-          ment in MOOCs using a learning intervention system: a
+ommendation and proposes a personalized online course rec-             research study in engineering education,” Computer Applica-
+ommendation model based on convolutional neural network                tions in Engineering Education, vol. 29, no. 4, pp. 733–749,
+                                                                       2021.
+combined with negative sequence pattern mining. The model
+can not only recommend a list of courses with maximum              [8] G. Sun, T. R. Cui, G. Beydoun, S. Chen, D. Xu, and J. Shen,
+                                                                       Organizing Online Computation for Adaptive Micro Open
+demand in the near future but also predict which courses are
+                                                                       Education Resource Recommendation, Springer, Berlin, 2017.
+most likely to be misselected by users. Experimental results
+                                                                   [9] N. V. Dat, P. V. Toan, and T. M. Thanh, “Solving distribution
+show that the recommendation model proposed in this paper
+                                                                       problems in content-based recommendation system with
+has a certain degree of course recommendation accuracy, and            gaussian mixture model,” Applied Intelligence, vol. 52, no. 2,
+the method has a signiﬁcant performance in predicting misse-           pp. 1602–1614, 2022.
+lected courses, which provides a new thought and insight for      [10] Z. Zheng, H. Ma, M. R. Lyu, and I. King, “QoS-aware web ser-
+online course recommendation.                                          vice recommendation by collaborative ﬁltering,” IEEE Trans-
+                                                                       actions on Services Computing, vol. 4, no. 2, pp. 140–152, 2011.
+Data Availability                                                 [11] R. Q. Wang, Z. D. Wu, J. G. Lou, and Y. L. Jiang, “Attention-
+                                                                       based dynamic user modeling and deep collaborative ﬁltering
+In order to prevent the data from being abused, we open our            recommendation,” Expert Systems with Applications, vol. 188,
+data based on reasonable requests. Please contact the corre-           p. 116036, 2022.
+Wireless Communications and Mobile Computing                                                                                                    7
+
+[12] H. Z. Li and D. Z. Han, “A time-aware hybrid recommenda-                   on deep learning,” Journal of Intelligent Fuzzy Systems,
+     tion scheme combining content-based and collaborative ﬁlter-               vol. 41, no. 2, pp. 2981–2996, 2021.
+     ing,” Frontiers of Computer Science, vol. 15, no. 4, p. 154613,       [28] G. Balakrishnan and D. Coetzee, “Predicting student retention
+     2021.                                                                      in massive open online courses using hidden Markov models,”
+[13] Y. Li, L. Liu, and X. F. Li, “A hybrid collaborative ﬁltering              Electrical Engineering and Computer Sciences University of
+     method for multiple-interests and multiple- content recom-                 California at Berkeley, vol. 53, pp. 57-58, 2013.
+     mendation in E-commerce,” Expert Systems with Applications,           [29] Y. Pang, W. Liu, Y. Jin, H. Peng, T. Xia, and Y. Wu, “Adaptive
+     vol. 28, no. 1, pp. 67–77, 2005.                                           recommendation for MOOC with collaborative ﬁltering and
+[14] S. Sharma, V. Rana, and M. Malhotra, “Automatic recommen-                  time series,” Computer Applications in Engineering Education,
+     dation system based on hybrid ﬁltering algorithm,” Education               vol. 26, no. 6, pp. 2071–2083, 2018.
+     and Information Technologies, vol. 27, no. 2, pp. 1523–1538,          [30] Y. Pang, Y. Jin, Y. Zhang, and T. Zhu, “Collaborative ﬁltering
+     2022.                                                                      recommendation for MOOC application,” Computer Applica-
+[15] B. Li, J. H. Li, and X. J. Ou, “Hybrid recommendation algo-                tions in Engineering Education, vol. 25, no. 1, pp. 120–128,
+     rithm of cross-border e-commerce items based on artiﬁcial                  2017.
+     intelligence and multiview collaborative fusion,” Neural Com-         [31] M. Fei and D. Y. Yeung, “Temporal models for predicting stu-
+     puting and Applications, vol. 34, no. 9, pp. 6753–6762, 2022.              dent dropout in massive open online courses,” in 2015 IEEE
+[16] Z. Lu, S. J. Pan, Y. Li, J. Jiang, and Q. Yang, “Collaborative evo-        International Conference on Data Mining Workshop
+     lution for user proﬁling in recommender systems,” in Proceed-              (ICDMW)pp. 256–263, USA, Atlantic City, NJ, USA, Novem-
+     ings of the Twenty-Fifth International Joint Conference on                 ber 2015.
+     Artiﬁcial Intelligence, pp. 3804–3810, USA, 2016.                     [32] W. Wang, H. Yu, and C. Miao, “Deep model for dropout pre-
+[17] C. Lonjarret, R. Auburtin, C. Robardet, and M. Plantevit,                  diction in MOOCs,” in Proceedings of the 2nd International
+     “Sequential recommendation with metric models based on fre-                Conference on Crowd Science and Engineering, pp. 26–32,
+     quent sequences,” Data Mining and Knowledge Discovery,                     NY, ACM, 2017.
+     vol. 35, no. 3, pp. 1087–1133, 2021.                                  [33] H. Zhang, T. Huang, Z. Lv, S. Liu, and H. Yang, “MOOCRC: a
+[18] G. Kumar, H. Jerbi, and M. P. O'Mahony, “A sequence-based                  highly accurate resource recommendation model for use in
+     and context modelling framework for recommendation,”                       MOOC environments,” Mobile Networks and Applications,
+     Expert Systems with Applications, vol. 175, p. 114665, 2021.               vol. 24, no. 1, pp. 34–46, 2019.
+[19] Y. Jdidou and M. Khaldi, “Using recommendation systems in             [34] H. Zhang, T. Huang, Z. Lv, S. Y. Liu, and Z. Zhou, “MCRS: a
+     MOOC: an innovation in education that increases the proﬁt-                 course recommendation system for MOOCs,” Multimedia
+     ability of students,” in Enhancing Knowledge Discovery and                 Tools & Applications, vol. 77, no. 6, pp. 7051–7069, 2018.
+     Innovation in the Digital Era, IGI Global, 2018.                      [35] A. I. Cristea, A. Alamri, M. Kayama, C. Stewart, M. Alsheri,
+[20] A. N. Ngaﬀo, W. E. Ayeb, and Z. Choukair, “Service recom-                  and L. Shi, “Earliest predictor of dropout in MOOCs: a longi-
+     mendation driven by a matrix factorization model and time                  tudinal study of future learn courses,” in Association for Infor-
+     series forecasting,” Applied Intelligence, vol. 52, no. 1,                 mation Systems, Lund, Lund University/Association for
+     pp. 1110–1125, 2022.                                                       Information Systems, 2018.
+[21] J. He, J. Bailey, B. Rubinstein, and R. Zhang, “Identifying at-       [36] S. Nagrecha, J. Z. Dillon, and N. V. Chawla, “MOOC dropout
+     risk students in massive open online courses,” in In Proceed-              prediction: lessons learned from making pipelines interpret-
+     ings of the Twenty-Ninth AAAI Conference on Artiﬁcial Intelli-             able,” in Proceedings of the 26th International Conference on
+     gence, pp. 1749–1755, USA, 2015.                                           World Wide Web Companion, pp. 351–359, NY, ACM, April
+[22] Y. Yang, Y. Zhu, and Y. Li, “Personalized recommendation                   2017.
+     with knowledge graph via dual-autoencoder,” Applied Intelli-          [37] F. Dalipi, A. S. Imran, and Z. Kastrati, “MOOC dropout pre-
+     gence, vol. 52, no. 6, pp. 6196–6207, 2022.                                diction using machine learning techniques: review and
+[23] W. Zhao, R. Wu, and H. Liu, “Paper recommendation based                    research challenges,” in 2018 IEEE global engineering educa-
+     on the knowledge gap between a researcher’s background                     tion conference (EDUCON), pp. 1007–1014, NY, IEEE, Santa
+     knowledge and research target,” Information Processing &                   Cruz de Tenerife, Spain, April 2018.
+     Management, vol. 52, no. 5, pp. 976–988, 2016.                        [38] J. Qiu, J. Tang, T. X. Liu et al., “Modeling and predicting learn-
+[24] J. K. Tarus, Z. Niu, and G. Mustafa, “Knowledge-based recom-               ing behavior in MOOCs,” in In Proceedings of the Ninth ACM
+     mendation: a review of ontology-based recommender systems                  International Conference on Web Search and Data Mining,
+     for e-learning,” Artiﬁcial Intelligence Review, vol. 50, no. 1,            pp. 93–102, NY, ACM, February 2016.
+     pp. 21–48, 2018.                                                      [39] Y. Lu, S. El Helou, and D. Gillet, “A recommender system for
+[25] T. Y. Ou, G. Y. Lin, H. P. Fu, S. C. Wei, and W. L. Tsai, “An              job seeking and recruiting website,” in International Confer-
+     intelligent recommendation system for real estate commod-                  ence on World Wide Web, vol. 963-966, NY, ACM, 2013.
+     ity,” Computer Systems Science and Engineering, vol. 42,              [40] M. Yagci and F. Gurgen, “A ranker ensemble for multi-
+     no. 3, pp. 881–897, 2022.                                                  objective job recommendation in an item cold start setting,”
+[26] X. Wang, Z. Dai, H. Li, and J. Yang, “A new collaborative ﬁlter-           in Proceedings of the recommender systems challenge 2017,
+     ing recommendation method based on transductive SVM and                    pp. 1–4, NY, ACM, August 2017.
+     active learning,” Discrete Dynamics in Nature and Society,            [41] K. K. Chandriah and R. V. Naraganahalli, “RNN/LSTM with
+     vol. 2020, 15 pages, 2020.                                                 modiﬁed Adam optimizer in deep learning approach for auto-
+[27] J. Zhang, F. Gu, Y. J. Ji, and J. F. Guo, “Personalized scientiﬁc          mobile spare parts demand forecasting,” Multimedia Tools
+     and technological literature resources recommendation based                and Applications, vol. 80, no. 17, pp. 26145–26159, 2021.
+

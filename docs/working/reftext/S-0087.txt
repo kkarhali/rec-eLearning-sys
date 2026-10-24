@@ -1,0 +1,1114 @@
+                                                                                                                          TYPE Original Research
+                                                                                                                          PUBLISHED 09 September 2024
+                                                                                                                          DOI 10.3389/fcomp.2024.1404391
+
+
+
+
+                                                    Hybrid attribute-based
+OPEN ACCESS                                         recommender system for
+                                                    personalized e-learning with
+EDITED BY
+Zhi Liu,
+Central China Normal University, China
+
+REVIEWED BY
+Yacine Laﬁﬁ,
+                                                    emphasis on cold start problem
+8 May 1945 University of Guelma, Algeria
+Changsheng Chen,
+Shandong Women’s University, China                  Hala Butmeh1 and Abdallatif Abu-Issa2*
+Nouhaila Idrissi,
+                                                    1
+Mohammed V University, Morocco                          Data Science and Business Analytics Program, Arab American University Palestine, Jenin, Palestine,
+                                                    2
+                                                        Department of Electrical and Computer Engineering, Birzeit University, Birzeit, Palestine
+*CORRESPONDENCE
+Abdallatif Abu-Issa
+  abuissa@birzeit.edu
+RECEIVED 21 March 2024
+                                                    This article introduces a recommendation system that merges a knowledge-
+ACCEPTED 12 August 2024                             based (attribute-based) approach with collaborative ﬁltering, speciﬁcally
+PUBLISHED 09 September 2024                         addressing the challenges of the pure-cold start scenario in personalized
+CITATION                                            e-learning. The system generates learning recommendations by assessing
+Butmeh H and Abu-Issa A (2024) Hybrid
+                                                    item similarities, utilizing the Rogers-Tanimoto similarity measure for materials
+attribute-based recommender system for
+personalized e-learning with emphasis on            and users, and Jaccard’s similarity for user comparisons. Unlike traditional
+cold start problem.                                 collaborative methods relying on prior ratings, this approach depends on
+Front. Comput. Sci. 6:1404391.
+                                                    attributes. Additionally, user and learning material proﬁling structures were
+doi: 10.3389/fcomp.2024.1404391
+                                                    created to serve as fundamental inputs for the recommendation algorithm.
+COPYRIGHT
+© 2024 Butmeh and Abu-Issa. This is an
+                                                    These proﬁles represent student and material knowledge in a two-dimensional
+open-access article distributed under the           space to facilitate matching. Our processes incorporate user learning styles,
+terms of the Creative Commons Attribution           preferences, and prior knowledge as metrics for achieving the desired level
+License (CC BY). The use, distribution or
+reproduction in other forums is permitted,
+                                                    of personalization. The system produces a list of top recommendations based
+provided the original author(s) and the             on predicted ratings. To validate its efficacy, a website resembling our learning
+copyright owner(s) are credited and that the        platform was developed and tested by users. The primary results demonstrate the
+original publication in this journal is cited, in
+accordance with accepted academic practice.
+                                                    system’s ability to identify similar users even in a pure cold start condition without
+No use, distribution or reproduction is             existing ratings. Consequently, the system proves its capability in recommending
+permitted which does not comply with these          suitable materials, modeling students, and identifying similar user groups. The
+terms.
+                                                    evaluation results of the proposed system showed a good level of satisfaction by
+                                                    the testimonials, quantiﬁed by a score of 82% for the recommended materials
+                                                    (16% higher than exiting cold-start systems), and an average score of 90%
+                                                    in terms of satisfaction about the generated student proﬁles. As they proved
+                                                    the capability of the framework in recommending suitable materials, and its
+                                                    capability in modeling students, ﬁnding similar groups of users.
+
+                                                    KEYWORDS
+
+                                                    personalized e-learning, recommender systems, cold start problem, learning styles,
+                                                    learner model
+
+
+
+                                                    1 Introduction
+                                                        Over the past decade, e-learning and self-directed learning have experienced a
+                                                    surge in popularity, emerging as fundamental educational approaches. Nonetheless,
+                                                    two significant challenges confronting e-learning involve information overload and
+                                                    information relevancy. In response to these challenges, recommendation systems and
+                                                    personalized learning systems have been introduced as essential solutions (Kulkarni et al.,
+                                                    2020).
+
+
+
+
+Frontiers in Computer Science                                                01                                                               frontiersin.org
+Butmeh and Abu-Issa                                                                                                     10.3389/fcomp.2024.1404391
+
+
+
+
+    Broadly speaking, e-learning systems are advantageous for                     Research has demonstrated that adapting learning content to
+individuals with hectic schedules or those seeking a flexible learning        individual preferences, needs, and progress significantly improves
+experience, as learning resources are accessible from any location            learning success (Sikka et al., 2012). Given that students within
+and at any time. This enables efficient and targeted information              the same class have diverse knowledge levels and learning
+delivery, in contrast to traditional classrooms that may frequently           paces, providing individual support increases the likelihood of
+face disruptions (Joy et al., 2021).                                          academic success.
+    The benefits offered by e-learning platforms attract millions                 The topic of personalization in e-learning has garnered
+of learners; however, these platforms struggle to retain their                attention in recent research (Bourkoukou et al., 2016).
+users, resulting in a considerable dropout rate. One major factor             Recommender systems offer a solution by supporting
+contributing to this dropout problem is the provision of uniform              personalization, recommending suitable learning content based on
+learning experiences to all students, irrespective of their interests         learners’ unique needs and characteristics (Fraihat and Shambour,
+and learning styles, causing a decline in motivation (Hassan et al.,          2015).
+2021).
+    Recommender systems, widely adopted by companies like
+Netflix, Amazon, and YouTube, aim to alleviate information                    2.2 Recommender systems overview
+overload. While various techniques strive to extract relevant
+information, conventional methods like collaborative filtering                    Recommender systems are software tools and mechanisms
+and content-based approaches focus solely on users and items,                 designed to suggest items that may be of interest and relevance
+overlooking distinctions among learners and items. In e-learning,             to users (Ricci et al., 2011; Lü et al., 2012). The term “item”
+learner characteristics such as learning style and knowledge                  commonly refers to the content recommended by a system.
+level play a crucial role in influencing preferences. Traditional             Recommender systems focus on specific types of items, tailoring
+recommendation methods may lack accuracy in suggesting                        their design and core recommendation approach to provide
+materials due to a neglect of these additional learner features               effective suggestions for that particular item category. The primary
+(Tarus J. et al., 2017; Jeevamol and Renumol, 2021). Additionally,            purpose of recommendation systems is to assist individuals in
+traditional techniques heavily depend on users’ rating history                navigating the potentially overwhelming volume of alternative
+for identifying similar users, predicting similar materials, and              items offered by a system (Ricci et al., 2011). With the vast amount
+providing recommendations. Past studies highlight that the main               of information available on the Internet, learners encounter
+challenges faced by these conventional recommendation systems                 challenges in finding useful educational materials. To address this
+are the cold-start problem and rating sparsity, both of which                 issue, recommendation systems have become a popular solution
+contribute to a decline in their overall performance (Jeevamol                in the field of e-learning, helping users discover relevant materials
+and Renumol, 2021). These challenges provide strong incentives                (Tarus et al., 2017b). These systems are categorized based on
+to explore innovative recommendation approaches that can more                 the technique employed for recommendation, and the following
+effectively fulfill the goals of e-learning.                                  subsections will briefly explore the four techniques utilized in
+    In this paper, we introduced an attribute-based e-learning                this paper.
+recommendation model aimed at resolving the cold start problem.
+The model prioritizes the learner’s expectations, seeking to meet
+them efficiently to enhance the overall learning experience, making           2.2.1 Content-based recommender systems
+it more seamless and encouraging for the user.                                    Content-based recommendation systems operate by identifying
+                                                                              items with content similar to those previously favored by a specific
+                                                                              user (Lü et al., 2012). These systems analyze a collection of items
+                                                                              rated by a user and create a user model that defines the user’s
+2 Background and related work
+                                                                              interests based on the features of the rated items (Mladenic, 1999).
+    In this section, we introduce the terms and topics that are used          The user model or profile is a structured representation of user
+throughout the paper.                                                         interests, employed for subsequent recommendations.
+
+
+                                                                              2.2.2 Collaborative ﬁltering recommender
+2.1 Personalized e-learning systems                                           systems
+                                                                                   The collaborative filtering algorithm takes into account the
+    Traditionally, learning systems followed a “one-size-fits-all”            ratings provided by other users when generating recommendations.
+approach, providing the same learning content in a uniform                    The underlying concept of this algorithm is that users with similar
+structure for all students (Imran et al., 2014). However, students            preferences will have a liking for the same items. Consequently, it
+exhibit variations in their knowledge levels, learning styles, and            gathers opinions from a sizable network of interconnected users
+preferences. Personalization addresses this issue to enhance overall          and consolidates them to generate predictions effectively (ben
+student satisfaction (Fraihat and Shambour, 2015).                            Schafer et al., 2007; Ekstrand et al., 2010). The primary criterion for
+    In the present day, there is a shift toward more student-oriented         assessing similarity between two users is their rating history, with
+learning, replacing traditional tools with personalized learning              two users considered similar if they express a liking for the same set
+systems (Sikka et al., 2012; Abouzeid et al., 2021).                          of items (Ricci et al., 2011).
+
+
+
+Frontiers in Computer Science                                            02                                                            frontiersin.org
+Butmeh and Abu-Issa                                                                                                  10.3389/fcomp.2024.1404391
+
+
+
+
+2.2.3 Cold-start problem                                                    2.3 Pattern mining
+     The preceding two methods (content-based and collaborative
+filtering) face the challenge known as the cold-start problem, which             Pattern mining revolves around the identification of valuable
+is further categorized into new item cold-start and new user cold-          and interesting patterns within databases. The significance of
+start (Lam et al., 2008).                                                   pattern techniques lies in their ability to uncover concealed
+     New-item cold start occurs when a fresh item is introduced             patterns within extensive databases, making them comprehensible
+to the system, initially lacking any ratings. Consequently,                 to humans and, consequently, beneficial for decision-making and
+the likelihood of this item being selected and recommended                  data interpretation (Fournier-Viger et al., 2017).
+is minimal, leading to a situation where a set of items in                       Frequent pattern mining has been a focal point in data
+the system is overlooked in the rating and recommendation                   mining research for more than 10 years. Frequent patterns denote
+processes (Sobhanam and Mariappan, 2013; Saveski and                        subsequences or sets of items that occur in a dataset with a
+Mantrach, 2014). This creates a cyclical problem where items                frequency equal to or exceeding a user-defined threshold. To
+remain disregarded.                                                         illustrate, consider “milk” and “bread” forming a set of items that
+     New user cold-start arises when a new user registers                   commonly appear together in transactions within a dataset (Han
+in the system, posing the difficulty of providing                           et al., 2007).
+meaningful recommendations for users with no associated
+information (Silva et al., 2019). This presents a significant
+challenge for collaborative filtering, as a user without any                2.3.1 Association rules
+ratings cannot be matched to any group of potentially                           Association rules are rule-based techniques designed to
+similar users.                                                              uncover relationships among variables in a dataset, particularly in a
+                                                                            set of transactions with various variables. The Apriori Algorithm
+                                                                            is a key method used for generating desired association rules
+                                                                            in relational databases. This algorithm works iteratively, starting
+2.2.4 Knowledge-based recommender systems                                   with the identification of individual frequent items and gradually
+    Knowledge-based recommender systems derive their                        expanding them one item at a time into larger itemsets, ensuring
+recommendations from domain knowledge regarding how to                      they meet specified minimum support and confidence criteria
+align items with user preferences. These systems rely on three              (Singh et al., 2013).
+types of knowledge: information about user attributes, insights
+into item characteristics, and understanding of how to match items
+with user needs. In the context of e-learning recommendation
+                                                                            2.3.2 Sequential pattern mining
+systems, knowledge-based techniques prove effective due to the
+                                                                                A sequence database comprises elements or events arranged
+intricate relationships among items in e-learning. In the domain of
+                                                                            in a specific order, with or without a clear temporal aspect.
+e-learning, the knowledge-based approach combines information
+                                                                            Sequence data finds applications in various domains, including
+about the learner with knowledge about the learning material
+                                                                            customer shopping patterns, biological sequences, and web
+for utilization in the recommendation process. Unlike previous
+                                                                            clickstreams. Sequential pattern mining involves identifying
+methods, knowledge-based recommenders do not encounter the
+                                                                            regularly occurring ordered events and designating them as
+cold-start problem because their recommendations are not tied
+                                                                            patterns. Unlike association rules, where the order of items is
+to ratings; instead, they leverage domain knowledge. However,
+                                                                            not crucial, sequential pattern mining specifically focuses on the
+the drawback of the knowledge-based approach is its reliance on
+                                                                            sequence of items (Han et al., 2007).
+expertise in the field and its time-consuming nature (Shishehchi
+et al., 2012; Zhao et al., 2014; Colombo-Mendoza et al., 2015;
+Zhang et al., 2021).
+                                                                            2.4 Recommender systems for e-learning
+                                                                            in literature
+2.2.5 Hybrid recommender systems                                                The utilization of recommender systems in the context of
+     Handling the varied challenges posed by diverse users                  e-learning has gained prominence in the literature. Various
+and scenarios remains a formidable task, even for a proficient              approaches have sought to leverage users’ histories for generating
+recommendation algorithm. Hybrid techniques address this                    recommendations. In this section, we will examine research
+challenge by effectively amalgamating recommendations obtained              that explores recommendation possibilities without considering
+from different recommendation approaches, such as collaborative             knowledge as a factor.
+filtering and content-based recommendation. Consequently,                       Many recommender systems took of fuzzy algorithm a way
+hybridization is frequently employed in the execution of                    of enhancing their suggestions. For example, Lu (2014) proposed
+recommender systems. A noteworthy application of hybrid                     a framework for a personalized learning recommender system,
+recommenders is in mitigating the cold-start problem. Moreover,             where two technologies have been included: a multi-agent attribute
+hybrid mechanisms possess the potential to augment the diversity            evaluation method for justifying students’ need, and a fuzzy
+of recommendations by integrating various recommendation                    matching method to figure out the appropriate learning materials
+approaches (Lü et al., 2012; Harrathi et al., 2017).                        that best fulfill each student’s needs. However, there was no
+
+
+
+Frontiers in Computer Science                                          03                                                          frontiersin.org
+Butmeh and Abu-Issa                                                                                                   10.3389/fcomp.2024.1404391
+
+
+
+
+implementation or experiment for this model. Antony Rosewelt                Learners rated multiple materials, and the ratings were used
+and Arokia Renjit (2020) also, utilized fuzzy temporal decision             to identify the learners attributes based on the materials they
+trees in their proposed content-based recommendation algorithm,             liked. The approaches involved in making recommendations were
+in order to offer accurate content for learners based on their level        content-based, collaborative-based and hybrid-based approaches.
+of understanding.                                                           Yang et al. (2010) assumed that users evaluate various core concepts
+     In another work, Niknam and Thulasiraman (2020) used Fuzzy             in accordance with domain knowledge, as there is a degree
+C-Mean algorithm for clustering learners and bioinspired ant                of correlation amongst core concepts, which means that users’
+colony optimization algorithm to find the most suitable learning            interests have similarities as well. Thus, similarity between core
+path for learners, taking into account their prior improvements.            concepts can be used to calculate the similarity between users.
+Whereas Wu and Feng (2020) developed a network education                    For that research, users provided ratings to the learning materials,
+knowledge recommendation system based on an improved neural                 where these ratings were used to compute learners’ similarities.
+network-path sorting algorithm with fuzzy uncertainty.                      Then users’ preference level for each interest category of the
+     Moreover, Rahman and Abdullah (2018) designed a learner-               closest neighbors, and lastly nearest neighbors’ interests are used
+centered recommendation system based on fuzzy clustering                    to provide recommendations. These methods rely mainly on users’
+methods and decision tree to categorize learners into beginner,             ratings, which might work for a partial cold-start, but will not be
+intermediate and expert depending on their academic achievement             useful in pure cold-start condition.
+and learning behaviors.                                                         Lalitha and Sreeja (2020) provided guidelines for Personalized
+     Several papers worked on improving the performance of                  Self-Directed Learning Recommender System (PSDLR), consisting
+collaborative filtering techniques using machine learning methods.          of three steps. First, to classify learning materials with collaborative
+Chee et al. (2001) built a collaborative filtering method with              based and content-based filtering methods based on advancement
+enhanced efficiency, called Recommendation Tree (RecTree),                  level. Second, to assess learners’ abilities and prior knowledge.
+to address the scalability problem by a divide-and-conquer                  Finally, to collaborate these two modules to generate the
+approach. The technique first applies a k-means-like clustering,            recommendation results. Collaborative and content-based filtering
+then implements subsequent clustering upon partitioned,                     were also the basis of the work by Benhamdi et al. (2016), where
+smaller databases.                                                          they presented a New multi-Personalized Recommender for e-
+     Additionally, Li and Chang (2005) described a personalized e-          Learning.
+learning system using collaborative filtering, based on the IEEE                In regard of collecting learners’ information, Bhaskaran
+Learning Technology Systems Architecture to adapt to learner’s              et al. (2021) proposed to apply a cluster-based linear pattern
+interests. The paper suggested a feedback extractor with fusion             mining algorithm for extracting patterns of the learners, then
+capability that combines multiple feedback measures for inferring           to provide recommendations by the evaluation of ratings of
+user preferences.                                                           frequent sequences.
+     A collaborative filtering recommendation system was proposed               Sikka et al. (2012) outlined an approach for building a software
+by Liu (2017) according to the influence of e-learning groups’              agent which can construct an online user model describing the
+behavior. From another perspective, Dwivedi et al. (2017) grounded          user’s behavior, and uses this model to suggest relevant activities
+their work on genetic algorithm enhancing the collaborative                 and shortcuts. The recommendations aim to improve users’
+filtering approach, to provide learners with optimized learning             performance depending on the behavior of successful learners. Ali
+paths using variable-length genetic algorithm.                              et al. (2022) designed their architecture with the help of virtual
+     From the idea that successful students, or students with high          agent as well, for building semantic recommendations based on
+grades has followed the right path in selecting courses, Bobadilla          user needs and preferences, which helps in finding the most suitable
+et al. (2009) proposed a collaborative filtering recommendation             materials in a real-world setting. Agents were also present in the
+system, with users having greater knowledge have greater weight             work for Amane et al. (2021), who implemented a content-based
+in the equation of calculating the recommendations. Where                   course recommender system with the help of a multi-agent for
+knowledge is defined by the scores achieved by every user in                university online learning platforms.
+a number of level tests. Similarly, the recommender system by
+Ghauth and Abdullah (2010) took students’ achievements as a
+measure. However, it’s a content-based filtering along with good
+learners rating for increasing learners’ performance, where the             2.5 Knowledge-based e-leaning
+results show that such systems outperforms content-based filtering          recommender systems
+with traditional collaborative filtering techniques.
+     Hybrid systems were thoroughly studied for the purpose of e-               Knowledge-based systems provide a remedy for the cold-
+learning. The recommendation system that’s discussed in Salehi              start problem, and researchers have invested significant
+and Kmalabadi (2012) is a hybrid system, combining content-                 efforts in enhancing e-learning recommendations by
+based filtering and collaborative filtering techniques. The system          incorporating knowledge.
+models the learners and materials in a multidimensional space to                In references Obeid et al. (2018), Bouihi and Bahaj (2019),
+facilitate recommendations. They used a set of material attributes          Brik and Touahria (2020), Chebbi and Imen (2021), models were
+to model the learning materials in a multidimensional manner.               examined to identify the optimal assessment pathways according
+The materials attribute were considered also in modeling leaners.           to the learner’s needs and profile. These models were constructed
+
+
+
+
+Frontiers in Computer Science                                          04                                                             frontiersin.org
+Butmeh and Abu-Issa                                                                                                  10.3389/fcomp.2024.1404391
+
+
+
+
+using ontology-based methods and semantic rules, resulting in               goals, prior knowledge, and motivation level (Jeevamol and
+improved recommendations for e-learning systems. However,                   Renumol, 2021).
+additional experimental evidence is required to further validate
+these systems.
+     Sequential pattern mining has been integrated with context-            2.6.1 Learning style
+aware and knowledge-based systems, as discussed in references                    Learning styles play a vital role in tailoring online learning
+(Tarus et al., 2017a; Shanshan et al., 2021). These systems leverage        experiences to individual preferences. As defined by Keefe,
+a hybrid recommendation approach that combines collaborative                a learning style is a combination of cognitive, affective, and
+filtering, sequential pattern mining, and context awareness to              psychological factors that serve as relatively stable indicators of
+address the cold-start problem.                                             how a learner perceives, interacts with, and responds to the
+     In the realm of e-learning recommender systems, the                    learning environment (Keefe, 1979). Karen and Felicetti (1992)
+application of ontology is believed to offer a higher degree of             further describe learning styles as the educational conditions
+personalization, overcoming limitations found in traditional                under which a student learns best, emphasizing the importance
+recommender systems. Despite its advantages, ontology                       of how students prefer to learn rather than what they actually
+design is a time-consuming process requiring knowledge                      learn. Various operational and conceptual models exist for learning
+engineering. As a result, hybrid systems have emerged as a                  styles, including Kolb, Felder–Silverman, Myers–Briggs, Honey
+prevalent solution in research to enhance performance by                    and Mumford, and VARK, each offering different conclusions and
+amalgamating multiple recommendation strategies (George and                 conditions to enhance learning.
+Lal, 2019).                                                                      For this research, Neil Fleming’s VARK model is adopted to
+     While progress has been made in e-learning recommender                 define students’ learning styles. VARK, an acronym for Visual,
+systems, there remains room for improvement. It is suggested                Aural, Read/write, and Kinesthetic styles, was introduced by
+that machine learning techniques could contribute to handling               Fleming and Mills, drawing on experiences of students and teachers
+implicit and explicit feedback to enhance accuracy (Kulkarni                (Fleming and Mills, 1992). In the VARK model, the Visual learning
+et al., 2020). A recent study on knowledge-based recommender                style represents information through maps, diagrams, charts,
+systems (Rahayu et al., 2022) notes that the proposed models                graphs, flow charts, and symbols. Aural learning style preferences
+and prototypes are still being evaluated using experiments with             involve information that is heard or spoken, with learners
+a specific population size of non-real students, involving                  benefiting from group discussions, lectures, phone conversations,
+descriptive and inferential statistics, questionnaires, and                 radio, and talking about concepts. Read/Write learning style
+observations. Therefore, future analyses should broaden                     individuals prefer information displayed as words, emphasizing
+the scope to include more participants and employ proper                    text-based input and output such as reading and writing manuals,
+testing methods.                                                            books, assignments, essays, and reports. Kinesthetic learning
+     Additionally, in Ompusunggu et al. (2021), it is demonstrated          style suggests a perceptual preference for hands-on experiences
+that in the context of recommender systems, machine learning                and practice, encompassing demonstrations, case studies, videos,
+outperforms rule-based approaches in certain aspects, while rule-           simulations, and movies (Bajaj and Sharma, 2018).
+based approaches excel in others. Hence, despite the undeniable                  The VARK model is chosen for this paper as it is a practical
+capability of machine learning, there is still a demand for rule-           tool for maximizing students’ learning by accurately assessing
+based approaches. Creating a well-performing system may involve             the effectiveness of different knowledge acquisition methods. The
+a hybrid approach that combines both machine learning and rule-             model is grounded in two main ideas: firstly, teaching students
+based techniques.                                                           using their preferred methods significantly impacts their success
+                                                                            in processing information and education; secondly, students
+                                                                            acquiring knowledge through their individual learning style leads
+                                                                            to the highest levels of motivation, interest, and understanding
+                                                                            (Hanurawan, 2017; Movchun et al., 2020). The VARK inventory
+2.6 Student and material modeling in                                        provides metrics for the four modes, allowing individuals to have
+literature                                                                  preferences ranging from one to all four modes (Hawk and Shah,
+                                                                            2007).
+    Creating a student profile involves representing a student’s                 Determining the VARK learning style is accomplished through
+information in a standardized format to facilitate analysis.                the VARK questionnaire, which has demonstrated its validity, good
+Learner data can be gathered in two ways: explicitly, by                    reliability, and has been widely adopted by many researchers.
+directly collecting information from the learner, or implicitly,
+by monitoring their activities through a learning platform. A
+well-constructed student profile can be easily tailored for each            2.6.2 Misconception
+student based on their preferences. In the personalization of                   Another aspect that this study aims to explore is students’
+e-learning systems, learner models play a crucial role, as they             misconceptions. Recent papers have sought to identify
+guide the recommendation of learning resources based on the                 misconceptions in specific fields through various methods,
+characteristics derived from the learner model (Ciloglugil and              including implicit approaches that examine learners’ knowledge
+Inceoglu, 2018). Various features are utilized in recommender               using behavior monitoring agents, as well as explicit methods
+systems for personalization, encompassing learners’ preferences,            relying on tests administered within the system (Halim et al., 2021).
+
+
+
+Frontiers in Computer Science                                          05                                                          frontiersin.org
+Butmeh and Abu-Issa                                                                                                       10.3389/fcomp.2024.1404391
+
+
+
+
+2.6.3 Learning object modeling                                                  data and stores the generated profiles in database. Subsequently,
+    The other significant element of an E-learning recommender                  these models are utilized in the recommendation component,
+system is the learning object, and its modeling is deemed as                    which employs a hybrid approach to extract pertinent materials
+crucial as that of students. As demonstrated in the earlier section,            for a user. Users are then able to rate the suggested materials,
+ontology has been extensively employed in modeling learning                     and these ratings are employed to update the material profile
+objects to address the cold-start issue (Jeevamol and Renumol,                  through a background task based on the Apriori algorithm.
+2021). However, alternative methods have also been explored,                    Furthermore, our system has been encapsulated as a web-hosted
+involving the use of data mining and machine learning.                          application, featuring a user interface that integrates all the
+    In Cakula and Sedleniece (2013), the characteristics that define            components, allowing users to interact with the system seamlessly.
+a high-quality learning object were outlined. It was emphasized                 The subsequent subsections provide detailed descriptions of the
+that learning objects should be considerably shorter than traditional           various components within the proposed system.
+learning units and self-contained, allowing each learning object
+to be utilized independently. Additionally, they should include
+descriptive data to facilitate easy identification.
+                                                                                3.1 Student and material modeling
+
+2.7 Similarity measures                                                              Modeling students and materials is a crucial phase in the
+                                                                                recommendation process, especially for our system, where the goal
+    The precision of similarity computation holds a pivotal role in             is to achieve efficient modeling in terms of time and storage. To
+the performance of any recommender system (Joy and Renumol,                     create suitable profiles for both the learning object and the student,
+2020). Cosine similarity is a method used to calculate the similarity           three key factors were considered. Firstly, selecting attributes that
+between two vectors within an inner product space. For two vectors,             effectively define each object. Next, determining the appropriate
+x and y, the cosine similarity function is represented by Equation 1:           representation for these attributes to facilitate matching between
+                                                                                a student and a corresponding set of learning materials. Lastly,
+                                       x.y                                     devising a method to collect these attributes in a user-friendly
+                       sim x, y =                                   (1)
+                                     ||x||||y||                                 manner, avoiding any tedious tasks for users.
+
+    Where ||x|| is the Euclidean norm of vector x, and ||y|| is
+the Euclidean norm of vector y. Essentially, the cosine similarity
+measure involves assessing the lengths of vectors. It calculates                3.1.1 Student proﬁle
+the cosine of the angle between vectors x and y. A cosine value                     As mentioned earlier, the creation of a student profile involves
+of 0 indicates that the two vectors are orthogonal, signifying no               establishing a general model for users and populating this model
+match. As the cosine value approaches 1, the angle becomes smaller,             with information specific to each user. The selected attributes for
+indicating a greater match between the vectors.                                 the student can be divided into two parts: personal information
+    In the case of vectors with binary-valued attributes, the                   used for identification and attributes directly linked to the
+interpretation of cosine similarity is based on common attributes. If           recommendation task, formatted in a way suitable for aiding the
+object x possesses the ith attribute (xi = 1), then xt .y represents the        recommendation process.
+number of shared attributes between x and y, and |x||y| denotes the                 The personal information in the model includes the user’s
+geometric mean of the number of attributes possessed by x and y.                name, personal image, and contact details such as email and phone
+Therefore, sim(x,y) becomes a measure of the relative possession of             number. Attributes relevant to making recommendations can
+shared attributes. For this scenario, a variation of cosine similarity          be further categorized into learning preferences and knowledge-
+is presented in Equation 2:                                                     related attributes. Learning-preference attributes describe the
+                                      x.y                                      optimal conditions in which a student learns better, encompassing
+                   sim x, y =                                       (2)         the student’s learning style. For this research, the VARK model
+                                 x.x + y.y − x.y
+                                                                                was adopted to determine learning styles due to its accuracy in
+    This variation defines the ratio of the number of common                    distinguishing between various means of acquiring knowledge
+attributes in x and y, to the number of attributes possessed by either          effortlessly, involving multiple perceptual modes (Bajaj and
+x or y (Han et al., 2012).                                                      Sharma, 2018).
+                                                                                    Learning-preferences also encompass preferences related to
+                                                                                material structure, extracted from the properties of the learning
+3 Materials and methods                                                         object. These attributes assist in identifying which characteristics of
+                                                                                a learning object a student prefers. Attributes include the material
+    The proposed system presents a comprehensive process                        format (text, video, slides, exercises, quizzes), material length, level
+for constructing and enhancing a hybrid attribute-based                         of detail, language, clarity of agenda, and video theme. In selecting
+recommendation system. Figure 1 illustrates the overall                         these attributes, input was gathered not only from the literature
+architecture of the designed framework. The initial phase of                    but also from direct inquiries with several students regarding the
+the system involves building user and material models. The user                 factors they consider in online materials and what influences their
+model is built via an interactive user interface, which collects user           decision to study or reject certain materials.
+
+
+
+Frontiers in Computer Science                                              06                                                             frontiersin.org
+Butmeh and Abu-Issa                                                                                                    10.3389/fcomp.2024.1404391
+
+
+
+
+   FIGURE 1
+   System overall design.
+
+
+
+
+    It’s important to note that not every student fits exclusively           3.1.2 Material modeling
+into a single learning style; some may have a tendency toward                    Similar to the student profile, certain attributes of the learning
+two or more styles equally, known as multimodal (Movchun et al.,             material were utilized for identification and retrieval purposes,
+2020). Therefore, the system allows users to select more than one            while others were essential for making recommendations.
+option per question, providing a comprehensive description of the            The primary set of material attributes was derived from the
+dominant styles for a user.                                                  “IEEE Standard for Learning Object Metadata,” encompassing
+    The other part of the profile aims to characterize the                   data relevant for both identification and recommendation
+student’s knowledge in each topic, defined in terms of skill                 purposes. These attributes include title, subject, size, relation
+level and misconceptions. Misconception detection is crucial in              with other materials, requirements, duration, format (resource
+the recommendation process, significantly impacting the content              type), and language. Additionally, the misconception that a
+of the suggested materials. If a misconception is detected, the              material addresses was also considered as one of the material
+recommended materials focus on explaining that concept rather                properties. Furthermore, similar to how material attributes were
+than presenting information the user already knows.                          incorporated into the student’s model as preferences, the learning
+    Before starting a particular topic a short multiple-choice quiz          style that a material would cater to was included as part of the
+is provided, to assess the knowledge of the student in that topic.           material attributes.
+The quiz covers the main concepts in the intended topic. If                      The system organizes knowledge into courses, where each
+a student has no prior knowledge, they can skip the quiz all                 course represents a general domain and encompasses a collection
+together. The answers are analyzed to find out whether the mistakes          of inner topics. Topics correspond to the chapters within a course.
+are due to a misconception or lack of knowledge. Where some                  Each topic is further composed of learning units, which are discrete
+options are linked to misconceptions. If the majority of the selected        pieces of information that a user needs to acquire in that specific
+answers hold a certain misconception, then this means that the               topic. To facilitate knowledge acquisition, the system provides a
+user should work on correcting the identified misconception.                 set of alternatives for each learning unit, referred to as materials or
+Thus, the system will offer a narrative feedback with the final              learning objects. This is where the recommendation process comes
+score, mentioning the knowledge level (poor, good, great) and the            into play. The system is tasked with selecting the most suitable
+detected misconceptions in case of any.                                      option from these materials and covering only the necessary units
+
+
+
+
+Frontiers in Computer Science                                           07                                                            frontiersin.org
+Butmeh and Abu-Issa                                                                                                    10.3389/fcomp.2024.1404391
+
+
+
+
+   FIGURE 2
+   Materials organization.
+
+
+
+
+based on the user’s prior knowledge. The structure described is              This approach aligns with the designed algorithm, which will be
+illustrated in Figure 2.                                                     elaborated on later.
+     The system takes into account the size and segmentation of the
+material as one of its attributes. Some students prefer learning a
+large topic in smaller chunks. Consequently, in certain instances,
+                                                                             3.2 Making recommendations
+a sequence of learning materials collectively forms one learning
+unit. However, it’s important to note that each material within
+                                                                                  Once the preferences quiz is completed, and the knowledge
+this sequence provides several options. Consequently, a single
+                                                                             level for a specific topic is established, the student model related
+material cannot be designated as a prerequisite for another. To
+                                                                             to that topic is considered prepared. This information can now be
+address this issue, an order was assigned to the materials. Materials
+                                                                             utilized to recommend suitable learning objects. ‘ Given that the
+with the same order fulfill the same learning objectives but with
+                                                                             learning objects in the proposed system are organized to be browsed
+different structures.
+                                                                             by topic, the user must select a specific topic from a course. Only the
+     The materials were collected and labeled manually. Attributes
+                                                                             learning objects under that chosen topic are then taken into account
+were assigned based on our understanding and experience with the
+                                                                             for recommendations. The data of the active student, encompassing
+chosen course. We selected a course with which we are familiar
+                                                                             preferences and knowledge in the selected topic, is retrieved and
+and can distinguish which materials are suitable for the selected
+                                                                             stored in a Panda’s DataFrame. Simultaneously, the data for the
+subtopics. The collected items were organized and integrated into
+                                                                             target materials is retrieved and saved in another DataFrame. To
+the system in advance, prior to conducting any experiments.
+                                                                             refine our dataset, we leverage the knowledge assessment quiz by
+                                                                             extracting learning components that address any misconceptions
+                                                                             identified in the user. Otherwise, all the materials under the selected
+3.1.3 Attributes representation                                              topic will be retrieved.
+    Given our focus on addressing the cold-start scenario with a
+knowledge-based element while exploring an alternative approach
+to ontology, we propose projecting the knowledge encapsulated in             3.2.1 Data encoding
+ontology into a two-dimensional array for each model. This array                  We established an intersection dataframe that incorporates
+can be stored in a traditional Relational Database Management                both the retrieved materials and the student. This dataframe
+System (RDBMS).                                                              consists solely of common attributes shared between the two
+    As previously demonstrated, to facilitate the matching of                types of objects, with the student consistently stored as the last
+students with materials, the system requires shared data between             record. The common attributes encompass “length,” “contentType,”
+the learning object and the learner. This means aligning                     “detailed,” “bullets,” “videoTheme,” “isSeperated,” “withAgenda,”
+what a learner is seeking with what a learning object offers,                “learningStyle,” and “language_pref.” Additionally, the original
+while also incorporating exclusive data to identify each object.             record IDs were preserved in the intersection table to facilitate the
+Therefore, both the material and the student can be represented              merging process with the initial data frames.
+using two-dimensional vectors. In this representation, columns                    All of these common properties are categorical variables with
+denote attributes, and rows correspond to either material or                 string values that are easily understandable and interpretable for us
+student records.                                                             but lack meaning for the machine, as the words themselves hold
+    Certain columns may have multiple values, and these values are           no significance to the algorithm. Particularly when comparing a
+concatenated using a star symbol (∗ ) and stored in the same cell.           cell with multiple values to another with either multiple or a single
+
+
+
+Frontiers in Computer Science                                           08                                                            frontiersin.org
+Butmeh and Abu-Issa                                                                                                         10.3389/fcomp.2024.1404391
+
+
+
+
+value, the outcome of the comparison will consistently be negative.            - F refers to the bits zeros and T refers to the ones.
+                                                                                                                                     
+For instance, the value “RV” does not match the value “VK,” even               - Cij is the count of cases where S k = i and M k = j for
+though they share a sub-value. Furthermore, the order of values                  k< n
+matters for the machine but is inconsequential for the system.
+For example, “RV” and “VR” are entirely different in their current               The computed similarity result between each learning object
+state but have the exact same semantic meaning. Overcoming                   and the student is associated with that particular object. This
+such challenges in the current representation would demand                   information will be utilized in subsequent stages to predict the
+extensive processing to identify sub-patterns and disregard the              rating and determine the final score for each material. The materials
+order. Therefore, an efficient solution for a more straightforward           with the highest similarity to the student are identified and passed
+representation involves encoding the data using binary encoding.             on to the next phase, which involves collaborative filtering.
+Therefore, we expanded the joining dataframe by hot-encoding
+each attribute to convert our categorical variables into multiple
+binary columns, with the following preprocessing steps:                      3.2.3 Collaborative ﬁltering
+                                                                                 In conventional collaborative filtering, user similarity is
+1. The values in a multivalued column were separated by                      determined based on their ratings. Users with similar ratings for
+   the star “∗ ”, which is the concatenating character that was              the same set of items are considered similar. However, given the
+   mentioned earlier.                                                        cold-start problem, where a new user lacks ratings, we leverage the
+2. The values were turned into binary using the function                     existing knowledge base to identify users with similarities to the
+   get_dummies from Python’s pandas operations, where the                    current one. To address this, we narrow down the set of users by
+   values that are present in each record were set to one and the            considering only those who have rated each of the best-matching
+   rest were zeros.                                                          materials identified in the previous step. The similarity between
+3. For each value the suffix “_attributeName” was added, to end up           the current user and users from this reduced dataset is measured
+   with columns in the pattern of “value_attributeName”.                     using Jaccard similarity, employing the same binary encoding
+4. The value that appears for a record, are given the value “1”              approach as described earlier. Jaccard similarity quantifies non-
+   in the corresponding column in the binary-encoded table, and              zero similarity as the ratio of the intersection of two bit-vectors to
+   “0” otherwise.                                                            their union. The pairwise similarity between a student vector (S)
+    As an illustration, consider the learningStyle attribute                 and each vector of other users (O) can be expressed as depicted in
+with potential values such as V (for Visual), A (for Aural),                 Equation 4:
+R (for Reading), and K (for Kinesthetic). In the binary
+                                                                                                                       S.O
+dataframe, the corresponding columns would be learningStyle_V,                                 Sim (S, O) =                                             (4)
+                                                                                                                  S2 + O2 − S.O
+learningStyle_A, learningStyle_R, and learningStyle_K. For a
+learner exhibiting visual and reading learning styles, the value             where this representation comes from the fact that the product of
+would be V∗ R, which is represented in binary as 1010. Figure 3              bit vectors (each dimension takes the value of either 0 or 1) is equal
+provides a depiction of example records in their original state              to their intersection
+before encoding, while Figure 4 showcases the binary-encoded
+                                                                                                    X                X           ^
+outcomes of these records.                                                                  S.O =         Si O i =         (Si        Oi )
+                                                                                                      i               i
+
+                                                                             and
+3.2.2 Content-based ﬁltering
+    Incorporating the knowledge outlined in the learner profile                                               X            X
+                                                                                                 | |S| |2 =        S2i =         Si
+is essential for tackling the cold-start problem. It establishes the
+                                                                                                              i              i
+foundation for matching the initial learner properties with the
+characteristics of learning materials. The advantage of utilizing                To identify similar users, a specific threshold was set, wherein
+a Relational Database Management System (RDBMS) lies in its                  users with a Jaccard score exceeding a certain level are considered,
+capacity to store various attributes in a unified manner and enable          as opposed to obtaining the top K most similar users. The threshold
+querying and combining them within the same query. In the                    approach is employed because the most similar user may not be
+proposed model, the similarity between a learner and a specific              sufficiently alike to draw conclusions about the current user. Simply
+learning object is computed using the Rogers-Tanimoto coefficient,           relying on a few users who have already rated a material might
+which is applied with bit-vectors, considering both the presence             result in different preferences from the target user. Consequently,
+and absence of attributes. In other words, both ones and zeros               predicting ratings for the active user based on the available data
+are taken into account when calculating the similarity. For two              could lead to inaccurate predictions.
+vectors S and M of length n, the similarity is defined as illustrated
+in Equation 3:
+                                                                             3.2.4 Ranking and scores predictions
+                              2(CTF + CFT )                                      To generate the final list of recommendations, for each material
+       Sim (S, M) = 1 −                                          (3)
+                        CTT + CFF + 2(CTF + CFT )                            a score is calculated as seen in Equation 5
+
+Where:                                                                                           ScoreMi = R∗ Sim(S, Mi )                               (5)
+
+
+
+Frontiers in Computer Science                                           09                                                                   frontiersin.org
+Butmeh and Abu-Issa                                                                                                    10.3389/fcomp.2024.1404391
+
+
+
+
+   FIGURE 3
+   Values before encoding.
+
+
+
+
+   FIGURE 4
+   Values after encoding.
+
+
+
+where ScoreMi is the material’s score, Sim(S, Mi ) is the similarity         adhering strictly to the order returned by the database. In other
+between the user and the material Mi and R is the weighted average           words, if two materials receive the same score, the random number
+of ratings by the similar users to the material Mi that is given by          determines which one will be selected, reducing the likelihood of
+Equation 6                                                                   consistently choosing the same material. It’s important to consider
+                                                                             that multiple resources may discuss the same idea and hold the
+                                P   ∗                                        same logical position in the learning sequence. Therefore, for each
+                                j Rji Sim(Sj , S)                            idea, only the resource with the highest score is chosen. Since the list
+                      R=        P                                (6)
+                                  j Sim(Sj , S)                              is sorted, an efficient selection process is implemented by retaining
+                                                                             the last occurrence of each unique element and discarding the rest.
+      Where Rji is the rating of material Mi by student Sj and
+                                                                             Ultimately, a list of highly ranked resources is obtained, ensuring
+Sim(Sj , S) is the similarity between the target student and student
+                                                                             comprehensive coverage of all aspects of the topic. Table 1 outlines
+Sj . If a material does not have any ratings yet, then the average
+                                                                             the steps taken within our algorithm in a cold-start condition.
+rating is assumed to be 5 to keep its chances of being selected and
+later rated.
+      Now, each material has a score derived from the similarity
+between the active user and the material, based on ratings by other          3.3 Reﬁnement/adjusting component
+similar users. This score is utilized to arrange the materials, along
+with a randomly generated integer assigned to each record. The                   To enhance the system’s performance, this study proposes
+random number serves to provide equal opportunities for materials            an approach for adjusting the parameters of low-rated materials
+that were never selected, as it is used for reordering instead of            through association rule mining. Before presenting the final list to
+
+Frontiers in Computer Science                                           10                                                             frontiersin.org
+Butmeh and Abu-Issa                                                                                                              10.3389/fcomp.2024.1404391
+
+
+
+
+TABLE 1 Recommendation algorithm.
+                                                                                        display only the records where “rating” appears in the consequents
+ Algorithm 1: Generating recommended list
+                                                                                        columns, either alone or with other parameters. Subsequently, the
+                                                                                        antecedents of these rows are processed. If an attribute should
+ Input:
+                                                                                        take a single value, the record with the highest confidence for that
+ Active learner’s preferences vector.
+ Set of learning materials M = {m–1, m2, m3... m-n }.                                   attribute is considered, followed by string processing to extract
+ Similar users’ ratings R, where r ∈ {1, 2, 3, 4, 5}                                    the attribute alone and separate the value from the attribute name
+ Output:
+                                                                                        (using underscores). This process yields the desired attribute value.
+ List of top N recommended materials
+ Predicted rating for each material                                                     If the attribute can take multiple values, each occurrence of that
+ Method:                                                                                attribute has its value extracted using the same string processing
+ 1. For each material mi in M, compute similarity between mi− and the active
+                                                                                        steps, concatenating all values with a star “∗ ”.
+    user S, Sim(S, mi ) using Equation 3
+ 2. For each material mi in M
+   a) Compute similarity between the active user and each user Sk of users
+       who rated material mi , if similarity > 0.6 add rating rki to the list of
+       ratings R using Equation 4
+   b) Compute the ratings weighted average using Equation 5                             3.4 User interface and prototype
+   c) Compute the final predicted rating using Equation 6
+ 3. Sort materials based on predicted score and a random number
+ 4. Keep the material highest predicted rating for each piece of information
+                                                                                            To streamline the system’s experiment and provide a user-
+                                                                                        friendly experience, a website was developed to encompass all
+                                                                                        project phases. The website is designed to be intuitive and self-
+                                                                                        explanatory, requiring minimal guidance for users to navigate
+the user, a material with a low rating (below 3) and no significant                     through the system. This approach is particularly beneficial as the
+relation to the current user (i.e., not having a high score concerning                  system is tailored for self-directed learners.
+the active user) is added to the list. The ratings provided by                              Hence, the content was organized for easy viewing and
+the current user and other unrelated users are employed by a                            editing, allowing users to quickly scan through the homepage
+background task to assess if an enhancement can be applied to such                      using either the dashboard or the navigation menu. Additionally,
+a material.                                                                             warning messages regarding any missing requirements, such as
+     The background task selects users who rated a material higher                      the preferences quiz, include navigation links to guide users in
+than 3 and employs the Apriori algorithm for pattern mining.                            completing those sections.
+Once again, users are binary encoded, with the material’s rating                            For the proof of concept, we focused on four key topics
+being one of the attributes. The Apriori algorithm is applied to the                    from the “Digital Systems Design” course: minterms minimization,
+binary data to identify frequent items with a minimum support of                        maxterms minimization, prime implicants, and decoder. We
+0.5. Association rules related to the ratings are derived from the                      gathered a collection of 65 materials covering these topics, with
+frequent items, ensuring a confidence level higher than 0.7.                            variations in length, structure, and language. The resources were
+     Attributes from the association rules are then incorporated                        categorized, labeled, and stored in our database based on our
+into the material’s profile. The attributes observed in this step                       learning material modeling.
+are those initially obtained from user properties, such as learning
+style. Each time the attributes of a material are updated, the
+values are logged in a history table for verification and testing
+purposes. Despite these attributes being assigned to the material by                    4 Results and discussion
+the admin user, there may be inaccuracies. For instance, a video
+material might be assumed initially to cater to learners with a                             The testing aimed to assess the accuracy of material
+visual learning style, but in practice, it may be more effective for                    recommendations generated by the system. Various evaluation
+learners with an audio learning style, as the content focuses on                        approaches were employed, each tailored to the nature of the
+verbal explanation. For attributes that have a single value, the values                 element being tested. The proposed recommendation algorithm
+are extracted from the association rule containing that attribute                       underwent evaluation through different metrics to determine:
+with the highest confidence.
+                                                                                        1. The system’s ability to predict users’ ratings, including the cold-
+     This process is triggered when a material obtained for a user
+                                                                                           start condition.
+for adjustment purposes receives a new rating. The calculations are
+                                                                                        2. The system’s capability to identify similar users, also considering
+performed in the background to prevent blocking user operations
+                                                                                           the cold-start condition.
+and are separated as a background task that can run periodically
+as a cron job, rather than being triggered every time a new rating                          An experiment was conducted to evaluate the effectiveness of
+is given.                                                                               the recommendations, involving 43 participants. As there was no
+     Figure 5 illustrates a sample of the Apriori algorithm output.                     existing dataset aligning with our material mapping, we utilized the
+It shows each of the material characteristics in the antecedent                         65 learning objects collected and annotated based on our defined
+column, and the set of associated learning preferences in the                           modeling. Each participant completed the learning preferences
+consequents column. In this example, only one user has rated the                        quiz, knowledge assessment quizzes, and rated the materials
+material, resulting in 100% confidence and support. This example                        suggested by the system. This resulted in a total of 448 ratings. The
+is used for illustrative purposes to elucidate the outlined steps.                      participants were university students who had completed the digital
+After running the Apriori algorithm, the data is preprocessed to                        design course during the COVID-19 pandemic closure.
+
+
+
+Frontiers in Computer Science                                                      11                                                           frontiersin.org
+Butmeh and Abu-Issa                                                                                                            10.3389/fcomp.2024.1404391
+
+
+
+
+   FIGURE 5
+   Aprioi output.
+
+
+
+
+                                                                               TABLE 2 MAE for the model.
+4.1 Mean absolute error (MAE)
+                                                                                Case                                           MAE
+    The mean absolute error (MAE) is the average of the absolute
+differences between the predicted values generated by the model                 All records                                     1.05
+
+and the actual results. This error is computed by taking the absolute           Records with CF                                 1.03
+value of the difference between the actual and predicted values for             Records without CF                              1.09
+each individual record and then calculating the mean of all these
+differences. The absolute value is utilized because the focus is on the
+variation irrespective of its sign (Willmott and Matsuura, 2005).
+    In our context, the predicted values are the ratings generated by
+the model, and the actual values are the ratings provided by users.
+The MAE value indicates how much the predicted rating deviates
+from the actual rating. A smaller MAE value signifies less deviation
+and better accuracy. The mathematical representation of MAE is
+given by Equation 7:
+                                 Pn
+                                   i=1 |yi − xi |
+                     MAE =                                          (7)
+                                        n
+    The model-generated scores, utilized for ranking materials and
+indicating the predicted rating for each user-material pair, were
+normalized within the 1 to 5 range. The error analysis involved
+three scenarios: overall error, error in the absence of similar
+users’ ratings, and error when considering ratings by similar users
+(referred to as collaborative filtering or CF).
+                                                                                  FIGURE 6
+    The computation of the overall mean absolute error (MAE)
+                                                                                  Distribution of all predicted vs. actual ratings.
+considered all 443 records, resulting in an error of 1.05, which
+is relatively small. Given the five possible rating values, if a user
+assigns a rating of 3, the system may predict a rating of either 2
+or 4.
+    For the second case, the error was calculated when only records                 In the third case, the opposite scenario was considered, where
+with the collaborative filtering flag set to true were considered. This        the user was the first among their similar group to rate the marked
+flag indicates situations where users similar to the active user had           material. For these records, the error was around 1.09. The errors
+already rated the target material, and their ratings were part of              for the three cases are summarized in Table 2. Although there is
+the score calculation process. With 154 records, the resulting error           a slight improvement observed with the inclusion of similar users’
+was 1.03.                                                                      ratings, the change is not significant. The limited number of records
+
+
+
+Frontiers in Computer Science                                             12                                                                frontiersin.org
+Butmeh and Abu-Issa                                                                                                           10.3389/fcomp.2024.1404391
+
+
+
+
+                                                                                  FIGURE 8
+   FIGURE 7                                                                       Average similarity per rating difference.
+   Distribution of predicted vs. actual ratings with CF.
+
+
+
+
+                                                                               4.2.1 Users’ similarity vs. ratings
+under study might contribute to this observation, preventing                        This investigation seeks to assess the divergence in ratings
+definitive conclusions.                                                        provided by similar users for a specific material. Ratings were
+     The impact of the proposed collaborative filtering approach               categorized by material, and a similarity matrix among users within
+was further investigated by visualizing the distribution of actual             each group was established, incorporating the rating differences
+ratings vs. predicted ones. Figure 6 illustrates the distribution of           between every pair of users. The same similarity function employed
+all predicted values, while Figure 7 depicts the distribution when             in our model was used for this matrix. A DataFrame was then
+collaborative filtering is implemented. The visual representation              generated, with each row containing the similarity between two
+utilized a violin plot, combining features of box and density plots.           users and the rating difference for a particular material. Given the
+The plot showcases the minimum and maximum values, along                       rating scale from 1 to 5, the difference ranges from 0 to 4.
+with the interquartile range represented by the black rectangle in                  The records in the newly created DataFrame were grouped by
+the center. The width of the plot sections is determined by kernel             rating difference, and the average similarity among users in each
+density estimation, reflecting the data’s distribution shape. Wider            group was computed. Figure 8 visualizes the relationship between
+sections indicate a higher probability of instances taking on that             the difference in ratings and the average similarity among users
+value, while narrower sections imply lower probability.                        for each difference level. The figure suggests that smaller rating
+     Upon comparing the two graphs, it becomes evident that, in                differences correspond to higher similarities among users in that
+the absence of considering similar users’ ratings, there are some              category. This observation aligns with traditional collaborative
+extreme values (depicted by the peak values of the plots) in the               filtering, which identifies related users based on the proximity of
+wrong direction, which are not present when collaborative filtering            their ratings. Thus, we were able to identify similar users in a
+is employed. For instance, for an actual rating of 2, Figure 7 shows           pure cold-start condition without existing ratings. Moreover, our
+a predicted value of 5. Additionally, the actual rating of 3 is widely         method can seamlessly integrate classical collaborative filtering as
+spread across all possible predicted values in the first graph, whereas        the system progresses in hot-start settings.
+in the second graph, it is more compact and centered around the
+value of 3.
+     In this research ratings <3 refer to irrelevant material                  4.2.2 Using clustering for learner similarity
+suggestions, and materials with ratings of 3 or above are assumed to               The second method employed to evaluate the model’s capability
+be well categorized. The total number of records with good ratings             to identify similar user groups involves the application of a
+is 363 out 443, which refers to a level of satisfaction of around 82%.         clustering algorithm. Now that a sufficient number of users have
+Comparing this result to previous work, it shows an increase of 16%            interacted with the system, a multivariate clustering algorithm
+of satisfaction for models considering cold-start problem (Jeevamol            is employed to associate users with similar characteristics.
+and Renumol, 2021).                                                            Multivariate clustering is an analytical approach designed to
+                                                                               explore patterns within multiple variables simultaneously. For our
+                                                                               evaluation, the K-means algorithm was chosen to cluster users. The
+4.2 Users similarity                                                           clustering algorithm was fed with 200 records, encompassing all
+                                                                               users in the database, not exclusively those who have rated some
+    The next evaluation metric is the capability of the system                 materials. Including the maximum number of users is preferred in
+in identifying similar users. To do so, we analyzed the users’                 machine learning algorithms.
+similarities with the consistency in their ratings, as we also used                K-modes clustering, an enhancement of k-means tailored for
+multivariate clustering to test similar users groups.                          categorical data, was utilized. It is an unsupervised machine
+
+
+
+Frontiers in Computer Science                                             13                                                               frontiersin.org
+Butmeh and Abu-Issa                                                                                                     10.3389/fcomp.2024.1404391
+
+
+
+
+      FIGURE 9
+      Elbow method for K-modes CF.
+
+
+
+
+TABLE 3 Similarity in each cluster.
+                                                                              identifying the relevant cluster and determining the average rating
+                                                                              given by users in that cluster.
+  Case                           MAE
+  1                                   0.7
+
+  2                                   0.7
+                                                                              5 Conclusion and future work
+  3                               0.67                                             In this paper, a model was introduced for both learners and
+  4                                   0.8                                     learning objects, incorporating common attributes shared between
+                                                                              the two models. These models encompassed learning preferences,
+  5                                   0.9
+                                                                              learning styles, and knowledge. The proposed model was employed
+                                                                              in a recommendation system aimed at identifying similar learning
+                                                                              objects for a given learner. The system utilized common attributes
+                                                                              between learners and learning objects, incorporating ratings from
+learning algorithm that partitions the data into k clusters and
+                                                                              similar users to enhance the accuracy of predictions. The top-rated
+identifies the closest cluster when adding an entry. The essential
+                                                                              materials were then suggested to users, taking into account user
+parameters for this clustering technique are the number of clusters
+                                                                              misconceptions and relationships between materials. Additionally,
+(K) and the set of variables (attributes) to analyze. The selected
+                                                                              the attributes of materials were adjusted using sequential pattern
+attributes mirror those used in our model, describing learning
+                                                                              mining based on user ratings.
+preferences and learning style.
+                                                                                   The system underwent experimentation to evaluate the
+    To determine the appropriate number of clusters, the elbow
+                                                                              effectiveness of recommended materials. The results indicated
+method was employed. This method involves running the
+                                                                              that the system successfully modeled users and identified their
+clustering algorithm multiple times with different numbers of
+                                                                              misconceptions. Evaluation based on predicted vs. actual ratings
+clusters and assessing the variance in groups for each cluster
+                                                                              yielded a mean absolute error (MAE) of 1.05, suggesting that, on
+number. When plotting the variations within clusters against the
+                                                                              a five-point scale, predictions were off by an average of one point.
+corresponding number of clusters, the elbow of the curve is
+                                                                              Another aspect of the analysis involved assessing user similarities,
+identified and serves as the optimal value “k.” The elbow of the
+                                                                              revealing that similar users tended to rate the same materials more
+curve signifies the point at which the curve noticeably bends,
+                                                                              closely compared to dissimilar users. Lastly, K-Mode multivariate
+indicating that the decrease in variance beyond that point is not
+                                                                              clustering was applied to a set of users, and users within each cluster
+significant. In clustering, this implies that increasing the number of
+                                                                              exhibited significant similarities according to the applied similarity
+clusters beyond a certain point does not significantly enhance the
+                                                                              function. The system shows promise for future testing across
+model. The elbow graph shown in Figure 9 led to the selection of 5
+                                                                              diverse groups of students with varied backgrounds and enrolled
+as the preferred number of clusters.
+                                                                              in different courses spanning various disciplines. Additionally,
+    The algorithm employed in our model was used to compute
+                                                                              machine learning algorithms can be employed to assign weights
+pair-wise similarities among users within each cluster. The mean
+                                                                              to the attributes of learners and learning objects, to increase the
+of these similarities was then calculated to assess the homogeneity
+                                                                              accuracy of the predicted ratings.
+that our system attributes to these clusters. The results, presented
+in Table 3, all satisfy our similarity threshold of 0.6.
+    Based on this analysis, it can be inferred that the system’s              Data availability statement
+similarity measure can be substituted with a multivariate clustering
+mechanism, specifically K-modes. As we move beyond the cold-                     The raw data supporting the conclusions of this article will be
+start scenario, defining similar users can be accomplished by                 made available by the authors, without undue reservation.
+
+
+
+Frontiers in Computer Science                                            14                                                            frontiersin.org
+Butmeh and Abu-Issa                                                                                                                                 10.3389/fcomp.2024.1404391
+
+
+
+
+Author contributions                                                                           Conﬂict of interest
+    HB: Investigation, Methodology, Software, Supervision,                                         The authors declare that the research was conducted in the
+Validation,  Writing     –    original   draft,   Writing    –                                 absence of any commercial or financial relationships that could be
+review     &   editing.     AA-I:   Conceptualization,    Data                                 construed as a potential conflict of interest.
+curation,    Investigation,      Methodology,      Supervision,
+Validation, Writing – original draft, Writing – review
+& editing.                                                                                     Publisher’s note
+                                                                                                   All claims expressed in this article are solely those of the
+Funding                                                                                        authors and do not necessarily represent those of their affiliated
+                                                                                               organizations, or those of the publisher, the editors and the
+    The author(s) declare that no financial support was                                        reviewers. Any product that may be evaluated in this article, or
+received for the research, authorship, and/or publication of                                   claim that may be made by its manufacturer, is not guaranteed or
+this article.                                                                                  endorsed by the publisher.
+
+
+
+
+References
+   Abouzeid, E., Fouad, S., Wasfy, N. F., Alkhadragy, R., Hefny, M., and Kamal,                subseries lecture notes in artificial intelligence and lecture notes in bioinformatics).
+D. (2021). Influence of personality traits and learning styles on undergraduate                LNCS 10961, 199–212. doi: 10.1007/978-3-319-95165-2_14
+medical students’ academic achievement. Adv. Med. Educ. Pract. 12:777.
+                                                                                                  Colombo-Mendoza, L. O., Valencia-García, R., Rodríguez-González, A., Alor-
+doi: 10.2147/AMEP.S314644
+                                                                                               Hernández, G., and Samper-Zapater, J. J. (2015). RecomMetz: a context-aware
+    Ali, S., Hafeez, Y., Humayun, M., Jamail, N. S. M., Aqib, M., and Nawaz, A.                knowledge-based mobile recommender system for movie showtimes. Expert Syst Appl.
+(2022). Enabling recommendation system architecture in virtualized environment for             42, 1202–1222. doi: 10.1016/j.eswa.2014.09.016
+e-learning. Egyptian Informat. Journal 23, 33–45. doi: 10.1016/j.eij.2021.05.003
+                                                                                                  Dwivedi, P., Kant, V., and Bharadwaj, K. K. (2017). Learning path recommendation
+   Amane, M., Aissaoui, K., and Berrada, A. (2021). Multi-agent M, and content-based           based on modified variable length genetic algorithm. Educ. Inf. Technol. 23, 819–836.
+course recommender system for university e-learning platforms. Lecture Notes Netw.             doi: 10.1007/s10639-017-9637-7
+Syst. 211, 663–672. doi: 10.1007/978-3-030-73882-2_60
+                                                                                                  Ekstrand, M. D., Riedl, J. T., and Konstan, J. A. (2010). Collaborative Filtering
+   Antony Rosewelt, L., and Arokia Renjit, J. (2020). A content recommendation                 Recommender Systems. Boston, MA.
+system for effective e-learning using embedded feature selection and fuzzy DT based
+                                                                                                  Fleming, N. D., and Mills, C. (1992). Not another inventory, rather a
+CNN. J. Intellig. Fuzzy Syst. 39, 795–808. doi: 10.3233/JIFS-191721
+                                                                                               catalyst for reflection. Improve Acad. 11, 137–155. doi: 10.1002/j.2334-4822.1992.tb0
+   Bajaj, R., and Sharma, V. (2018). Smart Education with artificial intelligence              0213.x
+based determination of learning styles. Procedia Comput. Sci. 132, 834–842.
+                                                                                                  Fournier-Viger, P., Chun, J., Lin, W., Kiran, R. U., Koh, Y. S., and Thomas, R. (2017).
+doi: 10.1016/j.procs.2018.05.095
+                                                                                               A survey of sequential pattern mining. Data Sci. Pattern Recogn. 1:1.
+    ben Schafer, J., Frankowski, D., Herlocker, J., and Sen, S. (2007). “Collaborative            Fraihat, S., and Shambour, Q. (2015). A framework of semantic recommender
+filtering recommender systems,” in Lecture Notes in Computer Science (including                system for e-learning. J. Softw. 10, 317–330. doi: 10.17706/jsw.10.3.317-330
+subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)
+(Berlin; Heidelberg: Springer), 291–324.                                                           George, G., and Lal, A. M. (2019). Review of ontology-based recommender systems
+                                                                                               in e-learning. Comput. Educ. 142:103642. doi: 10.1016/j.compedu.2019.103642
+   Benhamdi, S., Babouri, A., and Chiky, R. (2016). Personalized recommender
+                                                                                                  Ghauth, K. I., and Abdullah, N. A. (2010). Learning materials recommendation
+system for e-Learning environment. Educ. Inf. Technol. 22, 1455–1477.
+                                                                                               using good learners’ ratings and content-based filtering. Educ. Technol. Res. Dev. 58,
+doi: 10.1007/s10639-016-9504-y
+                                                                                               711–727. doi: 10.1007/s11423-010-9155-4
+   Bhaskaran, S., Marappan, R., and Santhi, B. (2021). Design and analysis of a
+                                                                                                  Halim, A., Mahzum, E., Yacob, M., Irwandi, I., and Halim, L. (2021).
+cluster-based intelligent hybrid recommendation system for e-learning applications.
+                                                                                               The impact of narrative feedback, e-learning modules and realistic video and
+Mathematics 9:197 doi: 10.3390/math9020197
+                                                                                               the reduction of misconception. Educ. Sci. 11:158. doi: 10.3390/educsci1104
+   Bobadilla, J., Serradilla, F., and Hernando, A. (2009). Collaborative filtering             0158
+adapted to recommender systems of e-learning. Knowl. Based Syst. 22, 261–265.
+                                                                                                  Han, J., Cheng, H., Xin, D., ang Yan, X. (2007). Frequent pattern mining:
+doi: 10.1016/j.knosys.2009.01.008
+                                                                                               current status and future directions. Data Mining Knowl. Discov. 15, 55–86.
+   Bouihi, B., and Bahaj, M. (2019). Ontology and rule-based recommender                       doi: 10.1007/s10618-006-0059-1
+system for e-learning applications. Int. J. Emerg. Technol. Learn. 14, 4–13.
+                                                                                                  Han, J., Kamber, M., and Pei, J. (2012). “Getting to know your data,” in Data Mining
+doi: 10.3991/ijet.v14i15.10566
+                                                                                               (Berlin; Heidelberg: Springer), 39–82.
+   Bourkoukou, O., Bachari, E., and Adnani, M. (2016). A personalized e-learning
+                                                                                                   Hanurawan, N. (2017). Teaching writing by using Visual, Auditory, Read/Write,
+based on recommender system. Int. J. Learn. 2, 99–103. doi: 10.18178/ijlt.2.2.99-103
+                                                                                               And Kinesthetic (VARK) learning style in descriptive text to the seventh grade students
+   Brik, M., and Touahria, M. (2020). Contextual information retrieval within                  of SMPN 2 Jiwan. English Teach. J. 5:1. doi: 10.25273/etj.v5i1.4721
+recommender system: case study ‘e-learning system. TEM J. 9, 1150–1162.
+                                                                                                  Harrathi, M., Touzani, N., and Braham, R. (2017). “A hybrid knowlegde-
+doi: 10.18421/TEM93-41
+                                                                                               based approach for recommending massive learning activities,” in IEEE/ACS
+   Cakula, S., and Sedleniece, M. (2013). Development of a personalized e-                     14th International Conference on Computer Systems and Applications (AICCSA)
+learning model using methods of ontology. Procedia Comput Sci. 26, 113–120.                    (Hammamet: IEEE), 49–54.
+doi: 10.1016/j.procs.2013.12.011
+                                                                                                   Hassan, M. A., Habiba, U., Majeed, F., and Shoaib, M. (2021). Adaptive gamification
+   Chebbi, C., and Imen, C. (2021). “Ontological model for personalized                        in e-learning based on students’ learning styles. Interact. Learn. Environm. 29, 545–565.
+the inclusive learning,” in E-Learning Framework and Assessment.                               doi: 10.1080/10494820.2019.1588745
+doi: 10.13140/RG.2.2.21218.04800/1
+                                                                                                  Hawk, T. F., and Shah, A. J. (2007). Using learning style instruments
+   Chee, S. H. S., Han, J., and Wang, K. (2001). RecTree: an efficient                         to enhance student learning. Decis. Sci. J. Innovat. Educ 5, 1–19.
+collaborative filtering method. Lecture Notes Comp. Sci. 2114,141–151.                         doi: 10.1111/j.1540-4609.2007.00125.x
+doi: 10.1007/3-540-44801-2_15
+                                                                                                  Imran, H., Hoang, Q., Chang, T.-W., and Graf, S. (2014). A framework to provide
+    Ciloglugil, B., and Inceoglu, M. M. (2018). A learner ontology based on learning           personalization in learning management systems through a recommender system
+style models for adaptive e-learning. Lecture notes in computer science (including             approach. LNAI 8397, 271–280. doi: 10.1007/978-3-319-05476-6_28
+
+
+
+
+Frontiers in Computer Science                                                             15                                                                           frontiersin.org
+Butmeh and Abu-Issa                                                                                                                                    10.3389/fcomp.2024.1404391
+
+
+
+
+   Jeevamol, J., and Renumol, V. G. (2021). An ontology-based hybrid e-learning                      Rahman, M. M., and Abdullah, N. A. (2018). A personalized group-based
+content recommender system for alleviating the cold-start problem. Educ. Inform.                  recommendation approach for web search in E-learning. IEEE Access. 6, 34166–34178.
+Technol. 26, 4993–5022. doi: 10.1007/s10639-021-10508-0                                           doi: 10.1109/ACCESS.2018.2850376
+   Joy, J., Raj, N. S., and Renumol, V. G. (2021). Ontology-based E-learning content                 Ricci, F., Rokach, L., and Shapira, B. (2011). “Introduction to recommender systems
+recommender system for addressing the pure cold-start problem. ACM J Data Inf Qual.               handbook,” in Recommender Systems Handbook (Boston, MA: Springer), 1–35.
+13:3. doi: 10.1145/3429251
+                                                                                                     Salehi, M., and Kmalabadi, I. N. (2012). A hybrid attribute–based recommender
+   Joy, J., and Renumol, V. G. (2020). “Comparison of generic similarity measures in              system for e–learning material recommendation. IERI Procedia. 2, 565–570.
+E-learning content recommender system in cold-start condition,” in 2020 IEEE Bombay               doi: 10.1016/j.ieri.2012.06.135
+Section Signature Conference, IBSSC (Bombay: IEEE), 175–179.
+                                                                                                     Saveski, M., and Mantrach, A. (2014). “Item cold-start recommendations,” in
+  Karen, S., and Felicetti, L. (1992). Learning styles of marketing majors. Educ. Res.            Proceedings of the 8th ACM Conference on Recommender systems - RecSys ’14. New
+Quart. 15, 15–23.                                                                                 York: ACM Press, 89–96.
+   Keefe, J. (1979). “An overview,” in NASSP’s Student Learning Styles: Diagnosing                   Shanshan, S., Mingjin, G., and Lijuan, L. (2021). An improved hybrid ontology-
+and Prescribing Programs (Reston, VA: National Association of Secondary School                    based approach for online learning resource recommendations. Educ. Technol. Res.
+Principles).                                                                                      Dev. 69, 2637–2661. doi: 10.1007/s11423-021-10029-0
+   Kulkarni, P. V., Rai, S., and Kale, R. (2020). “Recommender system in eLearning:                  Shishehchi, S., Banihashem, Y., Azan, N., Zin, M., Azman, S., and Noah, M. (2012).
+a survey,” in Proceeding of International Conference on Computational Science and                 Ontological approach in knowledge based recommender system to develop the quality
+Applications (Singapore: Springer), 119–126.                                                      of E-learning system. Aust J. Basic Appl. Sci. 6, 115−123,
+   Lalitha, T. B., and Sreeja, P. S. (2020). “Personalised self-directed                             Sikka, R., Dhankhar, A., and Rana, C. (2012). A survey paper on e-learning
+learning recommendation system,” Procedia Comp. Sci. 171, 583–592.                                recommender system. Int J Comput Appl. 47, 975–888. doi: 10.5120/7218-0024
+doi: 10.1016/j.procs.2020.04.063
+                                                                                                     Silva, N., Carvalho, D., Pereira, A. C. M., Mourão, F., and Rocha, L. (2019). The
+   Lam, X. N., Vu, T., Le, T. D., and Duong, A. D. (2008). “Addressing cold-                      Pure Cold-Start Problem: A deep study about how to conquer first-time users in
+start problem in recommendation systems,” in Proceedings of the 2nd International                 recommendations domains. Inf. Syst. 80, 1–12. doi: 10.1016/j.is.2018.09.001
+Conference on Ubiquitous Information Management and Communication - ICUIMC ’08.
+                                                                                                     Singh, J., Ram, H., and Sodhi, J. S. (2013). Improving efficiency of apriori algorithm
+New York: ACM Press, 208–211.
+                                                                                                  using transaction reduction. Int. J. Scient. Res. Publicat. 3:1.
+   Li, X., and Chang, S.-K. (2005). “A personalized e-learning system based on user
+                                                                                                     Sobhanam, H., and Mariappan, A. K. (2013). “Addressing cold start problem
+profile constructed using information fusion,” in Proceedings International Conference
+                                                                                                  in recommender systems using association rules and clustering technique,” in
+on Database and Expert Systems Applications (DMS) (Banff, AB), 109–114
+                                                                                                  International Conference on Computer Communication and Informatics, ICCCI
+   Liu, X. (2017). A collaborative filtering recommendation algorithm based on                    (Coimbatore: IEEE).
+the influence sets of e-learning group’s behavior. Cluster Comput. 22, 2823–2833.
+                                                                                                     Tarus, J., Niu, Z., and Khadidja, B. (2017). E-learning recommender system based
+doi: 10.1007/s10586-017-1560-6
+                                                                                                  on collaborative filtering and ontology. Int. J. Comp. Inform. Eng. 11, 256–262.
+   Lu, J. (2014). “Personalized e-Learning Material Recommender System,” in                       doi: 10.5281/zenodo.1129067
+Proceedings International Conference on Information Technology and Applications.
+                                                                                                     Tarus, J. K., Niu, Z., and Kalui, D. (2017a). A hybrid recommender system for e-
+   Lü, L., Medo, M., Yeung, C. H., Zhang, Y. C., Zhang, Z. K., and Zhou, T. (2012).               learning based on context awareness and sequential pattern mining. Soft Comp. 22,
+Recommender systems. Phys Rep. 519, 1–49. doi: 10.1016/j.physrep.2012.02.006                      2449–2461 doi: 10.1007/s00500-017-2720-6
+   Mladenic, D. (1999). Text-learning and related intelligent agents: a survey. IEEE                 Tarus, J. K., Niu, Z., and Yousif, A. (2017b). A hybrid knowledge-based
+Intellig. Syst. Their Appl. 14, 44–54. doi: 10.1109/5254.784084                                   recommender system for e-learning based on ontology and sequential pattern
+                                                                                                  mining. Future Generat. Comp. Syst. 72, 37–48. doi: 10.1016/j.future.2017.
+    Movchun, V., Lushkov, R., and Pronkin, N. (2020). Prediction of individual learning
+                                                                                                  02.049
+style in e-learning systems: opportunities and limitations in dental education. Educ. Inf.
+Technol. 26, 2523–2537. doi: 10.1007/s10639-020-10372-4                                              Willmott, C. J., and Matsuura, K. (2005). Advantages of the mean absolute
+                                                                                                  error (MAE) over the root mean square error (RMSE) in assessing average model
+   Niknam, M., and Thulasiraman, P. (2020). LPR: A bio-inspired intelligent learning
+                                                                                                  performance. Clim Res. 30, 79–82. doi: 10.3354/cr030079
+path recommendation system based on meaningful learning theory. Educ. Inf. Technol.
+25, 3797–3819. doi: 10.1007/s10639-020-10133-3                                                       Wu, J., and Feng, Q. (2020). Recommendation system design for college network
+                                                                                                  education based on deep learning and fuzzy uncertainty. J. Intellig. Fuzzy Syst 38,
+    Obeid, C., Lahoud, I., Khoury, H., and Champin, P. A. (2018). “Ontology-based
+                                                                                                  7083–7094. doi: 10.3233/JIFS-179787
+recommender system in higher education,” in The Web Conference 2018 - Companion
+of the World Wide Web Conference, WWW, 1031–1034. doi: 10.1145/3184558.3191533                       Yang, Q., Sun, J., Wang, J., and Jin, Z. (2010). “Semantic web-based personalized
+                                                                                                  recommendation system of courses knowledge research,” in Proceedings 2010
+   Ompusunggu, L. D., Sensuse, D. I., Wahbi, A., and Mahdalina, R. (2021).
+                                                                                                  International Conference on Intelligent Computing and Cognitive Informatics (ICICCI)
+“Comparison between rule-based expert support system and machine learning expert
+                                                                                                  (Kuala Lumpur: IEEE), 214–217.
+support system in KM,” in 2021 2nd International Conference on Smart Computing and
+Electronic Enterprise: Ubiquitous, Adaptive, and Sustainable Computing Solutions for                Zhang, Q., Lu, J., and Zhang, G. (2021). Recommender systems in E-learning. J.
+New Normal, ICSCEE, 114–120.                                                                      Smart Environm. Green Comp. 1, 76–89. doi: 10.20517/jsegc.2020.06
+   Rahayu, N. W., Ferdiana, R., and Kusumawardani, S. S. (2022). A systematic                        Zhao, X., Niu, Z., Chen, W., Shi, C., Niu, K., and Liu, D. (2014). A hybrid
+review of ontology use in E-Learning recommender system. Comp. Educ. 3:100047.                    approach of topic model and matrix factorization based on two-step recommendation
+doi: 10.1016/j.caeai.2022.100047                                                                  framework. J. Intellig. Informat. Syst. 44, 335–353. doi: 10.1007/s10844-014-0334-3
+
+
+
+
+Frontiers in Computer Science                                                                16                                                                          frontiersin.org
+

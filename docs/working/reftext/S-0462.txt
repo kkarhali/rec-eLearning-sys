@@ -1,0 +1,721 @@
+                                                             Ingénierie des Systèmes d’Information
+                                                                         Vol. 27, No. 5, October, 2022, pp. 695-704
+                                                                        Journal homepage: http://iieta.org/journals/isi
+
+
+
+ Interactive Hybrid Recommendation of Pedagogical Resources
+ Chahrazed Mediani
+
+ Computer Science Department and LRSD Laboratory, University Ferhat Abbes of Setif, Setif 19000, Algeria
+
+ Corresponding Author Email: chahrazed.mediani@univ-setif.dz
+
+ https://doi.org/10.18280/isi.270502            ABSTRACT
+
+ Received: 17 April 2022                        Recommender systems provide a solution to the information overload problem and can
+ Accepted: 30 August 2022                       estimate user preferences in a given resource from certain information about other similar
+                                                users and the resource's features. This research presented a recommender system for
+ Keywords:                                      pedagogical resources. The built system adapts a hybrid method of two principal
+ collaborative  filtering, content-based,       approaches: content-based and collaborative filtering. We have used the term frequency-
+ recommender system, pedagogical resource,      inverse document frequency (TF-IDF) technique and singular value decomposition
+ SVM, TF-IDF                                    (SVD) to let the system better understand the semantics of the pedagogical resources in a
+                                                content-based approach and prevent some shortcomings of the existing collaborative
+                                                filtering approach. The hybridization of those techniques and methods helps the system
+                                                improve the accuracy of recommendations and better respond to user requirements. The
+                                                first tests of our system give encouraging results.
+
+
+
+1. INTRODUCTION                                                         items, among others, due to the capacity of the interactions
+                                                                        many users provide regarding those items [6]. However, those
+   Nowadays, a large mass of information is available on the            systems give non-personal recommendations because they
+Internet. It has become essential to design mechanisms that             suggest most users' preferences [7].
+allow users to access as quickly as possible what they want.                Content-based recommender systems are based on user
+Recommendation systems (RS) provide a solution to the                   ratings of a set of documents or items [8]. The purpose is to
+problem of information overload, considering the heart of               understand the motivations that led him to judge a given item
+modern information systems that we use daily [1]. These                 as relevant or not, then offer a choice among new items to be
+systems have played a vital and indispensable role in various           close to the items he has previously enjoyed [9]. A content-
+information access systems to drive business and facilitate             based approach analyzes a set of items that have been rated or
+decision-making. A recommender system is a specific form of             viewed previously [10]. It builds a profile or a model of the
+information filtering that helps users find items from massive          user's interests based on the characteristics of items liked or
+catalogues to present them based on their behavior and                  disliked by the user. Based on feedback, the user's profile is
+preferences [2, 3]. Items can be books, movies, news, music,            constructed. The recommendation process compares the
+and others. It also helps users make choices in an area where           candidate's attributes with the user's attributes profile. And as
+they have little information to sort and evaluate possible              a final result, the system will recommend items similar to the
+alternatives.                                                           user profile.
+   Recommender systems are applications that can filter                     Collaborative filtering is the basis of the recommendation.
+information in a personalized manner [4]; the filtering                 Systems based on collaborative filtering consider user ratings
+algorithm characterizes the internal functions of                       of items to calculate the similarity of their preferences and
+recommendation systems. Several classifications of RS have              recommend these items without analyzing their content [11].
+emerged [4]. These are based on different factors to categorize         It is no longer based on the notion of proximity of a "new item
+a recommender system: knowing the user (i.e., his profile),             - user profile" pair but seeks to bring the current user closer to
+knowing the user position between the others, knowing the               a set of existing users. The idea here is no longer to be
+items that we will recommend, and knowing in which class is             specifically interested in the new item that would be likely to
+the item we want to recommend. The most widely used                     please the user but to look at which items liked the users close
+classification divides filtering algorithms into popularity-            to the current user. All users of the collaborative filtering
+based (PB), content-based (CB), collaborative filtering (CF),           system can take advantage of the reviews of others by
+and hybrid-based recommender system (HB), which is the                  receiving recommendations for which the closest users have
+hybridization of them.                                                  made a favorable value judgment without the system having
+   Popularity-based recommender system is the simplest                  content extraction process documents. Thanks to its
+system compared to other more advanced approaches.                      independence, this technique can be used for any data: text,
+Popularity-based stands for the principle of the public                 image, audio, and video. There are two main classes of
+endorsement considerably affects others' choices or decision-           collaborative filtering: memory-based and model-based [12].
+making. There is a big chance for users to change their pre-                The memory-based (MB) approach predicts ratings based
+made choices once they deal with popular items [5]. The                 on users' previously rated items [12]. MB methods generally
+popularity-based recommender system recommends popular                  use similarity metrics user-wise or item-wise to predict
+
+
+                                                                  695
+recommendations. For example, suppose the system adapts the                their data [1]. RS faces a few challenges in addition to the
+user-wise memory-based approach. In that case, the system                  effect and improvement of recommendation systems regarding
+will determine the relationship between a particular user u and            user navigation experience and information overpowering.
+the rest of the users ui, i ∈ U, by calculating the distance based         Existing recommender frameworks come up short on
+on their interacted items: sim(u, ui). Thus, a user will get               expanded volume, heterogeneity, and the reality that they are
+recommendations from other similar users. Similarity                       not adequately adjusted to the user's requirements and needs.
+measures estimate ratings by grouping users into groups of                    As of late, recommender frameworks have begun including
+closest peers. The most common similarity measure is cosine-               machine learning productivity to get users' way of behaving
+similarity, where users are represented as vectors in an n-                and increment recommendations accuracy. Among online
+dimensional space. Thus, the similarity is calculated between              platforms, such as e-commerce and social media platforms,
+users as the cosine of the angle between them. Memory-based                online educational platforms (E-learning) also attempt to profit
+algorithms differ from the context they are used in; for                   from recommender systems to work with and further develop
+example, in the content-based approach, similarity measure is              learning. Those educational platforms give users (teachers and
+between vectors of TF-IDF weights, whereas in the                          learners) the proper pedagogical devices to assist them with
+collaborative approach, it measures the similarity between                 building a superior educational environment, including
+vectors of the actual user-specified ratings [12].                         collaboration and assets sharing.
+   Unlike memory-based, model-based methods include                           The research found that combining content-based and
+machine learning approaches to utilize the data and generate a             collaborative filtering creates a separate system [16]. Such a
+learned model to explain the user-item interactions and                    system is known to be a hybrid recommendation system with
+discover it to make new predictions [12]. The developed                    both the features of content-based filtering and a collaborative
+model is trained to recreate the user-item interaction values.             filtering system [17]. It considers the users' likes to adjust the
+The recommendations are based on this trained model by                     system to the level of preferences held by the user.
+extracting latent representations of users and items and                      Recommender systems play an essential role in the industry,
+learning their mathematical meaning. MF is the most know                   especially trading and marketing, to boost profits. For example,
+model-based approach [6]. MF algorithms break the sparse                   a web-based e-commerce platform seeks to please its
+user-item interaction matrix into a product of two smaller and             customers and outperform competitors by providing the most
+dense matrices: users representations in a user-factor matrix              significant recommendations and services. However, the
+and items representations in a factor-item matrix [12].                    impact of recommender systems also reached other fields,
+   The above recommender framework approaches have                         such as social media applications, to guarantee the best user
+shown to be exceptionally solid and dependable. Nonetheless,               navigation experience, scientific fields, and educational
+they face a few weaknesses and shortcomings, where hybrid                  purposes. For example, students get recommendations of
+frameworks are acquainted with further development                         educational resources according to their preferences in e-
+suggestion frameworks. A hybrid framework is a blend of at                 learning platforms and other areas [15]. Regardless of the
+least two principle approaches [2]. The primary idea behind a              benefits of industries from recommender systems, learners
+hybrid framework is to fill the shortcoming of one                         significantly benefit from recommender systems in terms of
+methodology with the qualities of the others [2]. A Hybrid                 learners not dealing with the static form of data. Instead, they
+recommender system implementation requires specifying a                    use an interactive approach to define their preferences, which
+hybridization strategy. A taxonomy for classifying hybrid                  means the learners have complete control of their data [1]. So,
+recommender systems is proposed by Burke [13]. They are                    given a large number of pedagogical resources, learners can
+divided into seven classes: weighted, switching, cascade,                  lose their points of reference: what resources to consult first?
+feature augmentation, feature combination, meta-level, and                 Therefore, learners can feel the need to be supported by
+mixed hybrids. Therefore, based on the workflow, hybrid                    services enabling them to access relevant resources to reach
+systems are organized into two main categories: Palatalized                their goals. In the framework of our work, we are interested in
+hybrid design (Mixed, Weighted, Switched), where the                       using recommender systems within learning platforms to help
+selected approaches work parallelly at the same time, and                  learners access pedagogical resources serving their goals. A
+Pipelined hybrid design (Cascade, Meta-level), where the                   pedagogical resource can have different types: a website, a
+main recommender approaches use other approaches as a                      book, course support, a serious game, a person, a response to
+baseline [2, 14].                                                          a question, etc.
+   Recommender frameworks are fundamental in the industry,                    Our research proposed a hybrid recommender system for
+mainly trading and marketing, to support benefits [11]. For                pedagogical resources. This system combined a content-based
+instance, a web-based e-commerce platform tries to satisfy its             approach and a collaborative filtering approach. In the content-
+clients and outflank contenders by giving the main                         based approach, we decided to use term frequency-inverse
+recommendations and services [11]. Nonetheless, the effect of              document frequency (TF-IDF) [18] for those three reasons: (1)
+recommender frameworks likewise arrived at different fields,               a content-based recommender system does not require domain
+like social media applications, to ensure the best user                    knowledge. Only the user knowledge, (2) Immediate
+navigation experience, scientific fields, and educational                  consideration of a new item: content-based filtering can
+purposes. For instance, students get suggestions of educational            recommend newly introduced items in the database even
+resources according to their needs and preferences in e-                   before they receive an evaluation from a user, and (3) content-
+learning platforms [15] and different fields. Regardless of                based recommendation techniques treat each user
+what the industries advantage from recommender frameworks,                 independently.
+users altogether benefit from recommender frameworks                          For the collaborative filtering approach, we used the
+regarding users not dealing with the static type of information.           Singular Value Decomposition (SVD) latent factor models
+Instead, they utilize an interactive approach to introduce their           [19]. One advantage of this approach is that instead of a high
+preferences, implying that users have unlimited authority over             dimension matrix with a huge number of missing values, we
+
+
+
+                                                                     696
+will deal with a much smaller matrix in a smaller space. A                used three methods: content-based, collaborative-based, and
+reduced presentation can be used for neighboring algorithms               knowledge-based, in addition to metadata information about
+based on users or items. This paradigm's advantages are that it           educational resources and students' profiles constructed from
+handles the utility matrix's sparsity better than memory-based.           their learning styles. Ansari et al. [15] developed a basic
+In addition, the comparison of similarities with the resulting            hybrid recommender system. They included the context data
+matrix is much more ambitious, especially when dealing with               and implicit feedback to better analyze the students'
+large sparse data sets.                                                   characteristics. Chen et al. [21] proposed recommender
+   We summarized our contributions as follows:                            systems for the e-learning field based on hybrid filtering. The
+   • We developed a hybrid recommender system for                         approach used two hybrid recommendation systems; the first
+pedagogical resources (HrecSys). The HrecSys framework                    combines content filtering and collaborative filtering, while
+used a hybridization of two recommender system approaches:                the second combines collaborative filtering and the k-
+content-based and collaborative filtering. HreqSys framework              neighbour algorithm. In recent years and due to the Machine
+is constructed based on mapping the original data to higher-              Learning advancement, the attention is slowly moving toward
+order features interactions. This architecture aims to reduce the         including deep learning techniques in recommender systems,
+user-item interactions bias and improve the effectiveness of              especially in the E-learning field. Wang et al. [22]
+the content-based and collaborative systems. Furthermore, the             implemented a deep learning recommendation framework
+HrecSys framework falls in both mixing classes of Burke's                 specified for the E-learning field, in which the model is trained
+taxonomy, as it can use a combination of its underlying sub-              using conventional K-Nearest Neighbor (KNN). The system
+recommenders, all according to their use context.                         collected various students' behaviors and grouped them into
+   • The proposed HrecSys used TF-IDF technology to let the               similar groups based on an ensemble of information such as
+system better understand the mathematical significance of                 grades and preferences, then applied different deep learning
+words of pedagogical resources in the content-based approach.             models to similar groups to make recommendations. In the
+In contrast, we used a SVD matrix factorization in                        meantime, they used a conventional three-parameter logistic
+collaborative filtering to predict users' ratings better. The             model to give the parameters related to items. Chang et al. [23]
+system also applies a mixed strategy using a weighted score of            presented a popular-based recommender system using
+content-based and collaborative filtering. It provides a flexible         machine learning techniques. The users are clustered using the
+architecture allowing the creation of various instances.                  unsupervised machine learning algorithm K-MEANS based
+   • To evaluate HrecSys, a hybrid instance is developed. It is           on their interacted items. Then, the system determines the
+composed of two innovative sub-recommenders: CB-TFIDF                     popular groups based on those clusters, and k nearest
+and CF-SVD.                                                               neighbour KNN is used to determine the closest group. Finally,
+   • The CB-TFIDF exploits the strengths of embedding                     the user will get popular item recommendations inside the
+representations for modelling the content. This recommender               selected group. Mediani et al. [24] have proposed an e-learning
+aims to extract effective features from the item-based side               system that combines popularity and collaborative filtering
+information. Which would ameliorate the analysis of user-item             approaches to improve the recommendation accuracy
+interactions and thus result in more accurate predictions.                evaluated by applying each approach's recall, precision, and
+   • The CF-SVD recommender attempts to model a high level                f1-score. They showed that the obtained results exhibit an
+of non-linearities and displays interactions between users and            encouraging performance of their model.
+items in latent embeddings. It can also reduce users' biases                 Content-based and collaborative recommendations have
+towards items rated by users.                                             often been considered complementary [25]. The hybridization
+   • The HrecSys framework can be used as a model for                     of these two techniques to deal with the shortcomings of each
+combining different sub-recommenders. According to our                    method used alone and take advantage of their strengths has
+assessments, the HresSys instance outperforms state-of-the-art            been the subject of several research works.
+recommendation algorithms on various real-world datasets.                    Geetha et al. [26] is a movie hybrid recommender system
+   In the following, we state our problem and present existing            that combines collaborative filtering and a content-based
+work related to hybrid recommender systems. Section 3 offers              approach to build a system that provides more precise
+a collection of definitions and concepts associated with this             recommendations concerning movies. Frolov and Oseledets
+work. Section 4 illustrates the proposed HrecSys framework                [27] proposed HybridSVD system used the Singular Value
+for designing and building hybrid recommender systems based               Decomposition to incorporate user and item features within
+on two innovative sub-recommenders: a collaborative CF-                   the SVD formula. They have used different similarity metrics
+SVD model and a content-based CB-TFIDF model. Section 5                   considering all pairwise distances and allowing the insertion
+presents the results of the experimentations with HrecSys over            of side information.
+a real-world dataset. Finally, we conclude in section 6.
+
+                                                                          3. BACKGROUND
+2. RELATED WORK
+                                                                            This section presents a collection of definitions and
+   To benefit from personalized systems in E-learning                     concepts related to this work. We start by understanding what
+platforms, including and developing recommender systems                   defines a preference, user profile, and item profile. Then we
+becomes an important research field. Therefore, many kinds                will explain the technologies used in the implementation.
+of research have been conducted in this field. Some of these
+works are as follows: The models of past educational                      3.1 Preference
+recommender systems are based on conventional information
+retrieval and information filtering. Rodrí guez et al. [20]                  A preference is a ranking formula of a collection of items
+implemented a basic hybrid recommendation approach that                   that the user is interested in. It is formulated as follows:
+
+
+
+                                                                    697
+                 𝑝𝑟(𝑢, 𝑖) = {𝑢, 𝑖, 𝑤𝑢,𝑖 }                      (1)                                 𝑑𝑗 . 𝑑𝑘               ∑𝑛𝑖=1 𝑤𝑖,𝑗 . 𝑤𝑖,𝑘
+                                                                               Sim(d𝑗 , d𝑘 ) =                  =
+                                                                                                 ‖𝑑𝑗 ‖. ‖𝑑𝑘 ‖                                    (5)
+                                                                                                                    √∑𝑛𝑖=1 𝑤𝑖,𝑗
+                                                                                                                            2
+                                                                                                                                . √∑𝑛𝑖=1 𝑤𝑖,𝑘
+                                                                                                                                          2
+where, pru,i represents the user preference. It is composed of a
+user u∈U and a preferred item i∈I with a given weight wu,i.
+This last is usually a real number representing the user's                  where, wi,j is the weight of the term i in the document j and wi,k
+interest level regarding the item. The interest weight differs              is the weight of the term i in the document k.
+from one approach to another. In a content-based approach,
+the preference weight generally means the distance between                  3.3.1 Example
+the vector of the user and an item vector. Instead, in                         To explain the basic formulas of TF-IDF, we gave an
+collaborative filtering, the preference weight is the rating users          example of a corpus D composed of three documents d1, d2,
+give to items.                                                              and d3. Each document contains a set of words among:
+
+3.2 User profile                                                              T={t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13}         (6)
+
+   A user profile has different representations based on the                                d1={t2, t3, t4, t8, t11, t12}                        (7)
+adopted hybrid method: content-based filtering or
+collaborative filtering. In collaborative filtering, a user profile                              d2={t1, t2, t5, t6, t12}                        (8)
+is represented as a vector of his interacted items. However, we
+represent each user and each item by their embedding in                                   d3={t1, t6, t7, t9, t10, t6, t13}                      (9)
+content-based filtering because a sequence of words represents
+an item. Therefore, the user profile also is defined by a                     The corpus D is formulated as:
+sequence of words from his read texts.
+                                                                               D=[d1, d2, d3]=[[t2, t3, t4, t8, t11, t12], [t1, t2, t5,
+                                                                                                                                                (10)
+3.3 Application of TF-IDF                                                             t6, t12], [t1, t6, t7, t9, t10, t6, t13]]
+
+   We applied TF-IDF to evaluate the importance of resources.                  Now we evaluate the TF-IDF of the term "t2" in the
+TF-IDF [28] is a statistical method used to research                        document "d1". According to this example, "t2" appears two
+information in textual documents. It measures the relevancy of              times in the corpus D, among which it appears one time in "d1".
+a term to a document. A term has a heavier weight when it                   According to the TF-IDF method of evaluation, by applying
+appears more frequently in a document. The weight also varies               Eqns. (2), (3), and (4), we obtain:
+with the frequency of the term in the corpus. TF-IDF
+concentrates on the relation between terms, documents, and                                                       𝑓𝑡2,𝑑1   1
+                                                                                           𝑡𝑓(𝑡2, 𝑑1) =                 =                       (11)
+corpus. If a term appears more in a document and appears less                                                   ∑𝑘 𝑓𝑘,𝑑1 6
+in the other documents of the same corpus, it better represents
+this document [29].                                                                                       𝑁         3
+   We are interested in evaluating the correlation between                      𝑖𝑑𝑓(𝑡2, 𝐷) = 𝑙𝑜𝑔               = 𝑙𝑜𝑔 = 0.4054                   (12)
+                                                                                                        𝑑𝑓(𝑡2)      2
+users and shared articles for our research. In our case, we study
+the relationship between users and interacted articles shared                   𝑡𝑓 − 𝑖𝑑𝑓(𝑡2, 𝑑1, 𝐷) = 𝑡𝑓(𝑡2, 𝑑1) × 𝑖𝑑𝑓(𝑡2, 𝐷)
+on the platform. So we can recommend to this user articles that                                     1                                           (13)
+have not already interacted with them.                                                           = × 0.4054 = 0.0675
+                                                                                                    6
+   The basic formula of TF-IDF is as follows [30]:
+                                                                              After calculating the TF-IDF of all the words, each
+                               𝑓𝑡,𝑑                                         document is represented by a numerical vector, and the corpus
+                   𝑡𝑓(𝑡, 𝑑) =                                  (2)
+                              ∑𝑘 𝑓𝑘,𝑑                                       becomes:
+
+                                    𝑁                                        D_transform=[[0.0, 0.0675, 0.1831, 0.1831, 0.0, 0.0,
+                𝑖𝑑𝑓(𝑡, 𝐷) = 𝑙𝑜𝑔                                (3)            0.0, 0.1831, 0.0, 0.0, 0.1831, 0.0675,0.0], [0.0810,
+                                   𝑑𝑓(𝑡)
+                                                                              0.0810, 0.0, 0.0, 0.2197, 0.0810, 0.0, 0.0, 0.0, 0.0,             (14)
+      𝑡𝑓 − 𝑖𝑑𝑓(𝑡, 𝑑, 𝐷) = 𝑡𝑓(𝑡, 𝑑) × 𝑖𝑑𝑓(𝑡, 𝐷)                 (4)           0.0, 0.0810,0.0], [0.0579, 0.0, 0.0, 0.0, 0.0, 0.1158,
+                                                                                0.1569, 0.0, 0.1569, 0.1569, 0.0, 0.0, 0.1569]]
+where, t is a term, d is a document in the corpus, D is a
+collection of documents, N is the number of documents that                     According to this corpus, the word “t6” appears one time in
+appear in the corpus, Dft is the number of documents where                  “d2” but two times in “d3”. tf-idf(t6, d2, D)=0.0810, and tf-
+the term t appears, f𝑡,𝑑 is the number of times the term t occurs           idf(t6, d3, D)=0.1158.
+in document d.                                                                 The document d3 thus appears as "the most relevant" for the
+   The Cosine similarity defines user similarity as the cosine              word t6.
+value of the angle between two vectors projected into
+multidimensional space. This measure determines how a                       3.4 Application of SVD
+document is similar to user documents that this user has liked
+in the past. The documents are represented by weight vectors,                 The Singular Value Decomposition SVD is a linear algebra
+where each weight indicates the association degree between                  method used as a dimensionality reduction technique in
+the document and the term. Given two documents dj, dk                       machine learning. SVD is a matrix factorization technique
+represented by weight vectors, and their similarity is measured             used to reduce the number of matrix features by reducing the
+by [30]:
+
+
+                                                                      698
+space dimension from N-dimension to K-dimension, where                         4.1 Content-based module
+K<N. SVD affirms that a matrix A can be factorized as [31]:
+                                                                                  The content-based approach digs into users' profiles and
+                       𝐴 = 𝑈 𝑆 𝑉𝑇                               (15)           provides recommendations based on their past behavior in this
+                                                                               module. Usually, raw texts (unstructured texts data) are the
+   U and V represent orthogonal matrices with orthonormal                      most important type of content in the context of the
+eigenvectors chosen from AAᵀ and AᵀA, respectively. These                      pedagogical resources. Thus, our objective consists of using
+last matrices have the same positive eigenvalues. S represents                 keywords extracted thanks to automatic indexing and which
+a diagonal matrix having r elements equal to the root of the                   are representative of each item or profile. For that reason, we
+positive eigenvalues of AAᵀ or AᵀA. The diagonal elements are                  chose to adopt the TF-IDF technique to improve the accuracy
+singular values. So the matrix Am,n can be factorized as follows:              of the content-based recommendation.
+                                                                                  The algorithm used in this module is:
+                                    𝑇
+                 𝐴𝑚×n = 𝑈𝑚×r S𝑟×r 𝑉𝑟×n                          (16)
+                                                                                 Algorithm 1: CB-TFIDF
+   We complete Ur and Vr with ur+1, ur+2, ..., um and vr+1, vr+2, ...,           Input: U: list of users interactions: size n
+vn to obtain U et V square and orthogonal matrices.                               I: list of items: size m
+                                   𝑇
+                                                                                 Output: Recommendation lists of size l.
+                𝐴𝑚×n = 𝑈𝑚×m S𝑚×n 𝑉𝑛×n                           (17)           1. Group all user interactions by user.
+                                                                               2. For each user
+where, Sm×n is a diagonal matrix, which can be non-square. U                   3. Select all contents that the user has interacted with.
+and VT are orthonormal matrices, which means the columns of                    4. Cluster contents TF-IDF vectors to model user's articles of
+U or rows of V are orthogonal to each other and are unit vectors.                  interest
+One of the orthonormal matrix properties is that its transpose                 5. Weight clusters' relevance to the user by summing each
+is its inverse. So, if U is an orthonormal matrix, we have UT=U-                   cluster's interactions strength (view, like, comment,
+1
+  or U.UT=UT.U=I, where I is the identity matrix.                                  follow, and bookmarks).
+    The decomposition of Eq. (17) is called full SVD, whereas                  6. Returns highly relevant articles vectors for the user
+Eq. (16) is called reduced SVD because we have Sr×r, a square                  7. For each user article
+diagonal matrix with r the rank of matrix A. r is usually less                 8. Apply cosine similarity to calculate similarity.
+than or equal to the smaller of m and n. The matrices Um×r and                 9. Recommend more similar content to user L1, with which
+  𝑇
+𝑉𝑟×n   are non-square.                                                             the user has not yet interacted.
+    In the recommender system context, A represents the users-
+items utility matrix where n is the number of users and m is                   4.2 Collaborative filtering module
+the number of resources [32]. If matrix A is rank r, the matrices
+AAᵀ and AᵀA are both rank r. In singular value decomposition,                     There have been a few attempts to reduce the number of
+the columns of matrix U and the rows of matrix VT are the                      features in the utility matrix without significantly decreasing
+eigenvectors of AAT and ATA, respectively.                                     final prediction accuracy. This module adapted an SVD matrix
+    SVD is used to decrease the dimension of the utility matrix                factorization      technique     enhanced       to     improve
+by extracting its latent factors. Each user and item are mapped                recommendations accuracy. The model is created from the
+into a latent space with dimension r to better understand the                  fusion of the SVD factors to model user-item latent structures.
+relationship between users and items. If A originally contained                The algorithm is explained as follows:
+users as the rows and resources as its columns, the k-
+dimensional rows of US contain the latent factors of the users,
+                                                                                 Algorithm 2: CF-SVD
+and the k-dimensional columns of SVT contain the latent
+factors of the resources.                                                        Input: U: list of users interactions: size n
+                                                                                  I: list of items: size m
+                                                                                 Output: Recommendation lists of size l.
+4. PROPOSED ARCHITECTURE                                                       1. For each pair of user-item interactions, aggregate
+                                                                                   different implicit interaction weights wu,i regard an item
+   Our recommender system recommends pedagogical                                   to get a unified value Wu,i:
+resources that correspond to the learner's interests. We have                                              𝑛
+adopted a hybrid approach composed of two principal
+recommender system methods: a content-based approach and                                          𝑊𝑢,𝑖 = ∑ 𝑤𝑢,𝑘                           (18)
+a collaborative filtering approach. Also, we used the weighting                                           𝑘=1
+hybrid strategy to combine these two approaches. The global
+architecture of our recommender system is composed of two                      where, k∈K is the number of the various possible interactions
+main modules: CB approach and CF approach. Our view is to                      of the system.
+use the benefits of a hybrid recommender system to fill the                    2. Build the user-item utility matrix yui, that contains all the
+weaknesses of individual recommendation approaches.                                 users U={u1, u2, um} arranged as rows, and items I={i1, i2,
+Therefore, our built system used a weighted strategy between                        in} arranged as columns. The constructed matrix is very
+content-based and collaborative approaches. Then the system                         sparse, where a 0 is assigned to non-interacted items.
+creates the final student recommendation list using the                        3. Decompose the utility matrix into the product of three
+weighted scores of both content-based and collaborative-based.                      matrices: two orthonormal matrices U and V, and a
+   The architecture concepts and details are explained as                           diagonal matrix S using Eq. (16).
+follows:
+
+
+                                                                         699
+4. Reconstruct an approximation of the original matrix by                proposed method. The dataset used in the experiments, the
+    multiplying its factors. The resulting matrix is not sparse          numerous evaluation metrics of the used models, the
+    anymore. It generated predictions for items the user has             competing works on which we based our research, the system
+    not yet interacted with, which we will exploit for                   configuration, and the parameter settings and performance of
+    recommendations.                                                     all our employed approaches are also covered.
+5. Normalize the obtained matrix by using the followed
+    formula:                                                             5.1 Data collection and preprocessing
+                       𝑥 − 𝑥𝑚𝑒𝑎𝑛                                            Users can utilize our recommender system to find
+            𝑥𝑛𝑜𝑟𝑚 =               ∈ [0,1]                  (19)
+                      𝑥𝑚𝑎𝑥 − 𝑥𝑚𝑖𝑛                                        pedagogical resources. To represent these resources, we have
+                                                                         chosen articles. As a result, we trained and tested our
+6. For each user, generate a candidate ranked list of items L2           recommender system using the popular available Articles
+    close to the user profile, based on the predictions provided         dataset (DeskDrop). The following is a description of the
+    by the SVD decomposition.                                            dataset and how it was prepared:
+
+4.3 Hybrid module                                                        5.1.1 Definition
+                                                                            The dataset comprises two data files (Table 1): Articles
+   We mentioned that our system utilizes two recommender                 sharing and users interactions, both of which are twelve-month
+approaches, CB-TFIDF and CF-SVD. We use a weighted                       samples (March 2016 - February 2017) from the DeskDrop
+strategy to combine the two main modules. Each module                    internal communication platform. These allow the companies'
+generates a candidate list of items (L1 for CB-TFIDF and L2              employees to exchange relevant content with their colleagues
+for CF-SVD) on the system that might interest the user. Each             and collaborate around them. About 73k registered user
+list represents the student's primary profile p(u). The content-         interactions on more than 3k public articles shared on the
+based approach is responsible for finding similar not-popular            platform make up the collection.
+items of p(u) based on the content by using item embedding
+and distance measures. Additionally, the system calls for                                      Table 1. Data description
+collaborative filtering to get what other students prefer. Then
+a hybrid weighted strategy is used to collect the scores of both               Name                      Description
+                                                                                                                                  Number
+CB-TFIDF and CF-SVD. Therefore, the student got a hybrid                                                                         of samples
+recommended list L representing the combined lists L1 and L2                                       It contains public articles
+recommendations. The score of L is calculated as follows:                                             shared in the Internal
+                                                                           shared_articles                                         3128
+                                                                                                   Communication Platform
+                                                                                                           DeskDrop.
+    𝐿. 𝑠𝑐𝑜𝑟𝑒 = 𝑃1 × 𝐿1. 𝑠𝑐𝑜𝑟𝑒 + 𝑃2 × 𝐿2. 𝑠𝑐𝑜𝑟𝑒             (20)                                     It contains logged users'
+                                                                          users_interactions      interactions on the articles     72312
+where, P1 and P2 are two numerical parameters, in our case,                                          shared on the platform
+as the CF model is much more accurate than the CB model,
+the weight of P1 for the CF model is superior to P2 of the CB            5.1.2 Dataset files
+model.                                                                      The dataset contains two files:
+   The Figure 1 wraps all the explained steps of each used                  • Shared Articles: This file contains information about
+recommender system approach.                                             articles shared on the platform. Each article includes
+                                                                         information on the date of sharing (timestamp), the original
+                                                                         (URL, title, plain text content), the language in which the
+                                                                         article was written (lang) (Portuguese-pt or English-en), and
+                                                                         the user who shared the article (author).
+                                                                            • User Interaction: This file contains user log information
+                                                                         about the platform's shared article interaction. The most
+                                                                         important feature is (eventType), which covers all the different
+                                                                         user interactions (view, like, comment, follow, bookmark).
+
+                                                                         5.1.3 Dataset features
+                                                                            The dataset contains these features:
+
+                                                                             (1) Item attributes: The original URL of the article, the
+                                                                         title, and the plain text of the content, which are available in
+                                                                         two languages (English and Portuguese).
+                                                                             (2) Contextual information: The context of the user's
+                                                                         visit, such as date/time, the client (mobile native app/browser),
+                                                                         geographic location, etc.
+         Figure 1. Our system detailed architecture                          (3) Logged users: All users need to log into the platform
+                                                                         to keep track of their preferences over the long term.
+                                                                             (4) Rich implicit feedback: Various interaction types are
+5. EXPERIMENTAL RESULTS                                                  logged, making it possible to infer the level of interest of the
+                                                                         user in the article (comments, likes, views, follow, bookmark).
+  This section covers the assessments used to evaluate the
+
+
+                                                                   700
+5.1.4 Dataset pre-processing                                                  (4) Accuracy: Accuracy is the percentage that the model
+   The dataset contains several implicit user interactions, such            correctly predicted.
+as views and comments. However, to pass these interactions
+to machine learning algorithms, each type of interaction is                        𝐴𝑐𝑐𝑢𝑟𝑎𝑐𝑦 =
+                                                                                                 𝑁𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑐𝑜𝑟𝑟𝑐𝑡 𝑝𝑟𝑒𝑑𝑖𝑐𝑡𝑖𝑜𝑛𝑠
+                                                                                                                                =
+                                                                                                  𝑇𝑜𝑡𝑎𝑙 𝑛𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑝𝑟𝑒𝑑𝑖𝑐𝑡𝑖𝑜𝑛𝑠
+assigned appropriate weights depending on the level of                                                𝑇𝑃+𝑇𝑁                             (24)
+interaction (Table 2) [33].                                                                       𝑇𝑃+𝑇𝑁+𝐹𝑃+𝐹𝑁
+
+            Table 2. Associated interaction weight                             Our recommending system evaluated the performance of
+                                                                            the approach using the cross-validation approach called the
+                      Interaction   Weight                                  hold-out strategy. According to this strategy, random samples
+                         View         1                                     from the dataset are kept as training data, and the remaining
+                         Like         2
+                       Comment       2,5
+                                                                            data are test data. The data divided into training and testing
+                        Follow        3                                     includes various suggestions (80% training, 20% test). For
+                       Bookmark       4                                     each user, ranking all items in the dataset is time-consuming.
+                                                                            Therefore, we use a popular strategy of randomly sampling the
+   Data engineering is the second stage of preprocessing,                   top K items (100 items in our case) with which the user has
+which includes removing duplicates and removing                             not yet interacted. It then ranks the missing items in these top-
+unnecessary features. We also used pre-trained English                      K item lists and computes an accuracy metric from the
+word2vec word embedding. So instead of deleting non-                        recommended ranking list for that user and interaction item.
+English articles, we used the translation API to unify                      Our recommender system uses Precision@10, Recall@10, F1-
+languages. It helps to get more data for better model training.             score, and Accuracy to measure the accuracy of
+                                                                            recommendations. However, in our content-based approach,
+5.2 Evaluation metrics                                                      we use cosine similarity to measure the distance between the
+                                                                            user and the item TF-IDF embeddings. We also use
+   The study provides different evaluation indicators carried               Precision@10, Recall@10, F1-score, and Accuracy to
+out in this area to evaluate the quality and productivity of the            measure collaborative filtering and hybrid recommender
+built recommender system. The most widely used indicators                   performance.
+of the accuracy of recommendations are Precision@k and
+Recall@k. The top-N items are the most important to the user                5.3 System configuration
+in the RS context. So, it makes sense to calculate precision and
+recall metrics in the first N elements rather than in all elements.            All of our testings are done on a DELL Intel (CORE i5) with
+Each user's number of elements evaluated is usually smaller                 an Intel(R) Core(TM) processor i5-4310U CPU @ 2.00 GHz
+than those available in the entire dataset. The number of                   2.60 GHz and 4.00 GB RAM.
+relevant elements in the test set may also be smaller than the
+whole dataset. Therefore, unlike the information retrieval field,           5.4 Parameter settings
+in the recommender systems field, precision and recall depend
+on the number of items assessed per user [34]. RS measures                     Our recommender system is based on different approaches
+have two of the most important terms: recommended and                       included in the system. We have used different configuration
+relevant. The term true positive (TP) indicates the relevant                settings in our system implementation.
+element recommended to the user. True Negatives (TN) are                       For the content-based approach, we used a TF-IDF model.
+irrelevant items that are not recommended to users, False                   This model used the TfidVectorizer() class from
+Negatives (FN) are the relevant items that are recommended                  sklearn.feature_extraction.text library to calculate and
+to users, and False Positives (FP) are irrelevant items that are            vectorize each article's Tf-IDF scores. TfidfVectorizer will
+recommended to users. Recommended items are generated by                    convert the title and the plain text of the sharing article (text
+the model when the relevant items are known in the dataset                  columns) into numerical.
+[34].                                                                          For the collaborative filtering approach, we used the SVD
+   (1) Precision@k: Precision is the proportion of user-                    latent factor models. We chose a SciPy implementation of
+recommended and relevant items (TP) out of the total number                 SVD to implement our model. Latent factor models compress
+of recommended items (TP and FP) [34]:                                      the utility matrix into a low-dimensional matrix in terms of
+                                                                            latent factors. Another important decision is the number of
+                 𝑅𝑒𝑐𝑜𝑚𝑚𝑒𝑛𝑑𝑒𝑑 ∩ 𝑅𝑒𝑙𝑒𝑣𝑎𝑛𝑡     𝑇𝑃                              factors to factor the utility matrix. If the number of factors is
+ 𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛@𝐾 =                          =                    (21)
+                      𝑅𝑒𝑐𝑜𝑚𝑚𝑒𝑛𝑑𝑒𝑑         𝑇𝑃 + 𝐹𝑃                           higher, factorization in the utility matrix reconstructions is
+                                                                            more precise. Reducing the number of factors increases the
+   (2) Recall@k: Recall shows the ratio of relevant items                   generalization of the model. Therefore, if the model is allowed
+recommended to the user (TP) from the total number of                       to save many details of the utility matrix, it may not generalize
+relevant items for the user (TP and FN) [34]:                               well for untrained data.
+               𝑅𝑒𝑐𝑜𝑚𝑚𝑒𝑛𝑑𝑒𝑑 ∩ 𝑅𝑒𝑙𝑒𝑣𝑎𝑛𝑡     𝑇𝑃                                5.5 Competing approaches
+ 𝑅𝑒𝑐𝑎𝑙𝑙@𝐾 =                           =                      (22)
+                     𝑅𝑒𝑙𝑒𝑣𝑎𝑛𝑡           𝑇𝑃 + 𝐹𝑁
+                                                                              To validate our approach, we have implemented all the
+   (3) F1-score: The F1-score is a harmonic means between                   previously mentioned recommendation approaches, content-
+recall and precision [34]:                                                  based, collaborative-based, and hybrid-based. We
+                                                                            implemented each one separately and compared all of them.
+                        2 ∗ 𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ∗ 𝑅𝑒𝑐𝑎𝑙𝑙                              We have used recall, precision, F-score, and accuracy as
+       𝐹1 − 𝑠𝑐𝑜𝑟𝑒 =                                          (23)
+                          𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ∗ 𝑅𝑒𝑐𝑎𝑙𝑙
+
+                                                                      701
+recommendation measures.                                                  5.6.3 Hybrid model
+                                                                             Our hybrid system scores a significance recall of (0.48) and
+5.6 Results and discussion                                                a global precision of (0.19) for the top-10 items. The hybrid
+                                                                          approach surpasses each separated one because it uses the
+   This section illustrates the results of various approaches and         weighted scores of both content-based and collaborative-based
+techniques used in the research. It also covers each approach's           models. Table 7 and Table 8 show some users' details
+performance in detail and compares the final                              recall@10 and precision@10.
+recommendations accuracy of each one.
+                                                                                   Table 7. HrecSys model recall for some users
+5.6.1 Content-based model
+   After building the matrix for TF-IDF features, we used                           PersonId
+                                                                                                      Hits@      Interacted    Recall@
+cosine similarity to measure the distance between users and                                            10          items          10
+items vectors. A sampled user presented in (Table 3 and Table               -1443636648652872475       51           117         0.4358
+4) shows that the system discovered that the user -                         -3596626804281480007       35            80         0.4375
+                                                                            -2979881261169775358       50            88         0.5681
+1443636648652872475 has a recall@10 of 0.4017 and a
+precision@10 of 0.8245.
+   Our content-based approach scores a global recall of (0.26).                   Table 8. HrecSys model precision for some users
+The placeholder (26%) of interacted articles in the test set were
+                                                                                                      Hits@     Recommen      Precision
+ranked among the top-10 items by this model. It also scores a                       PersonId
+                                                                                                       10          ded          @10
+global precision of (0.12), which means (12%) of
+                                                                            -1443636648652872475       51           61         0.8360
+recommended articles among the top-10 items are relevant to                 -3596626804281480007       35           45         0.7777
+the user. Table 3 and Table 4 show some users' details                      -2979881261169775358       50           59         0.8474
+recall@10 and precision@10, respectively.
+                                                                             From Figures 2, 3, 4, and 5, which represent the metrics
+      Table 3. CB-TFIDF model recall for some users                       scores of the proposed model, we can conclude that our
+                                                                          proposal outperforms the separated approaches. It is the best
+                              Hits     Interacted     Recall@             along the four metrics used. Our hybrid model was superior in
+          PersonId
+                              @10        items           10
+                                                                          predicting the recommended resources. It reached an
+   -1443636648652872475        47         117          0.4017
+                                                                          accuracy@5 of 92%, accuracy@5 of 88%, and accuracy@5 of
+   -3596626804281480007        25          80          0.2875
+   -1032019229384696495        33         130          0.2538             80%.
+
+     Table 4. CB-TFIDF model precision for some users                      0.7
+
+                                                                           0.6
+                             Hits@     Recommen      Precision
+         PersonId                                                          0.5
+                              10          ded          @10
+  -1443636648652872475        47           57         0.8245                                                                  CB-TFIDF
+                                                                           0.4
+  -3596626804281480007        25           35         0.6969
+  -1032019229384696495        33           43         0.7674               0.3                                                CF-SVD
+                                                                                                                              Hybrid
+                                                                           0.2
+5.6.2 Collaborative filtering model
+   Our collaborative filtering has used the conventional matrix            0.1
+factorization technique of singular value decomposition. Our                 0
+approach scored a global recall of (0.47) for the top-10 items.                     Recall@5    Recall@10     Recall@20
+It means that 47% of interacted articles in the test set were
+ranked among the top-10 items by this model. It also achieves
+a global precision of (0.18) for the top-10 items, which means            Figure 2. Recommendations Recall for CB-TFIDF, CF-SVD,
+(18%) of recommended articles are relevant to the user. Table                                  and HrecSys
+5 and Table 6 show some users' details recall@10 and
+precision@10.                                                               0.3
+
+                                                                           0.25
+        Table 5. CF-SVD model recall for some users
+                                                                            0.2
+                             Hits@     Interacted     Recall@                                                                 CB-TFIDF
+         PersonId
+                              10         items           10                0.15
+                                                                                                                              CF-SVD
+  -1443636648652872475        51          117          0.4358
+  -3596626804281480007        34           80          0.4250               0.1                                               Hybrid
+  -2979881261169775358        48           88          0.5454
+                                                                           0.05
+
+      Table 6. CF-SVD model precision for some users                          0
+                                                                                   Precision@5 Precision@10 Precision@20
+                             Hits@     Recommen      Precision
+         PersonId
+                              10          ded          @10
+  -1443636648652872475        51           61         0.8360               Figure 3. Recommendations precision for CB-TFIDF, CF-
+  -3596626804281480007        34           44         0.7727                                SVD, and HrecSys
+  -2979881261169775358        48           57         0.8421
+
+
+                                                                    702
+ 0.95
+                                                                       based approach. On the other hand, we could simulate low-
+                                                                       rank matrix factorization using a deep neural network in
+  0.9                                                                  collaborative filtering to reduce the rating-matrix
+                                                                       dimensionality. We could also prevent the user cold-start
+ 0.85                                             CB-TFIDF
+                                                                       problem and provide new students with recommendations in
+                                                                       an e-learning platform by using a popularity-based approach
+                                                  CF-SVD               as a baseline to provide new users with the most trending
+  0.8
+                                                  Hybrid               resources on the system.
+ 0.75
+
+  0.7                                                                  REFERENCES
+        Accuracy@5 Accuracy@10 Accuracy@20
+                                                                       [1] Ricci, F., Rokach, L., Shapira, B. (2011). Introduction to
+                                                                            recommender systems handbook. In Recommender
+ Figure 4. Recommendations accuracy for CB-TFIDF, CF-                       Systems Handbook, 1-35. https://doi.org/10.1007/978-0-
+                  SVD, and HrecSys                                          387-85820-3_1
+                                                                       [2] Burke, R. (2007). Hybrid web recommender systems. In
+ 0.7                                                                        The Adaptive Web. Lecture Notes in Computer Science,
+ 0.6
+                                                                            Berlin, 4321: 377-408. https://doi.org/10.1007/978-3-
+                                                                            540-72079-9_12
+ 0.5                                                                   [3] Zhang, S., Yao, L., Sun, A., Tay, Y. (2019). Deep
+ 0.4                                              CB-TFIDF                  learning based recommender system: A survey and new
+                                                  CF-SVD                    perspectives. ACM Computing Surveys (CSUR), 52(1):
+ 0.3
+                                                                            1-38. https://doi.org/10.1145/3285029
+                                                  Hybrid
+ 0.2                                                                   [4] Ko, H., Lee, S., Park, Y. Choi, A. (2022). A survey of
+                                                                            recommendation systems: Recommendation models,
+ 0.1
+                                                                            techniques, and application fields. Electronics, 11(1):
+   0                                                                        141. https://doi.org/10.3390/electronics11010141
+        Fscore@5    Fscore@10    Fscore@20                             [5] Bressan, M., Leucci, S., Panconesi, A., Raghavan, P.,
+                                                                            Terolli, E. (2016). The limits of popularity-based
+  Figure 5. Recommendations Fscore for CB-TFIDF, CF-                        recommendations, and the role of social ties. In:
+                  SVD, and HrecSys                                          Proceedings of the 22nd ACM SIGKDD International
+                                                                            Conference on Knowledge Discovery and Data Mining,
+                                                                            San Francisco California USA, 13-17-Augu, pp. 745-754.
+6. CONCLUSIONS                                                              https://doi.org/10.1145/2939672.2939797
+                                                                       [6] Zhou, R., Khemmarat, S., Gao, L. (2010). The impact of
+   Recommender systems have become, like the search engine,                 YouTube recommendation system on video views.
+an essential tool for any website and online platform. E-                   Proceedings of the ACM SIGCOMM Internet
+learning starts to include and improve recommendation                       Measurement Conference IMC, pp. 404-410.
+systems by providing learners with personal and efficient                   https://doi.org/10.1145/1879141.1879193
+pedagogical resources to help them have a better learning              [7] Yang, J. (2016). Effects of popularity-based news
+experience. We applied a couple of machine learning                         recommendations ("most-viewed") on users' exposure to
+technologies to improve recommender systems of pedagogical                  online news. Media Psychology, 19(2): 243-271.
+resources. In this work, we used the hybridization of two                   https://doi.org/10.1080/15213269.2015.1006333
+recommender system approaches, content-based and                       [8] Bobadilla, J., Ortega, F., Hernando, A., Guti'errez, A.
+collaborative filtering. We used Tf-IDF technology to let the               (2013). Recommender systems survey. Knowledge-
+system better understand the meaning of words of pedagogical                Based             Systems,         46:          109-132.
+resources in the content-based approach. And we used an SVD                 https://doi.org/10.1016/j.knosys.2013.03.012
+matrix factorization to predict users' ratings better in               [9] Mooney, R.J., Roy, L. (2000). Content-based book
+collaborative filtering. Our system used a hybrid weighted                  recommending using learning for text categorization,
+strategy to coordinate the hybridization approaches. It is a                Proceedings of the ACM International Conference on
+weighted score of content-based and collaborative filtering.                Digital           Libraries,        pp.         195-204.
+Our system shows encouraging results in the experiment tests,               https://doi.org/10.1145/336597.336662
+where it outperforms some existing models on real-world                [10] AL-Ghuribi, S.M., Noah, S.A. (2021). A comprehensive
+datasets.                                                                   overview of recommender system and sentiment analysis.
+   We believe that deep learning-based models will play a                   ArXiv. https://doi.org/10.48550/ARXIV.2109.08794
+crucial role in e-learning systems or intelligent tutoring             [11] Linden, G., Smith, B., York, J. (2000). Amazon.com
+systems in the future. We believe our work can be improved                  recommendations: Itemto-item collaborative filtering.
+upon to produce intriguing results. In future works, we could               IEEE        Internet     Computing,      7(1):    76-80.
+apply a couple of deep learning technologies to improve the                 https://doi.org/10.1109/MIC.2003.1167344
+recommender systems of pedagogical resources. We could use             [12] Adomavicius, G., Tuzhilin, A. (2005). Toward the next
+word embeddings technology (Wordtovec model, Glove                          generation of recommender systems: A survey of the
+model, etc.) to let the system better understand the semantics              state-of-the-art and possible extensions. IEEE
+and meaning of words of pedagogical resources in the content-               Transactions on Knowledge and Data Engineering, 17:
+
+
+
+                                                                 703
+     734-749. https://doi.org/10.1109/TKDE.2005.99                    [24] Mediani, Y., Gharzouli, M., Mediani, C. (2022). A
+[13] Burke, R. (2002). Hybrid recommender systems: Survey                  hybrid recommender system for pedagogical resources.
+     and experiments, User Model. User-Adapted Interact,                   The International Conference on Digital Technologies
+     12(4):                                         331-370.               and Applications, Morocco, 29-30 January. In
+     https://doi.org/10.1023/A:1021240730564                               Proceedings Digital Technologies and Applications,
+[14] Dietmar, J., Zanker, M., Felfernig, A., Friedrich, G.                 Springer, pp. 361-371. https://doi.org/10.1007/978-3-
+     (2010). Hybrid recommendation approaches. In                          031-02447-4_38
+     Recommender Systems: An introduction. Cambridge                  [25] Balabanović, M., Shoham, Y. (1997). Fab: Content-
+     University           Press,         pp.        124-142.               based, collaborative recommendation. Communications
+     https://doi.org/10.1017/CBO9780511763113                              of         the        ACM,            40(3):        66-72.
+[15] Ansari, M.H., Moradi, M., NikRah, O., Kambakhsh,                      https://doi.org/10.1145/245108.245124
+     K.M. (2016). CodERS: A hybrid recommender system                 [26] Geetha, G., Safa, M., Fancy, C., Saranya, D. (2018). A
+     for an E-learning system. In 2016 2nd International                   hybrid approach using collaborative filtering and content
+     Conference of Signal Processing and Intelligent Systems               based filtering for recommender system. Journal of
+     (ICSPIS),                      pp.                  1-5.              Physics:     Conference      Series,      1000:    012101.
+     https://doi.org/10.1109/ICSPIS.2016.7869884                           https://doi.org/10.1088/1742-6596/1000/1/012101
+[16] Claypool, M., Gokhale, A., Miranda., T. (1999).                  [27] Frolov, E., Oseledets, I. (2019). HybridSVD: When
+     Combining content-based and collaborative filters in an               collaborative information is not enough. In Proceedings
+     online newspaper. In Proceedings of the SIGIR-99                      of the 13th ACM Conference on Recommender Systems,
+     Workshop on Recommender Systems: Algorithms and                       pp. 331-339. https://doi.org/10.1145/3298689.3347055
+     Evaluation.                                                      [28] Jones, K.S. (1972). A statistical interpretation of term
+[17] Cotter, P., Smyth, B. (2000). PTV: Intelligent                        specificity and its application. In retrieval. Journal of
+     personalized TV guides. In Twelfth Conference on                      Documentation, 28(1): 11-21.
+     Innovative Applications of Artificial Intelligence, pp.          [29] Muthurasu, N., Rengaraj, N., Mohan, K.C. (2019).
+     957-964.                                                              Movie recommendation system using term frequency-
+[18] Wang, D., Liang, Y., Xu, D., Feng, X., Guan, R. (2018).               inverse document frequency and cosine similarity
+     A content-based recommender system for computer                       method. International Journal of Recent Technology and
+     science publications. Knowledge-Based Systems, 157:                   Engineering, 7: 86-90.
+     1-9. https://doi.org/10.1016/j.knosys.2018.05.001                [30] Philip, S., Shola, P., Ovye, A. (2014). Application of
+[19] Guan, X., Li, C., Guan, Y. (2017). Matrix factorization               content-based      approach      in      research    paper
+     with rating completion: An enhanced SVD model for                     recommendation system for a digital library.
+     collaborative filtering recommender systems. IEEE                     International Journal of Advanced Computer Science and
+     Access,                  5:                27668-27678.               Applications,                                        5(10).
+     https://doi.org/10.1109/ACCESS.2017.2772226                           https://doi.org/10.14569/IJACSA.2014.051006
+[20] Rodrí guez, P.A., Ovalle, D.A., Duque, N.D. (2015). A            [31] Zhou, X., He, J., Huang, G., Zhang, Y. (2015). SVD-
+     student-centered hybrid recommender system to provide                 based incremental approaches for recommender systems.
+     relevant learning objects from repositories. In                       Journal of Computer and System Sciences, 81(4):
+     International Conference on Learning and Collaboration                717-733. https://doi.org/10.1016/j.jcss.2014.11.016
+     Technologies, pp. 291-300. https://doi.org/10.1007/978-          [32] Yuan, X., Han, L., Qian, S., Xu, G., Yan, H. (2019).
+     3-319-20609-7_28                                                      Singular value decomposition based recommendation
+[21] Chen, W., Niu, Z., Zhao, X., Li, Y. (2014). A hybrid                  using imputed data. Knowledge-Based Systems, 163:
+     recommendation algorithm adapted in E-learning                        485-494. https://doi.org/10.1016/j.knosys.2018.09.011
+     environments. World Wide Web, 17(2): 271-284.                    [33] Mediani, C., Abel, M.H., Djoudi, M. (2015). Towards a
+     https://doi.org/10.1007/s11280-012-0187-z                             recommendation system for the learner from a semantic
+[22] Wang, X., Zhang, Y., Yu, S., Liu, X., Yuan, Y., Wang,                 model of knowledge in a collaborative environment. In
+     F.Y. (2017). E-learning recommendation framework                      IFIP International Conference on Computer Science and
+     based on deep learning. In 2017 IEEE International                    its          Applications,           pp.          315-327.
+     Conference on Systems, Man, and Cybernetics (SMC),                    https://doi.org/10.1007/978-3-319-19578-0_26
+     pp.                                            455-460.          [34] Cremonesi, P., Turrin, R., Lentini, E., Matteucci, M.
+     https://doi.org/10.1109/SMC.2017.8122647                              (2008). An evaluation methodology for collaborative
+[23] Chang, J.H., Lai, C.F., Huang, Y.M, Chao, H.C. (2010).                recommender systems. In 2008 International Conference
+     3PRS: A personalized popular program recommendation                   on Automated Solutions for Cross Media Content and
+     system for digital TV for P2P social networks,                        Multi-Channel        Distribution,        pp.     224-231.
+     Multimedia Tools and Applications, 47(1): 31-48.                      https://doi.org/10.1109/AXMEDIS.2008.13
+     https://doi.org/10.1007/s11042-009-0405-6
+
+
+
+
+                                                                704
+

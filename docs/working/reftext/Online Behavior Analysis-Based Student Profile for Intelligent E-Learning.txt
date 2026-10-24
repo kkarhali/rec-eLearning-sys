@@ -1,0 +1,625 @@
+Hindawi
+Journal of Electrical and Computer Engineering
+Volume 2017, Article ID 9720396, 7 pages
+https://doi.org/10.1155/2017/9720396
+
+
+
+
+Research Article
+Online Behavior Analysis-Based Student Profile for
+Intelligent E-Learning
+
+          Kun Liang,1 Yiying Zhang,1 Yeshen He,2 Yilin Zhou,3 Wei Tan,2 and Xiaoxia Li2
+          1
+            College of Computer Science and Information Engineering, Tianjin University of Science & Technology, Tianjin 300222, China
+          2
+            China GRIDCOM Co., Ltd., Shenzhen 518031, China
+          3
+            Xiamen Great Power Geo Information Technology Co. Ltd., Xiamen, Fujian 361000, China
+
+          Correspondence should be addressed to Yiying Zhang; yiyingzhang@tust.edu.cn
+
+          Received 15 November 2016; Accepted 23 February 2017; Published 13 March 2017
+
+          Academic Editor: Sook Yoon
+
+          Copyright © 2017 Kun Liang et al. This is an open access article distributed under the Creative Commons Attribution License,
+          which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.
+
+          With the development of mobile platform, such as smart cellphone and pad, the E-Learning model has been rapidly developed.
+          However, due to the low completion rate for E-Learning platform, it is very necessary to analyze the behavior characteristics of
+          online learners to intelligently adjust online education strategy and enhance the quality of learning. In this paper, we analyzed
+          the relation indicators of E-Learning to build the student profile and gave countermeasures. Adopting the similarity computation
+          and Jaccard coefficient algorithm, we designed a system model to clean and dig into the educational data and also the students’
+          learning attitude and the duration of learning behavior to establish student profile. According to the E-Learning resources and
+          learner behaviors, we also present the intelligent guide model to guide both E-Learning platform and learners to improve learning
+          things. The study on student profile can help the E-Learning platform to meet and guide the students’ learning behavior deeply and
+          also to provide personalized learning situation and promote the optimization of the E-Learning.
+
+
+
+
+1. Introduction                                                             However, although more and more people are concerned
+                                                                        about the E-Learning platform, there are only 7%–9% learn-
+As an effective way for education, the E-Learning supported             ers who completed MOOC’s course according to Coursera
+more knowledge and skills than the traditional education and            statistics data [3]. Therefore, it is very necessary to improve
+also is beyond the restriction of time and space based on new           the quality of learning and optimize the teaching mechanism
+information and communication technologies [1]. MOOC                    to push the course accurately. The student profile is a novel
+(massive open online courses) is a representative online                method to analyze the basic information and learn the behav-
+education platform. And the Coursera is the largest MOOC                ior of online learners. Through the establishment of student
+platform in the world, established by the USA top universities          profile, it is to achieve personalized situation construction
+network learning platform. At present, there are about 1563             and learn process guidance, which plays a positive role in
+courses and more than 17 million registered students on                 promoting online learning.
+the platform. Based on edX, the largest MOOC platform                       The student profile is a figure portrait analysis based on
+(http://www.xuetangx.com) is developed by Tsinghua Uni-                 the big data and labeling. We collect, process, and analyze the
+versity, in China. It has about 3 million members which are             data generated in the learners’ behavior, for an information
+from more than 200 countries and regions [2].                           description of individual students or groups. According to
+    E-Learning education has had a rapid development.                   the theory of behavioral psychology, use of the student
+Figure 1 shows that the number of Chinese E-Learning users              profile to analyze the data on student behavior can reflect
+reached 90.992 million in 2015, which is with an annual                 the students’ behavior characteristics and psychodynamics.
+growth rate of 56%; it will grow to 120 million people by 2017.         For example, the Education Big Data Research Institute of
+2                                                                                                      Journal of Electrical and Computer Engineering
+
+    100                                                      90.992   18.0                              Table 1: Learners’ age segment table.
+     90                                          77.969               16.0
+     80                                   67.2                        14.0               Years        Symbol                          Example
+     70                     59.056                                    12.0
+     60
+          44.718
+                   51.895
+                                                                      10.0               <17            𝑎             It means student 𝑠1 is under the 17 years
+
+
+
+
+                                                                             (%)
+     50
+     40                                                               8.0                18–24          𝑏                 It means student 𝑠2 is 18–24 years
+                                                                      6.0
+     30                                                                                  25–34          𝑐                 It means student 𝑠3 is 25–34 years
+     20                                                               4.0
+     10                                                               2.0                35–54          𝑑                 It means student 𝑠4 is 35–54 years
+      0                                                               0.0                >55            𝑒                It means student 𝑠5 is over 55 years
+          2010     2011     2012          2013    2014       2015
+
+             User scale (million)                                                                Table 2: Preset 12 kinds of online learning behavior.
+             Growth rate
+
+            Figure 1: 2010–2015 E-Learning user scale.                                   ID                                              Learning behavior
+                                                                                         𝑏1                                            Browse learning goals
+                                                                                         𝑏2                                                Text learning
+UESTC (University of Electronic Science and Technology                                   𝑏3                                             Multimedia learning
+of China) cooperate with other departments in developing                                 𝑏4                                               Practice online
+the Student Profile System, which can give an early warning                              𝑏5                                           Search & view reference
+about failing the exam [4]. Similarly, Southwest Jiaotong                                𝑏6                                                 Make notes
+University collected and analyzed the big data drawn students                            𝑏7                                            Download courseware
+on campus “behavior track” model to predict students’                                    𝑏8                                               Question online
+future development [5]. In foreign countries, researchers                                𝑏9                                            Exchange interaction
+have proved that using the big data to analyze the students’                             𝑏10                                       Communicate through E-mail
+learning behavior such as reading course information online,
+                                                                                         𝑏11                                           Rest or listen to music
+submitting homework, and exchanging detected the warning
+                                                                                         𝑏12                                       Talk about QQ when learning
+information in poor learning performance. According to this
+warning information, the teachers made recommendations
+for improvement and given some guidance, to ensure that the
+                                                                                                  𝑗
+students learn effectively. However, “student profile” has been                          where 𝑠𝑖 indicates the students classified by age; 𝑖 means the
+applied in the education field; the big data profile technology                          individual; 𝑗 denotes the student age level (for convenience,
+combined with education has a very important practical                                   the superscript is usually omitted as 𝑠𝑖 ), and there are 5 types
+significance.                                                                            of students classified in different age, which includes less than
+     In view of the E-Learning data, we use the big data tech-                           17 years old, 18–24 years old, 25–34 years old, 35–54 years old,
+nology to analyze the E-Learning characteristic, and the main                            and over 55 years old, as shown in Table 1.
+research contents of this paper are as follows: (1) analysis of                               According to age, we can predict learner profile infor-
+factors affecting the student profile. The students are classified                       mation and further dig into the characteristics of students
+according to age, and then we define the relations between                               learning.
+student behavior and duration; (2) building a student profile
+model. We collected and preprocessed data and dug out the                                2.2. Definition of Learning Behavior. The online learning
+connection on the students’ learning behavior attributes by                              behavior is the kinds of learning behavior under the network
+the Jaccard algorithm, to form the student profile finally; (3)                          environment. We focus on digging out the characteristics of
+analysis on the student profile. It is to contribute to the E-                           learners from online learning behavior after analysis, in order
+Learning platform to better understand the learning behavior                             to understand the student’s performance. The core of learning
+of students.                                                                             behavior is the operation of online learning behaviors [7, 8].
+                                                                                         For example, learner clicks on a course, browses the page,
+2. The Definition of the Student Profile                                                 plays the video, and downloads the relevant courseware. The
+                                                                                         “click” and “download” are the two operations about learning
+The student profile described the learning characteristics                               behaviors. The behavior set (behavior) in the student profile
+from multidimensions and multiangle. It includes the analy-                              is defined as
+sis indicators and influencing factors, such as student behav-
+ior, data collection, data cleaning, and student profile building                                              𝐵 = {𝑏𝑖 | 𝑏1 , 𝑏2 , . . . , 𝑏𝑛 } ,           (2)
+and analyzing [6].
+                                                                                         where 𝑏𝑖 indicates varieties of behavior and includes 12 kinds
+2.1. Student Definition. The main research on the student                                of learning behaviors, such as learning goal, text learning,
+profile is the students in the school or E-Learning platform.                            online practice, and making notes, as shown in Table 2.
+Assume the student set as follows:                                                           Since the online learning is the period of time process
+                                𝑗     𝑗     𝑗                                            with online learning behavior, it is an important parameter
+                       𝑆 = {𝑠𝑖 | 𝑠1 , 𝑠2 , . . . , 𝑠𝑛𝑗 } ,                         (1)   to evaluate the quality of online learning. In particularly, it
+Journal of Electrical and Computer Engineering                                                                                                                                            3
+
+                                                                                                           learning behavior data, and learning content preference data.
+                                          Data source                                                      The student user registration data is mainly analysis on the
+
+
+
+
+                                                                                 Data processing
+                                                                                                           characteristics of the learners, including user name, sex, date
+                                       Data acquisition                                                    of birth, geography, occupation, and hobbies. The web log
+                                                                                                           data reflects the operation of E-Learning platform, including
+                    Attribute
+                    induction
+                                                                                                           active number, page views, access time, activation rate, and
+                                                                                                           learning path. The learning behavior data is helpful for
+                                         Data cleaning                                                     statistics analysis of online learning performance, including
+                                                                                                           learning time, learning activities, learning resources, and
+                                                                                                           examination results. The learning content preference data
+                                                                              Give up type
+                                                                                                           can be used to analyze the preference of courses or teachers,
+                                                      Analysis and mining
+
+
+                                Text mining                                  Moderate type                 including browse/collection content, review content, and
+   Knowledge base
+
+
+
+
+                           Cluster analysis                                     Deep type                  interactive content. It can be helpful for pushing the course
+                                Correlation                                  Questions type                accurately.
+                                Classification                              Inquisitive type
+                                 predication                                                   ···         3.2. Data Cleaning. Data cleaning preprocesses the original
+                                                                                Multitype                  data, removes redundant data, retains the useful data for
+                                                                                                           the analysis, and organizes the data into a standard format.
+                                Figure 2: Student profile model.                                           Because the interference of abnormal values often results in
+                                                                                                           data mining distortion [10–12], data cleaning improves the
+                                                                                                           accuracy of data analysis and ensures the reliability of data
+reflects the degree of focus on learning. The duration set                                                 mining.
+(timeslot) in student profile is defined as follows:                                                           Attribute induction is the most important process of
+                                                                                                           collecting the data source pretreatment. Suppose the original
+                                     𝑇 = {𝑡𝑖 | 𝑡1 , 𝑡2 , . . . , 𝑡𝑛 } ,                              (3)   data field to {𝐺1 , 𝐺2 , . . . , 𝐺𝑁𝐺 }, where 𝑁𝐺 is the dimension
+where 𝑡𝑖 indicates various of durations; it is divided into                                                of the original data field. Set the vector 𝐴, where 𝐴 ∈
+periods as 1–10 minutes, 10–20 minutes, 20–30 minutes,                                                     {𝐺1 , 𝐺2 , . . . , 𝐺𝑛 } and 𝐴 means desirable property. By the
+30–40 minutes, 40–50 minutes, 50–60 minutes, and so forth.                                                 property statute of data preprocessing to give all the desired
+    According to the above definitions, 𝑠1 ⋅𝑏𝑖 means the behav-                                            properties, the attribute induction method is defined as sig,
+ior 𝑏𝑖 of the student 𝑠1 . We suppose behavioral differences                                               cleaning the data to get the following results:
+Δ𝑏 = 𝑠1 ⋅ 𝑏𝑖 − 𝑠2 ⋅ 𝑏𝑖 ; it represents the students’ differences in a
+                                                                                                                       {𝐴 1 , 𝐴 2 , . . . , 𝐴 𝑁𝐴 } = sig {𝐺1 , 𝐺2 , . . . , 𝐺𝑛 } ,     (4)
+certain behavior. For example, suppose college learner 𝑠1 , job
+learner 𝑠2 , and online training 𝑏1 . We adopt Δ𝑏 = 𝑠1 ⋅𝑏1 − 𝑠2 ⋅𝑏1                                            in which 𝑁𝐴 is an important property for the dimension
+to analyze the differences between college learner and job                                                 data field. In our solution, we calculate the importance of
+learner in the behavior of the training online.                                                            the property and select the same behavior analysis related to
+                                                                                                           the desired attributes. Our solution does not deal with the
+3. Student Profile Model                                                                                   concrete implementation of the attribute induction about sig.
+
+The student profile has a complete model to guide us to
+analyzing the students’ online learning process. The stu-
+                                                                                                           4. Student Profile Analysis
+dent profile model (Figure 2) includes data collection, data                                               In this section, we calculate the similarity in the behavior
+cleaning, and portrait analysis. Firstly, data collection can                                              set of different students, through the Jaccard coefficient
+obtain the original data by means of E-Learning platform                                                   similarity algorithm compared with the online behavior
+or questionnaire survey. Secondly, we utilize the attribute                                                characteristics and duration of learners, similar properties
+reduction to clean the original data and then employ the                                                   classified as a class, and the difference properties classified to
+Jaccard coefficient algorithm for data analysis and data min-                                              different classes.
+ing. Finally, we label the students according to results of the
+analysis in order to form the student profile. Simultaneously,
+                                                                                                           4.1. Student Behavior Feature Similarity Calculation. Similar-
+we build the knowledge base (KB) for storage of knowledge
+                                                                                                           ity among the behavioral characteristics of different students
+sheet about the student profile [9]. In student profile model,
+                                                                                                           objects belongs to nonnumeric objects; we adopt Jaccard
+KB is parallel to the data mining level and interaction. From
+                                                                                                           coefficient calculated similarity [13, 14]. The similarity for-
+the knowledge base, we take some of the student profile set to
+                                                                                                           mula is as follows:
+dig into and analyze and store the results in the KB. Therefore,
+                                                                                                                                                           󵄨󵄨 𝑠 ⋅ 𝑏 ∩ 𝑠 ⋅ 𝑏 󵄨󵄨
+the KB of the student profile has the self-growth and self-                                                                                                 󵄨󵄨 𝑖 𝑘 𝑗 𝑘 󵄨󵄨
+                                                                                                                   𝑟𝑖𝑗𝑘 = Jaccard (𝑠𝑖 ⋅ 𝑏𝑘 , 𝑠𝑗 ⋅ 𝑏𝑘 ) = 󵄨󵄨󵄨                        󵄨󵄨 , (5)
+perfection ability.                                                                                                                                          󵄨󵄨 𝑠𝑖 ⋅ 𝑏𝑘 ∪ 𝑠𝑗 ⋅ 𝑏𝑘 󵄨󵄨󵄨
+                                                                                                                                                              󵄨                      󵄨
+3.1. Data Acquisition. Data acquisition includes four cate-                                                where 𝑠𝑖 ⋅ 𝑏𝑘 and 𝑠𝑗 ⋅ 𝑏𝑘 represent the behavior 𝑏𝑘 of students
+gories, such as student user registration data, web log data,                                              𝑠𝑖 and 𝑠𝑗 . Suppose the student 𝑠𝑖 belongs to KB; we compare
+4                                                                                           Journal of Electrical and Computer Engineering
+
+                                                                                   100.00
+                                                                                                        94.30%
+           (1) Input: 𝑠𝑠 //𝑠𝑠 is a set of students                                  90.00
+           (2) Output: 𝑅[𝑖][𝑗]                                                      80.00
+           (3) /∗ similarity of behavior characteristics                            70.00
+               between student 𝑖 and 𝑗.∗ /                                          60.00                                                                                             58.60%                                                                                                                     55.73%
+           (4) Dim 𝑅 As Float[][]; //similarity matrix 𝑅
+
+
+
+
+                                                                             (%)
+                                                                                    50.00
+           (5) Dim 𝑖, 𝑗, 𝑛 As int;                                                                                                                                                                                                               45.90%
+                                                                                    40.00
+           (6) Dim 𝑘 As float;                                                      30.00
+           (7) Begin                                                                20.00                                                                18.47%                                                                                                                    17.51%                                                     16.88%
+           (8) 𝑛 = 𝑠𝑠.length;                                                       10.00                                                                                                                                                                                                                                                      9.87%
+           (9) // get the number of Student set                                                                       5.70%                                                                                         6.70%
+                                                                                     0.00
+           (10) For 𝑖 = 0 To 𝑛 {
+
+
+
+
+                                                                                                                                                                                                                                                   Concentrate on learning tasks
+                                                                                                          Unhelpful
+
+
+
+
+                                                                                                                                                                                                                                                                                                                  Play first and then learn
+
+                                                                                                                                                                                                                                                                                                                                               Forgot to learn
+                                                                                              Helpful
+
+
+
+
+                                                                                                                                                           Sometimes learning goals
+
+                                                                                                                                                                                        Often make learning plans
+
+
+
+
+                                                                                                                                                                                                                                                                                     Give priority to learning
+                                                                                                                                                                                                                     Not making learning plans
+                                                                                                                        Have clear learning objectives
+           (11) For 𝑗 = 𝑖 + 1 To 𝑛 {
+           (12)       For 𝑘 = 0 To |𝐵|
+           (13) //|𝐵| is the number of behavior types
+           (14)       {
+           (15)       𝑟[𝑖][𝑗][𝑘] = Jaccard(𝑠𝑠[𝑖][𝑗][𝑘]);
+           (16)       }
+           (17)       𝑅[𝑖][𝑗] = Sim(𝑠𝑠[𝑖], 𝑠𝑠[𝑗])
+           (18) }}
+           (19) Return 𝑅
+           (20) End                                                                          Figure 3: Learning attitude analysis.
+
+           Algorithm 1: Jaccard coefficient algorithm.
+                                                                         student could be labeled “depth learning type” if learning per-
+                                                                         formance takes more than 60 minutes. Similarly, the student
+𝑠𝑗 to 𝑠𝑖 . If 𝑠𝑗 and 𝑠𝑖 similarity difference is too large, it will be   could be labeled “tasted type” if learning performance takes
+added to the KB as a new class.                                          less than 10 minutes. Additionally, based on the frequency
+    User similarity is defined as                                        of online question and online training, we labeled “inquisi-
+                                                                         tive type,” “application type,” and “perseverance type.” The
+                                          1 𝑀                            specific labeling method does not repeat them here. We only
+                 𝑅𝑖𝑗 = Sim (𝑠𝑖 , 𝑠𝑗 ) =     ∑𝑟 ,                  (6)
+                                          𝑀 𝑘=1 𝑖𝑗𝑘                      proposed Jaccard coefficient algorithm and labeling idea for
+                                                                         readers.
+in which Sim(𝑠𝑖 , 𝑠𝑗 ) indicates the similarity between students
+𝑠𝑖 and 𝑠𝑗 ; 𝑀 indicates the behavior dimension attributes of             4.2. Learning Attitude Analysis. The students’ learning atti-
+student set 𝑆; 𝑟𝑖𝑗𝑘 represents the similarity about property 𝑘           tude makes a difference to learning effect. We collected data
+between students 𝑠𝑖 and 𝑠𝑗 , and 𝑖 ≠ 𝑗.                                 from 18–24-year-old student group and statistically analyzed
+    According to similarity calculation, we obtain Matrixsim             it, such as whether having the clear learning goal or not
+as follows:                                                              and whether having the learning plan or not. As shown
+                                                                         in Figure 3, it reflects the learners’ subjective initiative and
+                   1 𝑅12 𝑅13       ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ 𝑅1𝑁                       recognition to E-Learning courses, which contributes to
+                 [                                 ]
+                 [0 1 𝑅23 ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ 𝑅2𝑁 ]                        analyzing the interference factors of E-Learning.
+                 [                                 ]
+                 [0 0 1            ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ 𝑅3𝑁 ]
+                                                                              In the 18–24-year-old group, there are about 94.3%
+                 [                                 ]
+                 [                                 ]                     learners who believed that E-Learning courses are helpful
+                 [    .                    .       ]
+                 [    .
+                      .                    .
+                                           .       ]                     for them. There are 18.47% learners who have the clear
+     Matrixsim = [           d                     ].             (7)
+                 [                                 ]                     learning objectives, and 58.6% learners have clear learning
+                 [                         ..   .. ]
+                 [                                 ]                     objectives occasionally. This ratio reflects that most students
+                 [                  1 .          . ]
+                 [                                 ]                     are quite blindly taking the E-Learning course. There are
+                 [           ⋅ ⋅ ⋅ 0 d 𝑅𝑁−1,𝑁]
+                 [                                 ]                     45.9% learners who have no learning plan, and 55.73%
+                                                                         learners are learning online while doing other things, such as
+                   [0                     0   0       1    ]             QQ chat and listening to music. According to Figure 3, we can
+   It is an upper triangular matrix, where 0 < 𝑅𝑖𝑗 < 1, 𝑅𝑖𝑗              conclude that E-Learning course requires definite objective,
+denoted line 𝑖 and row 𝑗, and it is the similarity of behavior           inner motive, synchronous feedback, and independence of
+characteristics between student 𝑖 and student 𝑗.                         the learners. Since the online learners have much recognition
+   Jaccard coefficient algorithm is described as shown in                of online courses, the E-Learning platform has the broader
+Algorithm 1.                                                             prospects for development.
+   According to the result of Jaccard coefficient algorithm,
+we can label the learners. Suppose that the calculation is from          4.3. Duration Analysis of Online Learning Behavior. The
+two dimensions about learning behavior and duration. The                 learning behavior of online learners is diversity. To a certain
+Journal of Electrical and Computer Engineering                                                                                   5
+
+
+      b12               80%                                                         Table 3: Number of samples.
+      b11               80%
+                                                                  Course          1–5 weeks            1–6 weeks        1–7 weeks
+      b10   20%
+       b9
+                                                                  DSAA              9401                 9543             9990
+                  50%
+       b8 10%
+       b7          55%
+                                                                     Define each course having 𝑖 learners and each learner
+       b6   20%
+                                                                  having 𝑛 characteristic values
+       b5       40%
+       b4         50%
+                                                                                     𝐶 = {𝐶1 , . . . , 𝐶𝑛 } ∈ 𝑅𝑖×𝑛 .           (8)
+       b3                 90%
+       b2   20%                                                       Predictive value is
+       b1           60%
+          0       20       40      60     80     100     120                       𝑃 = 𝑓 (𝐶) ∈ 𝑅𝑖 ,      𝑝 ∈ {0, 1} ,          (9)
+                                  (%)
+                                                                  in which 𝐶𝑛 denotes a course; 𝑝 = 0 means it is unlikely to
+              1–5 times           >10 times                       get a certificate, and 𝑝 = 1 means you might get a certificate;
+              5–10 times                                          and 𝑓(𝐶) are a predictive function.
+                                                                      We have chosen the characteristic values of the courses,
+     Figure 4: Learners’ online learning behavior statistics.
+                                                                  and they have an impact on result about learner’s study.
+                                                                  From Table 2, they are the number of text learning behaviors
+                                                                  (𝑏2), the number of multimedia learning behaviors (𝑏3), the
+extent, the frequency of learning behavior reflects the atten-    number of online practice behaviors (𝑏4), the number of
+tion of learners to the learning resources. According to the      download courseware behaviors (𝑏7), and the number of
+frequency statistics [15], we analyzed which course resources     online questions behaviors (𝑏8).
+are more likely to be accepted by the learners as shown in            According to this course, the data set is divided into
+Figure 4.                                                         training set, validation set, and test set randomly; the ratio
+    In Figure 4, behaviors 1–7 are an independent learning        is 3 : 1 : 1. To use the training parameters with the training
+behavior. Behaviors 8–11 are an interactive learning behavior.    set for each experiment, select the optimal parameters for
+Behaviors 11-12 have nothing to do with learning. Most            the validation set, and then use the test set to calculate
+learners browse the text and make notes frequently; therefore     the indicators. We used three classification models: linear
+the text resource is the most popular type of resources. About    discriminant analysis (LDA), logistic regression (LR), and
+90% learners will first browse multimedia resources. Only         linear support vector machine (LSVM). They are used to
+50% of the learners will participate in online exercises and      predict the course, and the experimental results are shown
+only 1–5 times. About 60% learners will choose to view            in Table 4.
+the learning objectives before studying the course, and the           The experimental results show that the three classifiers
+number of views is generally less than 5 times. 80% learners      show consistent performance, and the accuracy is higher.
+will rest; listen to music; or QQ chat 1–5 times during the       Figure 5 shows the time series changes of the predicted F-
+learning process. This shows that most learners have a sense      core by DSAA course. According to the learners’ learning
+of learning strategies. They are interested in multimedia         behaviors in the first half of the semester, we accurately
+resources, but they are more used to learning through reading     predicted the final study results, whether it can obtain the
+text resources. Online interactive learning behavior is low       certificate [2]. In fact, if a learner performs well in the first
+[16, 17]. Learning in the network easily causes fatigue and is    half of the semester, it is shown that he is firm and capable.
+affected by chat and other factors.                               He is more likely than others to get the certificate finally.
+
+4.4. Intelligent Learning Guide                                   4.4.2. Emotional Guide Analysis. Achievement prediction
+                                                                  can help E-Learning platform to discover the abnormal
+4.4.1. Achievement Predicting. MOOC is a popular E-               situation, so as to timely intervention and guidance for
+Learning platform, whose importance is reflected in the           students. Because online learners are mainly independent
+pass rate of the course. In view of the low pass rate on          learners, they are in isolation and lack emotional communi-
+MOOC [15, 18], it is supposed that a course is expected           cation, which makes them lack emotional support and have
+to be predicting whether the learner will eventually get the      difficulty in maintaining long-term learning enthusiasm [19].
+certificate according to the characteristics of the learner’s     It is an effective way to solve the emotional deficiency by
+behavior. And we also try to verify the previous analysis and     constructing an intelligent learning guiding mechanism in
+conclusions.                                                      the student profile and providing some emotional help and
+    We suppose that the behavioral data was collected from        support services to the learners during the learning process
+the registered learners on Data Structures and Algorithm          [20].
+Analysis (DSAA) course for the first 5–7 weeks. After filtering        According to the E-Learning resources and learners’
+the behavior of unregistered learners in the data record, the     behaviors, we can present an evaluation model supported
+sample statistics are shown in Table 3.                           by the duration, frequency of access, concentration, and
+6                                                                                               Journal of Electrical and Computer Engineering
+
+                                                     80.00
+
+                                                     70.00
+
+                                                     60.00
+
+                                                     50.00
+
+
+
+
+                                               (%)
+                                                     40.00
+
+                                                     30.00
+
+                                                     20.00
+
+                                                     10.00
+
+                                                      0.00
+                                                                    1–5 weeks     1–6 weeks        1–7 weeks
+                                                 LDA                 58.20%         50%              64.00%
+                                                 LR                  51.90%         60%              70.30%
+                                                 LSVM                50.00%        66.70%            72.00%
+                                                      Figure 5: Sequential variation of DSAA course.
+
+
+                                                      Table 4: Comparison of the forecasting results.
+
+Course                            Classifier                           Accuracy               Precision                  Recall              𝐹-score
+                                    LDA                                  99.6                   50.0                      88.9                64.0
+DSAA                                 LR                                  99.5                   65.0                      76.5                70.3
+                                   LSVM                                  99.7                   64.3                      81.8                72.0
+
+
+                                                                                  Finally, the student profile has been established as well as
+     E-Learning resources                        Learner behaviors                visual analysis. We confirm that E-Learning course requires
+           Duration                                          b1                   definite objective, inner motive, synchronous feedback, and
+           Frequency                                         b2                   independence of the learners. The student profile helps the
+         Concentration                                       b3
+                                                                                  student to understand their learning situation, to find their
+                                                                                  own problems, and to improve the completion rate of online
+              ···                                            ···
+                                                                                  courses. With the continuous accumulation of education
+                                                                                  data and in-depth development, the student profile is bound
+                                                                                  to promote the healthy development of E-Learning. In the
+                                                 Emotional guide                  future, we will conduct in-depth study on the fragmentation
+                    Learning interest
+                                                                                  of knowledge aggregation online.
+                                                         Happy
+                                                        Confused
+               Strategy adjustment                     Frustrated                 Conflicts of Interest
+                                                              ···
+                                                                                  The authors declare that there are no conflicts of interest
+                                                                                  regarding the publication of this paper.
+             Figure 6: Emotional evaluation model.
+                                                                                  Acknowledgments
+other parameters to evaluation learners’ emotion as shown in                      This work was supported by the Tianjin University of
+Figure 6.                                                                         Science and Technology Youth Innovation Foundation (no.
+                                                                                  2016LG28).
+5. Conclusion
+In this paper, we deeply study the online learning behav-
+                                                                                  References
+ior and build the student profile with big data processing                         [1] T.-H. Wang, “Developing an assessment-centered e-Learning
+technology. Firstly, we analyze the characteristics of learners                        system for improving student learning effectiveness,” Computers
+and the factors that influence the learning behavior and                               & Education, vol. 73, pp. 189–203, 2014.
+use the method of attribute reduction to cleaning the data.                        [2] Z. Jiang, Y. Zhang, and X. Li, “Learning behavior analysis and
+Then, we calculate the similarity of students’ behavior and                            prediction based on MOOC data,” Journal of Computer Research
+use the Jaccard coefficient algorithm to classify the students.                        and Development, vol. 52, no. 3, pp. 614–628, 2015.
+Journal of Electrical and Computer Engineering                                                                                                7
+
+ [3] C. Bo, M. Wang, A. I. Mørch, N.-S. Chen, Kinshuk, and J. M.           [19] Huang, Research on Learner’s Emotion Modeling and Its Appli-
+     Spector, “Research on E-Learning in the workplace 2000–2012:               cation in E-Learning, Central China Normal University, Wuhan,
+     a bibliometric analysis of the literature,” Educational Research           China, 2014.
+     Review, vol. 11, pp. 56–72, 2014.                                     [20] S. Bhuta, A. Doshi, U. Doshi, and M. Narvekar, “A review of
+ [4] M. Raspopovic and A. Jankulovic, “Performance measurement                  techniques for sentiment analysis of Twitter data,” in Proceed-
+     of e-learning using student satisfaction analysis,” Information            ings of the International Conference on Issues and Challenges in
+     Systems Frontiers, pp. 1–12, 2016.                                         Intelligent Computing Techniques (ICICT ’14), pp. 583–591, IEEE,
+ [5] C. G. Brinton, S. Buccapatnam, M. Chiang, and H. V. Poor,                  Ghaziabad, India, February 2014.
+     “Mining MOOC Clickstreams: on the relationship between
+     learner behavior and performance: computer science,” https://
+     arxiv.org/abs/1503.06489.
+ [6] T. Sinha, “‘Your click decides your fate’: leveraging clickstream
+     patterns from MOOC videos to infer students’ information
+     processing & attrition behavior,” https://arxiv.org/abs/1407.7143.
+ [7] Y. Liu and H. Feng, “An empirical study on the relationship
+     between metacognitive strategies and online-learning behav-
+     ior & test achievements,” Journal of Language Teaching and
+     Research, vol. 2, no. 1, pp. 990–992, 2011.
+ [8] S. Dumais, R. Jeffries, D. M. Russell et al., “Understanding user
+     behavior through log data and analysis,” in Ways of Knowing in
+     HCI, pp. 349–372, Springer, New York, NY, USA, 2014.
+ [9] I. Jo, T. Yu, H. Lee, and Y. Kim, “Relations between student
+     online learning behavior and academic achievement in higher
+     education: a learning analytics approach,” in Emerging Issues in
+     Smart Learning, Lecture Notes in Educational Technology, pp.
+     275–287, Springer, Berlin, Germany, 2015.
+[10] I. H. Witten and E. Frank, Data Mining: Practical Machine
+     Learning Tools & Techniques with Java Implementations, vol. 13,
+     no. 4, Morgan Kaufmann, Burlington, Mass, USA, 2011.
+[11] D. Agrawal, C. Budak, A. El Abbadi, T. Georgiou, and X. Yan,
+     “Big data in online social networks: user interaction analysis
+     to model user behavior in social networks,” in Databases in
+     Networked Information Systems, vol. 8381 of Lecture Notes in
+     Computer Science, pp. 1–16, Springer International Publishing,
+     2014.
+[12] Y. Ar and E. Bostanci, “A genetic algorithm solution to the col-
+     laborative filtering problem,” Expert Systems with Applications,
+     vol. 61, pp. 122–128, 2016.
+[13] J. Santisteban and J. Tejada-Cárcamo, “Unilateral weighted
+     Jaccard coefficient for NLP,” in Proceedings of the 14th Mexican
+     International Conference on Artificial Intelligence (MICAI ’15),
+     pp. 14–20, IEEE, Cuernavaca, Mexico, October 2015.
+[14] X. Xian, F. Chen, and J. Wang, “An insight into campus network
+     user behavior analysis decision system,” in Proceedings of the
+     2nd International Symposium on Computer, Consumer and
+     Control (IS3C ’14), pp. 537–540, Taichung, Taiwan, June 2014.
+[15] H. Khalil and M. Ebner, “‘How satisfied are you with your
+     MOOC?’—a research study about interaction in huge online
+     courses,” Journalism & Mass Communication Quarterly, vol. 5,
+     no. 12, pp. 629–639, 2016.
+[16] D. Hempel, S. Sinnathurai, S. Haunhorst et al., “Influence of
+     case-based e-learning on students’ performance in point-of-
+     care ultrasound courses: a randomized trial,” European Journal
+     of Emergency Medicine, vol. 23, no. 4, pp. 298–304, 2016.
+[17] D. D. Prior, J. Mazanov, D. Meacheam, G. Heaslip, and J. Han-
+     son, “Attitude, digital literacy and self efficacy: flow-on effects
+     for online learning behavior,” Internet and Higher Education,
+     vol. 29, pp. 91–97, 2016.
+[18] L. Geoffrey, From E-Reading to E-Learning: A Pedagogical
+     Framework for Online Learning, 2016.
+                                                                                                                         International Journal of
+
+
+                                                                                                                         Rotating
+                                                                                                                         Machinery
+
+
+
+
+                                                                                                                                                                                                                        International Journal of
+                                                 The Scientific
+Engineering                                                                                                                                                                                                             Distributed
+             Journal of
+                                                                                                                                                                         Journal of
+
+Hindawi Publishing Corporation
+                                                 World Journal
+                                                 Hindawi Publishing Corporation                                          Hindawi Publishing Corporation
+                                                                                                                                                                         Sensors
+                                                                                                                                                                         Hindawi Publishing Corporation
+                                                                                                                                                                                                                        Sensor Networks
+                                                                                                                                                                                                                        Hindawi Publishing Corporation
+http://www.hindawi.com             Volume 2014   http://www.hindawi.com                                    Volume 2014   http://www.hindawi.com           Volume 2014    http://www.hindawi.com           Volume 2014   http://www.hindawi.com            Volume 2014
+
+
+
+
+                                                                                                                                                                                                                        Journal of
+
+                                                                                                                                                                                                                        Control Science
+                                                                                                                                                                                                                        and Engineering
+
+
+
+
+Advances in
+Civil Engineering
+Hindawi Publishing Corporation                                                                                                                                                                                          Hindawi Publishing Corporation
+http://www.hindawi.com             Volume 2014                                                                                                                                                                          http://www.hindawi.com           Volume 2014
+
+
+
+
+                                                                                                            Submit your manuscripts at
+                                                                                                             https://www.hindawi.com
+
+                                                                                                                                                                                                                        Journal of
+Journal of                                                                                                                                                                                                              Electrical and Computer
+Robotics
+Hindawi Publishing Corporation
+                                                                                                                                                                                                                        Engineering
+                                                                                                                                                                                                                        Hindawi Publishing Corporation
+http://www.hindawi.com             Volume 2014                                                                                                                                                                          http://www.hindawi.com            Volume 2014
+
+
+
+
+                                                                           VLSI Design
+Advances in
+OptoElectronics
+                                                                                                                                                                                                                        International Journal of
+
+                                                                                                                         International Journal of
+                                                                                                                                                                         Modelling &
+                                                                                                                                                                         Simulation
+                                                                                                                                                                                                                        Aerospace
+Hindawi Publishing Corporation   Volume 2014
+                                                                                                                         Navigation and
+                                                                                                                         Observation
+                                                                                                                         Hindawi Publishing Corporation
+                                                                                                                         http://www.hindawi.com            Volume 2014
+                                                                                                                                                                         in Engineering
+                                                                                                                                                                         Hindawi Publishing Corporation
+                                                                                                                                                                         http://www.hindawi.com           Volume 2014
+                                                                                                                                                                                                                        Engineering
+                                                                                                                                                                                                                        Hindawi Publishing Corporation
+                                                                                                                                                                                                                        http://www.hindawi.com           Volume 2014
+                                                                          Hindawi Publishing Corporation
+http://www.hindawi.com
+                                                                          http://www.hindawi.com           Volume 2014
+
+
+
+
+                                                 International Journal of
+International Journal of                         Antennas and                                                            Active and Passive                                                                             Advances in
+Chemical Engineering                             Propagation                                                             Electronic Components                           Shock and Vibration                            Acoustics and Vibration
+Hindawi Publishing Corporation                   Hindawi Publishing Corporation                                          Hindawi Publishing Corporation                  Hindawi Publishing Corporation                 Hindawi Publishing Corporation
+http://www.hindawi.com             Volume 2014   http://www.hindawi.com                                    Volume 2014   http://www.hindawi.com            Volume 2014   http://www.hindawi.com           Volume 2014   http://www.hindawi.com           Volume 2014
+

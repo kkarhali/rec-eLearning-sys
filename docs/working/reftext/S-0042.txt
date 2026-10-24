@@ -1,0 +1,668 @@
+                                                              African Journal of Applied Research
+                                                                  Vol. 11, No. 5 (2025), pp.326-339
+                                                                        http://www.ajaronline.com
+                                                                  https://doi.org/10.26437/ajar.v11
+                                                                          Received January 2, 2025
+                                                                     Peer reviewed: April 13, 2025
+                                                                           Revised: August 25, 2025
+                                                                           Published: October 2025
+A MULTI–MODEL MACHINE LEARNING FRAMEWORK FOR
+PERSONALISED COURSE RECOMMENDATION WITH DYNAMIC
+FEEDBACK
+Kshirsagar, M. M.1, Gawande, U. H.2, Jain, S. R.3, Chavhan, S. S.4, Bhoyar, D. B.5,
+Deshpande, P. P.6, Kurumbanshi, S. S.7 and Girhepunje, V. G.8
+1
+  Department of Computer Technology, Yeshwantrao Chavan College of Engineering,
+Nagpur, India.
+2,4
+    Department of Information Technology, Yeshwantrao Chavan College of Engineering,
+Nagpur, India.
+3
+  Department of Computer Science, Oklahoma State University, Stillwater, United States of
+America.
+5
+  Department of Electronics and Telecommunication, Yeshwantrao Chavan College of
+Engineering, Nagpur, India.
+6
+  Deptartment of Electronics and Communication Engineering Ramdeobaba University,
+Nagpur, India.
+7
+  SVKM’s NMIMS, Mukesh Patel School of Technology Management and Engineering,
+Shirpur, Maharashtra, India.
+8
+  Department of Electronics and Telecommunication Engineering, Priyadarshini College of
+Engineering, Nagpur, India.
+1
+  manali_kshirsagar@yahoo.co.in
+
+
+ABSTRACT
+Purpose: To develop a personalised course recommendation system that automatically
+suggests relevant courses based on users’ specific queries and interests, thereby improving
+learning outcomes and user satisfaction.
+Design/Methodology/Approach: The system leverages a Learning-to-Rank (LTR)
+framework using XGBoost to model the relationship between user queries and course content.
+The raw dataset comprised a total of 2.3 million records, consisting of 1,000,000 records from
+Coursera, 900,000 from Udemy, and 400,000 from edX. These records span 12 major subject
+categories (e.g., Computer Science, Business, Data Science, Health Sciences) and three
+difficulty levels (Beginner, Intermediate, Advanced). At the Learning-to-Rank stage, a
+pairwise ranking strategy was implemented using XGBoost. Training instances were
+constructed as course pairs (i,j) where course i was preferred over j based on past user
+behaviour.
+Findings: The performance is strong, with a Normalised Discounted Cumulative Gain
+(NDCG) score of 0.83 and high Mean Reciprocal Rank (MRR) values. The system achieves
+low query processing latency, ensuring real-time responsiveness. Post-retraining user feedback
+shows a 90% improvement in user satisfaction, validating the adaptive nature of the approach.
+
+
+
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                        326
+                                                                  African Journal of Applied Research
+                                                                      Vol. 11, No. 5 (2025), pp.326-339
+                                                                            http://www.ajaronline.com
+                                                                      https://doi.org/10.26437/ajar.v11
+                                                                              Received January 2, 2025
+                                                                         Peer reviewed: April 13, 2025
+                                                                               Revised: August 25, 2025
+                                                                               Published: October 2025
+Research Limitation: The dataset is platform-dependent, and the framework’s
+generalizability to smaller or less structured educational repositories requires further
+validation.
+Practical Implication: The framework can be applied across diverse educational platforms to
+provide tailored learning pathways, enhancing engagement and improving course discovery
+efficiency for learners.
+Social Implication: By personalising education and reducing information overload, the system
+supports lifelong learning, democratizes access to relevant skills, and enhances the overall
+quality of digital education.
+Originality/Value: This work introduces an adaptive, feedback-driven recommendation
+framework that combines LTR, dynamic feature refinement, and real-time responsiveness,
+offering a novel and scalable solution for personalised education.
+Keywords: Course ranking. educational platforms. learning. user feedback. XGBoost
+
+
+INTRODUCTION
+The rise of online learning platforms has brought about both opportunities and challenges. On
+the one hand, learners today have access to thousands of courses in diverse subjects through
+platforms such as Coursera, edX, and Udemy. On the other hand, this abundance of content
+makes it difficult for individuals to select courses that truly align with their interests and goals.
+In this context, personalised recommendation systems are becoming essential tools for
+enhancing learning experiences and guiding students toward suitable content (Amin et al.,
+2024; Schein,2002).
+These systems aim to offer course suggestions by analysing user profiles, past interactions, and
+course metadata (Tang, 2005; Brusilovsky, 2007). However, designing such systems for
+educational environments comes with its own set of challenges. One of the most well-known
+issues is the “cold start” problem, where the system lacks enough information about new users
+or new courses to make accurate recommendations (Adomavicius, 2005; Islam & Hosen,
+2025). Additionally, learners often change their preferences over time, making it necessary for
+the system to adapt continuously to remain relevant.
+Traditional methods, such as collaborative filtering and content-based filtering, have been
+widely used in course recommendation; however, both have limitations. Collaborative filtering
+tends to perform poorly when user-item interaction data is sparse (Xiaoyuan Su, 2009), while
+content-based filtering can be too narrow, often recommending similar courses based on static
+features, and failing to capture evolving user interests (Resnick,1997).
+To address these issues, researchers have begun using Learning-to-Rank (LTR) models, which
+are better suited for ranking tasks where the goal is not only to find relevant items but also to
+order them based on importance or usefulness (Qin, 2010; Liu, 2007). Among these, XGBoost
+has emerged as a strong candidate due to its efficiency, scalability, and ability to learn from
+complex feature sets (Mrhar & Abik, 2025; Gbedawo et al., 2024; Chen, 2016). When
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                            327
+                                                                  African Journal of Applied Research
+                                                                      Vol. 11, No. 5 (2025), pp.326-339
+                                                                            http://www.ajaronline.com
+                                                                      https://doi.org/10.26437/ajar.v11
+                                                                              Received January 2, 2025
+                                                                         Peer reviewed: April 13, 2025
+                                                                               Revised: August 25, 2025
+                                                                               Published: October 2025
+combined with LTR approaches, XGBoost can effectively model the relationships between
+users, queries, and available courses, improving the ranking of recommendations.
+Importantly, recent developments emphasise the role of feedback in improving
+recommendation quality. Rather than relying solely on historical data, systems can also learn
+from ongoing user activity, such as clicks, course completions, and ratings, to dynamically
+update recommendations (Zhang, 2019; Pizzato, 2010). This feedback loop makes the
+recommendation engine more adaptable and more capable of serving users in real-world
+educational scenarios (Prakashpant Bijwe & Raut, 2024).
+In this paper, we present a feedback-driven recommendation framework based on Learning-to-
+Rank with XGBoost, tailored for large-scale online education platforms. Our approach aims to
+deliver accurate, adaptive, and real-time course suggestions, helping learners find the right
+content at the right time.
+The paper is organised as follows: Section II reviews prior related research and motivates the
+current study. In Section III, provide a detailed overview of the proposed methodology. Section
+IV outlines the detailed design and experimentation of the proposed model, and the results are
+presented in Section V along with a conclusion and future scope.
+
+
+
+LITERATURE REVIEW
+Recommendation systems have undergone significant development over the past two decades,
+evolving from basic rule-based filtering to more advanced models that incorporate machine
+learning and ranking algorithms. The success of any recommendation system largely hinges on
+its ability to accurately capture user preferences and rank relevant content in a way that aligns
+with individual needs.
+Conventional techniques, such as collaborative filtering and content-based filtering, have been
+extensively used in various domains. Collaborative filtering relies on past user-item behaviours
+but is plagued by data sparsity as well as the cold-start issue, which restricts its power in serving
+new users or courses (Su & Khoshgoftaar, 2009; Adomavicius & Tuzhilin, 2005). Content-
+based filtering strategies, though efficient in utilising predefined item features, tend to be
+inadequate in accommodating the dynamic evolution of users' preferences (Song, Shin, & Shin,
+2024; Resnick & Varian, 1997). The hybrid strategies, as surveyed by Burke (2002), try to
+integrate the advantages of various recommendation strategies. However, they tend to require
+extensive manual tuning and lack the scalability needed for real-time deployment in dynamic
+environments.
+To address these challenges, Learning-to-Rank (LTR) methodologies have been proposed as a
+more effective alternative. Specifically developed to tackle ranking tasks, LTR models can learn
+to identify the optimal orderings of items from labelled data that reflect user relevance
+judgments (Liu, 2009). Among these techniques, Chen and Guestrin (2016) demonstrated that
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                            328
+                                                               African Journal of Applied Research
+                                                                   Vol. 11, No. 5 (2025), pp.326-339
+                                                                         http://www.ajaronline.com
+                                                                   https://doi.org/10.26437/ajar.v11
+                                                                           Received January 2, 2025
+                                                                      Peer reviewed: April 13, 2025
+                                                                            Revised: August 25, 2025
+                                                                            Published: October 2025
+XGBoost exhibits remarkable performance because of its scalability, computational power, and
+ability to model intricate feature interactions between user queries and course metadata. The
+adoption of XGBoost in an LTR pipeline enables the direct optimisation of ranking metrics,
+such as the Normalised Discounted Cumulative Gain (NDCG), thereby enhancing the quality
+of personalised recommendations (Zhou & Wang, 2025).
+Previous research has emphasised the benefits of LTR-based methods. For example, Qin et al.
+(2010) and Joachims (2002) reported significant improvements in ranking performance through
+pairwise and listwise ranking strategies. Furthermore, Zhang et al. (2019) highlighted the
+importance of incorporating user feedback into the learning process, illustrating that real-time
+responsiveness and personalisation can be considerably enhanced through adaptive model
+updates.
+Despite these advancements, many existing systems still struggle to update rankings
+dynamically based on user interaction. This leads to a disconnect between theoretical progress
+and real-world performance, particularly in fast-paced educational platforms. To address this
+gap, the present study introduces a feedback-driven course recommendation framework
+leveraging LTR with XGBoost. The proposed system aims to deliver scalable, real-time, and
+highly personalised course suggestions that align recommendations with users’ evolving
+learning objectives.
+
+
+METHODOLOGY
+The proposed Personalised Course Recommendation System leverages a Learning-to-Rank
+(LTR) framework integrated with the XGBoost algorithm to deliver adaptive and context-aware
+course suggestions. The system architecture is structured into five interdependent stages (as
+illustrated in Figure 1), each designed to address specific shortcomings of traditional
+recommendation techniques and enhance the overall precision, scalability, and responsiveness
+of the recommendation pipeline.
+
+
+
+
+                                       Figure 1: Methodology
+To support the development and evaluation of the proposed Learning–to–Rank–based course
+recommendation system, a comprehensive multi-source dataset was curated by aggregating data
+from three widely used Massive Open Online Course (MOOC) platforms: Coursera, Udemy,
+and edX. These platforms were chosen due to their broad global user base, extensive coverage
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                         329
+                                                                African Journal of Applied Research
+                                                                    Vol. 11, No. 5 (2025), pp.326-339
+                                                                          http://www.ajaronline.com
+                                                                    https://doi.org/10.26437/ajar.v11
+                                                                            Received January 2, 2025
+                                                                       Peer reviewed: April 13, 2025
+                                                                             Revised: August 25, 2025
+                                                                             Published: October 2025
+of academic and professional subjects, and diversity in instructional methodologies. This
+selection ensures that the resulting dataset encapsulates a broad spectrum of learner profiles,
+content structures, and engagement patterns, providing a robust foundation for building a
+generalised and scalable e-learning recommendation framework.
+Data Sources and Coverage
+Data was acquired through a combination of web scraping (using platform-compliant crawling
+scripts) and synthetic user interaction simulation for personalisation testing. The dataset
+includes a comprehensive set of 15 attributes per course, capturing both static metadata and
+dynamic engagement metrics. Static attributes include course title, description, category,
+instructor details, difficulty level, duration, and pricing model. Dynamic attributes include user
+ratings, reviews, enrollment counts, click-through rates (CTR), completion rates, and feedback
+scores.
+The raw dataset comprised a total of 2.3 million records: 1,000,000 from Coursera, 900,000
+from Udemy, and 400,000 from edX. These records span 12 major subject categories (e.g.,
+Computer Science, Business, Data Science, Health Sciences) and three difficulty levels
+(Beginner, Intermediate, Advanced). This breadth ensures adequate representation of both
+popular and niche courses, as detailed in Table 1.
+Data Cleaning and Preprocessing
+In the data preprocessing stage, raw records were cleaned by removing duplicates, imputing
+missing values, and correcting inconsistencies. Numerical attributes such as ratings and
+engagement rates were normalised to the range [0,1][0,1], and categorical variables (e.g., course
+categories and difficulty levels) were label-encoded to make them compatible with tree-based
+models like XGBoost.
+To process textual data, we applied natural language processing techniques, including
+tokenisation, lemmatisation, stop-word removal, and vectorisation using Term Frequency-
+Inverse Document Frequency (TF-IDF). The TF-IDF score for a term in a document dd, within
+the corpus DD, is computed as:
+
+                                             |𝐷|
+𝑇𝐹 − 𝐼𝐷𝐹(𝑡, 𝑑) = 𝑇𝐹(𝑡, 𝑑) × log (1+|{𝑑′ ∈𝐷∶𝑡∈𝑑𝑖 }|)                            (1)
+
+Where:
+TF(t,d) is the term frequency of term t in document d,
+|D| is the total number of documents,
+
+{𝑑′ ∈ 𝐷 ∶ 𝑡 ∈ 𝑑𝑖 } is the number of documents in which term t appears.
+
+This transformation converts raw text into numerical feature vectors that reflect term relevance,
+improving the semantic understanding of both course content and user queries. These vectors
+are subsequently used in the feature engineering and similarity computation stages.
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                          330
+                                                                African Journal of Applied Research
+                                                                    Vol. 11, No. 5 (2025), pp.326-339
+                                                                          http://www.ajaronline.com
+                                                                    https://doi.org/10.26437/ajar.v11
+                                                                            Received January 2, 2025
+                                                                       Peer reviewed: April 13, 2025
+                                                                             Revised: August 25, 2025
+                                                                             Published: October 2025
+Feature Engineering
+To improve the relevance of course recommendations, robust feature engineering was
+performed to extract meaningful representations from both structured and unstructured data.
+This step transforms raw inputs into features that help the Learning-to-Rank (LTR) model
+effectively capture the complex relationships between user queries, user profiles, and course
+metadata.
+TF-IDF Vectors for Course Descriptions
+As discussed in the previous section, course descriptions were transformed into numerical
+vectors using the term frequency inverse document frequency (tf-idf) method. these vectors
+quantify the importance of words in each course relative to the entire corpus. they serve as a
+primary basis for matching user queries with relevant course content
+The similarity between a user query Q and a course description C is computed using cosine
+similarity:
+                        𝑄×𝐶
+similarity(𝑄, 𝐶) = ‖𝑄‖×‖𝐶‖                                                                       (2)
+
+This similarity score becomes a key feature for ranking the relevance of courses with respect to
+user input. User interaction data was analysed to generate behavioural features reflecting
+implicit user preferences. The engagement metrics considered are as follows: click-through rate
+(CTR), Completion rate, Average time spent per course, Rating deviation, and the Difference
+between user ratings and the average rating for the course.
+To prioritise recent interactions and adapt to evolving interests, temporal decay was applied. For
+a user interaction occurring at time 𝑡𝑖 the decayed weight is:
+𝑤𝑖 = 𝑒 −𝜆(𝑇−𝑡𝑖 )                                                                              (3)
+Where:
+  T is the current timestamp
+  λ is a tunable decay parameter
+
+  𝑤𝑖 is the time-weighted importance
+This feature helps the model favour courses recently viewed or engaged with
+User Profile Embeddings
+
+Personalised user representations were generated by embedding each user’s historical activity
+into a fixed-length vector. These embeddings incorporate:
+
+    •    Previously enrolled courses
+    •    Frequently interacted with topics
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                          331
+                                                                   African Journal of Applied Research
+                                                                       Vol. 11, No. 5 (2025), pp.326-339
+                                                                             http://www.ajaronline.com
+                                                                       https://doi.org/10.26437/ajar.v11
+                                                                               Received January 2, 2025
+                                                                          Peer reviewed: April 13, 2025
+                                                                                Revised: August 25, 2025
+                                                                                Published: October 2025
+    •    Typical course level (Beginner, Intermediate, Advanced)
+
+The resulting feature set combines content-based, collaborative, and temporal signals. This
+comprehensive representation enables the LTR model to effectively discriminate between
+relevant and irrelevant courses, making the system scalable, adaptive, and accurate.
+Learning to rank with XGBoost
+In the Learning‑to‑Rank stage, a pairwise ranking strategy was implemented using XGBoost.
+Training instances were constructed as course pairs (i,j) where course i was preferred over j
+based on past user behaviour (e.g., click-throughs, enrollments, and ratings). The objective
+function was defined as:
+ℒ = ∑(𝑖,𝑗) log(1 + 𝑒 −(𝑠𝑖 −𝑠𝑗) ) + Ω(𝑓)                                                            (4)
+
+Where 𝑠𝑖 and 𝑠𝑗 are predicted relevance scores, and Ω(f) is a regularisation term to prevent
+overfitting. This stage directly optimises ranking metrics such as Normalised Discounted
+Cumulative Gain (NDCG) and Mean Reciprocal Rank (MRR), which align with the final
+evaluation objectives of the system.
+Feedback Loop Integration
+To ensure adaptability and sustained relevance of recommendations, the system incorporates a
+dynamic feedback loop that continuously refines model predictions based on evolving user
+behaviour. This mechanism enables incremental learning, where the model progressively
+improves by integrating recent user interactions.
+While Learning-to-Rank algorithms optimise performance on historical data, real-world
+deployments require continual updates to reflect changes such as shifting user interests, new
+courses added to the platform, and changing popularity trends. Feedback loops address this
+need by incorporating explicit signals (e.g., ratings, reviews) and implicit signals (e.g., clicks,
+enrollments, time spent).
+
+Let 𝑓 = {(𝑥, 𝑦)} represent new feedback instances,
+where:
+
+𝑥 denotes the feature vector of a course-user-query triple
+𝑦 ∈ {0,1} is a binary signal              indicating   positive   (clicked/enrolled)    or     negative
+(ignored/bounced) feedback
+New course-pair training samples are generated from F, updating the dataset D′, such that:
+
+𝐷′ = 𝐷 ∪ 𝐹                                                                                   (5)
+
+
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                              332
+                                                               African Journal of Applied Research
+                                                                   Vol. 11, No. 5 (2025), pp.326-339
+                                                                         http://www.ajaronline.com
+                                                                   https://doi.org/10.26437/ajar.v11
+                                                                           Received January 2, 2025
+                                                                      Peer reviewed: April 13, 2025
+                                                                            Revised: August 25, 2025
+                                                                            Published: October 2025
+The updated dataset is used to retrain the XGBoost model at periodic intervals (e.g., daily or
+weekly), optimising the same pairwise loss function as defined in Equation (4).
+
+
+RESULTS AND DISCUSSION
+The experimental evaluation was conducted on the curated multi-source dataset, detailed in this
+section, which comprises approximately 3.2 million course entries aggregated from Coursera,
+Udemy, and edX. The dataset encompasses a broad range of course metadata and user
+interaction logs, spanning diverse subject areas and varying difficulty levels (beginner,
+intermediate, and advanced). To ensure a fair evaluation, the data were split into 80% training
+and 20% testing sets using stratified sampling, thereby preserving the distribution of course
+categories and engagement levels.
+The proposed recommendation framework utilised the Learning-to-Rank (LTR) paradigm with
+XGBoost in pairwise ranking mode (rank: pairwise objective). A comprehensive
+hyperparameter tuning process was carried out using 5-fold cross-validation on the training set.
+The model was optimised for Normalised Discounted Cumulative Gain (NDCG), which
+emphasises the importance of placing highly relevant courses at the top of the recommendation
+list. All Experimentation was executed on a workstation equipped with an Intel Xeon 3.6 GHz
+CPU, 64 GB RAM, and NVIDIA RTX A5000 GPU. The implementation leveraged Python
+3.11, scikit‑learn, and the official XGBoost library and evaluated on Normalised Discounted
+Cumulative Gain NDCG@K, the Discounted Cumulative Gain (DCG@K), and MRR (Mean
+Reciprocal Rank).
+
+Experimental Results
+
+The Learning-to-Rank (LTR) framework based on XGBoost was fine-tuned using grid search
+and 5-fold cross-validation, to optimise the NDCG metric on the validation set while preserving
+generalisation ability. The model employed the rank: pairwise objective, tailored for pairwise
+ranking tasks. A learning rate of 0.1 was used to enable gradual convergence, while maximum
+tree depth was set to 8 to balance model complexity and training time. A total of 300 boosting
+rounds were allowed, with early stopping triggered if performance plateaued for 20 consecutive
+rounds. Additional regularisation was introduced through L1 (reg_alpha=0.1) and L2
+(reg_lambda=1.0) penalties. Subsampling strategies row-wise (subsample=0.8) and column-
+wise (colsample_bytree=0.7), were incorporated to reduce overfitting. Other settings included
+min_child_weight=1 and gamma=0.2, which prevent unnecessary splits by enforcing split
+constraints.
+
+These hyperparameters collectively resulted in a well-regularised, high-performing model that
+exhibited strong ranking performance with minimal computational overhead. The use of early
+stopping and subsampling aligns with prior findings by Chen and Guestrin (2016), who
+emphasised these techniques as critical for maintaining model generalisation in gradient-
+boosting frameworks. Similarly, the pairwise ranking objective aligns with the
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                         333
+                                                              African Journal of Applied Research
+                                                                  Vol. 11, No. 5 (2025), pp.326-339
+                                                                        http://www.ajaronline.com
+                                                                  https://doi.org/10.26437/ajar.v11
+                                                                          Received January 2, 2025
+                                                                     Peer reviewed: April 13, 2025
+                                                                           Revised: August 25, 2025
+                                                                           Published: October 2025
+recommendations of Qin et al. (2010) and Liu (2009), who demonstrated that pairwise LTR
+approaches outperform traditional pointwise methods in optimising ranking-based metrics,
+such as NDCG. Thus, the chosen hyperparameter configuration not only achieved empirical
+robustness but also aligns theoretically with established best practices in the literature.
+
+The proposed Learning-to-Rank (LTR) model, integrated with XGBoost, demonstrated
+substantial improvements across key ranking metrics when compared to traditional
+recommendation baselines, including collaborative filtering and content-based filtering. The
+results are presented in Table 1 and Figure 2. The model achieved an NDCG@10 score of 0.85,
+representing a 13% improvement over collaborative filtering and a 17% improvement over
+content-based filtering. MRR and Precision@10 scores were also superior, confirming the
+model’s strength in placing relevant courses earlier in the ranked list. Query latency was
+measured at 112 milliseconds, affirming its suitability for real-time deployment in educational
+platforms.
+
+These results are consistent with earlier studies that highlighted the advantages of LTR
+frameworks in capturing user relevance more effectively than conventional recommendation
+approaches (Zhang et al., 2019; Qin et al., 2010; Joachims, 2002). The substantial improvement
+in NDCG and MRR underscores XGBoost’s effectiveness in modelling complex feature
+interactions (Karim-Abdallah et al., 2025; Chen & Guestrin, 2016). It supports the findings by
+Zhang et al. (2019) that feedback-driven ranking models enhance personalisation and
+responsiveness. Moreover, the model’s low latency aligns with Tang and McCalla (2005), who
+emphasised real-time adaptability as essential for e-learning systems. Hence, the experimental
+results not only validate the proposed framework’s technical soundness but also reinforce the
+broader consensus in the literature that adaptive, feedback-driven ranking models are central
+to next-generation personalised learning platforms.
+
+Table 1: Performance Comparison of the Proposed Model
+    Metric        Proposed LTR +        Baseline Collaborative               Baseline
+                      XGBoost                  Filtering                   Content-Based
+  NDCG@10               0.85                     0.72                          0.68
+     MRR                0.81                     0.69                          0.65
+ Precision@10           0.83                     0.70                          0.67
+     Query             112 ms                   185 ms                        164 ms
+    Latency
+
+
+
+
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                        334
+                                                                African Journal of Applied Research
+                                                                    Vol. 11, No. 5 (2025), pp.326-339
+                                                                          http://www.ajaronline.com
+                                                                    https://doi.org/10.26437/ajar.v11
+                                                                            Received January 2, 2025
+                                                                       Peer reviewed: April 13, 2025
+                                                                             Revised: August 25, 2025
+                                                                             Published: October 2025
+
+
+
+
+                      Figure 2: comparison of performance across all metrics.
+
+
+Effect of the Feedback Loop
+The role of the feedback mechanism was examined by measuring model performance in two
+operational modes: one that leveraged real-time user interactions (clicks, enrollments, ratings),
+and the other that operated statically without feedback. Incorporating dynamic feedback
+significantly enhanced recommendation quality, with NDCG@10 improving by 9% (from 0.78
+to 0.85), and MRR increasing by 11% (from 0.73 to 0.81). These improvements demonstrate
+the model’s ability to dynamically adjust rankings in response to evolving user preferences,
+supporting prior findings by Zhang et al. (2019) and Joachims (2002) that user-interaction data
+play a critical role in refining model personalisation and responsiveness. This adaptive
+behaviour aligns with the principles discussed by Brusilovsky and Millán (2007), who
+emphasised that real-time adaptability is vital in educational recommender systems to sustain
+learner engagement.
+Table 2: Performance Impact of Feedback Loop Integration
+ Metric           Without Feedback        With Feedback
+ NDCG@10          0.78                    0.85
+ MRR              0.73                    0.81
+ Precision@10     0.75                    0.83
+
+
+
+
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                          335
+                                                                African Journal of Applied Research
+                                                                    Vol. 11, No. 5 (2025), pp.326-339
+                                                                          http://www.ajaronline.com
+                                                                    https://doi.org/10.26437/ajar.v11
+                                                                            Received January 2, 2025
+                                                                       Peer reviewed: April 13, 2025
+                                                                             Revised: August 25, 2025
+                                                                             Published: October 2025
+
+
+
+
+Figure 3: Comparison of performance with feedback
+Beyond the internal comparison of the model with and without feedback, the final feedback-
+enhanced LTR model was also evaluated against traditional baselines such as Collaborative
+Filtering (CF) and Content-Based Filtering (CBF). The LTR model with feedback consistently
+outperformed both baselines across all primary metrics. For instance, NDCG@10 improved by
+18% over CF and 25% over CBF, while MRR increased by 17% and 24%, respectively. These
+results corroborate earlier research by Su and Khoshgoftaar (2009) and Resnick and Varian
+(1997), who noted the limitations of CF and CBF in handling evolving user behaviour and
+contextual relevance. The demonstrated performance gains further reinforce the findings of Qin
+et al. (2010), who showed that Learning-to-Rank models can directly optimise ranking metrics
+and outperform heuristic-based recommendation strategies.
+Overall, the results shown in Table 2 and Figure 3 confirm that integrating Learning-to-Rank
+with XGBoost provides a robust, scalable, and high-precision framework for personalised
+course recommendations. The substantial improvements over collaborative and content-based
+baselines indicate that the model effectively captures complex relationships between user
+queries, course metadata, and behavioural feedback. Furthermore, the incorporation of a real-
+time feedback loop ensures continuous model refinement, echoing the conclusions of Tang and
+McCalla (2005) that adaptive, feedback-driven recommendation systems are essential for
+maintaining learner engagement and improving user satisfaction in dynamic e-learning
+environments.
+
+
+CONCLUSION
+This study presented a robust and adaptive Learning-to-Rank (LTR) framework integrated with
+the XGBoost algorithm to deliver real-time, personalised course recommendations in dynamic
+e-learning environments. By embedding a real-time feedback loop, the proposed system
+continuously refines its ranking model based on user interactions such as clicks, enrollments,
+and ratings, enabling it to adapt seamlessly to evolving learner preferences. Leveraging a diverse
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                          336
+                                                                African Journal of Applied Research
+                                                                    Vol. 11, No. 5 (2025), pp.326-339
+                                                                          http://www.ajaronline.com
+                                                                    https://doi.org/10.26437/ajar.v11
+                                                                            Received January 2, 2025
+                                                                       Peer reviewed: April 13, 2025
+                                                                             Revised: August 25, 2025
+                                                                             Published: October 2025
+dataset collected from major MOOC platforms, including Coursera, Udemy, and edX, the
+framework effectively models complex user–course relationships using TF-IDF representations,
+user embeddings, and engagement-driven features for fine-grained ranking.
+Experimental results demonstrated that the proposed feedback-enhanced LTR model
+substantially outperforms traditional collaborative filtering and content-based approaches across
+all key performance metrics, achieving an NDCG@10 of 0.85, MRR of 0.81, and Precision@10
+of 0.83, while maintaining a low average latency of 112 milliseconds. These findings confirm
+that integrating LTR with XGBoost not only enhances ranking precision but also ensures real-
+time responsiveness—an essential attribute for large-scale educational platforms.
+The feedback mechanism proved particularly influential, yielding measurable improvements in
+adaptability and user satisfaction, thereby reinforcing conclusions from prior research that
+highlight the importance of interaction-driven learning in recommendation systems. Overall, the
+research highlights the importance of integrating advanced ranking algorithms with continuous
+user feedback to deliver accurate, context-aware, and scalable course recommendations. The
+proposed framework provides a generalizable foundation for enhancing user engagement and
+learning outcomes across varied educational contexts.
+
+
+
+REFERENCES
+Adomavicius, G., & Tuzhilin, A. (2005). Toward the next generation of recommender systems:
+    A survey of the state-of-the-art and possible extensions. IEEE Transactions on Knowledge
+    and Data Engineering, 17(6), 734–749.
+Aggarwal, C. C. (2016). Recommender systems: The textbook. Springer.
+Amin, S., Uddin, M. I., Alarood, A. A., Alenezi, M., Alsubai, S., & Baz, A. (2024). An
+    adaptable and personalized framework for top-N course recommendations in online
+    learning. Scientific Reports, 14, 10382. https://doi.org/10.1038/s41598-024-56497-1
+Bobadilla, J., Ortega, F., Hernando, A., & Gutiérrez, A. (2013). Recommender systems survey.
+    Knowledge-Based Systems, 46, 109–132.
+Brusilovsky, P., & Millán, E. (2007). User models for adaptive hypermedia and adaptive
+    educational systems. In The adaptive web (pp. 3–53). Springer.
+Burke, R. (2002). Hybrid recommender systems: Survey and experiments. User Modeling and
+    User-Adapted Interaction, 12, 331–370.
+Chen, T., & Guestrin, C. (2016). XGBoost: A scalable tree boosting system. In Proceedings of
+    the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data
+    Mining (pp. 785–794).
+Gbedawo, W. V., Dzikunu, A., & Nyamadi, M. (2024). Scalability and Efficiency of Deep
+    Learning Models on High-Performance Computing Clusters: Bibliometric
+    Analysis. African Journal of Applied Research, 10(2), 283–305.
+Islam, M. S., & Hosen, A. S. M. S. (2025). Personalized course recommendation system: A
+    multi-model machine learning framework for academic success. Digital, 5(2), 17.
+    https://doi.org/10.3390/digital5020017
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                          337
+                                                               African Journal of Applied Research
+                                                                   Vol. 11, No. 5 (2025), pp.326-339
+                                                                         http://www.ajaronline.com
+                                                                   https://doi.org/10.26437/ajar.v11
+                                                                           Received January 2, 2025
+                                                                      Peer reviewed: April 13, 2025
+                                                                            Revised: August 25, 2025
+                                                                            Published: October 2025
+Joachims, T. (2002). Optimizing search engines using clickthrough data. In Proceedings of the
+    8th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining
+    (pp. 133–142).
+Jannach, D., Adomavicius, G., & Tuzhilin, A. (2016). Recommendation systems: Challenges,
+    insights and research opportunities. ACM Transactions on Management Information
+    Systems, 7(4), 1–34.
+Karim-Abdallah, B., Junior, M. A., Appiahene, P., Harris, E., & Binful, D. K. (2025).
+    Application of Machine Learning Algorithms in Predicting Academic Performance of
+    Students in Higher Education Institutes (HEIs): A Systematic Review and Bibliographic
+    Analysis. African Journal of Applied Research, 11(1), 536-559.
+Koren, Y., Bell, R., & Volinsky, C. (2009). Matrix factorization techniques for recommender
+    systems. Computer, 42(8), 30–37.
+Liu, T.-Y. (2009). Learning to rank for information retrieval. Foundations and Trends in
+    Information Retrieval, 3(3), 225–331.
+Mrhar, K., & Abik, M. (2025). A deep learning framework for optimizing personalized online
+    course recommendation and selection. Decision Analytics Journal, 16, 100616.
+Pizzato, L. A., Rej, T., Chung, T., Koprinska, I., & Kay, J. (2010). RECON: A reciprocal
+    recommender for online dating. In Proceedings of the 4th ACM Conference on
+    Recommender Systems (pp. 207–214).
+Prakashpant Bijwe, R., & Raut, A. B. (2024). Personalized course recommendation system in
+    e-learning platforms using machine learning-based content filtering. Nanotechnology
+    Perceptions, 20(S14), 4141–4150.
+Qin, T., Liu, T.-Y., Xu, J., & Li, H. (2010). LETOR: A benchmark collection for research on
+    learning to rank for information retrieval. Information Retrieval, 13, 346–374.
+Rendle, S., Freudenthaler, C., Gantner, Z., & Schmidt-Thieme, L. (2009). BPR: Bayesian
+    personalized ranking from implicit feedback. In Proceedings of the Uncertainty in Artificial
+    Intelligence Conference (pp. 452–461).
+Resnick, P., & Varian, H. R. (1997). Recommender systems. Communications of the ACM,
+    40(3), 56–58.
+Ricci, F., Rokach, L., & Shapira, B. (2015). Recommender systems handbook. Springer.
+Schein, A. I., Popescul, A., Ungar, L. H., & Pennock, D. M. (2002). Methods and metrics for
+    cold-start recommendations. In Proceedings of the 25th Annual International ACM SIGIR
+    Conference on Research and Development in Information Retrieval (pp. 253–260).
+Song, C., Shin, S.-Y., & Shin, K.-S. (2024). Implementing the dynamic feedback-driven
+    learning optimization framework: A machine learning approach to personalize educational
+    pathways. Applied Sciences, 14(2), 916. https://doi.org/10.3390/app14020916
+Su, X., & Khoshgoftaar, T. M. (2009). A survey of collaborative filtering techniques. Advances
+    in Artificial Intelligence, 2009, 1–19.
+Tang, T., & McCalla, G. (2005). Smart recommendation for an evolving e-learning system:
+    Architecture and experiment. International Journal of E-Learning, 4(1), 105–129.
+Zhang, S., Yao, L., Sun, A., & Tay, Y. (2019). Deep learning-based recommender system: A
+    survey and new perspectives. ACM Computing Surveys, 52(1), 1–38.
+
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                         338
+                                                      African Journal of Applied Research
+                                                          Vol. 11, No. 5 (2025), pp.326-339
+                                                                http://www.ajaronline.com
+                                                          https://doi.org/10.26437/ajar.v11
+                                                                  Received January 2, 2025
+                                                             Peer reviewed: April 13, 2025
+                                                                   Revised: August 25, 2025
+                                                                   Published: October 2025
+Zhou, L. Y., & Wang, Y. Y. (2025). Simulation of personalized English learning path
+   recommendation system based on knowledge graph and deep reinforcement learning.
+   Scientific Reports, 15, 34554. https://doi.org/10.1038/s41598-025-17918-x
+
+
+
+
+ISSN: 2408-7920
+Copyright ⓒ African Journal of Applied Research
+Arca Academic Publisher                                                                339
+

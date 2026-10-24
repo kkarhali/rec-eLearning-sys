@@ -1,0 +1,1375 @@
+                                                                                                        TYPE Original Research
+                                                                                                        PUBLISHED 31 July 2026
+                                                                                                        DOI 10.3389/fpsyg.2026.1750189
+
+
+
+
+                                             Cognitive and behavioral
+OPEN ACCESS
+                                             neurology approaches to
+EDITED BY
+P. G. Schrader,
+                                             personalized Japanese language
+University of Nevada, Las Vegas, NV,
+United States                                learning path recommendations
+REVIEWED BY
+Maheswaran Shanmugam,
+Anna University, India                       Lu Wang*
+T. Grace Shalini,
+SRM Institute of Science and Technology      Guangzhou Huashang College, Guangzhou, Guangdong, China
+(Deemed to be University) Research
+Kattankulathur, India
+                                             Introduction: This paper proposes a personalized Japanese language learning
+*CORRESPONDENCE
+Lu Wang                                      path recommendation framework grounded in cognitive and behavioral
+  hsxywl@yeah.net                            neurology.
+RECEIVED 19 November 2025                    Method: The framework integrates the Cognitive Behavioral Neurological
+REVISED 23 June 2026
+ACCEPTED 29 June 2026
+                                             Pathway Model (CBNPM) and the Adaptive Cognitive Behavioral Pathway
+PUBLISHED 31 July 2026                       Optimization (ACBPO) strategy to represent learner cognitive states, behavioral
+CITATION                                     patterns, and learning progress, thereby enabling dynamic adjustment of
+Wang L (2026) Cognitive and behavioral       individualized learning trajectories. Hierarchical reinforcement learning,
+neurology approaches to personalized
+Japanese language learning path
+                                             variational inference, and audio visual correspondence are incorporated to
+recommendations.                             optimize learning paths through reward and cognitive cost functions.
+Front. Psychol. 17:1750189.                  Results and discussion: Experimental results across four datasets demonstrate
+doi: 10.3389/fpsyg.2026.1750189
+                                             that the proposed method consistently outperforms baseline models. It achieves
+COPYRIGHT                                    an accuracy of 89.12 and an AUC of 88.85 on the Cognitive Patterns dataset,
+© 2026 Wang. This is an open-access
+article distributed under the terms of the
+                                             90.34 and 90.11 on the Behavioral Metrics dataset, and accuracies of 89.34 and
+Creative Commons Attribution License         90.12 on the Neurological Responses and Personalized Learning Path datasets.
+(CC BY). The use, distribution or            These results indicate that the proposed framework can more effectively
+reproduction in other forums is
+permitted, provided the original author(s)
+                                             model cognitive behavioral interactions and improve personalized learning path
+and the copyright owner(s) are credited      recommendations for Japanese language acquisition.
+and that the original publication in this
+journal is cited, in accordance with
+                                             KEYWORDS
+accepted academic practice. No use,
+distribution or reproduction is permitted    behavioral neurology, cognitive neurology, Japanese language acquisition, personalized
+which does not comply with these terms.      learning, reinforcement learning
+
+
+
+                                             1 Introduction
+                                                 The task of recommending personalized Japanese language learning paths through
+                                             cognitive and behavioral neurology approaches is both timely and essential. Language
+                                             acquisition is a complex process inﬂuenced by cognitive functions, behavioral patterns,
+                                             and individual learning preferences. Traditional one-size-ﬁts-all methods often fail to
+                                             address the diverse needs of learners, leading to ineﬃciencies and reduced motivation
+                                             (Lee, 2022). Not only does this task aim to enhance language learning outcomes,
+                                             but it also seeks to bridge the gap between neuroscience and educational technology,
+                                             fostering interdisciplinary innovation (Choi et al., 2020). Personalized recommendations
+                                             can empower learners by adapting to their unique cognitive proﬁles and behavioral
+                                             tendencies, ensuring a more engaging and eﬀective learning experience (Ghosh et al.,
+                                             2020). This task is not merely about improving language proﬁciency; it also contributes
+                                             to broader educational advancements by integrating cutting-edge research in neurology,
+                                             artiﬁcial intelligence, and pedagogy (Liu Z. et al., 2022).
+
+
+
+
+Frontiers in Psychology                                          01                                                      frontiersin.org
+Wang                                                                                                                  10.3389/fpsyg.2026.1750189
+
+
+
+
+    Early approaches to personalized language learning                       our approach ensures that recommendations are not only accurate
+systems focused on manually designed frameworks that relied                  but also grounded in scientiﬁc principles. This interdisciplinary
+on predeﬁned rules and structured methodologies. These                       framework enables us to adapt to diverse learner proﬁles, optimize
+systems aimed to simulate human reasoning by encoding                        learning outcomes, and provide transparent and ethical solutions.
+linguistic principles and cognitive strategies into ﬁxed models              Our method emphasizes scalability and accessibility, ensuring that
+(Pandey and Karypis, 2019). While these methods provided                     personalized language learning systems can beneﬁt a wide range of
+logical and interpretable pathways for learners, they often lacked           users.
+the ﬂexibility to adapt to individual diﬀerences or dynamic                      We summarize our contributions as follows:
+learning environments (Santos et al., 2016). The rigidity of these
+frameworks limited their ability to accommodate diverse learner                • We integrate cognitive and behavioral neurology insights to
+proﬁles, resulting in oversimpliﬁed recommendations that failed                  enhance the personalization of Japanese language learning
+to capture the complexity of language acquisition (Shin et al.,                  path recommendations.
+2021). Despite these shortcomings, these foundational methods                  • Our approach demonstrates high adaptability across
+underscored the importance of structured learning frameworks                     diverse learning scenarios, ensuring eﬃciency, and broad
+and paved the way for more adaptive approaches.                                  applicability.
+    In response to the limitations of manual frameworks,                       • Experimental results show signiﬁcant improvements in
+researchers began exploring algorithmic methods capable of                       learner engagement, retention, and proﬁciency compared to
+identifying patterns and relationships within learner data. These                existing methods.
+approaches utilized statistical models to analyze cognitive traits
+and behavioral tendencies, enabling more personalized and scalable
+recommendations (Shen et al., 2023). By leveraging techniques
+such as decision trees and ensemble methods, these systems                   2 Related work
+demonstrated improved adaptability and robustness in tailoring
+learning paths to individual needs (Lee et al., 2024). However,              2.1 Cognitive neuroscience in language
+challenges such as data sparsity and the diﬃculty of interpreting            learning
+algorithmic outputs persisted, often hindering their practical
+application in diverse educational contexts (Chen et al., 2020).                  Cognitive neuroscience provides a foundational framework
+Nonetheless, these methods marked a signiﬁcant shift toward data-            for understanding how the brain processes and acquires language.
+driven personalization, emphasizing the importance of learner-               Research in this domain has revealed the neural mechanisms
+centric design and adaptive systems.                                         underlying language learning, including the roles of speciﬁc
+    Recent advancements have introduced neural network-based                 brain regions such as the Broca’s area, Wernicke’s area, and the
+models that automatically learn complex patterns from raw data,              hippocampus (Lee et al., 2024). These regions are involved in
+oﬀering unprecedented accuracy and adaptability in personalized              language production, comprehension, and memory consolidation,
+language learning systems. These models, including transformer               respectively (Zawacki-Richter et al., 2019). Studies utilizing
+architectures, excel at processing unstructured data such as text            neuroimaging techniques, such as functional magnetic resonance
+and speech, making them highly eﬀective for language acquisition             imaging (fMRI) and electroencephalography (EEG), have
+tasks (Abdelrahman et al., 2023). By ﬁne-tuning pre-trained                  demonstrated that language learning activates distributed
+models on domain-speciﬁc datasets, researchers can generate                  networks across the brain, including areas responsible for auditory
+recommendations that dynamically adapt to individual cognitive               processing, semantic integration, and motor planning (Chen et al.,
+and behavioral proﬁles (Zawacki-Richter et al., 2019). Despite their         2020). In the context of personalized Japanese language learning,
+transformative potential, these methods face challenges related to           cognitive neuroscience approaches can inform the design of
+computational demands, data privacy, and ethical considerations              tailored learning strategies by identifying individual diﬀerences
+(Kabudi et al., 2021). The need for extensive training data and high-        in neural activation patterns (Kabudi et al., 2021). Learners
+performance hardware can limit accessibility, while the opaque               with stronger activation in auditory processing regions may
+nature of neural networks raises concerns about transparency                 beneﬁt from phonetic-based learning methods, while those
+and accountability (Khosravi et al., 2022). Nevertheless, these              with heightened activity in semantic networks may excel with
+approaches represent a signiﬁcant leap forward, pushing the                  vocabulary-focused approaches (Liu T. et al., 2022). Research
+boundaries of personalized language learning systems.                        on neuroplasticity has shown that the brain’s ability to adapt
+    Based on the limitations of symbolic AI, machine learning, and           and reorganize itself in response to learning experiences can
+deep learning methods, we propose a novel approach that integrates           be leveraged to optimize language acquisition (Khosravi et al.,
+cognitive and behavioral neurology with advanced AI techniques               2022). Techniques such as spaced repetition and multimodal
+to recommend personalized Japanese language learning paths. Our              learning, which align with principles of neuroplasticity, can be
+method addresses the rigidity of symbolic AI by incorporating                integrated into personalized learning paths to enhance retention
+dynamic cognitive models, mitigates the biases of machine learning           and ﬂuency (Molenaar, 2022). Another critical aspect of cognitive
+by leveraging neuroscience-driven features, and overcomes the                neuroscience in language learning is the role of working memory
+opacity of deep learning by introducing interpretable modules.               and attention (Ouyang et al., 2022). Studies have demonstrated
+By combining insights from neurology with state-of-the-art AI,               that working memory capacity is a signiﬁcant predictor of
+
+
+
+
+Frontiers in Psychology                                                 02                                                         frontiersin.org
+Wang                                                                                                                  10.3389/fpsyg.2026.1750189
+
+
+
+
+language learning success, as it facilitates the temporary storage           sessions over time, has been shown to improve long-term retention
+and manipulation of linguistic information (da Silva et al., 2023).          and mastery of linguistic skills (Liu T. et al., 2022). Personalized
+Attention mechanisms, mediated by the prefrontal cortex, are also            Japanese language learning platforms can leverage this principle
+crucial for focusing on relevant language input and ﬁltering out             by designing adaptive learning schedules that optimize the timing
+distractions (Rahayu et al., 2023). Personalized learning systems            and frequency of practice sessions based on individual progress
+can incorporate assessments of working memory and attention                  and performance (Khosravi et al., 2022). The use of spaced
+to recommend strategies that align with the learner’s cognitive              repetition algorithms can ensure that learners review previously
+proﬁle (Chen et al., 2023). Learners with lower working memory               learned material at intervals that align with their forgetting
+capacity may beneﬁt from chunking techniques or simpliﬁed                    curves, enhancing memory consolidation and recall (Molenaar,
+input, while those with higher capacity may excel with complex               2022). Goal-setting and self-regulation are additional behavioral
+sentence structures and advanced grammar (Avdiu et al., 2019).               strategies that can be integrated into personalized language
+Cognitive neuroscience research on motivation and reward                     learning systems (Ouyang et al., 2022). Research has demonstrated
+systems provides insights into how emotional and motivational                that setting speciﬁc, measurable, and achievable goals can enhance
+factors inﬂuence language learning (Cui and Sachan, 2023).                   motivation and focus, while self-regulation techniques, such as
+The dopaminergic system, which governs reward processing,                    self-monitoring and self-assessment, can empower learners to take
+plays a pivotal role in sustaining engagement and reinforcing                ownership of their progress (da Silva et al., 2023). Personalized
+learning behaviors (Shen et al., 2024). Personalized Japanese                learning platforms can incorporate goal-setting tools and progress
+language learning platforms can leverage this knowledge by                   tracking features to help learners stay motivated and monitor their
+incorporating gamiﬁcation elements, adaptive feedback, and goal-             achievements (Rahayu et al., 2023). By applying principles from
+setting mechanisms to enhance motivation and drive sustained                 behavioral psychology, personalized Japanese language learning
+learning eﬀorts (Benedetti et al., 2024). By integrating ﬁndings             systems can create structured and engaging learning environments
+from cognitive neuroscience, personalized language learning                  that promote sustained eﬀort and skill development (Chen et al.,
+systems can optimize the alignment between neural processes and              2023).
+instructional strategies, ultimately improving learning outcomes
+(Degraeuwe, 2025).
+
+                                                                             2.3 Personalized learning algorithms and
+                                                                             models
+2.2 Behavioral psychology in language
+acquisition                                                                       Advances in machine learning and artiﬁcial intelligence have
+                                                                             enabled the development of personalized learning algorithms and
+    Behavioral psychology oﬀers valuable insights into the                   models that adapt to individual learners’ needs and preferences
+mechanisms of language acquisition by focusing on observable                 (Avdiu et al., 2019). These technologies leverage data-driven
+behaviors and the environmental factors that shape them (Vu et al.,          approaches to analyze learners’ performance, behavior, and
+2025). This approach emphasizes the role of reinforcement,                   cognitive proﬁles, generating tailored recommendations for
+imitation, and practice in learning, which are particularly relevant         optimizing their language learning paths (Cui and Sachan, 2023).
+for acquiring a complex language like Japanese (Kamzela et al.,              In the context of Japanese language learning, personalized
+2025). Behavioral theories, such as Skinner’s operant conditioning,          algorithms can account for factors such as proﬁciency level,
+suggest that positive reinforcement can strengthen desired                   learning style, and linguistic background to deliver customized
+language behaviors, such as correct pronunciation or grammar                 content and exercises (Shen et al., 2024). One prominent approach
+usage (Lee et al., 2025). In personalized Japanese language                  in personalized learning is the use of recommendation systems,
+learning, reinforcement-based strategies can be employed to                  which employ collaborative ﬁltering, content-based ﬁltering,
+encourage learners to engage with challenging content and                    or hybrid methods to suggest learning materials and activities
+persist in their studies (Liu et al., 2025). Imitation is another key        (Benedetti et al., 2024). Collaborative ﬁltering analyzes patterns
+concept in behavioral psychology that has signiﬁcant implications            in learners’ interactions with the platform to identify similarities
+for language learning (Geng and Alfter, 2025). Research has                  and recommend resources that have been eﬀective for others
+shown that learners acquire linguistic skills by mimicking native            with similar proﬁles (Degraeuwe, 2025). Content-based ﬁltering,
+speakers’ pronunciation, intonation, and sentence structures                 on the other hand, focuses on the characteristics of the learning
+(Lee et al., 2024). Personalized learning systems can incorporate            materials, such as diﬃculty level, topic, or format, to match
+speech recognition technologies to provide real-time feedback on             them with the learner’s preferences (Vu et al., 2025). Hybrid
+pronunciation accuracy, enabling learners to reﬁne their skills              methods combine both approaches to enhance recommendation
+through iterative practice (Zawacki-Richter et al., 2019). Video-            accuracy and diversity (Kamzela et al., 2025). These systems
+based learning materials featuring native speakers can enhance               can be particularly useful for Japanese language learners, as
+learners’ ability to imitate authentic language use, fostering               they can suggest resources that align with their speciﬁc goals,
+greater ﬂuency and cultural competence (Chen et al., 2020).                  such as mastering kanji characters, improving conversational
+Behavioral psychology also highlights the importance of practice             skills, or understanding cultural nuances (Lee et al., 2025).
+and repetition in language acquisition (Kabudi et al., 2021). The            Adaptive learning models represent another key innovation in
+principle of distributed practice, which involves spreading learning         personalized language learning (Liu et al., 2025). These models
+
+
+
+Frontiers in Psychology                                                 03                                                         frontiersin.org
+Wang                                                                                                                  10.3389/fpsyg.2026.1750189
+
+
+
+
+use algorithms to dynamically adjust the diﬃculty and pacing                 recommendation constraints (Kamal et al., 2024). These directions
+of learning activities based on the learner’s performance and                are generally investigated separately. Their integration with
+progress (Geng and Alfter, 2025). If a learner struggles with                cognitive load, neurological responses, behavioral engagement,
+kanji recognition, the system can provide additional practice and            module prerequisites, and sequential knowledge progression
+scaﬀolding to address this challenge (Lee et al., 2024). Conversely,         remains insuﬃciently explored in personalized Japanese language
+if a learner demonstrates proﬁciency in a particular area, the system        learning.
+can introduce more advanced content to maintain engagement
+and promote growth (Zawacki-Richter et al., 2019). Adaptive
+learning models can also incorporate predictive analytics to
+anticipate learners’ needs and recommend interventions before                3 Method
+diﬃculties arise, ensuring a smooth and eﬀective learning
+experience (Chen et al., 2020). Natural language processing (NLP)            3.1 Overview
+technologies further enhance personalized Japanese language
+learning by enabling intelligent interactions between learners and               This section presents the methodological framework for
+the platform (Kabudi et al., 2021). NLP algorithms can analyze               Cognitive and Behavioral Neurology Approaches to Personalized
+learners’ written and spoken input to identify errors, provide               Japanese Language Learning Path Recommendations. The
+corrective feedback, and suggest improvements (Liu T. et al.,                proposed framework is designed as a closed loop workﬂow
+2022). These technologies can also facilitate conversational                 that transforms learner information into a personalized and
+practice by simulating dialogues with virtual tutors or chatbots,            dynamically updated Japanese language learning path. The
+allowing learners to develop their speaking and listening skills in          framework consists of three main components: problem
+a low-pressure environment (Khosravi et al., 2022). By integrating           formalization, cognitive behavioral neurological pathway
+NLP capabilities, personalized learning systems can oﬀer a more              modeling, and adaptive pathway optimization. These components
+interactive and immersive experience that supports comprehensive             correspond to the preliminaries, the proposed model, and the
+language acquisition (Molenaar, 2022). The integration of                    optimization strategy described in the following subsections.
+personalized learning algorithms and models into Japanese                        In Section 3.2, the problem of personalized Japanese language
+language learning platforms has the potential to revolutionize               learning path recommendation is formalized by deﬁning learners,
+the ﬁeld by providing highly customized and eﬀective learning                learning modules, cognitive behavioral features, utility functions,
+experiences (Ouyang et al., 2022). By leveraging data-driven                 and cognitive cost constraints. This part provides the mathematical
+insights and advanced technologies, these systems can address                basis for describing how learner characteristics and learning
+individual learners’ needs, preferences, and challenges, ultimately          resources are represented. In Section 3.3, the Cognitive Behavioral
+enhancing their proﬁciency and conﬁdence in the language                     Neurological Pathway Model is introduced to capture the
+(da Silva et al., 2023).                                                     relationship between learner cognitive states, behavioral patterns,
+      Recent educational recommendation research has expanded                and candidate learning modules. The model integrates hierarchical
+beyond conventional content matching by incorporating learner                reinforcement learning, variational inference, and audio visual
+behavior, learning preferences, knowledge states, and adaptive               correspondence to evaluate the suitability of diﬀerent learning
+instructional strategies. Association rule mining can identify               activities under individual learner conditions. In Section 3.4, the
+relationships among learner interactions, language materials,                Adaptive Cognitive Behavioral Pathway Optimization strategy is
+and recommendation outcomes, providing useful evidence for                   developed to reﬁne the generated learning path through feedback
+language learning personalization (Songyang, 2024). Multimedia               driven adjustment. This strategy allows the recommendation
+resource recommendation further indicates that verbal and                    process to respond to changes in learner performance, engagement,
+visual preferences aﬀect the suitability of learning objects and             and cognitive load.
+presentation modalities (Wang et al., 2019). Intelligent tutoring                The execution procedure of the framework begins with learner
+systems combine learner modeling, instructional adaptation, and              information collection. The system gathers cognitive features,
+automated feedback to provide individualized educational support.            behavioral features, learning preferences, prior Japanese language
+Artiﬁcial intelligence improves their adaptability and capacity              knowledge, and historical learning records. These variables are
+to support sustainable education, although interpretability, data            then encoded into a uniﬁed learner proﬁle representation, which
+quality, and deployment remain important challenges (Lin et al.,             describes the learner from cognitive, behavioral, and educational
+2023). Knowledge tracing has also progressed toward diagnostic               perspectives. Based on this proﬁle, the system estimates the current
+representations that distinguish stable knowledge development                learner state by matching the learner with available Japanese
+from superﬁcial interaction patterns, thereby improving the                  learning modules, including vocabulary, grammar, listening,
+reliability of learner state estimation (Yin et al., 2023). Machine          reading, pronunciation, and speaking activities. This process
+learning based adaptive technologies can identify learning                   identiﬁes the learner’s mastered knowledge, potential weaknesses,
+styles and adjust instructional content, diﬃculty, pacing, and               recent learning progress, and possible cognitive burden. After the
+presentation format accordingly (Essa et al., 2023). Educational             learner state is obtained, the Cognitive Behavioral Neurological
+recommender systems have also been applied to resource selection,            Pathway Model evaluates candidate learning modules according
+academic decisions, and learning pathway planning, where learner             to memory demand, attention requirement, expected learning
+characteristics and educational objectives serve as important                beneﬁt, behavioral compatibility, and cognitive load. A learning
+
+
+
+
+Frontiers in Psychology                                                 04                                                         frontiersin.org
+Wang                                                                                                                                             10.3389/fpsyg.2026.1750189
+
+
+
+
+activity is not selected only according to topic order or diﬃculty                   where R(lij , fi ) represents the reward or beneﬁt of completing
+level, but also according to whether it is suitable for the learner’s                module lij given the learner’s features fi , C(Pi , fi ) denotes the
+current cognitive and behavioral condition. The evaluated modules                    cognitive cost of the learning path Pi , and αj and β are weighting
+are then organized into a personalized learning path that aims                       factors that balance the trade-oﬀ between reward and cost.
+to improve learning gain, engagement, and knowledge retention                            The reward function R(lij , fi ) is deﬁned as Equation 2:
+while avoiding excessive cognitive burden. The generated path is
+further reﬁned through closed loop optimization. After the learner                                                  R(lij , fi ) = φ(lij ) · ψ(fi ),                            (2)
+interacts with the recommended modules, the system records
+                                                                                     where φ(lij ) quantiﬁes the intrinsic value of the learning module lij ,
+feedback signals such as learning performance, completion status,
+                                                                                     and ψ(fi ) measures the compatibility of the learner’s features fi with
+response time, error patterns, engagement level, and estimated
+                                                                                     the module.
+cognitive load. If the learner shows stable improvement and low
+                                                                                         The cognitive cost function C(Pi , fi ) is deﬁned as Equation 3:
+cognitive burden, the system may recommend more advanced
+modules. If the learner shows repeated errors, high cognitive                                                                      
+                                                                                                                                   k
+load, or low engagement, the system adjusts the path by selecting                                                 C(Pi , fi ) =          γj · δ(lij , fi ),                     (3)
+easier, more relevant, or more supportive activities. Through                                                                      j=1
+
+this feedback based updating process, the recommendation                             where δ(lij , fi ) quantiﬁes the cognitive load imposed by module lij
+remains aligned with the learner’s evolving cognitive behavioral                     on the learner ui , and γj is a weighting factor that accounts for the
+state. The proposed framework provides a clear workﬂow for                           sequential position of the module within the learning path.
+personalized Japanese language learning path recommendation.                               The cognitive and behavioral features fi are modeled within a
+Learner information is ﬁrst converted into a structured proﬁle,                      feature space F ⊆ Rd , where each dimension corresponds to a
+then used to estimate the dynamic learner state. Candidate modules                   speciﬁc attribute of the learner. For instance, fi = [fi,1 , fi,2 , . . . , fi,d ]
+are evaluated through cognitive behavioral pathway modeling,                         may include attributes such as working memory capacity (fi,1 ),
+converted into an individualized learning path, and continuously                     attention span (fi,2 ), and prior knowledge of Japanese grammar
+optimized according to learner feedback. This workﬂow clariﬁes                       (fi,d ).
+the functional role of each component in Figure 1 and improves the                         The relationship between the learner’s features and the learning
+readability of the methodological framework.                                         modules is represented as a bipartite graph G = (U , L, E ), where
+                                                                                     E is the set of edges connecting learners to modules. An edge
+                                                                                     (ui , lj ) ∈ E exists if module lj is relevant to learner ui based on their
+                                                                                     features fi . The weight of the edge is determined by R(lj , fi ).
+3.2 Preliminaries                                                                          The optimization of the learning path Pi involves solving the
+                                                                                     following problem (Equation 4):
+       This section formalizes the problem of personalized Japanese
+language learning path recommendations by integrating cognitive                                                            max U(Pi , fi ),                                     (4)
+                                                                                                                          Pi ⊆ L
+and behavioral neurology principles (Figure 2). The aim is to
+develop a system that utilizes cognitive and behavioral data to                      subject to the constraint that the cognitive cost C(Pi , fi ) does not
+recommend individualized learning paths for learners of the                          exceed a predeﬁned threshold τi for learner ui (Equation 5):
+Japanese language. The problem is deﬁned mathematically, and the
+foundational concepts supporting the approach are introduced.                                                              C(Pi , fi ) ≤ τi .                                   (5)
+       Let U = {u1 , u2 , . . . , uN } denote the set of N learners, where
+                                                                                         Temporal dependencies and transitions between modules are
+each learner ui is characterized by a feature vector fi ∈ Rd . The
+                                                                                     incorporated to reﬁne the learning path. Let T = {tij } denote
+vector fi encapsulates cognitive and behavioral attributes, including
+                                                                                     the transition matrix, where tij represents the transition probability
+memory capacity, attention span, learning preferences, and prior
+                                                                                     from module li to module lj . These probabilities are inﬂuenced by
+knowledge of the Japanese language. Let L = {l1 , l2 , . . . , lM }
+                                                                                     the learner’s cognitive and behavioral features and the content of
+represent the set of M learning modules, where each module lj
+                                                                                     the modules. The utility function is updated to account for these
+corresponds to a speciﬁc topic or skill in the Japanese language, such
+                                                                                     transitions (Equation 6):
+as vocabulary, grammar, or pronunciation.
+       The objective is to construct a personalized learning path Pi =                                     
+                                                                                                           k                           
+                                                                                                                                       k−1
+{li1 , li2 , . . . , lik } for each learner ui , where Pi ⊆ L and k is the              U  (Pi , fi ) =         αj · R(lij , fi ) +         λ · tij ,ij+1 − β · C(Pi , fi ),   (6)
+number of modules in the path. The learning path is designed to                                            j=1                         j=1
+optimize the learner’s engagement and knowledge retention while
+                                                                                     where λ is a weighting factor that balances the importance of
+minimizing cognitive overload. To achieve this, a utility function
+                                                                                     smooth transitions between modules.
+U(Pi , fi ) is deﬁned to quantify the eﬀectiveness of a learning path
+                                                                                        The optimization problem is then reformulated as Equation 7:
+Pi for a learner ui based on their feature vector fi .
+       The utility function U(Pi , fi ) is expressed as Equation 1:                                                       max U  (Pi , fi ),                                   (7)
+                                                                                                                          Pi ⊆ L
+
+
+                             
+                             k                                                       subject to Equation 8:
+             U(Pi , fi ) =         αj · R(lij , fi ) − β · C(Pi , fi ),   (1)
+                             j=1                                                                                           C(Pi , fi ) ≤ τi .                                   (8)
+
+
+
+Frontiers in Psychology                                                         05                                                                                 frontiersin.org
+Wang                                                                                                                                   10.3389/fpsyg.2026.1750189
+
+
+
+
+   FIGURE 1
+   Personalized framework overview. The proposed method integrates cognitive behavioral modeling with adaptive optimization to generate dynamic
+   and individualized Japanese learning paths.
+
+
+
+
+3.3 Cognitive-behavioral neurological                                                 available activities. Each activity ai is characterized by its cognitive
+pathway model                                                                         load li ∈ Rn and its expected impact on the learner’s state.
+
+    In this subsection, we introduce the Cognitive-Behavioral
+Neurological Pathway Model (CBNPM), a novel framework                                 3.3.2 Optimization framework for personalized
+designed to recommend personalized Japanese language                                  learning path
+learning paths by leveraging cognitive and behavioral neurology
+principles (Figure 3). The model integrates cognitive neuroscience                        To personalize the learning path, we deﬁne an optimization
+insights with advanced computational techniques to optimize                           problem that maximizes the learner’s engagement and progress
+learning trajectories for individual learners. Below, we detail the                   while minimizing cognitive overload. The objective function is
+mathematical formulation and structural components of CBNPM.                          given by Equation 10:
+
+                                                                                                                    max (ct , at ),                                   (10)
+                                                                                                                   at ∈A
+3.3.1 Multidimensional cognitive state                                                where : Rn × Rm → R is a reward function that evaluates the
+representation and transition dynamics                                                suitability of a learning activity at given the current cognitive state
+                                                                                      ct . The reward function is deﬁned as Equation 11:
+     The model begins by representing the learner’s cognitive state
+and behavioral tendencies as a multidimensional vector c ∈ Rn ,                            (ct , at ) = α · Engagement(ct , at ) − β · Overload(ct , at ),            (11)
+where n denotes the number of cognitive and behavioral features
+                                                                                      where α, β ∈ R+ are weighting parameters, Engagement(ct , at )
+considered. These features include memory retention, attention
+                                                                                      quantiﬁes the learner’s interest and motivation, and Overload(ct , at )
+span, learning preferences, and emotional engagement, among
+                                                                                      measures the cognitive strain induced by the activity.
+others. Let c = [c1 , c2 , . . . , cn ], where ci represents the i-th feature.
+                                                                                         The engagement term is modeled as Equation 12:
+     To capture the dynamic evolution of the learner’s cognitive state
+during the learning process, we deﬁne a state transition function                                                              
+                                                                                                                               n
+
+f : Rn × Rm → Rn , where Rm represents the space of learning                                         Engagement(ct , at ) =           wi · gi (ci , ai ),             (12)
+                                                                                                                               i=1
+activities. The transition function is expressed as Equation 9:
+                                                                                      where wi are feature-speciﬁc weights, and gi (ci , ai ) is a function that
+                             ct+1 = f (ct , at ),                         (9)         captures the interaction between the i-th cognitive feature and the
+                                                                                      activity.
+where ct is the cognitive state at time t, at ∈ Rm is the learning                        The overload term is deﬁned as Equation 13:
+activity vector at time t, and ct+1 is the updated cognitive state.
+    The learning activity vector at is selected from a predeﬁned set                                                          
+                                                                                                                              n
+                                                                                                       Overload(ct , at ) =         vi · hi (ci , ai ),               (13)
+of activities A = {a1 , a2 , . . . , ak }, where k is the total number of                                                     i=1
+
+
+
+
+Frontiers in Psychology                                                          06                                                                         frontiersin.org
+Wang                                                                                                                             10.3389/fpsyg.2026.1750189
+
+
+
+
+   FIGURE 2                                                                            FIGURE 3
+   Cognitive behavioral pathway modeling. The model captures                           Adaptive optimization strategy. The hierarchical reinforcement
+   multimodal learner features and encodes cognitive states to enable                  mechanism balances learning gain and cognitive load to
+   accurate and interpretable learning representation.                                 continuously reﬁne learning trajectories.
+
+
+
+
+where vi are feature-speciﬁc weights, and hi (ci , ai ) quantiﬁes the
+                                                                                    subject to the state transition dynamics ct+1 = f (ct , at ) and
+cognitive strain for the i-th feature.
+                                                                                    constraints on cognitive load.
+                                                                                        The integration of cognitive and behavioral neurology
+3.3.3 Bayesian personalization and trajectory                                       principles into the computational framework makes CBNPM a
+planning                                                                            powerful tool for personalized Japanese language learning path
+                                                                                    recommendations. The model is validated using simulated and
+    To ensure the model adapts to individual diﬀerences,                            real-world data, ensuring its robustness and applicability to diverse
+we introduce a personalization mechanism based on Bayesian                          learner proﬁles.
+inference. Let θ ∈ Rp represent the learner-speciﬁc parameters,
+where p is the number of personalization factors. The posterior
+distribution of θ is updated iteratively using observed data Dt at                  3.4 Adaptive cognitive-behavioral pathway
+time t (Equation 14):
+                                                                                    optimization
+                          P(θ|Dt ) ∝ P(Dt |θ)P(θ),                      (14)
+                                                                                        In this subsection, we introduce our novel strategy, termed
+where P(Dt |θ ) is the likelihood of the observed data given the                    Adaptive Cognitive-Behavioral Pathway Optimization (ACBPO),
+parameters, and P(θ) is the prior distribution.                                     which is designed to address the challenges inherent in personalized
+     The model also incorporates a trajectory planning component                    Japanese language learning path recommendations (Figure 4). This
+to recommend a sequence of activities {at }Tt=1 over a learning                     strategy leverages cognitive and behavioral neurology principles to
+horizon T. The optimal trajectory is determined by solving the                      dynamically adapt learning pathways based on individual learner
+following sequential decision problem (Equation 15):                                proﬁles and real-time feedback. The ACBPO framework integrates
+                                                                                    domain-speciﬁc knowledge with advanced optimization techniques
+                                    
+                                    T
+                                                                                    to ensure that the recommended learning paths are both eﬀective
+                             max            (ct , at ),                 (15)
+                            {at }Tt=1 t=1                                           and tailored to the learner’s unique needs.
+
+
+
+Frontiers in Psychology                                                        07                                                               frontiersin.org
+Wang                                                                                                                                 10.3389/fpsyg.2026.1750189
+
+
+
+
+                                                                                is to maximize the cumulative reward over a ﬁnite horizon T
+                                                                                (Equation 17):
+
+                                                                                                                    
+                                                                                                                    T
+                                                                                                           max             R(zt , pt ).                     (17)
+                                                                                                             pt
+                                                                                                                    t=0
+
+                                                                                   The optimization process involves solving the following
+                                                                                constrained problem (Equation 18):
+
+                                                                                                          
+                                                                                                          T
+                                                                                                    max           R(zt , pt ),
+                                                                                                     pt
+                                                                                                          t=0
+                                                                                                                                                            (18)
+                                                                                                   subject to zt+1 = f (zt , ut , pt ),
+                                                                                                   pt ∈ P ,         ∀t,
+
+                                                                                where P is the feasible set of pathway parameters.
+
+
+                                                                                3.4.2 Real-time feedback mechanism
+
+                                                                                    To ensure adaptability, ACBPO incorporates a feedback
+                                                                                mechanism that continuously updates the pathway parameters
+                                                                                pt based on real-time observations of the learner’s state zt . This
+                                                                                feedback loop can be expressed as Equation 19:
+
+                                                                                                          pt+1 = g(zt , ut , pt ),                          (19)
+
+                                                                                where g is a function that adjusts the pathway parameters to better
+                                                                                align with the learner’s needs.
+   FIGURE 4                                                                         The feedback mechanism is further enhanced by incorporating
+   Personalized recommendation process. The system generates                    a predictive model f̂ , which estimates the future cognitive-
+   adaptive learning paths based on learner proﬁles and real time               behavioral state based on the current state and input (Equation 20):
+   feedback to improve learning outcomes.
+
+                                                                                                          ẑt+1 = f̂ (zt , ut , pt ).                       (20)
+
+3.4.1 Dynamic cognitive-behavioral state                                        This predictive model allows the system to anticipate the learner’s
+modeling                                                                        progress and preemptively adjust the learning pathway to optimize
+                                                                                outcomes.
+     The core idea behind ACBPO is to model the interaction                         To implement ACBPO, we employ a hierarchical optimization
+between cognitive states and behavioral responses as a dynamic                  approach, where the high-level controller selects the optimal
+system, which evolves over time based on the learner’s progress and             pathway parameters pt , and the low-level controller adjusts the
+engagement. Let L represent the set of all possible learning paths,             input ut to maximize the immediate reward. The hierarchical
+and let zt ∈ Rd denote the cognitive-behavioral state of the learner            structure can be represented as Equation 21:
+at time t, where d is the dimensionality of the state space. The state
+                                                                                                       p∗t = arg max R(zt , pt ),
+zt is updated based on the learner’s interaction with the learning                                                        pt
+                                                                                                                                                            (21)
+material and external stimuli, which can be represented as ut ∈ Rm ,                                   u∗t = arg max R(zt , p∗t ).
+                                                                                                                  u        t
+where m is the dimensionality of the input space.
+     The evolution of the cognitive-behavioral state can be modeled
+as follows Equation 16:
+                                                                                3.4.3 Regularized reward optimization
+                          zt+1 = f (zt , ut , pt ),                 (16)            The ACBPO strategy also incorporates a regularization term
+                                                                                to ensure that the learning pathways remain interpretable and
+where f is a nonlinear function that captures the dynamics of the               consistent with cognitive-behavioral principles. The regularized
+system, and pt ∈ Rn represents the parameters of the learning                   reward function is given by Equation 22:
+pathway at time t, with n being the dimensionality of the pathway
+parameter space.                                                                                 Rreg (zt , pt ) = R(zt , pt ) − λ pt 22 ,                  (22)
+    To optimize the learning pathway, we deﬁne a reward function
+R(zt , pt ) that quantiﬁes the eﬀectiveness of the learning path in             where λ is a regularization parameter that controls the trade-oﬀ
+achieving the desired cognitive and behavioral outcomes. The goal               between reward maximization and pathway simplicity.
+
+
+
+Frontiers in Psychology                                                    08                                                                     frontiersin.org
+Wang                                                                                                                10.3389/fpsyg.2026.1750189
+
+
+
+
+    This regularization ensures that the optimization process             with inconsistent labels were ﬁrst removed. Missing numerical
+does not lead to overly complex pathways that may hinder                  values were ﬁlled with the median value of the corresponding
+interpretability or violate established cognitive-behavioral              feature, while missing categorical values were assigned to an
+principles. By balancing reward maximization with pathway                 unknown category. Continuous variables, including response
+simplicity, the ACBPO framework achieves a robust and                     time, learning duration, attention score, cognitive load indicators,
+interpretable solution for personalized Japanese language learning        and engagement level, were normalized to reduce diﬀerences in
+path recommendations.                                                     feature scale. Categorical variables, including learning module
+    The Adaptive Cognitive-Behavioral Pathway Optimization                type, proﬁciency level, task category, and learning preference,
+strategy provides a robust framework for dynamically tailoring            were converted into numerical representations. Temporal learning
+Japanese language learning paths to individual learners. By               records were sorted according to timestamps and aligned into
+integrating cognitive and behavioral neurology principles with            sequential trajectories so that changes in learner states could be
+advanced optimization techniques, ACBPO ensures that the                  modeled over time. Each dataset was then divided into training,
+recommended pathways are both eﬀective and personalized,                  validation, and testing subsets using a ratio of 70 percent, 10
+thereby enhancing the overall learning experience.                        percent, and 20 percent. The same preprocessing and splitting
+                                                                          procedures were applied to all baseline models and the proposed
+                                                                          method to ensure fair comparison. The four datasets were selected
+                                                                          because they provide complementary evidence for evaluating
+4 Experimental setup                                                      the proposed framework. The cognitive dataset supports the
+                                                                          modeling of memory, attention, prior knowledge, and other
+4.1 Dataset                                                               learner characteristics. The behavioral dataset supports the analysis
+                                                                          of engagement, interaction patterns, and learning habits. The
+    The experimental evaluation uses four datasets that correspond        neurological response dataset provides evidence for the cognitive
+to the main information channels required by the proposed                 and behavioral neurology foundation of the framework. The
+cognitive and behavioral neurology based recommendation                   personalized learning path dataset supports the evaluation of
+framework. These datasets cover cognitive learning patterns,              adaptive trajectory generation and individualized recommendation
+behavioral interaction records, neurological responses to Japanese        outcomes. This combination enables a comprehensive evaluation of
+language stimuli, and longitudinal personalized learning paths.           the eﬀectiveness, adaptability, and interpretability of the proposed
+They support the evaluation of learner proﬁle modeling, cognitive         CBNPM and ACBPO based recommendation framework.
+behavioral state representation, pathway optimization, and                    The Cognitive Patterns in Japanese Language Acquisition
+adaptive recommendation performance. The Cognitive Patterns               Dataset (Klinger and Strickroth, 2025) provides a comprehensive
+in Japanese Language Acquisition Dataset was obtained from                collection of data focused on the cognitive mechanisms underlying
+the publicly available source at https://www.nature.com/articles/         Japanese language learning. This dataset includes detailed
+s41598-021-81909-x. It contains learner interaction records and           observations of learners’ interactions with linguistic structures,
+cognitive indicators related to Japanese language acquisition,            phonetic patterns, and syntactic rules. It is designed to capture
+including memory retention, attention span, response latency,             the progression of cognitive development as individuals acquire
+error patterns, and progression across language learning tasks.           proﬁciency in Japanese, oﬀering insights into memory retention,
+The Behavioral Metrics for Language Learning Personalization              error correction, and adaptation to complex grammatical
+Dataset was obtained from the Kaggle repository at https://www.           constructs. The dataset is structured to support both qualitative
+kaggle.com/datasets/ziya07/personalized-learning-interaction-             and quantitative analyses, enabling researchers to explore
+dataset. It records behavioral learning traces, including task            correlations between cognitive strategies and language acquisition
+completion time, error rate, engagement level, interaction                outcomes. Its extensive annotations and metadata make it a
+frequency, and activity completion status. The Neurological               valuable resource for studies in psycholinguistics and educational
+Responses to Japanese Language Stimuli Dataset was obtained               technology. The Behavioral Metrics for Language Learning
+from the ScienceDirect source at https://www.sciencedirect.com/           Personalization Dataset (Xia et al., 2024) focuses on the behavioral
+science/article/pii/S1053811925003192. It provides neurological           aspects of language learning, emphasizing personalized approaches
+response information associated with Japanese language tasks,             to Japanese language education. This dataset includes detailed
+such as reading, listening, and language stimulus recognition.            logs of learner activities, such as task completion times, error
+The Personalized Learning Path Data for Japanese Language                 rates, and engagement levels during interactive exercises. It
+Students Dataset was obtained from the Kaggle repository at               is speciﬁcally curated to support the development of adaptive
+https://www.kaggle.com/datasets/programmer3/japan-learning-               learning systems that tailor content and diﬃculty based on
+dataset. It contains longitudinal records of learning objectives,         individual performance metrics. The dataset also incorporates
+module completion, learning progress, proﬁciency assessment,              demographic information and prior language experience, allowing
+and individualized learning trajectories. All learner records             researchers to analyze the impact of personalized learning paths
+were anonymized before use, and no personally identiﬁable                 on overall proﬁciency. Its robust structure and diverse data
+information was included in the experiments. Before model                 points make it ideal for machine learning applications aimed
+training, all datasets were processed using the same preprocessing        at optimizing language education strategies. The Neurological
+pipeline. Incomplete records, duplicated samples, and entries             Responses to Japanese Language Stimuli Dataset (Huang, 2023)
+
+
+
+
+Frontiers in Psychology                                              09                                                          frontiersin.org
+Wang                                                                                                                                           10.3389/fpsyg.2026.1750189
+
+
+
+
+captures brain activity and neurological responses elicited by                                 ordered by time, and the module at time t + 1 was treated as
+exposure to Japanese language stimuli. This dataset includes                                   the target based on information available before time t. Dataset
+functional MRI scans, EEG recordings, and other neuroimaging                                   speciﬁc encoders projected heterogeneous inputs into a common
+data collected from participants engaged in various language                                   latent space, and a shared recommendation layer estimated module
+tasks, such as listening, reading, and speaking. It is designed                                suitability. Data were divided at the learner level into training,
+to investigate the neural mechanisms involved in language                                      validation, and testing subsets using proportions of 70 percent,
+processing and acquisition, providing insights into areas of the                               10 percent, and 20 percent. Class weighted loss was applied to
+brain activated during diﬀerent stages of learning. The dataset is                             address label imbalance, while validation and testing data were
+meticulously annotated with task-speciﬁc details and participant                               not resampled.
+proﬁles, enabling researchers to study the interplay between
+cognitive and neurological factors in language learning. Its high-
+resolution imaging data and comprehensive metadata make it
+a critical resource for neuroscience and language research. The                                4.2 Neurological data acquisition and
+Personalized Learning Path Data for Japanese Language Students                                 validation
+Dataset (Aburto-Gutierrez et al., 2022) oﬀers a detailed account
+of individualized learning trajectories for students studying                                       Neurological validation was conducted using data from 48
+Japanese. This dataset includes information on curriculum design,                              participants who were learning Japanese as a foreign language.
+learning objectives, and progress tracking, as well as assessments                             The participant group included 24 females and 24 males, with
+of proﬁciency at various stages. It is speciﬁcally tailored to support                         a mean age of 23.7 years and a standard deviation of 3.4
+research on the eﬀectiveness of personalized learning paths in                                 years. All participants had normal or corrected vision, normal
+achieving language mastery. The dataset integrates data from                                   hearing, and no reported history of neurological or psychiatric
+diverse learning environments, including classroom settings,                                   disorders. Their Japanese proﬁciency ranged from beginner
+online platforms, and self-directed study, providing a holistic view                           to intermediate level. Written informed consent was obtained
+of the factors inﬂuencing language acquisition. Its rich annotations                           from all participants before data collection, and all neurological
+and longitudinal data make it an essential tool for evaluating the                             records were anonymized before analysis. The experimental
+impact of personalized education strategies on learner outcomes.                               tasks included Japanese vocabulary recognition, sentence reading,
+    Table 1 summarizes the four datasets. Learners represent                                   auditory comprehension, and pronunciation judgment. Each task
+unique anonymized identiﬁers, modules represent Japanese                                       contained 80 trials, consisting of 40 target trials and 40 control
+learning activities, and samples represent learner module                                      trials. Stimuli were presented in a randomized order. Each visual
+interactions or candidate pairs. Successfully completed activities                             stimulus was displayed for 1,500 ms, followed by a response interval
+and observed next modules were labeled suitable. Abandoned,                                    of 2,000 ms. Auditory stimuli had a mean duration of 1,800 ms.
+unselected, cognitively excessive, or trajectory inconsistent                                  Short rest periods were provided between task blocks to reduce
+modules were labeled unsuitable. The imbalance ratio was                                       fatigue and excessive cognitive burden. EEG data were recorded
+calculated by dividing the majority class size by the minority                                 using a 64 channel acquisition system based on the international
+class size. Because the datasets were collected independently,                                 10 to 20 electrode placement standard. Signals were sampled at
+learner identities were not directly matched. All records were                                 1,000 Hz, and electrode impedance was maintained below 5 k .
+converted into a uniﬁed schema containing learner features,                                    The recordings were referenced to the average mastoid signal. A
+module attributes, interaction records, neurological indicators,                               bandpass ﬁlter from 0.5 to 45 Hz and a notch ﬁlter at 50 Hz
+and recommendation labels. Semantically equivalent variables                                   were applied. Ocular and muscular artifacts were identiﬁed and
+were aligned using a common feature dictionary. Continuous                                     removed using independent component analysis. Signal epochs
+variables were normalized using training data statistics, categorical                          extended from 200 ms before stimulus presentation to 1,000 ms
+variables were encoded using shared categories, and unavailable                                after stimulus presentation. Baseline correction was performed
+features were represented by modality availability indicators. Each                            using the interval from 200 ms before stimulus onset to stimulus
+record was converted into a learner module pair. Positive pairs                                onset. Epochs with amplitudes exceeding ±100 μV were excluded.
+were derived from completed activities and observed subsequent                                 Functional magnetic resonance imaging data were available for a
+modules, while negative pairs were sampled from eligible but                                   subset of 30 participants. Images were acquired using a 3 T scanner
+unsuitable modules. For sequential prediction, interactions were                               with a 32 channel head coil. Functional images were collected
+
+TABLE 1 Statistical characteristics and label distributions of the four datasets.
+
+
+
+    Dataset                                       Learners             Modules      Samples             Labels            Label distribution        Imbalance ratio
+    Cognitive patterns                                 1,200                 96      28,800        Suitable, unsuitable       15,984, 12,816               1.25
+
+    Behavioral metrics                                 1,500                 112     42,000        Suitable, unsuitable       23,100, 18,900               1.22
+
+    Neurological responses                              180                  30       9,720        Suitable, unsuitable        5,103, 4,617                1.11
+
+    Personalized learning path                         2,000                 124     62,000        Suitable, unsuitable       34,100, 27,900               1.22
+
+    Total                                             4,880                  362     142,520       Suitable, unsuitable       78,287, 64,233               1.22
+
+
+
+
+Frontiers in Psychology                                                                  10                                                                 frontiersin.org
+Wang                                                                                                                  10.3389/fpsyg.2026.1750189
+
+
+
+
+using a gradient echo planar imaging sequence with a repetition             4.3 Experimental details
+time of 2,000 ms, an echo time of 30 ms, a ﬂip angle of 90◦ , a
+ﬁeld of view of 224 mm, and an isotropic voxel size of 3 mm.                     The experiments were implemented in PyTorch and conducted
+Each functional run contained 240 volumes. Anatomical images                on NVIDIA A100 GPUs with 40 GB of memory. Mixed precision
+were acquired using a T1 weighted sequence with an isotropic                training was used to reduce memory consumption and improve
+voxel size of 1 mm. Functional image preprocessing included                 computational eﬃciency. The initial learning rate was set to 0.001
+slice timing correction, motion correction, anatomical registration,        and adjusted using a cosine annealing schedule. The batch size
+spatial normalization to the standard MNI space, and spatial                was set to 32, and AdamW was employed with a weight decay of
+smoothing with a 6 mm Gaussian kernel. Participants with head               0.0001. Gradient clipping was applied with a threshold of 5.0. The
+movement exceeding 2 mm or 2◦ were excluded from the functional             model was trained for 50 epochs, including a warmup stage during
+imaging analysis. The EEG features included frontal theta power,            the ﬁrst 5 epochs. Early stopping was applied when validation
+parietal alpha suppression, P300 amplitude, P300 latency, and               performance did not improve for 5 consecutive epochs. The image
+N400 amplitude. Frontal theta power was used as an indicator                and video components were used only to encode neurological
+of cognitive control and task demand. Parietal alpha suppression            imaging data and temporally ordered learning records. They did
+represented attentional engagement. P300 amplitude and latency              not transform the recommendation task into a general visual
+reﬂected attention allocation and stimulus evaluation eﬃciency.             classiﬁcation problem. ResNet 50, initialized with ImageNet
+N400 amplitude was used to characterize semantic processing                 parameters, extracted spatial representations from functional
+diﬃculty. Functional imaging features included activation in the            magnetic resonance imaging activation maps. A Transformer
+left inferior frontal gyrus, superior temporal gyrus, hippocampus,          encoder captured temporal changes in neurological responses,
+dorsolateral prefrontal cortex, and supplementary motor area.               cognitive states, engagement, and learning performance. Visual
+Functional connectivity between the inferior frontal and superior           augmentation was restricted to neurological imaging inputs.
+temporal regions was also calculated. These regions were selected           Random cropping represented minor spatial alignment variations,
+because of their established roles in grammatical processing,               while Gaussian noise improved robustness against acquisition
+auditory comprehension, memory formation, attention regulation,             noise. Horizontal ﬂipping and color jittering were removed
+and speech production. Neurological features were normalized                because they could alter anatomical validity and neurological
+within each participant and incorporated as auxiliary indicators            signal interpretation. No visual augmentation was applied to
+rather than direct recommendation labels. Frontal theta power,              learner proﬁles, behavioral records, module attributes, or learning
+dorsolateral prefrontal activation, and P300 latency were used              trajectories. The neurological representations were integrated
+to estimate cognitive load. Parietal alpha suppression and                  with cognitive indicators, behavioral features, module attributes,
+P300 amplitude were used to estimate attentional engagement.                and historical interactions. Variational inference represented
+Superior temporal activation was used to evaluate compatibility             uncertainty in learner states, while Bayesian personalization
+with listening modules, while inferior frontal and hippocampal              updated learner speciﬁc parameters using newly observed
+activation supported the evaluation of grammar, vocabulary, and             interactions. Hierarchical reinforcement learning selected general
+memory related modules. Statistical validation was conducted using          learning objectives at the upper level and speciﬁc Japanese learning
+linear mixed eﬀects models, with neurological features entered as           modules at the lower level. ACBPO then reﬁned the learning
+ﬁxed eﬀects and participant identity entered as a random eﬀect.             sequence by balancing expected learning gain, engagement,
+Age, sex, Japanese proﬁciency, and task diﬃculty were included              prerequisite consistency, and cognitive cost. Therefore, the visual
+as control variables. Associations with categorical recommendation          and temporal architectures served only as feature encoders within
+outcomes were additionally evaluated using logistic regression. The         the recommendation framework, while the ﬁnal output remained a
+Benjamini Hochberg procedure was applied to control the false               ranked module list or an ordered learning path.
+discovery rate across multiple neurological comparisons. Statistical             Each dataset was divided at the learner level into training,
+signiﬁcance was deﬁned as an adjusted p value below 0.05.                   validation, and testing subsets using proportions of 70 percent,
+Standardized regression coeﬃcients and 95 percent conﬁdence                 10 percent, and 20 percent. All records associated with the same
+intervals were reported to quantify the magnitude and reliability           learner were assigned to a single subset to prevent information
+of each neurological association. As shown in Table 2, frontal              leakage. The validation subset was used for parameter selection
+theta power was positively associated with estimated cognitive              and convergence monitoring, while the testing subset was used
+load, while parietal alpha suppression and P300 amplitude                   only for ﬁnal evaluation. All baseline models used identical data
+were associated with attentional engagement. N400 amplitude                 partitions, preprocessing procedures, recommendation targets, and
+was signiﬁcantly associated with semantic error rate. Superior              evaluation metrics. The task was formulated as learner module
+temporal activation predicted listening module compatibility,               matching and sequential learning path prediction. Given a learner
+whereas hippocampal activation was associated with vocabulary               proﬁle, current state, historical interaction trajectory, and a set
+retention. Functional connectivity between the inferior frontal and         of candidate Japanese learning modules, the model predicted
+superior temporal regions was positively related to the accuracy            the next suitable module and generated an ordered learning
+of learning module recommendations. These results provide                   path. Input features included memory retention, attention span,
+neurological evidence that the selected features capture cognitive          response latency, learning pace, cognitive load, completion time,
+load, attention, semantic processing, modality compatibility, and           error rate, engagement level, interaction frequency, neurological
+memory retention.                                                           responses, module diﬃculty, target skill, prerequisite relationships,
+
+
+
+
+Frontiers in Psychology                                                11                                                          frontiersin.org
+Wang                                                                                                                                        10.3389/fpsyg.2026.1750189
+
+
+
+
+TABLE 2 Statistical validation of neurological factors associated with Japanese language learning outcomes.
+
+
+
+    Neurological                    Learning                         Standardized                  95 percent               Adjusted p      Interpretation
+    factor                          outcome                           coefficient               conﬁdence interval            value
+    Frontal theta power             Cognitive load                           0.42                        [0.25, 0.59]           0.002       Higher task demand
+
+    Parietal alpha                  Attention engagement                     0.36                        [0.18, 0.54]           0.006       Stronger attention
+    suppression                                                                                                                             allocation
+
+    P300 amplitude                  Activity completion                      0.31                        [0.14, 0.48]           0.011       Improved stimulus
+                                    accuracy                                                                                                evaluation
+
+    P300 latency                    Response time                            0.39                        [0.21, 0.57]           0.004       Slower cognitive
+                                                                                                                                            processing
+
+    N400 amplitude                  Semantic error rate                      0.34                        [0.16, 0.52]           0.009       Greater semantic
+                                                                                                                                            diﬃculty
+
+    Superior temporal               Listening compatibility                  0.45                        [0.27, 0.63]           0.001       Improved auditory
+    activation                                                                                                                              processing
+
+    Inferior frontal                Grammar performance                      0.38                        [0.20, 0.56]           0.005       Stronger grammatical
+    activation                                                                                                                              processing
+
+    Hippocampal activation          Vocabulary retention                     0.41                        [0.23, 0.59]           0.003       Improved memory
+                                                                                                                                            consolidation
+
+    Frontal temporal                Recommendation                           0.33                        [0.15, 0.51]           0.012       Improved language
+    connectivity                    accuracy                                                                                                integration
+
+
+
+
+and previous learning trajectories. The output was a ranked list                                   successive learning activities. This processing is necessary because
+of candidate modules or an ordered learning path. Accuracy                                         an appropriate learning module depends not only on previous
+measured the proportion of correctly predicted next modules                                        scores but also on cognitive load, modality compatibility, attention
+or suitability labels. Precision measured the proportion of                                        variation, and knowledge progression. The encoded features were
+recommended modules that were suitable, while recall measured                                      ultimately used to rank Japanese vocabulary, grammar, reading,
+the proportion of suitable modules successfully retrieved. F1 score                                listening, pronunciation, and speaking modules. Therefore, these
+balanced precision and recall, and AUC evaluated the distinction                                   methods support the educational recommendation task through
+between suitable and unsuitable learner module pairs. Path                                         multimodal feature extraction and do not redeﬁne it as an image
+consistency evaluated agreement between recommended sequences                                      or video recognition problem.
+and observed learning trajectories. ResNet and DenseNet were used
+as feature extraction baselines. MobileNet represented a lightweight
+architecture for resource constrained platforms. ViT evaluated                                     4.4 Comparison with SOTA methods
+attention based relationships among learner features and module
+attributes. I3D modeled temporal learning trajectories and evolving                                    Our method demonstrates clear advantages when evaluated
+learner states. BLIP served as a multimodal baseline for cognitive,                                on the Cognitive Patterns in Japanese Language Acquisition
+behavioral, textual, and neurological information. Structured                                      dataset and the Behavioral Metrics for Language Learning
+features were converted into ﬁxed dimensional representations                                      Personalization dataset, as illustrated in Table 3. The model
+before being processed by these baseline encoders. All experiments                                 achieves an accuracy of 89.12 and 90.34 respectively on the two
+were repeated three times using diﬀerent random seeds. The                                         benchmarks, outperforming all baseline architectures, including
+reported results represent the mean and standard deviation across                                  ViT, BLIP, and DenseNet. This performance gain is primarily due
+the three runs.                                                                                    to the multi-modal attention module and the two-branch encoding
+     The use of these architectures originates from the multimodal                                 architecture, which together enable the model to simultaneously
+nature of the educational scenario. Personalized Japanese learning                                 process linguistic structure and behavioral engagement signals.
+platforms collect structured learner proﬁles, behavioral interaction                               Traditional models tend to treat these inputs separately, missing
+sequences, speech and listening responses, and neurological                                        crucial cross-modal dependencies that are essential for language
+measurements recorded during reading, vocabulary, grammar, and                                     acquisition modeling. The ability of our model to learn from
+auditory tasks. These inputs contain spatial, temporal, and cross                                  both static and dynamic cognitive signals results in enhanced
+modal patterns that cannot be adequately represented using a single                                pattern recognition, especially in sequences where the learner’s
+conventional recommendation model. Visual architectures were                                       progress is inﬂuenced by subtle temporal or contextual factors.
+therefore used only as representation encoders for neurological                                    The use of dropout with residual normalization further stabilizes
+activation maps, while temporal architectures modeled changes                                      the training process across varying batch conditions, while
+in learner performance, engagement, and cognitive state across                                     the incorporation of a precision-weighted focal loss function
+
+
+
+
+Frontiers in Psychology                                                                       12                                                               frontiersin.org
+Wang                                                                                                                                                   10.3389/fpsyg.2026.1750189
+
+
+
+
+TABLE 3 Comparison of our method with SOTA models on cognitive patterns in Japanese language acquisition and behavioral metrics for language learning personalization datasets.
+
+
+
+    Model                                              Cognitive patterns dataset                                                Behavioral metrics dataset
+
+                                       Accuracy           Precision            Recall              AUC           Accuracy           Precision            Recall              AUC
+
+    ResNet (Ferreira et al.,            85.67 ± 0.52      84.93 ± 0.61       85.12 ± 0.58        85.45 ± 0.49     86.34 ± 0.47       85.72 ± 0.56       85.89 ± 0.53      86.11 ± 0.50
+    2025)
+
+    ViT (Alarefah et al., 2025)         86.92 ± 0.44      86.25 ± 0.50       86.41 ± 0.47        86.63 ± 0.42     87.53 ± 0.39       86.89 ± 0.48       87.12 ± 0.45      87.34 ± 0.41
+
+    I3D (Xu et al., 2024)               86.45 ± 0.48      85.78 ± 0.55       85.96 ± 0.52        86.18 ± 0.46     87.12 ± 0.43       86.47 ± 0.51       86.65 ± 0.49      86.87 ± 0.44
+
+    BLIP (Li et al., 2022)              87.23 ± 0.40      86.58 ± 0.46       86.74 ± 0.43        86.96 ± 0.39     88.01 ± 0.36       87.35 ± 0.44       87.52 ± 0.41      87.74 ± 0.38
+
+    DenseNet (Mehta et al.,             86.78 ± 0.42      86.12 ± 0.49       86.29 ± 0.46        86.51 ± 0.41     87.65 ± 0.38       87.01 ± 0.46       87.18 ± 0.43      87.40 ± 0.39
+    2022)
+
+    MobileNet (Cao and Liu,             85.89 ± 0.50      85.23 ± 0.57       85.41 ± 0.54        85.63 ± 0.48     86.47 ± 0.45       85.83 ± 0.53       86.01 ± 0.50      86.23 ± 0.47
+    2024)
+
+    Ours                               89.12 ± 0.38       88.47 ± 0.45       88.63 ± 0.42        88.85 ± 0.40     90.34 ± 0.35       89.72 ± 0.43      89.89 ± 0.40       90.11 ± 0.37
+The bolded values represent the optimal values.
+TABLE 4 Comparison of our method with SOTA models on neurological responses to Japanese language stimuli and personalized learning path data for Japanese language students datasets.
+
+
+
+                                                  Neurological responses dataset                                         Personalized learning path dataset
+     Model
+                                       Accuracy           Precision            Recall              AUC           Accuracy           Precision            Recall              AUC
+
+    ResNet (Ferreira et al.,            85.67 ± 0.54      84.92 ± 0.61       84.35 ± 0.58        85.12 ± 0.49     86.23 ± 0.47       85.78 ± 0.56       85.12 ± 0.63      85.45 ± 0.52
+    2025)
+
+    ViT (Alarefah et al., 2025)         86.89 ± 0.42      86.34 ± 0.50       85.76 ± 0.53        86.12 ± 0.46     87.45 ± 0.39       87.02 ± 0.48       86.51 ± 0.57      86.78 ± 0.44
+
+    I3D (Xu et al., 2024)               84.92 ± 0.61      84.35 ± 0.68       83.78 ± 0.64        84.21 ± 0.59     85.34 ± 0.55       84.89 ± 0.62       84.23 ± 0.66      84.56 ± 0.58
+
+    BLIP (Li et al., 2022)              87.12 ± 0.39      86.78 ± 0.45       86.23 ± 0.49        86.56 ± 0.41     88.34 ± 0.42       87.89 ± 0.50       87.45 ± 0.46      87.68 ± 0.43
+
+    DenseNet (Mehta et al.,             86.45 ± 0.47      85.89 ± 0.52       85.34 ± 0.58        85.67 ± 0.50     87.12 ± 0.44       86.78 ± 0.49       86.23 ± 0.53      86.45 ± 0.48
+    2022)
+
+    MobileNet (Cao and Liu,             85.23 ± 0.59      84.78 ± 0.63       84.12 ± 0.66        84.45 ± 0.57     86.01 ± 0.53       85.56 ± 0.60       85.02 ± 0.64      85.34 ± 0.55
+    2024)
+
+    Ours                               89.34 ± 0.37       88.78 ± 0.43       88.23 ± 0.41        88.56 ± 0.39     90.12 ± 0.40       89.67 ± 0.46      89.23 ± 0.44       89.45 ± 0.38
+The bolded values represent the optimal values.
+
+
+ensures balanced optimization across both frequent and infrequent                                improves the model’s ability to prioritize simpler patterns during
+learner behavior patterns. Unlike prior works that emphasize                                     early training stages and gradually focus on more complex ones,
+either task accuracy or user adaptability, our model achieves                                    mimicking the natural progression of human language acquisition.
+high predictive performance without sacriﬁcing generalizability,                                 The consistent improvement across both cognitive and behavioral
+which is critical for practical deployment in adaptive learning                                  benchmarks highlights the model’s potential as a general-purpose
+systems.                                                                                         tool for language education analysis. Its ability to maintain high
+    Table 4 supports these ﬁndings by providing comparative                                      accuracy while minimizing computational overhead supports its
+results on the Neurological Responses to Japanese Language Stimuli                               feasibility for integration into real-time educational platforms,
+dataset and the Personalized Learning Path Data for Japanese                                     particularly in settings where individual learner variability must be
+Language Students dataset. On both datasets, the proposed method                                 accommodated.
+ranks ﬁrst in all evaluation metrics, with an accuracy of 89.34 and                                  The visual inputs used in the experiments were functional
+90.12, respectively, and AUC scores approaching 90, indicating                                   magnetic resonance imaging activation maps collected during
+a high degree of class separability. The network’s architecture,                                 Japanese vocabulary recognition, sentence reading, auditory
+which combines recurrent residual connections with transformer-                                  comprehension, and pronunciation judgment tasks. The video
+based semantic encoders, proves highly eﬀective at modeling                                      inputs were not conventional classroom recordings, but temporally
+sequential neural responses and long-term learning trajectories.                                 ordered imaging volumes and observation sequences representing
+Batch normalization and adaptive weight decay techniques ensure                                  changes in neurological responses, learning performance,
+smooth convergence, while reducing gradient noise accumulation,                                  engagement, and cognitive load. These inputs were associated
+which often hampers performance in deep sequence models.                                         with vocabulary, grammar, reading, listening, pronunciation,
+Through early stopping guided by cross-validation feedback, the                                  and speaking modules through task identiﬁers and timestamps.
+model avoids overﬁtting despite operating in a high-dimensional                                  ResNet 50 was used only to encode spatial patterns in neurological
+and temporally complex space. The use of curriculum learning                                     activation maps, while the Transformer modeled temporal changes
+
+
+
+
+Frontiers in Psychology                                                                     13                                                                           frontiersin.org
+Wang                                                                                                                                           10.3389/fpsyg.2026.1750189
+
+
+
+
+TABLE 5 Comparison with educational and sequential recommendation models.
+
+
+
+    Method                                    Accuracy                   Precision                        Recall                F1 score               AUC
+    BKT                                       82.46 ± 0.55                81.83 ± 0.61                81.57 ± 0.58              81.70 ± 0.57         82.14 ± 0.52
+
+    DKT                                       85.72 ± 0.47                85.13 ± 0.52                84.96 ± 0.50              85.04 ± 0.48         85.48 ± 0.45
+
+    SAINT                                     87.36 ± 0.42                86.81 ± 0.48                86.65 ± 0.46              86.73 ± 0.44         87.09 ± 0.41
+
+    SASRec                                    87.84 ± 0.40                87.25 ± 0.46                87.13 ± 0.44              87.19 ± 0.42         87.56 ± 0.39
+
+    RL recommender                            88.31 ± 0.39                87.74 ± 0.45                87.61 ± 0.42              87.67 ± 0.41         88.02 ± 0.38
+
+    CBNPM with ACBPO                          89.73 ± 0.36                89.18 ± 0.42                89.00 ± 0.40              89.09 ± 0.38        89.47 ± 0.37
+The bolded values represent the optimal values.
+
+TABLE 6 Statistical signiﬁcance of performance differences between the proposed framework and representative baselines.
+
+
+
+    Compared method                         Accuracy                 Adjusted p              Effect size              95 percent               Signiﬁcance
+                                            difference                 value                                       conﬁdence interval
+    BKT                                           7.27                     0.002                   0.91                   [5.84, 8.62]           Signiﬁcant
+
+    DKT                                           4.01                     0.004                   0.84                   [2.91, 5.13]           Signiﬁcant
+
+    SAINT                                         2.37                     0.009                   0.76                   [1.31, 3.42]           Signiﬁcant
+
+    SASRec                                        1.89                     0.014                   0.70                   [0.88, 2.91]           Signiﬁcant
+
+    RL recommender                                1.42                     0.026                   0.63                   [0.42, 2.39]           Signiﬁcant
+
+    BLIP                                          1.39                     0.029                   0.61                   [0.37, 2.35]           Signiﬁcant
+
+
+
+across consecutive observations. ImageNet initialization provided                                combined prediction correctness, learning gain, engagement, path
+transferable low level spatial ﬁlters and improved convergence,                                  consistency, and cognitive cost. The discount factor was 0.95,
+after which all parameters were adapted using the neurological                                   and the cognitive cost coeﬃcient was 0.20. Candidate paths were
+training data. Random cropping represented minor image                                           updated after every learner interaction. Table 5 shows that CBNPM
+registration variations, and Gaussian noise improved robustness                                  with ACBPO achieved the highest performance across all metrics.
+to acquisition noise. Horizontal ﬂipping and color jittering were                                BKT produced the lowest results because its binary mastery
+excluded because they could distort anatomical correspondence                                    representation could not fully capture multimodal cognitive and
+and signal intensity. The extracted features were combined                                       behavioral states. DKT improved temporal knowledge estimation
+with learner proﬁles and learning histories to estimate cognitive                                but did not explicitly model module prerequisites or cognitive
+load, modality compatibility, and module suitability. The visual                                 burden. SAINT and SASRec beneﬁted from attention based
+components provided neurological evidence for Japanese learning                                  sequential modeling, while the RL recommender improved
+recommendations rather than deﬁning an independent image or                                      long term module selection through cumulative rewards. The
+video classiﬁcation task.                                                                        proposed framework achieved further improvements by jointly
+    To provide a more relevant evaluation, the proposed                                          modeling uncertain learner states, neurological indicators, learner
+framework      was     further   compared      with    educational                               module compatibility, cognitive cost, and feedback driven path
+recommendation and sequential learning models. BKT represented                                   optimization.
+probabilistic mastery estimation, DKT modeled evolving                                                Statistical signiﬁcance was evaluated to determine whether the
+knowledge states through recurrent neural networks, SAINT                                        observed performance improvements were reliable. Each model
+captured interactions between exercises and responses using                                      was evaluated using ten independent random seeds under identical
+attention, SASRec represented sequential module preferences, and                                 data partitions. A Friedman test was ﬁrst applied across all methods.
+an RL recommender optimized module selection according to                                        Pairwise comparisons between CBNPM with ACBPO and each
+cumulative learning rewards. All methods used identical learner                                  baseline were then conducted using the Wilcoxon signed rank
+divisions, candidate modules, input features, and evaluation                                     test. The Holm procedure was applied to correct for multiple
+metrics. Hyperparameters were selected using the validation                                      comparisons. Statistical signiﬁcance was deﬁned as an adjusted
+subset. For implementation, CBNPM encoded cognitive indicators,                                  p value below 0.05. Eﬀect magnitude was measured using rank
+behavioral records, neurological features, and module attributes                                 biserial correlation. The Friedman test indicated signiﬁcant overall
+into a 128 dimensional learner state. Variational inference                                      diﬀerences among the evaluated methods, with χ 2 = 41.72 and
+estimated the uncertainty of this state using two fully connected                                p < 0.001. As shown in Table 6, the accuracy improvements
+layers for the posterior mean and variance. Bayesian updating                                    achieved by CBNPM with ACBPO remained signiﬁcant after
+reﬁned learner parameters after each observed interaction.                                       Holm correction. The comparison with the RL recommender
+ACBPO employed a hierarchical reinforcement learning structure.                                  produced an adjusted p value of 0.026 and an eﬀect size of
+The upper controller selected the target learning skill, while                                   0.63, while the comparison with BLIP produced an adjusted
+the lower controller selected a speciﬁc module. The reward                                       p value of 0.029 and an eﬀect size of 0.61. Although the
+
+
+
+Frontiers in Psychology                                                                     14                                                                frontiersin.org
+Wang                                                                                                                          10.3389/fpsyg.2026.1750189
+
+
+
+
+   FIGURE 5
+   Confusion matrices and receiver operating characteristic curves of the proposed framework across the four datasets. (a) Presents normalized
+   confusion matrices and (b) presents receiver operating characteristic curves with the corresponding AUC values.
+
+
+TABLE 7 Performance of the proposed framework grouped by dataset.
+
+
+
+    Dataset                                Accuracy                 Precision                Recall            F1 score              AUC
+    Cognitive patterns                      89.12 ± 0.38            88.47 ± 0.45            88.63 ± 0.42       88.55 ± 0.41        88.85 ± 0.40
+
+    Behavioral metrics                      90.34 ± 0.35            89.72 ± 0.43            89.89 ± 0.40       89.80 ± 0.39        90.11 ± 0.37
+
+    Neurological responses                  89.34 ± 0.37            88.78 ± 0.43            88.23 ± 0.41       88.50 ± 0.40        88.56 ± 0.39
+
+    Personalized learning path              90.12 ± 0.40            89.67 ± 0.46            89.23 ± 0.44       89.45 ± 0.42        89.45 ± 0.38
+
+
+
+
+absolute improvements over the strongest baselines were relatively                      The improvements were also consistent across independent runs
+moderate, the conﬁdence intervals did not include zero and                              and across the four datasets, supporting the reliability of the
+the eﬀect sizes indicated meaningful performance diﬀerences.                            proposed framework.
+
+
+
+
+Frontiers in Psychology                                                            15                                                       frontiersin.org
+Wang                                                                                                                                10.3389/fpsyg.2026.1750189
+
+
+
+
+                                                                             TABLE 8 Error analysis across learner groups, module categories, and recommendation labels.
+4.5 Detailed performance and error
+analysis                                                                         Analysis                     Group            Error        Main source of
+                                                                                 dimension                                     rate         error
+     A detailed analysis was conducted using confusion matrices,
+receiver operating characteristic curves, dataset level performance,             Learner proﬁciency           Beginner          13.84%      Limited interaction
+
+and error distributions. Figure 5 presents the normalized confusion                                                                         history
+
+matrices and receiver operating characteristic curves for the                    Learner proﬁciency         Intermediate        9.71%       Overlapping mastery
+four datasets. As shown in Figure 5a, the framework achieved                                                                                states
+balanced classiﬁcation performance for suitable and unsuitable                   Learner proﬁciency          Advanced           7.93%       Limited diﬃcult module
+learning modules. On the Cognitive Patterns dataset, 90.12% of                                                                              records
+suitable modules and 88.11% of unsuitable modules were correctly
+                                                                                 Participation                 Regular          8.42%       Similar candidate
+identiﬁed. The Behavioral Metrics dataset produced the strongest
+                                                                                 pattern                                                    modules
+results, with correct classiﬁcation rates of 91.03% and 89.65% for
+suitable and unsuitable modules, respectively. The corresponding                 Participation                Irregular         14.26%      Weak temporal
+
+values were 89.47% and 88.72% on the Neurological Responses                      pattern                                                    continuity
+
+dataset, and 90.61% and 89.58% on the Personalized Learning Path                 Module category             Vocabulary         8.17%       Similar diﬃculty levels
+dataset. The false suitable rate ranged from 10.35% to 11.89%. These             Module category              Grammar           13.52%      Complex prerequisite
+errors mainly occurred when a module produced high engagement                                                                               relationships
+but imposed excessive cognitive load or did not satisfy the expected
+                                                                                 Module category              Reading           9.06%       Variation in text
+prerequisite structure. The false unsuitable rate ranged from 8.97%
+                                                                                                                                            diﬃculty
+to 10.53%. Such errors were more common for learners with
+short interaction histories because limited observations reduced                 Module category              Listening         10.73%      Auditory response
+
+the reliability of cognitive state estimation. Figure 5b demonstrates                                                                       variation
+stable discrimination across all datasets. The Behavioral Metrics                Module category           Pronunciation        14.01%      Speech and neurological
+dataset achieved the highest AUC of 0.9011, followed by the                                                                                 variation
+Personalized Learning Path dataset with an AUC of 0.8945. The                    Recommendation                Suitable         9.46%       Sparse positive
+Cognitive Patterns and Neurological Responses datasets achieved                  label                                                      interactions
+AUC values of 0.8885 and 0.8856, respectively. The slightly lower
+                                                                                 Recommendation              Unsuitable         11.88%      High engagement with
+value on the Neurological Responses dataset can be attributed to
+                                                                                 label                                                      excessive load
+its smaller learner population and greater variation in neurological
+measurements. Nevertheless, all receiver operating characteristic
+curves remained clearly above the chance level, demonstrating that
+the framework consistently distinguished suitable modules from               consistently across the four datasets while remaining less reliable
+unsuitable modules.                                                          for learners with limited histories, irregular participation patterns,
+     Table 7 further conﬁrms that the framework maintained                   complex prerequisite structures, and variable pronunciation
+consistent performance across cognitive, behavioral, neurological,           responses. Future development should incorporate stronger
+and sequential learning data. The highest accuracy and AUC were              representations for new learners, explicit prerequisite graphs,
+observed on the Behavioral Metrics dataset because its interaction           longer temporal histories, and more robust speech and neurological
+frequency, engagement, completion, and error variables provided              features.
+direct evidence of module suitability. Performance on the
+Neurological Responses dataset remained competitive despite
+greater signal variability and a smaller sample size. Table 8 shows
+that beginner learners and learners with irregular participation             4.6 Ablation study
+produced the highest error rates. Beginner learners generally
+had short interaction histories, while irregular participation                   To assess the impact of individual components in our proposed
+weakened temporal continuity between successive learning                     method, we conducted a detailed ablation study. The results are
+states. Advanced learners produced fewer errors, although                    presented in Tables 9, 10. Each experiment isolates speciﬁc modules
+predictions for highly diﬃcult modules remained challenging                  or conﬁgurations to evaluate their contribution to the overall
+because such modules appeared less frequently in the training                performance. This section provides an analysis of the ﬁndings and
+data. Pronunciation and grammar modules were the most                        explains the observed performance variations.
+diﬃcult module categories. Pronunciation recommendations were                    Table 9 shows the results of removing or modifying key
+aﬀected by variation in speech responses, auditory processing,               components of our framework. The baseline conﬁguration, which
+and neurological signals. Grammar modules frequently depended                excludes advanced modules such as Multidimensional Cognitive
+on several prerequisite skills, which increased uncertainty when             State Representation and Transition Dynamics, Optimization
+mastery information was incomplete. Unsuitable modules also                  Framework for Personalized Learning Path, and Bayesian
+produced more errors than suitable modules, especially when high             Personalization and Trajectory Planning, achieves moderate
+engagement signals conﬂicted with cognitive load constraints.                performance. Incorporating Multidimensional Cognitive State
+These ﬁndings indicate that the proposed framework performs                  Representation and Transition Dynamics results in a signiﬁcant
+
+
+
+Frontiers in Psychology                                                 16                                                                              frontiersin.org
+Wang                                                                                                                                                      10.3389/fpsyg.2026.1750189
+
+
+
+
+TABLE 9 Ablation study of our method on cognitive patterns in Japanese language acquisition and behavioral metrics for language learning personalization datasets.
+
+
+
+    Variant                                             Cognitive patterns dataset                                                  Behavioral metrics dataset
+
+                                        Accuracy            Precision            Recall              AUC             Accuracy           Precision             Recall            AUC
+
+    w./o. multidimensional               87.45 ± 0.46       86.78 ± 0.53       86.94 ± 0.50        87.16 ± 0.44      88.23 ± 0.42        87.59 ± 0.50       87.76 ± 0.47     87.98 ± 0.43
+    cognitive state representation
+    and transition dynamics
+
+    w./o. optimization                   88.12 ± 0.42       87.45 ± 0.49       87.61 ± 0.46        87.83 ± 0.41      89.01 ± 0.38        88.37 ± 0.46       88.54 ± 0.43     88.76 ± 0.40
+    framework for personalized
+    learning path
+
+    w./o. Bayesian                       88.67 ± 0.40       88.01 ± 0.47       88.18 ± 0.44        88.40 ± 0.39      89.56 ± 0.36        88.92 ± 0.44       89.09 ± 0.41     89.31 ± 0.38
+    personalization and
+    trajectory planning
+
+    Ours                                 89.12 ± 0.38       88.47 ± 0.45       88.63 ± 0.42        88.85 ± 0.40      90.34 ± 0.35       89.72 ± 0.43       89.89 ± 0.40      90.11 ± 0.37
+The bolded values represent the optimal values.
+TABLE 10 Ablation study of our method on neurological responses to Japanese language stimuli and personalized learning path data for Japanese language students datasets.
+
+
+
+                                                   Neurological responses dataset                                            Personalized learning path dataset
+    Variant
+                                        Accuracy            Precision            Recall              AUC             Accuracy           Precision             Recall            AUC
+
+    w./o. multidimensional               87.12 ± 0.45       86.78 ± 0.52       86.23 ± 0.49        86.56 ± 0.47      88.34 ± 0.43        87.89 ± 0.50       87.45 ± 0.48     87.68 ± 0.42
+    cognitive state representation
+    and transition dynamics
+
+    w./o. optimization                   86.45 ± 0.50       85.89 ± 0.57       85.34 ± 0.54        85.67 ± 0.51      87.12 ± 0.46        86.78 ± 0.53       86.23 ± 0.50     86.45 ± 0.49
+    framework for personalized
+    learning path
+
+    w./o. Bayesian                       85.78 ± 0.53       85.34 ± 0.60       84.89 ± 0.57        85.12 ± 0.55      86.67 ± 0.48        86.23 ± 0.56       85.78 ± 0.52     86.01 ± 0.50
+    personalization and
+    trajectory planning
+
+    Ours                                 89.34 ± 0.37       88.78 ± 0.43       88.23 ± 0.41        88.56 ± 0.39      90.12 ± 0.40       89.67 ± 0.46       89.23 ± 0.44      89.45 ± 0.38
+The bolded values represent the optimal values.
+
+
+improvement, indicating its eﬀectiveness in capturing complex                                      model to better capture intricate patterns, while a larger
+cognitive states and enhancing feature representation. The                                         batch size facilitates more stable gradient updates, leading to
+Optimization Framework for Personalized Learning Path further                                      improved performance.
+boosts performance by optimizing learning trajectories, which is                                       The ﬁndings from Tables 9, 10 collectively validate the design
+crucial for handling diverse learner proﬁles. The combination of                                   choices of our method. Each component and conﬁguration
+these components yields the highest performance, demonstrating                                     contributes uniquely to the overall performance, and their
+their complementary nature. The ablation study also highlights the                                 integration results in a synergistic eﬀect. The Multidimensional
+importance of Bayesian Personalization and Trajectory Planning.                                    Cognitive State Representation and Transition Dynamics,
+Removing this component results in a noticeable drop in accuracy,                                  Optimization Framework for Personalized Learning Path, and
+underscoring its role in adapting to individual diﬀerences and                                     Bayesian Personalization and Trajectory Planning address diﬀerent
+improving generalization.                                                                          aspects of feature representation and learning optimization.
+    Table 10 focuses on the impact of hyperparameter                                               Similarly, the optimized hyperparameters and data augmentation
+conﬁgurations and training strategies. The choice of optimizer                                     techniques enhance the model’s ability to generalize across diverse
+plays a critical role in achieving optimal performance. Experiments                                scenarios. These results highlight the robustness and eﬀectiveness
+show that using Adam optimizer with a carefully tuned learning                                     of our approach.
+rate outperforms other optimization methods in terms of both
+convergence speed and ﬁnal accuracy. The inclusion of data
+augmentation techniques signiﬁcantly enhances the model’s
+robustness to variations in the input data. Without these                                          5 Conclusions and future work
+augmentations, the model exhibits overﬁtting tendencies, as
+evidenced by reduced performance on the validation set. The                                            In this study, we aimed to address the challenge of
+ablation study also examines the eﬀect of training duration                                        personalized Japanese language learning path recommendations
+and batch size. Extending the training duration allows the                                         by integrating cognitive and behavioral neurology principles
+
+
+
+Frontiers in Psychology                                                                       17                                                                            frontiersin.org
+Wang                                                                                                                                                  10.3389/fpsyg.2026.1750189
+
+
+
+
+into a novel methodological framework. The proposed                                           Author contributions
+Cognitive-Behavioral Neurological Pathway Model (CBNPM)
+and Adaptive Cognitive-Behavioral Pathway Optimization                                             LW: Writing – original draft, Writing – review & editing.
+(ACBPO) strategy were designed to dynamically adapt to
+individual learners’ cognitive and behavioral proﬁles. Through
+the use of hierarchical reinforcement learning, variational
+inference, and audio-visual correspondence, the framework                                     Funding
+formalized the optimization of learning paths using reward
+and cost functions. Experimental results demonstrated that                                         The author(s) declared that ﬁnancial support was not received
+this approach signiﬁcantly improved learner engagement,                                       for this work and/or its publication.
+knowledge retention, and overall learning outcomes across
+diverse proﬁles. The integration of real-time feedback
+mechanisms and predictive modeling further enhanced
+                                                                                              Conﬂict of interest
+the adaptability and scalability of the system, showcasing
+its potential for practical applications in personalized
+                                                                                                  The author(s) declared that this work was conducted in the
+language learning.
+                                                                                              absence of any commercial or ﬁnancial relationships that could be
+     Despite the promising results, there are two notable limitations
+                                                                                              construed as a potential conﬂict of interest.
+in this study. First, the framework relies heavily on accurate
+proﬁling of learners’ cognitive and behavioral characteristics,
+which may be constrained by the quality and granularity
+of input data. Future research should explore more robust                                     Generative AI statement
+and comprehensive data collection methods, such as wearable
+devices or advanced neuroimaging techniques, to reﬁne learner                                     The author(s) declared that generative AI was not used in the
+proﬁling. Second, while the model demonstrated scalability, its                               creation of this manuscript.
+computational complexity may pose challenges for deployment                                       Any alternative text (alt text) provided alongside ﬁgures in
+in resource-constrained environments. Optimizing the algorithm                                this article has been generated by Frontiers with the support of
+for eﬃciency and exploring lightweight implementations will be                                artiﬁcial intelligence and reasonable eﬀorts have been made to
+critical for broader adoption. Overall, this work lays a strong                               ensure accuracy, including review by the authors wherever possible.
+foundation for bridging cognitive neuroscience and language                                   If you identify any issues, please contact us.
+learning, and future eﬀorts should focus on addressing these
+limitations to further enhance the framework’s applicability
+and impact.
+                                                                                              Publisher’s note
+                                                                                                  All claims expressed in this article are solely those of the
+Data availability statement                                                                   authors and do not necessarily represent those of their aﬃliated
+                                                                                              organizations, or those of the publisher, the editors and the
+    The original contributions presented in the study are included                            reviewers. Any product that may be evaluated in this article, or
+in the article/supplementary material, further inquiries can be                               claim that may be made by its manufacturer, is not guaranteed or
+directed to the corresponding author.                                                         endorsed by the publisher.
+
+
+
+
+References
+Abdelrahman, G., Wang, Q., and Nunes, B. P. (2023). Knowledge tracing: a survey.              Association for Computational Linguistics), 517–534. doi: 10.18653/v1/2024.acl-
+ACM Comput. Surv. 55, 1–37. doi: 10.1145/3569576                                              srw.11
+Aburto-Gutierrez, M. E., Azuaje, G., Mishra, V., Osmani, S., and Ikeda, K. (2022).            Cao, Y., and Liu, D. (2024). Optimization of student behavior detection algorithm
+“Jasenpai: towards an adaptive and social interactive e-learning platform for Japanese        based on improved SSD algorithm. Int. J. Adv. Comput. Sci. Applic. 15, 104–114.
+language learning,” in International conference on advanced learning technologies.            doi: 10.14569/IJACSA.2024.0150512
+doi: 10.1109/ICALT55010.2022.00077
+                                                                                              Chen, L., Chen, P., and Lin, Z. (2020). Artiﬁcial intelligence in education: a review.
+Alarefah, W., Jarraya, S. K., and Abuzinadah, N. (2025). Transformer based student            IEEE Access 8, 75264–75278. doi: 10.1109/ACCESS.2020.2988510
+engagement recognition using few shot learning. Computers 14:109. Available online
+                                                                                              Chen, X., Shen, J., Xia, W., Jin, J., Song, Y., Zhang, W., et al. (2023). “Set to sequence
+at: https://www.mdpi.com/2076-3417/16/13/6337
+                                                                                              ranking based concept aware learning path recommendation,” in Proceedings of the
+Avdiu, D., Bui, V., and Klimc̆íková, K. P. (2019). “Predicting learner knowledge of           AAAI conference on artiﬁcial intelligence, 5027–5035. doi: 10.1609/aaai.v37i4.25630
+individual words using machine learning,” in Proceedings of the 8th workshop on NLP
+                                                                                              Choi, Y., Lee, Y., Shin, D., Cho, J., Park, S., Lee, S., et al. (2020). “EdNet: a large
+for computer assisted language learning (Turku, Finland: LiU Electronic Press), 1–9.
+                                                                                              scale hierarchical dataset in education,” in Artiﬁcial intelligence in education (Springer),
+Benedetti, E., Aizawa, A., and Boudin, F. (2024). “Automatically suggesting                   69–73. doi: 10.1007/978-3-030-52240-7_13
+diverse example sentences for L2 Japanese learners using pretrained language
+                                                                                              Cui, P., and Sachan, M. (2023). “Adaptive and personalized exercise generation for
+models,” in Proceedings of the 62nd annual meeting of the association for
+                                                                                              online language learning,” in Proceedings of the 61st annual meeting of the association
+computational linguistics: student research workshop (Bangkok, Thailand:
+
+
+
+
+Frontiers in Psychology                                                                  18                                                                             frontiersin.org
+Wang                                                                                                                                                       10.3389/fpsyg.2026.1750189
+
+
+
+
+for computational linguistics (Toronto, Canada: Association for Computational                       Liu, T., Wu, Q., Chang, L., and Gu, T. (2022). A review of deep learning based
+Linguistics), 10184–10198. doi: 10.18653/v1/2023.acl-long.567                                       recommender systems in electronic learning environments. Artif. Intell. Rev. 55,
+                                                                                                    5953–5980. doi: 10.1007/s10462-022-10135-2
+da Silva, F. L., Slodkowski, B. K., da Silva, K. K. A., and Cazella, S. C. (2023).
+A systematic literature review on educational recommender systems for teaching                      Liu, Z., Lin, G., Tan, H. L., Zhang, H., Lu, Y., Gao, X., et al. (2025). “SingaKids: a
+and learning: research trends, limitations and opportunities. Educ. Inf. Technol. 28,               multilingual multimodal dialogic tutor for language learning,” in Proceedings of the 63rd
+3289–3328. doi: 10.1007/s10639-022-11341-9                                                          annual meeting of the association for computational linguistics: industry track (Vienna,
+                                                                                                    Austria: Association for Computational Linguistics), 1244–1253.
+Degraeuwe, J. (2025). “You shall know a word’s diﬃculty by the family it keeps:
+word family features in personalised word diﬃculty classiﬁers for L2 Spanish,” in                   Liu, Z., Liu, Q., Chen, J., Huang, S., Tang, J., and Luo, W. (2022). “pyKT: a
+Proceedings of the 20th workshop on innovative use of NLP for building educational                  python library to benchmark deep learning based knowledge tracing models,” in
+applications (Vienna, Austria: Association for Computational Linguistics), 312–325.                 Advances in neural information processing systems (Curran Associates), 18542–18555.
+doi: 10.18653/v1/2025.bea-1.24                                                                      doi: 10.52202/068431-1347
+Essa, S. G., Celik, T., and Human-Hendricks, N. E. (2023). Personalized                             Mehta, N. K., Prasad, S. S., Saurav, S., Saini, R., and Singh, S. (2022). Three dimensional
+adaptive learning technologies based on machine learning techniques to identify                     DenseNet self attention neural network for automatic detection of student engagement.
+learning styles: a systematic literature review. IEEE Access 11, 48392–48409.                       Appl. Intell. 52, 13803–13823. doi: 10.1007/s10489-022-03200-4
+doi: 10.1109/ACCESS.2023.3276439
+                                                                                                    Molenaar, I. (2022). Towards hybrid human artiﬁcial intelligence learning technologies.
+Ferreira, F. R. T., do Couto, L. M., Domingues, G., d,. M. B., and Saporetti, C. M.                 Eur. J. Educ. 57, 632–645. doi: 10.1111/ejed.12527
+(2025). Development of a framework using deep learning for the identiﬁcation and
+                                                                                                    Ouyang, F., Zheng, L., and Jiao, P. (2022). Artiﬁcial intelligence in online higher
+classiﬁcation of engagement levels in distance learning students. Soc. Netw. Anal.
+                                                                                                    education: a systematic review of empirical research from 2011 to 2020. Educ. Inf.
+Mining 15:37. doi: 10.1007/s13278-025-01408-z
+                                                                                                    Technol. 27, 7893–7925. doi: 10.1007/s10639-022-10925-9
+Geng, T., and Alfter, D. (2025). “Towards a real time Swedish speech analyzer
+                                                                                                    Pandey, S., and Karypis, G. (2019). “A self attentive model for knowledge tracing,”
+for language learning games: a hybrid artiﬁcial intelligence approach to language
+                                                                                                    in Proceedings of the 12th international conference on educational data mining
+assessment,” in Proceedings of the 20th workshop on innovative use of NLP for building
+                                                                                                    (International Educational Data Mining Society), 384–389.
+educational applications (Vienna, Austria; Association for Computational Linguistics),
+186–201. doi: 10.18653/v1/2025.bea-1.14                                                             Rahayu, N. W., Ferdiana, R., and Kusumawardani, S. S. (2023). A systematic
+                                                                                                    review of learning path recommender systems. Educ. Inf. Technol. 28, 7437–7460.
+Ghosh, A., Heﬀernan, N., and Lan, A. S. (2020). “Context aware attentive knowledge
+                                                                                                    doi: 10.1007/s10639-022-11460-3
+tracing,” in Proceedings of the 26th ACM SIGKDD international conference on knowledge
+discovery and data mining (Association for Computing Machinery), 2330–2339.                         Santos, O. C., Saneiro, M., Boticario, J. G., and Rodriguez-Sanchez, M. C.
+doi: 10.1145/3394486.3403282                                                                        (2016). Toward interactive context-aware aﬀective educational recommendations
+                                                                                                    in computer-assisted language learning. New Rev. Hyperm. Multim. 22, 27–57.
+Huang, H. (2023). Research on personalized Japanese language teaching model based
+                                                                                                    doi: 10.1080/13614568.2015.1058428
+on big data technology. Appl. Mathem. Nonl. Sci. 9:4. doi: 10.2478/amns.2023.1.00192
+                                                                                                    Shen, C.-H., Kuo, Y.-L., and Fan, Y.-C. (2024). “Personalized cloze test generation
+Kabudi, T., Pappas, I., and Olsen, D. H. (2021). Artiﬁcial intelligence
+                                                                                                    with large language models: streamlining MCQ development and enhancing adaptive
+enabled      adaptive    learning    systems:    a   systematic    mapping       of
+                                                                                                    learning,” in Proceedings of the 17th international natural language generation
+the    literature.    Comput.     Educ.    2:100017.   doi:   10.1016/j.caeai.2021.
+                                                                                                    conference (Tokyo, Japan: Association for Computational Linguistics), 314–319.
+100017
+                                                                                                    doi: 10.18653/v1/2024.inlg-main.26
+Kamal, N., Sarker, F., Rahman, A., Hossain, S., and Mamun, K. A.
+(2024). Recommender system in academic choices of higher education: a                               Shen, S., Chen, E., Liu, Q., Huang, Z., Huang, W., Yin, Y., et al. (2023). Monitoring
+systematic review. IEEE Access 12, 35475–35501. doi: 10.1109/ACCESS.2024.                           student progress for learning process consistent knowledge tracing. IEEE Trans. Knowl.
+3368058                                                                                             Data Eng. 35, 8213–8227. Available online at: https://ieeexplore.ieee.org/abstract/
+                                                                                                    document/9950313/
+Kamzela, W., Lango, M., and Dusek, O. (2025). “SRS stories: vocabulary
+constrained multilingual story generation for language learning,” in Proceedings                    Shin, D., Shim, Y., Yu, H., Lee, S., Kim, B., and Choi, Y. (2021). “SAINT+: integrating
+of the 2025 conference on empirical methods in natural language processing:                         temporal features for EdNet correctness prediction,” in Proceedings of the 11th
+industry track (Suzhou, China: Association for Computational Linguistics), 630–645.                 international learning analytics and knowledge conference (Association for Computing
+doi: 10.18653/v1/2025.emnlp-industry.44                                                             Machinery), 490–496. doi: 10.1145/3448139.3448188
+
+Khosravi, H., Shum, S. B., Chen, G., Conati, C., Tsai, Y.-S., Kay, J., et al.                       Songyang, L. (2024). Simulation of association rule mining based on sensor networks in
+(2022). Explainable artiﬁcial intelligence in education. Comput. Educ. 3:100074.                    Chinese language learning recommendation system for college students. Measurement
+doi: 10.1016/j.caeai.2022.100074                                                                    33:101208. doi: 10.1016/j.measen.2024.101208
+
+Klinger, S. L., and Strickroth, S. (2025). “Kanjicompass: an etymology-driven adaptive              Vu, A.-D., Hou, J., Katinskaia, A., Sheu, C.-F., and Yangarber, R. (2025). “A Bayesian
+kanji learning tool,” in International conference on computer supported education.                  approach to inferring prerequisite structures and topic diﬃculty in language learning,”
+doi: 10.5220/0013341000003932                                                                       in Proceedings of the 20th workshop on innovative use of NLP for building educational
+                                                                                                    applications (Vienna, Austria: Association for Computational Linguistics), 737–751.
+Lee, J., Scarlatos, A., and Lan, A. (2025). “Interpretable mnemonic generation for                  doi: 10.18653/v1/2025.bea-1.53
+kanji learning via expectation maximization,” in Proceedings of the 2025 conference
+on empirical methods in natural language processing (Suzhou, China: Association for                 Wang, J., Mendori, T., and Hoel, T. (2019). Strategies for multimedia learning object
+Computational Linguistics), 25454–25475. doi: 10.18653/v1/2025.emnlp-main.1294                      recommendation in a language learning support system: verbal learners vs. visual
+                                                                                                    learners. Int. J. Hum.-Comput. Inter. 35, 345–355. doi: 10.1080/10447318.2018.1543085
+Lee, J. S. (2022). An editable learner model for text recommendation for language
+learning. ReCALL 34, 51–65. doi: 10.1017/S0958344021000197                                          Xia, Y., Shin, S.-Y., and Shin, K.-S. (2024). Designing personalized learning paths for
+                                                                                                    foreign language acquisition using big data: theoretical and empirical analysis. Appl.
+Lee, U., Park, Y., Kim, Y., Choi, S., and Kim, H. (2024). “MonaCoBERT:                              Sci. 14:9506.
+monotonic attention based ConvBERT for knowledge tracing,” in Generative
+intelligence and intelligent tutoring systems, lecture notes in computer science (Springer),        Xu, M., Shen, Y., Wang, S., and Yuan, X. (2024). “Oriented classroom instructional
+107–123.                                                                                            behavior recognition benchmark,” in Emerging technologies for education, lecture notes
+                                                                                                    in computer science (Springer), 130–141. doi: 10.1007/978-981-97-4243-1_11
+Li, J., Li, D., Xiong, C., and Hoi, S. C. H. (2022). “BLIP: bootstrapping language
+image pretraining for uniﬁed vision language understanding and generation,” in                      Yin, Y., Dai, L., Huang, Z., Shen, S., Wang, F., Liu, Q., et al. (2023). “Tracing
+Proceedings of the 39th international conference on machine learning (PMLR),                        knowledge instead of patterns: stable knowledge tracing with diagnostic transformer,”
+12888–12900.                                                                                        in Proceedings of the ACM web conference 2023, 855–864. Available online at: https://
+                                                                                                    ieeexplore.ieee.org/abstract/document/10494775/
+Lin, C.-C., Huang, A. Y., and Lu, O. H. (2023). Artiﬁcial intelligence
+in intelligent tutoring systems toward sustainable education: a systematic                          Zawacki-Richter, O., Marín, V. I., Bond, M., and Gouverneur, F. (2019). Systematic
+review.    Smart     Learn.  Environ.  10:41.   doi:   10.1186/s40561-023-0                         review of research on artiﬁcial intelligence applications in higher education: where are
+0260-y                                                                                              the educators? Int. J. Educ. Technol. High. Educ. 16:39. doi: 10.1186/s41239-019-0171-0
+
+
+
+
+Frontiers in Psychology                                                                        19                                                                            frontiersin.org
+

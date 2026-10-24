@@ -1,0 +1,720 @@
+                                    International Journal of Advanced and Applied Sciences, 11(7) 2024, Pages: 166-175
+
+
+                                                       Contents lists available at Science-Gate
+
+                         International Journal of Advanced and Applied Sciences
+                                           Journal homepage: http://www.science-gate.com/IJAAS.html
+
+
+
+Enhancing personalized learning with deep learning in Saudi Arabian
+universities
+Lassaad K. Smirani 1, 2, *, Hanaa A. Yamani 3
+
+1Deanship of Information Technology and Elearning, Umm Al-Qura University, Makkah, Saudi Arabia
+2InnovCom, SUPCOM, Carthage University, Carthage, Tunisia
+3College of Computers, Umm Al-Qura University, Makkah, Saudi Arabia
+
+
+
+
+ARTICLE INFO                                          ABSTRACT
+Article history:                                      This study explores the use of deep learning methods in personalized
+Received 19 March 2024                                learning environments to improve educational outcomes. We collaborated
+Received in revised form                              with four major universities in Saudi Arabia and used data from the
+7 July 2024                                           Blackboard Learning Management System to gather insights on various
+Accepted 10 July 2024                                 personalized learning approaches. This helped us develop a flexible model
+                                                      that is suitable for different learning environments, guided by the VARK
+Keywords:                                             model. We used a hybrid deep learning model combining Convolutional
+Deep learning                                         Neural Networks (CNNs), Long Short-Term Memory (LSTM) networks, and
+Personalized learning                                 Recurrent Neural Networks (RNNs) to classify students based on their
+VARK model                                            learning preferences and engagement patterns. Our analysis showed
+Student engagement                                    significant improvements in student motivation and engagement with
+Educational technology                                personalized learning materials. The results indicated high satisfaction levels
+                                                      among students and faculty, with the model achieving 85% accuracy in
+                                                      predicting student engagement and recommending personalized learning
+                                                      paths. Training the model on a dataset of 10,000 student records took about
+                                                      12 hours, with 80% GPU utilization during training and 30% during
+                                                      inference. Precision and recall rates were 82% and 88%, respectively, with
+                                                      an F1-score of 0.85. Mean Absolute Error (MAE) and Root Mean Squared
+                                                      Error (RMSE) were low at 0.15 and 0.20, respectively. Integrating deep
+                                                      learning methods into personalized learning environments represents a
+                                                      significant shift in education, enabling educators to enhance student
+                                                      engagement and performance effectively. Collaboration with faculty
+                                                      members highlights the importance of interdisciplinary approaches in
+                                                      advancing educational technology and pedagogy, ensuring stakeholder
+                                                      satisfaction and success.
+
+                                                      © 2024 The Authors. Published by IASE. This is an open access article under the CC
+                                                      BY-NC-ND license (http://creativecommons.org/licenses/by-nc-nd/4.0/).
+
+1. Introduction                                                                 disciplines, including mathematics, computer
+                                                                                sciences, information systems, and electrical
+    Personalized learning, characterized by tailored
+    *                                                                           engineering. With an emphasis on integrating deep
+educational experiences that cater to individual                                learning methodologies, our collaborative effort
+student needs, has emerged as a transformative                                  involved     faculty    members     across     diverse
+approach to education (Shawky and Badawi, 2019).                                departments, collectively engaging with 210
+In this paper, we delve into a collaborative attempt                            students in optimizing educational outcomes.
+aimed at advancing personalized learning                                            The integration of deep learning methodologies
+methodologies within the higher education                                       marks a pivotal aspect of our initiative, reflecting a
+landscape of Saudi Arabia. Our study unfolds across                             concerted effort to harness technology for enhancing
+four distinguished universities during the academic                             student-centered pedagogies (Liu et al., 2022).
+year 2023-2024, each specializing in unique                                     Within the context of personalized learning, where
+                                                                                traditional instructional approaches fall short in
+                                                                                addressing      individual   learner    needs,     the
+* Corresponding Author.                                                         amalgamation of deep learning offers promising
+Email Address: lksmirani@uqu.edu.sa (L. K. Smirani)
+https://doi.org/10.21833/ijaas.2024.07.018                                      avenues for tailored educational experiences. By
+   Corresponding author's ORCID profile:                                        leveraging insights from the VARK model, which
+https://orcid.org/0000-0003-3195-6278                                           categorizes learners based on visual, auditory,
+2313-626X/© 2024 The Authors. Published by IASE.                                reading/writing, and kinesthetic preferences,
+This is an open access article under the CC BY-NC-ND license
+(http://creativecommons.org/licenses/by-nc-nd/4.0/)                             educators gain nuanced understandings of diverse
+
+
+                                                                     166
+          Lassaad K. Smirani, Hanaa A. Yamani/International Journal of Advanced and Applied Sciences, 11(7) 2024, Pages: 166-175
+
+
+learning styles and preferences (Zhou et al., 2018).                     adaptive instruction and dynamic content
+This     nuanced       approach    underscores    our                    generation. Fariani et al. (2023) undertook a
+commitment to fostering inclusive and effective                          systematic literature review on personalized
+educational practices.                                                   learning in higher education, providing insights into
+    Our exploration of personalized learning                             diverse personalized learning models and
+pathways is underpinned by a comprehensive                               approaches prevalent in academic settings.
+examination of methodologies, outcomes, and                              Bellarhmouch et al. (2023) introduced an
+implications. In Section 2, we embark on a thorough                      architectural learner model for personalized
+literature review, categorizing existing approaches                      learning environments, integrating various learner
+and methodologies in personalized learning                               information to provide precise and adaptive
+initiatives. Building upon this foundation, Section 3                    instructional experiences tailored to individual
+outlines our meticulously crafted methodology,                           learner needs. Dogan et al. (2023) conducted a
+encompassing data collection, instructional design,                      comprehensive review of AI applications in online
+and outcome evaluation (Lin et al., 2013).                               learning and distance education, shedding light on
+    The empirical findings of our study, presented in                    the increasing role of AI technologies in shaping
+Section 4, provide critical insights into student                        personalized learning experiences and improving
+satisfaction levels, faculty engagement, and academic                    student outcomes. Shemshack et al. (2021)
+performance indicators. Through rigorous analysis                        presented a comprehensive analysis of personalized
+of data collected from personalized learning                             learning components, delineating learner profiles,
+initiatives, we discern patterns and trends, offering                    adaptive paths, and self-paced environments,
+valuable perspectives on efficacy and impact. In the                     contributing to the understanding of personalized
+concluding section, we reflect on the far-reaching                       learning models and strategies. Nguyen et al. (2024)
+implications of our findings for educational practice                    proposed a model for creating personalized online
+and offer recommendations for future research and                        courses based on students' learning styles,
+implementation. By underscoring the significance of                      facilitating tailored instructional experiences in
+personalized learning in fostering student                               virtual learning environments. Madhavi et al. (2024)
+engagement, satisfaction, and academic success, we                       introduced a framework for the automatic detection
+aspire to enrich the discourse on educational                            of learning styles in e-learning environments,
+innovation and excellence (Jiang et al., 2022).                          emphasizing the importance of tailored learning
+                                                                         materials in improving learner performance. Sobeeh
+2. Literature review                                                     et al. (2024) investigated the learning style patterns
+                                                                         and preferences of first-year medical students in
+    In the domain of personalized learning, an array                     face-to-face and distance learning environments,
+of studies has contributed valuable insights, each                       shedding light on the prevalence of quadrimodal
+addressing distinct aspects and methodologies.                           learning patterns and preferences for traditional
+Shawky and Badawi (2019) proposed the application                        instruction. Mulyana et al. (2024) examined the
+of reinforcement learning techniques to personalize                      impact of cooperative learning models on social
+the learning experience, highlighting the significance                   skills enhancement among university students,
+of adaptive instruction based on continuous learner                      highlighting the efficacy of the Jigsaw model in
+feedback. Liu et al. (2022) introduced a model                           improving social skills among students with
+integrating     deep    learning     methods       and                   kinesthetic learning styles. Sanal Kumar and
+recommender systems to tailor personalized                               Thandeeswaran (2024) introduced an improved
+learning paths, offering adaptive instructional                          adaptive personalization model for instructional
+delivery driven by learner preferences and                               video-based e-learning environments, showcasing
+performance. Zhou et al. (2018) delve into the realm                     significant improvements in knowledge acquisition
+of LSTM neural networks, presenting a robust                             and student outcomes. Jawed et al. (2024) proposed
+personalized learning recommendation model that                          deep      learning-based    models     for   real-time
+harnesses deep learning techniques to provide                            identification of visual learners using raw EEG
+tailored learning resources suited to individual                         signals, demonstrating the effectiveness of advanced
+learner needs. Zhong et al. (2020) contributed a                         machine learning techniques in identifying learning
+comprehensive review of deep learning-based                              styles. TS and Thandeeswaran (2024) addressed the
+personalized learning recommendation systems,                            limitations of traditional video-based e-learning
+emphasizing the efficacy of advanced machine                             platforms for programming education, introducing a
+learning algorithms in customizing educational                           novel learning style model tailored for instructional
+experiences to optimize learner outcomes. Lin et al.                     video-based programming e-learning environments.
+(2013) explored the application of data mining and                       Waam and Premadasa (2024) investigated the
+decision trees in providing personalized learning                        application of machine learning techniques to
+paths, leveraging student data to optimize                               identify students' learning styles based on the Felder
+instructional content and delivery strategies. Jiang et                  Silverman Learning Style Model (FSLSM), providing
+al. (2022) proposed a novel personalized learning                        insights for improving course design and
+path generation system employing reinforcement                           instructional delivery.
+learning and generative adversarial networks,                                The studies we have reviewed demonstrate the
+aiming to enhance learner outcomes through                               impact of personalized learning on education. They
+                                                                  167
+          Lassaad K. Smirani, Hanaa A. Yamani/International Journal of Advanced and Applied Sciences, 11(7) 2024, Pages: 166-175
+
+
+examine various approaches to tailor learning to                         provide targeted feedback (Kanaparthi, 2024). They
+individual students' needs. However, there are still                     also create interactive experiences that engage
+uncertainties about the most effective methods and                       students and foster motivation (Wu et al., 2024).
+the integration of technology in the classroom. Our                      Intelligent tutoring systems powered by deep
+research focuses on four Saudi universities, each                        learning offer personalized guidance and assistance,
+with distinct teaching and learning approaches. We                       helping students overcome learning barriers (Patel
+aim to understand how personalized learning can                          et al., 2024). Deep learning is a powerful tool for
+benefit students in these diverse settings. By doing                     advancing personalized learning, empowering
+so, we hope to enhance students' learning                                learners, and optimizing educational outcomes
+experiences and their perceptions of education. This                     (Rahiman and Kodikal, 2024). The integration of
+research is crucial for the universities involved, as it                 deep learning methodologies into personalized
+helps them identify new teaching methods that cater                      learning environments transforms education,
+to their students. Our ultimate goal is to improve                       fostering student-centered learning experiences and
+learning for students in Saudi Arabia and beyond.                        promoting academic success. Some research
+                                                                         questions:
+2.1. Foundational principles of personalized
+learning                                                                 1. How does the integration of deep learning
+                                                                            methodologies impact student engagement and
+    Personalized learning is a departure from                               academic performance in personalized learning
+traditional education, aiming to meet each student's                        environments?
+unique needs, preferences, and abilities (Hodson,                        2. What are the key components of personalized
+1998). It recognizes that students have different                           learning frameworks informed by deep learning
+strengths, interests, and ways of learning. The                             algorithms, and how do they contribute to
+commitment to personalized learning reflects a shift                        improved educational outcomes?
+towards student-centered teaching, where learners                        3. How do different deep learning architectures and
+are active participants in their education. It's about                      algorithms contribute to the customization of
+understanding each student's strengths, weaknesses,                         instructional strategies and learning materials in
+interests, and goals to tailor teaching methods and                         personalized learning environments?
+materials (Rane et al., 2023). Flexibility is key in                     4. What are the implications of personalized learning
+personalized learning, allowing students to learn at                        initiatives for faculty members in terms of
+their own pace and explore topics of interest                               instructional design, delivery, and assessment
+(Wanner and Palmer, 2015). Technology plays a                               practices?
+crucial role in personalized learning, enabling                          5. How do students perceive personalized learning
+customized instruction and adaptive learning                                experiences facilitated by deep learning
+experiences (Gunawardena et al., 2024). By                                  technologies, and what factors influence their
+integrating technology, educators can collect and                           engagement and satisfaction?
+analyze student data to personalize learning and                         6. What are the challenges and barriers associated
+create engaging materials (Er-radi et al., 2024).                           with      implementing     deep     learning-based
+Personalized learning is about individualization,                           personalized learning approaches in diverse
+flexibility, and technology integration, creating                           educational settings?
+dynamic learning environments that empower
+students and promote academic success.                                   2.3. Integration with educational psychology
+                                                                         theories
+2.2. The role of deep learning in personalized
+learning environments                                                       Our study aligns with important theories in
+                                                                         educational psychology, adding to the discussion on
+    Deep learning is revolutionizing personalized                        personalized learning and deep learning. Using ideas
+learning by analyzing large amounts of student data                      from cognitive load theory (CLT), we explain how
+and delivering customized learning experiences                           our hybrid deep learning model optimizes cognitive
+(Nouman et al., 2024). At The Deanship of                                resources by tailoring instructional content and
+Information Technology and eLearning, deep                               methods to fit individual student preferences and
+learning techniques have transformed personalized                        abilities.  Additionally,   our    examination     of
+learning environments (Chen et al., 2024). Inspired                      constructivist principles highlights the significance
+by the human brain, deep learning algorithms learn                       of active student engagement and knowledge
+from complex datasets to identify patterns and                           building within personalized learning environments,
+insights (Nanavaty and Khuteta, 2024). They analyze                      supported by adaptive learning pathways created
+diverse data types to understand student                                 through deep learning algorithms.
+demographics, preferences, and performance
+indicators (Ogata et al., 2024). Deep learning enables                   2.4. Alignment             with      instructional        design
+adaptive learning systems that adjust content and                        frameworks
+support based on real-time feedback (Salman et al.,
+2024). By monitoring student interactions, deep                             By integrating our empirical findings with
+learning models personalize learning pathways and                        established instructional design frameworks, such as
+                                                                  168
+              Lassaad K. Smirani, Hanaa A. Yamani/International Journal of Advanced and Applied Sciences, 11(7) 2024, Pages: 166-175
+
+
+the SAMR model (Substitution, Augmentation,                                       student experiences. Building upon socio-cultural
+Modification, Redefinition) model proposed by Dr.                                 theory, we underscore the importance of creating
+Ruben Puentedura. The SAMR model provides a                                       inclusive and culturally responsive learning
+framework for understanding the levels of                                         environments      that    honor    diverse  student
+technology integration in educational settings,                                   backgrounds and perspectives. Our findings
+ranging from simple substitution to transformative                                emphasize the potential of deep learning
+redefinition of teaching and learning practices. We                               methodologies to foster meaningful interactions and
+offer insights into the transformative potential of                               knowledge co-construction within personalized
+deep learning methodologies in educational practice.                              learning communities, thus promoting socio-cultural
+Our study illustrates how the integration of                                      equity and inclusion in education.
+advanced AI technologies enables educators to move
+beyond     traditional     instructional approaches                               3. Methodology:             Implementing              personalized
+(Substitution and Augmentation) towards more                                      learning paths
+innovative and        student-centered   pedagogies
+(Modification and Redefinition). Through this                                         The successful implementation of personalized
+alignment, we contribute to the ongoing discourse                                 learning paths involves a methodical and
+on effective learning design and pedagogical                                      collaborative approach aimed at using deep learning
+innovation in the digital age.                                                    methodologies and the VARK model to enhance
+                                                                                  student engagement, satisfaction, and academic
+2.5. Contributions to socio-cultural perspectives                                 performance Table 1.
+                                                                                      The study encompassed four faculties across
+    Furthermore, our study acknowledges the socio-                                different universities in Saudi Arabia, involving a
+cultural dimensions of personalized learning,                                     total of 120 students, as detailed in Table 2.
+highlighting the role of social interactions and
+collaborative learning environments in shaping
+
+                                                         Table 1: VARK model category
+  VARK model
+                      Learning preference               Descriptive data                   Preferred activities                 Learning strategies
+   category
+                       Prefers visual aids     Learners in this category benefit      Watching educational videos,            Using color-coded notes,
+    Visual             such as diagrams,         from visual representations of       using mind maps, visualizing        creating flashcards with images,
+                         charts, videos                    information                           concepts                       diagrams, and charts
+                      Learns best through      These learners grasp information           Participating in group           Recording lectures for review,
+   Auditory          lectures, discussions,    more effectively through auditory         discussions, listening to         summarizing content verbally,
+                             audio                           channels                 podcasts, verbal explanations          discussing concepts aloud
+                        Prefers written        They thrive when provided with           Reading textbooks, taking           Creating outlines, annotating
+Reading/writing      materials, textbooks,         written content and engage         detailed notes, writing essays      texts, organizing information in
+                          note-taking           deeply through reading/writing                or summaries                         written formats
+                                                                                          Engaging in hands-on
+                      Learns by hands-on        Kinesthetic learners learn best                                           Participating in demonstrations,
+                                                                                        experiments, role-playing,
+  Kinesthetic             activities,          when they can physically interact                                             conducting experiments,
+                                                                                       interactive simulations, and
+                     experiments, practice            with the material                                                    applying concepts practically
+                                                                                                 activities
+
+                  Table 2: Overview of participating universities, faculties, departments, and student enrolment
+                                                                                                             No. of         No. of faculty        No. of
+        University                            Faculty                            Department
+                                                                                                            Classes          members            students
+                                                                       Department of Information
+  Umm al-Qura University              College of Computers                                                        4               2               119
+                                                                              Sciences
+   Princess Nourah bint              College of Computer and           Department of Information
+                                                                                                                  1               1                29
+  Abdulrahman University              Information Sciences                    Systems,
+                                                                      Department of Electrical and
+ King Abdulaziz University           Faculty of Engineering -                                                     1               1                32
+                                                                         Computer Engineering
+     Jeddah University             Faculty of Applied Sciences          Mathematics Department                    1               1                30
+
+    This collaborative effort involved faculty                                    patterns, and engagement levels. Using diverse data
+members from diverse departments and specialties,                                 sources such as student profiles, academic records,
+reflecting   the    interdisciplinary     nature     of                           and learning analytics from the Blackboard Learning
+personalized learning implementation.                                             Management System (LMS), educators employ data
+    The methodology encompasses several crucial                                   mining techniques to gather rich insights into
+components, including data collection, instructional                              student behaviors and preferences Table 3.
+design,    outcome     evaluation,    and     iterative
+refinement, each playing a pivotal role in shaping the                                           Table 3: Data collection sources
+personalized learning experience.                                                         Data source                           Nature of data
+                                                                                                                      Demographic information, academic
+                                                                                        Student profiles
+                                                                                                                                 background
+3.1. Data collection                                                                   Academic records                   Grades, course enrollment
+                                                                                       Learning analytics             Student engagement metrics, access
+                                                                                       (Blackboard LMS)                            patterns
+   The foundation of personalized learning lies in                                    Self-reported VARK
+                                                                                                                        Learning preferences and styles
+comprehensive data collection to understand                                               Assessments
+students'  learning   preferences,   performance
+                                                                           169
+            Lassaad K. Smirani, Hanaa A. Yamani/International Journal of Advanced and Applied Sciences, 11(7) 2024, Pages: 166-175
+
+
+3.2. Instructional design                                                    needs and preferences. Educational materials,
+                                                                             learning activities, and assessment methods are
+   Informed by data insights and the VARK model,                             selected and customized to accommodate diverse
+instructional design focuses on creating personalized                        learning styles, all organized within the Blackboard
+learning experiences tailored to individual learner                          LMS for easy access and navigation Table 4.
+
+                                                 Table 4: Instructional design strategies
+  Instructional design component                                                       Description
+       Educational materials                                    Curated multimedia resources, textbooks, articles, videos
+         Learning activities                           Interactive modules, group discussions, case studies, problem-solving tasks
+       Assessment methods                                Formative assessments, quizzes, assignments, projects, peer evaluations
+Organization within blackboard LMS      Structured course modules, easy navigation, access to supplementary materials, discussion boards, forums
+
+
+3.3. Outcome evaluation                                                      enhancements to optimize student learning
+                                                                             experiences.
+   Continuous evaluation and assessment are                                      By following a structured and data-driven
+essential for monitoring student progress,                                   methodology,      we      ensure     the    systematic
+identifying areas for improvement, and refining                              implementation of personalized learning paths that
+instructional strategies. Outcome evaluation involves                        prioritize    student-centered     pedagogy,     foster
+analyzing student performance metrics, course                                engagement, and promote academic success. The
+completion rates, satisfaction focus groups, and                             methodology underscores the importance of
+qualitative feedback to measure the effectiveness of                         interdisciplinary    collaboration,    evidence-based
+personalized learning interventions Table 5.                                 decision-making, and a commitment to excellence in
+                                                                             educational practice.
+           Table 5: Outcome evaluation metrics                                   In the subsequent section, we will present the
+  Evaluation metric                     Description                          empirical findings of our study, including insights
+Student performance
+       metrics
+                        Grades, assessment scores, completion rates          into student satisfaction levels, faculty engagement,
+  Satisfaction focus        Feedback on personalized learning                and academic performance indicators, to assess the
+        groups                experiences, course materials                  effectiveness of personalized learning initiatives.
+ Course completion       Percentage of students completing course
+         rates                         requirements
+                        Student and faculty reflections, suggestions                Table 6: Inputs and outputs of deep learning
+Qualitative feedback                                                          Deep learning inputs                Nature of data
+                                     for improvement
+                                                                                Student profiles       Demographic and academic information
+                                                                               Learning analytics       Engagement metrics, access patterns
+3.4. Deep learning integration                                                 VARK assessments           Learning preferences and styles
+                                                                              Deep learning outputs                  Description
+                                                                               Personalized learning      Tailored instructional content and
+    Deep learning methodologies are pivotal in
+                                                                                       paths                           activities
+processing vast amounts of student data and
+deriving meaningful insights into individual learning
+                                                                             4. Empirical findings and analysis
+patterns and preferences. Deep neural networks,
+including convolutional neural networks (CNNs) and
+                                                                                 In this section, we present the empirical findings
+recurrent neural networks (RNNs), are deployed to
+                                                                             of our study, which aim to assess the effectiveness of
+analyze complex data sets, enabling educators to
+                                                                             personalized learning initiatives implemented at The
+customize instructional content and delivery
+                                                                             Deanship of Information Technology and eLearning.
+strategies with precision Table 6.
+                                                                             Through a rigorous analysis of both quantitative data
+                                                                             and qualitative feedback obtained from focus groups,
+3.5. Role of deep learning
+                                                                             we delve into student satisfaction levels, faculty
+                                                                             engagement, and academic performance indicators.
+    Deep learning algorithms play a crucial role in
+                                                                             Additionally, we discuss the responses to the six
+optimizing personalized learning experiences by
+                                                                             research questions formulated to guide our
+analyzing student data and generating actionable                             investigation.
+insights. By processing diverse data sets, deep
+learning models help educators understand student
+                                                                             4.1. Impact of deep learning methodologies on
+behavior and preferences, enabling the delivery of
+                                                                             student engagement and academic performance
+targeted interventions to enhance learning
+outcomes.
+                                                                                Quantitative analysis reveals that students
+                                                                             enrolled in courses with personalized learning paths
+3.6. Iterative refinement
+                                                                             exhibited, on average, a 20% increase in engagement
+                                                                             levels, as measured by participation in online
+    The implementation of personalized learning
+                                                                             discussions and completion of             interactive
+paths is an iterative process that involves continuous
+                                                                             assignments.
+refinement based on ongoing feedback and
+                                                                                Academic performance metrics, including course
+evaluation. Educators collaborate with stakeholders                          completion rates and final grades, demonstrated
+to review the effectiveness of instructional
+                                                                             statistically significant improvements among
+strategies, make informed decisions, and implement
+                                                                             students engaged in personalized learning
+                                                                       170
+          Lassaad K. Smirani, Hanaa A. Yamani/International Journal of Advanced and Applied Sciences, 11(7) 2024, Pages: 166-175
+
+
+environments, with a 15% increase in overall GPA                         resistance to change, and the need for ongoing
+observed compared to students in traditional                             support and training. Despite these challenges,
+instructional settings.                                                  stakeholders expressed optimism regarding the
+                                                                         long-term benefits of personalized learning
+4.2. Key elements of personalized learning                               initiatives, with 75% indicating a willingness to
+frameworks using deep learning algorithms                                invest in resources and professional development
+                                                                         opportunities to address implementation challenges.
+   Qualitative    analysis    identified  adaptive
+instructional    delivery,    real-time   feedback                       5. Implementation challenges
+mechanisms, and data-driven decision-making
+processes as key components of personalized                                  Implementing deep learning solutions in real-
+learning frameworks.                                                     world educational settings presents several
+   Deep learning algorithms played a pivotal role in                     challenges and practical considerations that need to
+customizing instructional content and learning                           be addressed for successful deployment. In this
+materials, with 85% of faculty members reporting a                       section, we discuss key challenges and strategies to
+high degree of satisfaction with the level of                            mitigate them.
+personalization achieved.                                                    Data Privacy Concerns: One of the foremost
+                                                                         challenges is ensuring data privacy and security
+4.3. Impact of deep learning architectures on                            when collecting and analyzing student data.
+instructional customization                                              Educational institutions must adhere to strict
+                                                                         regulations and guidelines, such as GDPR and FERPA,
+    Statistical analysis revealed that deep learning                     to safeguard student information. Implementing
+architectures, such as RNNs and CNNs, contributed                        robust data encryption, access controls, and
+to instructional customization by analyzing diverse                      anonymization techniques can help mitigate privacy
+datasets and extracting meaningful patterns.                             risks.
+    Adaptive learning pathways generated by deep                             Computational Resources: Deep learning models
+learning algorithms resulted in a 25% improvement                        often require significant computational resources for
+in student mastery of course content, as evidenced                       training and inference, posing challenges for
+by pre- and post-assessment scores.                                      resource-constrained       educational    institutions.
+                                                                         Addressing this challenge involves optimizing
+4.4. Implications of personalized                    learning            algorithms for efficiency, leveraging cloud computing
+initiatives for faculty members                                          platforms, and exploring distributed computing
+                                                                         strategies to distribute computational load
+    Focus group data indicated that 70% of faculty                       effectively.
+members perceived personalized learning initiatives                          Educator Training and Support: Educators need
+positively, citing increased student engagement,                         adequate training and support to effectively
+enhanced pedagogical flexibility, and greater job                        integrate deep learning technologies into their
+satisfaction as key benefits. However, 40% of faculty                    teaching      practices.     Providing    professional
+members expressed concerns about workload                                development      opportunities,     workshops,     and
+management and the need for additional support                           tutorials on deep learning fundamentals and
+and training to effectively integrate deep learning                      practical applications can empower educators to
+methodologies into their teaching practices.                             leverage AI technologies in personalized learning
+                                                                         environments. Additionally, ongoing technical
+4.5. Perceptions of personalized                     learning            support and mentoring can help educators navigate
+experiences among students                                               challenges and maximize the benefits of deep
+                                                                         learning solutions.
+   Focus group discussions with students revealed                            Integration with Existing Systems: Integrating
+overwhelmingly positive perceptions of personalized                      deep learning solutions with existing educational
+learning experiences, with 90% of students                               systems, such as Learning Management Systems
+reporting higher levels of motivation and satisfaction                   (LMS) and student information databases, requires
+compared to traditional instructional approaches.                        careful planning and coordination. Compatibility
+Notably, 80% of students expressed a preference for                      issues, data interoperability, and system integration
+personalized learning environments over traditional                      complexities need to be addressed to ensure
+classroom settings, citing the ability to learn at their                 seamless operation and data exchange between
+own pace and access tailored resources as significant                    different platforms.
+advantages.                                                                  Ethical and Bias Considerations: Deep learning
+                                                                         models are susceptible to biases inherent in the
+4.6. Challenges in implementing deep learning-                           training data, which can perpetuate inequities and
+based personalized learning                                              discrimination in educational outcomes. Mitigating
+                                                                         bias requires careful data curation, diversity in
+   Qualitative     feedback    highlighted            several            training data sources, and algorithmic fairness
+challenges,    including    technological            barriers,           assessments to ensure equitable outcomes for all
+                                                                         students.
+                                                                  171
+          Lassaad K. Smirani, Hanaa A. Yamani/International Journal of Advanced and Applied Sciences, 11(7) 2024, Pages: 166-175
+
+
+    By proactively addressing these implementation                       educational ecosystem that nurtures the potential of
+challenges and adopting best practices, educational                      every learner.
+institutions can harness the power of deep learning
+to enhance personalized learning experiences                             5.2. Implications and recommendations
+effectively.
+                                                                             Our      study's    findings      yield  critical
+5.1. Broader implications                                                recommendations to inform educational practices
+                                                                         and shape the future of personalized learning
+    Our study holds significant implications for                         initiatives within educational institutions.
+educational policy, curriculum design, and the long-
+term outcomes of students within personalized                            5.2.1. Educational practices
+learning      environments.     By    examining      the
+transformative potential of integrating deep learning                         Personalized learning exhibits immense potential
+methodologies into personalized education, we shed                       to elevate student engagement, satisfaction, and
+light on several key areas that warrant attention in                     academic achievement. Integration of deep learning
+educational discourse and practice.                                      methodologies and data-driven decision-making
+    Educational Policy: The findings of our study                        equips educators to craft tailored learning
+underscore the importance of updating educational                        experiences that cater to diverse student needs and
+policies to accommodate the integration of advanced                      preferences effectively.
+technologies, such as deep learning, into mainstream                          Recognizing the pivotal role of faculty members,
+pedagogical practices. Policymakers need to                              it's    imperative    to    provide    comprehensive
+recognize the potential of personalized learning                         professional development opportunities and ongoing
+pathways to improve student engagement,                                  support mechanisms. These initiatives ensure faculty
+satisfaction,      and      academic      achievement.                   members possess the requisite knowledge, skills,
+Additionally, policies should support investments in                     and resources to implement personalized learning
+faculty training and infrastructure development to                       approaches successfully.
+facilitate     the   effective    implementation      of                      Collaborative partnerships among instructional
+personalized learning approaches across educational                      designers, educational technologists, and faculty
+institutions.                                                            members are pivotal for fostering innovation and
+    Curriculum Design: Our research highlights the                       best practices in personalized learning design and
+need for curriculum designers to adopt a more                            implementation. Interdisciplinary approaches to
+flexible and adaptive approach to curriculum                             curriculum development and pedagogical innovation
+development, one that takes into account the diverse                     foster student-centered learning environments
+learning needs and preferences of students.                              conducive to deeper learning and critical thinking.
+Integrating deep learning methodologies into
+curriculum design processes can enable the creation                      5.2.2. Student support services
+of tailored learning experiences that meet the
+individual needs of learners. Moreover, curriculum                           Robust student support services are integral in
+designers should emphasize the development of                            facilitating student success and retention within
+critical thinking, problem-solving, and digital literacy                 personalized learning environments. Academic
+skills, aligning curricular goals with the demands of                    advisors, learning support specialists, and student
+the digital age.                                                         success coaches offer personalized guidance,
+    Long-Term Student Outcomes: The long-term                            mentorship, and academic interventions tailored to
+success of personalized learning initiatives hinges on                   students' diverse needs and backgrounds.
+their ability to foster holistic student development                         Comprehensive support services encompass
+and prepare learners for future challenges. Our study                    academic advising, tutoring, counseling, and career
+suggests that personalized learning environments                         development, ensuring holistic support for students
+equipped with deep learning technologies have the                        throughout their learning journey.
+potential to cultivate lifelong learning habits,                             Proactive outreach initiatives and early
+enhance academic performance, and improve post-                          intervention strategies enable the identification of
+graduation outcomes. By promoting self-directed                          at-risk students and provide targeted support to
+learning and providing students with personalized                        address academic, social, and emotional challenges
+support, these environments can empower learners                         hindering student progress and success.
+to thrive in diverse educational and professional
+contexts.                                                                5.2.3. Technology integration
+    Our research underscores the significance of
+considering the broader implications of personalized                         Seamless technology integration forms the
+learning      integration     with    deep     learning                  bedrock of successful personalized learning
+methodologies. By addressing key areas such as                           initiatives. LMS, educational apps, and digital tools
+educational policy, curriculum design, and long-term                     provide the infrastructure and resources necessary
+student outcomes, stakeholders can work towards                          for delivering personalized learning experiences
+creating a more inclusive, adaptive, and effective                       seamlessly.
+
+                                                                  172
+          Lassaad K. Smirani, Hanaa A. Yamani/International Journal of Advanced and Applied Sciences, 11(7) 2024, Pages: 166-175
+
+
+    Investment in robust LMS platforms, adaptive                         based decision-making are paramount for the
+learning technologies, and analytics dashboards                          successful implementation of personalized learning
+enhances scalability, efficiency, and effectiveness of                   initiatives. Embracing innovation, collaboration, and
+personalized learning delivery models.                                   continuous improvement empowers educational
+    Continuous innovation and research in                                institutions to create dynamic, student-centered
+educational technology pave the way for next-                            learning environments conducive to thriving in the
+generation learning environments leveraging                              digital age.
+artificial intelligence, machine learning, and
+augmented reality to personalize instruction and                         6. Conclusion
+assessment in real-time.
+                                                                             Our collaborative effort to advance personalized
+5.2.4. Improved comparative analysis                                     learning methodologies within the higher education
+                                                                         landscape of Saudi Arabia has yielded significant
+    In juxtaposition to our study, which intricately                     findings and implications, supported by compelling
+intertwines deep learning methodologies like CNNs                        statistics and insights. Across four distinguished
+and RNNs to analyze student data and customize                           universities specializing in various disciplines, our
+instructional content, Chen et al. (2024) primarily                      study has illuminated the transformative potential of
+focused on optimizing personalized education                             personalized learning approaches.
+recommendation systems using machine learning                                The integration of deep learning methodologies,
+algorithms. While both endeavors aim to augment                          guided by perceptions from the VARK model, has led
+learning outcomes through personalization, our                           to remarkable outcomes. Statistical analysis reveals
+research offers a more detailed examination,                             a substantial increase in student engagement levels,
+furnishing empirical evidence and actionable                             with an average improvement of 20% observed
+recommendations grounded in empirical findings. In                       among those enrolled in courses featuring
+contrast, Zohuri and Mossavar-Rahmani (2024)                             personalized learning paths. Academic performance
+lacked empirical data and specific case studies,                         metrics, including course completion rates and final
+concentrating more on the broader implications of                        grades, demonstrated statistically significant
+AI in education. Similarly, our work provides a                          improvements, with a remarkable 15% increase in
+comprehensive exploration of personalized learning                       overall GPA compared to students in traditional
+integrated with deep learning methodologies,                             instructional settings.
+diverging from Vashishth et al. (2024), which                                Our study showcases the effectiveness of deep
+primarily explores the broader implications of AI-                       learning architectures, including CNNs, LSTMs, and
+driven learning analytics in higher education without                    RNNs, in predicting student engagement levels and
+specific empirical evidence or case studies. Despite                     customizing instructional content. With an accuracy
+differing focuses and methodologies, both our study                      rate of 85% in predicting student engagement levels
+and Sanal Kumar and Thandeeswaran (2024)                                 and recommending personalized learning paths,
+contributed to enhancing personalized learning                           coupled with precision and recall rates of 82% and
+experiences, with Sanal Kumar and Thandeeswaran                          88%, respectively, our findings underscore the
+(2024) specifically addressing the challenges of                         robustness of our approach.
+instructional video-based e-learning environments                            Furthermore, the study highlights the importance
+for programming education while our research                             of continuous professional development for faculty
+delves into the integration of deep learning                             members, evidenced by the positive perception of
+algorithms and data analytics.                                           70% of faculty members towards personalized
+                                                                         learning initiatives. However, challenges such as
+5.2.5. Research agenda                                                   workload management and the need for additional
+                                                                         support and training persist, highlighting areas for
+    Future research endeavors should prioritize                          improvement in faculty engagement and support
+longitudinal    studies    and    multi-institutional                    mechanisms. Moreover, our study emphasizes the
+collaborations to evaluate the long-term impact of                       critical role of student support services in facilitating
+personalized learning initiatives on student                             success within personalized learning environments.
+retention, graduation rates, and post-graduation                         Proactive outreach initiatives and early intervention
+outcomes.                                                                strategies have proven effective in identifying at-risk
+    Comparative studies examining the effectiveness                      students      and     providing    targeted    support,
+of various personalized learning models, pedagogical                     contributing to improved retention rates and
+approaches, and assessment strategies offer valuable                     student outcomes. As we reflect on these statistics, it
+insights into best practices and promising                               becomes evident that strategic planning, stakeholder
+interventions.                                                           engagement, and evidence-based decision-making
+    Mixed-methods research designs, integrating                          are imperative for the successful implementation of
+qualitative and quantitative methodologies, enable                       personalized learning initiatives. By embracing
+researchers to capture the multifaceted nature of                        innovation,       collaboration,    and     continuous
+personalized learning experiences and perceptions                        improvement, educational institutions can create
+among diverse student populations. Strategic                             dynamic, student-centered learning environments
+planning, stakeholder engagement, and evidence-                          conducive to thriving in the digital age. In essence,
+                                                                  173
+            Lassaad K. Smirani, Hanaa A. Yamani/International Journal of Advanced and Applied Sciences, 11(7) 2024, Pages: 166-175
+
+
+our study contributes to enriching the discourse on                            https://doi.org/10.1109/TNSRE.2024.3351694
+                                                                               PMid:38194390
+educational innovation and excellence, supported by
+compelling    statistics   that    emphasize     the                        Jiang B, Li X, Yang S, Kong Y, Cheng W, Hao C, and Lin Q (2022).
+transformative potential of personalized learning in                            Data-driven personalized learning path planning based on
+                                                                                cognitive diagnostic assessments in MOOCs. Applied Sciences,
+higher education. Through collaborative efforts and                             12(8): 3982. https://doi.org/10.3390/app12083982
+evidence-based practices, we can pave the way for
+                                                                            Kanaparthi V (2024). AI-based personalization and trust in digital
+transformative    educational    experiences    that
+                                                                               finance. Arxiv Preprint Arxiv:2401.15700.
+empower learners and educators alike to excel in                               https://doi.org/10.48550/arXiv.2401.15700
+today's rapidly evolving landscape of higher
+                                                                            Lin CF, Yeh YC, Hung YH, and Chang RI (2013). Data mining for
+education.                                                                      providing a personalized learning path in creativity: An
+                                                                                application of decision trees. Computers and Education, 68:
+Compliance with ethical standards                                               199-210. https://doi.org/10.1016/j.compedu.2013.05.009
+                                                                            Liu T, Wu Q, Chang L, and Gu T (2022). A review of deep learning-
+Ethical considerations                                                          based recommender system in e-learning environments.
+                                                                                Artificial Intelligence Review, 55: 5953-5980.
+                                                                                https://doi.org/10.1007/s10462-022-10135-2
+   This study was approved by the Institutional
+Review Boards of the participating universities.                            Madhavi A, Nagesh A, and Govardhan A (2024). A framework for
+Informed consent was obtained from all participants,                           automatic detection of learning styles in e-learning. AIP
+                                                                               Conference Proceedings, 2802(1): 120012.
+and their confidentiality was maintained. The                                  https://doi.org/10.1063/5.0182371
+research adhered to the ethical principles of the
+                                                                            Mulyana FR, Juniar DT, Malik AA, Mulyana D, and Hanief YN
+Declaration of Helsinki and relevant local
+                                                                               (2024). The influence of cooperative learning models and
+regulations.                                                                   learning styles on social skills in university student.
+                                                                               International Journal of Disabilities Sports and Health
+Conflict of interest                                                           Sciences, 7(Special Issue 1): 9-18.
+                                                                               https://doi.org/10.33438/ijdshs.1368958
+
+    The author(s) declared no potential conflicts of                        Nanavaty S and Khuteta A (2024). A deep learning dive into online
+interest with respect to the research, authorship,                             learning: Predicting student success with interaction-based
+                                                                               neural networks. International Journal of Intelligent Systems
+and/or publication of this article.                                            and Applications in Engineering, 12(1): 102-107.
+                                                                            Nguyen HH, Do Trung K, Duc LN, Hoang LD, Ba PT, and Nguyen VA
+References                                                                     (2024). A model to create a personalized online course based
+                                                                               on the student’s learning styles. Education and Information
+Bellarhmouch Y, Jeghal A, Tairi H, and Benjelloun N (2023). A                  Technologies, 29: 571-593.
+    proposed architectural learner model for a personalized                    https://doi.org/10.1007/s10639-023-12287-2
+    learning    environment.   Education   and    Information
+    Technologies, 28: 4243-4263.                                            Nouman N, Shaikh ZA, and Wasi S (2024). A novel personalized
+    https://doi.org/10.1007/s10639-022-11392-y                                 learning framework with interactive e-mentoring. IEEE
+    PMid:36267481 PMCid:PMC9568945                                             Access, 12: 10428 – 10458.
+                                                                               https://doi.org/10.1109/ACCESS.2024.3354167
+Chen W, Shen Z, Pan Y, Tan K, and Wang C (2024). Applying
+   machine learning algorithm to optimize personalized                      Ogata H, Flanagan B, Takami K, Dai Y, Nakamoto R, and Takii K
+   education recommendation system. Journal of Theory and                      (2024). EXAIT: Educational eXplainable artificial intelligent
+   Practice of Engineering Science, 4(1): 101-108.                             tools for personalized learning. Research and Practice in
+                                                                               Technology Enhanced Learning, 19: 19.
+Dogan ME, Goru Dogan T, and Bozkurt A (2023). The use of                       https://doi.org/10.58459/rptel.2024.19019
+   artificial intelligence (AI) in online learning and distance
+   education processes: A systematic review of empirical studies.           Patel P, Thakkar T, Patel M, and Trivedi A (2024). A review: An
+   Applied Sciences, 13(5): 3056.                                               approach for secondary school students performance using
+   https://doi.org/10.3390/app13053056                                          machine learning and data mining. International Journal of
+                                                                                Intelligent Systems and Applications in Engineering, 12(14s):
+Er-radi H, Touis B, and Aammou S (2024). Machine learning in                    1-11.
+    adaptive online learning for enhanced learner engagement. In:
+    Khaldi M (Ed.), Technological tools for innovative teaching:            Rahiman HU and Kodikal R (2024). Revolutionizing education:
+    43-63. IGI Global, Hershey, USA.                                           Artificial intelligence empowered learning in higher
+    https://doi.org/10.4018/979-8-3693-3132-3.ch003                            education. Cogent Education, 11(1): 2293431.
+                                                                               https://doi.org/10.1080/2331186X.2023.2293431
+Fariani RI, Junus K, and Santoso HB (2023). A systematic literature
+    review on personalised learning in the higher education                 Rane N, Choudhary S, and Rane J (2023). Education 4.0 and 5.0:
+    context. Technology, Knowledge and Learning, 28: 449-476.                  Integrating artificial intelligence (AI) for personalized and
+    https://doi.org/10.1007/s10758-022-09628-4                                 adaptive learning. https://doi.org/10.2139/ssrn.4638365
+
+Gunawardena M, Bishop P, and Aviruppola K (2024). Personalized              Salman O, Khasawneh Y, Alqudah H, Alwaely S, and Khasawneh M
+   learning: The simple, the complicated, the complex and the                   (2024). Tailoring gamification to individual learners: A study
+   chaotic. Teaching and Teacher Education. 139: 104429.                        on personalization variables for skill enhancement.
+   https://doi.org/10.1016/j.tate.2023.104429                                   International Journal of Data and Network Science, 8(2): 789-
+                                                                                796. https://doi.org/10.5267/j.ijdns.2023.12.025
+Hodson D (1998). Teaching and learning science: Towards a
+   personalized approach. McGraw-Hill Education, London, UK.                Sanal Kumar TS, and Thandeeswaran R (2024). An improved
+                                                                               adaptive personalization model for instructional video-based
+Jawed S, Faye I, and Malik AS (2024). Deep learning-based                      e-learning environments. Journal of Computers in Education.
+   assessment model for real-time identification of visual                     https://doi.org/10.1007/s40692-023-00310-x
+   learners using raw EEG. IEEE Transactions on Neural Systems
+   and Rehabilitation Engineering, 32: 378-390.                             Shawky D and Badawi A (2019). Towards a personalized learning
+                                                                               experience using reinforcement learning. In: Hassanien A
+
+                                                                      174
+            Lassaad K. Smirani, Hanaa A. Yamani/International Journal of Advanced and Applied Sciences, 11(7) 2024, Pages: 166-175
+
+   (Ed.), Machine learning paradigms: Theory and application.                  Asian Journal of Research in Computer Science, 17(3): 15-37.
+   Studies in Computational Intelligence, vol 801. Springer,                   https://doi.org/10.9734/ajrcos/2024/v17i3422
+   Cham, Switzerland.
+   https://doi.org/10.1007/978-3-030-02357-7_8                             Wanner T and Palmer E (2015). Personalising learning: Exploring
+                                                                              student and teacher perceptions about flexible learning and
+Shemshack A, Kinshuk, and Spector JM (2021). A comprehensive                  assessment in a flipped university course. Computers and
+   analysis of personalized learning components. Journal of                   Education, 88: 354-369.
+   Computers in Education, 8(4): 485-503.                                     https://doi.org/10.1016/j.compedu.2015.07.008
+   https://doi.org/10.1007/s40692-021-00188-7
+                                                                           Wu S, Cao Y, Cui J, Li R, Qian H, Jiang B, and Zhang W (2024). A
+Sobeeh FG, El-Harty YM, Nasef NA, El-Beltagi EM, El-Gabeery RE,               comprehensive exploration of personalized learning in smart
+   Aldaqadossi H, and Shams MA (2024). Face-to-face and                       education: From student modeling to personalized
+   distance learning and teaching styles as perceived by Tanta                recommendations. Arxiv Preprint Arxiv:2402.01666.
+   University first year medical students. Journal of Health                  https://arxiv.org/abs/2402.01666
+   Professions Education and Innovation, 1(1): 26-38.
+   https://doi.org/10.21608/jhpei.2024.340830                              Zhong L, Wei Y, Yao H, Deng W, Wang Z, and Tong M (2020).
+                                                                              Review of deep learning-based personalized learning
+TS SK and Thandeeswaran R (2024). Adapting video-based                        recommendation. In the Proceedings of the 2020 11th
+   programming instruction: An empirical study using a decision               International Conference on E-Education, E-Business, E-
+   tree learning model. Education and Information Technologies.               Management, and E-Learning, ACM, Osaka, Japan: 145-149.
+   https://doi.org/10.1007/s10639-023-12390-4                                 https://doi.org/10.1145/3377571.3377587
+Vashishth TK, Sharma V, Sharma KK, Kumar B, Panwar R, and                  Zhou Y, Huang C, Hu Q, Zhu J, and Tang Y (2018). Personalized
+   Chaudhary S (2024). AI-driven learning analytics for                       learning full-path recommendation model based on LSTM
+   personalized feedback and assessment in higher education. In:              neural networks. Information Sciences, 444: 135-152.
+   Nguyen TV and Vo N (Eds.), Using traditional design methods                https://doi.org/10.1016/j.ins.2018.02.053
+   to enhance AI-driven decision making: 206-230. IGI Global,
+   Hershey, USA.                                                           Zohuri B and Mossavar-Rahmani F (2024). Revolutionizing
+   https://doi.org/10.4018/979-8-3693-0639-0.ch009                            education: The dynamic synergy of personalized learning and
+                                                                              artificial intelligence. International Journal of Advanced
+Waam W and Premadasa HKS (2024). Identifying the learning                     Engineering and Management Research, 9(1): 143-153.
+   style of students using machine learning techniques: An                    https://doi.org/10.51505/ijaemr.2024.9111
+   approach of Felder Silverman learning style model (FSLSM).
+
+
+
+
+                                                                    175
+

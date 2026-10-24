@@ -1,0 +1,865 @@
+Hindawi Publishing Corporation
+Mathematical Problems in Engineering
+Volume 2015, Article ID 145636, 11 pages
+http://dx.doi.org/10.1155/2015/145636
+
+
+
+
+Research Article
+A Hybrid Recommender System Based on
+User-Recommender Interaction
+
+          Heng-Ru Zhang,1 Fan Min,1 Xu He,1,2 and Yuan-Yuan Xu1
+          1
+              School of Computer Science, Southwest Petroleum University, Chengdu 610500, China
+          2
+              Lab of Granular Computing, Minnan Normal University, Zhangzhou 363000, China
+
+          Correspondence should be addressed to Fan Min; minfanphd@163.com
+
+          Received 8 October 2014; Revised 19 December 2014; Accepted 19 December 2014
+
+          Academic Editor: Seungik Baek
+
+          Copyright © 2015 Heng-Ru Zhang et al. This is an open access article distributed under the Creative Commons Attribution License,
+          which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.
+
+          Recommender systems are used to make recommendations about products, information, or services for users. Most existing
+          recommender systems implicitly assume one particular type of user behavior. However, they seldom consider user-recommender
+          interactive scenarios in real-world environments. In this paper, we propose a hybrid recommender system based on user-
+          recommender interaction and evaluate its performance with recall and diversity metrics. First, we define the user-recommender
+          interaction. The recommender system accepts user request, recommends N items to the user, and records user choice. If some of
+          these items favor the user, she will select one to browse and continue to use recommender system, until none of the recommended
+          items favors her. Second, we propose a hybrid recommender system combining random and k-nearest neighbor algorithms. Third,
+          we redefine the recall and diversity metrics based on the new scenario to evaluate the recommender system. Experiments results
+          on the well-known MovieLens dataset show that the hybrid algorithm is more effective than nonhybrid ones.
+
+
+
+
+1. Introduction                                                              In this paper, we propose a hybrid recommender system
+                                                                         based on user-recommender interaction. The interaction
+Recommender systems (RSs) have been extensively studied to               provides a framework for user-recommender behavior and
+present items, such as movies, music, and books [1–3]. There             recommender algorithms. We employ the random algorithm
+are three main types of recommendation methods: memory-                  to deal with cold-start problem in the face of data sparsity. The
+based, model-based, and hybrid [4]. Memory-based methods                 hybrid algorithm is applied to incremental recommendation
+[4, 5] usually use similarity metrics to obtain the distance             when the data reaches a certain degree. The sequence of
+between two users or two items. Model-based methods [4,                  the user’s choice affects subsequent recommendation in the
+6, 7] use demographic, content, or aggregated information                process of user-recommender interaction. Consequently, the
+to create a model that generates recommendations. Hybrid                 interaction forms an active learning scenario.
+methods [8–10] combine different types of recommenders to                    This work has four aspects. First, we define the user-
+gain better performance [11].                                            recommender interaction. The recommender behavior has
+     Most existing RSs implicitly assume one particular type of          three steps: (1) accept user request, (2) recommend 𝑁 items
+user behavior. These behaviors include browsing, rating, and             to user with certain algorithm, and (3) record user choice
+sequence-independent manner. The browsing behavior [12,                  for further recommendation. The user behavior has three
+13] is that the user only specifies which items are browsed. The         steps: (1) get recommendations of 𝑁 items, (2) compare with
+rating behavior [14, 15] is that the user specifies the score to         her interest, and (3) select one to browse. Second, we build
+items. The sequence-independent manner [16] is not related               an interactive hybrid RS based on active and incremental
+to the sequence of recommended items. However, these RSs                 learning. In the initialization phase, no record of recommen-
+seldom consider user-recommender interactive scenarios in                dation exists. The items are recommended through a random
+real-world environments.                                                 algorithm. In the transition stage, the data is very sparse.
+2                                                                                                    Mathematical Problems in Engineering
+
+The items are recommended based on hybrid algorithm of                                             Table 1: Binary relation.
+both random and 𝑘-nearest neighbors (𝑘NN). In the stable
+                                                                             UID\MID               𝑚1             𝑚2             𝑚3             𝑚4
+stage, the scale of data reaches a certain degree. The items
+are recommended mainly through the 𝑘NN algorithm. Third,                     𝑢1                     1              1             0               1
+                                                                             𝑢2                     1             0              0               1
+we redefine the recall and diversity metrics [17] under the                  𝑢3                    0               1             0              0
+new scenario to evaluate the quality of the RS. The number                   𝑢4                    0               1             0               1
+of recommendations in each turn essentially serves as a
+constraint. Fourth, we test the random, 𝑘NN, and our hybrid
+algorithm with the new metrics.                                              2.2. Assumptions. We make the following assumptions to
+    The contribution of the paper is threefold. (1) We define                simplify the scenario.
+the interactive behavior between user and recommender. The
+                                                                                 (1) The user interest is deterministic. Given a set of
+new scenario has practical significance because it is closer
+                                                                                     items, the user is interested in a fixed subset. This
+to the real world. (2) The common accuracy based on error
+                                                                                     may be different from the reality where the user
+metrics (such as RMSE, MAE [18]) is not a natural fit for
+                                                                                     interest changes over time or is influenced by the
+evaluating the interactive RS. We redefine two metrics of the
+                                                                                     recommendation sequence.
+recall and diversity [19] based on the new scenario to evaluate
+our RS. (3) We test the hybrid algorithm in the process of                       (2) The items set does not change. In slow evolving
+interactive recommender.                                                             applications, this might be true. In rapid changing
+    Experiments on the well-known MovieLens dataset                                  applications such as e-commerce, this is not the case
+(http://www.movielens.org/) show that (1) when the ratio of                          since items are added and removed frequently.
+random recommendations is not too big, it has no great                           (3) The users set does not change. This is similar to the
+influence on the performance; (2) the RS should employ 𝑘NN                           case of the items set.
+algorithm to recommender as early as possible; (3) the hybrid                    (4) The RS starts from the initial state where there is
+algorithm performs better than the nonhybrid one.                                    no browse history. In other words, all values of the
+    The rest of the paper is organized as follows. Section 2                         browse matrix are 0 at the beginning.
+makes the assumptions for interactive recommendation sce-
+                                                                                 (5) A fixed number of items are recommended to the
+nario. The user and recommender behaviors are defined
+                                                                                     user in each round. Let 𝑁 be the number of items
+in our interactive scenario. Section 3 builds a new hybrid
+                                                                                     recommended to a user each time. For example, a
+recommender system based on the user-recommender inter-
+                                                                                     fixed number of website links are shown in one web-
+action. Section 4 presents experimental results on the Movie-
+                                                                                     search page.
+Lens dataset with two metrics of the recall and diversity.
+The appropriate parameters setting of our hybrid algorithm                      For the first assumption, we can define a user interest
+is discussed in detail. Section 5 briefly presents some of                   matrix as follows.
+the research literature related to user-recommender inter-
+action, active learning, 𝑘NN, hybrid filtering, and gran-                    Definition 2. Let 𝑈 = {𝑢1 , 𝑢2 , . . . , 𝑢𝑛 } be the set of all users
+ular computing. Finally, concluding remarks are made in                      and 𝑇 = {𝑡1 , 𝑡2 , . . . , 𝑡𝑚 } the set of all items. The user interest
+Section 6.                                                                   matrix is
+
+                                                                                                            𝑢𝑚𝑛×𝑚 ,                             (1)
+2. The Interactive Scenario
+In this section, we make the assumptions for interactive                     where
+recommendation scenario and define the browse user and                                                1, if 𝑢𝑖 is interested in 𝑡𝑗 ;
+recommender.                                                                              𝑢𝑚𝑖,𝑗 = {                                             (2)
+                                                                                                      0, otherwise.
+2.1. Binary Relations for Recommender Systems. In this sub-
+section, we revisit the definition of binary relations in infor-             2.3. User and Recommender Behaviors. The user-recom-
+mation systems [18].                                                         mender interaction is a mutual action between the login user
+                                                                             and recommender system. The user first logins on the system.
+Definition 1. Let 𝑈 = {𝑢1 , 𝑢2 , . . . , 𝑢𝑛 } and 𝑀 = {𝑚1 , 𝑚2 , . . . ,     The system then returns one or multiple recommended items.
+𝑚𝑘 } be two sets of objects. Any 𝑅 ⊆ 𝑈 × 𝑀 is a binary relation              The user selects an item as her choice or terminates the
+from 𝑈 to 𝑀.                                                                 interaction.
+                                                                                 Users of an RS can be divided into two types according
+    An example of binary relation is given in Table 1, where                 to their feedback. If the user only specifies which items are
+𝑈 = {𝑢1 , 𝑢2 , . . . , 𝑢𝑛 } is the set of users and 𝑀 = {𝑚1 , 𝑚2 , . . . ,   browsed, she will be called a browse user. If the user specifies
+𝑚𝑘 } is the set of movies. A binary relation can be viewed as                the rating to items, she will be called a rate user. We only
+an information system. However, in order to save space, it is                consider browse user throughout the paper.
+more often stored in the database as a table with two foreign                    The user behavior is illustrated in Figure 1. A browse user
+keys.                                                                        logs on the system and gets 𝑁 recommendations. The user
+Mathematical Problems in Engineering                                                                                                          3
+
+
+                                                                         Select one and
+                                                                             browse
+                                                                                                      Yes
+
+                                                  Get                    Compare with                          No
+                           Start                                                                  Match?             Quit
+                                             recommendations              her interest
+
+                                                               Figure 1: The user behavior.
+
+
+                                                                                                       Yes
+
+                                           Accept           Recommend            Record           Any active    No
+                          Start                                                                                      End
+                                         user request         N items          user choice          user?
+
+                                                        Figure 2: The recommender behavior.
+
+
+can obtain a candidate browse set according to her interest                        The recommender behavior is illustrated in Figure 2. The
+and the recommendations. We define the candidate browse                        RS accepts user login and request and recommends 𝑁 items
+set as follows.                                                                to the browse user. If the user has browsed one item, the
+                                                                               RS records her choice to the browse matrix. The number of
+Definition 3. Let 𝑇𝑖 ⊆ 𝑇 be the interests set of user 𝑢𝑖 and                   browsed items will increase due to more interactions. This
+𝑇𝑟 = {𝑡𝑥1 , 𝑡𝑥2 , . . . , 𝑡𝑥𝑁 } the recommended set. 𝑇𝑐 = 𝑇𝑖 ∩ 𝑇𝑟 is           is also related to incremental learning. If the user cannot
+the candidate browse set.                                                      discover her interests from the 𝑁 recommendations, she will
+                                                                               quit the system. With all users quitting, the system will halt.
+    If 𝑇𝑐 ≠ 0, 𝑢𝑖 is interested in some of these items. Let
+𝐿 𝑟 = (𝑡𝑥1 , 𝑡𝑥2 , . . . , 𝑡𝑥𝑁 ) be the recommended list. The user will
+browse the first match of 𝐿 𝑟 and continue to use the system.                  3. Hybrid Recommendation for
+We define the first match as follows.                                             the Interactive Scenario
+Definition 4. If 𝑡𝑥𝑗 ∈ 𝑇𝑐 and ∀𝑘 ∈ {1, 2, . . . , 𝑗 − 1}, 𝑡𝑥𝑘 ∉ 𝑇𝑐 , 𝑡𝑥𝑗       In this section, we build a new hybrid RS based on the user-
+                                                                               recommender interaction. There are three aspects: (1) a new
+is the first match.
+                                                                               hybrid approach is designed to achieve a tradeoff between
+     If 𝑇𝑐 = 0, 𝑢𝑖 will quit the system since the recommended                  the interactive recall and diversity; (2) the model of user-
+items do not match her interest. The user has no patience to                   recommender interaction is built based on the new hybrid
+continue to use the RS. Since the number of items is limited,                  algorithm; (3) a number of parameters are proposed to adjust
+the browse user will eventually quit.                                          our algorithm.
+     We define a grey list for improving the effectiveness of
+recommendations. Based on Definition 4, we consider the                        3.1. The Hybrid Recommendation Algorithm. Our hybrid
+list 𝐿 𝑜 = (𝑡𝑥1 , 𝑡𝑥2 , . . . , 𝑡𝑥𝑗−1 ) to be not interesting for 𝑢𝑖 . All     algorithm consists of random and 𝑘NN ones. The random
+                                                                               algorithm is used to solve cold-start problem and keep
+items of 𝐿 𝑜 are added into the grey list of 𝑢𝑖 and will not be
+                                                                               the diversity of RS. The 𝑘NN algorithm finds 𝑘 similar
+recommended again.
+                                                                               users through computing the cosine value. Each neighbor
+     After all users quit the system, we obtain a matrix                       recommends a certain number of items. Let 𝑇𝑅 be the
+recording whose items have been browsed by the users. This                     threshold of 𝑘NN recommendations. It determines whether
+is called the browse matrix and given by                                       or not to use the 𝑘NN algorithm. Based on (4), the number
+                                   𝑏𝑚𝑛×𝑚 ,                             (3)     of browsed items by user 𝑢𝑖 is |𝑏𝑟(𝑢𝑖 )|. This is called the 𝑘NN
+                                                                               switch and given by
+where
+                                                                                                                      󵄨        󵄨
+                                                                                                         true, if 󵄨󵄨󵄨𝑏𝑟 (𝑢𝑖 )󵄨󵄨󵄨 ≥ 𝑇𝑅;
+                        1,         if 𝑢𝑖 has browsed 𝑡𝑗 ;                                𝑘NN switch = {                                      (5)
+               𝑏𝑚𝑖,𝑗 = {                                               (4)                               false, otherwise.
+                        0,         otherwise.
+                                                                                   The hybrid algorithm is the core of the RS. It has three
+Note that the browse matrix is influenced by not only the                      stages based on the data characteristics of browsed matrix.
+recommender system but also the user behavior such as the                      There are three characteristics in the initialization stage: (1)
+period between two browse actions.                                             the browsed matrix is null; (2) the browsed items by the login
+    In most cases, we assume that the user cannot visit the RS                 user are null; (3) the number of items that any user browsed
+again after she quit the system. However, some users may be                    is not more than 𝑇𝑅.
+very patient. They can visit the RS repeatedly. We define the                      There are two characteristics of browsed matrix in the
+kind of user behavior as revisit.                                              transition stage: (1) browsed matrix is not null and (2) the
+4                                                                                           Mathematical Problems in Engineering
+
+number of browsed items over 𝑇𝑅 is greater than zero, but the                        Table 2: The user interest matrix.
+number of recommended items is not enough to trigger the             UID\MID      𝑚1     𝑚2     𝑚3     𝑚4     𝑚5      𝑚6    𝑚7     𝑚8
+𝑘NN algorithm. The 𝑘NN algorithm is used to recommend
+                                                                     𝑢1            1      1     0       1      1       1    0       1
+a few items, and the other ones are recommended based on
+random algorithm.                                                    𝑢2           0      0      0       1     0        1    0      0
+    In the stable stage, the number of browsed items over            𝑢3           0       1     0       1     0        1    0      0
+𝑇𝑅 is enough to meet the 𝑘NN algorithm to recommend                  𝑢4            1     0       1     0       1      0     0       1
+sufficient items. The items are recommended mainly based
+on 𝑘NN algorithm. For the diversity of recommendations,
+the random algorithm is used to recommend a certain                  parameters 𝑁, 𝑅𝑇, and 𝑇𝑅. It essentially has three steps for
+proportion of items.                                                 each user.
+    An incremental hybrid algorithm is given by Algorithm 1.
+The input includes the user id (𝑢id ) and three user-specified       Step 1. Get 𝑁 items of recommendation through calling
+parameters. These are the total recommended number (𝑁),              Algorithm 1. This step corresponds to Line 8 of the algorithm.
+the ratio of random recommendations (𝑅𝑇), and 𝑇𝑅. It
+essentially has four steps.                                          Step 2. If the user is not interested in recommendation
+                                                                     items, the RS refuses to further recommendation. This step
+Step 1. In the initialization stage, there is not any history data   corresponds to Line 11 of the algorithm.
+of the browse matrix. We adopt the random algorithm to deal
+with the cold-start problem. This step corresponds to Lines          Step 3. If the user is interested in recommendation items, the
+3–6 of the algorithm.                                                RS records the user’s choice and updates the browsed matrix.
+                                                                     This step corresponds to Line 13 of the algorithm.
+Step 2. 𝑇𝑅 is used to determine whether or not to use the 𝑘NN            Since the number of users is limited, the user-
+algorithm. We first count the number 𝑁𝑏 of browsed items by          recommender interaction will eventually terminate. The
+𝑢𝑖 . If 𝑁𝑏 ≥ 𝑇𝑅, the 𝑘NN algorithm is employed. This step            interactive recall and diversity are then computed. This step
+corresponds to Lines 8–14 of the algorithm.                          corresponds to Lines 18-19 of the algorithm.
+
+Step 3. When the recommender is running smoothly, the                3.3. A Running Example. An example of the interest matrix
+random algorithm is used to recommend some new items for             is given in Table 2. There are four users and eight movies. The
+exploring new interests. This step corresponds to Lines 15–18        browse matrix is null in the initial stage. 𝑁, 𝑅𝑇, 𝑇𝑅, and 𝑘
+of the algorithm.                                                    are assigned as 3, 0.25, 1, and 1, respectively, in the running
+                                                                     example.
+Step 4. The 𝑘NN algorithm is used to recommend some
+                                                                          A running example of hybrid recommendation for the
+items. The other items are recommended based on random
+                                                                     interactive scenario is illustrated in Figure 3. The users login
+algorithm in transition and stable stages. This step corre-
+                                                                     on the RS in random order. We assume that a login sequence
+sponds to Lines 17–23 of the algorithm.
+                                                                     is (𝑢3 , 𝑢2 , 𝑢1 , 𝑢4 ).
+    The output of the algorithm is stored in the memory for
+                                                                          Figure 3(a) depicts the interaction between 𝑢3 and the
+Algorithm 2.
+                                                                     recommender. Because she is the first login user with no
+                                                                     neighbor, the movies are recommended to her based on the
+3.2. The User-Recommender Interaction. The model of user-            random algorithm. The interactive process consists of three
+recommender interaction is built in our RS. The RS is                rounds. We assume that the recommended list of the first
+divided into the user and recommender parts. The user logs           round is (𝑚5 , 𝑚6 , 𝑚2 ). The {𝑚6 , 𝑚2 } are in her interests set,
+in and browses items. The main work is fulfilled by the              while the 𝑚5 is not in. The 𝑚6 is browsed by her because it
+recommender part.                                                    is the first match. The corresponding element of the browse
+    For each user, the user-recommender interaction is as            matrix is set from 0 to 1. The 𝑚5 is added into her grey list. The
+follows: (1) the user gets 𝑁 recommendations from the RS; (2)        recommended list of the second round is the (𝑚7 , 𝑚8 , 𝑚4 ).
+whether or not the user browses an item is based on her own          The 𝑚4 is browsed by her and the {𝑚7 , 𝑚8 } are added into
+interest list. If the user browses an item, the process continues.   her grey list. The recommended list of the third round is
+Otherwise, she is not interested in these items recommended          the (𝑚3 , 𝑚1 , 𝑚2 ). The 𝑚2 is browsed by her and the {𝑚3 , 𝑚1 }
+by RS; she will quit immediately.                                    are added into her grey list. She will quit the RS because no
+    For our hybrid RS, the user-recommender interaction is           movie can be recommended to her. Finally, she browsed the
+as follows: (1) the RS accepts user request and recommends           {𝑚2 , 𝑚4 , 𝑚6 } and her grey list is (𝑚1 , 𝑚3 , 𝑚5 , 𝑚7 , 𝑚8 ).
+𝑁 items to the user based on hybrid algorithm; (2) if the                 Figure 3(b) depicts the interaction between 𝑢2 and the
+user has browsed one of the recommendations, the RS records          recommender. The interactive process consists of three
+the choice to the browsed matrix; otherwise, the interaction         rounds. The first round of recommendation is based on
+between this user and the RS terminates; (3) all users visit the     random algorithm. The recommended list of the first round
+RS in a random sequence.                                             is (𝑚8 , 𝑚4 , 𝑚1 ). The 𝑚4 is browsed by her and 𝑚8 is added
+    This process of the interactive recommender is described         into her grey list. Because 𝑇𝑅 = 1 and 𝑘 = 1, the 𝑢3 becomes
+in Algorithm 2. The input includes three user-specified              her neighbor. The {𝑚2 , 𝑚6 } are recommended based on 𝑘NN
+Mathematical Problems in Engineering                                                          5
+
+
+
+                                 Input: 𝑢𝑖𝑑 , 𝑁, 𝑅𝑇, 𝑇𝑅
+                                 Output: recommender items(𝑇𝑟 )
+                                 Method: ℎ𝑦𝑏𝑟𝑖𝑑𝐴𝑙𝑔𝑜𝑟𝑖𝑡ℎ𝑚
+                                 (1) 𝑇𝑏 = the browsed items by 𝑢𝑖𝑑 ;
+                                 (2) 𝑏𝑚 = the browser matrix of all users;
+                                 (3) if (𝑏𝑚 = 0 or 𝑇𝑏 = 0) then
+                                 (4)     𝑇𝑟 = recommended 𝑁 items by random algorithm;
+                                 (5)     return 𝑇𝑟 ;
+                                 (6) end if
+                                 (7) 𝑈 = {𝑢1 , 𝑢2 , . . . , 𝑢𝑛 };
+                                 (8) 𝐶𝑜𝑢𝑛𝑡 = 0;
+                                 (9) for each (𝑢𝑖 𝑖𝑛 𝑈) do
+                                 (10) 𝑁𝑏 = the number of browsed items by 𝑢𝑖 ;
+                                 (11) if (𝑁𝑏 ≥ 𝑇𝑅) then
+                                 (12)      𝐶𝑜𝑢𝑛𝑡 = 𝐶𝑜𝑢𝑛𝑡 + 1;
+                                 (13) end if
+                                 (14) end for
+                                 (15) if (𝐶𝑜𝑢𝑛𝑡 ≤ 0) then
+                                 (16) 𝑇𝑟 = recommended 𝑁 items by random algorithm;
+                                 (17) return 𝑇𝑟 ;
+                                 (18) end if
+                                 (19) 𝑁𝑘 = 𝑁 ∗ (1 − 𝑅𝑇);
+                                 (20) 𝑇𝑘 = recommended 𝑁𝑘 items by kNN algorithm;
+                                                  󵄨 󵄨
+                                 (21) 𝑁𝑟𝑑 = 𝑁 − 󵄨󵄨󵄨𝑇𝑘 󵄨󵄨󵄨;
+                                 (22) 𝑇𝑟𝑑 = recommended 𝑁𝑟𝑑 items by random algorithm;
+                                 (23) 𝑇𝑟 = 𝑇𝑘 ∪ 𝑇𝑟𝑑 ;
+                                 (24) return 𝑇𝑟 ;
+
+
+                                           Algorithm 1: The hybrid algorithm.
+
+
+
+                                Input: 𝑁, 𝑅𝑇, 𝑇𝑅
+                                Output: Recall and diversity
+                                Method: 𝑖𝑛𝑡𝑒𝑟𝑎𝑐𝑡𝑖V𝑒𝑅𝑒𝑐𝑜𝑚𝑚𝑒𝑛𝑑𝑒𝑟
+                                (1) 𝑅𝑓 = 𝑡𝑟𝑢𝑒 //𝑅𝑓 is the flag of successfully recommender;
+                                (2) 𝑈 = {𝑢1 , 𝑢2 , . . . , 𝑢𝑛 };
+                                (3) 𝑈󸀠 = an randomized array of 𝑈;
+                                (4) 𝑇 = {𝑡1 , 𝑡2 , . . . , 𝑡𝑚 };
+                                (5) while (𝑅𝑓 ) do
+                                (6)     𝑅𝑓 = 𝑓𝑎𝑙𝑠𝑒;
+                                (7)     for each (𝑢𝑖𝑑 𝑖𝑛 𝑈󸀠 ) do
+                                (8)       𝑇𝑟 = hybridAlgorithm(𝑢𝑖𝑑 , 𝑁, 𝑅𝑇, 𝑇𝑅);
+                                (9)       𝑇𝑖 = the interestarray of 𝑢𝑖𝑑 ;
+                                (10)      if (𝑇𝑖 ∩ 𝑇𝑟 = 0) then
+                                (11)         the user quits to the RS;
+                                (12)      else
+                                (13)         the browsed item is recorded into bm(𝑢𝑖𝑑 );
+                                (14)         𝑅𝑓 = 𝑡𝑟𝑢𝑒;
+                                (15)      end if
+                                (16) end for
+                                (17) end while
+                                                 𝑛         𝑚
+                                               ∑ ∑𝑘=1 𝑏𝑚𝑖,𝑘
+                                (18) 𝑟𝑒𝑐𝑎𝑙𝑙 = 𝑛𝑖=1 𝑚               ;
+                                               ∑𝑖=1 ∑𝑘=1 𝑢𝑚𝑖,𝑘
+                                (19) 𝐵𝑅 (𝑢, 𝑇) ⊆ 𝑇;
+                                                     |∪ 𝐵𝑅(𝑢, 𝑇)|
+                                (20) 𝑑𝑖V𝑒𝑟𝑠𝑖𝑡𝑦 = 𝑢∈𝑈                 ;
+                                                               |𝑇|
+                                (21) return recall and diversity;
+
+
+                                       Algorithm 2: The interactive recommender.
+6                                                                                                    Mathematical Problems in Engineering
+
+
+              0 0 0 0 0 0 0 0 m5 , m6 , m2 0 0 0 0 0 1 0 0 m7 , m8 , m4 0 0 0 1 0 1 0 0 m3 , m1 , m2 0 1 0 1 0 1 0 0
+
+
+                                                                     (a) 𝑢3
+
+
+              0 0 0 0 0 0 0 0 m8 , m4 , m1 0 0 0 1 0 0 0 0 m7 , m2 , m6 0 0 0 1 0 1 0 0 m1 , m3 , m5 0 0 0 1 0 1 0 0
+
+                                                                     (b) 𝑢2
+
+
+              0 0 0 0 0 0 0 0 m3 , m1 , m7 0 1 0 0 0 0 0 0 m7 , m4 , m6 0 1 0 1 0 0 0 0 m1 , m6 , m5 1 1 0 1 0 0 0 0
+
+
+                              m6 , m5 , m8 1 1 0 1 0 1 0 0          m5 , m8      1 1 0 1 1 1 0 0       m8      1 1 0 1 1 1 0 1
+
+                                                                     (c) 𝑢1
+
+
+                                            0 0 0 0 0 0 0 0 m4 , m6 , m7 0 0 0 0 0 0 0 0
+
+                                                                     (d) 𝑢4
+
+
+
+
+                                                                      MID
+                                          UID
+                                                m1     m2      m3      m4       m5   m6    m7   m8
+                                           u1    1     1        0       1        1    1     0    1
+                                           u2    0     0        0       1        0    1     0    0
+                                           u3    0     1        0       1        0    1     0    0
+                                           u4    0     0        0       0        0    0     0    0
+
+                                                            (e) The browse matrix
+
+                                                     Figure 3: A running example.
+
+
+
+algorithm and the 𝑚7 is recommended based on random one                       is browsed by her and 𝑚7 is added into her grey list. The
+in the second round of recommendation. The recommended                        recommendations of the subsequent rounds are based on the
+set of the second round is {𝑚2 , 𝑚6 , 𝑚7 } = {𝑚2 , 𝑚6 } ∪ {𝑚7 }.              random algorithm because her neighbors 𝑢2 and 𝑢3 cannot
+The recommended list is (𝑚7 , 𝑚2 , 𝑚6 ). The 𝑚6 is browsed by                 recommend new movies.
+her and the (𝑚7 , 𝑚2 ) are added into her grey list. Because                      Figure 3(d) depicts the interaction between 𝑢4 and the
+no movie can be recommended based on 𝑘NN algorithm,                           recommender. The interactive process only includes one
+the third round of recommendation is based on random                          round because the recommended list (𝑚7 , 𝑚6 , 𝑚4 ) is not in
+algorithm. The recommended list is (𝑚1 , 𝑚3 , 𝑚5 ). She will                  her interest list.
+quit the RS in the third round because the recommended                            When there is no active user in the RS, the browse matrix
+movies are not in her interest list.                                          is shown in Figure 3(e). From the viewpoint of the running
+    Figure 3(c) depicts the interaction between 𝑢1 and the                    result, it is more beneficial to recommend if the user’s interest
+recommender. The interactive process consists of six rounds.                  is more extensive. Finally, the interactive recall is 𝑖𝑟(𝑈, 𝑇) =
+The first round of recommendation is based on random                          11/15 ≈ 0.73. The number of the successfully recommended
+algorithm. The recommended list of the first round is                         items is 6; therefore the interactive diversity is id(𝑈, 𝑇) =
+(𝑚3 , 𝑚1 , 𝑚7 ). The 𝑚2 is browsed by her and 𝑚3 is added into                6/8 = 0.75. The user-recommender interaction forms an
+her grey list. The recommendations of the second round are                    active learning scenario because the sequences of the users’
+based on 𝑘NN and random algorithms. The number of items                       login and choice affect subsequent recommendation.
+recommended by the 𝑘NN algorithm is 𝑁𝑘 = ⌊𝑁∗(1−𝑅𝑇)⌋ =
+⌊3 ∗ (1 − 0.25)⌋ = 2. The random recommended number                           4. Experiments
+is 𝑁𝑟𝑑 = 𝑁 − 𝑁𝑘 = 1. The 𝑢3 becomes her neighbor and
+recommends the {𝑚4 , 𝑚6 }. The two movies and the random                      We design two kinds of experimental schemes. The first kind
+recommended 𝑚7 constitute the list (𝑚7 , 𝑚4 , 𝑚6 ). The 𝑚4                    includes three experimental approaches to find appropriate
+Mathematical Problems in Engineering                                                                                                         7
+
+parameters setting of our hybrid algorithm. The second kind            Definition 6. The interactive recall of an RS is
+includes two experimental approaches for comparison of
+random and hybrid algorithms. Each approach is repeated 10                                                      ∑𝑛𝑖=1 ∑𝑚
+                                                                                                                       𝑘=1 𝑏𝑚𝑖,𝑘
+times with different recommendation items due to random                           𝑖𝑟 (𝑈, 𝑇) = 𝑖𝑟 (𝑏𝑚, 𝑢𝑚) =      𝑛     𝑚         .         (7)
+                                                                                                                ∑𝑖=1 ∑𝑘=1 𝑢𝑚𝑖,𝑘
+algorithm.
+    We try to answer the following questions through exper-                Here we observe that the interactive recall is related to the
+imentation.                                                            user interest matrix.
+                                                                           Next we study the interactive diversity of the recom-
+    (1) What is the appropriate proportion of random recom-
+                                                                       mender. Let 𝐵𝑅(𝑢, 𝑇) ⊆ 𝑇 be the set of items browsed by user
+        mendations?
+                                                                       𝑢 in the user-recommender interaction. The set of all items
+    (2) What is the reasonable threshold of 𝑘NN recommen-              successfully recommended to at least one user is given by
+        dations?
+    (3) What is the appropriate 𝑘 in 𝑘NN recommendations?                                  𝐵𝑅 (𝑈, 𝑇) = ∪𝑢∈𝑈𝐵𝑅 (𝑢, 𝑇) .                     (8)
+    (4) How does 𝑁 influence the performance of the algo-              The interactive diversity is
+        rithm?
+    (5) Does the hybrid algorithm outperform the random                                                    |𝐵𝑅 (𝑈, 𝑇)|
+                                                                                             id (𝑈, 𝑇) =               .                   (9)
+        one?                                                                                                   |𝑇|
+
+4.1. Dataset. We experimented with a well-known Movie-                      Naturally, higher id(𝑈, 𝑇) indicates more diverse recom-
+Lens dataset which is widely used in recommender systems               mendation since more items are recommended and browsed.
+(see, e.g., [10, 20]). The database schema is as follows:              Our goal is to maximize the interactive recall and diversity.
+                                                                       In other words, we expect each user to browse as many items
+     (i) user (userID, age, gender, and occupation),                   as possible and the recommender to discover as many user
+    (ii) movie (movieID, release-year, and genre),                     interests as possible.
+                                                                            We design two kinds of experiments. The first kind
+   (iii) rates (userID, movieID).                                      of experiments is to determine appropriate setting of the
+    We use the version with 943 users and 1,682 movies. The            𝑅𝑇, 𝑇𝑅, and 𝑘 to hybrid algorithm. The second kind of
+original rate relation contains the rating of movies with 5            experiments is to compare the interactive recall and diversity
+scales, while we only consider whether a user has rated a              of random and hybrid algorithms.
+movie. All users have watched at least one movie, and the                   In the first kind of experiments, we assign 𝑁 = 20. Let
+dataset consists of approximately 100,000 movies ratings. But          𝑅𝑇 ∈ {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.6,
+rating matrix is still spare because no one has watched more           0.7, 0.8, 0.9, 1}, 𝑇𝑅 ∈ {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 40, 80}, and
+than 45 percent of the total movies, and only the 20 percent           𝑘 ∈ {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+of users have watched more than 10 percent of movies.                  20, 25, 30, 35, 40, 45, 50, 55, 60}. Six experiments are under-
+                                                                       taken to answer the questions raised at the beginning of the
+4.2. Experimental Design. We know which movies the user                section one by one. A parameter is allowed to make a change,
+watches through the original dataset. These movies are                 and the other parameters are set to a fixed value in each
+assumed as the interest matrix of all users in our RS. The             experiment. Each experiment is repeated 10 times, and the
+browsed matrix of all users is empty in the initial stage.             average recall and diversity are computed.
+In the process of incremental recommendations, the new
+browsed items are recorded into the browsed matrix. Finally            4.3. Results. In Figure 4(a), we assign 𝑇𝑅 = 3, 𝑘 = 45 and
+we compute the interactive recall and diversity based on the           make 𝑅𝑇 change. When 𝑅𝑇 changes from 0 to 0.4, the recall
+browsed and interest matrix.                                           basically keeps stable. When 𝑅𝑇 ≥ 0.4, the recall begins to
+    We redefine the recall and diversity metrics for measuring         decline rapidly.
+the interactive recommendation performance. The ratio of                   The parameter settings of Figure 4(b) are the same as
+browsed items with respect to items potentially interesting to         Figure 4(a). From the overall trend, the diversity increases
+her will be called the interactive recall.                             with the increasing ratio of random recommendations.
+                                                                           In Figure 4(c), we assign 𝑅𝑇 = 0.25, 𝑘 = 45 and make
+Definition 5. The interactive recall of user 𝑢𝑖 on a set of items      𝑇𝑅 change. The overall trend of the recall is downward with
+𝑇 through an RS is                                                     the increase of 𝑇𝑅. When 𝑇𝑅 changes from 1 to 20, the recall
+                                      󵄨󵄨                       󵄨       decreases rapidly. When 𝑇𝑅 ≥ 20, the recall decreases slowly.
+                                       󵄨󵄨{𝑡𝑗 ∈ 𝑇 | 𝑏𝑚𝑖,𝑗 = 1}󵄨󵄨󵄨
+   𝑖𝑟 (𝑢𝑖 , 𝑇) = 𝑖𝑟 (𝑏𝑚, 𝑢𝑚, 𝑢𝑖 ) = 󵄨󵄨  󵄨                      󵄨           The parameter settings of Figure 4(d) are the same as
+                                                               󵄨
+                                     󵄨󵄨{𝑡𝑗 ∈ 𝑇 | 𝑢𝑚𝑖,𝑗 = 1}󵄨󵄨󵄨         Figure 4(c). The diversity fluctuates between 0.6 and 0.85, and
+                                      󵄨                        󵄨 (6)   the overall trend remains consistent.
+                    𝑚
+                  ∑𝑘=1 𝑏𝑚𝑖,𝑘                                               In Figure 4(e), we assign 𝑅𝑇 = 0.25, 𝑇𝑅 = 3 and make 𝑘
+               = 𝑚           .                                         change. When 𝑘 changes from 1 to 25, the recall is basically
+                 ∑𝑘=1 𝑢𝑚𝑖,𝑘
+                                                                       linear increase. When 𝑘 changes from 25 to 45, the recall
+    Now we study the interactive recall of the recommender.            increases slowly. When 𝑘 ≥ 45, the recall keeps stable.
+8                                                                                                                         Mathematical Problems in Engineering
+
+
+               0.4                                                                              0.8
+
+
+              0.35
+                                                                                               0.75
+
+
+
+
+                                                                                   Diversity
+     Recall
+
+
+
+
+               0.3
+
+                                                                                                0.7
+              0.25
+
+
+               0.2                                                                             0.65
+                     0         0.2          0.4        0.6             0.8    1                       0        0.2              0.4        0.6         0.8      1
+                                                  RT                                                                                  RT
+                     TR = 3, N = 20, k = 45                                                           TR = 3, N = 20, k = 45
+                          kNN + random                                                                     kNN + random
+                                            (a)                                                                                 (b)
+               0.4                                                                             0.85
+
+
+                                                                                                0.8
+
+              0.35
+                                                                                               0.75
+                                                                                   Diversity
+    Recall
+
+
+
+
+                                                                                                0.7
+               0.3
+
+                                                                                               0.65
+
+
+              0.25                                                                              0.6
+                     0            20              40              60          80                      0              20               40              60        80
+                                                  TR                                                                                  TR
+                     RT = 0.25, N = 20, k = 45                                                        RT = 0.25, N = 20, k = 45
+                         kNN + random                                                                     kNN + random
+                                            (c)                                                                                 (d)
+               0.4                                                                             0.85
+
+
+                                                                                                0.8
+              0.35
+
+                                                                                               0.75
+                                                                                   Diversity
+    Recall
+
+
+
+
+               0.3
+                                                                                                0.7
+
+              0.25
+                                                                                               0.65
+
+
+               0.2                                                                              0.6
+                     0       10        20         30         40          50   60                      0       10           20         30         40        50   60
+                                                  k                                                                                   k
+                     RT = 0.25, TR = 3, N = 20                                                        RT = 0.25, TR = 3, N = 20
+                          kNN + random                                                                     kNN + random
+                                            (e)                                                                                 (f)
+
+                                                        Figure 4: The influence of different parameters.
+Mathematical Problems in Engineering                                                                                                                   9
+
+              0.7                                                                       0.95
+             0.65                                                                        0.9
+                                                                                        0.85
+              0.6                                                                        0.8
+             0.55                                                                       0.75
+              0.5                                                                        0.7
+                                                                                        0.65
+             0.45                                                                        0.6
+              0.4                                                                       0.55
+
+
+
+
+                                                                            Diversity
+                                                                                         0.5
+    Recall
+
+
+
+
+             0.35                                                                       0.45
+              0.3                                                                        0.4
+             0.25                                                                       0.35
+              0.2                                                                        0.3
+                                                                                        0.25
+             0.15                                                                        0.2
+              0.1                                                                       0.15
+                                                                                         0.1
+             0.05                                                                       0.05
+                0                                                                          0
+                    0       10         20              30   40         50                      0       10         20              30   40         50
+                                               N                                                                          N
+                        Random                                                                     Random
+                        kNN + random (RT = 0.25, TR = 3, k = 45)                                   kNN + random (RT = 0.25, TR = 3, k = 45)
+                                       (a)                                                                        (b)
+                1                                                                         1
+             0.95
+              0.9
+             0.85                                                                       0.95
+              0.8
+             0.75
+              0.7                                                                        0.9
+                                                                            Diversity
+
+
+             0.65
+    Recall
+
+
+
+
+              0.6
+             0.55
+              0.5                                                                       0.85
+             0.45
+              0.4
+             0.35                                                                        0.8
+              0.3
+             0.25
+              0.2                                                                       0.75
+                    0        4         8               12   16         20                      0        4         8               12   16         20
+                                             Revisit                                                                    Revisit
+                        Random                                                                     Random
+                        kNN + random (RT = 0.25, TR = 3, k = 45, N = 20)                           kNN + random (RT = 0.25, TR = 3, k = 45, N = 20)
+                                       (c)                                                                        (d)
+
+                                       Figure 5: Comparison between random and hybrid recommendation.
+
+
+
+
+    The parameter settings of Figure 4(f) are the same as                           In Figure 5(c), we assign 𝑟𝑒V𝑖𝑠𝑖𝑡 ∈ {0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+Figure 4(e). The diversity fluctuates between 0.6 and 0.8, and                  10, 12, 14, 16, 18, 20}. The overall trend of the recall is basi-
+the overall trend remains consistent.                                           cally increased with the increase of revisit number.
+    Based on the first kind of experiments, our hybrid                              The parameter settings of Figure 5(d) are the same as
+algorithm has a better performance when the 𝑅𝑇, 𝑇𝑅, and                         Figure 5(c). The overall trend of the diversity is basically
+𝑘 are assigned as 0.25, 3, and 45, respectively.                                increased with the increase of revisit number.
+    In the second kind of experiments, we assign 𝑅𝑇 = 0.25,                         The recall of hybrid algorithm is better than the random
+𝑇𝑅 = 3, and 𝑘 = 45 and make 𝑁 and 𝑟𝑒V𝑖𝑠𝑖𝑡 change.                               one; however the diversity is converse.
+    In Figure 5(a), we assign 𝑁 ∈ {1, 3, 5, 10, 15, 20, 25, 30, 35,
+40, 45, 50}. The overall trend of the recall is basically linear
+increase with the increase of total number. The recall of                       5. Related Works
+hybrid algorithm is better than the random one.
+    The parameter settings of Figure 5(b) are the same as                       In this section we briefly present some of the research
+Figure 5(a). When 𝑁 changes from 1 to 25, the overall trend                     literature related to user-recommender interaction, active
+of the diversity is basically linear increase with the increase                 learning, 𝑘NN, hybrid filtering, and granular computing.
+of total number. When 𝑁 changes from 25 to 50, the overall                           User-recommender interaction (URI) [21] is a framework
+trend of the diversity keeps stable. The diversity of hybrid                    and methodology for analyzing user tasks and recommender
+algorithm is almost all the same as the random one.                             algorithms to generate useful recommendation lists. There
+10                                                                                              Mathematical Problems in Engineering
+
+are three pillars to URI: (1) the user-recommender interactive         Conflict of Interests
+interface: receiving user request and getting one recom-
+mendation list from a recommender, (2) the recommender                 The authors declare that there is no conflict of interests
+algorithm: generating one recommendation list based on user            regarding the publication of this paper.
+information, and (3) the recommender personality: the user’s
+perception of the recommender over a period of time.                   Acknowledgments
+    Our interactive recommendation forms an active learn-
+                                                                       This work is in part supported by National Science Foun-
+ing scenario. Active learning guides the acquisition of new
+                                                                       dation of China under Grant nos. 61379089 and 61379049,
+knowledge suitable to update timely rated or browsed infor-
+                                                                       Seedling Project of Sichuan Province in China under Grant
+mation [22]. The similar methods have been applied to the
+                                                                       no. 2014-056, Scientific Research Starting Project of SWPU
+active learning [23–25]. The most widely similar method is             no. 2014QHZ025, and the Natural Science Foundation of
+𝑘NN [26–29]. The 𝑘NN is a method for classifying objects               Department of Education of Sichuan Province under Grant
+based on closest training instances. In the user to user version,      no. 13ZA0136.
+the similarity approaches typically compute the similarity
+based on item ratings by users. The item to item 𝑘NN
+version computes the similarity between two items. The                 References
+traditional metrics to compute similarity have the cosine,
+                                                                        [1] L. Duan, W. N. Street, and E. Xu, “Healthcare information
+Pearson correlation, mean squared differences, or Euclidean
+                                                                            systems: data mining methods in the creation of a clinical
+distance [17, 30].                                                          recommender system,” Enterprise Information Systems, vol. 5,
+    Our hybrid algorithm consists of random and 𝑘NN ones.                   no. 2, pp. 169–181, 2011.
+Hybrid filtering [9, 31] combines recommendation compo-                 [2] F. Min and W. Zhu, “Mining top-k granular association rules
+nents of different types to achieve improved performance                    for recommendation,” in Proceedings of the IEEE IFSA World
+and reduce the cold-start problem. There are four main                      Congress and NAFIPS Annual Meeting (IFSA/NAFIPS ’13), pp.
+hybridization techniques: weighted, mixed, switching, and                   1372–1376, 2013.
+feature combination [9, 32]. Hybrid filtering is usually based          [3] X. He, F. Min, and W. Zhu, “A comparative study of dis-
+on bioinspired or probabilistic methods [4] such as random                  cretization approaches for granular association rule mining,” in
+algorithms [20], 𝑘NN algorithm [33], and Bayesian networks                  Proceedings of the 26th IEEE Canadian Conference on Electrical
+[34, 35].                                                                   and Computer Engineering, pp. 725–729, May 2013.
+    The 𝑘 and 𝑁 are two kinds of different granules selection.          [4] J. Bobadilla, F. Ortega, A. Hernando, and A. Gutiérrez, “Recom-
+The 𝑘 is used to select different number of neighbors to                    mender systems survey,” Knowledge-Based Systems, vol. 46, pp.
+participate in the 𝑘NN recommendation. The 𝑁 denotes the                    109–132, 2013.
+number of items recommended to a user each time. We                     [5] J. Delgado and N. Ishii, “Memory-based weighted majority
+study the impact of different granules on the performance                   prediction,” in Proceedings of the SIGIR Workshop Recommender
+of our algorithm. Granular association rule [36, 37] is an                  Systems, Citeseer, 1999.
+intersection of relational data mining, granular computing,             [6] H.-R. Zhang, F. Min, and X. He, “Aggregated recommendation
+and recommender system. The description of information                      through random forests,” The Scientific World Journal, vol. 2014,
+granules with different attribute-value pairs and different                 Article ID 649596, 11 pages, 2014.
+size embodies the essences of granular computing [37].                  [7] H. R. Zhang, F. Min, and S. S. Wang, “A random forest approach
+Granular computing [38–40] is an emerging conceptual and                    to model-based recommendation,” Journal of Information and
+                                                                            Computational Science, vol. 11, no. 15, pp. 5341–5348, 2014.
+computing paradigm of information processing. It delivers a
+cohesive framework supporting a formation of information                [8] D. M. Pennock, E. Horvitz, S. Lawrence, and C. L. Giles,
+granules and facilitating their processing and has recently                 “Collaborative filtering by personality diagnosis: a hybrid
+                                                                            memory-and model-based approach,” in Proceedings of the 16th
+been considerable development [37, 41–43].
+                                                                            Conference on Uncertainty in Artificial Intelligence, pp. 473–480,
+                                                                            2000.
+                                                                        [9] R. Burke, “Hybrid recommender systems: survey and experi-
+6. Conclusions                                                              ments,” User Modelling and User-Adapted Interaction, vol. 12, no.
+                                                                            4, pp. 331–370, 2002.
+In this paper, we have proposed a hybrid recommender                   [10] P. Cremonesi, R. Turrin, and F. Airoldi, “Hybrid algorithms for
+system for the interactive scenario. Through adjusting the                  recommending new items,” in Proceedings of the 2nd Interna-
+recommended parameters and comparing the random and                         tional Workshop on Information Heterogeneity and Fusion in
+hybrid algorithms, we may draw the following conclusions:                   Recommender Systems, pp. 33–40, 2011.
+(1) the ratio of random recommendations has no great                   [11] T. Tran and R. Cohen, “Hybrid recommender systems for
+influence on the performance as long as it is not too big (e.g.,            electronic commerce,” in Knowledge-Based Electronic Markets,
+not more than 0.25), (2) one should employ 𝑘NN as early                     Papers from the AAAI Workshop, AAAI Technical Report WS-
+as possible, (3) the neighbors number should be big enough                  00-04, pp. 78–83, AAAI Press, 2000.
+(e.g., 45), (4) the recall is nearly linear increase with respect to   [12] V. Moscato, A. Picariello, and A. M. Rinaldi, “Towards a
+the number of recommendations in each round, and (5) the                    user based recommendation strategy for digital ecosystems,”
+hybrid algorithm is better than the random one.                             Knowledge-Based Systems, vol. 37, pp. 165–175, 2013.
+Mathematical Problems in Engineering                                                                                                               11
+
+ [13] S. E. Middleton, N. R. Shadbolt, and D. C. De Roure, “Ontolog-         [30] P. B. Kantor, L. Rokach, F. Ricci, and B. Shapira, Recommender
+      ical user profiling in recommender systems,” ACM Transactions                Systems Handbook, Springer, 2011.
+      on Information Systems, vol. 22, no. 1, pp. 54–88, 2004.                [31] C. Porcel, A. Tejeda-Lorente, M. A. Martı́nez, and E. Herrera-
+[14] G. Adomavicius and Y. Kwon, “New recommendation tech-                         Viedma, “A hybrid recommender system for the selective
+      niques for multicriteria rating systems,” IEEE Intelligent Systems,          dissemination of research resources in a technology transfer
+      vol. 22, no. 3, pp. 48–55, 2007.                                             office,” Information Sciences, vol. 184, no. 1, pp. 1–19, 2012.
+[15] T. T. Nguyen, D. Kluver, T.-Y. Wang et al., “Rating support inter-      [32] F. Ullah, G. Sarwar, and S. Lee, “N-screen aware multicriteria
+      faces to improve user experience and recommender accuracy,”                  hybrid recommender system using weight based subspace
+      in Proceedings of the 7th ACM Conference on Recommender                      clustering,” The Scientific World Journal, vol. 2014, Article ID
+      Systems (RecSys ’13), pp. 149–156, ACM, October 2013.                        679849, 11 pages, 2014.
+[16] X. Luo, Y. Xia, and Q. Zhu, “Incremental collaborative filter-          [33] J. B. Schafer, D. Frankowski, J. Herlocker, and S. Sen, “Collabo-
+      ing recommender based on regularized matrix factorization,”                  rative filtering recommender systems,” in The Adaptive Web, vol.
+      Knowledge-Based Systems, vol. 27, pp. 271–280, 2012.                         4321 of Lecture Notes in Computer Science, pp. 291–324, Springer,
+[17] G. Adomavicius and A. Tuzhilin, “Toward the next generation                   Berlin, Germany, 2007.
+      of recommender systems: a survey of the state-of-the-art and           [34] L. M. de Campos, J. M. Fernández-Luna, J. F. Huete, and M.
+      possible extensions,” IEEE Transactions on Knowledge and Data                A. Rueda-Morales, “Combining content-based and collabora-
+      Engineering, vol. 17, no. 6, pp. 734–749, 2005.                              tive recommendations: a hybrid approach based on Bayesian
+[18] J. S. Armstrong and T. S. Overton, “Estimating nonresponse bias               networks,” International Journal of Approximate Reasoning, vol.
+      in mail surveys,” Journal of Marketing Research, vol. 14, no. 3, pp.         51, no. 7, pp. 785–799, 2010.
+      396–402, 1977.                                                         [35] Z. Xia, S. Xu, N. Liu, and Z. Zhao, “Hot news recommendation
+[19] J. L. Herlocker, J. A. Konstan, L. G. Terveen, and J. T.                      system from heterogeneous websites based on bayesian model,”
+      Riedl, “Evaluating collaborative filtering recommender sys-                  The Scientific World Journal, vol. 2014, Article ID 734351, 8
+      tems,” ACM Transactions on Information Systems, vol. 22, no.                 pages, 2014.
+      1, pp. 5–53, 2004.                                                     [36] X. He, F. Min, and W. Zhu, “Parametric rough sets with
+[20] A. I. Schein, A. Popescul, L. H. Ungar, and D. M. Pennock,                    application to granular association rule mining,” Mathematical
+      “Methods and metrics for cold-start recommendations,” in                     Problems in Engineering, vol. 2013, Article ID 461363, 13 pages,
+      Proceedings of the 25th Annual International ACM SIGIR Con-                  2013.
+      ference on Research and Development in Information Retrieval,
+                                                                             [37] F. Min, Q. Hu, and W. Zhu, “Granular association rules with four
+      pp. 253–260, 2002.
+                                                                                   subtypes,” in Proceedings of the IEEE International Conference on
+[21] S. M. McNee, J. Riedl, and J. A. Konstan, “Making recom-                      Granular Computing (GrC ’12), pp. 353–358, August 2012.
+      mendations better: an analytic model for human-recommender
+                                                                             [38] W. Zhu and F.-Y. Wang, “Reduction and axiomization of
+      interaction,” in Proceedings of the Extended Abstracts on Human
+                                                                                   covering generalized rough sets,” Information Sciences, vol. 152,
+      Factors in Computing (CHI ’06), pp. 1103–1108, ACM, April
+                                                                                   no. 1, pp. 217–230, 2003.
+      2006.
+                                                                             [39] D. Liu, T. Li, and D. Ruan, “Probabilistic model criteria with
+[22] B. Settles, Active Learning Literature Survey, vol. 52, University
+                                                                                   decision-theoretic rough sets,” Information Sciences, vol. 181, no.
+      of Wisconsin, Madison, Wis, USA, 2010.
+                                                                                   17, pp. 3709–3722, 2011.
+[23] K. Yu, A. Schwaighofer, V. Tresp, X. Xu, and H.-P. Kriegel,
+      “Probabilistic Memory-Based Collaborative Filtering,” IEEE             [40] Y. Yao and X. Deng, “Quantitative rough sets based on sub-
+      Transactions on Knowledge and Data Engineering, vol. 16, no.                 sethood measures,” Information Sciences, vol. 267, pp. 306–322,
+      1, pp. 56–69, 2004.                                                          2014.
+[24] N. Rubens, D. Kaplan, and M. Sugiyama, “Active learning in              [41] Q. Hu, L. Zhang, S. An, D. Zhang, and D. Yu, “On robust fuzzy
+      recommender systems,” in Recommender Systems Handbook,                       rough set models,” IEEE Transactions on Fuzzy Systems, vol. 20,
+      pp. 735–767, Springer, 2011.                                                 no. 4, pp. 636–651, 2012.
+[25] X. Su and T. M. Khoshgoftaar, “A survey of collaborative filtering      [42] W.-Z. Wu and Y. Leung, “Optimal scale selection for multi-
+      techniques,” Advances in Artificial Intelligence, vol. 2009, Article         scale decision tables,” International Journal of Approximate
+      ID 421425, 19 pages, 2009.                                                   Reasoning, vol. 54, no. 8, pp. 1107–1129, 2013.
+[26] J. Bobadilla, A. Hernando, F. Ortega, and J. Bernal, “A frame-          [43] J. Dai and H. Tian, “Entropy measures and granularity measures
+      work for collaborative filtering recommender systems,” Expert                for set-valued information systems,” Information Sciences, vol.
+      Systems with Applications, vol. 38, no. 12, pp. 14609–14623, 2011.           240, pp. 72–82, 2013.
+[27] B. Sarwar, G. Karypis, J. Konstan, and J. Reidl, “Item-based col-
+      laborative filtering recommendation algorithms,” in Proceedings
+      of the 10th International Conference on World Wide Web, pp.
+      285–295, May 2001.
+[28] C. H. Lee, Y. H. Kim, and P. K. Rhee, “Web personalization
+      expert with combining collaborative filtering and association
+      rule mining technique,” Expert Systems with Applications, vol.
+      21, no. 3, pp. 131–137, 2001.
+[29] J. Gemmell, T. Schimoler, M. Ramezani, and B. Mobasher,
+      “Adapting k-nearest neighbor for tag recommendation in folk-
+      sonomies,” in Proceedings of the 7th Workshop on Intelligent
+      Techniques for Web Personalization and Recommender Systems
+      (ITWP ’09), p. 528, 2009.
+Advances in                                                                        Advances in                                    Journal of                                                                                    Journal of
+Operations Research
+Hindawi Publishing Corporation
+                                                                                   Decision Sciences
+                                                                                   Hindawi Publishing Corporation
+                                                                                                                                  Applied Mathematics
+                                                                                                                                  Hindawi Publishing Corporation
+                                                                                                                                                                                 Algebra
+                                                                                                                                                                                 Hindawi Publishing Corporation
+                                                                                                                                                                                                                                Probability and Statistics
+                                                                                                                                                                                                                                Hindawi Publishing Corporation
+http://www.hindawi.com                                            Volume 2014      http://www.hindawi.com           Volume 2014   http://www.hindawi.com           Volume 2014   http://www.hindawi.com           Volume 2014   http://www.hindawi.com           Volume 2014
+
+
+
+
+The Scientific                                                                                                                                                                                                                  International Journal of
+World Journal
+Hindawi Publishing Corporation
+                                                                                                                                                                                                                                Differential Equations
+                                                                                                                                                                                                                                Hindawi Publishing Corporation
+http://www.hindawi.com                                            Volume 2014                                                                                                                                                   http://www.hindawi.com           Volume 2014
+
+
+
+
+                                                                                                                     Submit your manuscripts at
+                                                                                                                      http://www.hindawi.com
+
+International Journal of                                                                                                                                                                                                        Advances in
+Combinatorics
+Hindawi Publishing Corporation
+                                                                                                                                                                                                                                Mathematical Physics
+                                                                                                                                                                                                                                Hindawi Publishing Corporation
+http://www.hindawi.com                                            Volume 2014                                                                                                                                                   http://www.hindawi.com           Volume 2014
+
+
+
+
+Journal of                                                                         Journal of                                     Mathematical Problems                          Abstract and                                   Discrete Dynamics in
+Complex Analysis
+Hindawi Publishing Corporation
+                                                                                   Mathematics
+                                                                                   Hindawi Publishing Corporation
+                                                                                                                                  in Engineering
+                                                                                                                                  Hindawi Publishing Corporation
+                                                                                                                                                                                 Applied Analysis
+                                                                                                                                                                                 Hindawi Publishing Corporation
+                                                                                                                                                                                                                                Nature and Society
+                                                                                                                                                                                                                                Hindawi Publishing Corporation
+http://www.hindawi.com                                            Volume 2014      http://www.hindawi.com           Volume 2014   http://www.hindawi.com           Volume 2014   http://www.hindawi.com           Volume 2014   http://www.hindawi.com           Volume 2014
+
+
+
+
+                                 International
+                                 Journal of                                        Journal of
+                                 Mathematics and
+                                 Mathematical
+                                                                                   Discrete Mathematics
+                                 Sciences
+
+
+
+                                                                                                                                  Journal of                                     International Journal of                       Journal of
+
+                                 Hindawi Publishing Corporation                    Hindawi Publishing Corporation   Volume 2014
+                                                                                                                                  Function Spaces
+                                                                                                                                  Hindawi Publishing Corporation
+                                                                                                                                                                                 Stochastic Analysis
+                                                                                                                                                                                 Hindawi Publishing Corporation
+                                                                                                                                                                                                                                Optimization
+                                                                                                                                                                                                                                Hindawi Publishing Corporation
+                                 http://www.hindawi.com              Volume 2014   http://www.hindawi.com                         http://www.hindawi.com           Volume 2014   http://www.hindawi.com           Volume 2014   http://www.hindawi.com           Volume 2014
+

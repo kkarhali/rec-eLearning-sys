@@ -1,0 +1,804 @@
+                                                              International Journal of Recent Technology and Engineering (IJRTE)
+                                                                             ISSN: 2277-3878 (Online), Volume-9 Issue-1, May 2020
+
+
+
+              A Personalized Web Based E-Learning
+           Recommendation System to Enhance and User
+                      Learning Experience
+                                                       Nidhi Joshi, Rajendra Gupta
+
+
+Abstract: The key aim of the data mining techniques is to help
+the user by reducing the effort for exploring the data, recovering                                I.     INTRODUCTION
+the patterns, and implementing applications that help to find the
+knowledge specific contents, decision making, and predictions.
+This research work develops a recommendation system by using
+                                                                             In recent years the academics and their learning techniques
+the merits of data mining algorithms. They are used for                      are rapidly changed due to, the origin of innovative and new
+designing web-based e-learning recommendation systems. This                  technologies in the education domain. Using these
+model aims to understand the user behavior and contents                      technologies the accessibility of learning resources are
+requirements of the learner. This purpose is solved by obtaining             enhanced so that user can access these resources from
+the information from the data source and producing the                       anywhere and anytime. Therefore the popularity of e-
+suggestions of suitable content to the learner. The concept of web           learning is growing day by day. New learners not only are
+content mining and web usage mining has been combined
+                                                                             joining these networks frequently, but the data is also
+together for performing the required work. This technique
+involves the genetic algorithm and k-means clustering algorithm              growing in these platforms much rapidly. Therefore
+for designing the presented model. In this work the k-means                  traditional face-to-face style teaching is replacing by e-
+clustering algorithm has been used to track user behavior and the            learning systems. On the other hand, the students could have
+genetic algorithm has been used as a search algorithm to find the            similar interests, behavior and may have different levels of
+necessary resources in the database. Finally, the presented                  expertise. Hence they cannot be treated in a uniform
+system is implemented and its performance is measured. The                   manner. Therefore it is important to provide a personalized
+estimated results demonstrate that the presented model enhances              system that can automatically adapt the interests and levels
+the accuracy of recommendations and also speeds up the                       of learners [1].
+computations. A related performance calculation has also
+                                                                             In this paper, the concept of e-learning has extended to offer
+provided to justify this conclusion. The obtained results
+demonstrate that this technique is acceptable for new generation             personalized resources to the learners. Therefore an e-
+application designs.                                                         learning recommendation system is proposed. The presented
+                                                                             recommendation system is based on user behavior, past data
+Keywords: recommendation system, web usages mining, web                      usage history, and the available contents. The e-learning
+content mining, e-learning resource prediction, weighted
+                                                                             systems basically contain a huge amount of content, but
+recommendation system, results explication, performance
+calculation.                                                                 incorrect use of keywords can change the results. The
+                                                                             correct selection of keywords is actually required during a
+                                                                             search of information. So many times uncertainty in
+                                                                             keywords may affect searching. A web event also has its
+                                                                             semantic uncertainty. This uncertainty of the keyword
+                                                                             system is seen as the uncertainty of web events [2].
+                                                                             Therefore this work involves the different techniques of web
+                                                                             mining and data mining to understand the needs of the end-
+                                                                             user. Using this technique the issue of finding the relevant
+                                                                             content among the huge quantity of results and incorrect
+                                                                             keyword-based search results can be prevented and used to
+Manuscript received on April 04, 2020.                                       preserve their time for finding appropriate contents. The
+Revised Manuscript received on April 11, 2020.                               searching of words is also time-varying, so the
+Manuscript published on May 30, 2020.
+* Correspondence Author                                                      recommendation system also is changeable for current user
+   Nidhi Joshi, Department of Computer Science, Rabindranath Tagore          behavior through his /her clickstream. So that generated
+University,    Raisen,     Madhya     Pradesh,     India     Email:          recommendation to the client is a real-time basis.[3].
+nidhi11joshi@gmail.com
+   Rajendra Gupta, Department of Computer Science, Rabindranath
+                                                                             Keeping this entire problem PERS targeted the following
+Tagore University, Raisen, Madhya Pradesh, India. Email:                     objectives.
+rajendragupta1@yahoo.com
+
+© The Authors. Published by Blue Eyes Intelligence Engineering and
+Sciences Publication (BEIESP). This is an open access article under the CC
+BY-NC-ND license (http://creativecommons.org/licenses/by-nc-nd/4.0/)
+
+
+
+
+    Retrieval Number: F9991038620/2020©BEIESP
+    DOI:10.35940/ijrte.F9991.059120                                                 Published By:
+    Journal Website: www.ijrte.org                                                  Blue Eyes Intelligence Engineering
+                                                                         1186
+                                                                                    & Sciences Publication
+         A Personalized Web Based E-Learning Recommendation System To Enhance and User Learning Experience
+
+
+    1.1 OBJECTIVES                                                          according to the popularity of products the actual
+The discovery of knowledge in any huge data source is a                     requirements of the user are not much effective in
+complicated task. The number of visitors to the internet has                such applications. In this work, the technique is
+created potential challenges of information overload which                  suggested which not only considers the one point
+hinders timely access to items of internet on the internet.                 observation it includes multiple factors for
+Some of the information retrieval systems have partially                    demonstrating the user requirements and semantics.
+solved this problem but personalization of information is            3.     Cross recommendation design according to the
+absent [4]. In order to find an effective and accurate the                  user’s behavior: Sometimes user interest and
+following intermediate objectives have established.                         behavior are similar for various correlated domains
+                                                                            and subjects such as story reading, watching
+     1. Scrutiny on web mining and their applications:                      movies and listening songs. These habits or
+ In this phase different web mining techniques, algorithms,                 behavior can also be utilized for one another. Such
+ recent contributions, and applications are being quested.                  kinds of recommendation systems are known as
+ This will help to address the core components of the                       cross recommendation systems. The work is
+ system design and obtaining an effective solution for                      basically intended to develop an efficient and
+ targeted aims.                                                             accurate cross recommendation engine.
+     2. A model for web browsing behavior
+ identification and recommendation design: In this phase,                             II.      RELATED WORK
+ the web usage mining and their techniques are explored.
+                                                                 Many of the recommendation models on the web work on
+ By using the obtained outcomes from the first phase, the
+                                                                 the concept of rating, reviews, opinion, complaints, remarks,
+ design of a new recommendation engine is requisite. This
+                                                                 feedback and comments to extract the behavior and timing
+ helps to understand the user behavioral attributes in
+                                                                 of the user [5]. By using these concepts some models focus
+ specific domain knowledge and web usage behavior.
+                                                                 on the movie recommendation system [6]. Some helped
+     3. Optimizing the recommendation by involving               tourist to predict traveling [7] [8]. A few works contributed
+ the user context and contents requirements: The core            to a video recommendation system [9]. Majorly till now,
+ intention of the proposed technique is to improve the user      work has done on the E-commerce field [10] and also
+ experience for navigating the web-based applications for        suggest are provided to the user on the social network [11].
+ finding the contents, products, and services. That              The research work has covered nearly all domains like a
+ personalizes the user behavior of web navigation, the           movie, video, travel, e-commerce, social network.
+ interest of domain, probability of user behavior, fluctuation   Nowadays users are facing problems in the E-learning
+ and probability of content availability for recommending        domain. Learning is the basic need of everyone, but a huge
+ the most appropriate content to the user. This technique        volume of data on the web causes many problems to extract
+ accomplishes the web usages based recommendation                interested and required data by the user. Natasa Hoic-Bozic
+ model in an optimized manner for user context                   [12] presented a contemporary blended learning model
+ understanding, and its performance improvements.                within e-course. This model combines on LMS (learning
+     4. The performance exploration of the proposed              management system) and the E-learning activities
+ system: In this phase, the proposed system is implemented       recommendation system (ELARS) to enhance the learning
+ and their performance with respect to the corresponding         experience.
+ technique is evaluated.
+                                                                 Linging Wu [13] proposed a semantic recommendation for
+World Wide Web is a rich source of information and               educational resources based on Semantic web and
+knowledge. Every day new information and new dimensions          pedagogics. Now the need for personalization is required so
+are updated on the web applications for serving the products     Daminda Herath [14] tried to use web mining techniques to
+and services. In this context, internet users are always         give a recommendation based on their navigation behaviors,
+worried about finding the appropriate products and services      web contents, performances, and profiles. The collaborative
+according to their interests. Therefore the proposed work is     filtering and content filtering are used to make it
+intended to design and develop an enhance recommendation         personalized. Learning is a basic requirement of elementary
+system which examines the user's behavioral pattern and          school and junior schools mainly. Richa patel [15] worked
+web navigation habits and according to their behavior the        to predict the user browsing activity & recommend the user
+particular services and products are to be recommended,          next pages likely to be interesting. Some research work has
+thus the proposed work is also useful for enhancing the          developed keyword concept, Timing Hue [16] did the co-
+recommendation experience in various cross-domain                word analysis and collected keywords in articles from the
+applications.                                                    academic journals to mean co-relation keywords.the field of
+    1.   User behavior and the content requirements:             news recommendation used as teaching material for teacher
+         User behavior and the user’s content requirements       is also not untouched [17] .
+         are time-varying in nature. Therefore explications
+                                                                          III.     PROPOSED WORK- TFR SYSTEM
+         of the current user’s requirements are to be
+         evaluated for improving the performance of web          The aim of this research is to design and implement an
+         systems.                                                accurate recommendation system for the e-Learning web
+    2.   Recommendations         according     to     user       portal system. The core concept, designed methodology, and
+         requirements and other similar behavioral               algorithm are also discussed in this section.
+         requirements: In various applications where the
+         recommendation systems are being used the               3.1 Basic elements of system
+         contents, products or services are recommended
+   Retrieval Number: F9991038620/2020©BEIESP
+   DOI:10.35940/ijrte.F9991.059120                                        Published By:
+   Journal Website: www.ijrte.org                            1187         Blue Eyes Intelligence Engineering
+                                                                          & Sciences Publication
+                                                    International Journal of Recent Technology and Engineering (IJRTE)
+                                                                   ISSN: 2277-3878 (Online), Volume-9 Issue-1, May 2020
+
+The recommendation system is a kind of seed generation           C. E-Learning server
+method which is used to suggest a list of most likely product
+                                                                 The e-learning server is the infrastructure server that is used
+or service which matches the behavior of the target user.
+                                                                 to deploy the e-learning portal. In addition to that, it
+The recommendation systems are mainly designed for e-
+                                                                 contains the algorithms and techniques which are used for
+commerce platforms for suggesting the suitable products to
+                                                                 exploring data, their organization, and also for retrieval of
+consumers. Therefore the recommendation systems use the
+                                                                 data according to the user query relevant records form the
+knowledge of previous user behavior, interest, and
+                                                                 digital documents.
+personality of user. Personalization in learning are more
+useful for learners [19], so the personalization is helpful to   3.2 Methodology
+improve the existing techniques. In this context, we
+                                                                 The proposed system architecture is modeled using
+proposed a new “Tri-factor recommendation (TFR)
+                                                                 different data mining and web mining techniques. The
+system for the E-Learning portal”. In order to develop
+                                                                 initial system architecture of the proposed recommendation
+TFR-system, the concepts of web usage mining and text
+                                                                 system is reported in figure 2. The model is described using
+mining techniques are involved. The web usage mining
+techniques help to understand the user behavior of web           the figure 2. It incorporates two different kinds of data
+navigation using the web access log file observation. This       sources. The first one is provided by the end-user and
+                                                                 second is hosted into the webserver as the E-learning web
+examination is also helpful for personalizing data and user
+                                                                 portal. Both kinds of information are used for exploring and
+behavior. On the other hand, the technique of text mining is
+                                                                 processing the user request or user query. Finally, the model
+helpful to understand the data available in the E-Learning
+                                                                 returns the recommendations which can helpful for
+portal according to the interest of the end-user.
+                                                                 providing the content according to the user requirements.
+                                                                 The following components are involved in this system.
+
+
+
+
+              Fig 1 Basic elements of System
+By considering all the factors listed above, a
+recommendation system is proposed in this work. This                        Fig 2 Recommendation Architecture
+model consists of three main stack holders for the system:
+                                                                 Web server: A web server is used to host web applications.
+    1.   E-learning server (infrastructure)                      The applications stored in the webserver can be dynamic in
+                                                                 nature or static. The web servers have the ability to process
+    2.   Administrator                                           or execute the code blocks of dynamic web applications and
+    3.   Learner or end user                                     return the web pages. The generated web pages by the
+                                                                 servers using the code blocks are accessible using the HTTP
+Figure 1 demonstrates the involved infrastructure and the        or HTTPS protocols using the web browsers.
+actors of the system. These are the base component for the
+                                                                 Access log: The web server involves a number of
+system. The activities of the users and infrastructure help to
+                                                                 background processes, therefore it needs to be audit the
+provide the required service i.e. learning using the web
+                                                                 working of the server. Thus the web servers are enabled to
+portal. The model contains the following components:
+                                                                 report every event done in the server. Web server prepares
+A. Learner or end user                                           different kinds of logs i.e. error log, access log, information
+                                                                 log, and others. The access log is also known as the web
+The learner or end-user is the entity who is going to use the    access server log or web usages log. The web access server
+developed system or eLearning portal. Therefore that is the      log files are maintaining each and every event performed by
+target user for whom the entire system is crafted. The end-      the end-user i.e. resource request and server response or the
+user is responsible to create their account and find the         provided data/resource. The web server access logs are
+contents from the learning site by browsing the topics or        maintained on the server for each individual application
+using the retrieval engine (using the search system).            hosted on the server. Therefore by using the available data
+B. Administrator                                                 on server log files are helpful for understanding the users
+                                                                 and their interest, behavior and application trends. The web
+The administrator is the entity who is responsible for           access server log files include a time stamp, request IP
+managing the server resources and the e-learning web             address, URL, protocols, and other application-specific
+portal. Therefore an administrator is responsible for
+uploading contents, managing topics and their sub-topics
+with contents.
+
+   Retrieval Number: F9991038620/2020©BEIESP
+   DOI:10.35940/ijrte.F9991.059120                                     Published By:
+   Journal Website: www.ijrte.org                                      Blue Eyes Intelligence Engineering
+                                                             1188
+                                                                       & Sciences Publication
+         A Personalized Web Based E-Learning Recommendation System To Enhance and User Learning Experience
+
+
+information. A simple web access log example is given in             Table II. This table is showing feature extraction from
+table I.                                                                                    Web pages
+                 Table I Access Log Example
+                                                                 Web pages                               Features extracted
+Example.com - - [06/Oct/2019:00:00:09 -0700] "GET /
+HTTP/1.1" 200 5258 http://www.example.com/                       Datamining.jsp                          Data, database, attributes ...
+academic_programs.htm "Mozilla/4.0 (compatible;
+MSIE 4.01; Windows 95)" example.com - -                          ComputerGraphic.jsp                     Images,
+[06/Oct/2019:00:00:11         -0700]          "GET                                                       graphics, dimension,...
+/images/bullets/bsqs.gif  HTTP/1.1"     200     489
+http://www. example.com/ "Mozilla/4.0 (compatible;               Relation development: In this phase, the extracted content
+MSIE 4.01; Windows 95)"                                          features and the resource URL is used for finding the
+                                                                 keywords which are relevant to each other. The URLs
+Web usage features: The feature of data is the low               which contain the keywords available in the feature set are
+dimensional representation of data. Therefore it contains        used for finding the related URLs and contents. The
+only the essential part of the information that helps to         following algorithm is used for processing the data
+recognize the pattern or target data. The example web            keywords and the target URLs.
+access log as demonstrated in Table I shows the attributes
+available in the web access log file. All the features in the                      Table III Relationship algorithm
+access log file are not used for designing the proposed
+recommendation system. Among some of the features are            Input: List of web page URLs 𝑊𝑈𝑛 , List of all extracted
+need to be selected for utilizing the proposed                   features 𝐹𝑚
+recommendation system. But before the extraction of the          Output: related links 𝑅𝑙
+essential features from the web access log we need to
+preprocess the data. The preprocessing techniques are
+                                                                 Process:
+frequently adopted in different data mining applications.
+The preprocessing techniques are aimed to refine the                   1.     𝑓𝑜𝑟(𝑖 = 1; 𝑖 ≤ 𝑛; 𝑖 + +)
+information and reduce the noisy contents from the web
+                                                                                   a.    𝑡𝑒𝑚𝑝 = 𝑊𝑈𝑖
+access log file.
+                                                                                   b.    𝑓𝑜𝑟(𝑗 = 1; 𝑗 ≤ 𝑚; 𝑗 + +)
+Therefore the following filtered information is obtained
+from the entire log file.                                                                      i. 𝑖𝑓 (𝑡𝑒𝑚𝑝. 𝑐𝑜𝑛𝑡𝑎𝑖𝑛𝑠(𝐹𝑗 ))
+1.    User IP address
+                                                                                                         1.      𝑅. 𝑎𝑑𝑑(𝑊𝑈𝑖 , 𝐹𝑗 )
+2.    Time stamp
+                                                                                              ii. 𝑒𝑛𝑑𝑖𝑓
+3.    Requested URL
+                                                                                   c.    End for
+4.    Method
+                                                                       2.     Return 𝑅𝑙
+Remaining all the data from the web access log is remains
+as it is.
+                                                                 Table III provides a list of URLs with the relevant
+Application contents: The e-learning system contains a           keywords which indicates the keywords can be found in the
+number of different topics, subtopics, and their contents. All   given URL.
+the contents of this application are available in web
+                                                                 After that, it is required to apply the search to the given
+document (web page) formats. During the retrieval and            system. Therefore we need to implement the search system
+processing of user requests for content search, these topics'
+                                                                 in existing system architecture the extended architecture of
+contents are omitted as search results.
+                                                                 the existing system is given in figure 3. The extended
+Content features: The entire process handled in this             system architecture contains some additional components
+modeling is provided for finding relevant content as well as     for finding accurate recommendations for the e-learning
+recommending the contents which much relevant to the             system. Therefore the entire data model is defined in two
+current user’s context. In this context to reduce the data       major modules:
+processing efforts, the content features from all the e-
+                                                                 1.     Search outcomes: Relation development among the
+learning documents are extracted and organized with the
+                                                                        extracted keywords from the e-learning web pages and
+target files. To select the features from the target document
+                                                                        the target URLs are established using the algorithm
+(web pages) the word frequency is used [7]. The word
+                                                                        given in table III. The outcome of this process is a data
+frequency of the target word in a document is computed
+                                                                        structure that contains the following attributes as
+using the following formula:
+                                                                        demonstrated in table IV.
+                               𝑡𝑎𝑟𝑔𝑒𝑡𝑤𝑜𝑟𝑑𝑐𝑜𝑢𝑛𝑡
+      𝑊𝑜𝑟𝑑𝐹𝑟𝑒𝑞𝑢𝑒𝑛𝑐𝑦 =                               ……. (1)
+                             𝑡𝑜𝑡𝑎𝑙𝑤𝑜𝑟𝑑𝑠𝑖𝑛𝑑𝑜𝑐𝑢𝑚𝑒𝑛𝑡
+
+The computed word frequency is used to select the words
+from the given document as feature set, therefore the target
+web document and their features are used in the following
+manner, as given in table II.
+     Retrieval Number: F9991038620/2020©BEIESP
+     DOI:10.35940/ijrte.F9991.059120                                        Published By:
+     Journal Website: www.ijrte.org                           1189          Blue Eyes Intelligence Engineering
+                                                                            & Sciences Publication
+                                                    International Journal of Recent Technology and Engineering (IJRTE)
+                                                                   ISSN: 2277-3878 (Online), Volume-9 Issue-1, May 2020
+
+           Table IV This table is presenting Relationship                              √∑𝑀        2           2
+                                                                                         𝑖=1(𝑄𝑢𝑒𝑟𝑦𝑖 − 𝑘𝑒𝑦𝑤𝑜𝑟𝑑𝑠𝑖 )
+                             features
+                                                                                 b.    𝑖𝑓(𝐷 ≤ 0.25)
+URLs                                   Respected Keywords                                    i. 𝑅𝑃. 𝐴𝑑𝑑(𝑃𝑎𝑔𝑒𝑈𝑅𝐿)
+/e_learning/3d.jsp                     Computer animation                        c.    End if
+/e_learning/computer_graphics.jsp      Computer animation
+                                                                     3.     End for
+/e_learning/image_formation.jsp        Computer animation
+                                                                     4.     Return RP
+/e_learning/object_detection.jsp       Computer animation
+
+
+Query Keywords: The keywords which are used by the
+                                                                This process returns the query-relevant web pages from the
+end-user for finding the contents from the e-learning
+                                                                e-learning application. Also enable navigation with the
+system. So the query contains a phrase or a set of keywords
+                                                                results the mapping between web page URL and search
+that is a search on the existing web page database.
+                                                                results data is performed. After that, the search technique
+                                                                works according to the user input keywords.
+                                                                On the other hand, it needs to suggest or recommend web
+                                                                pages or web content for the user context. Therefore user
+                                                                web page recommendation is also employed with this
+                                                                methodology.
+                                                                2.   Recommendations: In order to recommend the web
+                                                                     pages for the end user again the relationship features
+                                                                     are used. The web pages which are obtained by the
+                                                                     KNN algorithm are combined in this stage. Also, the
+                                                                     filtration of the data is performed. To filter the data the
+                                                                     following processes are included with the system.
+                                                                Web access log features: The web access log is previously
+               Fig 3 Extended system architecture               established and the required features from the weblog data
+                                                                are extracted. These weblog features are used here for
+KNN (k-nearest neighbor) algorithm: The KNN
+                                                                finding the user behavior and domain of interest. Therefore
+algorithm is a distance-based classification perspective.
+                                                                the frequency of the different web pages which are accessed
+This technique finds the difference between two given
+                                                                by the current user is evaluated. To compute the frequency
+sequences of data, in which the first of them is query
+                                                                of the user accessed web pages the following formula is
+sequence and the second one is database sequence. By
+                                                                used.
+using distance computation it distinguishes, how many
+features are different from each other. If maximum                                                             𝐶𝐴
+sequence attributes are similar then the distance is                             𝑤𝑒𝑏𝑝𝑎𝑔𝑒𝑎𝑐𝑐𝑒𝑠𝑠𝑓𝑟𝑒𝑞𝑢𝑒𝑛𝑐𝑦 =
+                                                                                                               𝐶𝑝
+minimized otherwise it obtained as higher [8]. For
+computing the distance among two sequences the following        𝑤ℎ𝑒𝑟𝑒𝐶𝐴 is the count of a web page from a domain
+formula can be used.                                            𝐶𝑝 is the total number of web pages accessed
+                                 𝑛
+                                                                The top visited subjects/domain/topics are identified from
+                     𝐷(𝑥, 𝑦) = √∑(𝑥𝑖2 − 𝑦𝑖2 )
+                                                                the web page frequency of visits. Using the identified topic
+                                𝑖=1
+                                                                names the web pages of relationship features and the KNN
+                                                                search process are eliminated and remaining web pages are
+Where 𝐷(𝑥, 𝑦) is the distance measured                          used in further for finding the most suitable
+                                                                recommendations.
+𝑥𝑖 and 𝑦𝑖 are the query sequence and database sequence
+                                                                Optimization: After the elimination of web pages from the
+Therefore the following process is used for finding the user    combined set of search results and relationship features the
+input query sequence.                                           optimization process is applied. To optimize the
+                                                                recommendations the user query and the combined data are
+                    Table V- KNN based search                   used with the genetic search process. The genetic algorithm
+                                                                is a naturally inspired algorithm. It works on the following
+Input : relationship features 𝑅𝑙 , user query keywords Q        four steps [9]:
+Output : relevant content page RP                               1.   Selection: The genetic algorithm is to work with the
+                                                                     population. Here the term population is used for the
+Process:                                                             initial solutions available for search. In our context, the
+                                                                     combined set of web pages that are filtered using
+    1.     [𝑃𝑎𝑔𝑒𝑈𝑅𝐿, 𝐾𝑒𝑦𝑤𝑜𝑟𝑑𝑠] = 𝑟𝑒𝑎𝑑𝑅𝑒𝑙𝑎𝑡𝑖𝑜𝑛𝑠ℎ𝑖𝑝(𝑅𝑙 )               subjects criteria is used as the initial population. The
+    2.     𝑓𝑜𝑟(𝑖 = 1; 𝑖 ≤ 𝑘𝑒𝑦𝑤𝑜𝑟𝑑𝑠. 𝑙𝑒𝑛𝑔𝑡ℎ; 𝑖 + +)                   algorithm selects the N/2
+                                                                     solution      among      them
+               a.    𝐷(𝑄, 𝐾𝑒𝑦𝑤𝑜𝑟𝑑𝑠) =
+   Retrieval Number: F9991038620/2020©BEIESP
+   DOI:10.35940/ijrte.F9991.059120                                        Published By:
+   Journal Website: www.ijrte.org                                         Blue Eyes Intelligence Engineering
+                                                            1190
+                                                                          & Sciences Publication
+         A Personalized Web Based E-Learning Recommendation System To Enhance and User Learning Experience
+
+
+      randomly for evaluation with the next steps.                 obtained performance in terms of accuracy the TFR
+2.    Crossover: After random selection of the available           technique perform superior than the traditional
+      solutions the cross over operation is performed. The         recommendation model based on the simple collaborative
+      crossover helps to design a new set of solutions from        filtering based precision.
+      the selected solutions. The newly generated solutions
+      are evaluated in the next phase.                                                100
+3.    Mutation: The crossover based generated solutions are                            90
+      used with the mutation operator. Using these solutions
+                                                                                       80
+      is repaired and new solutions are tested for finding the
+      fit solutions. If the solutions are repairable then it is                        70
+
+
+
+
+                                                                         Accuracy %
+      repaired using the insertion, deletion, replacing the                            60
+      attributes otherwise the solutions are removed for next
+                                                                                       50
+      phase scrutiny.
+4.    Update: In this phase, the fitness of all the solutions is                       40
+      estimated using the fitness function. The higher fitness                         30
+      values-based solutions are preserved and the remaining                           20
+      solutions are removed. The obtained fit solutions are
+      updated as the population for next-generation                                    10
+      evaluation. Here the distance function is used as the                              0
+      fitness function of the algorithm [10].                                                  100     200    300     500 1000 1200 1500
+Recommendations: The genetic algorithm continuously                                                           Data Sample size
+works on the population to find the best-fit solutions. After
+reaching the termination conditions the algorithm is stopped                              Proposed method            Traditional recommendation
+working and generates the final outcomes. The outcome of
+the genetic algorithm is given here as the final
+                                                                             Fig 4 this graph is representing accuracy graph
+recommended URLs for the end-user.
+                                                                      Table VI- This table is showing accuracy of system over
+               IV RESULTS AND DISCUSSION                                                traditional system
+This section includes the details about the evaluation of the
+                                                                   Sample size                   Proposed              Traditional
+TFR content recommendation system for the e-learning web
+                                                                                                 method                recommendation
+portal. Therefore, the accuracy and error rate is measured
+first to know the system performance and their resource
+preservation ability is measured in terms of time and space        100                           78                    71
+utilization.
+                                                                   200                           80.5                  73.5
+4.1 Accuracy
+Here in terms of accuracy, the working of the TFR content          300                           81.66                 72.33
+recommendation system is to be examined. The accuracy of
+a data mining system is evaluated by using the total patterns      500                           84.75                 74.75
+correctly recognized over the total samples produced for
+prediction. Therefore, the following formula is used for           1000                          88.32                 76.39
+computing accuracy:
+                 𝑡𝑜𝑡𝑎𝑙𝑐𝑜𝑟𝑟𝑒𝑐𝑡𝑙𝑦𝑐𝑙𝑎𝑠𝑠𝑖𝑓𝑖𝑒𝑑𝑠𝑎𝑚𝑝𝑙𝑒𝑠                   1200                          86.49                 75.92
+  𝑎𝑐𝑐𝑢𝑟𝑎𝑐𝑦 =                                     𝑋100
+                     𝑡𝑜𝑡𝑎𝑙𝑠𝑎𝑚𝑝𝑙𝑒𝑠𝑡𝑜𝑏𝑒𝑝𝑟𝑒𝑑𝑖𝑐𝑡
+                                                                   1500                          89.4                  78.51
+This formula is used for predicting the possible useful
+content for the target profile user. Therefore, similar            4.2 Error Rate
+behavior contains are used for the recommendation system.
+                                                                   The error rate of a data mining model is the measurement of
+Therefore a sequence of web pages accessed by the user is
+                                                                   misclassified or unpredicted outcome over the total data
+used for predicting the next possible web page. When the
+                                                                   samples produced for prediction. Thus it is the ratio of total
+predicted data URL is matched with the considered
+                                                                   incorrectly recognized sample and the total sample produced
+sequence next web page then the recommendation is
+                                                                   for recognition. That can also be computed using the
+captured as accurate otherwise an error component is
+                                                                   following formula:
+considered. The experimental observations for the different
+samples are demonstrated in figure 4 and table VI. This                                                 𝑡𝑜𝑡𝑎𝑙𝑚𝑖𝑠𝑐𝑙𝑎𝑠𝑠𝑖𝑓𝑖𝑒𝑑𝑠𝑎𝑚𝑝𝑙𝑒
+Table contains the obtained system performance for two                  𝑒𝑟𝑟𝑜𝑟𝑟𝑎𝑡𝑒(%) =                                           𝑋100
+                                                                                                         𝑡𝑜𝑡𝑎𝑙𝑠𝑎𝑚𝑝𝑙𝑒𝑠𝑡𝑜𝑐𝑙𝑎𝑠𝑠𝑖𝑓𝑦
+different    perspectives,     namely    the     proposed
+recommendation model and the existing recommendation               Or
+model. The performance of both models is demonstrated in                                 𝑒𝑟𝑟𝑜𝑟𝑟𝑎𝑡𝑒(%) = 100 − 𝐴𝑐𝑐𝑢𝑟𝑎𝑐𝑦(%)
+terms of percentage precision. The X-axis of this diagram
+contains the different set of samples which are used for
+experiments. The Y-axis shows the obtained accurately
+predicted values in terms of percentage. According to the
+     Retrieval Number: F9991038620/2020©BEIESP
+     DOI:10.35940/ijrte.F9991.059120                                                  Published By:
+     Journal Website: www.ijrte.org                            1191                   Blue Eyes Intelligence Engineering
+                                                                                      & Sciences Publication
+                                                                  International Journal of Recent Technology and Engineering (IJRTE)
+                                                                                 ISSN: 2277-3878 (Online), Volume-9 Issue-1, May 2020
+
+Table VII this table is giving data of TFR system on error                      4.3 Memory Usages
+rate measured against the traditional system of
+                                                                                Memory is an essential parameter for measuring the
+recommendation
+                                                                                efficiency of a computational algorithm. This parameter is
+                                                                                also known as the memory usages or space complexity.
+Sample size                       Proposed           Traditional                Basically here the process for computing memory is done by
+                                  method             recommendation             using the JAVA technology. In JAVA the process memory
+                                                                                usages are computed using the total assigned memory to the
+100                               22                 29                         process and the actual memory currently not utilized during
+                                                                                process execution. Thus, the following formula can be used
+200                               19.5               26.5                       for measuring memory usage.
+
+300                               18.34              27.67                                                     𝑚𝑒𝑚𝑜𝑟𝑦𝑢𝑠𝑠𝑎𝑔𝑒 = 𝑚𝑒𝑚𝑜𝑟𝑦𝑎𝑠𝑠𝑖𝑔𝑛𝑒𝑑
+                                                                                                                            − 𝑡𝑜𝑡𝑎𝑙𝑓𝑟𝑒𝑒𝑚𝑒𝑚𝑜𝑟𝑦
+500                               15.25              25.25
+                                                                                                            25000
+1000                              11.68              23.61                                                  24500
+                                                                                                            24000
+
+
+
+
+                                                                                       Memory Usage in KB
+1200                              13.51              24.08                                                  23500
+                                                                                                            23000
+1500                              10.6               21.49
+                                                                                                            22500
+                                                                                                            22000
+                       35                                                                                   21500
+                       30                                                                                   21000
+                                                                                                            20500
+                       25
+                                                                                                            20000
+      Error Rate (%)
+
+
+
+
+                       20                                                                                               100 200 300 500 1000 1200 1500
+                                                                                                                                     Sample Data Size
+                       15
+                                                                                                                Proposed method            Traditional recommendation
+                       10
+
+                        5                                                            Fig 6 The X axis of this line graph shows the sample data
+                                                                                    size and the Y axis shows the observed memory utilized by
+                        0                                                                        the algorithm during experiment.
+                            100    200    300    500 1000 1200 1500
+                                                                                Table VIII the experimental outcomes of memory usages
+                                          Sample Data Size                                       are shown in this table.
+
+                        Proposed method         Traditional recommendation      Sample size                            Proposed              Traditional
+                                                                                                                       method                recommendation
+ Fig 5 this graph is representing error rate obtain after
+evaluation on mentioned formula. On X axis sample data                          100                                    22618                 21722
+   size is presented and on Y axis error rate is shown.
+                                                                                200                                    23017                 21989
+In order to measure the performance of both the system in
+terms of error rate, a similar strategy is used. Thus the error
+                                                                                300                                    23551                 22312
+rate of the proposed and traditional system is also measured
+in percentage. The observed experimental error rate of the
+system reported in terms of values in table VII, whose                          500                                    23894                 22638
+graphical representation is used for demonstrating
+performance in terms of a line graph. In this line graph, X-                    1000                                   24132                 22909
+axis consist of the different size of samples used for
+experimentation, where the Y-axis contains the obtained                         1200                                   24459                 23461
+performance in terms of percentage. According to the
+obtained performance, the proposed technique produces less                      1500                                   24674                 23896
+amount of error as compared to the traditional technique.
+Thus the TFR model for the E-learning recommendation                            The memory usages using the java based technique is
+system is performing superior to the traditional E-learning                     measured here for both kinds of recommendation system.
+model.                                                                          The observed experimental outcomes are reported in table
+                                                                                VIII.
+
+
+
+   Retrieval Number: F9991038620/2020©BEIESP
+   DOI:10.35940/ijrte.F9991.059120                                                                          Published By:
+   Journal Website: www.ijrte.org                                                                           Blue Eyes Intelligence Engineering
+                                                                             1192
+                                                                                                            & Sciences Publication
+         A Personalized Web Based E-Learning Recommendation System To Enhance and User Learning Experience
+
+
+The values observed in this table contain the peak values                         600
+which are we found during the observations, therefore an
+only a limited amount of experimental outcomes are                                500
+reported. Their line graph representation is given in figure 6.
+                                                                                  400
+
+
+
+
+                                                                     Time in MS
+The X-axis of this line graph shows the sample data size and
+the Y-axis shows the observed memory utilized by the
+algorithm during the experiment. The mean memory usage                            300
+value is demonstrated here. According to the performance in                       200
+terms of memory usages, the proposed technique consumes
+additional memory as compared to the traditional                                  100
+collaborative filtering based recommendation model.
+Because it needs to behold more data as compared to the                             0
+traditional method, therefore the TFR technique is                                        100     200     300     500 1000 1200 1500
+computationally cost-effective as compared to the traditional                                            Sample Data Size
+model.
+                                                                                                Proposed method
+4.4 Time Consumption
+                                                                                                Traditional recommendation
+
+The time consumption of the algorithm is also termed as the        Figure 7 The X axis of this line graph contains the dataset
+time used or the time complexity. The total time utilized for       sample size and the Y axis shows the time consumed for
+computing the required outcomes is known here as time             execution. The measurement of time is in millisecond (MS).
+consumption.
+                                                                  The time consumed during algorithm execution for both the
+                                                                  techniques are demonstrated in table IX. The table contains
+Table IX this table presents time consumption during              observed execution time for processing the data to generate
+the initialization and execution of the used algorithm.           the recommendations. The graphical representation of this
+                                                                  data is explained in figure 7 in terms of a line graph. The X-
+                                                                  axis of this line graph contains the dataset sample size and
+Sample size      Proposed           Traditional                   the Y-axis shows the time consumed for execution. The time
+                 method             recommendation                measured here in terms of milliseconds (MS).According to
+                                                                  the obtained values, the proposed system demonstrates low
+                                                                  time as compared to the traditional model for processing the
+100              269                309                           data for prediction.
+
+                                                                                  V CONCLUSION AND FUTURE WORK
+200              298                351
+                                                                  This research work consists of three factors (TFR) web
+                                                                  access log, web usage mining, and user behavior. The TFR
+                                                                  system includes KNN and genetic algorithm for searching
+300              352                387                           content and optimizing results to generate a
+                                                                  recommendation to end-user (learner). KNN is used to
+                                                                  record the behavior of users. A genetic algorithm is used to
+500              389                418                           optimize the search result and provide better
+                                                                  recommendations to the learner. Also, this work is evaluated
+                                                                  with a traditional E-learning recommendation system with
+1000             442                462                           respect to the accuracy, error rate, and memory usage and
+      𝑡𝑖𝑚𝑒𝑐𝑜𝑛𝑠𝑢𝑚𝑒𝑑 = 𝐸𝑛𝑑𝑡𝑖𝑚𝑒 − 𝑎𝑙𝑔𝑜𝑟𝑖𝑡𝑚𝑠𝑡𝑎𝑟𝑡𝑡𝑖𝑚𝑒                  time consumption. This research work improved the
+                                                                  learning experience of users. As the parameters of accuracy,
+1200             480                497                           error rate, memory usage, time consumption are found
+                                                                  superior to the existing techniques for recommending the
+                                                                  contents and material in the e-learning applications.
+1500             512                549                           5.1 Conclusion
+                                                                  The recommendation systems are the application of data
+The time consumption of the proposed demonstrated models          analytics. Therefore different data mining algorithms
+is described using the time difference between algorithm          concepts are being used for designing the recommendation
+initialization time and the end time of algorithm. The            systems. Initially, the recommendation systems are designed
+following formula can be used for this task.                      for providing the suggestions of products in e-commerce
+                                                                  web platforms, but due to the ability of the
+                                                                  recommendations that are being used in various domains of
+                                                                  applications for finding the possibility and prediction. It is
+                                                                  then started to recommend in the
+                                                                  field of E-learning.
+
+   Retrieval Number: F9991038620/2020©BEIESP
+   DOI:10.35940/ijrte.F9991.059120                                                Published By:
+   Journal Website: www.ijrte.org                             1193                Blue Eyes Intelligence Engineering
+                                                                                  & Sciences Publication
+                                                       International Journal of Recent Technology and Engineering (IJRTE)
+                                                                      ISSN: 2277-3878 (Online), Volume-9 Issue-1, May 2020
+
+In this presented work E-learning web portal content               requirements to deliver the required contents. The required
+recommendation system design is the core area of research.         recommendation model is designed and implemented
+Additionally, by involving the different existing concepts a       successfully. Therefore the following future extensions of
+new recommendation model is proposed for design and                the work are proposed.
+implementation. This TFR system is basically employed on
+                                                                   Nowadays the video-based content is also being used in e-
+the e-learning web platform for understanding the
+                                                                   learning platforms therefore it is required to enhance and
+requirements of end learners and suggesting the relevant
+                                                                   extend the current model for video-based learning content
+educational material according to their behavioral
+                                                                   recommendations.
+identification.
+In this context, the TFR technique involves the classical          REFERENCES
+recommendation design concept such as user profiling,                  1.      Kinshuk, N. S. Chen, I. L. Cheng, S. W. Chew, “Evolution Is
+behavior identification, and categorization. As well the                       not enough: Revolutionizing Current Learning Environments to
+system involves the web concept mining technique for                           Smart Learning Environments”, Int J ArtifIntellEduc (2016)
+exploring and categorizing the concept of the web portal.                      26:561–581, DOI 10.1007/s40593-016-0108-x
+                                                                       2.      J. Xuan, X. Luo, G. Zhang, J. Lu, Z. Xu, “Uncertainty Analysis
+Using this technique the search space is reduced and the                       for the Keyword System of Web Events”, IEEE Transactions on
+performance of the proposed system scaled in terms of time                     Systems, Man, and Cybernetics: Systems (Volume: 46, Issue:
+and memory resource expenses. Finally, the web usage                           6), 13 May 2016
+techniques are utilized to combine the obtained knowledge              3.      D.A. Adeniyi, Z. Wei, Y. Yongquan, “Automated web usage
+                                                                               data mining and recommendation system using K-Nearest
+for target user behavior identification and obtaining precise                  Neighbor (KNN) classification method”, Applied Computing
+recommendations. Therefore the implementation of two                           and Informatics (2016) 12, 90–108
+popular data mining algorithms is performed in this work               4.      F. O. Isinkaye, Y. O. Folajimi, B. A. Ojokoh, “Recommendation
+namely the k-means clustering algorithm and the genetic                        systems: Principles, methods and evaluation”, Egyptian
+                                                                               Informatics Journal (2015) 16, 261–273
+algorithm as the search solution.                                      5.      J. P. Verma, B. Patel, A. Patel, “Big Data Analysis:
+                                                                               Recommendation System with Hadoop Framework”, 2015 IEEE
+The proposed system for supporting the e-learning platform
+                                                                               International Conference on Computational Intelligence &
+as a recommendation engine is developed using JAVA                             Communication Technology, 978-1-4799-6023-1/15 $31.00 ©
+technology. In this context, Net Beans IDE is used for                         2015 IEEE, DOI 10.1109/CICT.2015.86
+designing and implementing the proposed system. It                     6.      R. Katarya, O. P. Verma, “An effective collaborative movie
+                                                                               recommender system with cuckoo search”, Egyptian Informatics
+preserving the performance of the proposed system for
+                                                                               Journal 18 (2017) 105–112
+relative execution, the MySQL server is also used. Finally,            7.      D. Y. Yeh, C. H. Cheng, “Recommendation system for popular
+according to the computed performance, the summary of the                      tourist attractions in Taiwan using Delphi panel and repertory
+performance is prepared as given in table X.                                   grid techniques”, Tourism Management 46 (2015) 164-176
+                                                                       8.      L. Ravi, S. Vairavasundaram, “A Collaborative Location Based
+                                                                               Travel Recommendation System through Enhanced Rating
+                                                                               Prediction for the Group of Users”, Hindawi Publishing
+Table X This table representing the overall performance                        Corporation Computational Intelligence and Neuroscience
+               summary of TFR system.                                          Volume 2016, Article ID 1291358, 28 pages
+                                                                       9.      S. Shang, M. Shi, W. Shang, Z. Hong, “A Micro-video
+                                                                               Recommendation System Based on Big Data”, 978-1-5090-
+                                                                               0806-3/16/$31.00 copyright 2016 IEEE, ICIS 2016, June 26-29,
+                                                                               2016, Okayama,
+S.     parameters            proposed           existing               10.     X. Yan, B. Sun, “Application and Research of E-commerce
+No.                          technique          technique                      Recommendation System Based on Web Mining”, International
+                                                                               Conference on Applied Social Science Research (ICASSR
+                                                                               2015), © 2016 The authors - Published by Atlantis Press
+1      time consumption      269 – 512          309 – 549              11.     Q. Wang, H. Xue, F. Li, D. Lee, B. Luo, “#DontTweetThis:
+                             MS                 MS                             Scoring Private Information in Social Networks”, Proceedings
+                                                                               on Privacy Enhancing Technologies ; 2019 (4):72–92
+                                                                       12.     N. H. Bozic, M. H. Dlab, V. Mornar, “Recommender System
+2      memory usages         22618-             21722    –                     and Web 2.0 Tools to Enhance a Blended Learning Model”,
+                             24674 KB           23896 KB                       IEEE Trans. Educ. (in press). DOI: 10.1109/TE.2015.2427116
+                                                                       13.     L. Wu, Q. Liu, W. Zhou, G. Mao, J. Huang, H. Huang, “A
+                                                                               Semantic Web‑Based Recommendation Framework of
+3      accuracy              78 - 89.4 %        71 - 78.51                     Educational Resources in E‑Learning”, Technology,
+                                                %                              Knowledge and Learning,
+                                                                       14.     D. Herath, L. Jayaratne, “A Personalized Web Content
+4      error rate            10.6 – 22 %        21.49 – 29                     Recommendation System for e-Learners in e-Learning
+                                                                               Environment”, Proceedings of the IEEE National Information
+                                                %                              Technology Conference 2017,
+                                                                       15.     R. Patel, A. Kansara, “Web Pages Recommendation System
+According to the demonstrated performance summary in                           Based on K-Medoid Clustering Method”, International Journal
+                                                                               of Advance Engineering and Research Development Volume 2,
+table X the proposed technique is found superior to the                        Issue 5, May -2015
+existing techniques for recommending the contents and                  16.     J. Hu, Y. Zhang, “Research patterns and trends of
+material in the e-learning applications. Thus the proposed                     Recommendation System in China using co-word analysis”,
+solution is acceptable for real-world solution development.                    Information Processing and Management 51 (2015) 329–339
+
+5.2 Future Work
+The research work is aimed to provide an accurate and
+efficient recommendation system for e-learners which is
+able to understand the end-user behavior and precise
+    Retrieval Number: F9991038620/2020©BEIESP
+    DOI:10.35940/ijrte.F9991.059120                                          Published By:
+    Journal Website: www.ijrte.org                                           Blue Eyes Intelligence Engineering
+                                                               1194
+                                                                             & Sciences Publication
+    A Personalized Web Based E-Learning Recommendation System To Enhance and User Learning Experience
+
+
+17. S. Seki, K. Ando, “Examination of a Method for Determining
+    Web News Suitable as Teaching Materials of NIE toward News
+    Recommendation for Elementary           School   Teachers”,
+    Proceedings of The Fifth International Conference on
+    Electronics and Software Science ICESS2019, Japan, 2019,
+    ISBN: 978-1-941968-58-1 ©2019 SDIWC
+18. R. Campos, R. P. d. Santos, J. Oliveira, “Web-Based
+    Recommendation System Architecture for Knowledge Reuse in
+    MOOCs Ecosystems”, 2018 IEEE International Conference on
+    Information Reuse and Integration for Data Science, 978-1-
+    5386-2659-7/18/$31.00        ©2018         IEEE,       DOI
+    10.1109/IRI.2018.00036
+19. H. Imran, M. B. Zadeh, T. W. Chang, Kinshuk, S. Graf,
+    “PLORS: a personalized learning object recommender system”,
+    Vietnam J ComputSci (2016) 3:3–13, DOI 10.1007/s40595-015-
+    0049-6
+20. M. Azizi, H. Do, “A Collaborative Filtering Recommender
+    System for Test Case Prioritization in Web Applications”,
+    Conference’17, July 2017, Washington, DC, USA © 2018
+    Association for Computing Machinery. ACM
+
+                     AUTHOR PROFILE
+                 Mrs. Nidhi Joshi is a Research Scholar in
+                 Rabindranath Tagore University, Raisen. She is
+                 M.Sc.in Computer Science and having 12 years of
+                 working experiences in Non-Government Academic
+                 Fields. She is Founder and Director of renowned Pvt.
+                 Degree college of Dhar (M.P.). She has expertise in
+Data Warehousing, Web Mining, Data Mining and Statistical
+Analysis. She has published 2 research papers in International and
+National Journals and presented one paper in international conference.
+
+                  Dr. Rajendra Gupta is an Associate Professor in
+                  Rabindranath Tagore University, Raisen. He is
+                  doctorate in Computer Science and having 20 years
+                  of working experiences in Government and Non-
+                  Government Academic Fields. His teaching and
+                  research areas belong to Image Processing,
+                  Network Security, Data Mining and Statistical
+                  Analysis. He has published 52 research papers in
+International and National Journals and presented papers in 12
+international conferences. He is reviewer of International Journals and
+member of various Academic bodies.
+
+
+
+
+Retrieval Number: F9991038620/2020©BEIESP
+DOI:10.35940/ijrte.F9991.059120                                              Published By:
+Journal Website: www.ijrte.org                                        1195   Blue Eyes Intelligence Engineering
+                                                                             & Sciences Publication
+

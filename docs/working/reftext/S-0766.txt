@@ -1,0 +1,534 @@
+    Graph-Based Personalized Recommendation in Intelligent Educational
+            Platforms: A Case Study in Engineering Education
+
+                                      Sofia Merino Costa1 , Rui Pinto2                           a
+                                                                                                     and Gil Gonçalves2       b
+            1 Departamento Engenharia Informática, Faculdade de Engenharia, Universidade do Porto, Porto, Portugal
+                            2 SYSTEC-ARISE, Faculdade de Engenharia, Universidade do Porto, Porto, Portugal
+
+
+
+
+Keywords:            Graph-Based Recommendation, Knowledge Management System, Education 5.0, Engineering Education.
+
+Abstract:            The fragmentation of digital learning materials in engineering education makes it difficult for students to find
+                     relevant content. This paper presents a graph-based recommender system integrated into an intelligent Knowl-
+                     edge Management System (KMS) to support personalized learning. Using Neo4j, the system models users,
+                     learning objects, and semantic relationships to generate contextualized recommendations across dashboard,
+                     module, and Learning Path (LP) views. Its scoring mechanism combines semantic similarity, interaction his-
+                     tory, and graph proximity to provide adaptive, explainable suggestions. A mixed-methods evaluation with
+                     engineering students showed high alignment with user interests and positive perceptions of transparency and
+                     personalization. The system effectively transitioned from fallback to tailored recommendations as user inter-
+                     actions increased. Results highlight the potential of graph-based approaches to improve content relevance,
+                     discovery, and learner engagement in web-based educational platforms, in line with Education 5.0 principles.
+
+
+
+1        INTRODUCTION                                                                           The main contributions of this paper are as fol-
+                                                                                            lows:
+Engineering students increasingly face the challenge                                          • A graph-based recommendation approach for
+of navigating vast and complex digital learning                                                 an intelligent Knowledge Management System
+ecosystems. While abundant resources, such as lec-                                              (KMS), tailored for educational resource discov-
+ture notes, academic papers, and interactive tools, of-                                         ery using Neo4j (Webber and Robinson, 2018) to
+fer rich learning opportunities, they also contribute                                           model learners, content, and pedagogical relation-
+to information overload, making it difficult for learn-                                         ships.
+ers to identify relevant, trustworthy, and pedagogi-
+                                                                                              • Multi-context recommendation logic tailored to
+cally aligned content (Dalkir, 2017). Traditional plat-
+                                                                                                user states (e.g., new, returning, active) and inter-
+forms often provide limited support for this discov-
+                                                                                                face views (dashboard, module, learning path).
+ery process, relying on static listings, keyword-based
+search, and non-personalized navigation (Kopeyev                                              • A mixed-methods evaluation combining precision
+et al., 2020).                                                                                  metrics and user feedback to assess recommenda-
+    To address this, there is growing interest in in-                                           tion quality and perceived usefulness.
+tegrating intelligent features into web-based educa-                                          • A discussion on how explainability and contextual
+tional environments. Among these, recommender                                                   relevance foster learner trust and engagement in
+systems offer promise by matching content to learn-                                             alignment with Education 5.0.
+ers based on usage patterns, metadata, and learning                                             The remainder of this paper is structured as fol-
+objectives (G. M. et al., 2024). However, their ap-                                         lows: Section 2 reviews related work on educational
+plication in education remains limited, particularly in                                     recommender systems and graph-based approaches.
+terms of explainability, semantic richness, and adapt-                                      Section 3 presents the system architecture and rec-
+ability to evolving learner needs (Sahu et al., 2024;                                       ommendation logic. Section 4 details the evaluation
+Liu et al., 2024a).                                                                         methodology and results. Section 5 discusses the
+                                                                                            findings, limitations, and implications. Finally, Sec-
+     a     https://orcid.org/0000-0002-0345-1208                                            tion 6 concludes the paper and outlines directions for
+     b     https://orcid.org/0000-0001-7757-7308                                            future work.
+
+
+                                                                                                                                                439
+Costa, S. M., Pinto, R. and Gonçalves, G.
+Graph-Based Personalized Recommendation in Intelligent Educational Platforms: A Case Study in Engineering Education.
+DOI: 10.5220/0013830200003985
+Paper published under CC license (CC BY-NC-ND 4.0)
+In Proceedings of the 21st International Conference on Web Information Systems and Technologies (WEBIST 2025), pages 439-446
+ISBN: 978-989-758-772-6; ISSN: 2184-3252
+Proceedings Copyright © 2025 by SCITEPRESS – Science and Technology Publications, Lda.
+WEBIST 2025 - 21st International Conference on Web Information Systems and Technologies
+
+
+
+
+2     RELATED WORK                                                   • Explainability, though feasible via graph-based
+                                                                       logic, is underutilized.
+Recommender systems are central to intelligent edu-                  • Alignment with Education 5.0 values—human-
+cational platforms, offering personalized content de-                  centricity, personalization, and intelligent sup-
+livery and helping students navigate large volumes                     port—remains limited.
+of heterogeneous learning materials. In engineer-
+                                                                       This work addresses these gaps by introducing a
+ing education, this need is particularly acute, as stu-
+                                                                   modular graph-based recommender embedded in an
+dents must identify relevant resources across com-
+                                                                   educational KMS for engineering students. The sys-
+plex, interdisciplinary domains, often without struc-
+                                                                   tem provides context-aware recommendations across
+tured guidance (Urdaneta-Ponte et al., 2021).
+                                                                   dashboard, module, and LP views, leveraging seman-
+    Traditional recommendation techniques fall into
+                                                                   tic links for pedagogical relevance. Its graph-based
+two main categories: collaborative filtering, which
+                                                                   foundation also enables future enhancements in ex-
+identifies patterns based on user-item interactions,
+                                                                   plainability, learner modeling, and adaptive reason-
+and content-based filtering, which relies on seman-
+                                                                   ing, supporting Education 5.0 principles (Pinto et al.,
+tic features and metadata (Lops et al., 2011; Ricci
+                                                                   2023; Pinto et al., 2024).
+et al., 2011). While effective in domains such as
+e-commerce, these approaches face limitations in
+education due to sparse behavioral data, misalign-
+ment with pedagogical goals, and the cold-start prob-              3     SYSTEM DESIGN
+lem (Burke, 2002).
+    To address these challenges, hybrid systems have               The platform developed in this work serves as a pro-
+emerged, combining collaborative and content-based                 totype for an intelligent KMS designed to enhance en-
+methods. A significant advancement is the use of                   gineering education. The system is composed of four
+graph-based representations, where users, resources,               main components: I) a frontend interface for user in-
+and educational concepts are modeled as intercon-                  teraction; II) a backend server that handles applica-
+nected nodes. This structure enables semantic en-                  tion logic, data management, and API communica-
+richment, multi-hop reasoning, and explainable rec-                tion; III) a data layer including a relational database
+ommendations—essential features for transparency                   and a graph-based recommendation system; and IV)
+and trust in learning environments (Markchom et al.,               external services such as a semantic search engine and
+2023).                                                             cloud storage. This modular architecture, as repre-
+    Recent research reflects this shift toward graph-              sented in Figure 1, ensures a seamless user experience
+enhanced educational recommenders. (Lu and Feng,                   and provides scalability for future growth. Although
+2024) combined graph convolutional networks with                   the system is not fully adaptive or self-learning, it in-
+user behavior modeling for dynamic adaptation. (Liu                tegrates foundational intelligent features such as se-
+et al., 2024b) used Neo4j to model user-resource rela-             mantic information retrieval and graph-based person-
+tionships, integrating NLP to enhance semantic query               alization, which represent an important step toward
+interpretation(Webber and Robinson, 2018). (Hu                     creating more advanced, intelligent systems.
+et al., 2021) addressed information overload by fil-                   The recommendation system is a core compo-
+tering resources based on rule-based matching and                  nent of the broader intelligent knowledge manage-
+user profiles. (Imamah et al., 2024) applied Ant                   ment platform tailored for engineering students. This
+Colony Optimization to personalize Learning Paths                  platform supports modular content organization, se-
+(LPs) based on difficulty and learner preferences.                 mantic search, LPs, and personalized recommenda-
+Meanwhile, Skillify (Dhairya et al., 2024) integrated              tions to guide students through relevant learning ma-
+generative AI features to recommend content based                  terials efficiently. To meet these objectives, the archi-
+on learner skill gaps.                                             tecture adopts a hybrid multi-database backend, com-
+    These contributions highlight the pedagogical                  bining PostgreSQL (Obe and Hsu, 2017) for relational
+value of recommender systems, particularly when en-                content and user management, Elasticsearch (Konda,
+hanced by graph structures, semantic reasoning, and                2024) for semantic retrieval, and Neo4j (Webber and
+adaptive logic. However, key limitations remain:                   Robinson, 2018) (Community Edition) as a graph-
+                                                                   based recommendation engine. Unlike triple-store
+ • Many systems struggle with cold-start scenarios                 Resource Description Frameworks (RDF), this ap-
+   and sparse data.                                                proach was designed as a database model (rather than
+ • Few support multi-context recommendations                       a data exchange format), and easily handles multiple
+   aligned with user state and platform usage.                     relationships of the same type between the same two
+                                                                   nodes.
+
+
+440
+              Graph-Based Personalized Recommendation in Intelligent Educational Platforms: A Case Study in Engineering Education
+
+
+
+
+                                      Figure 1: Component and Data Flow Diagram.
+
+3.1   Data Model & Synchronization                                    To integrate data from the relational backend into
+                                                                  the graph, a custom synchronization pipeline is im-
+The platform’s ability to support intelligent fea-                plemented via a Node.js script (Mardan et al., 2018).
+tures such as personalized recommendations, seman-                This script extracts relevant entities and relationships
+tic search, and adaptive LPs relies heavily on a ro-              from PostgreSQL and incrementally populates the
+bust and well-structured data model. The choice                   Neo4j graph. It clears existing data and recreates
+to combine relational, search, and graph databases                nodes for users, resources, modules, LPs, and clas-
+stems from their complementary strengths. First,                  sification nodes such as categories and tags, estab-
+PostgreSQL ensures reliable storage and transactional             lishing their interconnections accordingly. User in-
+consistency of structured data such as user profiles,             teractions, such as resource views, module starts,
+content metadata, and LP structures. Second, Elas-                bookmarks, and completions, are stored relationally
+ticsearch enables fast and flexible semantic search               and then represented as explicit Interaction nodes
+across textual resource descriptions, supporting rich             in the graph, linked to the corresponding User and
+query capabilities beyond keyword matching. Finally,              Resource, Module, or LearningPath targets. This
+Neo4j, a property graph database, powers the rec-                 design enables rich traversal patterns and weighted
+ommendation engine by efficiently modeling com-                   personalization.
+plex, evolving relationships between users, learning
+resources, modules, and LPs, enabling context-aware
+traversal queries that adapt to learner behaviors.
+
+
+                                                                                                                            441
+WEBIST 2025 - 21st International Conference on Web Information Systems and Technologies
+
+
+
+
+3.1.1   Neo4j Graph Schema                                             Relationships encode these connections, such as
+                                                                   (:Module)-[:HAS RESOURCE]->(:Resource) and
+To support personalized recommendations, the plat-                 (:LearningPath)-[:HAS MODULE]->(:Module)
+form incorporates a graph-based model implemented                  for           content         hierarchy,             or
+with Neo4j. This structure enables efficient traversal             (:User)-[:PERFORMED]->(:Interaction)
+of interconnected entities, including users, resources,            and (:Interaction)-[:TARGET]->(:Resource)
+modules, and LPs, capturing complex relationships                  for tracking user behavior. Each Interaction
+not easily expressed in relational databases (Figure 2).           node contains properties such as interaction type,
+Key educational elements are modeled as nodes, such                timestamp, and a computed weight.
+as:                                                                    The graph structure allows the system to per-
+ • User: Learners with profile attributes (e.g., ed-               form personalized content recommendations based
+   ucation level, field of study, topic interests, pre-            on traversals of relationships such as shared tags,
+   ferred content types, language preferences).                    co-interacted resources, or similar LPs. Cypher
+                                                                   queries (He et al., 2022) are used to retrieve relevant
+ • Resource: Learning materials enriched with                      content for each user based on both direct and indi-
+   metadata such as categories, tags, type, title, and             rect connections, enabling a more contextualized and
+   description.                                                    intelligent experience.
+ • Module: Groupings of related resources repre-
+   senting standalone instructional units.                         3.2 Recommendation and Scoring Logic
+ • Learning Path: Ordered sequences of modules
+   guiding structured progression.                                 The recommendation engine integrates three core
+                                                                   dimensions: Content Similarity (CS), Interaction
+ • Category, Tag, ResourceType: Classification
+                                                                   Weighting (IW), and Graph Proximity (GP). When a
+   nodes supporting semantic connections.
+                                                                   learner interacts with a resource, module, or LP, the
+ • Interaction: User actions (e.g., view, start,                   system traverses the graph to identify candidate con-
+   bookmark, complete) linked to targets, with                     tent and computes a final recommendation score using
+   timestamps and weights.                                         a weighted sum, as represented in Equation 1:
+                                                                           Score = w1 × CS + w2 × IW + w3 × GP          (1)
+                                                                       The weights w1 , w2 , and w3 are empirically tuned
+                                                                   to balance semantic, behavioral, and structural sig-
+                                                                   nals.
+                                                                       Content Similarity (CS) captures thematic close-
+                                                                   ness by comparing tags, categories, and meta-
+                                                                   data. The system employs the Sørensen–Dice coef-
+                                                                   ficient (Gragera and Suppakitpaisarn, 2016), imple-
+                                                                   mented via Neo4j’s Awesome Procedures on Cypher
+                                                                   (APOC) plugin (Shatnawi and Saquer, 2024), to com-
+                                                                   pute semantic similarity between resources.
+                                                                       Interaction Weighting (IW) reflects the pedagog-
+                                                                   ical significance and recency of user actions. Each
+                                                                   interaction type is assigned a base weight (wbase ), ad-
+                                                                   justed by a linear decay function that prioritizes recent
+                                                                   activity, as represented in Equation 2:
+                                                                     wx = wbase ×max(1, 10−DaysSinceInteraction) (2)
+                                                                      The interaction types and corresponding wbase val-
+                                                                   ues are: 1 - Default (other interactions); 2 - Re-
+                                                                   source/module/LP views; 3 - Module/LP started; 4 -
+                                                                   Content bookmarked; 5 - Module completed; 6 - LP
+                                                                   completed.
+                                                                      This approach ensures that recent, pedagogically
+                                                                   meaningful actions have greater influence on recom-
+                                                                   mendations, while older actions still contribute with
+      Figure 2: Graph-based recommendation schema.                 diminished weight.
+
+
+442
+              Graph-Based Personalized Recommendation in Intelligent Educational Platforms: A Case Study in Engineering Education
+
+
+
+
+    Graph Proximity (GP) encodes the structural re-               3.4 Recommendation Contexts and
+lationship between users and content. Shorter path                    Pedagogical Impact
+lengths in the graph indicate stronger contextual rel-
+evance, enabling the system to blend content-based                The recommendation engine operates across multiple
+and collaborative filtering perspectives.                         contexts within the platform, each aligned with a spe-
+    Together, these three dimensions enable the sys-              cific stage of the learner’s journey:
+tem to deliver adaptive, context-aware, and explain-
+able recommendations aligned with each learner’s                      • Dashboard: Upon login, students receive person-
+evolving profile and engagement history.                                alized recommendations for resources, modules,
+                                                                        and LPs based on their profile, declared interests,
+                                                                        and recent interactions. This reduces the cogni-
+3.3   Recommendation Query                                              tive load of content discovery and promotes re-
+      Formulation                                                       engagement.
+                                                                      • Resource View: When accessing a specific re-
+The recommendation engine generates context-
+                                                                        source, the system suggests semantically related
+specific suggestions using tailored Cypher queries ex-
+                                                                        materials, encouraging exploratory learning and
+ecuted on the underlying graph. These queries are
+                                                                        thematic deepening.
+designed to balance personalization, semantic rele-
+vance, and robustness to sparse data. Core elements                   • Module View: Within a module, recommenda-
+of the query formulation include:                                       tions highlight complementary modules or LPs
+                                                                        that support conceptual progression and curricu-
+ • Interaction-Based Personalization:          When
+                                                                        lum continuity.
+   available, the engine prioritizes user interaction
+   history, excluding previously accessed content                     • Learning Path View: For learners navigating a
+   and surfacing items aligned with past engagement                     structured LP, the system offers reinforcing re-
+   patterns and preferences.                                            sources and related modules to strengthen under-
+                                                                        standing and align with learning objectives.
+ • Profile-Driven Filtering: In the absence of in-
+   teraction data (e.g., cold-start), recommendations                Each context employs a tailored version of the
+   are derived from explicit profile attributes such as           scoring logic, ensuring that recommendations are
+   topic interests and preferred content formats.                 both contextually relevant and pedagogically aligned.
+ • Semantic Matching: Queries incorporate tag
+   similarity, category alignment, and metadata com-
+   parisons to surface semantically related content               4      EVALUATION
+   within the current context (e.g., a viewed module
+   or resource).                                                  This section presents an evaluation of the intelligent
+ • Popularity Signals: Aggregate usage data across                KMS developed in this work, with a focus on assess-
+   the platform is used to highlight frequently ac-               ing the performance of its personalized recommenda-
+   cessed or highly rated content, improving diver-               tions component. The evaluation was designed to re-
+   sity and baseline relevance.                                   flect realistic usage within the context of engineering
+                                                                  education, by testing the system across all major con-
+ • Graph-Based Contextualization: The engine                      texts where recommendations appear within the plat-
+   exploits both direct and indirect relationships                form, as represented in Table 1.
+   within the graph—such as module-resource links
+   or shared attributes across LPs—to infer pedagog-                Table 1: Recommendation contexts across the platform.
+   ical and thematic connections.
+                                                                        Context           Description
+ • Multi-Tier Fallbacks: A hierarchical fallback                        Dashboard         Personalized suggestions based
+   strategy ensures continuity in recommendations,                                        on profile and interaction data.
+   progressing from personalized to profile-based                       Resource Page     Related resources and modules
+   and finally to globally popular content as needed.                                     extending the current topic.
+                                                                        Module Page       Additional modules and LPs
+   These dynamic query patterns leverage Neo4j’s                                          supporting progression.
+aggregation capabilities to compute ranked recom-                       LP Page           Resources that deepen knowl-
+mendations across key platform views, including the                                       edge in active LPs.
+dashboard, resource detail pages, and LP modules.
+                                                                     Each context was tested under multiple user states,
+                                                                  namely: I) cold start, i.e., new user with no data
+
+
+                                                                                                                             443
+WEBIST 2025 - 21st International Conference on Web Information Systems and Technologies
+
+
+
+
+regarding preferences (content topics and type); II)               of user modeling: when preferences or interaction
+profile-based (static preferences selected by a new                data are available, highly relevant recommendations
+or returning user); and III) personalized (interaction-            are consistently retrieved.
+aware, after multiple interactions of a returning user),
+to evaluate system behavior in both ideal and con-                 Table 2: Dashboard recommendation relevance by user
+strained conditions. These controlled conditions al-               state.
+lowed for consistent comparison of fallback and per-                               State        Fallback     P@k
+sonalized recommendation strategies.                                            Cold Start       Popular       –
+    Ten participants, students from computer science                           Profile-Based   Preferences   1.00
+programs, completed a structured sequence of 3 tasks                           Personalized       N/A        1.00
+designed to simulate the system’s intended use. Also,
+the system wasn’t used in real courses. The tasks                  4.1.2    Resource Page
+are: I) Participants registered into the system, selected
+their preferences, and configured their profiles. This             Table 3 presents the results for module recommenda-
+task was used to test the cold-start logic of the rec-             tions on resource pages.
+ommendation engine and capture profile-based per-
+sonalization; II) The new users were asked to interact               Table 3: Resource page module recommendation results.
+with their personalized dashboard. They were encour-
+                                                                               Resource Type     P@k     Fallback
+aged to bookmark useful resources, interact with rec-
+                                                                                With Module      1.00       No
+ommendations, and rate their relevance based on the                             Standalone       1.00      Yes
+submitted preferences at sign-up. This task was used
+to test the performance of the Neo4j-based graph rec-                  Even when fallback logic was needed (for stan-
+ommendation system and assess the perceived qual-                  dalone resources), the system maintained high rel-
+ity of personalization; III) Participants selected one             evance, achieving perfect scores in both contexts.
+of two LPs and completed its modules. Each module                  These results suggest that the semantic similarity
+included resources and an assessment to verify knowl-              logic and graph-based expansion strategies used for
+edge gained.                                                       recommending adjacent modules are effective even in
+    The system was evaluated using the standard                    the absence of direct contextual anchors.
+quantitative metric Precision@k (P@k), which mea-
+sures the proportion of relevant items among the top k             4.1.3    Module Page
+recommendations, calculated using Equation 3. This
+metric was selected due to its widespread use and suit-            Table 4 shows how well the system suggested LPs
+ability for top-k recommendation tasks. High preci-                when users viewed modules.
+sion indicates strong immediate relevance.
+                                                                      Table 4: Module page LP recommendation relevance.
+                    # relevant items in top k
+            P@k =                                     (3)                       Module Type     P@k     Fallback
+                                 k                                               With Path      1.00       No
+                                                                                Without Path    0.67      Yes
+4.1     Results Summary
+                                                                       P@k dropped to 0.67 for standalone modules due
+The following presents the system’s performance                    to fallback recommendations, highlighting some gaps
+across the different recommendation scenarios identi-              in topic alignment. These findings suggest a need for
+fied in Table 1. Metrics are reported for each context             improved fallback mechanisms in cases where mod-
+to reflect how well the system adapts to different user            ules are not yet connected to curated LPs.
+states and content configurations.
+                                                                   4.1.4    Learning Path Page
+4.1.1   Dashboard
+                                                                   Table 5 summarizes the relevance of resources rec-
+Table 2 shows the results for the dashboard context,               ommended on LP pages. The three evaluated LPs
+where user-level personalization is expected to be                 were: Introduction to Knowledge Management Sys-
+most impactful. The system showed strong perfor-                   tems (LP1), Getting Started with Arduino (LP2), and
+mance in profile-based and personalized scenarios,                 Cyber-Physical Systems and Internet of Things (LP3).
+i.e., achieving a perfect P@k of 1.00. As expected, no                While the system returned relevant items for all
+metrics are reported for cold start users, where fall-             LPs, performance varied considerably. Notably, LP1
+back to popular items was applied instead of person-               and LP2 exhibited no unique recommendations, with
+alized ranking. These results demonstrate the value
+
+
+444
+               Graph-Based Personalized Recommendation in Intelligent Educational Platforms: A Case Study in Engineering Education
+
+
+
+
+    Table 5: LP page resource recommendation results.              ate diverse or specialized suggestions. Enhancing se-
+      LP     Items     Unique     Relevant      P@k                mantic modeling—via knowledge graph embeddings
+      LP1      6         0           3          0.50               or NLP-based descriptors—could improve thematic
+      LP2      6         0           2          0.33               sensitivity and recommendation diversity. Moreover,
+      LP3      6         2           4          0.67               although the system’s graph structure inherently sup-
+                                                                   ports explainability, the lack of a user-facing explana-
+multiple duplicate items across paths, resulting in                tion layer limits its impact on trust and transparency,
+lower P@k scores of 0.50 and 0.33 respectively. In                 which are critical in educational settings.
+contrast, LP3, which contained more distinct and                       In summary, the system’s strong performance
+well-tagged content, achieved better diversity with                in personalized contexts supports the validity of its
+two unique recommendations and a higher P@k of                     graph-based architecture and scoring logic. However,
+0.67. This variation indicates that while the system               the modest results under cold-start and semantically
+can surface relevant content, there is room to improve             sparse conditions point to areas for future work, in-
+its ability to balance relevance and novelty, particu-             cluding improved metadata enrichment, integration of
+larly when multiple paths are thematically similar.                explainable interfaces, and scalable strategies for ex-
+                                                                   panding and maintaining the content graph. These en-
+                                                                   hancements are key to deploying intelligent, learner-
+5    DISCUSSION                                                    centered recommendation systems in real-world edu-
+                                                                   cational environments.
+The evaluation highlighted both the strengths and
+limitations of the recommendation system, showing
+how performance is shaped by user context, interac-                6     CONCLUSION & FUTURE
+tion history, and the structure of the underlying con-
+tent graph. In personalized scenarios, particularly
+                                                                         WORK
+the dashboard view, recommendations consistently
+                                                                   This paper presented a graph-based recommender
+achieved perfect P@k scores when user profile data
+                                                                   system integrated into an intelligent KMS for en-
+and interaction history were available. This validates
+                                                                   gineering education. Aligned with Education 5.0
+the scoring strategy, which combines semantic sim-
+                                                                   principles, the system delivers personalized, context-
+ilarity, weighted user interactions, and graph prox-
+                                                                   aware recommendations across multiple learning
+imity to produce contextually relevant suggestions.
+                                                                   views—including the dashboard, module pages, and
+The graph-based design, together with scoring logic,
+                                                                   learning paths. Leveraging Neo4j to model users,
+allowed dynamic adaptation to evolving user states,
+                                                                   content, and semantic relationships, the system dy-
+transitioning smoothly from fallback suggestions to
+                                                                   namically adapts to learner profiles and activity states,
+personalized results. Users positively noted this pro-
+                                                                   using a hybrid scoring strategy to provide relevant
+gression, perceiving a clear improvement in recom-
+                                                                   suggestions—even during early-stage interactions.
+mendation quality over the course of their session.
+                                                                       Evaluation results confirmed the system’s ef-
+    Despite these strengths, several limitations were
+                                                                   fectiveness in personalized contexts, validating the
+observed. In cold-start scenarios, fallback recommen-
+                                                                   multi-factor scoring logic that combines semantic
+dations relied on content popularity. While this en-
+                                                                   similarity, interaction history, and graph proximity.
+sured a baseline level of relevance, it often failed to
+                                                                   Users experienced a clear progression from fallback
+align with users’ specific interests. Additionally, in
+                                                                   to personalized recommendations during sessions.
+the LP detail view, content overlap was observed be-
+                                                                   However, reduced performance in cold-start and se-
+tween LPs that addressed different topics. This issue,
+                                                                   mantically sparse scenarios underscored the need for
+particularly between LP1 and LP2, with P@6 scores
+                                                                   richer metadata, broader content coverage, and en-
+of 0.50 and 0.33, reflected insufficient differentiation
+                                                                   hanced similarity modeling.
+in resource tagging and semantic descriptors. LP3,
+                                                                       This work contributes a practical, explainable,
+featuring more distinctive and well-annotated content,
+                                                                   and modular recommendation framework for educa-
+performed better (P@6 = 0.67), reinforcing the im-
+                                                                   tional platforms, balancing adaptability with integra-
+portance of metadata richness.
+                                                                   tion flexibility. Future development will focus on ex-
+    These findings suggest that recommendation qual-
+                                                                   panding the semantic layer, incorporating real-time
+ity is not solely dependent on algorithmic logic, but
+                                                                   behavioral signals, and implementing visual explana-
+also on the breadth, granularity, and semantic qual-
+                                                                   tion features to enhance transparency, learner trust,
+ity of the content graph. Sparse metadata and limited
+                                                                   and long-term engagement in self-directed learning.
+content variety constrain the system’s ability to gener-
+
+
+                                                                                                                             445
+WEBIST 2025 - 21st International Conference on Web Information Systems and Technologies
+
+
+
+
+ACKNOWLEDGEMENTS                                                   Liu, J., Luan, M., and Jiang, N. (2024b). Personalized
+                                                                        Academic Communication Recommendation System
+The authors gratefully acknowledge the support pro-                     Based on Knowledge Graph. In 2024 5th Interna-
+                                                                        tional Conference on Electronic Communication and
+vided by the Foundation for Science and Technol-
+                                                                        Artificial Intelligence (ICECAI), pages 610–614.
+ogy (FCT/MCTES) within the scope of the Associ-
+                                                                   Lops, P., Gemmis, M. d., and Semeraro, G. (2011). Content-
+ated Laboratory ARISE (LA/P/0112/2020), the R&D                         based recommender systems: State of the art and
+Unit SYSTEC through Base (UIDB/00147/2020) and                          trends. In Recommender Systems Handbook, pages
+Programmatic (UIDP/00147/2020) funds                                    73–105. Springer.
+                                                                   Lu, P. and Feng, X. (2024). Personalized Recommenda-
+                                                                        tion Algorithm in AI-Assisted Learning System. In
+                                                                        2024 6th International Conference on Communica-
+REFERENCES                                                              tions, Information System and Computer Engineering
+                                                                        (CISCE), pages 1289–1294. ISSN: 2833-2423.
+Burke, R. (2002). Hybrid recommender systems: Survey               Mardan, A., Mardan, and Corrigan (2018). Practical Node.
+      and experiments. User modeling and user-adapted in-               js. Springer.
+      teraction, 12(4):331–370.
+                                                                   Markchom, T., Liang, H., and Ferryman, J. (2023). Re-
+Dalkir, K. (2017). Knowledge Management in Theory and                   view of explainable graph-based recommender sys-
+      Practice. MIT Press, 3rd edition.                                 tems. ACM Computing Surveys.
+Dhairya, Hrishikesh, J., Sonu, G. P., Vaishnavi, D., Sana-         Obe, R. O. and Hsu, L. S. (2017). PostgreSQL: up and run-
+      pala, S., and Pallavi, L. (2024). Skillify: En-                   ning: a practical guide to the advanced open source
+      hanced Learning Management System Using Genera-                   database. ” O’Reilly Media, Inc.”.
+      tive AI. In 2024 7th International Conference on Cir-
+      cuit Power and Computing Technologies (ICCPCT),              Pinto, R., Pinheiro, J., Gonçalves, G., and Ribeiro, A.
+      volume 1, pages 1527–1532.                                        (2023). Towards industry 5.0: A capacitation ap-
+                                                                        proach for upskilling and technology transfer. In
+G. M., D., Goudar, R. H., Kulkarni, A. A., Rathod, V. N.,               Mehmood, R., Alves, V., Praça, I., Wikarek, J., Parra-
+      and Hukkeri, G. S. (2024). A digital recommendation               Domı́nguez, J., Loukanova, R., de Miguel, I., Pinto,
+      system for personalized learning to enhance online ed-            T., Nunes, R., and Ricca, M., editors, Distributed
+      ucation: A review. IEEE Access, 12:34019–34041.                   Computing and Artificial Intelligence, Special Ses-
+Gragera, A. and Suppakitpaisarn, V. (2016). Semimetric                  sions I, 20th International Conference, pages 342–
+      properties of sørensen-dice and tversky indexes. In               351, Cham. Springer Nature Switzerland.
+      Kaykobad, M. and Petreschi, R., editors, WALCOM:             Pinto, R., Žilka, M., Zanoli, T., Kolesnikov, M. V., and
+      Algorithms and Computation, pages 339–350, Cham.                  Gonçalves, G. (2024). Enabling professionals for in-
+      Springer International Publishing.                                dustry 5.0: The self-made programme. In 5th Interna-
+He, Z., Yu, J., and Guo, B. (2022). Execution time predic-              tional Conference on Industry 4.0 and Smart Manu-
+      tion for cypher queries in the neo4j database using a             facturing (ISM 2023), volume 232, pages 2911–2920.
+      learning approach. Symmetry, 14(1).                          Ricci, F., Rokach, L., and Shapira, B. (2011). Introduc-
+Hu, H., Ma, X., Pan, H., Zhang, H., and Gu, F. (2021). Re-              tion to recommender systems handbook, pages 1–35.
+      search on Intelligent Recommendation System Based                 Springer.
+      on Knowledge Management. In 2021 International               Sahu, S. S., Kumar, R., Sahoo, S., Kumar, B., and Mo-
+      Conference on Intelligent Computing, Automation and               hanta, P. (2024). Machine Learning-Enabled Inte-
+      Applications (ICAA), pages 195–198.                               grated Information Platform for Educational Univer-
+Imamah, Laili Yuhana, U., Djunaidy, A., and Purnomo,                    sities, chapter 2, pages 29–47. John Wiley & Sons,
+      M. H. (2024). Development of Dynamic Personalized                 Ltd.
+      Learning Paths Based on Knowledge Preferences and            Shatnawi, H. and Saquer, J. (2024). Encoding feature mod-
+      the Ant Colony Algorithm. IEEE Access, 12:144193–                 els in neo4j graph database. In Proceedings of the
+      144207. Conference Name: IEEE Access.                             2024 ACM Southeast Conference, ACMSE ’24, page
+Konda, M. (2024). Elasticsearch in action. Simon and                    157–166, New York, NY, USA. Association for Com-
+      Schuster.                                                         puting Machinery.
+Kopeyev, Z., Mubarakov, A., Kultan, J., Aimicheva, G., and         Urdaneta-Ponte, M. C., Mendez-Zorrilla, A., and
+      Tuyakov, Y. (2020). Using a personalized learning                 Oleagordia-Ruiz, I. (2021).          Recommendation
+      style and google classroom technology to bridge the               systems for education: Systematic review. Electron-
+      knowledge gap on computer science. International                  ics, 10(14).
+      Journal of Emerging Technologies in Learning (IJET),         Webber, J. and Robinson, I. (2018). A Programmatic Intro-
+      15(2):218–229.                                                    duction to Neo4j. Addison-Wesley Professional, 1st
+Liu, J., Luan, M., and Jiang, N. (2024a). Personalized aca-             edition.
+      demic communication recommendation system based
+      on knowledge graph. In 2024 5th International Con-
+      ference on Electronic Communication and Artificial
+      Intelligence (ICECAI), pages 610–614.
+
+
+
+446
+
