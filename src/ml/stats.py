@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import itertools
+import math
 
 import numpy as np
 
@@ -18,16 +19,21 @@ DELTA = 0.02
 ALPHA = 0.05
 
 
-def cluster_bootstrap_t_ci(diffs, n_boot: int = 10_000, seed: int = 0, alpha: float = ALPHA):
-    """Calibrated cluster bootstrap-t CI (ADR-004 §2.2):
+def cluster_bootstrap_t(diffs, n_boot: int = 10_000, seed: int = 0, alpha: float = ALPHA) -> dict:
+    """Calibrated cluster bootstrap-t (ADR-004 §2.2) with the D-52 degeneracy rule.
 
         t*_b = (m_b − Δ̄) / (max(s_b, 1e−12)/√n),
         CI = [Δ̄ − q*_{1−α/2}·s/√n, Δ̄ − q*_{α/2}·s/√n]
+
+    A resample is degenerate when s_b < 1e−12 and m_b ≠ Δ̄ (its t* is not finite). If a percentile of t*
+    is determined by degenerate resamples, the corresponding bound is ±∞ and the interval is labelled
+    "degenerate" with the number of degenerate resamples (D-52). Otherwise the bounds are unchanged.
     """
     d = np.asarray(diffs, dtype=float)
     n = len(d)
     if n < 2:
-        return float(d.mean()) if n else float("nan"), float("nan"), float("nan")
+        m = float(d.mean()) if n else float("nan")
+        return {"mean": m, "lo": float("nan"), "hi": float("nan"), "degenerate": False, "n_degenerate": 0}
     rng = np.random.default_rng(seed)
     idx = rng.integers(0, n, size=(n_boot, n))
     samp = d[idx]
@@ -36,8 +42,88 @@ def cluster_bootstrap_t_ci(diffs, n_boot: int = 10_000, seed: int = 0, alpha: fl
     mean = d.mean()
     se = d.std(ddof=1) / np.sqrt(n)
     t_star = (m_b - mean) / (np.maximum(s_b, 1e-12) / np.sqrt(n))
+    degen = (s_b < 1e-12) & (np.abs(m_b - mean) > 1e-15)
     q_lo, q_hi = np.quantile(t_star, [alpha / 2, 1 - alpha / 2])
-    return float(mean), float(mean - q_hi * se), float(mean - q_lo * se)
+    lo, hi = float(mean - q_hi * se), float(mean - q_lo * se)
+    flag = False
+    if degen.any():
+        order = np.argsort(t_star, kind="stable")
+        dsorted = degen[order]
+        for q, side in ((1 - alpha / 2, "lo"), (alpha / 2, "hi")):
+            pos = q * (n_boot - 1)
+            i0, i1 = int(np.floor(pos)), int(np.ceil(pos))
+            if dsorted[i0] or dsorted[i1]:
+                flag = True
+                tq = t_star[order[i1 if dsorted[i1] else i0]]
+                # bound = mean − tq·se: a +huge t* sends the lower bound to −∞, a −huge t* the upper to +∞
+                if side == "lo":
+                    lo = float("-inf") if tq > 0 else lo
+                else:
+                    hi = float("inf") if tq < 0 else hi
+    return {"mean": float(mean), "lo": lo, "hi": hi, "degenerate": flag, "n_degenerate": int(degen.sum())}
+
+
+def cluster_bootstrap_t_ci(diffs, n_boot: int = 10_000, seed: int = 0, alpha: float = ALPHA):
+    """(mean, lo, hi) of :func:`cluster_bootstrap_t` (bounds may be ±∞ when degenerate, D-52)."""
+    r = cluster_bootstrap_t(diffs, n_boot=n_boot, seed=seed, alpha=alpha)
+    return r["mean"], r["lo"], r["hi"]
+
+
+def t_quantile(q: float, df: int) -> float:
+    """Student-t quantile by bisection on the CDF (regularised incomplete beta; appendix t-intervals)."""
+    def betacf(a, b, x):
+        qab, qap, qam = a + b, a + 1, a - 1
+        c, d = 1.0, 1 - qab * x / qap
+        d = 1 / d if abs(d) > 1e-30 else 1e30
+        h = d
+        for m in range(1, 300):
+            m2 = 2 * m
+            aa = m * (b - m) * x / ((qam + m2) * (a + m2))
+            d = 1 + aa * d
+            d = 1 / d if abs(d) > 1e-30 else 1e30
+            c = 1 + aa / c if abs(c) > 1e-30 else 1e30
+            h *= d * c
+            aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2))
+            d = 1 + aa * d
+            d = 1 / d if abs(d) > 1e-30 else 1e30
+            c = 1 + aa / c if abs(c) > 1e-30 else 1e30
+            de = d * c
+            h *= de
+            if abs(de - 1) < 1e-14:
+                break
+        return h
+
+    def ibeta(a, b, x):
+        if x <= 0:
+            return 0.0
+        if x >= 1:
+            return 1.0
+        lbt = math.lgamma(a + b) - math.lgamma(a) - math.lgamma(b) + a * math.log(x) + b * math.log(1 - x)
+        if x < (a + 1) / (a + b + 2):
+            return math.exp(lbt) * betacf(a, b, x) / a
+        return 1 - math.exp(lbt) * betacf(b, a, 1 - x) / b
+
+    def cdf(t):
+        x = df / (df + t * t)
+        p = 0.5 * ibeta(df / 2, 0.5, x)
+        return 1 - p if t > 0 else p
+
+    lo, hi = -1e3, 1e3
+    for _ in range(200):
+        mid = (lo + hi) / 2
+        if cdf(mid) < q:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
+def t_interval(diffs, alpha: float = ALPHA):
+    d = np.asarray(diffs, dtype=float)
+    n = len(d)
+    q = t_quantile(1 - alpha / 2, n - 1)
+    se = d.std(ddof=1) / np.sqrt(n)
+    return float(d.mean() - q * se), float(d.mean() + q * se)
 
 
 def cluster_bootstrap_ci(diffs, n_boot: int = 10_000, seed: int = 0, alpha: float = ALPHA):
@@ -132,11 +218,23 @@ def confirmed_with_margin(lo: float, delta: float = DELTA) -> bool:
 
 
 def compare(diffs, n_boot: int = 10_000, seed: int = 0) -> dict:
-    """Mean, bootstrap-t CI (verdict), percentile CI (appendix) and two-sided sign-flip p."""
-    mean, lo, hi = cluster_bootstrap_t_ci(diffs, n_boot=n_boot, seed=seed)
+    """Mean, bootstrap-t CI (verdict; D-52 degeneracy label), percentile CI (appendix) and two-sided sign-flip p."""
+    bt = cluster_bootstrap_t(diffs, n_boot=n_boot, seed=seed)
     _, plo, phi = cluster_bootstrap_ci(diffs, n_boot=n_boot, seed=seed)
-    return {"n": len(diffs), "mean": mean, "ci_lo": lo, "ci_hi": hi, "pct_lo": plo, "pct_hi": phi,
+    return {"n": len(diffs), "mean": bt["mean"], "ci_lo": bt["lo"], "ci_hi": bt["hi"],
+            "degenerate": bt["degenerate"], "n_degenerate": bt["n_degenerate"], "pct_lo": plo, "pct_hi": phi,
             "p": sign_flip_test(diffs)}
+
+
+def format_bound(x: float) -> str:
+    return ("−∞" if x < 0 else "+∞") if not np.isfinite(x) else f"{x:+.4f}"
+
+
+def format_ci(c: dict) -> str:
+    s = f"[{format_bound(c['ci_lo'])}, {format_bound(c['ci_hi'])}]"
+    if c.get("degenerate"):
+        s += f" منحلّ (degenerate; {c['n_degenerate']} إعادة منحلّة)"
+    return s
 
 
 def confirmation_power(mu: float, sigma: float, n: int = 13, delta: float = DELTA, n_sim: int = 1000,

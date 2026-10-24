@@ -115,29 +115,46 @@ def raw_fingerprint() -> str:
     return h.hexdigest()[:10]
 
 
-# --- table loaders -------------------------------------------------------------------------
-def load_vle() -> pd.DataFrame:
-    df = pd.read_csv(RAW_DIR / "vle.csv")
+# --- table loaders ---------------------------------------------------------------------------------
+# Every public loader filters to the presentations of a role at load time (D-09; peer note N1 on D-47):
+#   role="dev"  → the nine 2013 development presentations (default);
+#   role="conf" → the thirteen 2014 presentations, only with allow_confirmatory=True;
+#   role="all"  → both, only with allow_confirmatory=True.
+# No public path returns a 2014 row before the freeze; the single exception is confirmatory_student_ids().
+def role_presentations(role: str = "dev", allow_confirmatory: bool = False) -> tuple[str, ...]:
+    if role == "dev":
+        return DEV_PRESENTATIONS
+    if role in ("conf", "all"):
+        assert_allowed(CONF_PRESENTATIONS, allow_confirmatory)
+        return CONF_PRESENTATIONS if role == "conf" else DEV_PRESENTATIONS + CONF_PRESENTATIONS
+    raise ValueError(role)
+
+
+def _with_presentation(df: pd.DataFrame, role: str, allow_confirmatory: bool) -> pd.DataFrame:
     df["presentation"] = df["code_module"] + "_" + df["code_presentation"]
+    keep = df["presentation"].isin(role_presentations(role, allow_confirmatory))
+    return df.loc[keep].reset_index(drop=True)
+
+
+def load_vle(role: str = "dev", allow_confirmatory: bool = False) -> pd.DataFrame:
+    df = _with_presentation(pd.read_csv(RAW_DIR / "vle.csv"), role, allow_confirmatory)
     return df[["id_site", "presentation", "activity_type", "week_from", "week_to"]]
 
 
-def load_assessments() -> pd.DataFrame:
-    df = pd.read_csv(RAW_DIR / "assessments.csv")
-    df["presentation"] = df["code_module"] + "_" + df["code_presentation"]
+def load_assessments(role: str = "dev", allow_confirmatory: bool = False) -> pd.DataFrame:
+    df = _with_presentation(pd.read_csv(RAW_DIR / "assessments.csv"), role, allow_confirmatory)
     return df[["presentation", "id_assessment", "assessment_type", "date", "weight"]]
 
 
-def load_courses() -> pd.DataFrame:
-    df = pd.read_csv(RAW_DIR / "courses.csv")
-    df["presentation"] = df["code_module"] + "_" + df["code_presentation"]
+def load_courses(role: str = "dev", allow_confirmatory: bool = False) -> pd.DataFrame:
+    df = _with_presentation(pd.read_csv(RAW_DIR / "courses.csv"), role, allow_confirmatory)
     return df[["presentation", "module_presentation_length"]]
 
 
-def load_student_info(include_sensitive: bool = False) -> pd.DataFrame:
-    """studentInfo; sensitive columns are dropped unless explicitly requested (fairness only, D-21)."""
-    df = pd.read_csv(RAW_DIR / "studentInfo.csv")
-    df["presentation"] = df["code_module"] + "_" + df["code_presentation"]
+def load_student_info(include_sensitive: bool = False, role: str = "dev",
+                      allow_confirmatory: bool = False) -> pd.DataFrame:
+    """studentInfo of the role's presentations; sensitive columns dropped unless requested (fairness only, D-21)."""
+    df = _with_presentation(pd.read_csv(RAW_DIR / "studentInfo.csv"), role, allow_confirmatory)
     if not include_sensitive:
         df = df.drop(columns=list(SENSITIVE_COLUMNS))
     return df.drop(columns=["code_module", "code_presentation"])
@@ -145,18 +162,14 @@ def load_student_info(include_sensitive: bool = False) -> pd.DataFrame:
 
 def load_student_assessment(role: str = "dev", allow_confirmatory: bool = False) -> pd.DataFrame:
     """studentAssessment restricted at load time to the assessments of the role's presentations (D-09)."""
-    pres = DEV_PRESENTATIONS if role == "dev" else CONF_PRESENTATIONS
-    if role != "dev":
-        assert_allowed(CONF_PRESENTATIONS, allow_confirmatory)
-    asm = load_assessments()
-    ids = asm.loc[asm["presentation"].isin(pres), "id_assessment"]
+    asm = load_assessments(role, allow_confirmatory)
     df = pd.read_csv(RAW_DIR / "studentAssessment.csv")
-    return df[df["id_assessment"].isin(ids)].reset_index(drop=True)
+    return df[df["id_assessment"].isin(asm["id_assessment"])].reset_index(drop=True)
 
 
-def load_registrations() -> pd.DataFrame:
-    df = pd.read_csv(RAW_DIR / "studentRegistration.csv")
-    df["presentation"] = df["code_module"] + "_" + df["code_presentation"]
+def load_registrations(role: str = "dev", allow_confirmatory: bool = False) -> pd.DataFrame:
+    """studentRegistration of the role's presentations (date_unregistration is outcome-bearing: D-09/N1)."""
+    df = _with_presentation(pd.read_csv(RAW_DIR / "studentRegistration.csv"), role, allow_confirmatory)
     return df.drop(columns=["code_module", "code_presentation"])
 
 
@@ -203,7 +216,7 @@ def load_daily_events(role: str = "dev", allow_confirmatory: bool = False,
            .rename(columns={"sum": "clicks", "size": "n_rows"}))
     agg["clicks"] = agg["clicks"].astype(np.int32)
     agg["n_rows"] = agg["n_rows"].astype(np.int16)
-    vle = load_vle()[["id_site", "activity_type", "week_from", "week_to"]]
+    vle = load_vle("all" if role == "conf" else "dev", allow_confirmatory)[["id_site", "activity_type", "week_from", "week_to"]]
     agg = agg.merge(vle, on="id_site", how="left", validate="many_to_one")
     if agg["activity_type"].isna().any():
         raise ValueError("studentVle contains id_site values missing from vle.csv")
@@ -236,19 +249,20 @@ class PresentationData:
 def load_presentation(name: str, events: pd.DataFrame | None = None,
                       allow_confirmatory: bool = False) -> PresentationData:
     assert_allowed([name], allow_confirmatory)
+    role = "dev" if name in DEV_PRESENTATIONS else "conf"
     if events is None:
-        events = load_daily_events("dev" if name in DEV_PRESENTATIONS else "conf",
-                                   allow_confirmatory=allow_confirmatory)
+        events = load_daily_events(role, allow_confirmatory=allow_confirmatory)
     ev = events[events["presentation"] == name].drop(columns=["presentation"]).reset_index(drop=True)
-    vle = load_vle()
+    kw = {"role": role, "allow_confirmatory": allow_confirmatory}
+    vle = load_vle(**kw)
     items = vle[vle["presentation"] == name].drop(columns=["presentation"]).reset_index(drop=True)
-    asm = load_assessments()
+    asm = load_assessments(**kw)
     asm = asm[asm["presentation"] == name].drop(columns=["presentation"]).reset_index(drop=True)
-    info = load_student_info()
+    info = load_student_info(**kw)
     info = info[info["presentation"] == name].drop(columns=["presentation"]).reset_index(drop=True)
-    reg = load_registrations()
+    reg = load_registrations(**kw)
     reg = reg[reg["presentation"] == name].drop(columns=["presentation"]).reset_index(drop=True)
-    courses = load_courses()
+    courses = load_courses(**kw)
     length = int(courses.loc[courses["presentation"] == name, "module_presentation_length"].iloc[0])
     return PresentationData(name=name, events=ev, items=items, assessments=asm, students=info,
                             registrations=reg, length=length)
@@ -315,22 +329,36 @@ def confirmatory_student_ids(log_path: Path | None = None, reader=None) -> set[i
 
     path = RAW_DIR / "studentRegistration.csv"
     read = reader or pd.read_csv
-    df = read(path, usecols=list(CONFIRMATORY_ID_COLUMNS))
-    if set(df.columns) != set(CONFIRMATORY_ID_COLUMNS):
-        raise RuntimeError(f"unexpected columns read: {list(df.columns)}")
+    log = log_path or (RESULTS_DIR / "access_log.jsonl")
+
+    def _commit():
+        try:
+            c = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, stderr=subprocess.DEVNULL).decode().strip()
+            dirty = bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=REPO_ROOT,
+                                                 stderr=subprocess.DEVNULL).decode().strip())
+            return c, dirty
+        except Exception:
+            return "unknown", None
+
+    def _log(rec):
+        log.parent.mkdir(parents=True, exist_ok=True)
+        with open(log, "a", encoding="utf-8") as f:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+
+    commit, dirty = _commit()
+    base = {"time": time.strftime("%Y-%m-%dT%H:%M:%S"), "file": "data/raw/oulad/studentRegistration.csv",
+            "columns": list(CONFIRMATORY_ID_COLUMNS), "commit": commit, "dirty": dirty,
+            "purpose": "D-47: remove 2013 training registrations of students registered in 2014 (H4-a)"}
+    _log({**base, "event": "attempt"})                      # N3: the attempt is recorded before reading
+    try:
+        df = read(path, usecols=list(CONFIRMATORY_ID_COLUMNS))
+        if set(df.columns) != set(CONFIRMATORY_ID_COLUMNS):
+            raise RuntimeError(f"unexpected columns read: {list(df.columns)}")
+    except Exception as exc:
+        _log({**base, "event": "failure", "error": str(exc)})
+        raise
     pres = df["code_module"].astype(str) + "_" + df["code_presentation"].astype(str)
     ids = set(df.loc[pres.isin(CONF_PRESENTATIONS), "id_student"].astype(int).tolist())
-    try:
-        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT,
-                                         stderr=subprocess.DEVNULL).decode().strip()
-    except Exception:
-        commit = "unknown"
     md5 = hashlib.md5(path.read_bytes()).hexdigest() if path.exists() else "n/a"
-    rec = {"time": time.strftime("%Y-%m-%dT%H:%M:%S"), "file": "data/raw/oulad/studentRegistration.csv",
-           "md5": md5, "columns": list(CONFIRMATORY_ID_COLUMNS), "n_ids": len(ids), "commit": commit,
-           "purpose": "D-47: remove 2013 training registrations of students registered in 2014 (H4-a)"}
-    log = log_path or (RESULTS_DIR / "access_log.jsonl")
-    log.parent.mkdir(parents=True, exist_ok=True)
-    with open(log, "a", encoding="utf-8") as f:
-        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    _log({**base, "event": "success", "md5": md5, "n_ids": len(ids)})
     return ids

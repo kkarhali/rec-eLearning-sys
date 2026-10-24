@@ -168,3 +168,34 @@ class TestStats(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestDegenerate(unittest.TestCase):
+    """D-52: identical unit lifts make some resamples degenerate (s_b = 0); the bound becomes ±∞ and is labelled."""
+
+    def test_degenerate_label_and_verdict(self):
+        d = np.array([0.0] * 7 + [0.01, 0.02])
+        r = stats.cluster_bootstrap_t(d, n_boot=10000, seed=0)
+        self.assertTrue(r["degenerate"])
+        self.assertGreater(r["n_degenerate"], 0)
+        # all-zero resamples lie below the mean (t* → −∞), so the UPPER bound is +∞
+        self.assertEqual(r["hi"], float("inf"))
+        self.assertTrue(np.isfinite(r["lo"]))
+        c = stats.compare(d)
+        self.assertIn("منحلّ", stats.format_ci(c))
+        # +∞ upper bound prevents "refuted"; −∞ lower bound prevents "confirmed" (applied literally, D-52)
+        self.assertNotIn(stats.verdict(c["mean"], c["ci_lo"], c["ci_hi"], 0.001), ("refuted", "refuted_reverse"))
+        r2 = stats.cluster_bootstrap_t(-d, seed=0)
+        self.assertEqual(r2["lo"], float("-inf"))
+        self.assertEqual(stats.verdict(0.03, float("-inf"), float("inf"), 0.001), "inconclusive")
+
+    def test_non_degenerate_unchanged(self):
+        d = np.array([0.030, 0.010, 0.025, -0.005, 0.02, 0.0, 0.015])
+        r = stats.cluster_bootstrap_t(d, seed=0)
+        self.assertFalse(r["degenerate"])
+        self.assertTrue(np.isfinite(r["lo"]) and np.isfinite(r["hi"]))
+
+    def test_t_quantile(self):
+        self.assertAlmostEqual(stats.t_quantile(0.975, 8), 2.3060, places=3)
+        self.assertAlmostEqual(stats.t_quantile(0.975, 12), 2.1788, places=3)
+        self.assertAlmostEqual(stats.t_quantile(0.5, 5), 0.0, places=6)

@@ -155,7 +155,10 @@ class TestConfirmatoryIdRead(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             log = Path(d) / "access_log.jsonl"
             ids = data.confirmatory_student_ids(log_path=log, reader=fake_reader)
-            rec = json.loads(log.read_text().strip())
+            recs = [json.loads(x) for x in log.read_text().strip().splitlines()]
+        self.assertEqual([r["event"] for r in recs], ["attempt", "success"])     # N3
+        rec = recs[-1]
+        self.assertIn("dirty", rec)
         self.assertEqual(ids, {2, 3})
         self.assertEqual(calls, [("studentRegistration.csv", ("code_module", "code_presentation", "id_student"), {})])
         self.assertEqual(rec["columns"], ["code_module", "code_presentation", "id_student"])
@@ -163,8 +166,42 @@ class TestConfirmatoryIdRead(unittest.TestCase):
         for k in ("time", "md5", "commit"):
             self.assertIn(k, rec)
 
+    def test_extra_columns_rejected_and_logged(self):
+        """N2: a reader that ignores usecols and returns extra columns is rejected explicitly; N3: failure logged."""
+        import json
+        import tempfile
+        from pathlib import Path
+
+        def leaky_reader(path, usecols=None, **kw):
+            return pd.DataFrame({"code_module": ["DDD"], "code_presentation": ["2014B"], "id_student": [2],
+                                 "date_unregistration": [10.0]})
+        with tempfile.TemporaryDirectory() as d:
+            log = Path(d) / "access_log.jsonl"
+            with self.assertRaises(RuntimeError):
+                data.confirmatory_student_ids(log_path=log, reader=leaky_reader)
+            events = [json.loads(x)["event"] for x in log.read_text().strip().splitlines()]
+        self.assertEqual(events, ["attempt", "failure"])
+
     def test_rest_of_barrier_intact(self):
+        """N1: no public loader returns a 2014 row before the freeze; confirmatory roles need permission."""
         with self.assertRaises(data.ConfirmatoryAccessError):
             data.load_presentation("DDD_2014B")
         with self.assertRaises(data.ConfirmatoryAccessError):
             data.load_daily_events("conf")
+        for fn in (data.load_student_info, data.load_registrations, data.load_vle, data.load_assessments,
+                   data.load_courses, data.load_student_assessment):
+            for role in ("conf", "all"):
+                with self.assertRaises(data.ConfirmatoryAccessError, msg=f"{fn.__name__}({role})"):
+                    fn(role=role)
+        if not (data.RAW_DIR / "studentInfo.csv").exists():
+            self.skipTest("raw OULAD files not present")
+        for fn in (data.load_student_info, data.load_registrations, data.load_vle, data.load_assessments,
+                   data.load_courses):
+            df = fn()
+            self.assertTrue(len(df) > 0, fn.__name__)
+            self.assertFalse(df["presentation"].isin(data.CONF_PRESENTATIONS).any(), fn.__name__)
+            self.assertTrue(df["presentation"].isin(data.DEV_PRESENTATIONS).all(), fn.__name__)
+        sa = data.load_student_assessment()
+        conf_ids = pd.read_csv(data.RAW_DIR / "assessments.csv").assign(
+            p=lambda d: d["code_module"] + "_" + d["code_presentation"]).query("p in @data.CONF_PRESENTATIONS")["id_assessment"]
+        self.assertFalse(sa["id_assessment"].isin(conf_ids).any())
