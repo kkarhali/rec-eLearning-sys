@@ -6,7 +6,7 @@ const TYPES: Record<string, string> = {
 };
 export function typeAr(t: string): string { return TYPES[t] ?? t; }
 export const NUM = new Intl.NumberFormat('en-US');
-export function fmt(n: number, d = 2): string { return n.toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: 0 }); }
+export function fmt(n: number, d = 2): string { return (n < 0 ? '\u200E' : '') + n.toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: 0 }); }
 export function pct(n: number, d = 0): string { return (n * 100).toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: d }) + '%'; }
 export const COMPONENT_COLORS: Record<string, string> = {
   recent_pop: '#0F766E', wrmf: '#1D4ED8', item_knn: '#7C3AED', sknn: '#6D28D9', cbf: '#0369A1', assess_prox: '#B45309', cluster_pop: '#BE185D',
