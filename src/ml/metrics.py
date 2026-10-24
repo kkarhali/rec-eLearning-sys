@@ -55,7 +55,7 @@ def rank_order(scores: np.ndarray, cand: np.ndarray, tiebreak: np.ndarray) -> np
         raise ValueError("NaN score on a candidate")
     s = np.where(cand, scores, -np.inf)
     # np.lexsort: last key is primary
-    return np.lexsort((tiebreak, -s, ~cand), axis=-1)
+    return np.lexsort((tiebreak, -s, (~cand).astype(np.int8)), axis=-1)
 
 
 def candidate_ranks(scores: np.ndarray, cand: np.ndarray, tiebreak: np.ndarray) -> np.ndarray:
