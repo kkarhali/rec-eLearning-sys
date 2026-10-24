@@ -35,3 +35,6 @@ export const registrationsAr = (n: number): string => countAr(n, 'تسجيل', '
 export const lastDaysAr = (n: number): string => (n === 1 ? 'في آخر يوم' : n === 2 ? 'في آخر يومين' : `في آخر ${daysAr(n)}`);
 /** درجة الخطر: دائماً بخانتين (0.98) لا تُقرأ نسبة ولا تُقصّ. */
 export function score2(x: number): string { return x.toFixed(2); }
+
+/** عدد بإشارة صريحة داخل نص عربي: LRM يمنع قلب «+» إلى يمين الرقم في سياق RTL. */
+export function signed(n: number, d = 1): string { return '\u200E' + (n > 0 ? '+' : '') + fmt(n, d).replace(/^\u200E/, ''); }

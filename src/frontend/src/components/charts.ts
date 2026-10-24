@@ -1,5 +1,5 @@
 import { h, s } from '../dom.js';
-import { CLUSTER_COLORS, CLUSTER_SHAPES, fmt } from '../labels.js';
+import { CLUSTER_COLORS, CLUSTER_SHAPES, fmt, signed } from '../labels.js';
 
 /** Collapsible data table used as a text alternative for every chart (WCAG 1.1.1). */
 export function AltTable(caption: string, head: string[], rows: (string | number)[][]): HTMLElement {
@@ -134,7 +134,7 @@ export function DivergingBars(title: string, data: { name: string; v: number }[]
     // RTL: positive (raises) extends to the left of the axis, negative to the right.
     const x = d.v >= 0 ? mid - w : mid;
     svg.append(s('rect', { x, y, width: Math.max(w, 2), height: 16, rx: 2, class: d.v >= 0 ? 'chart__bar chart__bar--flag' : 'chart__bar chart__bar--neg' }),
-      s('text', { x: d.v >= 0 ? x - 4 : x + w + 4, y: y + 12, class: 'chart__tick', 'text-anchor': d.v >= 0 ? 'end' : 'start' }, (d.v > 0 ? '+' : '') + fmt(d.v, 1)),
+      s('text', { x: d.v >= 0 ? x - 4 : x + w + 4, y: y + 12, class: 'chart__tick', 'text-anchor': d.v >= 0 ? 'end' : 'start' }, signed(d.v, 1)),
       s('text', { x: W - 2, y: y + 12, class: 'chart__tick', 'text-anchor': 'end' }, d.name));
   });
   return h('div', { class: 'chartwrap' }, svg as unknown as Node);

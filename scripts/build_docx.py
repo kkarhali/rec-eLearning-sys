@@ -95,7 +95,9 @@ def _style_fonts(doc: Document, latin: str, arabic: str, body_pt: int) -> None:
             el.append(rpr)
         name = style.name or ""
         if name in LTR_STYLES:
-            _set_rfonts(rpr, "Consolas", "Consolas")
+            # Latin/mono for code; the Arabic body font for complex script so Arabic
+            # comments inside code blocks are shaped (Consolas has no Arabic glyphs).
+            _set_rfonts(rpr, "Consolas", arabic)
             ppr = el.find(qn("w:pPr"))
             if ppr is None:
                 ppr = OxmlElement("w:pPr")

@@ -8,7 +8,7 @@ import { ClusterMarker, ClusterScatter, DivergingBars, SvgBarChart, SvgDonut, Sv
 import { DataTable } from './components/DataTable.js';
 import { Drawer } from './components/Drawer.js';
 import { DEFAULT_DAY, firstPublished, loadPresentations, makeScrubber, presentationSelect } from './controls.js';
-import { fmt, itemsAr, learnersAr, pct, score2, typeAr } from './labels.js';
+import { fmt, itemsAr, learnersAr, pct, score2, signed, typeAr } from './labels.js';
 import type { ClusterSet, InstructorLearnerRow, InstructorOverview, Presentation } from './types.js';
 import type { Scrubber } from './components/DayScrubber.js';
 
@@ -93,7 +93,7 @@ function renderClusters(cs: ClusterSet): void {
     const on = st.cl === c.id;
     const b = h('button', { class: 'ccard' + (on ? ' ccard--on' : ''), type: 'button', 'aria-pressed': String(on), onclick: () => { writeState({ cl: on ? null : c.id }); renderClusters(cs); void renderTable(); } },
       h('span', { class: 'ccard__t' }, ClusterMarker(c.id), ' ', c.label_ar),
-      h('span', { class: 'ccard__m' }, `${learnersAr(c.size)} · أعلى ملمحين: `, c.top_features.map((f) => `${f.name} (${f.z > 0 ? '+' : ''}${fmt(f.z, 1)})`).join('، ')));
+      h('span', { class: 'ccard__m' }, `${learnersAr(c.size)} · أعلى ملمحين: `, c.top_features.map((f) => `${f.name} (${signed(f.z, 1)})`).join('، ')));
     cards.append(h('li', {}, b));
   }
   mount(host,
@@ -190,7 +190,7 @@ async function openLearner(reg: string, opener: HTMLElement | null): Promise<voi
         h('p', { class: 'muted' }, 'الموجب يرفع الدرجة والسالب يخفضها؛ درجة نسبية غير معايَرة لترتيب الأولوية لا حكم.')) : null,
       h('h3', { class: 'card__sub' }, 'الملامح مقابل وسيط العرض'),
       h('div', { class: 'tablewrap' }, h('table', { class: 'table' }, h('thead', {}, h('tr', {}, ...['الملمح', 'القيمة', 'الوسيط', 'z'].map((x) => h('th', { scope: 'col' }, x)))),
-        h('tbody', {}, ...d.profile.map((p) => h('tr', {}, h('td', {}, p.name), h('td', { class: 'num' }, fmt(p.value)), h('td', { class: 'num' }, fmt(p.median)), h('td', { class: 'num' }, (p.z > 0 ? '+' : '') + fmt(p.z, 1))))))),
+        h('tbody', {}, ...d.profile.map((p) => h('tr', {}, h('td', {}, p.name), h('td', { class: 'num' }, fmt(p.value)), h('td', { class: 'num' }, fmt(p.median)), h('td', { class: 'num' }, signed(p.z, 1))))))),
       h('h3', { class: 'card__sub' }, 'توصياته الحالية (أفضل 3)'),
       h('ol', { class: 'recent' }, ...d.top_recs.map((r) => h('li', {}, typeAr(r.activity_type), ' ', bdi('#' + r.id_site), ' — ', r.reason))));
   } catch (e) { showError(drawer.body, e, () => void openLearner(reg, opener)); }
