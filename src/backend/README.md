@@ -88,7 +88,7 @@ history 5.6/6.1، overview 1.4/1.9، clusters 2.2/3.3، learners(100) 6.0/6.9، 
 
 ## الاختبارات
 ```bash
-python3 -m unittest discover -s src/backend/tests -t .      # 44 اختباراً، ≈ 90 ث (أغلبها تسخين أول يوم)
+python3 -m unittest discover -s src/backend/tests -t .      # 48 اختباراً، ≈ 25–90 ث (حسب ذاكرة العنقدة الدائمة) (أغلبها تسخين أول يوم)
 python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors   # < 1 ث، بلا بيانات
 python3 -m src.backend --warm &   # ثم التحقق الحي بمتصفح حقيقي (لا mock) ولقطات deliverables/05-user-guide/screenshots/live-*.png:
 NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js
@@ -100,3 +100,8 @@ NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js
 - بطاقة «متعلمون نشطون» = الفوج الذي له يوم نشط واحد على الأقل حتى t؛ و`kpis.cohort_size` هو الفوج كله (مسجَّلون ≤ t ولم ينسحبوا ≤ t)، وهو مجموع أحجام العناقيد وعدد صفوف الجدول (1,860 من 1,872 عند اليوم 75).
 - «الحساب عند اليوم t نفسه» تظهر في سياق التوصية بشرط `snapshot_day === requested_day`؛ وإلا يظهر «محسوب عند اليوم {snapshot_day}».
 - `CHECK_ONLY=1 node src/backend/e2e/live-screenshots.js` يتحقق (أشرطة الملامح داخل مساراتها، خلايا الدرجة بخانتين وغير مقصوصة، لا أرقام قرارات ولا صيغ عدد خاطئة) دون كتابة لقطات؛ ويختار متعلماً بدرجة خطر 0.40–0.60 للقطات.
+
+## تحديثات D-71/D-72 وربط `serving.warm`
+- `ClusterQuality.ari` يقبل `null` (العرض الغائب من `results/dev2013/learner_clusters.csv`)؛ الواجهة تعرض «غير متاح» و`unstable_reason` لا يستشهد بـARI غائب (`test_text.py`). تشخيص التجميع (silhouette وDBI وARI مع مصدره) يُعرض بلا تسميات؛ وبطاقة التغطية «اتساع التوصيات عند اليوم t: X من Y مورداً» (حقل `coverage.at_10` في API لم يتغير).
+- `--warm` يستدعي الآن `serving.warm(presentation, days)` ثم يسخّن توصيات ولقطات الأيام الستة. بعد وصول `serving.warm` (تحفيظ العنقدة الدائم، D-68): الخطّاف 16.0 ث ثم الأيام 75/56/70/112/126/182 بـ1.5/0.7/4.5/0.8/3.5/1.0 ث؛ المجموع **28.1 ث** (كان 81 ث).
+- اللقطات الحية (D-72): متعلم الدرج والصف = الأقرب إلى وسيط درجات الفوج من بين من هم دون العتبة ضمن الصفحة المعروضة (مرتبة بالتسجيل، بلا مرشّح)؛ يختاره `e2e/live-screenshots.js` برمجياً ويطبع معرّفه ودرجته وفرقه عن الوسيط. ويتحقق من أن أعمدة الجدول كلها ظاهرة والدرج مفتوح على سطح المكتب.

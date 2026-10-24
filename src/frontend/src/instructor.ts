@@ -145,8 +145,8 @@ async function renderTable(): Promise<void> {
       { key: 'last_access', header: 'آخر وصول', sortable: true, align: 'num' as const, cell: (r: InstructorLearnerRow) => r.last_access_day === null ? '—' : 'اليوم ' + r.last_access_day },
       { key: 'on_time', header: 'الالتزام', sortable: true, align: 'num' as const, cell: (r: InstructorLearnerRow) => bdi(r.on_time) },
       ...(noRisk ? [] : [
-        { key: 'risk', header: 'درجة الخطر النسبية', sortable: true, cell: (r: InstructorLearnerRow) => r.risk ? riskCell(r.risk.score, r.risk.above_threshold, thr) : '—' },
-        { key: 'factor', header: 'أبرز عامل', cell: (r: InstructorLearnerRow) => r.risk?.top_factor ?? '—' }]),
+        { key: 'risk', header: 'درجة الخطر', sortable: true, cell: (r: InstructorLearnerRow) => r.risk ? riskCell(r.risk.score, r.risk.above_threshold, thr) : '—' },
+        { key: 'factor', header: 'أبرز عامل', wrap: true, cell: (r: InstructorLearnerRow) => r.risk?.top_factor ?? '—' }]),
     ];
     mount(host,
       h('p', { class: 'muted', 'aria-live': 'polite' }, `${learnersAr(rows.length)}` + (st.cl !== null ? ' في العنقود المختار' : '') + ' · مرتبون حسب ' + sortName(st.sort) + ' · Enter أو النقر لفتح الملف · ↑↓ للتنقل'),

@@ -109,6 +109,12 @@ async function main() {
       checks.push(`${name} خلايا الدرجة: ${cells.length}، مخالفة: ${badCells.length}`);
       if (!cells.length || badCells.length) problems.push(`${name} خلايا الدرجة مقصوصة/بلا خانتين: ${JSON.stringify(badCells.slice(0, 3))}`);
       await page.locator(`tr[data-id="${reg}"]`).first().click(); await page.waitForSelector('.drawer:not([hidden]) .chart', { timeout: 20000 }); await page.waitForTimeout(400);
+      if (!mobile) {   // مع الدرج مفتوحاً على سطح المكتب: كل أعمدة الجدول (ومنها الدرجة 0.xx) ظاهرة بلا تمرير أفقي
+        const fit = await page.evaluate(() => { const w = document.querySelector('#learners .tablewrap'), r = w.getBoundingClientRect();
+          return { overflow: w.scrollWidth - w.clientWidth, outside: [...w.querySelectorAll('th')].filter((t) => { const b = t.getBoundingClientRect(); return b.left < r.left - 1 || b.right > r.right + 1; }).length }; });
+        checks.push(`${name} الجدول مع الدرج: تجاوز ${fit.overflow}px، أعمدة خارج الإطار ${fit.outside}`);
+        if (fit.overflow > 1 || fit.outside) problems.push(`${name} أعمدة الجدول مقصوصة مع الدرج: ${JSON.stringify(fit)}`);
+      }
       await shot('06-instructor-drawer', false);
 
       // 3ب) المدرّس قبل اليوم 56: ينتقل الشريط تلقائياً إلى 56

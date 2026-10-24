@@ -1,7 +1,7 @@
 import { h, clear } from '../dom.js';
 
 export interface Col<T> {
-  key: string; header: string; sortable?: boolean; align?: 'num';
+  key: string; header: string; sortable?: boolean; align?: 'num'; wrap?: boolean;
   cell: (row: T) => Node | string;
 }
 export interface TableOpts<T> {
@@ -23,7 +23,7 @@ export function DataTable<T>(o: TableOpts<T>): HTMLElement {
   for (const r of o.rows) {
     const id = o.rowId(r);
     const tr = h('tr', { class: 'row' + (o.activeId === id ? ' row--active' : ''), tabindex: '0', 'data-id': id, 'aria-label': 'فتح ملف المتعلم ' + id },
-      ...o.cols.map((c) => { const td = h('td', { class: c.align === 'num' ? 'num' : '' }); td.append(c.cell(r)); return td; }));
+      ...o.cols.map((c) => { const td = h('td', { class: (c.align === 'num' ? 'num ' : '') + (c.wrap ? 'cell--wrap' : '') }); td.append(c.cell(r)); return td; }));
     tr.addEventListener('click', () => o.onOpen(r, tr));
     tr.addEventListener('keydown', (e) => {
       const k = (e as KeyboardEvent).key;
