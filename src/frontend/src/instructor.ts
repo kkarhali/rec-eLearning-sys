@@ -8,7 +8,7 @@ import { ClusterMarker, ClusterScatter, DivergingBars, SvgBarChart, SvgDonut, Sv
 import { DataTable } from './components/DataTable.js';
 import { Drawer } from './components/Drawer.js';
 import { DEFAULT_DAY, firstPublished, loadPresentations, makeScrubber, presentationSelect } from './controls.js';
-import { fmt, itemsAr, learnersAr, pct, score2, signed, typeAr } from './labels.js';
+import { fmt, itemsAr, learnersAr, pct, range, score2, signed, typeAr } from './labels.js';
 import type { ClusterSet, InstructorLearnerRow, InstructorOverview, Presentation } from './types.js';
 import type { Scrubber } from './components/DayScrubber.js';
 
@@ -87,10 +87,10 @@ function renderProfiles(o: InstructorOverview): void {
     const at = (v: number) => Math.min(100, Math.max(0, ((v - lo) / (hi - lo)) * 100));
     ul.append(h('li', { class: 'prof__row' },
       h('span', { class: 'prof__name' }, p.name),
-      h('span', { class: 'prof__track', role: 'img', 'aria-label': `الوسيط ${fmt(p.median)} ${p.unit}، النطاق الربيعي من ${fmt(p.p25)} إلى ${fmt(p.p75)}` },
+      h('span', { class: 'prof__track', role: 'img', 'aria-label': `الوسيط ${fmt(p.median)} ${p.unit}، النطاق الربيعي ${range(p.p25, p.p75)}` },
         h('span', { class: 'prof__range', style: `inset-inline-start:${at(p.p25)}%;width:${Math.max(at(p.p75) - at(p.p25), 1)}%` }),
         h('span', { class: 'prof__med', style: `inset-inline-start:${at(p.median)}%` })),
-      h('span', { class: 'prof__val num' }, `${fmt(p.median)} ${p.unit}`, h('span', { class: 'muted' }, ` (${fmt(p.p25)}–${fmt(p.p75)})`))));
+      h('span', { class: 'prof__val num' }, `${fmt(p.median)} ${p.unit}`, h('span', { class: 'muted' }, ` (${range(p.p25, p.p75)})`))));
   }
   mount($('#profiles'), ul, h('p', { class: 'muted' }, 'الوسيط والنطاق الربيعي لملامح السلوك قبل القطع الحالي.')); setBusy($('#profiles'), false);
 }
@@ -150,7 +150,7 @@ async function renderTable(): Promise<void> {
       { key: 'reg', header: 'التسجيل', sortable: true, cell: (r: InstructorLearnerRow) => bdi(r.registration.replace(/^.*-/, '')) },
       { key: 'cluster', header: 'العنقود', sortable: true, cell: (r: InstructorLearnerRow) => h('span', { class: 'cl' }, ClusterMarker(r.cluster.id), ' ', r.cluster.label) },
       { key: 'active_days', header: 'الأيام النشطة', sortable: true, align: 'num' as const, cell: (r: InstructorLearnerRow) => String(r.active_days) },
-      { key: 'last_access', header: 'آخر وصول', sortable: true, align: 'num' as const, cell: (r: InstructorLearnerRow) => r.last_access_day === null ? '—' : 'اليوم ' + r.last_access_day },
+      { key: 'last_access', header: 'آخر وصول', sortable: true, align: 'num' as const, cell: (r: InstructorLearnerRow) => r.last_access_day === null ? '—' : 'اليوم ' + fmt(r.last_access_day, 0) },
       { key: 'on_time', header: 'الالتزام', sortable: true, align: 'num' as const, cell: (r: InstructorLearnerRow) => bdi(r.on_time) },
       ...(noRisk ? [] : [
         { key: 'risk', header: 'درجة الخطر', sortable: true, cell: (r: InstructorLearnerRow) => r.risk ? riskCell(r.risk.score, r.risk.above_threshold, thr) : '—' },

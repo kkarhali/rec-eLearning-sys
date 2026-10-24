@@ -6,7 +6,16 @@ const TYPES: Record<string, string> = {
 };
 export function typeAr(t: string): string { return TYPES[t] ?? t; }
 export const NUM = new Intl.NumberFormat('en-US');
-export function fmt(n: number, d = 2): string { return (n < 0 ? '\u200E' : '') + n.toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: 0 }); }
+/** رقم بعلامة طرح حقيقية (U+2212) وبلا «-0»؛ بلا عزل اتجاهي (للتركيب داخل نطاق أو إشارة). */
+function rawNum(n: number, d: number): string {
+  const s = n.toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: 0 });
+  if (/^-0(\.0*)?$/.test(s)) return s.slice(1);
+  return s.startsWith('-') ? '\u2212' + s.slice(1) : s;
+}
+/** رقم مفرد؛ السالب معزول (LRI…PDI) فلا تنقلب علامته ولا تلتصق بما حوله في سياق RTL. */
+export function fmt(n: number, d = 2): string { const s = rawNum(n, d); return s.startsWith('\u2212') ? '\u2066' + s + '\u2069' : s; }
+/** نطاق «a – b» كتلة LTR واحدة، مثل «−18 – −8». */
+export function range(a: number, b: number, d = 2): string { return '\u2066' + rawNum(a, d) + ' – ' + rawNum(b, d) + '\u2069'; }
 export function pct(n: number, d = 0): string { return (n * 100).toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: d }) + '%'; }
 export const COMPONENT_COLORS: Record<string, string> = {
   recent_pop: '#0F766E', wrmf: '#1D4ED8', item_knn: '#7C3AED', sknn: '#6D28D9', cbf: '#0369A1', assess_prox: '#B45309', cluster_pop: '#BE185D', similar_pop: '#BE185D',
@@ -37,4 +46,4 @@ export const lastDaysAr = (n: number): string => (n === 1 ? 'في آخر يوم'
 export function score2(x: number): string { return x.toFixed(2); }
 
 /** عدد بإشارة صريحة داخل نص عربي: LRM يمنع قلب «+» إلى يمين الرقم في سياق RTL. */
-export function signed(n: number, d = 1): string { return '\u200E' + (n > 0 ? '+' : '') + fmt(n, d).replace(/^\u200E/, ''); }
+export function signed(n: number, d = 1): string { return '\u2066' + (n > 0 ? '+' : '') + rawNum(n, d) + '\u2069'; }

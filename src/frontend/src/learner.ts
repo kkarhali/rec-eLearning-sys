@@ -6,7 +6,7 @@ import { showSkeleton, showError, setBusy, toast, emptyState } from './component
 import { RecCard, CompLegend } from './components/RecCard.js';
 import { WhyPanel } from './components/WhyPanel.js';
 import { DEFAULT_DAY, firstPublished, loadPresentations, makeScrubber, presentationSelect, registrationPicker } from './controls.js';
-import { daysAr, typeAr } from './labels.js';
+import { daysAr, fmt, typeAr } from './labels.js';
 import type { Presentation, RecommendationResponse, LearnerHistory } from './types.js';
 import type { Scrubber } from './components/DayScrubber.js';
 
@@ -102,7 +102,7 @@ function activity(hist: LearnerHistory | null, day: number): HTMLElement {
   box.append(h('p', { class: 'activity__sum' }, `أيام نشطة حتى الآن: ${hist.active_days}`),
     h('h3', { class: 'card__sub' }, 'آخر ما زرتَه'));
   if (!hist.recent.length) box.append(h('p', { class: 'muted' }, 'لا نشاط سابق حتى هذا اليوم.'));
-  else box.append(h('ul', { class: 'recent' }, ...hist.recent.map((e) => h('li', {}, typeAr(e.activity_type), ' ', bdi('#' + e.id_site), ` · اليوم ${e.day}`))));
+  else box.append(h('ul', { class: 'recent' }, ...hist.recent.map((e) => h('li', {}, typeAr(e.activity_type), ' ', bdi('#' + e.id_site), ` · اليوم ${fmt(e.day, 0)}`))));
   return box;
 }
 
