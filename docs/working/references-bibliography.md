@@ -62,7 +62,7 @@
 
 [29] M. M. Rahman and N. A. Abdullah, "A personalized group-based recommendation approach for web search in e-learning," *IEEE Access*, vol. 6, pp. 34166–34178, 2018, doi: 10.1109/ACCESS.2018.2850376.
 
-[30] S. Sergis and D. G. Sampson, "Learning object recommendations for teachers based on elicited ICT competence profiles," *IEEE Transactions on Learning Technologies*, vol. 9, no. 1, pp. 67–80, Jan.–Mar. 2016, doi: 10.1109/TLT.2015.2434824.
+[30] S. Sergis and D. G. Sampson, "Learning object recommendations for teachers based on elicited ICT competence profiles," *IEEE Transactions on Learning Technologies*, vol. 9, no. 1, pp. 67–80, Jan.–Mar. 2016, doi: 10.1109/TLT.2015.2434824. [الصفحة الأخيرة هي آخر صفحة ظاهرة في النص المستخرج؛ يُتحقَّق منها.]
 
 [31] J. Zhang, B. Hao, B. Chen, C. Li, H. Chen, and J. Sun, "Hierarchical reinforcement learning for course recommendation in MOOCs," in *Proc. 33rd AAAI Conf. Artificial Intelligence (AAAI-19)*, 2019, pp. 435–442.
 
@@ -72,10 +72,32 @@
 
 [34] S. M. Costa, R. Pinto, and G. Gonçalves, "Graph-based personalized recommendation in intelligent educational platforms: A case study in engineering education," in *Proc. 21st Int. Conf. Web Information Systems and Technologies (WEBIST 2025)*, SCITEPRESS, 2025, pp. 439–446, doi: 10.5220/0013830200003985.
 
-[35] X. Wang and X. Liang, "HMSTNet: A deep learning multimodal approach for personalized English literature recommendations," *IEEE Access*, vol. 13, pp. 74984–74998, 2025, doi: 10.1109/ACCESS.2025.3564677.
+[35] X. Wang and X. Liang, "HMSTNet: A deep learning multimodal approach for personalized English literature recommendations," *IEEE Access*, vol. 13, pp. 74984–74998, 2025, doi: 10.1109/ACCESS.2025.3564677. [الصفحة الأخيرة هي آخر صفحة ظاهرة في النص المستخرج؛ يُتحقَّق منها.]
 
 [36] L. Wang, "Cognitive and behavioral neurology approaches to personalized Japanese language learning path recommendations," *Frontiers in Psychology*, vol. 17, Art. no. 1750189, 2026, doi: 10.3389/fpsyg.2026.1750189.
 
-[37] N. Ben Hadj Boubaker, Z. Kodia, and N. Yacoubi Ayadi, "Personalized e-learning knowledge graph-based recommender system using ensemble attention networks," in *Proc. 16th Int. Conf. Management of Digital EcoSystems (MEDES 2024)*, Naples, Italy, Nov. 2024, Communications in Computer and Information Science (CCIS), Springer, doi: 10.1007/978-3-031-93598-5_7. [النسخة المحفوظة نسخة HAL (hal-04892534)؛ أرقام الصفحات غير مذكورة.]
+[37] N. Ben Hadj Boubaker, Z. Kodia, and N. Yacoubi Ayadi, "Personalized e-learning knowledge graph-based recommender system using ensemble attention networks," in *Proc. 16th Int. Conf. Management of Digital EcoSystems (MEDES 2024)*, Naples, Italy, Nov. 2024, Communications in Computer and Information Science (CCIS), vol. 2518, Springer, doi: 10.1007/978-3-031-93598-5_7. [رقم المجلد من تقرير المصداقية.] [النسخة المحفوظة نسخة HAL (hal-04892534)؛ أرقام الصفحات غير مذكورة.]
 
 [38] L. K. Smirani and H. A. Yamani, "Enhancing personalized learning with deep learning in Saudi Arabian universities," *International Journal of Advanced and Applied Sciences*, vol. 11, no. 7, pp. 166–175, 2024, doi: 10.21833/ijaas.2024.07.018.
+
+## مراجع كلاسيكية داعمة ([39]–[47])
+
+> هذه المراجع ليست في المستودع، وأُضيفت لتقييد ادعاء الجدّة في الفصل الثاني (القسم 7.3). **بياناتها من المعرفة العامة، ويُتحقَّق منها من المصدر** قبل الاستشهاد النهائي (المهمة T5 في محضر الاجتماع 01). أما [46] فبياناته موثّقة أيضاً في ADR-001.
+
+[39] Y. Hu, Y. Koren, and C. Volinsky, "Collaborative filtering for implicit feedback datasets," in *Proc. 8th IEEE Int. Conf. Data Mining (ICDM)*, Pisa, Italy, 2008, pp. 263–272, doi: 10.1109/ICDM.2008.22. [من المعرفة العامة — يُتحقَّق من المصدر.]
+
+[40] S. Rendle, C. Freudenthaler, Z. Gantner, and L. Schmidt-Thieme, "BPR: Bayesian personalized ranking from implicit feedback," in *Proc. 25th Conf. Uncertainty in Artificial Intelligence (UAI)*, Montreal, QC, Canada, 2009, pp. 452–461. [من المعرفة العامة — يُتحقَّق من المصدر.]
+
+[41] B. Hidasi, A. Karatzoglou, L. Baltrunas, and D. Tikk, "Session-based recommendations with recurrent neural networks," in *Proc. 4th Int. Conf. Learning Representations (ICLR)*, San Juan, Puerto Rico, 2016. [من المعرفة العامة — يُتحقَّق من المصدر.]
+
+[42] D. Jannach and M. Ludewig, "When recurrent neural networks meet the neighborhood for session-based recommendation," in *Proc. 11th ACM Conf. Recommender Systems (RecSys)*, Como, Italy, 2017, pp. 306–310, doi: 10.1145/3109859.3109872. [من المعرفة العامة — يُتحقَّق من المصدر.]
+
+[43] M. Ludewig and D. Jannach, "Evaluation of session-based recommendation algorithms," *User Modeling and User-Adapted Interaction*, vol. 28, no. 4–5, pp. 331–390, 2018, doi: 10.1007/s11257-018-9209-6. [من المعرفة العامة — يُتحقَّق من المصدر.]
+
+[44] M. Ferrari Dacrema, P. Cremonesi, and D. Jannach, "Are we really making much progress? A worrying analysis of recent neural recommendation approaches," in *Proc. 13th ACM Conf. Recommender Systems (RecSys)*, Copenhagen, Denmark, 2019, pp. 101–109, doi: 10.1145/3298689.3347058. [من المعرفة العامة — يُتحقَّق من المصدر.]
+
+[45] K. Cho, B. van Merriënboer, C. Gulcehre, D. Bahdanau, F. Bougares, H. Schwenk, and Y. Bengio, "Learning phrase representations using RNN encoder–decoder for statistical machine translation," in *Proc. 2014 Conf. Empirical Methods in Natural Language Processing (EMNLP)*, Doha, Qatar, 2014, pp. 1724–1734, doi: 10.3115/v1/D14-1179. [من المعرفة العامة — يُتحقَّق من المصدر.]
+
+[46] J. Kuzilek, M. Hlosta, and Z. Zdrahal, "Open University Learning Analytics dataset," *Scientific Data*, vol. 4, Art. no. 170171, 2017, doi: 10.1038/sdata.2017.171. [من المعرفة العامة، والـDOI موثّق في ADR-001 — يُتحقَّق من المصدر.]
+
+[47] W. Krichene and S. Rendle, "On sampled metrics for item recommendation," in *Proc. 26th ACM SIGKDD Int. Conf. Knowledge Discovery & Data Mining (KDD)*, 2020, pp. 1748–1757, doi: 10.1145/3394486.3403226. [من المعرفة العامة — يُتحقَّق من المصدر؛ أضافه تقرير مراجعة الزميل.]
