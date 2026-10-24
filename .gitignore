@@ -11,3 +11,4 @@ data/cache/
 *.tmp
 ~$*.docx
 ~$*.pptx
+artifacts/

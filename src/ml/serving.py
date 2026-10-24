@@ -248,7 +248,7 @@ class Engine:
             self._sa = data.load_student_assessment("dev")
         return self._sa
 
-    def _risk(self, name, registration, day, model="M2"):
+    def _risk(self, name, registration, day, model="M1"):
         tcs = [t for t in (28, 56, 112) if t <= day]
         if not tcs:
             return None
@@ -283,7 +283,7 @@ class Engine:
         d = ((a["centres"] - x) ** 2).sum(axis=1)
         return {"cluster": int(np.argmin(d)), "k": int(a["k"]), "stable": bool(a["stable"]), "cluster_day": 56}
 
-    def learner_profile(self, name, registration, day, risk_model="M2"):
+    def learner_profile(self, name, registration, day, risk_model="M1"):
         F = self._features_at(name, int(day))
         if registration not in F.index:
             raise KeyError(registration)
@@ -301,7 +301,7 @@ class Engine:
                 "cluster": self._cluster(name, registration, int(day)),
                 "risk": self._risk(name, registration, int(day), risk_model)}
 
-    def presentation_overview(self, name, day, risk_model="M2"):
+    def presentation_overview(self, name, day, risk_model="M1"):
         p = self.presentation(name)
         tr = self.train_view(name, int(day))
         rp = recent_popularity(tr, 7)

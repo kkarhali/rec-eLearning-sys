@@ -34,7 +34,7 @@ def main():
     rows = []
     hm = json.loads((OUT / "hybrid_meta.json").read_text()) if (OUT / "hybrid_meta.json").exists() else None
     if hm:
-        rows.append(("H1", "HYB* − B_np*", hm["sd_H1"], hm["H1"]["mean"]))
+        rows.append(("H1", "HYB* (floor ≥ 1/4, D-51) − B_np* = B3", hm["sd_H1"], hm["H1"]["mean"]))
     if (OUT / "ablation_signals.csv").exists():
         ab = pd.read_csv(OUT / "ablation_signals.csv")
         d = (pres_means(ab, "B7_WRMF", variant="Wstar") - pres_means(ab, "B7_WRMF", variant="L0")).to_numpy()
@@ -72,8 +72,8 @@ def main():
                   f"{r['power_at_1.5delta']:.2f} | {r['power_at_2delta']:.2f} | {'نعم' if r['MDE80_gt_2delta'] else 'لا'} |")
     md += ["", "**النص المسجل مسبقاً لحكم «غير حاسمة» (D-48):** «غير حاسمة: لا يكشف التصميم بقوة 80% أثراً أصغر من "
            "MDE80 = x»، حيث x من هذا الجدول للفرضية المعنية. وحيث MDE80 > 2δ يُكتب صراحة أن التصميم لا يكشف إلا آثاراً كبيرة.",
-           "", "يُكتب هذا الجدول قبل التجميد (12-14)، ولا أثر له على δ أو قاعدة الحكم. بديل B5−B3 التوضيحي في summary.md "
-           "لا يدخل هنا (D-46)."]
+           "", "يُكتب هذا الجدول قبل التجميد، ولا أثر له على δ أو قاعدة الحكم (D-61). للسجل: قيمة H1 بالأرضية الاسمية قبل "
+           "D-51 كانت 0.0375 (σ = 0.0344) وأُبطلت. بديل B5−B3 التوضيحي لا يدخل هنا (D-46). ممنوع إعادة حسابه من بيانات 2014."]
     (OUT / "mde80.md").write_text("\n".join(md), encoding="utf-8")
     print(df.to_string())
 

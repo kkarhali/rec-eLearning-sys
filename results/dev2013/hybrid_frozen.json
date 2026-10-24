@@ -1,5 +1,5 @@
 {
-  "status": "frozen on the 2013 development presentations (D-11, D-30); confirmatory run on 2014 re-tunes only the weights on each presentation's validation window inside this frozen space",
+  "status": "frozen on the 2013 development presentations (D-11, D-30, D-51); confirmatory run on 2014 re-tunes only the component parameters and the weights on each presentation's validation window inside this frozen space",
   "components": [
     "C7_ClusterPop",
     "B5_SKNN"
@@ -11,6 +11,25 @@
   "floor_component": "B5_SKNN",
   "accept_only_components": [
     "C7_ClusterPop"
+  ],
+  "floor_rule": "weight of the floor component B5_SKNN ≥ 0.25 = smallest positive point of the D-29 grid; grid points with zero floor weight removed, no value added (D-51)",
+  "weight_grid_points": [
+    {
+      "C7_ClusterPop": 0.0,
+      "B5_SKNN": 1.0
+    },
+    {
+      "C7_ClusterPop": 0.25,
+      "B5_SKNN": 0.75
+    },
+    {
+      "C7_ClusterPop": 0.5,
+      "B5_SKNN": 0.5
+    },
+    {
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
+    }
   ],
   "candidates": [
     "B3_RecentPop",
@@ -26,29 +45,29 @@
   "B_np_star": "B3_RecentPop",
   "weight_grid": "simplex step 1/4 (D-29)",
   "initial_weights_modal": {
-    "C7_ClusterPop": 1.0,
-    "B5_SKNN": 0.0
+    "C7_ClusterPop": 0.75,
+    "B5_SKNN": 0.25
   },
   "weights_by_fold": {
     "FFF_2013J_182": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "FFF_2013B_182": {
       "C7_ClusterPop": 0.25,
       "B5_SKNN": 0.75
     },
     "DDD_2013J_182": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "BBB_2013J_182": {
       "C7_ClusterPop": 0.75,
       "B5_SKNN": 0.25
     },
     "DDD_2013B_182": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "BBB_2013B_182": {
       "C7_ClusterPop": 0.75,
@@ -59,32 +78,32 @@
       "B5_SKNN": 0.5
     },
     "GGG_2013J_182": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "AAA_2013J_182": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "FFF_2013J_126": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "FFF_2013B_126": {
       "C7_ClusterPop": 0.5,
       "B5_SKNN": 0.5
     },
     "DDD_2013J_126": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "BBB_2013J_126": {
       "C7_ClusterPop": 0.75,
       "B5_SKNN": 0.25
     },
     "DDD_2013B_126": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "BBB_2013B_126": {
       "C7_ClusterPop": 0.75,
@@ -95,8 +114,8 @@
       "B5_SKNN": 0.5
     },
     "GGG_2013J_126": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "AAA_2013J_126": {
       "C7_ClusterPop": 0.75,
@@ -111,8 +130,8 @@
       "B5_SKNN": 0.5
     },
     "DDD_2013J_70": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "BBB_2013J_70": {
       "C7_ClusterPop": 0.75,
@@ -123,20 +142,20 @@
       "B5_SKNN": 0.25
     },
     "BBB_2013B_70": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.5,
+      "B5_SKNN": 0.5
     },
     "EEE_2013J_70": {
       "C7_ClusterPop": 0.75,
       "B5_SKNN": 0.25
     },
     "GGG_2013J_70": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     },
     "AAA_2013J_70": {
-      "C7_ClusterPop": 1.0,
-      "B5_SKNN": 0.0
+      "C7_ClusterPop": 0.75,
+      "B5_SKNN": 0.25
     }
   },
   "component_configs_by_fold": {
@@ -249,8 +268,122 @@
       "B5_SKNN": "L=1;M=1000;k=200;variant=sknn"
     }
   },
-  "component_parameter_spaces": "standalone spaces of results/dev2013/baselines.csv (B3, B4, B7, B9), gru.csv (GRU-lite), C7 w ∈ {3,7,14,21,28}",
-  "task": "A (D-42)",
+  "nominal_floor_sensitivity": {
+    "description": "grid including zero floor weight (pre-D-51); registered descriptive sensitivity on 2014 (D-51)",
+    "weights_by_fold": {
+      "FFF_2013J_182": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "FFF_2013B_182": {
+        "C7_ClusterPop": 0.25,
+        "B5_SKNN": 0.75
+      },
+      "DDD_2013J_182": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "BBB_2013J_182": {
+        "C7_ClusterPop": 0.75,
+        "B5_SKNN": 0.25
+      },
+      "DDD_2013B_182": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "BBB_2013B_182": {
+        "C7_ClusterPop": 0.75,
+        "B5_SKNN": 0.25
+      },
+      "EEE_2013J_182": {
+        "C7_ClusterPop": 0.5,
+        "B5_SKNN": 0.5
+      },
+      "GGG_2013J_182": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "AAA_2013J_182": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "FFF_2013J_126": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "FFF_2013B_126": {
+        "C7_ClusterPop": 0.5,
+        "B5_SKNN": 0.5
+      },
+      "DDD_2013J_126": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "BBB_2013J_126": {
+        "C7_ClusterPop": 0.75,
+        "B5_SKNN": 0.25
+      },
+      "DDD_2013B_126": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "BBB_2013B_126": {
+        "C7_ClusterPop": 0.75,
+        "B5_SKNN": 0.25
+      },
+      "EEE_2013J_126": {
+        "C7_ClusterPop": 0.5,
+        "B5_SKNN": 0.5
+      },
+      "GGG_2013J_126": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "AAA_2013J_126": {
+        "C7_ClusterPop": 0.75,
+        "B5_SKNN": 0.25
+      },
+      "FFF_2013J_70": {
+        "C7_ClusterPop": 0.75,
+        "B5_SKNN": 0.25
+      },
+      "FFF_2013B_70": {
+        "C7_ClusterPop": 0.5,
+        "B5_SKNN": 0.5
+      },
+      "DDD_2013J_70": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "BBB_2013J_70": {
+        "C7_ClusterPop": 0.75,
+        "B5_SKNN": 0.25
+      },
+      "DDD_2013B_70": {
+        "C7_ClusterPop": 0.75,
+        "B5_SKNN": 0.25
+      },
+      "BBB_2013B_70": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "EEE_2013J_70": {
+        "C7_ClusterPop": 0.75,
+        "B5_SKNN": 0.25
+      },
+      "GGG_2013J_70": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      },
+      "AAA_2013J_70": {
+        "C7_ClusterPop": 1.0,
+        "B5_SKNN": 0.0
+      }
+    }
+  },
+  "H2b": "not applicable by construction: no component of HYB* reads W (D-59)",
+  "component_parameter_spaces": "standalone spaces of results/dev2013/baselines.csv (B3, B4, B5, B7, B9), gru.csv (GRU-lite), C7 w ∈ {3,7,14,21,28}",
+  "task": "A (D-42); task B reported with task-A weights (D-57)",
   "seeds_report": [
     0,
     1,
@@ -258,6 +391,6 @@
     3,
     4
   ],
-  "git_commit_at_freeze_run": "e1bb8aeda6fcae2d72f5502cbb305fb180090592",
-  "date": "2026-10-24 21:48:31"
+  "git_commit_at_freeze_run": "86ea36f011159c16ac1ff37ec97ee0ea67a2c630",
+  "date": "2026-10-24 22:18:58"
 }

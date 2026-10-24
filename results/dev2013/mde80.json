@@ -1,15 +1,15 @@
 [
   {
     "hypothesis": "H1",
-    "pair": "HYB* \u2212 B_np*",
-    "sigma_dev": 0.034399759245305944,
-    "dev_mean_delta": 0.014771638438645842,
+    "pair": "HYB* (floor \u2265 1/4, D-51) \u2212 B_np* = B3",
+    "sigma_dev": 0.0336340362056419,
+    "dev_mean_delta": 0.019633302055778814,
     "MDE80": 0.03749999999999999,
     "MDE80_over_delta": 1.8749999999999996,
     "MDE80_gt_2delta": false,
-    "power_at_delta": 0.25,
-    "power_at_1.5delta": 0.582,
-    "power_at_2delta": 0.872
+    "power_at_delta": 0.262,
+    "power_at_1.5delta": 0.609,
+    "power_at_2delta": 0.891
   },
   {
     "hypothesis": "H2-a",

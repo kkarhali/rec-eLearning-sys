@@ -323,7 +323,7 @@ def build_title(ctx, spec):
     pill(s, RIGHT - 0.95, 0.55, 0.95, 0.42, ctx.meta.get("logo_text", "SVU"), CARD, PRIMARY_DARK, 16, name="شعار الجامعة")
     textbox(s, RIGHT - 0.95 - 5.6, 0.55, 5.5, 0.42, ctx.meta["university"], size=20, bold=True,
             color=WHITE, anchor="m", name="اسم الجامعة")
-    pill(s, RIGHT - 2.6, 1.75, 2.6, 0.45, spec.get("subtitle", ""), ACCENT, WHITE, 16, name="نوع الرسالة")
+    pill(s, RIGHT - 3.8, 1.75, 3.8, 0.45, spec.get("subtitle", ""), ACCENT, WHITE, 16, name="نوع الرسالة")
     textbox(s, MX + 3.2, 2.35, RIGHT - MX - 3.2, 2.3, spec["title"], size=40, bold=True,
             color=WHITE, anchor="t", line=1.1, name="العنوان")
     textbox(s, MX + 3.2, 4.85, RIGHT - MX - 3.2, 1.6, spec.get("lines", []), size=22,
@@ -386,9 +386,9 @@ def build_cards(ctx, spec):
     bottom = (5.45 if has_callout else BOTTOM)
     gx, gy = 0.3, 0.3
     cw = (CONTENT_W - gx * (cols - 1)) / cols
-    ch = min(2.7, (bottom - y0 - gy * (rows - 1)) / rows)
     big = cols <= 3
-    head_sz, text_sz = (22, 18) if big else (18, 15)
+    ch = min(3.0 if big else 2.3, (bottom - y0 - gy * (rows - 1)) / rows)
+    head_sz, text_sz = (24, 20) if big else (20, 16)
     for i, it in enumerate(items):
         r, c = divmod(i, cols)
         x = RIGHT - (c + 1) * cw - c * gx
@@ -402,7 +402,7 @@ def build_cards(ctx, spec):
         textbox(s, x + 0.15, y + 0.95, cw - 0.3, ch - 1.05, it["text"], size=text_sz,
                 color=MUTED, anchor="t", line=1.15)
     if has_callout:
-        callout(s, spec["callout"], 5.6, 1.1)
+        callout(s, spec["callout"], min(5.6, y0 + rows * ch + (rows - 1) * gy + 0.4), 1.1)
     footer(ctx, s, dark)
     set_notes(s, spec.get("notes"), ctx)
     return s
@@ -576,7 +576,8 @@ def build_image(ctx, spec):
     crop_t = spec.get("crop_top", 0.0)
     asp = iw / (ih * (1 - crop_b - crop_t))
     cap_h = 0.4 if spec.get("caption") else 0
-    max_w, max_h = 7.6, BOTTOM - y0 - cap_h
+    y0 = min(y0, 1.5)
+    max_w, max_h = 7.8, 6.85 - y0 - cap_h
     pw = min(max_w, max_h * asp)
     ph = pw / asp
     px = MX                                # الصورة يساراً والنص يميناً (RTL)
@@ -649,9 +650,12 @@ def build_table(ctx, spec):
     gs.name = "جدول"
     tbl = gs.table
     # RTL: العمود الأول عند اليمين
-    tblPr = tbl._tbl.tblPr
-    tblPr.set("rtl", "1")
-    tblPr.set("bandRow", "0")
+    # LibreOffice يتجاهل rtl على الجدول، فيُعكس ترتيب الأعمدة يدوياً
+    # ليظهر العمود الأول عند اليمين في كل التطبيقات
+    tbl._tbl.tblPr.set("bandRow", "0")
+    columns = list(reversed(columns))
+    rows = [list(reversed(r)) for r in rows]
+    weights = list(reversed(weights))
     tot = sum(weights)
     for i, wgt in enumerate(weights):
         tbl.columns[i].width = Emu(int(Inches(CONTENT_W) * wgt / tot))
@@ -665,7 +669,7 @@ def build_table(ctx, spec):
         for j, v in enumerate(row):
             ph = v.strip().startswith("[")
             style_cell(tbl.cell(i, j), v, size, ACCENT_INK if ph else PRIMARY_DARK,
-                       bold=(j == 0), fill=ACCENT_SOFT if ph else fill, italic=ph,
+                       bold=(j == len(row) - 1), fill=ACCENT_SOFT if ph else fill, italic=ph,
                        align="ctr" if ph else "r")
     if spec.get("caption"):
         textbox(s, MX, y0 + tbl_h + 0.1, CONTENT_W, cap_h, spec["caption"], size=14, color=MUTED, anchor="m")
@@ -703,25 +707,18 @@ def build_chart(ctx, spec):
     cw = CONTENT_W - side_w - (0.3 if side_w else 0)
     cx = RIGHT - cw
     chh = BOTTOM - cap_h - y0
-    gf = s.shapes.add_chart(XL_CHART_TYPE.BAR_CLUSTERED, Inches(cx), Inches(y0), Inches(cw), Inches(chh), cd)
+    chart_title_h = 0.5 if ch.get("title") else 0
+    if ch.get("title"):
+        textbox(s, cx, y0, cw, 0.45, ch["title"], size=16, bold=True, anchor="m", name="عنوان المخطط")
+    gf = s.shapes.add_chart(XL_CHART_TYPE.BAR_CLUSTERED, Inches(cx), Inches(y0 + chart_title_h), Inches(cw),
+                            Inches(chh - chart_title_h), cd)
     gf.name = "مخطط أعمدة"
     chart = gf.chart
     chart.font.size = Pt(13)
     chart.font.name = FONT
     chart.font.color.rgb = rgb(PRIMARY_DARK)
     chart.has_legend = False
-    if ch.get("title"):
-        chart.has_title = True
-        tf = chart.chart_title.text_frame
-        tf.text = ch["title"]
-        for r in tf.paragraphs[0].runs:
-            r.font.size = Pt(15)
-            r.font.bold = True
-            r.font.name = FONT
-            r.font.color.rgb = rgb(PRIMARY_DARK)
-        chart.chart_title.include_in_layout = False
-    else:
-        chart.has_title = False
+    chart.has_title = False          # العنوان مربع نص RTL فوق المخطط (LibreOffice لا يطبّق RTL على عنوان المخطط)
     plot = chart.plots[0]
     plot.gap_width = 45
     plot.vary_by_categories = False
@@ -793,7 +790,7 @@ def build_placeholder(ctx, spec):
     y0 = top_of_content(spec, s)
     panels = spec["panels"]
     n = len(panels)
-    cols = n if n <= 3 else 2
+    cols = n if n <= 4 else 2
     rows = math.ceil(n / cols)
     has_callout = bool(spec.get("callout"))
     bottom = 5.6 if has_callout else BOTTOM
@@ -805,9 +802,9 @@ def build_placeholder(ctx, spec):
         x = RIGHT - (c + 1) * cw - c * g
         y = y0 + r * (ch + g)
         box(s, x, y, cw, ch, name="لوحة")
-        textbox(s, x + 0.15, y + 0.1, cw - 0.3, 0.6, p["head"], size=20, bold=True, anchor="m", line=1.0)
-        textbox(s, x + 0.15, y + 0.72, cw - 0.3, 0.7 if rows == 1 else 0.55, p["text"], size=15, color=MUTED, line=1.05)
-        top = y + (1.55 if rows == 1 else 1.3)
+        textbox(s, x + 0.15, y + 0.1, cw - 0.3, 0.75, p["head"], size=20 if cols <= 3 else 18, bold=True, anchor="m", line=1.0)
+        textbox(s, x + 0.15, y + 0.9, cw - 0.3, 0.9, p["text"], size=15, color=MUTED, line=1.05)
+        top = y + 1.9
         slot = box(s, x + 0.2, top, cw - 0.4, y + ch - 0.2 - top, fill=ACCENT_SOFT, line=ACCENT,
                    dash=True, radius=0.08, line_w=1.5, name="مكان النتيجة")
         shape_text(slot, p["slot"], 18, ACCENT_INK, True, italic=True)
