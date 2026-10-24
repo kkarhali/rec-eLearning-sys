@@ -97,7 +97,8 @@ class FrontendFiles(StaticFiles):
         resp = await super().get_response(path, scope)
         if (not self.instructor_enabled and resp.status_code == 200
                 and resp.headers.get("content-type", "").startswith("text/html") and hasattr(resp, "path")):
-            body = open(resp.path, "rb").read().replace(b"</head>", _HIDE_INSTRUCTOR + b"</head>", 1)
+            with open(resp.path, "rb") as fh:
+                body = fh.read().replace(b"</head>", _HIDE_INSTRUCTOR + b"</head>", 1)
             return HTMLResponse(body, headers={"Cache-Control": "no-cache"})
         return resp
 
@@ -113,7 +114,7 @@ def create_app(settings: Settings | None = None, engine=None) -> Starlette:
 
     async def api_not_found(request):
         return error_response(404, "not_found")
-    routes.append(Route("/api/{path:path}", api_not_found, methods=["GET", "POST", "PUT", "PATCH", "DELETE"]))
+    routes.append(Route("/api/{path:path}", api_not_found))
 
     dist = settings.frontend_dist
     if dist.is_dir() and (dist / "index.html").exists():

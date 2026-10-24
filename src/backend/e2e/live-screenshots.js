@@ -1,0 +1,98 @@
+// تحقق حيّ على الخادم الحقيقي (لا mock) + لقطات: NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js [base_url]
+// يشترط خادماً يعمل (python3 -m src.backend --warm) وواجهة مبنية. يفشل (exit 1) عند أي خطأ JS أو طلب mock أو غياب شارة «تاريخ النموذج».
+const { chromium } = require('playwright');
+const path = require('path');
+const fs = require('fs');
+
+const BASE = process.argv[2] || 'http://127.0.0.1:8000';
+const OUT = path.resolve(__dirname, '../../../deliverables/05-user-guide/screenshots');
+const PRES = 'FFF_2013J';
+const DAY = 75;
+
+async function getJson(url) { const r = await fetch(BASE + url); return r.json(); }
+
+async function main() {
+  fs.mkdirSync(OUT, { recursive: true });
+  const regs = await getJson(`/api/registrations?presentation=${PRES}&limit=1`);
+  const reg = regs.items[0].registration;
+  const Q = `p=${PRES}&r=${reg}&d=${DAY}`;
+  const problems = [];
+  let expect422 = false;   // خطوة d=30 تتوقع 422 day_before_first_snapshot ثم انتقالاً تلقائياً
+  const checks = [];
+  const browser = await chromium.launch();
+  try {
+    for (const [name, vp, mobile] of [['desktop', { width: 1440, height: 900 }, false], ['mobile', { width: 375, height: 800 }, true]]) {
+      const ctx = await browser.newContext({ viewport: vp, deviceScaleFactor: mobile ? 2 : 1, locale: 'ar', isMobile: mobile, hasTouch: mobile });
+      const page = await ctx.newPage();
+      const apiCalls = [];
+      page.on('pageerror', (e) => problems.push(`${name} pageerror: ${e.message}`));
+      page.on('console', (m) => { if (m.type() === 'error' && !(expect422 && /422/.test(m.text()))) problems.push(`${name} console.error: ${m.text()}`); });
+      page.on('requestfailed', (r) => problems.push(`${name} requestfailed: ${r.url()}`));
+      page.on('response', (r) => {
+        const u = new URL(r.url());
+        if (u.pathname.startsWith('/api/')) { apiCalls.push(`${r.status()} ${u.pathname}`); if (r.status() >= 400 && !(expect422 && r.status() === 422)) problems.push(`${name} HTTP ${r.status()} ${u.pathname}${u.search}`); }
+        if (u.pathname.startsWith('/mock/')) problems.push(`${name} طلب mock: ${u.pathname}`);
+      });
+      const shot = (file, full = true) => page.screenshot({ path: path.join(OUT, `live-${file}-${name}.png`), fullPage: full });
+      const noHScroll = async (label) => {
+        const w = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+        if (w > 0) problems.push(`${name} ${label}: تمرير أفقي ${w}px`);
+      };
+      const noMockTag = async (label) => {
+        if (await page.locator('.mode-tag').count()) problems.push(`${name} ${label}: وسم وضع المحاكاة ظاهر`);
+      };
+
+      // 1) الرئيسية
+      await page.goto(`${BASE}/index.html?${Q}`); await page.waitForSelector('.choice'); await page.waitForTimeout(500);
+      await noHScroll('home'); await noMockTag('home'); await shot('01-home');
+
+      // 2) المتعلم: بطاقات + شارة تاريخ النموذج + لماذا؟
+      await page.goto(`${BASE}/learner.html?${Q}`); await page.waitForSelector('.rec', { timeout: 60000 }); await page.waitForTimeout(400);
+      const badge = (await page.locator('.ctxbar__model .badge').first().textContent()) || '';
+      checks.push(`${name} شارة النموذج: «${badge.trim()}»`);
+      if (!badge.includes('تاريخ النموذج')) problems.push(`${name} شارة «تاريخ النموذج» غائبة`);
+      const nrec = await page.locator('.rec').count();
+      checks.push(`${name} بطاقات التوصية: ${nrec}`);
+      if (nrec < 10) problems.push(`${name} أقل من 10 بطاقات (${nrec})`);
+      await noHScroll('learner'); await noMockTag('learner'); await shot('02-learner');
+      await page.locator('.rec button[data-site]').nth(1).click(); await page.waitForSelector('.why'); await page.waitForTimeout(500);
+      const why = await page.locator('.why__item').count();
+      checks.push(`${name} مكوّنات التفسير: ${why}`);
+      if (why < 1) problems.push(`${name} لوحة «لماذا؟» بلا مكوّنات`);
+      await noHScroll('learner-why'); await shot('03-learner-why', false);
+      await page.keyboard.press('Escape');
+
+      // 2ب) قبل أول قطع (اليوم 40): شارة «لا قطع بعد» وإشعار
+      await page.goto(`${BASE}/learner.html?p=${PRES}&r=${reg}&d=40`); await page.waitForSelector('.rec', { timeout: 60000 }); await page.waitForTimeout(300);
+      const badge40 = (await page.locator('.ctxbar__model .badge').first().textContent()) || '';
+      checks.push(`${name} شارة اليوم 40: «${badge40.trim()}»`);
+      if (!badge40.includes('تاريخ النموذج')) problems.push(`${name} شارة اليوم 40 غائبة`);
+      await shot('04-learner-before-first-cut', false);
+
+      // 3) المدرّس: مؤشرات + عناقيد + مدرج + جدول + درج
+      await page.goto(`${BASE}/instructor.html?p=${PRES}&d=${DAY}`); await page.waitForSelector('tr.row', { timeout: 60000 }); await page.waitForTimeout(600);
+      checks.push(`${name} صفوف جدول المتعلمين: ${await page.locator('tr.row').count()}`);
+      await noHScroll('instructor'); await noMockTag('instructor'); await shot('05-instructor');
+      await page.locator('tr.row').first().click(); await page.waitForSelector('.drawer:not([hidden]) .chart', { timeout: 20000 }); await page.waitForTimeout(400);
+      await shot('06-instructor-drawer', false);
+
+      // 3ب) المدرّس قبل اليوم 56: ينتقل الشريط تلقائياً إلى 56
+      expect422 = true;
+      await page.goto(`${BASE}/instructor.html?p=${PRES}&d=30`); await page.waitForSelector('tr.row', { timeout: 60000 }); await page.waitForTimeout(500);
+      const dnow = await page.locator('#scrub-num').inputValue();
+      checks.push(`${name} المدرّس عند d=30 ينتقل إلى d=${dnow}`);
+      if (dnow !== '56') problems.push(`${name} لم ينتقل الشريط إلى 56 (${dnow})`);
+      expect422 = false;
+
+      // 4) عن النظام
+      await page.goto(`${BASE}/about.html`); await page.waitForTimeout(300); await noHScroll('about');
+
+      checks.push(`${name} نداءات API: ${[...new Set(apiCalls)].length} مسارات مختلفة`);
+      await ctx.close();
+    }
+  } finally { await browser.close(); }
+  console.log(checks.join('\n'));
+  if (problems.length) { console.error('PROBLEMS:\n' + [...new Set(problems)].join('\n')); process.exitCode = 1; }
+  else console.log('LIVE OK -> ' + OUT);
+}
+main().catch((e) => { console.error(e); process.exit(1); });
