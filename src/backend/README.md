@@ -89,12 +89,14 @@ history 5.6/6.1، overview 1.4/1.9، clusters 2.2/3.3، learners(100) 6.0/6.9، 
 
 ## الاختبارات
 ```bash
-python3 -m unittest discover -s src/backend/tests -t .      # 48 اختباراً، ≈ 25–90 ث (حسب ذاكرة العنقدة الدائمة) (أغلبها تسخين أول يوم)
+python3 -m unittest discover -s src/backend/tests -t .      # 50 اختباراً، ≈ 25–90 ث (حسب ذاكرة العنقدة الدائمة) (أغلبها تسخين أول يوم)
 python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors   # < 1 ث، بلا بيانات
 python3 -m src.backend --warm &   # ثم التحقق الحي بمتصفح حقيقي (لا mock) ولقطات deliverables/05-user-guide/screenshots/live-*.png:
 NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js
 ```
 `test_api_live` يقارن مفاتيح كل استجابة بملف mock المقابل، ويفحص المنطق (قطع النموذج حسب اليوم، المهمتان، الترتيب والترقيم والتصفية، 409/404/422، التطابق مع `Engine`، غياب الخطر والسمات الحساسة من مسارات المتعلم)، وتُتخطّى إن غابت البيانات.
+
+- **D-49 (6):** `provenance {run_id, role, model_cut}` في استجابات التوصية والنظرة العامة والعناقيد وصفحة المتعلمين وملف المتعلم (`schemas.PROVENANCE_MODELS`، ويفحصها اختبار العقد على النماذج وعلى JSON الحي).
 
 ## تنظيف النصوص والواجهة (مراجعة دليل المستخدم)
 - كل نص يصل المستخدم يمر بـ`services/labels.fix_ar`: تصحيح «بعد 57 أيام» إلى «بعد 57 يوماً» وحذف أرقام القرارات الداخلية (`(D-49 (5))` من ملاحظة `serving` وغيرها)؛ وفي الواجهة `countAr/daysAr/learnersAr/itemsAr` في `labels.ts` (1 يوم واحد، يومان، 3–10 أيام، 11+ يوماً). أرقام القرارات تبقى في تعليقات الكود وREADME فقط، ويفحصه `test_text.py` و`test_contract_json.py` والتحقق الحي.

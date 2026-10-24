@@ -18,7 +18,7 @@ import pandas as pd
 from ..errors import ApiError
 from ..repository import Repository
 from ..schemas import (ClusterInfo, ClusterPoint, ClusterQuality, ClusterRef, ClusterSet, Coverage, HistBin,
-                       InstructorLearnerDetail, InstructorLearnerRow, InstructorOverview, Kpis, OverviewRisk, Page,
+                       InstructorLearnerDetail, InstructorLearnerRow, InstructorOverview, Kpis, LearnersPage, OverviewRisk,
                        ProfileRow, ProfileSummary, Provenance, RiskDetail, RiskFactor, RiskRow, TopFeature, TopRec,
                        TypeShare)
 from ..settings import CLUSTER_DAY, Settings
@@ -323,7 +323,7 @@ class InstructorService:
                                    ari=None if cm.quality[2] is None else _round(cm.quality[2])),
             clusters=[ClusterInfo(id=j, label_ar=cm.labels_ar[j], size=int(sizes[j]),
                                   top_features=[TopFeature(name=n, z=z) for n, z in cm.top[j]]) for j in range(cm.k)],
-            points=[ClusterPoint(x=_round(P[i, 0]), y=_round(P[i, 1]), cluster=int(cl[i])) for i in sel])
+            points=[ClusterPoint(x=_round(P[i, 0]), y=_round(P[i, 1]), cluster=int(cl[i])) for i in sel], provenance=prov)
         return Snapshot(pres, day, None if mc is None else int(mc), Fc.index, table, overview, clusters, stats, F)
 
     # ------------------------------------------------------------ المخرجات
@@ -340,7 +340,7 @@ class InstructorService:
         return RiskRow(score=_round(r.prob, 6), cut_day=rm.tc, threshold=_round(rm.threshold, 6),
                        above_threshold=bool(r.above), provenance=PROVENANCE, top_factor=str(r.top_factor))
 
-    def learners(self, pres: str, day: int, cluster: int | None, risk: str, sort: str, limit: int, offset: int) -> Page[InstructorLearnerRow]:
+    def learners(self, pres: str, day: int, cluster: int | None, risk: str, sort: str, limit: int, offset: int) -> LearnersPage:
         snap = self.snapshot(pres, day)
         cm = self.cluster_model(pres)
         t = snap.table
@@ -362,7 +362,7 @@ class InstructorService:
                 registration=f"{pres}-{int(r.id)}", cluster=ClusterRef(id=int(r.cluster), label=cm.labels_ar[int(r.cluster)]),
                 active_days=int(r.active_days), last_access_day=None if np.isnan(r.last_access) else int(r.last_access),
                 on_time=f"{int(r.n_on)}/{n_due}" if n_due else "—", risk=self._risk_row(snap, r)))
-        return Page[InstructorLearnerRow](items=rows, total=int(len(t)), limit=limit, offset=offset)
+        return LearnersPage(items=rows, total=int(len(t)), limit=limit, offset=offset, provenance=snap.overview.provenance)
 
     def learner(self, pres: str, student: int, day: int) -> InstructorLearnerDetail:
         snap = self.snapshot(pres, day)

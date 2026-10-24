@@ -252,6 +252,10 @@ class InstructorLearnerRow(Out):
     risk: RiskRow | None
 
 
+class LearnersPage(Page[InstructorLearnerRow]):
+    provenance: Provenance            # D-49 (6)
+
+
 class Kpis(Out):
     active_learners: int              # الفوج الذي له يوم نشط واحد على الأقل حتى t
     cohort_size: int                  # الفوج: مسجَّلون ≤ t ولم ينسحبوا ≤ t (= مجموع أحجام العناقيد)
@@ -342,6 +346,7 @@ class ClusterSet(Out):
     quality: ClusterQuality
     clusters: list[ClusterInfo]
     points: list[ClusterPoint]
+    provenance: Provenance            # D-49 (6)
 
 
 class ProfileRow(Out):
@@ -372,7 +377,9 @@ class InstructorLearnerDetail(Out):
 
 LEARNER_MODELS = (Health, Meta, Presentation, RegistrationSummary, RecommendationResponse, ExplanationDetail,
                   LearnerHistory)
-INSTRUCTOR_MODELS = (InstructorOverview, ClusterSet, InstructorLearnerRow, InstructorLearnerDetail)
+INSTRUCTOR_MODELS = (InstructorOverview, ClusterSet, LearnersPage, InstructorLearnerRow, InstructorLearnerDetail)
+# D-49 (6): كل استجابة تعتمد على اليوم t وناتج النموذج تحمل provenance.model_cut
+PROVENANCE_MODELS = (RecommendationResponse, InstructorOverview, ClusterSet, LearnersPage, InstructorLearnerDetail)
 
 # ------------------------------------------------------------------ مدخلات (استعلامات)
 LEARNER_SORTS = ("risk", "reg", "cluster", "active_days", "last_access", "on_time")

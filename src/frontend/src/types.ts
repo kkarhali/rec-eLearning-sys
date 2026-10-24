@@ -16,7 +16,7 @@ export interface RegistrationSummary {
   registration: string; id_student: number; date_registration: number;
   date_unregistration?: number | null; status?: string;
 }
-export interface Page<T> { items: T[]; total: number; limit: number; offset: number }
+export interface Page<T> { items: T[]; total: number; limit: number; offset: number; provenance?: Provenance }
 
 export interface NextAssessment { type: string; day: number; days_ahead: number }
 export interface RecContext { week: number; next_assessment: NextAssessment | null; active_days_to_date: number }
@@ -70,7 +70,7 @@ export interface ClusterSet {
   presentation: string; requested_day: number; snapshot_day: number; k: number; unstable: boolean; unstable_reason?: string | null; cluster_day?: number;
   quality: { silhouette: number; dbi: number; ari: number | null };
   clusters: { id: number; label_ar: string; size: number; top_features: { name: string; z: number }[] }[];
-  points: { x: number; y: number; cluster: number }[];
+  points: { x: number; y: number; cluster: number }[]; provenance?: Provenance;
 }
 export interface InstructorLearnerDetail {
   registration: string; day: number; snapshot_day: number; cluster: ClusterRef;

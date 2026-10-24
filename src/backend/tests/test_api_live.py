@@ -289,6 +289,17 @@ class TestApi(unittest.TestCase):
         self.assertFalse(all_keys(d) & SENSITIVE_KEYS)
         self.get(f"/api/instructor/learner/{P}-99?day={DAY}", status=404)
 
+    def test_provenance_model_cut_in_every_day_dependent_response(self):
+        reg = self.reg
+        for day, cut in ((DAY, 70), (130, 126)):
+            urls = [f"/api/recommendations?registration={reg}&day={day}",
+                    f"/api/instructor/overview?presentation={P}&day={day}", f"/api/instructor/clusters?presentation={P}&day={day}",
+                    f"/api/instructor/learners?presentation={P}&day={day}&limit=3", f"/api/instructor/learner/{reg}?day={day}"]
+            for u in urls:
+                pv = self.get(u)["provenance"]
+                self.assertEqual(set(pv), {"run_id", "role", "model_cut"}, u)
+                self.assertEqual(pv["model_cut"], cut, u)
+
     def test_instructor_day_before_first_snapshot(self):
         for u in ["overview", "clusters", "learners"]:
             r = self.get(f"/api/instructor/{u}?presentation={P}&day=40", status=422)

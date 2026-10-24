@@ -51,6 +51,15 @@ class TestContractNoRisk(unittest.TestCase):
     def test_model_cut_is_in_provenance(self):
         self.assertIn("model_cut", schemas.Provenance.model_fields)
 
+    def test_every_day_dependent_response_carries_provenance_model_cut(self):
+        """D-49 (6): كل نماذج الاستجابة المعتمدة على اليوم وناتج النموذج تحوي provenance من النوع Provenance."""
+        self.assertGreaterEqual(len(schemas.PROVENANCE_MODELS), 5)
+        for m in schemas.PROVENANCE_MODELS:
+            f = m.model_fields.get("provenance")
+            self.assertIsNotNone(f, m.__name__)
+            self.assertIs(f.annotation, schemas.Provenance, m.__name__)
+        self.assertEqual(set(schemas.Provenance.model_fields), {"run_id", "role", "model_cut"})
+
 
 if __name__ == "__main__":
     unittest.main()
