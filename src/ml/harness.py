@@ -167,3 +167,26 @@ def run_job(p: PresentationData, cut: int, model_names, exclusion: str = "E5",
 
 def res_idx(evaluated: np.ndarray) -> np.ndarray:
     return np.flatnonzero(evaluated)
+
+
+def eval_rows(pres: str, cut: int, model: str, task: str, seed: int, cfg_key: str, val: float, S: np.ndarray,
+              view, train, secs: float = float("nan"), pop=None, extra: dict | None = None) -> list[dict]:
+    """Rows in the baselines.csv format (slices all / cold_q1 / top_q4 / lt5) for one score matrix."""
+    tgt, cand, unreach, ev = view
+    pop = train.popularity() if pop is None else pop
+    res = metrics.evaluate(S, cand, tgt, unreach, ev, train.tiebreak, pop=pop)
+    n_items_eval = train.seen.sum(axis=1)[res_idx(ev)]
+    q1, q3 = (np.quantile(n_items_eval, [0.25, 0.75]) if len(n_items_eval) else (0, 0))
+    rows = []
+    for slice_name, mask in (("all", None), ("cold_q1", n_items_eval <= q1), ("top_q4", n_items_eval >= q3),
+                             ("lt5", n_items_eval < COLD_THRESHOLD)):
+        row = {"presentation": pres, "cut": cut, "task": task, "model": model, "seed": seed, "slice": slice_name,
+               "config": cfg_key, f"val_{TUNE_METRIC}": val, "fit_score_seconds": secs,
+               "n_eval": int(res["n_eval"] if mask is None else mask.sum()), **metrics.summarize(res, mask)}
+        if slice_name == "all":
+            row.update({f"Coverage@{k}": v for k, v in res["coverage"].items()})
+            row.update({f"PopBias@{k}": v for k, v in res["popbias"].items()})
+        if extra:
+            row.update(extra)
+        rows.append(row)
+    return rows

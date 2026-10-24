@@ -143,6 +143,17 @@ def load_student_info(include_sensitive: bool = False) -> pd.DataFrame:
     return df.drop(columns=["code_module", "code_presentation"])
 
 
+def load_student_assessment(role: str = "dev", allow_confirmatory: bool = False) -> pd.DataFrame:
+    """studentAssessment restricted at load time to the assessments of the role's presentations (D-09)."""
+    pres = DEV_PRESENTATIONS if role == "dev" else CONF_PRESENTATIONS
+    if role != "dev":
+        assert_allowed(CONF_PRESENTATIONS, allow_confirmatory)
+    asm = load_assessments()
+    ids = asm.loc[asm["presentation"].isin(pres), "id_assessment"]
+    df = pd.read_csv(RAW_DIR / "studentAssessment.csv")
+    return df[df["id_assessment"].isin(ids)].reset_index(drop=True)
+
+
 def load_registrations() -> pd.DataFrame:
     df = pd.read_csv(RAW_DIR / "studentRegistration.csv")
     df["presentation"] = df["code_module"] + "_" + df["code_presentation"]
@@ -285,3 +296,41 @@ def proximity_bin(gap: np.ndarray) -> np.ndarray:
     """Bins {0–3, 4–7, 8–14, >14} of the days-to-next-assessment context feature."""
     gap = np.asarray(gap, dtype=float)
     return np.select([gap <= 3, gap <= 7, gap <= 14], [0, 1, 2], default=3).astype(np.int8)
+
+
+# --- D-47: the single, documented exception to the 2014 barrier ----------------------------------------
+CONFIRMATORY_ID_COLUMNS = ("code_module", "code_presentation", "id_student")
+
+
+def confirmatory_student_ids(log_path: Path | None = None, reader=None) -> set[int]:
+    """IDs of students with a registration in any 2014 presentation (D-47, H4-a overlap removal).
+
+    Reads ``studentRegistration.csv`` with ``usecols`` = (code_module, code_presentation, id_student)
+    **only** — no registration/unregistration dates, no other table — and returns a set of ids, used solely
+    to filter the 2013 training set of the risk classifier. Every call appends an access record (time, MD5
+    of the file, columns, number of ids, commit) to ``results/access_log.jsonl``.
+    """
+    import json
+    import subprocess
+
+    path = RAW_DIR / "studentRegistration.csv"
+    read = reader or pd.read_csv
+    df = read(path, usecols=list(CONFIRMATORY_ID_COLUMNS))
+    if set(df.columns) != set(CONFIRMATORY_ID_COLUMNS):
+        raise RuntimeError(f"unexpected columns read: {list(df.columns)}")
+    pres = df["code_module"].astype(str) + "_" + df["code_presentation"].astype(str)
+    ids = set(df.loc[pres.isin(CONF_PRESENTATIONS), "id_student"].astype(int).tolist())
+    try:
+        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT,
+                                         stderr=subprocess.DEVNULL).decode().strip()
+    except Exception:
+        commit = "unknown"
+    md5 = hashlib.md5(path.read_bytes()).hexdigest() if path.exists() else "n/a"
+    rec = {"time": time.strftime("%Y-%m-%dT%H:%M:%S"), "file": "data/raw/oulad/studentRegistration.csv",
+           "md5": md5, "columns": list(CONFIRMATORY_ID_COLUMNS), "n_ids": len(ids), "commit": commit,
+           "purpose": "D-47: remove 2013 training registrations of students registered in 2014 (H4-a)"}
+    log = log_path or (RESULTS_DIR / "access_log.jsonl")
+    log.parent.mkdir(parents=True, exist_ok=True)
+    with open(log, "a", encoding="utf-8") as f:
+        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    return ids

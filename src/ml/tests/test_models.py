@@ -221,3 +221,27 @@ class TestSimpleAndCBF(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestContextComponents(unittest.TestCase):
+    def test_cluster_popularity_counts(self):
+        from src.ml.models.context import ClusterPop
+        from src.ml.learners import ClusterChoice
+        ev = [(1, 1, 65, 1), (2, 1, 66, 1), (3, 2, 67, 1), (4, 2, 10, 1), (4, 3, 68, 1), (1, 3, 5, 1)]
+        tr = fold(ev, types={1: "quiz", 2: "url", 3: "resource"})
+        # users 1,2 in cluster 0; users 3,4 in cluster 1
+        ch = ClusterChoice(2, np.array([0, 0, 1, 1]), np.zeros((2, 2)), True, None, {0: np.array([0, 0, 1, 1])})
+        S = ClusterPop(seed=0, w=7, precomputed=ch).fit(tr).score()
+        np.testing.assert_array_equal(S[0], [2, 0, 0])            # item 1 seen by users 1,2 in (63,70]
+        np.testing.assert_array_equal(S[2], [0, 1, 1])            # cluster 1: item 2 (user 3), item 3 (user 4)
+        m = ClusterPop(seed=0, w=3, precomputed=ch).fit(tr)
+        np.testing.assert_array_equal(m.score()[2], [0, 0, 1])    # d > 67: only user 4's day 68
+
+    def test_assessment_proximity_bin(self):
+        from src.ml.models.context import AssessmentProximity
+        ev = [(1, 1, 50, 1), (2, 2, 52, 1), (1, 2, 56, 1)]
+        p = make_presentation(ev, {1: "quiz", 2: "url"}, assessment_dates=(60, 100))
+        tr = splits.make_fold(p, 70, "tune")[0]                   # t0 = 56, next assessment day 60 → bin 0–3? gap 4 → bin 4–7
+        m = AssessmentProximity().fit(tr)
+        self.assertEqual(m.bin, 1)
+        self.assertEqual(m.score().shape, (tr.n_users, tr.n_items))

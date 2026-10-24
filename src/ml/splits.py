@@ -89,6 +89,7 @@ class TrainData:
     tiebreak: np.ndarray         # U×I keys
     type_medians: dict = field(default_factory=dict)
     type_medians_per_event: np.ndarray | None = None
+    registrations: pd.DataFrame | None = None   # id_student, date_registration only (known at registration)
 
     @property
     def n_users(self) -> int:
@@ -137,18 +138,12 @@ class Targets:
         return tgt, cand, unreach, evaluated
 
 
-def make_fold(p: PresentationData, cut: int, phase: str, exclusion: str = "E5",
-              horizon: int = HORIZON) -> tuple[TrainData, Targets]:
-    t0 = phase_t0(cut, phase)
-    if t0 + horizon > p.length:
-        raise ValueError(f"{p.name}: window ({t0}, {t0 + horizon}] exceeds presentation length {p.length}")
+def build_train(p: PresentationData, t0: int, cut: int, phase: str, exclusion: str = "E5") -> TrainData:
+    """Training view from rows with d ≤ t0 only (also used by the replay service for any day, D-49)."""
     ev = p.events
     excluded = EXCLUSION_SETS[exclusion]
     is_target_type = ~ev["activity_type"].astype(str).isin(excluded).to_numpy()
-    d = ev["date"].to_numpy()
-    train_mask = d <= t0
-    win_mask = (d > t0) & (d <= t0 + horizon)
-
+    train_mask = ev["date"].to_numpy() <= t0
     tr_all = ev.loc[train_mask].reset_index(drop=True)
     tr = ev.loc[train_mask & is_target_type]
     items = np.unique(tr["id_site"].to_numpy())
@@ -166,8 +161,7 @@ def make_fold(p: PresentationData, cut: int, phase: str, exclusion: str = "E5",
     from .signals import type_medians as _tm
     meds = _tm(ev_type, tr["clicks"].to_numpy())
     med_per_event = np.array([meds[t] for t in ev_type], dtype=np.float64) if len(ev_type) else np.zeros(0)
-
-    train = TrainData(
+    return TrainData(
         pres=p.name, cut=cut, phase=phase, t0=t0, exclusion=exclusion,
         users=users, items=items, item_type=item_type,
         ev_u=ev_u, ev_i=ev_i, ev_d=tr["date"].to_numpy().astype(np.int32),
@@ -175,7 +169,23 @@ def make_fold(p: PresentationData, cut: int, phase: str, exclusion: str = "E5",
         all_events=tr_all, assessments=p.assessments.copy(),
         tiebreak=tiebreak_keys(p.name, cut, users, items),
         type_medians=meds, type_medians_per_event=med_per_event,
+        registrations=p.registrations[["id_student", "date_registration"]].copy()
+        if "date_registration" in p.registrations else None,
     )
+
+
+def make_fold(p: PresentationData, cut: int, phase: str, exclusion: str = "E5",
+              horizon: int = HORIZON) -> tuple[TrainData, Targets]:
+    t0 = phase_t0(cut, phase)
+    if t0 + horizon > p.length:
+        raise ValueError(f"{p.name}: window ({t0}, {t0 + horizon}] exceeds presentation length {p.length}")
+    train = build_train(p, t0, cut, phase, exclusion)
+    users, items, seen = train.users, train.items, train.seen
+    U, I = len(users), len(items)
+    ev = p.events
+    is_target_type = ~ev["activity_type"].astype(str).isin(EXCLUSION_SETS[exclusion]).to_numpy()
+    d = ev["date"].to_numpy()
+    win_mask = (d > t0) & (d <= t0 + horizon)
 
     win = ev.loc[win_mask & is_target_type, ["id_student", "id_site"]].drop_duplicates()
     in_users = np.isin(win["id_student"].to_numpy(), users)

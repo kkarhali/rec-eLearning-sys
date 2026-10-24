@@ -21,8 +21,8 @@ from .base import Recommender, grid
 from .baskets import day_keys
 
 
-def proximity_profile(train) -> np.ndarray:
-    """I×4 matrix ρ_i(b) computed from the training period only."""
+def proximity_profile(train, normalise: bool = True) -> np.ndarray:
+    """I×4 matrix ρ_i(b) computed from the training period only (row-normalised for CBF, D-44)."""
     gaps = next_assessment_gap(np.arange(train.ev_d.min(), train.t0 + 1), train.assessments["date"])
     day0 = train.ev_d.min()
     bins_by_day = proximity_bin(gaps)
@@ -33,6 +33,8 @@ def proximity_profile(train) -> np.ndarray:
     num = np.zeros((train.n_items, 4))
     np.add.at(num, (train.ev_i, ev_bin), 1.0)        # one event per (u, i, d) after aggregation
     rho = np.divide(num, den[None, :], out=np.zeros_like(num), where=den[None, :] > 0)
+    if not normalise:
+        return rho
     s = rho.sum(axis=1, keepdims=True)
     return np.divide(rho, s, out=np.zeros_like(rho), where=s > 0)
 

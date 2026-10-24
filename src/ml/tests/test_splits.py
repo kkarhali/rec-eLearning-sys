@@ -137,3 +137,34 @@ class TestConfirmatoryGuard(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestConfirmatoryIdRead(unittest.TestCase):
+    """D-47: only (code_module, code_presentation, id_student) of studentRegistration may be read."""
+
+    def test_columns_and_log(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        calls = []
+
+        def fake_reader(path, usecols=None, **kw):
+            calls.append((Path(path).name, tuple(usecols), kw))
+            return pd.DataFrame({"code_module": ["AAA", "DDD", "DDD"], "code_presentation": ["2013J", "2014B", "2014J"],
+                                 "id_student": [1, 2, 3]})[list(usecols)]
+        with tempfile.TemporaryDirectory() as d:
+            log = Path(d) / "access_log.jsonl"
+            ids = data.confirmatory_student_ids(log_path=log, reader=fake_reader)
+            rec = json.loads(log.read_text().strip())
+        self.assertEqual(ids, {2, 3})
+        self.assertEqual(calls, [("studentRegistration.csv", ("code_module", "code_presentation", "id_student"), {})])
+        self.assertEqual(rec["columns"], ["code_module", "code_presentation", "id_student"])
+        self.assertEqual(rec["n_ids"], 2)
+        for k in ("time", "md5", "commit"):
+            self.assertIn(k, rec)
+
+    def test_rest_of_barrier_intact(self):
+        with self.assertRaises(data.ConfirmatoryAccessError):
+            data.load_presentation("DDD_2014B")
+        with self.assertRaises(data.ConfirmatoryAccessError):
+            data.load_daily_events("conf")

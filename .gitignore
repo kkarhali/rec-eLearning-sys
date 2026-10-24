@@ -11,3 +11,5 @@ data/cache/
 *.tmp
 ~$*.docx
 ~$*.pptx
+# replay-service model artifacts (rebuild: python3 -m src.ml.experiments.build_artifacts)
+artifacts/

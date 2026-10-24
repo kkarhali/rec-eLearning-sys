@@ -14,7 +14,7 @@
 <text x="80" y="131" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">code_module, code_presentation</text>
 <text x="80" y="150" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">length_days: int</text>
 <text x="80" y="169" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">role: dev | confirm</text>
-<text x="80" y="188" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">available: bool</text>
+<text x="80" y="188" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">status: locked..published</text>
 <rect x="380" y="60" width="310" height="139" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.8"/>
 <rect x="380" y="60" width="310" height="30" rx="6" fill="#0F766E"/>
 <rect x="380" y="82" width="310" height="8" fill="#0F766E"/>

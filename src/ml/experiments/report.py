@@ -50,6 +50,9 @@ def _md_table(df: pd.DataFrame) -> str:
 def build_summary(out_dir) -> Path:
     out = Path(out_dir)
     rows = pd.read_csv(out / "baselines.csv")
+    if (out / "gru.csv").exists():                       # round 2: GRU-lite enters the main tables (D-35)
+        g = pd.read_csv(out / "gru.csv")
+        rows = pd.concat([rows, g[g["model"] == "GRU_lite"]], ignore_index=True)
     folds = pd.read_csv(out / "folds.csv")
     timing = pd.read_csv(out / "timing.csv")
     meta = json.loads((out / "run_meta.json").read_text()) if (out / "run_meta.json").exists() else {}
@@ -197,6 +200,7 @@ def build_summary(out_dir) -> Path:
     md.append(_md_table(tt.reset_index().rename(columns={"model": "النموذج"})) + "\n")
     md.append("قيم K = 5 و20 والشرائح cold_q1/top_q4/lt5 لكل (عرض، أصل، بذرة) في `baselines.csv`؛ "
               "كل إعدادات الضبط وقيمها على التحقق في `tuning.csv`.\n")
+    md += round2_sections(out)
     path = out / "summary.md"
     path.write_text("\n".join(md), encoding="utf-8")
     return path
@@ -204,3 +208,98 @@ def build_summary(out_dir) -> Path:
 
 if __name__ == "__main__":
     print(build_summary(sys.argv[1] if len(sys.argv) > 1 else "results/dev2013"))
+
+
+def _ci(c):
+    return f"{c['mean']:+.4f} [{c['ci_lo']:+.4f}, {c['ci_hi']:+.4f}], p = {c['p']:.4f}"
+
+
+def round2_sections(out: Path) -> list[str]:
+    """Round-2 sections (GRU-lite, signal ablation, hybrid, learner analysis, MDE80), only if the files exist."""
+    md = []
+    if not any((out / f).exists() for f in ("gru.csv", "ablation_signals.csv", "hybrid_meta.json", "learner_meta.json")):
+        return md
+    md.append("# الجولة الثانية: GRU-lite، واستئصال الإشارة، والهجين، وتحليل المتعلمين\n")
+    if (out / "gru_sanity.json").exists():
+        s = json.loads((out / "gru_sanity.json").read_text())
+        md.append(f"## GRU-lite (D-35)\n\nحزمة الصحة: **{'اجتاز البوابات S1–S4 وS6' if s['gates_passed'] else 'لم يجتز'}** "
+                  f"(S1 خطأ نسبي {s['S1']['max_rel_err']:.1e}؛ S2 {s['S2']['mean_L_minus_H']:.4f} nat؛ S3 TV {s['S3']['mean_TV']:.3f}؛ "
+                  f"S5 انحراف البذور {s['S5']['sd']:.4f} للإبلاغ). التفاصيل في `gru_sanity.md`. GRU-lite مدرج في الجدولين 1 و2 أعلاه.\n")
+    if (out / "gru.csv").exists():
+        g = pd.read_csv(out / "gru.csv")
+        d128 = g[(g["model"] == "GRU_lite_dh128") & (g["slice"] == "all")]
+        if len(d128):
+            base = g[(g["model"] == "GRU_lite") & (g["slice"] == "all") & (g["task"] == "A") & (g["seed"] == 0)]
+            t = d128.merge(base, on=["presentation", "cut"], suffixes=("_128", "_64"))
+            tt = t.groupby("presentation")[["NDCG@10_64", "NDCG@10_128"]].mean().round(4).reset_index()
+            md.append("حساسية d_h = 128 (الإعداد المختار، بذرة 0، المهمة A، متوسط الأصول):\n")
+            md.append(_md_table(tt) + "\n")
+        tun = pd.read_csv(out / "gru_tuning.csv") if (out / "gru_tuning.csv").exists() else None
+        if tun is not None:
+            sel = g[(g["model"] == "GRU_lite") & (g["task"] == "A") & (g["slice"] == "all") & (g["seed"] == 0)]
+            ep = sel["config"].str.extract(r"epochs=(\d+)")[0].astype(int)
+            md.append(f"الدورات المختارة بالإيقاف المبكر: الوسيط {int(ep.median())} (المدى {ep.min()}–{ep.max()})؛ "
+                      f"الهدف المختار `next-new` في {int(sel['config'].str.contains('next-new').sum())}/{len(sel)} زوجاً.\n")
+    if (out / "ablation_signals.csv").exists():
+        ab = pd.read_csv(out / "ablation_signals.csv")
+        md.append("## استئصال عائلة الإشارة (H2-أ؛ تطوير، وصفي)\n")
+        md.append("كل مستوى بميزانية ≤ 20 إعداداً مستقلة، ضبط ببذرة 0 على التحقق، وتقرير WRMF بخمس بذور. "
+                  "W\\* = العائلة الموزونة كاملة (L1 ∪ L2 ∪ L3). الفرق مقابل الثنائية L0، وفاصل bootstrap-t على 9 عروض.\n")
+        for model in ("B7_WRMF", "B4_ItemKNN"):
+            sub = ab[(ab["model"] == model) & (ab["slice"] == "all")]
+            pm = sub.groupby(["variant", "presentation", "cut"])["NDCG@10"].mean().groupby(["variant", "presentation"]).mean()
+            ref = pm.loc["L0"]
+            rows = []
+            for v in ("L0", "L1", "L2", "L3", "Wstar"):
+                if v not in pm.index.get_level_values(0):
+                    continue
+                x = pm.loc[v]
+                r = {"المستوى": v, "NDCG@10": f"{x.mean():.4f} ± {x.std(ddof=1):.4f}"}
+                if v != "L0":
+                    c = compare((x - ref).to_numpy())
+                    r["Δ مقابل L0 [bootstrap-t]"] = _ci(c)
+                else:
+                    r["Δ مقابل L0 [bootstrap-t]"] = "—"
+                if model == "B7_WRMF":
+                    sd = sub[sub["variant"] == v].groupby(["presentation", "cut"])["NDCG@10"].std(ddof=1).mean()
+                    r["انحراف البذور"] = f"{sd:.4f}"
+                rows.append(r)
+            md.append(f"**{model}**\n")
+            md.append(_md_table(pd.DataFrame(rows)) + "\n")
+    if (out / "hybrid_meta.json").exists():
+        hm = json.loads((out / "hybrid_meta.json").read_text())
+        fr = json.loads((out / "hybrid_frozen.json").read_text())
+        h = pd.read_csv(out / "hybrid.csv")
+        hy = h[h["model"] == "HYB*"].groupby("presentation")["NDCG@10"].mean()
+        md.append("## الهجين المجمَّد وقاعدة القبول (D-11، D-30)\n")
+        md.append(f"- **HYB\\*:** {' + '.join(fr['labels'])}"
+                  + (f"؛ دخل {fr['floor_component']} بالأرضية" if fr.get("floor_component") else "") + ".")
+        md.append(f"- الأوزان (منوال 27 زوجاً): " + "، ".join(f"{k} {v:.3f}" for k, v in fr["initial_weights_modal"].items()) + ".")
+        md.append(f"- NDCG@10 على نوافذ اختبار 2013: **{hy.mean():.4f} ± {hy.std(ddof=1):.4f}**؛ "
+                  f"Δ مقابل {fr['B_np_star']} (H1 وصفياً): {_ci(hm['H1'])}.")
+        if hm.get("H3"):
+            md.append(f"- H3 وصفياً: Δ({hm['H3']['comparison']}) = {_ci(hm['H3'])}؛ قراءة الجدول السداسي: {hm['H3']['dev_rule_reading']}.")
+        b = hm["H4b"]
+        md.append(f"- H4-ب (استكشافية): الربع الأدنى Δ = {_ci(b['cold_q1'])} ({b['cold_q1']['direction']})؛ "
+                  f"الربع الأعلى Δ = {_ci(b['top_q4'])} ({b['top_q4']['direction']}).")
+        md.append("- التفاصيل (الجولات، وسبب دخول/خروج كل مكوّن، وفجوة التفاؤل): `hybrid_acceptance.md`؛ التركيبة: `hybrid_frozen.json`.\n")
+    if (out / "learner_h4a_summary.csv").exists():
+        s = pd.read_csv(out / "learner_h4a_summary.csv")
+        r = s[(s["cut"] == 56) & s["overlap_excluded"]]
+        md.append("## تحليل المتعلمين (H4-أ؛ ترك عرض خارج التدريب داخل 2013، اليوم 56)\n")
+        md.append(_md_table(r[["comparison", "mean_AUC_a", "mean_AUC_b", "delta", "ci_lo", "ci_hi", "p",
+                               "presentations_delta_pos"]].round(4)) + "\n")
+        md.append("التفاصيل (CART، العتبات، العناقيد، الإنصاف الوصفي): `learner_analysis.md`.\n")
+    if (out / "mde80.md").exists():
+        md.append("## MDE80 (D-46)\n\nانظر `mde80.md`.\n")
+    times = []
+    for f, label in (("gru_meta.json", "GRU-lite"), ("ablation_meta.json", "الاستئصال"), ("hybrid_meta.json", "الهجين"),
+                     ("learner_meta.json", "تحليل المتعلمين")):
+        if (out / f).exists():
+            m = json.loads((out / f).read_text())
+            secs = m.get("wall_seconds", m.get("seconds"))
+            if secs is not None:
+                times.append(f"{label} {float(secs) / 60:.1f} دقيقة")
+    if times:
+        md.append("**أزمنة الجولة الثانية (فعلية، 4 عمليات حيث ينطبق):** " + "، ".join(times) + ".\n")
+    return md

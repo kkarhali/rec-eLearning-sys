@@ -199,6 +199,7 @@ class ClusterChoice:
     centres: np.ndarray
     stable: bool
     table: pd.DataFrame
+    labels_by_seed: dict | None = None      # labels of every seed for the chosen k
 
 
 def choose_k(X: np.ndarray, ks=range(2, 9), seeds=(0, 1, 2, 3, 4), n_init: int = 10,
@@ -223,7 +224,7 @@ def choose_k(X: np.ndarray, ks=range(2, 9), seeds=(0, 1, 2, 3, 4), n_init: int =
         k, stable = int(tab.loc[tab["silhouette"].idxmax(), "k"]), False
     runs = fits[k]
     lab, C, _ = runs[seeds.index(label_seed) if label_seed in seeds else 0]
-    return ClusterChoice(k, lab, C, stable, tab)
+    return ClusterChoice(k, lab, C, stable, tab, {s: runs[i][0] for i, s in enumerate(seeds)})
 
 
 # =============================================================================================
