@@ -137,3 +137,42 @@ def compare(diffs, n_boot: int = 10_000, seed: int = 0) -> dict:
     _, plo, phi = cluster_bootstrap_ci(diffs, n_boot=n_boot, seed=seed)
     return {"n": len(diffs), "mean": mean, "ci_lo": lo, "ci_hi": hi, "pct_lo": plo, "pct_hi": phi,
             "p": sign_flip_test(diffs)}
+
+
+def confirmation_power(mu: float, sigma: float, n: int = 13, delta: float = DELTA, n_sim: int = 1000,
+                       n_boot: int = 2000, holm_factor: float = 4.0, alpha: float = ALPHA,
+                       seed: int = 0) -> float:
+    """P(verdict = 'confirmed') when the per-presentation differences are N(mu, sigma²), n units.
+
+    Applies the full one-sided rule of ADR-004 §2.2: Δ̄ ≥ δ, bootstrap-t lower bound > 0 and
+    holm_factor · p < α (holm_factor = m = 4 is the conservative bound for the smallest p in the family).
+    """
+    rng = np.random.default_rng(seed)
+    D = rng.normal(mu, sigma, size=(n_sim, n))
+    signs = np.array(list(itertools.product((1.0, -1.0), repeat=n))) if n <= 16 else \
+        rng.choice((-1.0, 1.0), size=(20_000, n))
+    hits = 0
+    idx = rng.integers(0, n, size=(n_boot, n))
+    for d in D:
+        mean = d.mean()
+        if mean < delta:
+            continue
+        samp = d[idx]
+        m_b, s_b = samp.mean(axis=1), samp.std(axis=1, ddof=1)
+        se = d.std(ddof=1) / np.sqrt(n)
+        t_star = (m_b - mean) / (np.maximum(s_b, 1e-12) / np.sqrt(n))
+        lo = mean - np.quantile(t_star, 1 - alpha / 2) * se
+        if lo <= 0:
+            continue
+        p = float((np.abs(signs @ d) / n >= abs(mean) - 1e-12).mean())
+        hits += holm_factor * p < alpha
+    return hits / n_sim
+
+
+def mde80(sigma: float, n: int = 13, delta: float = DELTA, power: float = 0.8, grid=None, **kw) -> float:
+    """Smallest true mean difference with confirmation power ≥ ``power`` (ADR-004 §2.2, written before freeze)."""
+    grid = np.arange(delta, delta + 6 * sigma + 0.05, 0.0025) if grid is None else grid
+    for mu in grid:
+        if confirmation_power(float(mu), sigma, n=n, delta=delta, **kw) >= power:
+            return float(mu)
+    return float("nan")

@@ -27,11 +27,29 @@ class TestRankFusion(unittest.TestCase):
         np.testing.assert_allclose(r, [[0.0, 0.0, 1.0, 0.5], [0.0, 1.0, 0.0, 0.0]])
 
     def test_simplex_grid_sizes(self):
-        for m, n in ((2, 11), (3, 66), (4, 286)):
-            g = hybrid.simplex_grid(m, 0.1)
+        # budgeted grid (D-29): step 1/4 for 2–3 components, 1/3 for 4 ⇒ ≤ 20 settings
+        for m, n in ((2, 5), (3, 15), (4, 20)):
+            g = hybrid.simplex_grid(m)
             self.assertEqual(len(g), n)
+            self.assertLessEqual(len(g), 20)
             np.testing.assert_allclose(g.sum(axis=1), 1.0)
             self.assertTrue((g >= 0).all())
+        # sensitivity grid step 0.1 (draft §4.4.2)
+        for m, n in ((2, 11), (3, 66), (4, 286)):
+            self.assertEqual(len(hybrid.simplex_grid(m, 0.1)), n)
+
+    def test_mid_rank_on_ties(self):
+        """D-32: tied scores share the average rank; r̃ = 1 when |C_u| = 1."""
+        cand = np.ones((1, 4), dtype=bool)
+        r = hybrid.rank_normalize(np.array([[5.0, 3.0, 3.0, 1.0]]), cand)
+        np.testing.assert_allclose(r, [[1.0, 0.5, 0.5, 0.0]])          # ranks 1, 2.5, 2.5, 4
+        r = hybrid.rank_normalize(np.array([[2.0, 2.0, 2.0, 2.0]]), cand)
+        np.testing.assert_allclose(r, [[0.5, 0.5, 0.5, 0.5]])
+        one = np.array([[False, True, False, False]])
+        np.testing.assert_allclose(hybrid.rank_normalize(np.array([[1.0, 0.0, 3.0, 2.0]]), one),
+                                   [[0, 1, 0, 0]])
+        np.testing.assert_allclose(hybrid.mid_ranks(np.array([[1.0, 1.0, 0.0]]), np.ones((1, 3), bool)),
+                                   [[1.5, 1.5, 3.0]])
 
     def test_tune_weights_finds_oracle_component(self):
         rng = np.random.default_rng(0)
@@ -60,6 +78,18 @@ class TestRankFusion(unittest.TestCase):
                  ("rp", "wrmf", "noise"): base + 0.03}
         res = hybrid.greedy_forward(["rp", "wrmf", "noise"], lambda c: (table[tuple(c)], None), n_boot=2000)
         self.assertEqual(res.combination, ["rp", "wrmf"])
+        self.assertIsNone(res.floor_component)
+
+    def test_personalisation_floor(self):
+        """D-30: if no personal component is accepted, the one with the largest lift is added and flagged."""
+        base = np.full(9, 0.40)
+        mixed = np.r_[0.01, -0.01].repeat([5, 4])
+        table = {("rp",): base, ("knn",): base - 0.1, ("wrmf",): base - 0.2,
+                 ("rp", "knn"): base + mixed, ("rp", "wrmf"): base + mixed - 0.002}
+        res = hybrid.greedy_forward(["rp", "knn", "wrmf"], lambda c: (table[tuple(c)], None), n_boot=2000,
+                                    personal={"knn", "wrmf"})
+        self.assertEqual(res.combination, ["rp", "knn"])
+        self.assertEqual(res.floor_component, "knn")
 
 
 class TestStats(unittest.TestCase):
@@ -96,9 +126,44 @@ class TestStats(unittest.TestCase):
         self.assertEqual(stats.verdict(0.024, 0.002, 0.047, 0.07), "inconclusive")
         self.assertEqual(stats.verdict(-0.027, -0.045, -0.010, 0.003), "refuted_reverse")
 
-    def test_bidirectional(self):
-        self.assertEqual(stats.verdict_bidirectional(0.001, -0.01, 0.012, 0.8), "equivalent")
-        self.assertEqual(stats.verdict_bidirectional(-0.03, -0.05, -0.01, 0.01), "inferior")
+    def test_bidirectional_h3_table(self):
+        """ADR-004 §2.2 six-level precedence table for H3."""
+        v = stats.verdict_bidirectional
+        self.assertEqual(v(0.030, 0.010, 0.050, 0.01), "superior_confirmed")
+        self.assertEqual(v(-0.030, -0.050, -0.010, 0.01), "inferior_confirmed")
+        self.assertEqual(v(0.001, -0.010, 0.012, 0.8), "equivalent")
+        self.assertEqual(v(-0.015, -0.030, -0.002, 0.2), "inferior")
+        self.assertEqual(v(0.000, -0.030, 0.015, 0.9), "refuted")
+        self.assertEqual(v(0.010, -0.030, 0.050, 0.5), "inconclusive")
+
+    def test_bootstrap_t(self):
+        d = np.array([0.030, 0.010, 0.025, -0.005, 0.02, 0.0, 0.015])
+        mean, lo, hi = stats.cluster_bootstrap_t_ci(d, n_boot=10000, seed=0)
+        self.assertAlmostEqual(mean, d.mean())
+        self.assertTrue(lo < mean < hi)
+        self.assertEqual(stats.cluster_bootstrap_t_ci(d, seed=3), stats.cluster_bootstrap_t_ci(d, seed=3))
+        self.assertEqual(stats.cluster_bootstrap_t_ci([0.02] * 5), (0.02, 0.02, 0.02))
+        c = stats.compare(d)
+        self.assertEqual((c["ci_lo"], c["ci_hi"]), (lo, hi))
+
+    def test_bootstrap_t_coverage(self):
+        """Calibrated interval should cover ≈ 95 % at n = 13 (ADR-004 §1: percentile ≈ 92 %)."""
+        rng = np.random.default_rng(5)
+        cover = 0
+        n_sim = 300
+        for k in range(n_sim):
+            d = rng.normal(0.01, 0.03, 13)
+            _, lo, hi = stats.cluster_bootstrap_t_ci(d, n_boot=2000, seed=k)
+            cover += lo <= 0.01 <= hi
+        self.assertGreater(cover / n_sim, 0.90)
+
+    def test_margin_and_power(self):
+        self.assertLess(stats.margin_test(np.full(9, 0.05) + np.linspace(-0.01, 0.01, 9)), 0.01)
+        self.assertGreater(stats.margin_test(np.full(9, 0.0)), 0.5)
+        self.assertTrue(stats.confirmed_with_margin(0.021))
+        p = stats.confirmation_power(0.02, 0.02, n_sim=300, n_boot=1000)
+        self.assertTrue(0.35 < p < 0.6)                        # ≈ 0.5 at μ = δ by construction
+        self.assertGreater(stats.mde80(0.02, n_sim=200, n_boot=500), 0.02)
 
 
 if __name__ == "__main__":

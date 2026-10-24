@@ -4,8 +4,8 @@ import unittest
 import numpy as np
 
 from src.ml import splits
-from src.ml.models import CBF, SKNN, ItemKNN, Markov, Pop, RandomRec, RecentPop, WRMF, PersonalRepeat
-from src.ml.models import knn, markov, wrmf
+from src.ml.models import CBF, EASE, SKNN, ItemKNN, Markov, Pop, RandomRec, RecentPop, WRMF, PersonalRepeat
+from src.ml.models import ease, knn, markov, wrmf
 from src.ml.models.baskets import consecutive_day_transitions, last_days_query, recency_rank
 from src.ml.signals import SignalSpec
 from src.ml.tests.helpers import MINI_TYPES, make_presentation, mini_example_events, random_presentation
@@ -145,6 +145,34 @@ class TestWRMF(unittest.TestCase):
         np.testing.assert_array_equal(a, b)
         m = WRMF(seed=3, f=8, iters=15, checkpoints=(10, 15)).fit(tr)
         np.testing.assert_array_equal(m.scores_at(10), a)
+
+
+class TestEASE(unittest.TestCase):
+    def test_closed_form_kkt(self):
+        """Off-diagonal gradient of ‖X − XB‖² + λ‖B‖² vanishes and diag(B) = 0."""
+        rng = np.random.default_rng(0)
+        X = (rng.random((40, 12)) < 0.3).astype(float)
+        lam = 10.0
+        B = ease.ease_weights(X, lam)
+        np.testing.assert_allclose(np.diag(B), 0.0)
+        grad = (X.T @ X + lam * np.eye(12)) @ B - X.T @ X
+        off = grad - np.diag(np.diag(grad))
+        np.testing.assert_allclose(off, 0.0, atol=1e-9)
+
+    def test_model_and_space(self):
+        tr = fold(mini_example_events())
+        m = EASE(lam=1.0).fit(tr)
+        np.testing.assert_allclose(m.score(), tr.seen @ m.B)
+        self.assertEqual([c["lam"] for c in EASE.param_space()], [1.0, 10.0, 50.0, 100.0, 500.0])
+
+
+class TestSpaces(unittest.TestCase):
+    def test_adr004_spaces(self):
+        self.assertEqual([c["w"] for c in RecentPop.param_space()], [3, 7, 14, 21, 28])
+        self.assertEqual(sorted({c["f"] for c in WRMF.param_space()}), [16, 32, 64])
+        from src.ml.harness import model_configs
+        for name in ("B4_ItemKNN", "B5_SKNN", "B7_WRMF", "B9_CBF", "B3_RecentPop", "B10_EASE"):
+            self.assertLessEqual(len(model_configs(name)), 20, name)
 
 
 class TestSimpleAndCBF(unittest.TestCase):

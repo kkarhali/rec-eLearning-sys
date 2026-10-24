@@ -88,7 +88,8 @@ class TestFolds(unittest.TestCase):
         cfgs = {"B4_ItemKNN": {"k": 20, "shrink": 10.0, "signal": SignalSpec("L3", tau=14, beta=1.0)},
                 "B5_SKNN": {"L": 3, "k": 50, "M": None, "variant": "vsknn"},
                 "B6_Markov": {"gamma": 0.1, "L": 1}, "B7_WRMF": {"f": 8, "iters": 3},
-                "B9_CBF": {}, "B3_RecentPop": {"w": 7}, "B2_Pop": {}, "B8_PersonalRepeat": {"tau": 14.0}}
+                "B9_CBF": {}, "B3_RecentPop": {"w": 21}, "B2_Pop": {}, "B8_PersonalRepeat": {"tau": 14.0},
+                "B10_EASE": {"lam": 50.0}}
         for name, cfg in cfgs.items():
             s1 = BASELINES[name](seed=0, **cfg).fit(tr1).score()
             s2 = BASELINES[name](seed=0, **cfg).fit(tr2).score()

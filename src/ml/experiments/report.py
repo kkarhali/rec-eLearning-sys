@@ -11,7 +11,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from ..stats import compare
+from ..stats import compare, mde80
 
 MAIN_METRICS = ["NDCG@10", "HR@10", "P@10", "R@10", "MRR@10", "Coverage@10", "PopBias@10"]
 REFERENCE = "B3_RecentPop"
@@ -66,10 +66,11 @@ def build_summary(out_dir) -> Path:
     md.append("**الوحدة:** العرض. لكل (نموذج، عرض): متوسط البذور ثم متوسط الأصول الثلاثة (70، 126، 182). "
               f"القيمة = المتوسط عبر {n_pres} عروض ± الانحراف المعياري عبر العروض. "
               "«انحراف البذور» = متوسط الانحراف المعياري عبر البذور الخمس لكل (عرض، أصل) للنماذج العشوائية. "
+              "الضبط ببذرة واحدة والتقرير بخمس (D-34). B10 EASE مرجعي فقط (D-37). "
               "الكتالوج كامل بلا سوالب معيَّنة؛ الأهداف خارج الكتالوج إخفاق. الإعداد مختار على نافذة التحقق "
               "بـNDCG@10 لكل (عرض، أصل، مهمة) بميزانية ≤ 20 إعداداً.\n")
     md.append("**تنبيه:** هذه أرقام تطوير (2013) لتثبيت التصميم؛ ليست اختباراً للفرضيات (D-09، D-15). "
-              "فواصل الثقة وقيم p في الجدول 5 وصفية على 9 عروض فقط.\n")
+              "فواصل الثقة وقيم p في الجدول 5 وصفية على 9 عروض فقط (bootstrap-t العنقودي المعيَّر، ADR-004 §2.2).\n")
 
     for tnum, (task, title) in enumerate((("A", "المهمة A (الأساسية): موارد جديدة"),
                                           ("B", "المهمة B (الثانوية): أي وصول بما فيه الإعادات")), start=1):
@@ -113,29 +114,59 @@ def build_summary(out_dir) -> Path:
         d = (g.set_index("presentation")["NDCG@10"] - ref).dropna()
         c = compare(d.to_numpy())
         drows.append({"النموذج": model, "Δ المتوسط": f"{c['mean']:+.3f}",
-                      "فاصل bootstrap العنقودي 95%": f"[{c['ci_lo']:+.3f}, {c['ci_hi']:+.3f}]",
+                      "فاصل bootstrap-t العنقودي 95%": f"[{c['ci_lo']:+.3f}, {c['ci_hi']:+.3f}]",
+                      "المئيني (ملحق)": f"[{c['pct_lo']:+.3f}, {c['pct_hi']:+.3f}]",
                       "p (تبديل إشارات دقيق، 2^9)": f"{c['p']:.4f}",
                       "عروض Δ>0": f"{int((d > 0).sum())}/{len(d)}"})
     md.append(_md_table(pd.DataFrame(drows)) + "\n")
 
-    # cold-start slice
-    if (rows["slice"] == "cold").any():
-        cu = presentation_units(rows, ["NDCG@10", "HR@10"], "cold")
-        wu = presentation_units(rows, ["NDCG@10"], "warm")
-        ca = cu[cu["task"] == "A"].groupby("model")[["NDCG@10", "HR@10"]].mean()
-        wa = wu[wu["task"] == "A"].groupby("model")["NDCG@10"].mean()
-        ncold = rows[(rows["slice"] == "cold") & (rows["task"] == "A")].groupby(["model"])["n_eval"].mean()
-        nall = rows[(rows["slice"] == "all") & (rows["task"] == "A")].groupby(["model"])["n_eval"].mean()
-        ct = pd.DataFrame({"NDCG@10 بارد": ca["NDCG@10"].round(3), "HR@10 بارد": ca["HR@10"].round(3),
-                           "NDCG@10 دافئ": wa.round(3)})
-        ct = ct.sort_values("NDCG@10 بارد", ascending=False)
-        share = (ncold / nall).mean()
-        md.append(f"## الجدول 6: شريحة البدء البارد (< 5 موارد مختلفة في التدريب)، المهمة A — "
-                  f"متوسط حصة الباردين من المقيَّمين {share:.1%}\n")
+    # cold-start slices (D-28): bottom quartile vs top quartile; "< 5" descriptive
+    if (rows["slice"] == "cold_q1").any():
+        def sl(name, metric="NDCG@10"):
+            u = presentation_units(rows, [metric], name)
+            return u[u["task"] == "A"].groupby("model")[metric].mean()
+        ra = rows[rows["task"] == "A"]
+        n_lt5 = ra[ra["slice"] == "lt5"].groupby(["model"])["n_eval"].mean()
+        n_all = ra[ra["slice"] == "all"].groupby(["model"])["n_eval"].mean()
+        n_q1 = ra[ra["slice"] == "cold_q1"].groupby(["model"])["n_eval"].mean()
+        ct = pd.DataFrame({"NDCG@10 الربع الأدنى": sl("cold_q1").round(3),
+                           "HR@10 الربع الأدنى": sl("cold_q1", "HR@10").round(3),
+                           "NDCG@10 الربع الأعلى": sl("top_q4").round(3),
+                           "NDCG@10 الكل": sl("all").round(3)})
+        ct = ct.sort_values("NDCG@10 الربع الأدنى", ascending=False)
+        md.append("## الجدول 6: شريحة البدء البارد (D-28، استكشافية): الربع الأدنى من الموارد المختلفة في التدريب "
+                  f"بين المقيَّمين لكل (عرض، أصل)، المهمة A — حصة الربع الأدنى ≈ {(n_q1 / n_all).mean():.1%}، "
+                  f"وحصة «< 5 موارد» (وصف) ≈ {(n_lt5 / n_all).mean():.1%}\n")
         md.append(_md_table(ct.reset_index().rename(columns={"model": "النموذج"})) + "\n")
 
+    # optimism gap (D-29): validation NDCG@10 of the selected configuration − test NDCG@10
+    vcol = "val_NDCG@10"
+    if vcol in rows.columns:
+        ra = rows[(rows["slice"] == "all") & (rows["task"] == "A")]
+        g = ra.groupby(["model", "presentation", "cut"])[[vcol, "NDCG@10"]].mean()
+        g = g.groupby(["model", "presentation"]).mean()
+        g["gap"] = g[vcol] - g["NDCG@10"]
+        gt = g.groupby("model").agg(val=(vcol, "mean"), test=("NDCG@10", "mean"), gap=("gap", "mean"),
+                                    gap_sd=("gap", "std")).round(3).sort_values("test", ascending=False)
+        md.append("## الجدول 6-ب: فجوة التفاؤل (تحقق − اختبار) للإعداد المختار، NDCG@10، المهمة A (D-29)\n")
+        md.append("التحقق (t−14, t] والاختبار (t, t+14] نافذتان مختلفتان زمنياً، فالفجوة تجمع أثر الاختيار وأثر الزمن.\n")
+        md.append(_md_table(gt.reset_index().rename(columns={"model": "النموذج"})) + "\n")
+
+    # MDE80 illustration (ADR-004 §2.2): sigma of per-presentation differences of the strongest
+    # personal baseline vs Recent-Pop on the development set, used as a proxy for H1
+    ua = units[units["task"] == "A"].set_index(["model", "presentation"])["NDCG@10"]
+    personal = [m for m in ("B4_ItemKNN", "B5_SKNN", "B6_Markov", "B7_WRMF", "B9_CBF") if m in ua.index]
+    if personal and REFERENCE in ua.index:
+        best = max(personal, key=lambda m: ua[m].mean())
+        sig = float((ua[best] - ua[REFERENCE]).std(ddof=1))
+        m80 = mde80(sig, n=13)
+        md.append("## الجدول 6-ج: أصغر أثر قابل للكشف بقوة 80% (توضيحي)\n")
+        md.append(f"σ (انحراف فروق NDCG@10 لكل عرض بين {best} و{REFERENCE} على التطوير، بديلاً مؤقتاً لـH1) = "
+                  f"{sig:.4f}؛ بالقاعدة الكاملة (Δ̄ ≥ 0.02، حد bootstrap-t الأدنى > 0، 4·p < 0.05) على 13 عرضاً: "
+                  f"**MDE80 ≈ {m80:.4f}** (`stats.mde80`). يُعاد حسابه بفروق الهجين بعد E2/E3 ويُكتب قبل التجميد.\n")
+
     # selected configurations
-    sel = rows[(rows["slice"] == "all") & (rows["seed"] <= 0)]
+    sel = rows[(rows["slice"] == "all") & (rows["seed"] <= 0)]  # one row per (task, model, pres, cut)
     st = []
     for (task, model), g in sel.groupby(["task", "model"]):
         vc = g["config"].value_counts()
