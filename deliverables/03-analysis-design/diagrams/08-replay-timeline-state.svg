@@ -1,14 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="920" viewBox="0 0 1300 920" font-family="DejaVu Sans, Arial, sans-serif"><title>Replay timeline and availability states</title><defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="946" viewBox="0 0 1300 946" font-family="DejaVu Sans, Arial, sans-serif"><title>Replay timeline and availability states</title><defs>
 <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
 <marker id="arrs" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
 <marker id="arrp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F766E"/></marker>
 <marker id="arra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B45309"/></marker>
 <marker id="open" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L11,6 L0,12" fill="none" stroke="#64748B" stroke-width="1.5"/></marker>
-</defs><rect x="0" y="0" width="1300" height="920" fill="#ffffff"/><text x="650" y="34" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">إعادة التشغيل وفق D-49: ما يُحسب عند اليوم t وما يؤخذ من القطع c، وحالات إتاحة العرض</text>
+</defs><rect x="0" y="0" width="1300" height="946" fill="#ffffff"/><text x="650" y="34" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">إعادة التشغيل وفق D-49: ما يُحسب عند اليوم t وما يؤخذ من القطع c، وحالات إتاحة العرض</text>
 <text x="1270" y="70" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">(أ) الخط الزمني لعرض FFF_2013J (268 يوماً؛ الزمن من اليمين) — مثالان: t = 75 وt = 50</text>
 <rect x="830.5" y="170" width="409.5" height="70" rx="0" fill="#CCFBF1" stroke="none" stroke-width="1.5"/>
 <text x="1035.25" y="196" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">حالة المتعلم والمكوّنات الخفيفة عند t = 75:</text>
-<text x="1035.25" y="216" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">كل الأحداث <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">d ≤ 75 (fold-in</tspan>، تمرير GRU)</text>
+<text x="1035.25" y="216" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">كل الأحداث ‎d ‎≤‎ 75 (fold-in‎، تمرير GRU)</text>
 <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#CBD5E1" stroke-width="3"/></pattern>
 <rect x="77.79999999999995" y="170" width="752.7" height="70" fill="url(#hatch)"/>
 <rect x="359.0" y="184" width="280" height="40" rx="4" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
@@ -65,39 +65,40 @@
 <text x="584" y="385" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">عناقيد اليوم 56 (D-39)</text>
 <polygon points="360,372 367,380 360,388 353,380" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
 <text x="344" y="385" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">تقييم منشور مسبقاً</text>
-<rect x="40" y="406" width="1220" height="146" rx="8" fill="#F8FAFC" stroke="#7F8A9C" stroke-width="1.5"/>
-<text x="1240" y="432" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">(1) الثقيلة (WRMF، GRU-lite): معاملات أقرب قطع <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">c ≤ t</tspan>؛ هنا c(75) = 70. (2) حالة المتعلم عند t: fold-in لـ x_u بـ Y الثابتة، وتمرير GRU أمامي.</text>
+<rect x="40" y="406" width="1220" height="172" rx="8" fill="#F8FAFC" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="1240" y="432" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">(1) الثقيلة (WRMF، GRU-lite): معاملات أقرب قطع ‎c ‎≤‎ t‎؛ هنا c(75) = 70. (2) حالة المتعلم عند t: fold-in لـ x_u بـ Y الثابتة، وتمرير GRU أمامي.</text>
 <text x="1240" y="457" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">(3) الخفيفة (Recent-Pop، SKNN، Markov، Item-kNN، CBF، C6، C7) تُحسب عند t. (4) أوزان الهجين أوزان القطع c.</text>
 <text x="1240" y="482" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">(5) قبل اليوم 70: الخفيفة وحدها بأوزان مُعاد تطبيعها مع إشعار. (6) model_cut في كل استجابة. (7) لا رقم تقييم منها.</text>
-<text x="1240" y="507" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الخطر: tc(t) = أكبر قطع من {28، 56، <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">112} ≤ t</tspan>، وإن <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">t &lt; 28</tspan> فلا تقدير. العناقيد: نموذج اليوم 56، وتُعرض عند <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">t ≥ 56.</tspan></text>
-<text x="1240" y="532" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">السياق: التقييم القادم بعد t = 75 هو TMA في اليوم 96 (بعد 21 يوماً).</text>
-<text x="1270" y="640" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">(ب) حالات إتاحة عروض 2014 في الخدمة</text>
-<rect x="1030" y="680" width="220" height="92" rx="22" fill="#FEE2E2" stroke="#B91C1C" stroke-width="1.8"/>
-<text x="1140" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#B91C1C" text-anchor="middle" direction="rtl">محجوب (Locked)</text>
-<text x="1140" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">assert_allowed يرفض؛ API ← 409</text>
-<rect x="730" y="680" width="220" height="92" rx="22" fill="#E2E8F0" stroke="#64748B" stroke-width="1.8"/>
-<text x="840" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#64748B" text-anchor="middle" direction="rtl">مجمَّد (Frozen)</text>
-<text x="840" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">وسم git + manifest (E9)</text>
-<rect x="430" y="680" width="220" height="92" rx="22" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="1.8"/>
-<text x="540" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1D4ED8" text-anchor="middle" direction="rtl">مقيَّم (Evaluated)</text>
-<text x="540" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">E10 مرة واحدة + verdicts.csv</text>
-<rect x="110" y="680" width="220" height="92" rx="22" fill="#DCFCE7" stroke="#15803D" stroke-width="1.8"/>
-<text x="220" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#15803D" text-anchor="middle" direction="rtl">متاح في الواجهة (Served)</text>
-<text x="220" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle">build_artifacts + allow_confirmatory</text>
-<circle cx="1278" cy="726" r="9" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
-<line x1="1268" y1="726" x2="1252" y2="726" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
-<line x1="1030" y1="726" x2="952" y2="726" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
-<rect x="928.3050000000001" y="699.5" width="123.38999999999999" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="990.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">اجتماع التجميد 03</text>
-<line x1="730" y1="726" x2="652" y2="726" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
-<rect x="641.645" y="699.5" width="96.71" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="690.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">E10: 15–16 ك1</text>
-<line x1="430" y1="726" x2="332" y2="726" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
-<rect x="321.64" y="699.5" width="116.72" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="380.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">بعد وجود الأحكام</text>
-<path d="M1110,772 C1110,815 1180,815 1180,774" fill="none" stroke="#64748B" stroke-width="1.5" marker-end="url(#arr)"/>
-<text x="1145" y="832" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#B91C1C" text-anchor="middle" direction="rtl">أي طلب ← 409 confirmatory_locked</text>
-<text x="220" y="800" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">لا عودة: أي تغيير بعد E10 يوسم post-hoc</text>
-<rect x="40" y="850" width="1220" height="60" rx="8" fill="#fff" stroke="#7F8A9C" stroke-width="1.5" stroke-dasharray="5 4"/>
-<text x="1240" y="876" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">عروض 2013 التسعة متاحة منذ بناء مخرجاتها؛ ودرجات خطرها من نموذج دُرِّب على العروض الثمانية الأخرى (ترك عرض واحد).</text>
-<text x="1240" y="900" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الإتاحة تُقرَّر من وجود <tspan direction="ltr" unicode-bidi="isolate" style="direction:ltr;unicode-bidi:isolate">artifacts/&lt;pres&gt;/</tspan> ومن ملف الأحكام لعروض 2014، لا من الواجهة.</text></svg>
+<text x="1240" y="507" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الخطر: tc(t) = أكبر قطع من {28، 56، ‎112} ‎≤‎ t‎، وإن ‎t ‎&lt;‎ 28‎ فلا تقدير. العناقيد: نموذج اليوم 56، وتُعرض عند ‎t ‎≥‎ 56.‎</text>
+<text x="1240" y="532" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الحالي: HYB* = C7 + SKNN بلا مكوّن ثقيل (D-51)؛ وC7 يقرأ k والوسوم المحفوظة لليوم t نفسه (D-68).</text>
+<text x="1240" y="557" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">السياق: التقييم القادم بعد t = 75 هو TMA في اليوم 96 (بعد 21 يوماً).</text>
+<text x="1270" y="666" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">(ب) حالات إتاحة عروض 2014 في الخدمة</text>
+<rect x="1030" y="706" width="220" height="92" rx="22" fill="#FEE2E2" stroke="#B91C1C" stroke-width="1.8"/>
+<text x="1140" y="734" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#B91C1C" text-anchor="middle" direction="rtl">محجوب (Locked)</text>
+<text x="1140" y="778" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">assert_allowed يرفض؛ API ← 409</text>
+<rect x="730" y="706" width="220" height="92" rx="22" fill="#E2E8F0" stroke="#64748B" stroke-width="1.8"/>
+<text x="840" y="734" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#64748B" text-anchor="middle" direction="rtl">مجمَّد (Frozen)</text>
+<text x="840" y="778" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">الوسم freeze-03 (D-62)</text>
+<rect x="430" y="706" width="220" height="92" rx="22" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="1.8"/>
+<text x="540" y="734" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1D4ED8" text-anchor="middle" direction="rtl">مقيَّم (Evaluated)</text>
+<text x="540" y="778" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">E10 مرة واحدة + LOCK (D-63)</text>
+<rect x="110" y="706" width="220" height="92" rx="22" fill="#DCFCE7" stroke="#15803D" stroke-width="1.8"/>
+<text x="220" y="734" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#15803D" text-anchor="middle" direction="rtl">متاح في الواجهة (Served)</text>
+<text x="220" y="778" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">ثلاثة شروط + ui_open.json</text>
+<circle cx="1278" cy="752" r="9" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
+<line x1="1268" y1="752" x2="1252" y2="752" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="1030" y1="752" x2="952" y2="752" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="928.3050000000001" y="725.5" width="123.38999999999999" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="990.0" y="739" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">ش10 والوسم: 31 ت1</text>
+<line x1="730" y1="752" x2="652" y2="752" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="648.315" y="725.5" width="83.36999999999999" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="690.0" y="739" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">E10: 2–3 ت2</text>
+<line x1="430" y1="752" x2="332" y2="752" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="324.975" y="725.5" width="110.05" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="380.0" y="739" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">بعد الاجتماع 04</text>
+<path d="M1110,798 C1110,841 1180,841 1180,800" fill="none" stroke="#64748B" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="1145" y="858" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#B91C1C" text-anchor="middle" direction="rtl">أي طلب ← 409 confirmatory_locked</text>
+<text x="220" y="826" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">لا عودة: أي تغيير بعد E10 يوسم post-hoc</text>
+<rect x="40" y="876" width="1220" height="60" rx="8" fill="#fff" stroke="#7F8A9C" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="1240" y="902" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">عروض 2013 التسعة متاحة منذ بناء مخرجاتها؛ ودرجات خطرها من نموذج دُرِّب على العروض الثمانية الأخرى (lopo_2013).</text>
+<text x="1240" y="926" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الإتاحة تُقرَّر من وجود ‎artifacts/‎&lt;‎pres‎&gt;‎/‎، ولعروض 2014 من ملف الأحكام وقفله وui_open.json (D-67)، لا من الواجهة.</text></svg>

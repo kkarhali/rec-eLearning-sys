@@ -40,7 +40,7 @@
 <rect x="1060" y="82" width="310" height="8" fill="#B45309"/>
 <text x="1215.0" y="81" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">HYBRID_FROZEN</text>
 <text x="1100" y="112" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">results/dev2013/hybrid_frozen.json</text>
-<text x="1100" y="131" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">components: [B3_RecentPop, …]</text>
+<text x="1100" y="131" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">components: [C7, B5_SKNN]</text>
 <text x="1100" y="150" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">weights_by_fold[pres_c]</text>
 <text x="1100" y="169" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">component_configs_by_fold</text>
 <text x="1100" y="188" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">initial_weights_modal</text>
@@ -52,8 +52,8 @@
 <text x="80" y="352" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration: str</text>
 <text x="80" y="371" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    = presentation-id_student</text>
 <text x="80" y="390" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">id_student: int</text>
-<text x="80" y="409" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date_registration: int</text>
-<text x="80" y="428" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date_unregistration: int|null</text>
+<text x="80" y="409" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date_registration: int (D-70)</text>
+<text x="80" y="428" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date_unreg: null if &gt; t</text>
 <text x="80" y="447" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">num_of_prev_attempts: int</text>
 <text x="80" y="466" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">studied_credits: int</text>
 <rect x="380" y="300" width="310" height="120" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
@@ -80,7 +80,7 @@
 <text x="1070" y="352" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
 <text x="1100" y="352" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation, cut c, kind</text>
 <text x="1100" y="371" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">c ∈ {70, 126, 182}</text>
-<text x="1100" y="390" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">kind: wrmf | gru</text>
+<text x="1100" y="390" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">kind: wrmf | gru (none in HYB*)</text>
 <text x="1100" y="409" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">wrmf.npz: Y, items, config</text>
 <text x="1100" y="428" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">gru.npz: p_*, items, config</text>
 <rect x="40" y="620" width="310" height="158" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
@@ -116,7 +116,7 @@
 <text x="1215.0" y="641" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">RECOMMENDATION</text>
 <text x="1100" y="672" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">computed per request</text>
 <text x="1100" y="691" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration, day, model_cut</text>
-<text x="1100" y="710" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">id_site, activity_type, score</text>
+<text x="1100" y="710" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">id_site, activity_type, relevance</text>
 <text x="1100" y="729" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">known_learner: bool, note</text>
 <text x="1100" y="748" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">components{m: rtilde, weight,</text>
 <text x="1100" y="767" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    contribution, raw}</text>
@@ -125,17 +125,17 @@
 <rect x="40" y="962" width="310" height="8" fill="#B45309"/>
 <text x="195.0" y="961" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">RISK_MODEL</text>
 <text x="80" y="992" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">artifacts/&lt;pres&gt;/risk_&lt;tc&gt;.json</text>
-<text x="80" y="1011" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">tc ∈ {28, 56, 112}</text>
-<text x="80" y="1030" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">models[M1|M2]: features,</text>
-<text x="80" y="1049" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    weights, youden_threshold</text>
-<text x="80" y="1068" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">→ risk{risk_cut, model,</text>
-<text x="80" y="1087" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    probability*, above_threshold}</text>
+<text x="80" y="1011" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">2014: frozen/risk_final.json</text>
+<text x="80" y="1030" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">tc ∈ {28, 56, 112}; M1</text>
+<text x="80" y="1049" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">threshold, threshold_source</text>
+<text x="80" y="1068" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">→ risk{risk_cut, model, score*,</text>
+<text x="80" y="1087" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    above_threshold, provenance}</text>
 <rect x="1060" y="940" width="310" height="158" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
 <rect x="1060" y="940" width="310" height="30" rx="6" fill="#1D4ED8"/>
 <rect x="1060" y="962" width="310" height="8" fill="#1D4ED8"/>
 <text x="1215.0" y="961" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">EXPLANATION</text>
 <text x="1100" y="992" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">main + secondary (≥ 1/3)</text>
-<text x="1100" y="1011" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">component: B3_RecentPop | …</text>
+<text x="1100" y="1011" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">component: C7_ClusterPop | …</text>
 <text x="1100" y="1030" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">text: TEMPLATES[component]</text>
 <text x="1100" y="1049" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">contribution: float</text>
 <text x="1100" y="1068" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">evidence: dict per component</text>
@@ -176,6 +176,19 @@
 <line x1="1030" y1="700" x2="1060" y2="700" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="1015.64" y="675" width="58.72" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
 <text x="1045" y="689" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">fold-in</text>
+<rect x="720" y="790" width="310" height="139" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.8"/>
+<rect x="720" y="790" width="310" height="30" rx="6" fill="#B45309"/>
+<rect x="720" y="812" width="310" height="8" fill="#B45309"/>
+<text x="875.0" y="811" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">CLUSTER_CHOICE (memo)</text>
+<text x="760" y="842" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">data/cache/serving/&lt;pres&gt;/&lt;day&gt;</text>
+<text x="730" y="861" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#B45309" text-anchor="start">PK</text>
+<text x="760" y="861" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">presentation, day, fingerprint</text>
+<text x="760" y="880" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">k, stable, labels (~2,300)</text>
+<text x="760" y="899" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">computed at t, served at t only</text>
+<text x="760" y="918" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">fingerprint: frozen configs</text>
+<line x1="1030" y1="810" x2="1060" y2="772" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="1030.0" y="787" width="30" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="1045" y="801" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">C7</text>
 <line x1="1215" y1="778" x2="1215" y2="940" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="1182.16" y="846.0" width="65.67999999999999" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
 <text x="1215.0" y="860.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#134E4A" text-anchor="middle">1 — 1..2</text>
@@ -195,4 +208,4 @@
 <text x="915" y="1084" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">مخزَّن: معاملات القطع c (artifacts/، results/)</text>
 <text x="970" y="1125" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• المتعلم = تسجيل: registration = presentation-id_student (D-04).</text>
 <text x="970" y="1142" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• final_result هدف تدريب أوفلاين فقط: لا يُخزَّن ولا يُخدَم (NFR-08).</text>
-<text x="970" y="1159" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• السمات الحساسة الست لا كيان لها هنا (D-21). * درجة غير معايَرة.</text></svg>
+<text x="970" y="1159" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• السمات الحساسة الست لا كيان لها هنا (D-21). * score: درجة نسبية غير معايَرة (D-65).</text></svg>

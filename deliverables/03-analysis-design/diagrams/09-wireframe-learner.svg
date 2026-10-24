@@ -48,19 +48,17 @@
 <circle cx="40" cy="204" r="13" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
 <text x="40" y="209" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">2</text>
 <text x="1256" y="262" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">أفضل 10 موارد لم تزرها بعد</text>
-<text x="1256" y="284" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">مرتبة بدرجة الهجين المجمَّد؛ اضغط «لماذا؟» لرؤية الدليل</text>
+<text x="1256" y="284" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">مرتبة بدرجة الملاءمة من الهجين المجمَّد (C7 + SKNN)؛ اضغط «لماذا؟» لرؤية الدليل</text>
 <rect x="420" y="300" width="836" height="92" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.2"/>
 <circle cx="1222" cy="334" r="18" fill="#CCFBF1" stroke="#0F766E" stroke-width="1.5"/>
 <text x="1222" y="340" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-weight="bold" fill="#134E4A" text-anchor="middle">1</text>
 <rect x="1026" y="316" width="170" height="26" rx="13" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1111" y="334" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">اختبار قصير (quiz)</text>
 <text x="1012" y="334" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="end">#546712</text>
-<text x="1192" y="368" font-family="DejaVu Sans, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">مرتبط بالتقييم القادم بعد 21 يوماً</text>
-<rect x="686.0" y="358" width="34.0" height="14" rx="0" fill="#0F766E" stroke="#fff" stroke-width="1"/>
-<rect x="660.5" y="358" width="25.5" height="14" rx="0" fill="#1D4ED8" stroke="#fff" stroke-width="1"/>
-<rect x="567.0" y="358" width="93.50000000000001" height="14" rx="0" fill="#B45309" stroke="#fff" stroke-width="1"/>
-<rect x="550.0" y="358" width="17.0" height="14" rx="0" fill="#6D28D9" stroke="#fff" stroke-width="1"/>
-<text x="635.0" y="350" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">حصص المساهمة في الدرجة</text>
+<text x="1192" y="368" font-family="DejaVu Sans, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">شائع لدى متعلمين بنمط مشابه لنمطك</text>
+<rect x="592.5" y="358" width="127.5" height="14" rx="0" fill="#0F766E" stroke="#fff" stroke-width="1"/>
+<rect x="550.0" y="358" width="42.5" height="14" rx="0" fill="#6D28D9" stroke="#fff" stroke-width="1"/>
+<text x="635.0" y="350" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">حصص المساهمة في درجة الملاءمة</text>
 <rect x="436" y="328" width="100" height="36" rx="8" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="486" y="351" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#0F766E" text-anchor="middle" direction="rtl">لماذا؟</text>
 <rect x="420" y="404" width="836" height="92" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.2"/>
@@ -69,12 +67,10 @@
 <rect x="1026" y="420" width="170" height="26" rx="13" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1111" y="438" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">محتوى (oucontent)</text>
 <text x="1012" y="438" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="end">#546614</text>
-<text x="1192" y="472" font-family="DejaVu Sans, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">يستخدمه كثير من زملائك هذا الأسبوع</text>
-<rect x="618.0" y="462" width="102.0" height="14" rx="0" fill="#0F766E" stroke="#fff" stroke-width="1"/>
-<rect x="584.0" y="462" width="34.0" height="14" rx="0" fill="#1D4ED8" stroke="#fff" stroke-width="1"/>
-<rect x="567.0" y="462" width="17.0" height="14" rx="0" fill="#B45309" stroke="#fff" stroke-width="1"/>
-<rect x="550.0" y="462" width="17.0" height="14" rx="0" fill="#6D28D9" stroke="#fff" stroke-width="1"/>
-<text x="635.0" y="454" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">حصص المساهمة في الدرجة</text>
+<text x="1192" y="472" font-family="DejaVu Sans, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">شائع لدى متعلمين بنمط مشابه لنمطك</text>
+<rect x="585.7" y="462" width="134.3" height="14" rx="0" fill="#0F766E" stroke="#fff" stroke-width="1"/>
+<rect x="550.0" y="462" width="35.699999999999996" height="14" rx="0" fill="#6D28D9" stroke="#fff" stroke-width="1"/>
+<text x="635.0" y="454" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">حصص المساهمة في درجة الملاءمة</text>
 <rect x="436" y="432" width="100" height="36" rx="8" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="486" y="455" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#0F766E" text-anchor="middle" direction="rtl">لماذا؟</text>
 <rect x="420" y="508" width="836" height="92" rx="10" fill="#fff" stroke="#0F766E" stroke-width="2.2"/>
@@ -83,12 +79,10 @@
 <rect x="1026" y="524" width="170" height="26" rx="13" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1111" y="542" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">منتدى (forumng)</text>
 <text x="1012" y="542" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="end">#546732</text>
-<text x="1192" y="576" font-family="DejaVu Sans, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">زاره متعلمون بنمط مشابه لنمطك</text>
-<rect x="694.5" y="566" width="25.5" height="14" rx="0" fill="#0F766E" stroke="#fff" stroke-width="1"/>
-<rect x="601.0" y="566" width="93.50000000000001" height="14" rx="0" fill="#1D4ED8" stroke="#fff" stroke-width="1"/>
-<rect x="584.0" y="566" width="17.0" height="14" rx="0" fill="#B45309" stroke="#fff" stroke-width="1"/>
-<rect x="550.0" y="566" width="34.0" height="14" rx="0" fill="#6D28D9" stroke="#fff" stroke-width="1"/>
-<text x="635.0" y="558" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">حصص المساهمة في الدرجة</text>
+<text x="1192" y="576" font-family="DejaVu Sans, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">شائع لدى متعلمين بنمط مشابه لنمطك</text>
+<rect x="585.7" y="566" width="134.3" height="14" rx="0" fill="#0F766E" stroke="#fff" stroke-width="1"/>
+<rect x="550.0" y="566" width="35.699999999999996" height="14" rx="0" fill="#6D28D9" stroke="#fff" stroke-width="1"/>
+<text x="635.0" y="558" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">حصص المساهمة في درجة الملاءمة</text>
 <rect x="436" y="536" width="100" height="36" rx="8" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
 <text x="486" y="559" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle" direction="rtl">لماذا؟</text>
 <rect x="420" y="612" width="836" height="92" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.2"/>
@@ -97,12 +91,10 @@
 <rect x="1026" y="628" width="170" height="26" rx="13" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1111" y="646" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">مورد (resource)</text>
 <text x="1012" y="646" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="end">#547011</text>
-<text x="1192" y="680" font-family="DejaVu Sans, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">يتبع غالباً ما زرتَه مؤخراً</text>
-<rect x="686.0" y="670" width="34.0" height="14" rx="0" fill="#0F766E" stroke="#fff" stroke-width="1"/>
-<rect x="660.5" y="670" width="25.5" height="14" rx="0" fill="#1D4ED8" stroke="#fff" stroke-width="1"/>
-<rect x="643.5" y="670" width="17.0" height="14" rx="0" fill="#B45309" stroke="#fff" stroke-width="1"/>
-<rect x="550.0" y="670" width="93.50000000000001" height="14" rx="0" fill="#6D28D9" stroke="#fff" stroke-width="1"/>
-<text x="635.0" y="662" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">حصص المساهمة في الدرجة</text>
+<text x="1192" y="680" font-family="DejaVu Sans, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">شائع لدى متعلمين بنمط مشابه · يتبع ما زرتَه مؤخراً</text>
+<rect x="611.2" y="670" width="108.8" height="14" rx="0" fill="#0F766E" stroke="#fff" stroke-width="1"/>
+<rect x="550.0" y="670" width="61.199999999999996" height="14" rx="0" fill="#6D28D9" stroke="#fff" stroke-width="1"/>
+<text x="635.0" y="662" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">حصص المساهمة في درجة الملاءمة</text>
 <rect x="436" y="640" width="100" height="36" rx="8" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="486" y="663" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#0F766E" text-anchor="middle" direction="rtl">لماذا؟</text>
 <rect x="420" y="716" width="836" height="92" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.2"/>
@@ -111,12 +103,10 @@
 <rect x="1026" y="732" width="170" height="26" rx="13" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="1111" y="750" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">محتوى (oucontent)</text>
 <text x="1012" y="750" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="end">#546620</text>
-<text x="1192" y="784" font-family="DejaVu Sans, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">يستخدمه كثير من زملائك هذا الأسبوع</text>
-<rect x="635.0" y="774" width="85.0" height="14" rx="0" fill="#0F766E" stroke="#fff" stroke-width="1"/>
-<rect x="584.0" y="774" width="51.0" height="14" rx="0" fill="#1D4ED8" stroke="#fff" stroke-width="1"/>
-<rect x="567.0" y="774" width="17.0" height="14" rx="0" fill="#B45309" stroke="#fff" stroke-width="1"/>
-<rect x="550.0" y="774" width="17.0" height="14" rx="0" fill="#6D28D9" stroke="#fff" stroke-width="1"/>
-<text x="635.0" y="766" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">حصص المساهمة في الدرجة</text>
+<text x="1192" y="784" font-family="DejaVu Sans, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">شائع لدى متعلمين بنمط مشابه لنمطك</text>
+<rect x="601.0" y="774" width="118.99999999999999" height="14" rx="0" fill="#0F766E" stroke="#fff" stroke-width="1"/>
+<rect x="550.0" y="774" width="51.0" height="14" rx="0" fill="#6D28D9" stroke="#fff" stroke-width="1"/>
+<text x="635.0" y="766" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">حصص المساهمة في درجة الملاءمة</text>
 <rect x="436" y="744" width="100" height="36" rx="8" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="486" y="767" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#0F766E" text-anchor="middle" direction="rtl">لماذا؟</text>
 <text x="838.0" y="838" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">… البطاقات 6–10 (قائمة قابلة للتمرير؛ k = 10 افتراضياً)</text>
@@ -125,39 +115,28 @@
 <circle cx="750" cy="340" r="13" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
 <text x="750" y="345" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">4</text>
 <rect x="1240" y="856" width="16" height="14" rx="2" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
-<text x="1232" y="868" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="end">B3_RecentPop</text>
-<rect x="1040" y="856" width="16" height="14" rx="2" fill="#1D4ED8" stroke="#1D4ED8" stroke-width="1.5"/>
-<text x="1032" y="868" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="end">B7_WRMF</text>
-<rect x="840" y="856" width="16" height="14" rx="2" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
-<text x="832" y="868" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="end">C6_AssessProx</text>
-<rect x="640" y="856" width="16" height="14" rx="2" fill="#6D28D9" stroke="#6D28D9" stroke-width="1.5"/>
-<text x="632" y="868" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="end">B5_SKNN</text>
+<text x="1232" y="868" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">شعبية لدى المتشابهين (7)</text>
+<rect x="940" y="856" width="16" height="14" rx="2" fill="#6D28D9" stroke="#6D28D9" stroke-width="1.5"/>
+<text x="932" y="868" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="end">SKNN (4)</text>
 <rect x="24" y="246" width="376" height="400" rx="10" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
-<text x="382" y="276" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">لماذا «منتدى #546732»؟ (قيم توضيحية)</text>
-<text x="382" y="300" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">الدرجة 0.71 = 0.39 + 0.14 + 0.11 + 0.07</text>
-<text x="382" y="330" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="end">B7_WRMF</text>
+<text x="382" y="276" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">لماذا «منتدى #546732»؟</text>
+<text x="382" y="300" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">درجة الملاءمة 0.95 = 0.75 + 0.20 (قيم توضيحية)</text>
+<text x="382" y="330" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">شعبية لدى المتشابهين (7)</text>
 <rect x="44" y="317" width="150" height="14" rx="3" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
-<rect x="44" y="317" width="82.3943661971831" height="14" rx="3" fill="#1D4ED8" stroke="#1D4ED8" stroke-width="1.5"/>
-<text x="220" y="330" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">0.39</text>
-<text x="382" y="350" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">زاره متعلمون بنمط مشابه لنمطك (الجملة الرئيسية)</text>
-<text x="382" y="386" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="end">B5_SKNN</text>
+<rect x="44" y="317" width="118.42105263157896" height="14" rx="3" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
+<text x="220" y="330" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">0.75</text>
+<text x="382" y="350" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">شائع لدى متعلمين بنمط مشابه لنمطك (الجملة الرئيسية)</text>
+<text x="382" y="386" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="end">SKNN (4)</text>
 <rect x="44" y="373" width="150" height="14" rx="3" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
-<rect x="44" y="373" width="29.5774647887324" height="14" rx="3" fill="#6D28D9" stroke="#6D28D9" stroke-width="1.5"/>
-<text x="220" y="386" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">0.14</text>
+<rect x="44" y="373" width="31.578947368421055" height="14" rx="3" fill="#6D28D9" stroke="#6D28D9" stroke-width="1.5"/>
+<text x="220" y="386" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">0.20</text>
 <text x="382" y="406" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">أقل من ثلث الدرجة: لا جملة ثانية</text>
-<text x="382" y="442" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="end">B3_RecentPop</text>
-<rect x="44" y="429" width="150" height="14" rx="3" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
-<rect x="44" y="429" width="23.23943661971831" height="14" rx="3" fill="#0F766E" stroke="#0F766E" stroke-width="1.5"/>
-<text x="220" y="442" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">0.11</text>
-<text x="382" y="462" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">زاره 312 زميلاً في آخر 14 يوماً</text>
-<text x="382" y="498" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="end">C6_AssessProx</text>
-<rect x="44" y="485" width="150" height="14" rx="3" fill="#F1F5F9" stroke="#7F8A9C" stroke-width="1.5"/>
-<rect x="44" y="485" width="14.7887323943662" height="14" rx="3" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
-<text x="220" y="498" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">0.07</text>
-<text x="382" y="518" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">ضعيف الارتباط بالتقييم القادم</text>
-<rect x="40" y="548" width="344" height="70" rx="8" fill="#F0FDFA" stroke="#CCFBF1" stroke-width="1.5"/>
-<text x="370" y="572" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">الدليل: أقرب مورد في تاريخك كامناً</text>
-<text x="370" y="596" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">محتوى #546652 (زرتَه في 3 أيام، آخرها اليوم 68)</text>
+<rect x="40" y="436" width="344" height="70" rx="8" fill="#F0FDFA" stroke="#CCFBF1" stroke-width="1.5"/>
+<text x="370" y="460" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="start" direction="rtl">الدليل (similar_learners_in_window):</text>
+<text x="370" y="484" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">زاره 41 متعلماً بنمط مشابه في آخر 7 أيام</text>
+<text x="382" y="542" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">الوزنان 0.75 و0.25 من hybrid_frozen.json (D-51)،</text>
+<text x="382" y="564" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">والمساهمة = الوزن × الرتبة المطبَّعة.</text>
+<text x="382" y="586" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">يظهر سطر ثانٍ فقط إن تجاوزت مساهمته ثلث الدرجة.</text>
 <circle cx="38" cy="260" r="13" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
 <text x="38" y="265" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">5</text>
 <rect x="24" y="660" width="376" height="230" rx="10" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
@@ -196,4 +175,4 @@
 <text x="382" y="858" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">منتدى #546730 · اليوم 61</text>
 <circle cx="38" cy="674" r="13" fill="#B45309" stroke="#B45309" stroke-width="1.5"/>
 <text x="38" y="679" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">6</text>
-<text x="640.0" y="960" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">قيم توضيحية. لا وسم خطر ولا عنقود ولا مقارنة بالآخرين؛ الأسماء = نوع النشاط + id_site لأن OULAD بلا عناوين.</text></svg>
+<text x="640.0" y="960" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">قيم توضيحية. لا وسم خطر ولا رقم عنقود ولا اسمه ولا حجمه (D-70)؛ الأسماء = نوع النشاط + id_site لأن OULAD بلا عناوين.</text></svg>

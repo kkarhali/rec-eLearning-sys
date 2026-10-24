@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="1010" viewBox="0 0 1300 1010" font-family="DejaVu Sans, Arial, sans-serif"><title>Cluster-choice memoisation and warm-up</title><defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
+<marker id="arrs" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
+<marker id="arrp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F766E"/></marker>
+<marker id="arra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B45309"/></marker>
+<marker id="open" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L11,6 L0,12" fill="none" stroke="#64748B" stroke-width="1.5"/></marker>
+</defs><rect x="0" y="0" width="1300" height="1010" fill="#ffffff"/><text x="650" y="34" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">تحفيظ اختيار العنقدة عند اليوم t وتسخين أيام العرض (D-68)</text>
+<rect x="690" y="55" width="580" height="735" rx="10" fill="#DBEAFE" fill-opacity="0.45" stroke="#1D4ED8" stroke-width="1.5"/>
+<text x="980" y="82" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1D4ED8" text-anchor="middle" direction="rtl">مسار الطلب (حي، لكل استجابة)</text>
+<rect x="30" y="55" width="400" height="735" rx="10" fill="#F0FDFA" stroke="#0F766E" stroke-width="1.5"/>
+<text x="230" y="82" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-weight="bold" fill="#0F766E" text-anchor="middle" direction="rtl">مسار التسخين (دفعي، قبل العرض)</text>
+<circle cx="980" cy="112" r="10" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
+<line x1="980" y1="122" x2="980" y2="138" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="730.0" y="138" width="500" height="50" rx="14" fill="#fff" stroke="#1D4ED8" stroke-width="1.6"/>
+<text x="980" y="158.84" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">1. طلب: (العرض، التسجيل، اليوم t)</text>
+<text x="980" y="176.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">recommend أو learner_profile</text>
+<line x1="980" y1="188" x2="980" y2="208" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="730.0" y="208" width="500" height="50" rx="14" fill="#fff" stroke="#1D4ED8" stroke-width="1.6"/>
+<text x="980" y="228.84" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">2. train_view(t): أحداث حتى اليوم t وحده</text>
+<text x="980" y="246.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">lru_cache داخل العملية</text>
+<line x1="980" y1="258" x2="980" y2="278" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="730.0" y="278" width="500" height="50" rx="14" fill="#fff" stroke="#1D4ED8" stroke-width="1.6"/>
+<text x="980" y="298.84000000000003" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">3. المفتاح = (العرض، t، البصمة)</text>
+<text x="980" y="316.52000000000004" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">البصمة: hybrid_frozen.json + freeze03_config.json</text>
+<line x1="980" y1="328" x2="980" y2="350" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<polygon points="980,350.0 1100.0,392 980,434.0 860.0,392" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/>
+<text x="980" y="388.1" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">4. المفتاح موجود</text>
+<text x="980" y="406.1" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">والبصمة مطابقة؟</text>
+<path d="M1100,392 L1200,392 L1200,470" fill="none" stroke="#15803D" stroke-width="1.6" marker-end="url(#arr)"/>
+<text x="1170" y="382" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#15803D" text-anchor="middle" direction="rtl">نعم</text>
+<rect x="1010.0" y="470" width="240" height="76" rx="14" fill="#fff" stroke="#15803D" stroke-width="1.6"/>
+<text x="1130" y="495.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">5أ. قراءة الوسوم</text>
+<text x="1130" y="512.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">k وstable والوسوم</text>
+<text x="1130" y="529.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">لليوم t نفسه (ملي ثوانٍ)</text>
+<path d="M860,392 L800,392 L800,470" fill="none" stroke="#B45309" stroke-width="1.6" marker-end="url(#arr)"/>
+<text x="830" y="382" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#B45309" text-anchor="middle" direction="rtl">لا</text>
+<rect x="705.0" y="470" width="270" height="96" rx="14" fill="#fff" stroke="#B45309" stroke-width="1.6"/>
+<text x="840" y="497.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">5ب. choose_k حياً (نحو 9.9 ث)</text>
+<text x="840" y="514.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">بالدالة نفسها: مدى k والبذور</text>
+<text x="840" y="531.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">وn_init كما قُيِّمت</text>
+<text x="840" y="548.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">ومؤشر تقدّم مع aria-busy</text>
+<line x1="840" y1="566" x2="840" y2="592" stroke="#B45309" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="705.0" y="592" width="270" height="46" rx="14" fill="#fff" stroke="#B45309" stroke-width="1.6"/>
+<text x="840" y="619.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">حفظ ذرّي للملف بعد أول طلب</text>
+<rect x="760" y="664" width="440" height="6" rx="2" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
+<line x1="840" y1="638" x2="840" y2="663" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="1130" y1="546" x2="1130" y2="663" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="980" y1="670" x2="980" y2="688" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="720.0" y="688" width="520" height="70" rx="14" fill="#fff" stroke="#1D4ED8" stroke-width="1.6"/>
+<text x="980" y="710.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">6. C7 عند t: شعبية الموارد داخل عنقود المتعلم في آخر 7 أيام</text>
+<text x="980" y="727.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">B5 SKNN عند t؛ الدمج بالوزنين 0.75 و0.25 ← أفضل k + الدليل</text>
+<text x="980" y="744.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">الاستجابة مع model_cut (D-49)</text>
+<line x1="980" y1="758" x2="980" y2="772" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
+<circle cx="980" cy="780" r="8" fill="#fff" stroke="#134E4A" stroke-width="2"/>
+<circle cx="980" cy="780" r="4" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
+<path d="M460,330 L460,560 A100.0,18 0 0 0 660,560 L660,330" fill="#FEF3C7" stroke="#B45309" stroke-width="1.8"/>
+<ellipse cx="560.0" cy="330" rx="100.0" ry="18" fill="#FFFBEB" stroke="#B45309" stroke-width="1.8"/>
+<text x="560.0" y="380" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">data/cache/serving/</text>
+<text x="560.0" y="397" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">&lt;pres&gt;/&lt;day&gt;.npz</text>
+<text x="560.0" y="414" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle"></text>
+<text x="560.0" y="431" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">خارج git</text>
+<text x="560.0" y="448" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">k وstable والوسوم</text>
+<text x="560.0" y="465" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">(نحو 2,300 عدد ليوم)</text>
+<text x="560.0" y="482" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">+ البصمة</text>
+<text x="560.0" y="606" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">قيمة محسوبة عند t</text>
+<text x="560.0" y="624" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">لا تُخدَم إلا لليوم t نفسه</text>
+<path d="M662,365 L705,365 L705,303 L728,303" fill="none" stroke="#15803D" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+<rect x="689.995" y="372.5" width="30.009999999999998" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="705" y="386" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#15803D" text-anchor="middle" direction="rtl">بحث</text>
+<path d="M705,615 L666,540" fill="none" stroke="#B45309" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="668.325" y="587.5" width="43.349999999999994" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="690" y="601" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#B45309" text-anchor="middle" direction="rtl">كتابة</text>
+<rect x="55.0" y="120" width="350" height="96" rx="14" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
+<text x="230" y="147.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">الشبكة المعلنة لكل عرض</text>
+<text x="230" y="164.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">كل 7 أيام</text>
+<text x="230" y="181.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">+ قطوع النماذج {70، 126، 182}</text>
+<text x="230" y="198.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">+ قطوع الخطر {28، 56، 112}</text>
+<line x1="230" y1="216" x2="230" y2="240" stroke="#0F766E" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="55.0" y="240" width="350" height="76" rx="14" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
+<text x="230" y="265.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="middle">warm(presentation, days)</text>
+<text x="230" y="282.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">لكل يوم: train_view → choose_k</text>
+<text x="230" y="299.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">← حفظ بالمفتاح نفسه</text>
+<path d="M405,300 L456,400" fill="none" stroke="#0F766E" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="402.325" y="323.5" width="43.349999999999994" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="424" y="337" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#0F766E" text-anchor="middle" direction="rtl">كتابة</text>
+<line x1="230" y1="316" x2="230" y2="340" stroke="#0F766E" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="55.0" y="340" width="350" height="70" rx="14" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
+<text x="230" y="362.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">إلزامي للشبكة: نحو ساعة CPU</text>
+<text x="230" y="379.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">لعروض 2013 التسعة</text>
+<text x="230" y="396.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">واختياري لكل الأيام</text>
+<line x1="230" y1="410" x2="230" y2="434" stroke="#0F766E" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="55.0" y="434" width="350" height="70" rx="14" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
+<text x="230" y="456.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="middle">backend/bench.py</text>
+<text x="230" y="473.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">p50 وp95 دافئاً وبارداً</text>
+<text x="230" y="490.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">← results/ui/latency.csv</text>
+<line x1="230" y1="504" x2="230" y2="528" stroke="#0F766E" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="55.0" y="528" width="350" height="96" rx="14" fill="#fff" stroke="#B91C1C" stroke-width="1.6"/>
+<text x="230" y="555.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">اختبار test_memo_matches_live</text>
+<text x="230" y="572.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">عيّنة عشوائية (عرض، يوم، تسجيل):</text>
+<text x="230" y="589.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">الاستجابة من الذاكرة = الحية حرفياً</text>
+<text x="230" y="606.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">وتغيير البصمة يبطل الذاكرة</text>
+<rect x="50" y="650" width="360" height="120" rx="8" fill="#fff" stroke="#7F8A9C" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="395" y="676" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">أيام غير مسخَّنة:</text>
+<text x="395" y="700" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">تُحسب حية عند أول طلب ثم تُحفظ،</text>
+<text x="395" y="724" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">ويُقاس زمنها ويُبلَّغ كما هو</text>
+<text x="395" y="748" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">(الهدف حتى 3 ث؛ المقيس قبله 10 ث).</text>
+<rect x="30" y="810" width="1240" height="180" rx="10" fill="#F8FAFC" stroke="#7F8A9C" stroke-width="1.5"/>
+<text x="1250" y="840" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">قواعد ملزمة (D-68)</text>
+<text x="1250" y="870" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• تحفيظ لا لقطة: القيمة محسوبة عند اليوم t نفسه وبالدالة نفسها، ولا تُستعمل ليوم آخر؛ فلا يتعارض مع D-49.</text>
+<text x="1250" y="894" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• ممنوع تخفيض n_init أو البذور أو مدى k في الخدمة لتسريعها، لأن ذلك يغيّر المكوّن (7) عمّا قُيِّم.</text>
+<text x="1250" y="918" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• NFR-01: p95 حتى 200 مللي ثانية للتوصيات وملف المتعلم في الأيام المسخَّنة، وحتى ثانية للنظرة العامة والجدول.</text>
+<text x="1250" y="942" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• الذاكرة خارج git ويعاد بناؤها بالتسخين؛ ويعرض الشريط مؤشر تقدّم حين يكون الطلب بارداً.</text>
+<text x="1250" y="966" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">• serving.py خارج نطاق التجميد (D-69)، والتحفيظ يستورد الدوال المجمَّدة للقراءة فقط.</text></svg>

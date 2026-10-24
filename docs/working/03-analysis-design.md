@@ -384,7 +384,7 @@
 2. **التركيبة المجمَّدة:** HYB* = C7 + SKNN بأرضية لا تقل عن 1/4 (D-51) في `hybrid_frozen.json`؛ وH2-ب «غير منطبقة بالبناء» (D-59).
 3. **جدول MDE80 المجمَّد** (D-61): H2-أ 0.045، وH3 0.050 (أكبر من 2δ)، وH4-أ 0.0225، وH1 يُعاد بعد D-51.
 4. **نماذج الخطر النهائية** على التسعة بعد حذف المتداخلين في `results/frozen/risk_final.json` (D-58).
-5. **شروط الوسم ش1–ش10 (حتى 30 ت1):** إعادة توليد ملفات الهجين، و`reproduce_dev` مع `repro_diff.md`، و`freeze03_config.json` بـSHA-256، و`run_confirmatory` بتشغيل جاف على 2013، وتوقيع الزميل على D-47، و`freeze_checklist.md`.
+5. **شروط الوسم ش1–ش9 (حتى 30 ت1) ثم ش10 (31 ت1):** إعادة توليد ملفات الهجين، و`reproduce_dev` مع `repro_diff.md`، و`freeze03_config.json` بـSHA-256، و`run_confirmatory` بتشغيل جاف على 2013، وتوقيع الزميل على D-47، و`freeze_checklist.md`.
 6. **الوسم `freeze-03` (31 ت1)** بعد توقيع المشرف.
 7. **E10 مرة واحدة (2–3 ت2):** طوران في استدعاء واحد وقفل SHA-256 للأحكام بينهما (D-63) ← `results/conf2014/`.
 8. **الاجتماع 04 (5 ت2):** قراءة النتائج؛ ثم E8 وE11–E13؛ ثم فتح عروض 2014 في الواجهة بشروط FR-40 (D-67).
@@ -442,7 +442,7 @@
 
 ## 6.4 (د) التشغيل التأكيدي 2014 بعد التجميد
 
-1. شروط ش1–ش10 حتى 30 ت1، ثم توقيع المشرف والوسم `freeze-03` (31 ت1) على commit نظيف، ويُسجَّل hash الوسم في ملحق المحضر 03.
+1. شروط ش1–ش9 حتى 30 ت1، ثم ش10 (تحقق المشرف وتوقيعه) والوسم `freeze-03` (31 ت1) على commit نظيف، ويُسجَّل hash الوسم في ملحق المحضر 03.
 2. `run_confirmatory` (2–3 ت2) بـ`allow_confirmatory=True` صراحة: طوران في استدعاء واحد، وقفل SHA-256 للأحكام بينهما، و13 عرضاً × 3 أصول، والأوزان على تحقق كل عرض داخل الفضاء المجمَّد فقط، وحتى 8 ساعات CPU لكل طور.
 3. Δ لكل عرض، ثم bootstrap-t (والمنحلّ يوسم، D-52) وقلب الإشارات وHolm (m = 4) وجدولا الحكم مع وصف D-48 بقيمة MDE80 المجمَّدة ← `results/conf2014/verdicts.csv`.
 4. الاجتماع 04 (5 ت2) لقراءة النتائج؛ ثم E8 وE11–E13.
@@ -511,7 +511,7 @@
 
 | المكوّن (المعرّف) | الجملة | مفاتيح الدليل |
 |---|---|---|
-| **C7_ClusterPop** (في HYB*) | «شائع لدى متعلمين بنمط مشابه لنمطك» | `similar_learners_in_window` (عدد) و`window_days`؛ بلا رقم العنقود ولا اسمه ولا حجمه (D-70) |
+| **C7_ClusterPop** (في HYB*؛ `C7_SimilarPop` في عقود المتعلم) | «شائع لدى متعلمين بنمط مشابه لنمطك» | `similar_learners_in_window` (عدد) و`window_days`؛ بلا رقم العنقود ولا اسمه ولا حجمه (D-70) |
 | **B5_SKNN** (في HYB*)، B6_Markov | «يتبع غالباً ما زرتَه مؤخراً» | `recent_items` (حتى 5) |
 | B3_RecentPop | «يستخدمه كثير من زملائك هذا الأسبوع» | `learners_in_window`، `window_days` |
 | B7_WRMF | «زاره متعلمون بنمط مشابه لنمطك» | `closest_in_history` (id_site) |
@@ -543,7 +543,7 @@ data/cache/serving/<presentation>/<day>.npz     # git-ignored; cluster_choice me
 ## 8.1 المبادئ
 
 - **قراءة فقط:** كل المسارات `GET`؛ لا حالة سوى الذاكرات المؤقتة وتحفيظ D-68.
-- **العقد مشتق من الكود:** حقول الاستجابة هي حقول `serving.py` (`model_cut`، و`components`، و`explanation`، و`evidence`، و`risk_cut`، ومعرّفات المكوّنات `C7_ClusterPop`، و`B5_SKNN`…) مع تسمية عربية `label`، تلفّها نماذج pydantic بحقول سياقية قليلة (`registration`، و`context`)؛ والاستثناءات ثلاثة: `score` لدرجة الخطر (D-65)، و`relevance` لدرجة التوصية في عقود المتعلم، و`similar_learners_in_window` (D-70).
+- **العقد مشتق من الكود:** حقول الاستجابة هي حقول `serving.py` (`model_cut`، و`components`، و`explanation`، و`evidence`، و`risk_cut`، ومعرّفات المكوّنات `C7_ClusterPop`، و`B5_SKNN`…) مع تسمية عربية `label`، تلفّها نماذج pydantic بحقول سياقية قليلة (`registration`، و`context`)؛ والاستثناءات أربعة: `score` لدرجة الخطر (D-65)، و`relevance` لدرجة التوصية في عقود المتعلم، و`similar_learners_in_window` (D-70)، والمعرّف العام `C7_SimilarPop` بتسمية «شعبية لدى المتشابهين (7)» بدل `C7_ClusterPop` في عقود المتعلم وحدها، لأن اختبار D-70 يرفض أي مفتاح أو قيمة نصية تحتوي «cluster»؛ ويحوّله `schemas.py`، ويبقى `C7_ClusterPop` في `serving` وعقود المدرّس.
 - **الفصل:** مسارات المتعلم تحت `/api/` ومسارات المدرّس تحت `/api/instructor/` حصراً؛ ولا يُستدعى `learner_profile` في مسارات المتعلم إلا مع إسقاط `risk` و`cluster` قبل بناء العقد.
 - **الأخطاء:** `{"error": {"code", "message", "details"}}`، والرسالة عربية والرمز ثابت. ولا ETag ولا Cache-Control (D-66).
 
@@ -598,13 +598,13 @@ GET /api/recommendations?registration=FFF_2013J-28400&day=75&k=10&task=A
   "registration": "FFF_2013J-28400", "presentation": "FFF_2013J", "id_student": 28400,
   "day": 75, "model_cut": 70, "note": null, "known_learner": true, "task": "A",
   "context": {"week": 10, "next_assessment": {"type": "TMA", "date": 96, "days_ahead": 21}},
-  "components": [{"id": "C7_ClusterPop", "label": "شعبية العنقود (7)", "weight": 0.75},
+  "components": [{"id": "C7_SimilarPop", "label": "شعبية لدى المتشابهين (7)", "weight": 0.75},
                  {"id": "B5_SKNN", "label": "SKNN (4)", "weight": 0.25}],
   "items": [
     {"id_site": 546614, "activity_type": "oucontent", "relevance": 0.95,
-     "components": {"C7_ClusterPop": {"rtilde": 1.00, "weight": 0.75, "contribution": 0.75, "raw": 41.0},
+     "components": {"C7_SimilarPop": {"rtilde": 1.00, "weight": 0.75, "contribution": 0.75, "raw": 41.0},
                     "B5_SKNN": {"rtilde": 0.80, "weight": 0.25, "contribution": 0.20, "raw": 0.37}},
-     "explanation": {"main": {"component": "C7_ClusterPop", "text": "شائع لدى متعلمين بنمط مشابه لنمطك",
+     "explanation": {"main": {"component": "C7_SimilarPop", "text": "شائع لدى متعلمين بنمط مشابه لنمطك",
                               "contribution": 0.75,
                               "evidence": {"similar_learners_in_window": 41, "window_days": 7}},
                      "secondary": []}}
@@ -814,8 +814,8 @@ GET /api/instructor/learner/FFF_2013J-28400?day=75
 |------------|------------|----------------------------------------------|------------------------------|
 | م0: خط التجارب على 2013 (منفَّذة) | حتى 24 ت1 | E0–E7 وجدول MDE80 و`hybrid_frozen.json` (C7 + SKNN، D-51) و`risk_final.json` (D-58)، و`serving.py` و`build_artifacts.py`، وخلفية أولى | 96 اختباراً في `src/ml` و34 في الخلفية تمر؛ النتائج في `results/dev2013/` |
 | م1: الوثيقة والعقد | 27 ت1 إلى 29 ت1 | تعديلات هذه الوثيقة (27 ت1)، وتوقيع الزميل (28 ت1)، و`schemas.py` بـ`score` والقائمة البيضاء (29 ت1) | توقيع الزميل في ذيل المحضر؛ `test_contract_no_risk` على JSON يمر |
-| م2: شروط التجميد | حتى 30 ت1 | ش1–ش10 (D-62)؛ بنود 8.4 رقم 2 و7 و8 و10؛ `reproduce_dev` و`repro_diff.md`؛ `freeze03_config.json`؛ `freeze_checklist.md` | ش1–ش10 موقَّعة؛ `repro_diff.md` بلا فرق غير مفسَّر |
-| م3: الوسم والتأكيد | 31 ت1 إلى 3 ت2 | الوسم `freeze-03` (31 ت1)؛ E10 بمرحلتين وقفل SHA-256 (D-63)؛ باقي بنود 8.4 وD-68 (1 ت2) | `verdicts.csv` مولَّد مرة واحدة وبصمته في المحضر؛ `git diff freeze-03 --stat` لا يمس النطاق المجمَّد |
+| م2: شروط التجميد | حتى 30 ت1 | ش1–ش9 (D-62، D-64)؛ بنود 8.4 رقم 2 و7 و8 و10؛ `reproduce_dev` و`repro_diff.md`؛ `freeze03_config.json`؛ `freeze_checklist.md` | ش1–ش9 مستوفاة؛ `repro_diff.md` بلا فرق غير مفسَّر |
+| م3: الوسم والتأكيد | 31 ت1 إلى 3 ت2 | ش10 (تحقق المشرف وتوقيعه) ثم الوسم `freeze-03` (31 ت1)؛ E10 بمرحلتين وقفل SHA-256 (D-63)؛ باقي بنود 8.4 وD-68 (1 ت2) | `verdicts.csv` مولَّد مرة واحدة وبصمته في المحضر؛ `git diff freeze-03 --stat` لا يمس النطاق المجمَّد |
 | م4: الاجتماع 04 ثم E8 | 5 ت2 وما بعده | عرض الأحكام على المشرف؛ ثم E8 والتحليلات التالية | قبول الأحكام في محضر الاجتماع 04 |
 | م5: مواءمة الواجهة | حتى 8 ت2 | `types.ts` وmock و`api.ts` بالعقود (حذف منطق اللقطات، و`model_cut` في المستوى الأعلى، ومؤشر الطلب البارد، و«فوق العتبة» نصاً)، وقواعد 9.3 | `tsc --noEmit` بلا أخطاء؛ الجدول 17 مستوفى؛ عرض صحيح عند 360 و1440 بكسل |
 | م6: الجودة والأداء | حتى 12 ت2 | الاختبارات الأربعة (`test_memo_matches_live` و`test_locked` و`test_types_match` و`e2e.spec.js`)، والتسخين، و`latency.csv` | NFR-01 بصيغة D-68 محقق ومبلَّغ؛ الاختبار الطرفي يمر لـUC-02 إلى UC-07 |
