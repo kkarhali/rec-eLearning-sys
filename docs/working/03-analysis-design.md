@@ -595,45 +595,68 @@ data/cache/serving_clusters/<pres>_<day>.npz       # git-ignored; cluster_choice
 
 ## 8.3 أمثلة العقود
 
-**المثال الأول (بالتركيبة الحالية C7 + SKNN، قيم توضيحية):**
+الأمثلة بأسماء `schemas.py` وقيم توضيحية، وهي مصدر بيانات وضع المحاكاة في الواجهة.
+
+**المثال الأول (التوصيات بالتركيبة الحالية C7 + SKNN):**
 
 ```json
 GET /api/recommendations?registration=FFF_2013J-28400&day=75&k=10&task=A
 {
   "registration": "FFF_2013J-28400", "presentation": "FFF_2013J", "id_student": 28400,
-  "day": 75, "model_cut": 70, "note": null, "known_learner": true, "task": "A",
-  "context": {"week": 10, "next_assessment": {"type": "TMA", "date": 96, "days_ahead": 21}},
-  "components": [{"id": "similar_pop", "label": "شعبية الأنماط المشابهة", "weight": 0.75},
-                 {"id": "B5_SKNN", "label": "SKNN (4)", "weight": 0.25}],
+  "requested_day": 75, "snapshot_day": 75, "task": "A", "status": "ok",
+  "known_learner": true, "note": null,
+  "context": {"week": 11, "next_assessment": {"type": "TMA", "day": 96, "days_ahead": 21},
+              "active_days_to_date": 6},
+  "components": [{"id": "similar_pop", "label": "شعبية الأنماط المشابهة (7)", "weight": 0.75},
+                 {"id": "sknn", "label": "SKNN (4)", "weight": 0.25}],
   "items": [
-    {"id_site": 546614, "activity_type": "oucontent", "relevance": 0.95,
-     "components": {"similar_pop": {"rtilde": 1.00, "weight": 0.75, "contribution": 0.75, "raw": 41.0},
-                    "B5_SKNN": {"rtilde": 0.80, "weight": 0.25, "contribution": 0.20, "raw": 0.37}},
-     "explanation": {"main": {"component": "similar_pop", "text": "شائع لدى متعلمين بنمط مشابه لنمطك",
-                              "contribution": 0.75,
-                              "evidence": {"similar_learners_in_window": 41, "window_days": 7}},
-                     "secondary": []}}
-  ]
+    {"rank": 1, "id_site": 546614, "activity_type": "oucontent", "relevance": 0.95,
+     "contributions": {"similar_pop": 0.75, "sknn": 0.20},
+     "reason": "شائع لدى متعلمين بنمط مشابه لنمطك", "reason_secondary": null}
+  ],
+  "provenance": {"run_id": "…", "role": "dev", "model_cut": 70}
 }
 ```
 
-والجملة الثانية لا تظهر لأن 0.20 لا تتجاوز ثلث الدرجة المدمجة (0.95 ÷ 3 ≈ 0.32).
+و`reason_secondary` فارغ لأن 0.20 لا تتجاوز ثلث الدرجة المدمجة (0.95 ÷ 3 ≈ 0.32).
 
-**المثال الثاني (توضيحي لتركيبة افتراضية بثلاثة مكوّنات، لإظهار الحقول):** المكوّنات B3_RecentPop وB7_WRMF وC6_AssessProx بأوزان 0.33؛ ولمورد quiz رُتبه المطبَّعة 0.61 و0.45 و1.00، فمساهماته 0.20 و0.15 و0.33، ودرجته **0.68**؛ والجملة الرئيسية من C6 («مرتبط بالتقييم القادم بعد 21 يوماً»، والدليل `{"days": 21}`)، ولا جملة ثانية لأن 0.20 لا تتجاوز 0.68 ÷ 3.
+**المثال الثاني (تفسير المورد نفسه):**
 
 ```json
-GET /api/instructor/learner/FFF_2013J-28400?day=75
-{"registration": "FFF_2013J-28400", "day": 75, "model_cut": 70,
- "features": {"active_days": 6, "total_clicks": 141, "first_day": 12, "gap_sd": 9.4,
-              "last_active_day": 52, "on_time_ratio": 0.0, "mean_score": 0.0},
- "cluster": {"cluster": 3, "k": 4, "stable": true, "cluster_day": 56, "label": "منخفضو النشاط"},
- "risk": {"risk_cut": 56, "model": "M1", "score": 0.81, "threshold": 0.4557,
-          "threshold_source": "D-58 (frozen, day 56)", "above_threshold": true, "provenance": "lopo_2013",
-          "factors": [{"feature": "active_days", "wz": 1.4}, {"feature": "first_day", "wz": 0.9}]},
- "recommendations": ["… 3 عناصر بالشكل نفسه أعلاه …"]}
+GET /api/explanations/FFF_2013J-28400/546614?day=75&task=A
+{"registration": "FFF_2013J-28400", "id_site": 546614, "activity_type": "oucontent",
+ "task": "A", "day": 75, "snapshot_day": 75, "relevance": 0.95,
+ "components": [
+   {"id": "similar_pop", "label": "شعبية الأنماط المشابهة (7)", "weight": 0.75, "r_tilde": 1.00,
+    "contribution": 0.75, "evidence": {"type": "count", "n": 41, "window": 7, "scope": "similar"},
+    "sentence": "شائع لدى متعلمين بنمط مشابه لنمطك"},
+   {"id": "sknn", "label": "SKNN (4)", "weight": 0.25, "r_tilde": 0.80, "contribution": 0.20,
+    "evidence": {"type": "item", "id_site": 546652, "activity_type": "oucontent", "days": 3, "last_day": 68},
+    "sentence": "يتبع غالباً ما زرتَه مؤخراً"}],
+ "notes": []}
 ```
 
-**اختبار العقد (D-70):** يعمل `test_contract_no_risk.py` على **JSON المسلسَل فعلياً** لطلبات عيّنة من كل مسارات المتعلم: لا مفتاح (تكرارياً، ومنها مفاتيح `evidence` الحرة) ولا قيمة نصية تحتوي {risk، score، probability، cluster، final_result، gender، disability، imd_band، age_band، region، highest_education}؛ ومسارات المدرّس تُفحص بقائمة بيضاء للمفاتيح تكرارياً. ولأن `score` اسم درجة الخطر، تُسمّى درجة التوصية المدمجة في عقود المتعلم `relevance` (الحقل `score` في `serving.recommend` يحوّله `schemas.py`)، فلا يحتاج الاختبار استثناءً.
+**حساب توضيحي لتركيبة افتراضية بثلاثة مكوّنات:** المكوّنات `recent_pop` و`wrmf` و`assess_prox` بأوزان 0.33؛ ولمورد quiz رُتبه المطبَّعة 0.61 و0.45 و1.00، فمساهماته 0.20 و0.15 و0.33، ودرجته **0.68**؛ والجملة الرئيسية من C6 («مرتبط بالتقييم القادم بعد 21 يوماً»، والدليل `{"type": "assessment", "assessment_type": "TMA", "days_ahead": 21}`)، ولا جملة ثانية لأن 0.20 لا تتجاوز 0.68 ÷ 3.
+
+**المثال الثالث (ملف متعلم في لوحة المدرّس؛ متعلم بدرجة متوسطة دون العتبة، D-72):**
+
+```json
+GET /api/instructor/learner/FFF_2013J-30455?day=75
+{"registration": "FFF_2013J-30455", "day": 75, "snapshot_day": 75,
+ "cluster": {"id": 1, "label": "متقطعون بنشاط تقييمي"},
+ "risk": {"score": 0.38, "cut_day": 56, "threshold": 0.456, "above_threshold": false,
+          "provenance": "lopo_2013", "top_factor": "انحراف الفجوات",
+          "label_ar": "درجة خطر نسبية غير معايَرة",
+          "factors": [{"name": "انحراف الفجوات", "wz": 0.7}, {"name": "يوم أول وصول", "wz": 0.3}]},
+ "profile": [{"name": "active_days", "value": 17, "median": 21, "z": -0.5}],
+ "top_recs": [{"rank": 1, "id_site": 546712, "activity_type": "quiz",
+               "reason": "شائع لدى متعلمين بنمط مشابه لنمطك"}],
+ "withdrawn_day": null}
+```
+
+والعتبة في العقد مقرَّبة إلى 3 منازل (0.456 من 0.4557 المجمَّدة، D-58). وتضيف `GET /api/instructor/clusters` الحقول `k` و`cluster_day = 56` و`unstable` و`unstable_reason` و`quality{silhouette، dbi، ari أو null}` والأحجام ونقاط PCA؛ وتضيف النظرة العامة `kpis` (ومنها `coverage_at_10` المعروض «اتساع التوصيات»، D-71، و`share_above_threshold`) ومدرج الدرجة.
+
+**اختبار العقد (D-70):** يعمل `test_contract_json.py` و`test_contract_no_risk.py` على **JSON المسلسَل فعلياً** لطلبات عيّنة من كل مسارات المتعلم: لا مفتاح (تكرارياً، ومنها مفاتيح `evidence`) ولا قيمة نصية تحتوي {risk، score، probability، cluster، final_result، gender، disability، imd_band، age_band، region، highest_education}؛ ومسارات المدرّس تُفحص بقائمة بيضاء للمفاتيح تكرارياً. ولأن `score` اسم درجة الخطر، تُسمّى درجة التوصية في عقود المتعلم `relevance`، فلا يحتاج الاختبار استثناءً.
 
 ## 8.4 ما يلزم إضافته إلى `serving.py` (معتمد من المشرف، بمواعيده)
 
