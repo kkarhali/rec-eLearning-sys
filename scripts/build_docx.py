@@ -169,6 +169,7 @@ def _rtl_paragraphs(doc: Document) -> None:
 
 def _page_setup(doc: Document) -> None:
     for s in doc.sections:
+        s.page_width = Cm(21.0); s.page_height = Cm(29.7)  # A4 (pandoc's default reference is Letter)
         s.top_margin = Cm(2.5); s.bottom_margin = Cm(2.5)
         s.left_margin = Cm(2.5); s.right_margin = Cm(3.0)
         sectpr = s._sectPr
