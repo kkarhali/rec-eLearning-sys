@@ -109,12 +109,12 @@
 | FR-11 | bootstrap-t عنقودي، وقلب الإشارات الدقيق، وHolm بـ m = 4، وجدولا الحكم، واختبار الهامش | Must | D-23 إلى D-26 | موجود (`stats.py`) |
 | FR-12 | سجل زمن وذاكرة لكل (نموذج، زوج، طور)، ومقارنته بسقف 8 ساعات CPU وسلّم التقليص | Must | D-34 | جزئي (`timing.csv`؛ يلزم ملخص الميزانية) |
 | FR-13 | التجميد بشروط ش1–ش10: `freeze03_config.json` بالفضاءات والتركيبة والعتبات وSHA-256 للملفات المجمَّدة، و`freeze_checklist.md` المولَّدة بمسار دليل لكل بند (منها سجل D-47 وجدول MDE80)، ثم الوسم `freeze-03` | Must | D-62، D-47، D-69 | جزئي (`freeze_config.py` و`freeze03_config.json` موجودان؛ القائمة مخططة) |
-| FR-14 | التشغيل التأكيدي الوحيد E10 بطورين في استدعاء واحد وقفل SHA-256 للأحكام بينهما، بعد تشغيل جاف على 2013، والمخرجات في `results/conf2014/` | Must | D-09، D-15، D-26، D-57، D-63 | مخطط (`experiments/run_confirmatory.py`) |
+| FR-14 | التشغيل التأكيدي الوحيد E10 بطورين في استدعاء واحد وقفل SHA-256 للأحكام بينهما، بعد تشغيل جاف على 2013، والمخرجات في `results/conf2014/` | Must | D-09، D-15، D-26، D-57، D-63 | منفَّذ (`experiments/run_confirmatory.py`)، وتشغيل التأكيد بعد الوسم |
 | FR-15 | تحليلات الحساسية E11، والإنصاف الوصفي E12، وأثر البروتوكول E13، أوفلاين وحده | Should | ADR-002 §3.6.11، D-21 | جزئي (إنصاف التطوير في `learner_analysis.py`) |
 | FR-16 | بناء مخرجات القطوع: `wrmf.npz` و`gru.npz` لكل (عرض، c) إن كان المكوّن الثقيل في HYB*، و`risk_<tc>.json` لعروض 2013 (M1 مدرَّب على العروض الثمانية الأخرى، وعتبة D-58 عند 56 وعتبات عرض مجمَّعة عند 28 و112 بحقل `threshold_source`)، و`clusters_56.npz` | Must | D-49، D-13، D-39، D-65 | موجود (`build_artifacts.py`؛ عتبات 28/112 مطلوبة، 8.4) |
 | FR-17 | تفكيك الدرجة إلى مساهمات $w_m\tilde r_m$، والجملة الرئيسية والثانية (إن تجاوزت مساهمتها ثلث الدرجة)، ودليل كل مكوّن | Must | D-22، الوثيقة 02 §4.8 | موجود (`serving.TEMPLATES`، `_evidence`) |
 | FR-36 | قراءة معرّفات 2014 المحدودة لترشيح تدريب H4-أ، مع سجل وصول في `results/access_log.jsonl` (الزمن، وMD5، والأعمدة، والعدد، وcommit) | Must | D-47 | موجود (`data.confirmatory_student_ids`) |
-| FR-38 | أمر واحد `python3 -m src.ml.experiments.reproduce_dev` يعيد نتائج التطوير من ذاكرة فارغة عند commit واحد، ويولّد `results/dev2013/repro_diff.md` | Must | D-62 (ش5)، ADR-002 §3.6.12 | مخطط |
+| FR-38 | أمر واحد `python3 -m src.ml.experiments.reproduce_dev` يعيد نتائج التطوير من ذاكرة فارغة عند commit واحد، ويولّد `results/dev2013/repro_diff.md` | Must | D-62 (ش5)، ADR-002 §3.6.12 | منفَّذ (`experiments/reproduce_dev.py`)، ويُشغَّل ضمن ش5 |
 | FR-39 | جدول MDE80 المجمَّد لكل فرضية (H2-أ 0.045، وH3 0.050، وH4-أ 0.0225، وH1 بعد D-51)، والوصف المسجل الملحق بحكم «غير حاسمة» | Must | D-46، D-48، D-61 | موجود (`power.py`، `mde80.md`؛ الوصف في `run_confirmatory`) |
 
 ## 3.3 المتطلبات الوظيفية: الخدمة والواجهة البرمجية
@@ -123,9 +123,9 @@
 
 | الرقم | المتطلب | الأولوية | المصدر |
 |------------|---------------------------------------------------------------------------------------|------------|------------|
-| FR-18 | سرد العروض بدورها وحالة إتاحتها وطولها وقطوعها؛ وعدد التسجيلات `null` لعروض 2014 حتى إتاحتها | Must | D-09، D-22، D-47 |
-| FR-19 | سرد تسجيلات عرض مع بحث وترقيم، من قائمة بيضاء صريحة: `registration`، و`id_student`، و`date_registration`، و`num_of_prev_attempts`، و`studied_credits`، و`date_unregistration` (`null` إن تجاوز اليوم المطلوب)؛ لا `final_result` ولا سمة حساسة | Must | D-04، D-21، D-70 |
-| FR-20 | حساب كل استجابة عند اليوم المطلوب t، وإعلان `day` و`model_cut` في المستوى الأعلى لكل استجابة (ومنها ملف المتعلم) | Must | D-49 (2، 3، 6) |
+| FR-18 | سرد العروض بدورها (`dev`/`confirm`) وحالتها في العقد (`published`/`locked`) وطولها وقطوعها وتقييماتها المنشورة، وعدد التسجيلات `registrations` عدداً صحيحاً (0 لعروض 2014 المقفلة) | Must | D-09، D-22، D-47 |
+| FR-19 | سرد تسجيلات عرض مع بحث وترقيم، من قائمة بيضاء صريحة بأربعة حقول (`schemas.RegistrationSummary`): `registration`، و`id_student`، و`date_registration`، و`status` ∈ {ok، no_history، withdrawn} محسوبة عند `day` فلا يُكشف انسحاب بعده؛ لا `date_unregistration` ولا `final_result` ولا سمة حساسة | Must | D-04، D-21، D-70 |
+| FR-20 | حساب كل استجابة عند اليوم المطلوب t، وإعلان `requested_day` و`snapshot_day` (متساويان دائماً، فلا لقطات) و`provenance.model_cut` في كل استجابة (null قبل اليوم 70)، ومنها ملف المتعلم | Must | D-49 (2، 3، 6) |
 | FR-21 | أفضل k (افتراضياً 10، وحتى 20) للمهمة A، والمهمة B بخيار صريح، مع التفسير المضمَّن | Must | D-14، D-42، D-22 |
 | FR-22 | تفسير مفصل لكل توصية معروضة: المكوّن ووزنه ورتبته المطبَّعة ومساهمته ودليله | Must | D-22، ش7 |
 | FR-23 | نشاط المتعلم حتى t (الأيام النشطة، وآخر الموارد) بلا خطر ولا عنقود | Should | D-22 |
@@ -166,7 +166,7 @@
 | NFR-05 | الصدق العلمي | لا رقم في الرسالة إلا من ملف في `results/` يولّده كود؛ وإعادة التشغيل لا تنتج أي رقم تقييم | Must | ADR-002 §5، D-49 (7) |
 | NFR-06 | منع التسرب | كل **حدث** و**معامل متعلَّم** يُستعمل لطلب اليوم t من أحداث لا تتجاوز t وقطع c لا يتجاوز t؛ أما الأوزان والإعدادات فاختيار مجمَّد من التطوير (D-58) يُعلن في «عن النظام» ولا أثر له على أي رقم؛ والتحفيظ لليوم t لا يُخدَم لغيره (D-68)؛ اختبارا `test_no_future_data_used` والتطابق الحي/المحفوظ | Must | الوثيقة 02 §5.9، D-49، D-68 |
 | NFR-07 | عزل التأكيد | عروض 2014 محجوبة في طبقة ML، وغير قابلة للخدمة قبل FR-40؛ وإلا 409 | Must | D-09 |
-| NFR-08 | الخصوصية | السمات الست و`final_result` لا تُخزَّن في `artifacts/` ولا تمر في أي استجابة، ولا يُكشف `date_unregistration` بعد t؛ ولا محاولة لإعادة التعريف | Must | D-21، D-08، D-70 |
+| NFR-08 | الخصوصية | السمات الست و`final_result` لا تُخزَّن في `artifacts/` ولا تمر في أي استجابة، ولا يُخدَم `date_unregistration` (الانسحاب حالة `withdrawn` حتى t وحده)؛ ولا محاولة لإعادة التعريف | Must | D-21، D-08، D-70 |
 | NFR-09 | فصل الخطر | اختبار العقد على **JSON المسلسَل فعلياً** لطلبات عيّنة: في مسارات المتعلم لا مفتاح ولا قيمة نصية تحتوي {risk، score، probability، cluster، final_result، والسمات الست}؛ وفي مسارات المدرّس قائمة بيضاء للمفاتيح تكرارياً | Must | D-22، D-21، D-70 |
 | NFR-10 | إدارة البيانات | البيانات الخام والذاكرة المؤقتة (ومنها `data/cache/serving_clusters/`) و`artifacts/` و`dist/` خارج git | Must | D-08، D-70 |
 | NFR-11 | القيود البيئية | لا اعتماد إلا على المكتبة القياسية وnumpy وpandas وstarlette وuvicorn وpydantic؛ ولا CDN ولا npm | Must | thesis-context |
@@ -257,7 +257,7 @@
   1. يختار المدرّس تبويب «المدرّس» ثم العرض واليوم.
   2. يرسل المتصفح طلبين متوازيين: النظرة العامة وأول صفحة من جدول المتعلمين.
   3. تعرض اللوحة خمس بطاقات (التسجيلات، والنشطون في آخر 7 أيام، و«اتساع التوصيات عند اليوم t: X من Y مورداً» بلا اسم Coverage@10 (D-71)، ووسيط الأيام النشطة، و**حصة المتعلمين فوق العتبة** عدداً ونسبةً مع قطعها، وهي حصة لا احتمال)، وأعلى الموارد في 7 أيام، والتقييمات القادمة، وشريطاً ثابتاً «درجة خطر نسبية غير معايَرة، للمدرّس فقط».
-- **البدائل:** 3أ. t < 28: بطاقة الخطر «لا تقدير قبل اليوم 28».
+- **البدائل:** 3أ. قبل اليوم 56: رسالة «لا لوحة مدرّس قبل اليوم 56» ونقل الشريط إليه (الرمز `day_before_first_snapshot`).
 - **الاستثناءات:** كما في UC-02 (E1، E2).
 - **ما بعد الشروط:** الحالة في URL.
 
@@ -389,7 +389,7 @@
 7. **E10 مرة واحدة (2–3 ت2):** طوران في استدعاء واحد وقفل SHA-256 للأحكام بينهما (D-63) ← `results/conf2014/`.
 8. **الاجتماع 04 (5 ت2):** قراءة النتائج؛ ثم E8 وE11–E13؛ ثم فتح عروض 2014 في الواجهة بشروط FR-40 (D-67).
 
-**قواعد التدفق:** R-A1 لا نموذج قبل مرور اختبارات الحزام؛ R-A2 كل إحصاء من التدريب حتى $t_0$ وحده؛ R-A3 عملية لكل (عرض، أصل) بخيط BLAS واحد وسجل زمن وذاكرة (D-34)؛ R-A4 تجاوز الميزانية يُعالج بسلّم التقليص المسجل قبل الوسم فقط، وحتى 8 ساعات CPU لكل طور من E10؛ R-A5 لا تحليل حكمي على (عرض × قطع)؛ R-A6 قراءة 2014 الوحيدة قبل الوسم هي D-47، وكل قراءة تُسجَّل في `access_log.jsonl`؛ R-A7 لا مسار كود يُنفَّذ أول مرة على 2014 (D-57).
+**قواعد التدفق:** R-A1 لا نموذج قبل مرور اختبارات الحزام؛ R-A2 كل إحصاء من التدريب حتى لحظة البداية t0 وحدها؛ R-A3 عملية لكل (عرض، أصل) بخيط BLAS واحد وسجل زمن وذاكرة (D-34)؛ R-A4 تجاوز الميزانية يُعالج بسلّم التقليص المسجل قبل الوسم فقط، وحتى 8 ساعات CPU لكل طور من E10؛ R-A5 لا تحليل حكمي على (عرض × قطع)؛ R-A6 قراءة 2014 الوحيدة قبل الوسم هي D-47، وكل قراءة تُسجَّل في `access_log.jsonl`؛ R-A7 لا مسار كود يُنفَّذ أول مرة على 2014 (D-57).
 
 ![الشكل 4: مخطط نشاط خط التجارب الأوفلاين بالجدول المدفوع بالأحداث (D-64) (إعداد الباحث)](deliverables/03-analysis-design/diagrams/04-offline-pipeline-activity.png){width=100%}
 
@@ -433,7 +433,7 @@
 **قواعد التدفق:**
 
 - **R-C1:** الدرجة (`score`) تُعرض دائماً مع قطعها ومصدرها (`lopo_2013` أو `test_2014`) وبصياغة «درجة خطر نسبية (غير معايَرة)»، بلا «احتمال» ولا %؛ و«فوق العتبة» حصة متعلمين لا احتمال (D-65).
-- **R-C2:** قبل اليوم 28 يكون `risk = null`، وقبل اليوم 56 لا عناقيد.
+- **R-C2:** قبل اليوم 56 (أول عنقدة) ترفض مسارات المدرّس الطلب بـ422 ورمز `day_before_first_snapshot` مع `first_day = 56`، وتنقل الواجهة الشريط إليه؛ فقطع الخطر 28 لا يظهر في اللوحة اليوم.
 - **R-C3:** وصف العنقود مولَّد بقاعدة حتمية من المركز، لا يدوياً.
 - **R-C4:** عوامل الدرجة $w_jz_j$ من معاملات M1 المجمَّدة وملامح المتعلم المطبَّعة؛ الموجب يرفع الدرجة.
 - **R-C5:** `‎--no-instructor` يعيد 404 `instructor_disabled` لكل مسارات `/api/instructor/*` ويخفي التبويب (D-66).
@@ -484,14 +484,14 @@
 
 ## 7.2 قاموس البيانات
 
-أسماء الحقول هنا هي أسماء الكود في `serving.py` و`build_artifacts.py`، وعقود API تستعملها كما هي (القسم 8)، إلا حيث يقرر قرار تسمية أخرى للعقد: `score` بدل `probability` (D-65)، و`similar_learners_in_window` لدليل (7) (D-70).
+أسماء الحقول هنا هي أسماء الكود في `serving.py` و`build_artifacts.py`، والكيانات المعلَّمة «عقد» بأسماء `src/backend/schemas.py`، وهو مصدر الحقيقة لعقود API (القسم 8).
 
 **جدول 11: قاموس البيانات (المصدر: OULAD، وADR-001، والوثيقة 02 §3، و`src/ml/`، وD-65 إلى D-70)**
 
 | الكيان | الحقول | النوع | المصدر / التعريف |
 |--------------------|--------------------------------------|-----------------|-------------------------|
-| PRESENTATION | presentation، role، length_days، status | str، enum، int، enum | `courses`؛ الدور D-09؛ الحالة: locked/frozen/evaluated/served |
-| REGISTRATION (عقد) | registration، id_student، date_registration، date_unregistration، num_of_prev_attempts، studied_credits | str، int، int، int\|null، int، int | قائمة بيضاء (D-70) من `studentRegistration` و`studentInfo`؛ `date_unregistration` = null إن تجاوز اليوم المطلوب؛ لا `final_result` ولا سمة حساسة |
+| PRESENTATION | presentation، role، length_days، status | str، enum، int، enum | `courses`؛ الدور D-09؛ الحالة المفاهيمية (الشكل 7): locked/frozen/evaluated/served، وفي العقد `published`/`locked` |
+| REGISTRATION (عقد) | registration، id_student، date_registration، status | str، int، int\|null، enum | قائمة بيضاء (D-70) في `RegistrationSummary`؛ `status` ∈ {ok، no_history، withdrawn} عند `day`؛ لا `date_unregistration` ولا `final_result` ولا سمة حساسة |
 | RESOURCE | id_site، activity_type، in_catalogue | int، str، bool | `vle`؛ في الكتالوج = النوع خارج E5 وله وصول حتى t |
 | ASSESSMENT | id_assessment، assessment_type، date، weight | int، enum، int\|null، float | `assessments` (منشور مسبقاً، مسموح) |
 | DAILY_EVENT | (id_student، id_site، date)، sum_click | مفتاح، int | مجموع الصفوف المكررة (D-06) |
@@ -503,9 +503,9 @@
 | LEARNER_FEATURES | active_days، total_clicks، first_day، gap_sd، share_&lt;type&gt;، on_time_ratio، mean_score | int، int، int، float، float، float، float | `learners.vle_features` + `academic_features` عند اليوم المطلوب؛ M1 = ملامح VLE وحدها |
 | CLUSTER_MODEL_56 | k، stable، centres، features، mu، sd | int، bool، float[][]، str[]، float[]، float[] | `clusters_56.npz` (D-39)؛ للوحة المدرّس وحدها |
 | RISK_MODEL | tc، models[M1]: features، weights، threshold، threshold_source | int، str[]، float[]، float، str | `risk_<tc>.json` لعروض 2013 (`lopo_2013`)؛ و`results/frozen/risk_final.json` لعروض 2014 (`test_2014`) |
-| RISK (عقد) | risk_cut، model، score، threshold، threshold_source، above_threshold، provenance، factors | int، str، float، float، str، bool، enum، list | «درجة خطر نسبية (غير معايَرة)» (D-65)؛ `score` = ناتج اللوجستي (`probability` داخل `serving`) |
-| RECOMMENDATION | id_site، activity_type، relevance (`score` في الكود)، model_cut، day، note، known_learner، components{m: rtilde، weight، contribution، raw} | int، str، float، int\|null، int، str\|null، bool، dict | ناتج `serving.recommend`؛ محسوب عند الطلب |
-| EXPLANATION | main، secondary[]؛ لكل منهما component، text، contribution، evidence | dict | `TEMPLATES` و`_evidence`؛ الثانية إن **تجاوزت** مساهمتها ثلث الدرجة (`>` في الكود) |
+| RISK (عقد) | score، cut_day، threshold، above_threshold، provenance، top_factor؛ وفي الملف أيضاً label_ar وfactors[name، wz] | float، int، float، bool، str، str؛ str، list | «درجة خطر نسبية (غير معايَرة)» (D-65) في `RiskRow`/`RiskDetail`؛ `score` = ناتج اللوجستي (`probability` داخل `serving`)، والعتبة مقرَّبة إلى 3 منازل؛ و`threshold_source` في `risk_<tc>.json` لا في العقد |
+| RECOMMENDATION (عقد) | rank، id_site، activity_type، relevance، contributions{id: float}، reason، reason_secondary؛ وفي الاستجابة requested_day، snapshot_day، status، known_learner، note، provenance.model_cut | int، int، str، float، dict، str، str\|null | `RecItem` فوق `serving.recommend` (فيه `score` و`components{m: rtilde، weight، contribution، raw}`)؛ محسوب عند الطلب |
+| EXPLANATION (عقد) | relevance، components[id، label، weight، r_tilde، contribution، evidence، sentence] | float، list | `ExplanationDetail` من `TEMPLATES` و`_evidence`؛ والجملة الثانية في البطاقة إن **تجاوزت** مساهمتها ثلث الدرجة (`>` في الكود) |
 
 **جدول 12: مفاتيح الدليل `evidence` لكل مكوّن (من `serving._evidence` بعد بنود 8.4)**
 
@@ -520,7 +520,9 @@
 | B9_CBF | «من النوع الذي تستخدمه كثيراً ({type})» | `type` |
 | C6_AssessProx | «مرتبط بالتقييم القادم بعد {days}» بتمييز العدد (يوم واحد، يومين، 3–10 أيام، 11 يوماً فأكثر) | `days` |
 
-**قواعد سلامة البيانات:** (1) السمات الست الحساسة و`final_result` لا توجد في أي كيان مخزَّن أو مخدوم (`final_result` هدف تدريب أوفلاين فقط)، ولا يُكشف `date_unregistration` بعد t؛ و(2) العنقود يُستعمل داخل التوصية ولا يُعرض للمتعلم (D-70)؛ و(3) كل كيان محسوب يحمل اليوم الذي حُسب عنده، وكل مخرج مخزَّن يحمل قطعه أو بصمته؛ و(4) الخدمة لا تكتب إلا تحفيظ D-68.
+وفي عقد API يصير الدليل نوعاً مميَّزاً بحقل `type` (`schemas.Evidence`): `{"type": "count", "n", "window", "scope"}` لـC7 (`scope = "similar"`، من `similar_learners_in_window`) ولـRecent-Pop (`scope = "all"`)؛ و`{"type": "item", "id_site", "activity_type", "days", "last_day"}` لمكوّنات التاريخ (SKNN وItem-kNN وWRMF)؛ و`{"type": "assessment", "assessment_type", "days_ahead"}` لـC6. ومعرّفات المكوّنات في العقد من `services/labels.py`: `similar_pop`، و`sknn`، و`recent_pop`، و`wrmf`، و`item_knn`، و`markov`، و`gru`، و`cbf`، و`assess_prox`.
+
+**قواعد سلامة البيانات:** (1) السمات الست الحساسة و`final_result` لا توجد في أي كيان مخزَّن أو مخدوم (`final_result` هدف تدريب أوفلاين فقط)، ولا يُخدَم `date_unregistration`؛ و(2) العنقود يُستعمل داخل التوصية ولا يُعرض للمتعلم (D-70)؛ و(3) كل كيان محسوب يحمل اليوم الذي حُسب عنده، وكل مخرج مخزَّن يحمل قطعه أو بصمته؛ و(4) الخدمة لا تكتب إلا تحفيظ D-68.
 
 ## 7.3 تنسيق تخزين المخرجات
 
@@ -543,9 +545,10 @@ data/cache/serving_clusters/<pres>_<day>.npz       # git-ignored; cluster_choice
 ## 8.1 المبادئ
 
 - **قراءة فقط:** كل المسارات `GET`؛ لا حالة سوى الذاكرات المؤقتة وتحفيظ D-68.
-- **العقد مشتق من الكود:** حقول الاستجابة هي حقول `serving.py` (`model_cut`، و`components`، و`explanation`، و`evidence`، و`risk_cut`، ومعرّفات المكوّنات `C7_ClusterPop`، و`B5_SKNN`…) مع تسمية عربية `label`، تلفّها نماذج pydantic بحقول سياقية قليلة (`registration`، و`context`)؛ والاستثناءات أربعة: `score` لدرجة الخطر (D-65)، و`relevance` لدرجة التوصية في عقود المتعلم، و`similar_learners_in_window` (D-70)، ومعرّف المكوّن (7) `similar_pop` بوسم «شعبية الأنماط المشابهة» في عقود المتعلم (D-70).
+- **مصدر الحقيقة `src/backend/schemas.py`:** نماذج pydantic فوق ناتج `serving.py`، وأمثلة 8.3 منقولة منها. وتحوّل الخلفية أسماء `serving` في ثلاثة مواضع: معرّفات المكوّنات (`C7_ClusterPop` ← `similar_pop`، و`B5_SKNN` ← `sknn`…)، ودرجة التوصية `score` ← `relevance` في مسارات المتعلم (D-70 (4))، والدليل نوعاً مميَّزاً (الجدول 12). ويبقى `score` لدرجة الخطر في مسارات المدرّس وحدها (D-65). وتحمل كل استجابة `requested_day` و`snapshot_day` (متساويان دائماً؛ D-49) و`provenance.model_cut`.
+- **المسارات المشتركة:** `GET /api/meta` يعلن `bind_host` (127.0.0.1) و`access_notice` («عرض توضيحي بلا أمان وصول»، D-66)، ويحتفظ بالمفتاحين `risk_score` (اسم الحقل ووسمه وهدفه وأنه غير معايَر، D-65) و`risk_cutoffs` لوصف الهدف؛ وهو مسار مشترك لا مسار متعلم، وحظر D-70 (4) يشمل مسارات المتعلم (`/api/recommendations` و`/api/explanations` و`/api/learner/*` و`/api/registrations`).
 - **الفصل:** مسارات المتعلم تحت `/api/` ومسارات المدرّس تحت `/api/instructor/` حصراً؛ ولا يُستدعى `learner_profile` في مسارات المتعلم إلا مع إسقاط `risk` و`cluster` قبل بناء العقد.
-- **الأخطاء:** `{"error": {"code", "message", "details"}}`، والرسالة عربية والرمز ثابت. ولا ETag ولا Cache-Control (D-66).
+- **الأخطاء:** `{"error": {"code", "message", "details"}}`، والرسالة عربية والرمز ثابت (`errors.py`). ولا ETag (D-66)؛ و`Cache-Control: no-store` على ردود الخطأ وحدها.
 
 ## 8.2 جدول المسارات وربطها بالكود
 
@@ -556,13 +559,13 @@ data/cache/serving_clusters/<pres>_<day>.npz       # git-ignored; cluster_choice
 | `GET /api/health` | — | الخلفية (ومعها حالة التسخين) | FR-28 |
 | `GET /api/meta` | — | `hybrid_frozen.json` + `run_meta.json` + القطوع | FR-28 |
 | `GET /api/presentations` | — | `data.DEV_PRESENTATIONS` + وجود `artifacts/` + FR-40 | FR-18 |
-| `GET /api/registrations` | `presentation`، `day`، `q`، `limit` حتى 100، `offset` | قائمة D-70 البيضاء من `Engine.presentation(p)` (`registrations` + `students` بعد إسقاط `final_result`) | FR-19 |
+| `GET /api/registrations` | `presentation`، `day`، `q`، `limit` حتى 100، `offset` | قائمة D-70 البيضاء (`registration`، `id_student`، `date_registration`، `status` عند `day`) من `Engine.presentation(p)` | FR-19 |
 | `GET /api/recommendations` | `registration`، `day`، `k=10` (1..20)، `task=A\|B` | `recommend(p, id, day, k, exclude_seen=(task=="A"))` | FR-20، FR-21، FR-37 |
 | `GET /api/explanations/{registration}/{id_site}` | `day`، `task` | عنصر من `recommend(…, k=20)` المخزَّن مؤقتاً | FR-22 |
 | `GET /api/learner/{registration}/history` | `day`، `window=28` | أحداث `Engine.presentation(p).events` حتى `day` + `features` وحدها | FR-23 |
 | `GET /api/instructor/overview` | `presentation`، `day` | `presentation_overview(p, day, risk_model="M1")` + `median_active_days` | FR-24 |
 | `GET /api/instructor/clusters` | `presentation`، `day` | `cluster_summary(p)` * | FR-25 |
-| `GET /api/instructor/learners` | `presentation`، `day`، `cluster`، `risk=all\|above`، `sort`، `limit`، `offset` | `learner_table(p, day, risk_model="M1")` * | FR-26، FR-30 |
+| `GET /api/instructor/learners` | `presentation`، `day`، `cluster`، `risk=all\|above`، `sort` من {risk، reg، cluster، active\_days، last\_access، on\_time} والافتراضي `-risk` (السالب للتنازلي)، `limit` حتى 500، `offset` | `learner_table(p, day, risk_model="M1")` * | FR-26، FR-30 |
 | `GET /api/instructor/learner/{registration}` | `day` | `learner_profile(…, risk_model="M1")` (مع `model_cut`) + `recommend(k=3)` | FR-27 |
 | `GET /` و`/static/*` | — | `src/frontend/dist/` | FR-31، FR-32 |
 
@@ -584,9 +587,11 @@ data/cache/serving_clusters/<pres>_<day>.npz       # git-ignored; cluster_choice
 | 404 | `instructor_disabled` | التشغيل بالخيار `‎--no-instructor` |
 | 409 | `confirmatory_locked` | عرض 2014 قبل FR-40 |
 | 422 | `validation_error`، `day_out_of_range` | مدخلات غير صالحة |
+| 422 | `day_before_first_snapshot` | مسار مدرّس قبل اليوم 56، مع `details.first_day = 56` |
+| 404، 405، 500 | `not_found`، `method_not_allowed`، `internal_error` | مسار مجهول، أو طريقة غير GET، أو خطأ غير متوقع بلا تتبّع |
 | 503 | `artifacts_missing` | `hybrid_frozen.json` أو مخرجات القطع غير موجودة (رسالة بأمر البناء) |
 
-ولا خطأ لـt < 28 أو t < 56 في لوحة المدرّس: `risk = null` و`cluster = null` مع رسالة في الواجهة.
+ومسارات المدرّس تبدأ من اليوم 56 (`cluster_day = 56`). وإن لم تستوفِ العنقدة قاعدة الاستقرار شُرح السبب في `unstable_reason`، و`quality.ari` يقبل null فيُعرض «غير متاح» (D-71).
 
 ## 8.3 أمثلة العقود
 
@@ -721,7 +726,7 @@ GET /api/instructor/learner/FFF_2013J-28400?day=75
 
 # 10. مصفوفة التتبّع
 
-يلخّص الشكل 12 المسار من سؤال البحث أو القرار إلى المتطلب فالمكوّن فالملف فالاختبار، ويغطي الجدول 19 **كل المتطلبات النشطة الـ61** (FR-29 محذوف). والنجمة (*) ملف أو اختبار مخطط؛ والبقية موجودة في المستودع في 2026-10-24 (96 اختباراً في `src/ml/tests/`، و34 في `src/backend/tests/`). ورموز «ش» و«ف» إشارات إلى معايير الفجوة وفقراتها في الدراسة المرجعية (القسم 7 من الوثيقة 01).
+يلخّص الشكل 12 المسار من سؤال البحث أو القرار إلى المتطلب فالمكوّن فالملف فالاختبار، ويغطي الجدول 19 **كل المتطلبات النشطة الـ61** (FR-29 محذوف). والنجمة (*) ملف أو اختبار مخطط؛ والبقية موجودة في المستودع في 2026-10-24 (106 اختبارات في `src/ml/tests/`، و34 في `src/backend/tests/`). ورموز «ش» و«ف» إشارات إلى معايير الفجوة وفقراتها في الدراسة المرجعية (القسم 7 من الوثيقة 01).
 
 ![الشكل 12: مسار التتبّع من سؤال البحث إلى الاختبار (إعداد الباحث)](deliverables/03-analysis-design/diagrams/11-traceability.png){width=100%}
 
@@ -784,7 +789,7 @@ GET /api/instructor/learner/FFF_2013J-28400?day=75
 | NFR-03 | D-34 | harness.py | timing.csv + ملخص الميزانية\* |
 | NFR-04 | ADR-002 §3.6.12 | run\_meta.json، splits.tiebreak\_keys | test\_splits؛ test\_api\_live (تكرار الطلب) |
 | NFR-05 | ADR-002 §5، D-49، D-67 | results/، report.py | مراجعة الزميل قبل كل وثيقة |
-| NFR-06 | §5.9، D-49، D-68 | splits.py، serving.py | test\_splits (no\_leakage\_into\_models)، test\_serving (no\_future\_data\_used)، test\_memo\_matches\_live\* |
+| NFR-06 | §5.9، D-49، D-68 | splits.py، serving.py | test\_splits (no\_leakage\_into\_models)، test\_serving (no\_future\_data\_used)، test\_cluster\_cache\_matches\_live\* |
 | NFR-07 | D-09 | data.assert\_allowed، FR-40 | test\_serving (2014\_refused)، test\_locked\* |
 | NFR-08 | D-21، D-70 | data.load\_student\_info، build\_artifacts.py، schemas.py | test\_contract\_no\_risk (على JSON) |
 | NFR-09 | D-22، D-70 | backend/schemas.py | test\_contract\_no\_risk (على JSON، والقائمة البيضاء للمدرّس) |
@@ -812,13 +817,13 @@ GET /api/instructor/learner/FFF_2013J-28400?day=75
 
 | المرحلة | الموعد | المحتوى | معيار القبول |
 |------------|------------|---------------------------------------------------|---------------------------------|
-| م0: خط التجارب على 2013 (منفَّذة) | حتى 24 ت1 | E0–E7 وجدول MDE80 و`hybrid_frozen.json` (C7 + SKNN، D-51) و`risk_final.json` (D-58)، و`serving.py` و`build_artifacts.py`، وخلفية أولى | 96 اختباراً في `src/ml` و34 في الخلفية تمر؛ النتائج في `results/dev2013/` |
+| م0: خط التجارب على 2013 (منفَّذة) | حتى 24 ت1 | E0–E7 وجدول MDE80 و`hybrid_frozen.json` (C7 + SKNN، D-51) و`risk_final.json` (D-58)، و`serving.py` و`build_artifacts.py`، وخلفية أولى | 106 اختبارات في `src/ml` و48 في الخلفية تمر؛ النتائج في `results/dev2013/` |
 | م1: الوثيقة والعقد | 27 ت1 إلى 29 ت1 | تعديلات هذه الوثيقة (27 ت1)، وتوقيع الزميل (28 ت1)، و`schemas.py` بـ`score` والقائمة البيضاء (29 ت1) | توقيع الزميل في ذيل المحضر؛ `test_contract_no_risk` على JSON يمر |
 | م2: شروط التجميد | حتى 30 ت1 | ش1–ش9 (D-62، D-64)؛ بنود 8.4 رقم 2 و7 و8 و10؛ `reproduce_dev` و`repro_diff.md`؛ `freeze03_config.json`؛ `freeze_checklist.md` | ش1–ش9 مستوفاة؛ `repro_diff.md` بلا فرق غير مفسَّر |
 | م3: الوسم والتأكيد | 31 ت1 إلى 3 ت2 | ش10 (تحقق المشرف وتوقيعه) ثم الوسم `freeze-03` (31 ت1)؛ E10 بمرحلتين وقفل SHA-256 (D-63)؛ باقي بنود 8.4 وD-68 (1 ت2) | `verdicts.csv` مولَّد مرة واحدة وبصمته في المحضر؛ `git diff freeze-03 --stat` لا يمس النطاق المجمَّد |
 | م4: الاجتماع 04 ثم E8 | 5 ت2 وما بعده | عرض الأحكام على المشرف؛ ثم E8 والتحليلات التالية | قبول الأحكام في محضر الاجتماع 04 |
 | م5: مواءمة الواجهة | حتى 8 ت2 | `types.ts` وmock و`api.ts` بالعقود (حذف منطق اللقطات، و`model_cut` في المستوى الأعلى، ومؤشر الطلب البارد، و«فوق العتبة» نصاً)، وقواعد 9.3 | `tsc --noEmit` بلا أخطاء؛ الجدول 17 مستوفى؛ عرض صحيح عند 360 و1440 بكسل |
-| م6: الجودة والأداء | حتى 12 ت2 | الاختبارات الأربعة (`test_memo_matches_live` و`test_locked` و`test_types_match` و`e2e.spec.js`)، والتسخين، و`latency.csv` | NFR-01 بصيغة D-68 محقق ومبلَّغ؛ الاختبار الطرفي يمر لـUC-02 إلى UC-07 |
+| م6: الجودة والأداء | حتى 12 ت2 | الاختبارات الأربعة (`test_cluster_cache_matches_live` و`test_locked` و`test_types_match` و`e2e.spec.js`)، والتسخين، و`latency.csv` | NFR-01 بصيغة D-68 محقق ومبلَّغ؛ الاختبار الطرفي يمر لـUC-02 إلى UC-07 |
 | م7: فتح 2014 في الواجهة | بعد 5 ت2 | `build_artifacts` لعروض 2014 (العناقيد، والخطر من `risk_final.json`)، و`ui_open.json` | الشروط الثلاثة لـFR-40؛ `test_locked` يمر |
 | م8: التسليم | بعد م6 وم7 | توثيق الكود، ودليل المستخدم بلقطات توضيحية (D-66، D-67) | قبول المشرف |
 
@@ -842,7 +847,7 @@ GET /api/instructor/learner/FFF_2013J-28400?day=75
 | الخطر | الاحتمال/الأثر | التخفيف |
 |------------------------------|---------------|-------------------------------------------------------------|
 | زمن الطلب البارد (نحو 10 ثوانٍ، منها 9.9 لاختيار k) | مؤكد/متوسط | تحفيظ `cluster_choice` عند t وتسخين الشبكة المعلنة (D-68)؛ ومؤشر تقدّم؛ والقياس كما هو في `latency.csv` |
-| تسريع الخدمة بتغيير المكوّن (n\_init أو البذور أو مدى k) | منخفض/مرتفع | ممنوع بـD-68؛ و`test_memo_matches_live` يقارن بالحساب الحي |
+| تسريع الخدمة بتغيير المكوّن (n\_init أو البذور أو مدى k) | منخفض/مرتفع | ممنوع بـD-68؛ و`test_cluster_cache_matches_live` يقارن بالحساب الحي |
 | تعديل وحدة مجمَّدة بعد الوسم | منخفض/مرتفع | نطاق D-69 صريح؛ وفحص `git diff freeze-03 --stat` قبل كل دمج |
 | زمن `presentation_overview` وجدول المتعلمين | مرتفع/متوسط | `learner_table` متجهي (8.4)؛ وهدف حتى ثانية واحدة (D-68) |
 | خدمة عرض 2014 قبل الاجتماع 04 | منخفض/مرتفع جداً | `assert_allowed` + FR-40 (ثلاثة شروط و`ui_open.json`) + `test_locked` |

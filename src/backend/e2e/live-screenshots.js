@@ -57,6 +57,7 @@ async function main() {
       const uiChecks = async (label) => {
         const txt = await page.evaluate(() => document.body.innerText);
         if (/\bD-\d/.test(txt)) problems.push(`${name} ${label}: رقم قرار داخلي ظاهر`);
+        if (/(?<![A-Za-z0-9_])-\s?\d|--/.test(txt)) problems.push(`${name} ${label}: علامة طرح عادية/مزدوجة في رقم سالب`);
         if (/(?<!\d)(?:[3-9]|10) يوماً|\b(?:1[1-9]|[2-9]\d) أيام/.test(txt)) problems.push(`${name} ${label}: صيغة عدد خاطئة`);
         const attrs = await page.evaluate(() => [...document.querySelectorAll('[title],[aria-label]')].map((e) => (e.getAttribute('title') || '') + ' ' + (e.getAttribute('aria-label') || '')).join(' | '));
         if (/\bD-\d/.test(attrs)) problems.push(`${name} ${label}: رقم قرار داخلي في tooltip/aria`);
@@ -110,6 +111,7 @@ async function main() {
       checks.push(`${name} خلايا الدرجة: ${cells.length}، مخالفة: ${badCells.length}`);
       if (!cells.length || badCells.length) problems.push(`${name} خلايا الدرجة مقصوصة/بلا خانتين: ${JSON.stringify(badCells.slice(0, 3))}`);
       await page.locator(`tr[data-id="${reg}"]`).first().click(); await page.waitForSelector('.drawer:not([hidden]) .chart', { timeout: 20000 }); await page.waitForTimeout(400);
+      await uiChecks('instructor-drawer');
       await page.mouse.move(2, 2);    // لا مؤشر فوق صف (تظليل hover يُلتبس بالصف المحدد)
       const sel = await page.evaluate((r) => ({ active: [...document.querySelectorAll('tr.row--active')].map((t) => t.dataset.id), hover: document.querySelectorAll('tr.row:hover').length, want: !!document.querySelector(`tr[data-id="${r}"]`) }), reg);
       checks.push(`${name} الصف المظلل: ${sel.active.join(',')} (المتعلم ${reg})`);

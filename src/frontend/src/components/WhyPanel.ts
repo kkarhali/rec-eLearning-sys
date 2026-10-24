@@ -5,7 +5,7 @@ import { compColor, daysAr, fmt, learnersAr, lastDaysAr, typeAr } from '../label
 export function evidenceText(e: Evidence | null): string | null {
   if (!e) return null;
   if (e.type === 'count') return `استخدمه ${learnersAr(e.n)} ${lastDaysAr(e.window)}.`;
-  if (e.type === 'item') return `${typeAr(e.activity_type)} #${e.id_site} — زرتَه في ${daysAr(e.days)}، آخرها اليوم ${e.last_day}.`;
+  if (e.type === 'item') return `${typeAr(e.activity_type)} #${e.id_site} — زرتَه في ${daysAr(e.days)}، آخرها اليوم ${fmt(e.last_day, 0)}.`;
   return `${e.assessment_type} بعد ${daysAr(e.days_ahead)}.`;
 }
 
