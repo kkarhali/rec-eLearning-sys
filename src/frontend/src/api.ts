@@ -137,8 +137,9 @@ const mock = {
     const o = JSON.parse(JSON.stringify(await mockFile<InstructorOverview>('overview.json'))) as InstructorOverview;
     o.presentation = p.presentation; o.requested_day = p.day; o.snapshot_day = snap;
     const pres = (await mockFile<Presentation[]>('presentations.json')).find((x) => x.id === p.presentation) as Presentation;
-    o.provenance.model_cut = modelCut(p.day, pres.cutoffs ?? [28, 56, 112]);
-    if (o.risk) o.risk.cut_day = o.provenance.model_cut;
+    const mc = modelCut(p.day, pres.cutoffs ?? [28, 56, 112]);
+    o.provenance.model_cut = mc;
+    if (o.risk) o.risk.cut_day = mc;
     return o;
   },
   async clusters(p: { presentation: string; day: number }): Promise<ClusterSet> {

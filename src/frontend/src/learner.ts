@@ -85,7 +85,8 @@ function contextBar(r: RecommendationResponse): HTMLElement {
       `اليوم ${r.requested_day} (محسوب عند لقطة ${r.snapshot_day}) · الأسبوع ${c.week} · `,
       na ? `التقييم القادم: ${na.type} بعد ${na.days_ahead} يوماً` : 'لا تقييم قادم', ` · أيامك النشطة حتى الآن: ${c.active_days_to_date}`),
     cut !== undefined ? h('p', { class: 'ctxbar__model' },
-      h('span', { class: 'badge', title: 'النموذج المستعمل دُرّب عند أقرب قطع ≤ t (D-49)' }, 'تاريخ النموذج: اليوم ', bdi(cut)),
+      h('span', { class: 'badge', title: 'النموذج المستعمل دُرّب عند أقرب قطع ≤ t (D-49)' },
+        cut === null ? 'تاريخ النموذج: لا قطع بعد' : 'تاريخ النموذج: اليوم ', cut === null ? null : bdi(cut)),
       r.requested_day < 70 ? h('span', { class: 'note' }, ' لا مكوّن ثقيل قبل اليوم 70؛ أُعيدت معايرة أوزان المكوّنات المتاحة.') : null) : null);
 }
 

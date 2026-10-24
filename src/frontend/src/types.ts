@@ -24,7 +24,7 @@ export interface RecItem {
   rank: number; id_site: number; activity_type: string; score: number;
   contributions: Record<string, number>; reason: string; reason_secondary: string | null;
 }
-export interface Provenance { run_id: string; role: string; model_cut?: number }
+export interface Provenance { run_id: string; role: string; model_cut?: number | null }
 export type RecStatus = 'ok' | 'no_history' | 'withdrawn';
 export interface RecommendationResponse {
   registration: string; presentation: string; requested_day: number; snapshot_day: number;
