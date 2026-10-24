@@ -234,6 +234,7 @@ class TestApi(unittest.TestCase):
                 self.assertIn("أفضل اثنين", c["unstable_reason"])
         else:
             self.assertIsNone(c["unstable_reason"])
+        self.assertIsNotNone(c["quality"]["ari"])             # عروض 2013 كلها في learner_clusters.csv
         meta = self.get("/api/meta")["risk_score"]
         self.assertIn("رسوب", meta["target_ar"])
 
@@ -294,10 +295,10 @@ class TestApi(unittest.TestCase):
                 continue
             sid = int(r["registration"].split("-")[1])
             ref = eng._risk(P, sid, DAY, "M1")
-            if ref and ref.get("probability") is not None:
+            if ref and ref.get("score") is not None:
                 n += 1
-                self.assertAlmostEqual(r["risk"]["score"], ref["probability"], places=3)
-                self.assertAlmostEqual(r["risk"]["threshold"], ref["youden_threshold"], places=3)
+                self.assertAlmostEqual(r["risk"]["score"], ref["score"], places=3)
+                self.assertAlmostEqual(r["risk"]["threshold"], ref["threshold"], places=3)
                 self.assertEqual(r["risk"]["cut_day"], ref["risk_cut"])
         self.assertGreater(n, 5)
 

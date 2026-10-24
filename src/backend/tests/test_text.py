@@ -37,5 +37,32 @@ class TestArabicText(unittest.TestCase):
             self.assertNotRegex(txt, r"\bD-\d+", f.name)
 
 
+class TestClusterQualityNull(unittest.TestCase):
+    """D-71: ARI الغائب null لا 0.0، ولا يُستشهد به في سبب عدم الاستقرار."""
+
+    def test_ari_missing_is_none(self):
+        from src.backend.services.instructor import InstructorService
+        from src.backend.repository import Repository
+        from src.backend.settings import Settings
+        svc = InstructorService(Repository(Settings()), None, Settings())
+        self.assertIsNone(svc._ari("ZZZ_2099J"))
+        self.assertIsNone(svc._ari("BBB_2014J"))
+
+    def test_unstable_reason_without_ari(self):
+        from types import SimpleNamespace
+        from src.backend.services.instructor import InstructorService
+        cm = SimpleNamespace(quality=(0.2, 2.0, None), k=3)
+        r = InstructorService._unstable_reason(cm)
+        self.assertNotIn("0.00", r)
+        self.assertNotIn("ضعيف", r)
+        self.assertIn("غير متاح", r)
+        self.assertIn("ثبات البذور ضعيف", InstructorService._unstable_reason(SimpleNamespace(quality=(0.2, 2.0, 0.5), k=3)))
+
+    def test_schema_serialises_null_ari(self):
+        import json
+        from src.backend.schemas import ClusterQuality
+        self.assertIsNone(json.loads(ClusterQuality(silhouette=0.1, dbi=1.0, ari=None).model_dump_json())["ari"])
+
+
 if __name__ == "__main__":
     unittest.main()

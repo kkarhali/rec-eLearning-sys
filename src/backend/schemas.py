@@ -322,7 +322,7 @@ class ClusterInfo(Out):
 class ClusterQuality(Out):
     silhouette: float
     dbi: float
-    ari: float
+    ari: float | None = None         # ثبات البذور من results/dev2013/learner_clusters.csv؛ null إن غاب العرض منه
 
 
 class ClusterPoint(Out):

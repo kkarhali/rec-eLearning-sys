@@ -68,7 +68,7 @@ export interface InstructorOverview {
 }
 export interface ClusterSet {
   presentation: string; requested_day: number; snapshot_day: number; k: number; unstable: boolean; unstable_reason?: string | null; cluster_day?: number;
-  quality: { silhouette: number; dbi: number; ari: number };
+  quality: { silhouette: number; dbi: number; ari: number | null };
   clusters: { id: number; label_ar: string; size: number; top_features: { name: string; z: number }[] }[];
   points: { x: number; y: number; cluster: number }[];
 }

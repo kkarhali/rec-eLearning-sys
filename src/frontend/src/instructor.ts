@@ -67,8 +67,8 @@ function renderKpis(o: InstructorOverview): void {
     KpiCard(`متعلمون نشطون حتى اليوم ${d}`, fmt(k.active_learners, 0), k.cohort_size !== undefined ? `بيوم نشط واحد على الأقل، من ${fmt(k.cohort_size, 0)} مسجَّلاً لم ينسحب` : 'بيوم نشط واحد على الأقل', 'k1'),
     KpiCard('وسيط الأيام النشطة', fmt(k.median_active_days, 0), undefined, 'k2'),
     KpiCard(`الكتالوج عند اليوم ${o.snapshot_day}`, itemsAr(k.catalogue_size), undefined, 'k3'),
-    KpiCard('Coverage@10 للتوصيات', fmt(k.coverage_at_10, 2), 'نسبة الكتالوج الموصى به', 'k4'),
-    KpiCard('درجة الخطر ≥ العتبة (نسبية)', k.share_above_threshold === null ? 'لا تقدير قبل اليوم 28' : pct(k.share_above_threshold), 'درجة نسبية غير معايَرة، للعرض لا للتقييم', 'k5'));
+    KpiCard(`اتساع التوصيات عند اليوم ${d}`, `${fmt(o.coverage.covered_items, 0)} من ${itemsAr(o.coverage.catalogue_size)}`, 'موارد ظهرت في أفضل 10 لأحد المتعلمين', 'k4'),
+    KpiCard('حصة المتعلمين بدرجة خطر نسبية ≥ العتبة', k.share_above_threshold === null ? 'لا تقدير قبل اليوم 28' : pct(k.share_above_threshold), 'درجة نسبية غير معايَرة، للعرض لا للتقييم', 'k5'));
   setBusy($('#kpis'), false);
 }
 function renderProfiles(o: InstructorOverview): void {
@@ -97,8 +97,9 @@ function renderClusters(cs: ClusterSet): void {
     cards.append(h('li', {}, b));
   }
   mount(host,
-    h('p', { class: 'muted' }, `k = ${cs.k} · لقطة العناقيد: اليوم ${cs.cluster_day ?? 56} · silhouette ${fmt(cs.quality.silhouette)} · DBI ${fmt(cs.quality.dbi)} · ARI (ثبات البذور) ${fmt(cs.quality.ari)}`,
+    h('p', { class: 'muted' }, `k = ${cs.k} · لقطة العناقيد: اليوم ${cs.cluster_day ?? 56}`,
       cs.unstable ? h('span', { class: 'badge badge--warn', title: cs.unstable_reason ?? '' }, 'عناقيد غير مستقرة') : null),
+    h('p', { class: 'muted' }, h('strong', {}, 'تشخيص التجميع (مؤشرات داخلية بلا تسميات): '), `silhouette ${fmt(cs.quality.silhouette)} · DBI ${fmt(cs.quality.dbi)} · ARI (ثبات البذور؛ المصدر results/dev2013/learner_clusters.csv) ${cs.quality.ari === null ? 'غير متاح' : fmt(cs.quality.ari)}`),
     cs.unstable && cs.unstable_reason ? h('p', { class: 'note' }, cs.unstable_reason) : null,
     h('div', { class: 'clusters__grid' },
       ClusterScatter('إسقاط PCA للملامح (للعرض فقط)', cs.points, st.cl),
@@ -121,7 +122,7 @@ function renderRisk(o: InstructorOverview): void {
 function renderCoverage(o: InstructorOverview): void {
   const c = o.coverage;
   mount($('#coverage'),
-    h('p', {}, `غطّت التوصيات ${fmt(c.covered_items, 0)} من ${itemsAr(c.catalogue_size)} (Coverage@10 = ${fmt(c.at_10)}).`),
+    h('p', {}, `غطّت التوصيات ${fmt(c.covered_items, 0)} من ${itemsAr(c.catalogue_size)}.`),
     SvgHBars('حصة أنواع الأنشطة: الكتالوج مقابل التوصيات', 'مقارنة حصة كل نوع نشاط في الكتالوج وفي قوائم أفضل 10.',
       c.by_type.map((t) => ({ label: typeAr(t.activity_type), a: t.catalogue_share, b: t.recs_share })), 'الكتالوج', 'التوصيات'));
   setBusy($('#coverage'), false);

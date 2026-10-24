@@ -51,7 +51,7 @@ class ClusterModel:
     Z: np.ndarray                   # ملامح اليوم 56 المطبَّعة بمعاملات التدريب المخزَّنة
     labels_ar: list
     top: list                       # لكل عنقود [(اسم، z)]
-    quality: tuple                  # (silhouette, dbi, ari)
+    quality: tuple                  # (silhouette, dbi, ari أو None إن غاب)
     pca_mean: np.ndarray
     pca_V: np.ndarray
 
@@ -153,7 +153,8 @@ class InstructorService:
             self._cm[pres] = cm
         return cm
 
-    def _ari(self, pres: str) -> float:
+    def _ari(self, pres: str) -> float | None:
+        """ARI ثبات البذور للعرض من ملف نتائج التطوير؛ ``None`` (لا 0.0) إن غاب العرض أو الملف."""
         from src.ml.data import RESULTS_DIR
         f = RESULTS_DIR / "dev2013" / "learner_clusters.csv"
         try:
@@ -163,13 +164,16 @@ class InstructorService:
                         return float(r["ari_k"])
         except Exception:
             pass
-        return 0.0
+        return None
 
     @staticmethod
     def _unstable_reason(cm: ClusterModel) -> str:
         """قاعدة D-39-ب في ``learners.choose_k``: مستقر = k ضمن أفضل اثنين في silhouette وDBI معاً **و** ARI عبر البذور ≥ 0.8.
         ARI المعروض هو ثبات البذور لـk المختار؛ فقد يكون 1 والعناقيد «غير مستقرة» لأن k فشل في الشرط الأول."""
         ari = cm.quality[2]
+        if ari is None:        # لا يُستشهد بقيمة غائبة
+            return ("عناقيد غير مستقرة بحكم القاعدة المخزَّنة مع المخرجات؛ ثبات البذور (ARI) غير متاح لهذا العرض، "
+                    "فلا يُعرف أي شرطي الاستقرار هو الذي أخفق.")
         if ari < 0.8:
             return f"ثبات البذور ضعيف: ARI = {ari:.2f} < 0.8."
         return (f"البذور مستقرة (ARI = {ari:.2f} ≥ 0.8) لكن k = {cm.k} لم يقع ضمن أفضل اثنين في silhouette وDBI معاً؛ "
@@ -315,7 +319,8 @@ class InstructorService:
         clusters = ClusterSet(
             presentation=pres, requested_day=day, snapshot_day=day, k=cm.k, cluster_day=CLUSTER_DAY, unstable=not cm.stable,
             unstable_reason=None if cm.stable else self._unstable_reason(cm),
-            quality=ClusterQuality(silhouette=_round(cm.quality[0]), dbi=_round(cm.quality[1]), ari=_round(cm.quality[2])),
+            quality=ClusterQuality(silhouette=_round(cm.quality[0]), dbi=_round(cm.quality[1]),
+                                   ari=None if cm.quality[2] is None else _round(cm.quality[2])),
             clusters=[ClusterInfo(id=j, label_ar=cm.labels_ar[j], size=int(sizes[j]),
                                   top_features=[TopFeature(name=n, z=z) for n, z in cm.top[j]]) for j in range(cm.k)],
             points=[ClusterPoint(x=_round(P[i, 0]), y=_round(P[i, 1]), cluster=int(cl[i])) for i in sel])

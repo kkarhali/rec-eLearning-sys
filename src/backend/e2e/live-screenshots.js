@@ -14,12 +14,21 @@ async function getJson(url) { const r = await fetch(BASE + url); return r.json()
 
 async function main() {
   fs.mkdirSync(OUT, { recursive: true });
-  // متعلم بدرجة خطر متوسطة (0.40–0.60) ونشاط معقول للقطات (لا متعلماً درجته 1): من أول 100 مرتبين بالتسجيل
-  const tab = await getJson(`/api/instructor/learners?presentation=${PRES}&day=${DAY}&sort=reg&limit=100`);
-  const mid = tab.items.filter((r) => r.risk && r.risk.score >= 0.4 && r.risk.score <= 0.6 && r.active_days >= 15)
-    .sort((a, b) => Math.abs(a.risk.score - 0.5) - Math.abs(b.risk.score - 0.5))[0] || tab.items[0];
+  // D-72: متعلم الدرج والجدول (واللقطات التي تُظهر متعلماً بدرجته) = الأقرب إلى وسيط الدرجات من بين من هم دون العتبة
+  // ضمن الصفحة التي يعرضها الجدول فعلاً (أول 100 مرتبين بالتسجيل، بلا مرشّح «فوق العتبة»)؛ الوسيط من الفوج كله.
+  const all = [];
+  for (let off = 0; ; off += 500) {
+    const pg = await getJson(`/api/instructor/learners?presentation=${PRES}&day=${DAY}&sort=reg&limit=500&offset=${off}`);
+    all.push(...pg.items); if (off + 500 >= pg.total) break;
+  }
+  const scores = all.filter((r) => r.risk).map((r) => r.risk.score).sort((x, y) => x - y);
+  const n = scores.length, median = n % 2 ? scores[(n - 1) / 2] : (scores[n / 2 - 1] + scores[n / 2]) / 2;
+  const shown = all.slice(0, 100);                              // ما يعرضه الجدول عند sort=reg&limit=100
+  const mid = shown.filter((r) => r.risk && !r.risk.above_threshold && r.active_days >= 5)
+    .sort((x, y) => Math.abs(x.risk.score - median) - Math.abs(y.risk.score - median) || x.registration.localeCompare(y.registration))[0];
+  if (!mid) throw new Error('لا متعلم دون العتبة في الصفحة المعروضة');
   const reg = mid.registration;
-  console.log(`متعلم اللقطات: ${reg} (درجة ${mid.risk && mid.risk.score}، أيام نشطة ${mid.active_days})`);
+  console.log(`متعلم اللقطات (D-72): ${reg} · الدرجة ${mid.risk.score} (العتبة ${mid.risk.threshold}) · وسيط الفوج ${median.toFixed(3)} · الفرق ${(Math.abs(mid.risk.score - median)).toFixed(3)} · أيام نشطة ${mid.active_days}`);
   const Q = `p=${PRES}&r=${reg}&d=${DAY}`;
   const problems = [];
   let expect422 = false;   // خطوة d=30 تتوقع 422 day_before_first_snapshot ثم انتقالاً تلقائياً
