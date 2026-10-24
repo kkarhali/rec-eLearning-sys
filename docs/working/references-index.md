@@ -19,14 +19,14 @@
 | 12 | S-0042 | A Multi-Model Machine Learning Framework for Personalised Course Recommendation with Dynamic Feedback | Kshirsagar et al. — 2025 — African J. of Applied Research |
 | 13 | S-0066 | A Context-Aware Hybrid Recommendation Framework for E-Learning Platforms | Errakha et al. — 2026 — IJACSA |
 | 14 | S-0068 | English learning behaviour analysis and intelligent recommendation system driven by big data | Yang, Hao — 2026 — IJCEELL (Inderscience) |
-| 15 | S-0087 | Hybrid attribute-based recommender system for personalized e-learning with emphasis on cold start problem | — 2024 — Frontiers in Computer Science |
-| 16 | S-0088 | A Personalized Web Based E-Learning Recommendation System to Enhance User Learning Experience | Joshi, Gupta — 2020 — IJRTE |
+| 15 | S-0087 | Hybrid attribute-based recommender system for personalized e-learning with emphasis on cold start problem | Butmeh, Abu-Issa — 2024 — Frontiers in Computer Science |
+| 16 | S-0088 | A Personalized Web Based E-Learning Recommendation System to Enhance and User Learning Experience | Joshi, Gupta — 2020 — IJRTE |
 | 17 | S-0099 | Trace Learners Clustering to Improve Learning Object Recommendation in Online Education Platforms | Zriaa, Said, Nour-eddine — 2022 — IJACSA |
-| 18 | S-0101 | Recommender System for Learning Objects based in the Results of Learner Choices in E-learning Systems (MERLOT) | Dias, Wives — 2020 — SBIE/CBIE |
+| 18 | S-0101 | Recommender System for Learning Objects based in the Results of Learner Choices in E-learning Systems: Application in the MERLOT Platform | Dias, Wives — 2020 — SBIE/CBIE |
 | 19 | S-0107 | Enhanced Educational Recommendations via Feedback-Refined Learning-to-Rank with XGBoost | Chavhan et al. — 2026 — IJIEEB (MECS) |
 | 20 | S-0109 | A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning Systems | Praveen et al. — 2026 — IJITIS |
 | 21 | S-0110 | Modeling and application of implicit feedback in personalized recommender systems | Li et al. — 2025 — Electronic Research Archive (AIMS) |
-| 22 | S-0111 | Research on MOOCs course recommendation system based on hybrid attention mechanism in frequency and time domain | Yuan et al. — 2025 — PLOS ONE |
+| 22 | S-0111 | Research on MOOCs course recommendation system based on hybrid attention mechanism in frequency and time domain | Yuan et al. — 2025 — PLOS ONE 20(12): e0338738 |
 | 23 | S-0168 | Collaborative Evolution for User Profiling in Recommender Systems | Lu et al. — 2016 — IJCAI |
 | 24 | S-0420 | The Learning Behavior Analysis of Online Vocational Education Students and Learning Resource Recommendation Based on Big Data | Jia, Zhao — 2022 — iJET |
 | 25 | S-0455 | A Combined E-Learning Course Recommender System | Talaghzi et al. — 2023 — iJET |
