@@ -110,3 +110,23 @@
 - **الاستشهاد بحذر (خلفية فقط، مع ذكر التحفظ):** المراجع ⚠️ جميعها، خاصة #2، 6، 8 (Hindawi المغلقة) و#16 و#13 و#17 و#34 و#37.
 - **عدم الاستشهاد كأساس:** #12 (DOI غير صالح)، وكل مرجع ❓ (#1، 11، 19، 20) حتى يُتحقق من وجودها.
 - **قبل الاعتماد النهائي:** التحقق من أرباع Scopus وحالة الفهرسة من موقع Scimago وScopus Sources مباشرة، لأنها هنا مستمدة من مُجمِّعات.
+
+## 4. المراجع الكلاسيكية والإضافية [39]–[51]
+
+> سجل التحقق للمراجع خارج المستودع، وفق التعديل (ج1) في محضر مراجعة المشرف (2026-10-24). المراجع [39]–[47] تحقق منها المدقّق أولاً (`research-credibility-classics.md`). ثم أُجري بحث WebSearch إضافي واحد لكل مرجع ❓ ([40] و[43] و[47])، ولكل من المراجع [48]–[51] الجديدة (مرجع السياق في م4، ومراجع القسم 3.8). القاعدة المتبعة: ما لم يُؤكَّد من فهرس أولي أو مستودع الناشر أو المؤلف (كالصفحات والـDOI) يُحذف ولا يُخمَّن.
+
+| الرقم | البيانات المؤكَّدة | رابط الفهرس | تاريخ التحقق | الحكم |
+|---|---|---|---|---|
+| 39 | Hu, Koren, Volinsky؛ ICDM 2008؛ pp. 263–272؛ doi 10.1109/ICDM.2008.22 | https://doi.org/10.1109/ICDM.2008.22 (المدقّق) | 2026-10-24 | ✅ (مكان المؤتمر من سطر المدقّق) |
+| 40 | Rendle, Freudenthaler, Gantner, Schmidt-Thieme؛ Proc. 25th UAI، 2009. **الصفحات متعارضة** (PMLR: 460–469؛ mlanthology: 452–461) فحُذفت | https://proceedings.mlr.press/r7/rendle09a.html ؛ https://www.auai.org/uai2009/papers/UAI2009_0139_48141db02b9f0b02bc7158819ebfa2c7.pdf | 2026-10-24 (بحث إضافي) | ✅ الوعاء والسنة والمؤلفون؛ يُستشهد به **بلا صفحات** |
+| 41 | Hidasi, Karatzoglou, Baltrunas, Tikk؛ ICLR 2016 | https://arxiv.org/abs/1511.06939 ؛ mlanthology (المدقّق) | 2026-10-24 | ✅ |
+| 42 | Jannach, Ludewig؛ RecSys 2017، Como؛ pp. 306–310؛ doi 10.1145/3109859.3109872 | https://web-ainf.aau.at/pub/jannach/files/RecSys2017.pdf (المدقّق) | 2026-10-24 | ✅ |
+| 43 | Ludewig, Jannach؛ «Evaluation of session-based recommendation algorithms»؛ arXiv:1803.09587، 2018. **النشر في UMUAI والمجلد والعدد والصفحات والـDOI لم تؤكَّد** في البحثين | https://arxiv.org/abs/1803.09587 | 2026-10-24 (بحث إضافي) | ✅ بوصفه **نسخة arXiv**؛ ويُحدَّث إلى المجلة إن تأكد سجلها |
+| 44 | Ferrari Dacrema, Cremonesi, Jannach؛ RecSys 2019؛ doi 10.1145/3298689.3347058 | https://doi.org/10.1145/3298689.3347058 ؛ https://arxiv.org/abs/1907.06902 | 2026-10-24 | ✅ (الصفحات من سطر المدقّق) |
+| 45 | Cho وآخرون؛ EMNLP 2014، Doha؛ pp. 1724–1734؛ doi 10.3115/v1/D14-1179 | https://aclanthology.org/D14-1179 | 2026-10-24 | ✅ |
+| 46 | Kuzilek, Hlosta, Zdrahal؛ Sci. Data 4:170171، 2017؛ doi 10.1038/sdata.2017.171 | https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5704676/ | 2026-10-24 | ✅ |
+| 47 | Krichene, Rendle؛ KDD 2020 (جائزة أفضل ورقة). **الصفحات والـDOI لم تؤكَّد** فحُذفا | https://research.google/pubs/on-sampled-metrics-for-item-recommendation/ ؛ https://arxiv.org/pdf/1912.02263 | 2026-10-24 (بحث إضافي) | ✅ الوعاء والسنة والمؤلفون؛ يُستشهد به **بلا صفحات ولا DOI** |
+| 48 | Adomavicius, Tuzhilin؛ «Context-aware recommender systems»؛ في *Recommender Systems Handbook*، Springer، 2011. الصفحات (217–253) من قائمة مراجع ثانوية فحُذفت | https://www.springerprofessional.de/context-aware-recommender-systems/1519592 | 2026-10-24 | ✅ (بلا صفحات ولا محرّرين) |
+| 49 | Hassan, Waheed, Aljohani, Ali, Ventura, Herrera؛ Int. J. Intell. Syst. 34(8):1935–1952، 2019؛ doi 10.1002/int.22129؛ LSTM على تفاعلات OULAD للتنبؤ المبكر بالانسحاب | https://produccioncientifica.ugr.es/documentos/618fa3fc4fa218568b4e18b4 | 2026-10-24 | ✅ البيانات البيبليوغرافية؛ **الأرقام لم تؤكَّد** (مصدرها ملخص ثانوي) فلا تُنقل |
+| 50 | Waheed, Hassan, Aljohani, Hardman, Nawaz؛ Computers in Human Behavior 104:106189، 2020؛ doi 10.1016/j.chb.2019.106189؛ شبكة عصبونية على نقرات VLE للتنبؤ بالمعرّضين للخطر | https://e-space.mmu.ac.uk/624309 (المخطوطة المقبولة) | 2026-10-24 | ✅ |
+| 51 | Jha, Ghergulescu, Moldovan؛ CSEDU 2019، SciTePress، pp. 154–164؛ doi 10.5220/0007767901540164؛ AUC = 0.91 للانسحاب و0.93 للنتيجة بـ GBM على ميزات VLE (من صفحة الناشر) | https://scitepress.org/Papers/2019/77679/ | 2026-10-24 | ✅ |

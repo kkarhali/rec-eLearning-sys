@@ -80,24 +80,32 @@
 
 [38] L. K. Smirani and H. A. Yamani, "Enhancing personalized learning with deep learning in Saudi Arabian universities," *International Journal of Advanced and Applied Sciences*, vol. 11, no. 7, pp. 166–175, 2024, doi: 10.21833/ijaas.2024.07.018.
 
-## مراجع كلاسيكية داعمة ([39]–[47])
+## مراجع كلاسيكية داعمة ومراجع إضافية ([39]–[51])
 
-> هذه المراجع ليست في المستودع، وأُضيفت لتقييد ادعاء الجدّة في الفصل الثاني (القسم 7.3). **بياناتها من المعرفة العامة، ويُتحقَّق منها من المصدر** قبل الاستشهاد النهائي (المهمة T5 في محضر الاجتماع 01). أما [46] فبياناته موثّقة أيضاً في ADR-001.
+> هذه المراجع ليست في المستودع. تحقّق الباحث من بياناتها من فهارس الناشرين والمستودعات (سجل التحقق في `docs/working/research-credibility.md`، قسم «المراجع الكلاسيكية والإضافية»، بتاريخ 2026-10-24). البيانات التي لم تُؤكَّد، كبعض الصفحات والـDOI، حُذفت ولم تُخمَّن. الأسطر [39] و[41] و[42] و[44] و[45] و[46] هي الأسطر النهائية التي كتبها المدقّق في `research-credibility-classics.md`.
 
-[39] Y. Hu, Y. Koren, and C. Volinsky, "Collaborative filtering for implicit feedback datasets," in *Proc. 8th IEEE Int. Conf. Data Mining (ICDM)*, Pisa, Italy, 2008, pp. 263–272, doi: 10.1109/ICDM.2008.22. [من المعرفة العامة — يُتحقَّق من المصدر.]
+[39] Y. Hu, Y. Koren, and C. Volinsky, "Collaborative filtering for implicit feedback datasets," in *Proc. 8th IEEE Int. Conf. Data Mining (ICDM)*, Pisa, Italy, 2008, pp. 263–272, doi: 10.1109/ICDM.2008.22.
 
-[40] S. Rendle, C. Freudenthaler, Z. Gantner, and L. Schmidt-Thieme, "BPR: Bayesian personalized ranking from implicit feedback," in *Proc. 25th Conf. Uncertainty in Artificial Intelligence (UAI)*, Montreal, QC, Canada, 2009, pp. 452–461. [من المعرفة العامة — يُتحقَّق من المصدر.]
+[40] S. Rendle, C. Freudenthaler, Z. Gantner, and L. Schmidt-Thieme, "BPR: Bayesian personalized ranking from implicit feedback," in *Proc. 25th Conf. Uncertainty in Artificial Intelligence (UAI)*, 2009.
 
-[41] B. Hidasi, A. Karatzoglou, L. Baltrunas, and D. Tikk, "Session-based recommendations with recurrent neural networks," in *Proc. 4th Int. Conf. Learning Representations (ICLR)*, San Juan, Puerto Rico, 2016. [من المعرفة العامة — يُتحقَّق من المصدر.]
+[41] B. Hidasi, A. Karatzoglou, L. Baltrunas, and D. Tikk, "Session-based recommendations with recurrent neural networks," in *Proc. 4th Int. Conf. Learning Representations (ICLR)*, San Juan, Puerto Rico, 2016.
 
-[42] D. Jannach and M. Ludewig, "When recurrent neural networks meet the neighborhood for session-based recommendation," in *Proc. 11th ACM Conf. Recommender Systems (RecSys)*, Como, Italy, 2017, pp. 306–310, doi: 10.1145/3109859.3109872. [من المعرفة العامة — يُتحقَّق من المصدر.]
+[42] D. Jannach and M. Ludewig, "When recurrent neural networks meet the neighborhood for session-based recommendation," in *Proc. 11th ACM Conf. Recommender Systems (RecSys)*, Como, Italy, 2017, pp. 306–310, doi: 10.1145/3109859.3109872.
 
-[43] M. Ludewig and D. Jannach, "Evaluation of session-based recommendation algorithms," *User Modeling and User-Adapted Interaction*, vol. 28, no. 4–5, pp. 331–390, 2018, doi: 10.1007/s11257-018-9209-6. [من المعرفة العامة — يُتحقَّق من المصدر.]
+[43] M. Ludewig and D. Jannach, "Evaluation of session-based recommendation algorithms," arXiv preprint arXiv:1803.09587, 2018.
 
-[44] M. Ferrari Dacrema, P. Cremonesi, and D. Jannach, "Are we really making much progress? A worrying analysis of recent neural recommendation approaches," in *Proc. 13th ACM Conf. Recommender Systems (RecSys)*, Copenhagen, Denmark, 2019, pp. 101–109, doi: 10.1145/3298689.3347058. [من المعرفة العامة — يُتحقَّق من المصدر.]
+[44] M. Ferrari Dacrema, P. Cremonesi, and D. Jannach, "Are we really making much progress? A worrying analysis of recent neural recommendation approaches," in *Proc. 13th ACM Conf. Recommender Systems (RecSys)*, Copenhagen, Denmark, 2019, pp. 101–109, doi: 10.1145/3298689.3347058.
 
-[45] K. Cho, B. van Merriënboer, C. Gulcehre, D. Bahdanau, F. Bougares, H. Schwenk, and Y. Bengio, "Learning phrase representations using RNN encoder–decoder for statistical machine translation," in *Proc. 2014 Conf. Empirical Methods in Natural Language Processing (EMNLP)*, Doha, Qatar, 2014, pp. 1724–1734, doi: 10.3115/v1/D14-1179. [من المعرفة العامة — يُتحقَّق من المصدر.]
+[45] K. Cho, B. van Merriënboer, C. Gulcehre, D. Bahdanau, F. Bougares, H. Schwenk, and Y. Bengio, "Learning phrase representations using RNN encoder–decoder for statistical machine translation," in *Proc. 2014 Conf. Empirical Methods in Natural Language Processing (EMNLP)*, Doha, Qatar, 2014, pp. 1724–1734, doi: 10.3115/v1/D14-1179.
 
-[46] J. Kuzilek, M. Hlosta, and Z. Zdrahal, "Open University Learning Analytics dataset," *Scientific Data*, vol. 4, Art. no. 170171, 2017, doi: 10.1038/sdata.2017.171. [من المعرفة العامة، والـDOI موثّق في ADR-001 — يُتحقَّق من المصدر.]
+[46] J. Kuzilek, M. Hlosta, and Z. Zdrahal, "Open University Learning Analytics dataset," *Sci. Data*, vol. 4, Art. no. 170171, 2017, doi: 10.1038/sdata.2017.171.
 
-[47] W. Krichene and S. Rendle, "On sampled metrics for item recommendation," in *Proc. 26th ACM SIGKDD Int. Conf. Knowledge Discovery & Data Mining (KDD)*, 2020, pp. 1748–1757, doi: 10.1145/3394486.3403226. [من المعرفة العامة — يُتحقَّق من المصدر؛ أضافه تقرير مراجعة الزميل.]
+[47] W. Krichene and S. Rendle, "On sampled metrics for item recommendation," in *Proc. ACM SIGKDD Int. Conf. Knowledge Discovery and Data Mining (KDD)*, 2020.
+
+[48] G. Adomavicius and A. Tuzhilin, "Context-aware recommender systems," in *Recommender Systems Handbook*. Boston, MA, USA: Springer, 2011.
+
+[49] S.-U. Hassan, H. Waheed, N. R. Aljohani, M. Ali, S. Ventura, and F. Herrera, "Virtual learning environment to predict withdrawal by leveraging deep learning," *International Journal of Intelligent Systems*, vol. 34, no. 8, pp. 1935–1952, 2019, doi: 10.1002/int.22129.
+
+[50] H. Waheed, S.-U. Hassan, N. R. Aljohani, J. Hardman, and R. Nawaz, "Predicting academic performance of students from VLE big data using deep learning models," *Computers in Human Behavior*, vol. 104, Art. no. 106189, 2020, doi: 10.1016/j.chb.2019.106189.
+
+[51] N. I. Jha, I. Ghergulescu, and A.-N. Moldovan, "OULAD MOOC dropout and result prediction using ensemble, deep learning and regression techniques," in *Proc. 11th Int. Conf. Computer Supported Education (CSEDU)*, SciTePress, 2019, pp. 154–164, doi: 10.5220/0007767901540164.
