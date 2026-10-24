@@ -129,7 +129,8 @@ def _ndcg(score, F, ev_rows, task="A", slice_mask=None, ks=(10,)):
 
 def eval_combo_fold(args):
     """Weights tuned on validation; test NDCG@10 per seed (all / cold_q1 / top_q4). Returns a dict."""
-    name, cut, combo, weights_override, forced = args
+    name, cut, combo, weights_override, forced = args[:5]
+    min_last = args[5] if len(args) > 5 else None
     Ft = dict(np.load(fold_dir(name, cut) / "fold_tune.npz"))
     Fs = dict(np.load(fold_dir(name, cut) / "fold_test.npz"))
     evt, evs = Ft["ev"].astype(bool), Fs["ev"].astype(bool)
@@ -149,6 +150,8 @@ def eval_combo_fold(args):
         val, w = best
     else:
         grid = hybrid.simplex_grid(len(combo))
+        if min_last is not None:                      # descriptive variant: floor component weight ≥ min_last
+            grid = grid[grid[:, -1] >= min_last - 1e-12]
         vals = [_ndcg(hybrid.fuse(r_tune, g), Ft, evt)["NDCG@10"] for g in grid]
         b = int(np.argmax(vals))
         w, val = grid[b], vals[b]
@@ -171,14 +174,15 @@ class Evaluator:
     def __init__(self, pool, folds):
         self.pool, self.folds, self.cache, self.log = pool, folds, {}, []
 
-    def fold_results(self, combo, weights_by_fold=None, forced_by_fold=None):
-        key = (tuple(combo), None if weights_by_fold is None else "w", None if forced_by_fold is None else "f")
-        if key in self.cache and weights_by_fold is None and forced_by_fold is None:
+    def fold_results(self, combo, weights_by_fold=None, forced_by_fold=None, min_last=None):
+        key = (tuple(combo), None if weights_by_fold is None else "w", None if forced_by_fold is None else "f", min_last)
+        plain = weights_by_fold is None and forced_by_fold is None
+        if key in self.cache and plain:
             return self.cache[key]
         args = [(n, c, tuple(combo), None if weights_by_fold is None else weights_by_fold[(n, c)],
-                 None if forced_by_fold is None else forced_by_fold[(n, c)]) for n, c in self.folds]
+                 None if forced_by_fold is None else forced_by_fold[(n, c)], min_last) for n, c in self.folds]
         res = self.pool.map(eval_combo_fold, args, chunksize=1)
-        if weights_by_fold is None and forced_by_fold is None:
+        if plain:
             self.cache[key] = res
         return res
 
@@ -194,6 +198,13 @@ class Evaluator:
             seed_sd = float(np.std(seed_means, ddof=1))
         self.log.append({"combo": " + ".join(combo), "test_mean": float(per_pres.mean()), "seed_sd": seed_sd})
         return per_pres.to_numpy(), seed_sd
+
+
+def _b(x):
+    """Bootstrap-t bound for display: degenerate resamples (many identical unit lifts) give |bound| ≫ 1."""
+    if x is None or (isinstance(x, float) and np.isnan(x)):
+        return "—"
+    return ("−∞" if x < 0 else "+∞") if abs(x) > 1 else f"{x:+.4f}"
 
 
 def _md(df):
@@ -243,6 +254,7 @@ def main(argv=None):
         fr = hybrid.greedy_forward(cands, ev, stochastic=STOCHASTIC, personal=personal, n_boot=10_000, seed=0)
         accept_only = [c for c in fr.combination if c != fr.floor_component]
         final = ev.fold_results(fr.combination)
+        floor_min = ev.fold_results(fr.combination, min_last=0.25) if fr.floor_component else None
         acc_res = ev.fold_results(accept_only) if accept_only != fr.combination else final
         # H4-b: forced insertion of (7)
         if "C7_ClusterPop" in fr.combination:
@@ -269,7 +281,8 @@ def main(argv=None):
     d_h1 = (hyb - bnp).dropna().to_numpy()
     c_h1 = stats.compare(d_h1)
     rows = []
-    for label, res in (("HYB*", final), ("HYB_accept_only", acc_res)):
+    variants = [("HYB*", final), ("HYB_accept_only", acc_res)] + ([("HYB_floor_w>=0.25", floor_min)] if floor_min else [])
+    for label, res in variants:
         for r in res:
             rows.append({"model": label, "presentation": r["presentation"], "cut": r["cut"],
                          "components": " + ".join(r["combo"]), "weights": json.dumps(r["weights"]),
@@ -341,8 +354,8 @@ def main(argv=None):
     base_combo = [fr.combination[0]]
     for rnd, decisions in enumerate(fr.history, start=1):
         md.append(f"### الجولة {rnd} — القاعدة: {' + '.join(LABEL[c] for c in base_combo)}\n")
-        tab = pd.DataFrame([{"المرشح": LABEL[d.component], "متوسط الرفع": d.mean_lift, "الفاصل الأدنى": d.ci[0],
-                             "الفاصل الأعلى": d.ci[1], "انحراف البذور": d.seed_sd if d.seed_sd is not None else "—",
+        tab = pd.DataFrame([{"المرشح": LABEL[d.component], "متوسط الرفع": d.mean_lift, "الفاصل الأدنى": _b(d.ci[0]),
+                             "الفاصل الأعلى": _b(d.ci[1]), "انحراف البذور": d.seed_sd if d.seed_sd is not None else "—",
                              "القرار": "يُقبل" if d.accepted else "يُرفض"} for d in decisions])
         md.append(_md(tab) + "\n")
         acc = [d for d in decisions if d.accepted]
@@ -359,7 +372,15 @@ def main(argv=None):
             why.append(f"- {LABEL[c]}: **خارج** — لم يحقق شرط القبول في أي جولة فُحص فيها "
                        "(الحد الأدنى لفاصل bootstrap-t ≤ 0، أو الرفع ≤ انحراف البذور للمكوّن العشوائي).")
     gap = hdf[hdf["model"] == "HYB*"]
-    md += ["## لماذا دخل/خرج كل مكوّن\n", *why, "",
+    wpos = sum(1 for r in final if fr.floor_component and r["weights"][fr.combination.index(fr.floor_component)] > 0)
+    md += ["**ملاحظة على الفاصل:** حين يختار الضبط وزناً صفرياً للمرشح في عدة عروض يصبح رفعها صفراً بالضبط، "
+           "فتنتج إعادات bootstrap كلها من هذه العروض بانحراف صفري، وينفجر t* (المقام max(s_b, 10⁻¹²)، ADR-004 §2.2). "
+           "يُعرض الحد حينئذ ±∞؛ والقرار لا يتغير لأن الفاصل يشمل الصفر.\n",
+           "## لماذا دخل/خرج كل مكوّن\n", *why, "",
+           *( [f"**وزن مكوّن الأرضية:** {LABEL[fr.floor_component]} أخذ وزناً موجباً في {wpos}/27 زوجاً فقط (الشبكة تتضمن الصفر)، "
+               "فالأرضية مستوفاة تركيبياً لكنها قد تكون اسمية في بعض الأزواج. للمعلومة: البديل الذي يفرض وزن الأرضية ≥ 1/4 "
+               f"يعطي NDCG@10 = {pd.DataFrame(floor_min).groupby('presentation')['test_all'].mean().mean():.4f} على نوافذ الاختبار "
+               "(وصفي؛ يحتاج قرار المشرف، ولم يُستعمل في التجميد).\n"] if fr.floor_component else []),
            "## الهجين على نوافذ اختبار 2013 (المهمة A)\n",
            _md(pd.DataFrame([{"النموذج": "HYB*", "NDCG@10": float(hyb.mean()), "تحقق": float(gap["val_NDCG@10"].mean()),
                               "فجوة التفاؤل": float(gap["val_NDCG@10"].mean() - gap["NDCG@10"].mean())},
@@ -368,20 +389,23 @@ def main(argv=None):
                               "فجوة التفاؤل": float(pd.DataFrame(acc_res)["val"].mean() - pd.DataFrame(acc_res)["test_all"].mean())},
                              {"النموذج": b_np, "NDCG@10": float(bnp.mean()), "تحقق": float("nan"), "فجوة التفاؤل": float("nan")}])) + "\n",
            f"**H1 (وصفي على التطوير):** Δ(HYB\\* − {b_np}) = {c_h1['mean']:+.4f}، فاصل bootstrap-t "
-           f"[{c_h1['ci_lo']:+.4f}، {c_h1['ci_hi']:+.4f}]، p = {c_h1['p']:.4f}، عروض Δ>0: {int((d_h1 > 0).sum())}/9. "
+           f"[{_b(c_h1['ci_lo'])}، {_b(c_h1['ci_hi'])}]، p = {c_h1['p']:.4f}، عروض Δ>0: {int((d_h1 > 0).sum())}/9. "
            f"قراءة القاعدة الآلية (9 عروض، بلا Holm، توضيحية): {stats.verdict(c_h1['mean'], c_h1['ci_lo'], c_h1['ci_hi'], c_h1['p'])}.\n"]
     if h3:
         md.append(f"**H3 (وصفي على التطوير):** Δ({h3['comparison']}) = {h3['mean']:+.4f}، فاصل [{h3['ci_lo']:+.4f}، "
                   f"{h3['ci_hi']:+.4f}]، p = {h3['p']:.4f}؛ قراءة الجدول السداسي (توضيحية): {h3['dev_rule_reading']}.\n")
     md += ["## H4-ب (استكشافية، D-28): إدخال (7) قسراً\n",
-           _md(pd.DataFrame([{"الشريحة": k, "Δ": v["mean"], "الفاصل الأدنى": v["ci_lo"], "الفاصل الأعلى": v["ci_hi"],
+           _md(pd.DataFrame([{"الشريحة": k, "Δ": v["mean"], "الفاصل الأدنى": _b(v["ci_lo"]), "الفاصل الأعلى": _b(v["ci_hi"]),
                               "p (غير مصححة)": v["p"], "الاتجاه": v["direction"]} for k, v in h4b.items()])) + "\n",
            "M1 = HYB\\* مع (7) بوزن w₇ ∈ {0، 0.1، …، 0.5} مضبوط على التحقق وبقية الأوزان × (1 − w₇)؛ M0 = HYB\\* "
            "(أو HYB\\* بلا (7) مع إعادة التطبيع إن كان (7) داخلها). الربع الأدنى = n ≤ Q1 (D-45).\n",
            f"الزمن: بناء الدرجات {(t1 - t0) / 60:.1f} دقيقة، والبحث والتقييم {(t2 - t1) / 60:.1f} دقيقة.\n",
            "### سجل كل التركيبات التي قُيِّمت\n", _md(pd.DataFrame(ev.log)) + "\n"]
     (OUT / "hybrid_acceptance.md").write_text("\n".join(md), encoding="utf-8")
-    summary = {"components": fr.combination, "floor": fr.floor_component, "H1": c_h1, "sd_H1": float(np.std(d_h1, ddof=1)),
+    summary = {"components": fr.combination, "floor": fr.floor_component, "floor_weight_positive_folds": wpos,
+               "floor_min_quarter_ndcg": (float(pd.DataFrame(floor_min).groupby("presentation")["test_all"].mean().mean())
+                                          if floor_min else None),
+               "H1": c_h1, "sd_H1": float(np.std(d_h1, ddof=1)),
                "H3": h3, "H4b": h4b, "seconds": round(time.time() - t0, 1)}
     (OUT / "hybrid_meta.json").write_text(json.dumps(summary, indent=2, default=float, ensure_ascii=False))
     print(f"[hybrid] HYB* = {fr.combination} (floor={fr.floor_component}); H1 Δ={c_h1['mean']:+.4f} "
