@@ -566,7 +566,7 @@ data/cache/serving_clusters/<pres>_<day>.npz       # git-ignored; cluster_choice
 | `GET /api/instructor/overview` | `presentation`، `day` | `presentation_overview(p, day, risk_model="M1")` + `median_active_days` | FR-24 |
 | `GET /api/instructor/clusters` | `presentation`، `day` | `cluster_summary(p)` * | FR-25 |
 | `GET /api/instructor/learners` | `presentation`، `day`، `cluster`، `risk=all\|above`، `sort` من {risk، reg، cluster، active\_days، last\_access، on\_time} والافتراضي `-risk` (السالب للتنازلي)، `limit` حتى 500، `offset` | `learner_table(p, day, risk_model="M1")` * | FR-26، FR-30 |
-| `GET /api/instructor/learner/{registration}` | `day` | `learner_profile(…, risk_model="M1")` (مع `model_cut`) + `recommend(k=3)` | FR-27 |
+| `GET /api/instructor/learner/{registration}` | `day` | `learner_profile(…, risk_model="M1")` + `recommend(k=3)`؛ و`model_cut` فيه ينتظر البند 7 من 8.4 (غير موجود بعد في `InstructorLearnerDetail`) | FR-27 |
 | `GET /` و`/static/*` | — | `src/frontend/dist/` | FR-31، FR-32 |
 
 \* في `serving.py` بعد بنود 8.4 (ونسخة مؤقتة في `src/backend/services/` باختبار تطابق).
@@ -781,12 +781,12 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 | FR-11 | D-23…D-26، D-52 | stats.py | test\_hybrid\_stats |
 | FR-12 | D-34 | harness.py؛ ملخص الميزانية\* | test\_budget\* |
 | FR-13 | D-62، D-47 | freeze\_config.py؛ freeze\_checklist.md\* | freeze03\_config.json؛ توقيع ش10 |
-| FR-14 | D-63، D-57 | experiments/run\_confirmatory.py\* | التشغيل الجاف على 2013 (results/dryrun2013/\*)؛ test\_confirmatory\_guards\* |
+| FR-14 | D-63، D-57 | experiments/run\_confirmatory.py | test\_confirmatory (الحراس والطوران)؛ التشغيل الجاف على 2013؛ التأكيد بعد الوسم |
 | FR-15 | D-21 · RQ4 | learner\_analysis.py، run\_fairness.py\*، run\_sensitivity.py\* | مراجعة الجداول |
 | FR-16 | D-49، D-65 | build\_artifacts.py | test\_serving (wrmf\_foldin\_uses\_artifact\_items)؛ عتبات tc\* |
 | FR-17 | D-22 · ش7 | serving.py (TEMPLATES، \_evidence) | test\_serving (recommend\_structure\_and\_unseen) |
-| FR-18 | D-09، D-22 | backend/routes/meta.py | test\_api\_live؛ test\_locked\* |
-| FR-19 | D-04، D-21، D-70 | backend/routes/learner.py، schemas.py | test\_contract\_no\_risk (على JSON، يُوسَّع)؛ test\_api\_live |
+| FR-18 | D-09، D-22 | backend/routes/meta.py | test\_api\_live؛ test\_fr40\_gate |
+| FR-19 | D-04، D-21، D-70 | backend/routes/meta.py، schemas.py | test\_contract\_json (registrations\_have\_no\_final\_result\_or\_unregistration)؛ test\_serving (registrations\_whitelist) |
 | FR-20 | D-49 | serving.Engine.plan، backend/routes/learner.py | test\_serving (no\_future\_data\_used)؛ test\_api\_live |
 | FR-21 | D-14، D-42 | serving.recommend، backend/services/replay.py | test\_serving، test\_api\_live |
 | FR-22 | D-22 | serving.recommend (explanation)، services/explanation.py | test\_api\_live |
@@ -804,18 +804,18 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 | FR-35 | D-08، D-65، D-66 | about.html | قائمة تفحّص |
 | FR-36 | D-47 | data.confirmatory\_student\_ids | test\_splits (test\_columns\_and\_log)؛ results/access\_log.jsonl |
 | FR-37 | D-49 (5) | serving.Engine.plan، learner.ts | test\_serving (plan\_before\_first\_cut) |
-| FR-38 | D-62 (ش5) | experiments/reproduce\_dev.py\* | results/dev2013/repro\_diff.md\* بلا فرق غير مفسَّر |
-| FR-39 | D-46، D-48، D-61 | power.py، run\_confirmatory.py\* | results/dev2013/mde80.md؛ test\_hybrid\_stats (test\_margin\_and\_power) |
-| FR-40 | D-09، D-63، D-67 | serving.Engine (allow\_confirmatory)\* | test\_locked\* (عرض 2013 متنكر بدور تأكيدي) |
+| FR-38 | D-62 (ش5) | experiments/reproduce\_dev.py | results/dev2013/repro\_diff.md\* بلا فرق غير مفسَّر |
+| FR-39 | D-46، D-48، D-61 | power.py، run\_confirmatory.py | results/dev2013/mde80.md؛ test\_hybrid\_stats (test\_margin\_and\_power) |
+| FR-40 | D-09، D-63، D-67 | serving.Engine (allow\_confirmatory) | test\_serving (fr40\_gate)؛ ui\_open.json\* |
 | NFR-01 | D-22، D-68 | backend/bench.py، تحفيظ cluster\_choice\* | results/ui/latency.csv\*؛ test\_latency\_after\_warmup |
 | NFR-02 | آلة الفريق | backend/app.py | قياس RSS في bench.py |
 | NFR-03 | D-34 | harness.py | timing.csv + ملخص الميزانية\* |
 | NFR-04 | ADR-002 §3.6.12 | run\_meta.json، splits.tiebreak\_keys | test\_splits؛ test\_api\_live (تكرار الطلب) |
 | NFR-05 | ADR-002 §5، D-49، D-67 | results/، report.py | مراجعة الزميل قبل كل وثيقة |
 | NFR-06 | §5.9، D-49، D-68 | splits.py، serving.py | test\_splits (no\_leakage\_into\_models)، test\_serving (no\_future\_data\_used)، test\_cluster\_cache\_matches\_live\* |
-| NFR-07 | D-09 | data.assert\_allowed، FR-40 | test\_serving (2014\_refused)، test\_locked\* |
-| NFR-08 | D-21، D-70 | data.load\_student\_info، build\_artifacts.py، schemas.py | test\_contract\_no\_risk (على JSON) |
-| NFR-09 | D-22، D-70 | backend/schemas.py | test\_contract\_no\_risk (على JSON، والقائمة البيضاء للمدرّس) |
+| NFR-07 | D-09 | data.assert\_allowed، FR-40 | test\_serving (2014\_refused، fr40\_gate) |
+| NFR-08 | D-21، D-70 | data.load\_student\_info، build\_artifacts.py، schemas.py | test\_contract\_json، test\_contract\_no\_risk |
+| NFR-09 | D-22، D-70 | backend/schemas.py | test\_contract\_json (instructor\_json\_keys\_are\_whitelisted) |
 | NFR-10 | D-08، D-70 | .gitignore | git ls-files artifacts فارغ |
 | NFR-11 | thesis-context | src/ كلها | فحص الاستيرادات |
 | NFR-12 | D-22 | الواجهة | قائمة تفحّص يدوية |
@@ -845,9 +845,9 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 | م2: شروط التجميد | حتى 30 ت1 | ش1–ش9 (D-62، D-64)؛ بنود 8.4 رقم 2 و7 و8 و10؛ `reproduce_dev` و`repro_diff.md`؛ `freeze03_config.json`؛ `freeze_checklist.md` | ش1–ش9 مستوفاة؛ `repro_diff.md` بلا فرق غير مفسَّر |
 | م3: الوسم والتأكيد | 31 ت1 إلى 3 ت2 | ش10 (تحقق المشرف وتوقيعه) ثم الوسم `freeze-03` (31 ت1)؛ E10 بمرحلتين وقفل SHA-256 (D-63)؛ باقي بنود 8.4 وD-68 (1 ت2) | `verdicts.csv` مولَّد مرة واحدة وبصمته في المحضر؛ `git diff freeze-03 --stat` لا يمس النطاق المجمَّد |
 | م4: الاجتماع 04 ثم E8 | 5 ت2 وما بعده | عرض الأحكام على المشرف؛ ثم E8 والتحليلات التالية | قبول الأحكام في محضر الاجتماع 04 |
-| م5: مواءمة الواجهة | حتى 8 ت2 | `types.ts` وmock و`api.ts` بالعقود (حذف منطق اللقطات، و`model_cut` في المستوى الأعلى، ومؤشر الطلب البارد، و«فوق العتبة» نصاً)، وقواعد 9.3 | `tsc --noEmit` بلا أخطاء؛ الجدول 17 مستوفى؛ عرض صحيح عند 360 و1440 بكسل |
-| م6: الجودة والأداء | حتى 12 ت2 | الاختبارات الأربعة (`test_cluster_cache_matches_live` و`test_locked` و`test_types_match` و`e2e.spec.js`)، والتسخين، و`latency.csv` | NFR-01 بصيغة D-68 محقق ومبلَّغ؛ الاختبار الطرفي يمر لـUC-02 إلى UC-07 |
-| م7: فتح 2014 في الواجهة | بعد 5 ت2 | `build_artifacts` لعروض 2014 (العناقيد، والخطر من `risk_final.json`)، و`ui_open.json` | الشروط الثلاثة لـFR-40؛ `test_locked` يمر |
+| م5: مواءمة الواجهة | حتى 8 ت2 | `types.ts` وmock و`api.ts` بالعقود (حذف منطق اللقطات، و`provenance.model_cut`، و`relevance`، ومؤشر الطلب البارد، و«فوق العتبة» نصاً)، وقواعد 9.3 | `tsc --noEmit` بلا أخطاء؛ الجدول 17 مستوفى؛ عرض صحيح عند 360 و1440 بكسل |
+| م6: الجودة والأداء | حتى 12 ت2 | الاختبارات الأربعة (`test_cluster_cache_matches_live` و`test_fr40_gate` و`test_types_match` و`e2e.spec.js`)، والتسخين، و`latency.csv` | NFR-01 بصيغة D-68 محقق ومبلَّغ؛ الاختبار الطرفي يمر لـUC-02 إلى UC-07 |
+| م7: فتح 2014 في الواجهة | بعد 5 ت2 | `build_artifacts` لعروض 2014 (العناقيد، والخطر من `risk_final.json`)، و`ui_open.json` | الشروط الثلاثة لـFR-40؛ `test_fr40_gate` يمر |
 | م8: التسليم | بعد م6 وم7 | توثيق الكود، ودليل المستخدم بلقطات توضيحية (D-66، D-67) | قبول المشرف |
 
 ## 11.2 توزيع المهام وتقدير الجهد
@@ -857,7 +857,7 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 | الدور | المهام | الجهد |
 |---------------|-------------------------------------------------------------------------------------------|---------------|
 | مهندس تعلّم الآلة | خط التجارب (منفَّذ)؛ بنود 8.4 (11 بنداً)؛ D-68 مع التسخين؛ `reproduce_dev`؛ `run_confirmatory.py`؛ E10 وE8 | ≈ 40 |
-| مهندس Backend | `schemas.py` (29 ت1)؛ مواءمة الخلفية الموجودة: `score` بدل `probability`، و`relevance`، والقائمة البيضاء، و`model_cut` في المستوى الأعلى، وحذف `snapshot_day` و`day_before_first_snapshot`، و`lopo_2013` بدل `oof_2013`، ومعرّفات المكوّنات من الكود، ونقل الحسابات إلى `serving` | ≈ 3 |
+| مهندس Backend | `schemas.py` (29 ت1، مصدر الحقيقة للعقود)؛ مواءمة الخلفية: `score` لدرجة الخطر، و`relevance` لدرجة التوصية في مسارات المتعلم، والقائمة البيضاء للتسجيلات، و`lopo_2013`، ومعرّفات المكوّنات، وحذف الحقل الميت `outcome`؛ ونقل الحسابات إلى `serving` | ≈ 3 |
 | مهندس Frontend | م5: مواءمة الواجهة بالعقود وقواعد RTL، ومؤشر الطلب البارد مع `aria-busy`، وFR-30 إن سمح الوقت | ≈ 5 |
 | مهندس الجودة | الاختبارات الأربعة، والاختبار الطرفي، وفحص التباين ورموز SVG الآلي، و`latency.csv` | ≈ 4 |
 
@@ -873,7 +873,7 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 | تسريع الخدمة بتغيير المكوّن (n\_init أو البذور أو مدى k) | منخفض/مرتفع | ممنوع بـD-68؛ و`test_cluster_cache_matches_live` يقارن بالحساب الحي |
 | تعديل وحدة مجمَّدة بعد الوسم | منخفض/مرتفع | نطاق D-69 صريح؛ وفحص `git diff freeze-03 --stat` قبل كل دمج |
 | زمن `presentation_overview` وجدول المتعلمين | مرتفع/متوسط | `learner_table` متجهي (8.4)؛ وهدف حتى ثانية واحدة (D-68) |
-| خدمة عرض 2014 قبل الاجتماع 04 | منخفض/مرتفع جداً | `assert_allowed` + FR-40 (ثلاثة شروط و`ui_open.json`) + `test_locked` |
+| خدمة عرض 2014 قبل الاجتماع 04 | منخفض/مرتفع جداً | `assert_allowed` + FR-40 (ثلاثة شروط و`ui_open.json`) + `test_fr40_gate` |
 | قراءة درجة الخطر احتمالاً أو حكماً | متوسط/مرتفع | «درجة خطر نسبية (غير معايَرة)» والحقل `score` (D-65)؛ وللمدرّس فقط؛ وعتبة ومصدر معلنان؛ والخيار `‎--no-instructor` (D-66) |
 | تسرّب رقم من الشاشات إلى فصل النتائج | منخفض/مرتفع | D-67: اللقطات توضيحية بتعليق ثابت، ولا مقياس تقييم في الواجهة |
 | انحراف الخلفية والواجهة الموجودتين عن العقود | مؤكد/متوسط | بنود الجدول 21؛ و`test_types_match`؛ وmock مولَّد من أمثلة 8.3 |

@@ -52,10 +52,10 @@
 <text x="80" y="352" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">registration: str</text>
 <text x="80" y="371" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    = presentation-id_student</text>
 <text x="80" y="390" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">id_student: int</text>
-<text x="80" y="409" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date_registration: int (D-70)</text>
-<text x="80" y="428" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date_unreg: null if &gt; t</text>
-<text x="80" y="447" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">num_of_prev_attempts: int</text>
-<text x="80" y="466" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">studied_credits: int</text>
+<text x="80" y="409" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date_registration: int</text>
+<text x="80" y="428" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">date_unregistration: int|null</text>
+<text x="80" y="447" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">API (D-70): registration, id_student,</text>
+<text x="80" y="466" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    date_registration, status</text>
 <rect x="380" y="300" width="310" height="120" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
 <rect x="380" y="300" width="310" height="30" rx="6" fill="#1D4ED8"/>
 <rect x="380" y="322" width="310" height="8" fill="#1D4ED8"/>
@@ -128,13 +128,13 @@
 <text x="80" y="1011" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">2014: frozen/risk_final.json</text>
 <text x="80" y="1030" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">tc ∈ {28, 56, 112}; M1</text>
 <text x="80" y="1049" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">threshold, threshold_source</text>
-<text x="80" y="1068" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">→ risk{risk_cut, model, score*,</text>
+<text x="80" y="1068" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">→ risk{score*, cut_day, threshold,</text>
 <text x="80" y="1087" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">    above_threshold, provenance}</text>
 <rect x="1060" y="940" width="310" height="158" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.8"/>
 <rect x="1060" y="940" width="310" height="30" rx="6" fill="#1D4ED8"/>
 <rect x="1060" y="962" width="310" height="8" fill="#1D4ED8"/>
 <text x="1215.0" y="961" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">EXPLANATION</text>
-<text x="1100" y="992" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">main + secondary (≥ 1/3)</text>
+<text x="1100" y="992" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">secondary: only if it exceeds 1/3</text>
 <text x="1100" y="1011" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">component: C7_ClusterPop | …</text>
 <text x="1100" y="1030" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">text: TEMPLATES[component]</text>
 <text x="1100" y="1049" font-family="DejaVu Sans Mono, monospace" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start">contribution: float</text>

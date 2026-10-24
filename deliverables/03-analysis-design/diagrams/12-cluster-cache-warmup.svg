@@ -96,7 +96,7 @@
 <text x="230" y="490.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">← results/ui/latency.csv</text>
 <line x1="230" y1="504" x2="230" y2="528" stroke="#0F766E" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="55.0" y="528" width="350" height="96" rx="14" fill="#fff" stroke="#B91C1C" stroke-width="1.6"/>
-<text x="230" y="555.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">اختبار test_memo_matches_live</text>
+<text x="230" y="555.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1F2937" text-anchor="middle">test_cluster_cache_matches_live</text>
 <text x="230" y="572.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">عيّنة عشوائية (عرض، يوم، تسجيل):</text>
 <text x="230" y="589.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">الاستجابة من الذاكرة = الحية حرفياً</text>
 <text x="230" y="606.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">وتغيير البصمة يبطل الذاكرة</text>

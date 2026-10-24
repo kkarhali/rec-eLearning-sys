@@ -11,7 +11,7 @@
 <rect x="330" y="70" width="300" height="88" rx="6" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="480.0" y="91" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">data/raw/oulad/ (7 CSV)</text>
 <text x="480.0" y="118" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">OULAD — Kuzilek et al. 2017، CC BY 4.0</text>
-<text x="480.0" y="136" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">+ data/cache/ (pickle، 2013 فقط)</text>
+<text x="480.0" y="136" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">+ data/cache/ (pickle, 2013 only)</text>
 <rect x="60" y="70" width="240" height="88" rx="6" fill="#fff" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="180.0" y="91" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">data/verify_oulad.py</text>
 <text x="180.0" y="118" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">MD5 7/7 + عدد الصفوف</text>
@@ -27,44 +27,44 @@
 <text x="1255" y="249" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">numpy/pandas فقط</text>
 <rect x="60" y="245" width="225" height="92" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="172.5" y="266" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">data.py</text>
-<text x="172.5" y="293" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">تحميل، تجميع، assert_allowed</text>
+<text x="172.5" y="293" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">load · aggregate · assert_allowed</text>
 <text x="172.5" y="311" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">confirmatory_ids → access_log</text>
 <rect x="300" y="245" width="225" height="92" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="412.5" y="266" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">signals.py</text>
 <text x="412.5" y="293" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">L0 ⊂ L1 ⊂ L2(τ) ⊂ L3(τ,β)</text>
-<text x="412.5" y="311" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">ثقة WRMF 1+αW</text>
+<text x="412.5" y="311" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">WRMF confidence 1+αW</text>
 <rect x="540" y="245" width="225" height="92" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="652.5" y="266" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">splits.py</text>
-<text x="652.5" y="293" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">قطوع 70/126/182، tune/test</text>
-<text x="652.5" y="311" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">build_train (replay)، tiebreak</text>
+<text x="652.5" y="293" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">cuts 70/126/182 · tune/test</text>
+<text x="652.5" y="311" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">build_train (replay) · tiebreak</text>
 <rect x="780" y="245" width="225" height="92" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="892.5" y="266" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">metrics.py · stats.py</text>
 <text x="892.5" y="293" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">NDCG/HR/MRR/Coverage</text>
-<text x="892.5" y="311" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">bootstrap-t، قلب إشارات، Holm</text>
+<text x="892.5" y="311" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">bootstrap-t · sign-flip · Holm</text>
 <rect x="60" y="355" width="225" height="92" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="172.5" y="376" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">models/ (Strategy)</text>
-<text x="172.5" y="403" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">B1–B10، gru_lite.py</text>
-<text x="172.5" y="421" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">context.py: C6، C7</text>
+<text x="172.5" y="403" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">B1–B10 · gru_lite.py</text>
+<text x="172.5" y="421" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">context.py: C6 · C7</text>
 <rect x="300" y="355" width="225" height="92" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="412.5" y="376" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">hybrid · components</text>
-<text x="412.5" y="403" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">رتبة وسطى، سمبلكس D-29</text>
-<text x="412.5" y="421" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">ذاكرة درجات المكوّنات</text>
+<text x="412.5" y="403" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">mid-rank fusion · simplex (D-29)</text>
+<text x="412.5" y="421" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">component score cache</text>
 <rect x="540" y="355" width="225" height="92" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="652.5" y="376" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">learners.py</text>
-<text x="652.5" y="403" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">ملامح M0/M1/M2، k-means++</text>
-<text x="652.5" y="421" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">Logistic L2، CART، Youden</text>
+<text x="652.5" y="403" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">features M0/M1/M2 · k-means++</text>
+<text x="652.5" y="421" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">Logistic L2 · CART · Youden</text>
 <rect x="780" y="355" width="225" height="92" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="892.5" y="376" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">harness.py</text>
 <text x="892.5" y="403" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">حلقة الضبط ثم الاختبار</text>
 <text x="892.5" y="421" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">لكل (عرض، أصل)</text>
 <rect x="60" y="470" width="705" height="105" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="412.5" y="491" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">experiments/</text>
-<text x="412.5" y="518" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">موجودة: run_baselines، run_ablation، gru_sanity، run_gru، learner_analysis،</text>
-<text x="412.5" y="536" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">run_hybrid، power، freeze_config، risk_final، build_artifacts، eda، report</text>
-<text x="412.5" y="554" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">مخططة: reproduce_dev، run_confirmatory، run_sensitivity، run_fairness</text>
+<text x="412.5" y="518" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">run_baselines · run_ablation · gru_sanity · run_gru · learner_analysis · run_hybrid</text>
+<text x="412.5" y="536" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">power · freeze_config · risk_final · build_artifacts · reproduce_dev · run_confirmatory</text>
+<text x="412.5" y="554" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">eda · report · planned*: run_sensitivity, run_fairness</text>
 <rect x="780" y="470" width="225" height="105" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
-<text x="892.5" y="491" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">tests/ (96 اختباراً)</text>
-<text x="892.5" y="518" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">unittest؛ منها test_serving</text>
+<text x="892.5" y="491" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">src/ml/tests: 106</text>
+<text x="892.5" y="518" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">unittest, incl. test_serving</text>
 <text x="892.5" y="536" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">(test_no_future_data_used)</text>
 <rect x="1025" y="245" width="105" height="330" rx="6" fill="#fff" stroke="#64748B" stroke-width="1.5"/>
 <text x="1077.5" y="266" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">results/</text>
@@ -89,16 +89,16 @@
 <text x="172.5" y="696" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">الأوزان والإعدادات (D-51)</text>
 <rect x="300" y="630" width="225" height="88" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.5"/>
 <text x="412.5" y="651" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">&lt;pres&gt;/&lt;c&gt;/wrmf.npz</text>
-<text x="412.5" y="678" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">عوامل الموارد Y فقط</text>
-<text x="412.5" y="696" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">فارغ مع HYB* الحالي</text>
+<text x="412.5" y="678" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">item factors Y only</text>
+<text x="412.5" y="696" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">empty for current HYB*</text>
 <rect x="540" y="630" width="225" height="88" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.5"/>
 <text x="652.5" y="651" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">&lt;pres&gt;/&lt;c&gt;/gru.npz</text>
-<text x="652.5" y="678" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">معاملات GRU-lite</text>
-<text x="652.5" y="696" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">غير مستعمل في HYB*</text>
+<text x="652.5" y="678" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">GRU-lite parameters</text>
+<text x="652.5" y="696" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">unused by HYB*</text>
 <rect x="780" y="630" width="225" height="88" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.5"/>
 <text x="892.5" y="651" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">risk_&lt;tc&gt; · clusters_56</text>
-<text x="892.5" y="678" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">M1: score وعتبة لكل tc</text>
-<text x="892.5" y="696" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">+ risk_final لـ2014 (D-65)</text>
+<text x="892.5" y="678" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">M1: score + threshold per tc</text>
+<text x="892.5" y="696" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">+ risk_final for 2014 (D-65)</text>
 <rect x="30" y="745" width="1240" height="150" rx="10" fill="#DBEAFE" stroke="#7F8A9C" stroke-width="1.2"/>
 <text x="1255" y="771" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">الطبقة 3: خدمة إعادة التشغيل</text>
 <text x="1255" y="792" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="end">serving.py + src/backend</text>
@@ -106,16 +106,16 @@
 <rect x="60" y="770" width="465" height="108" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.5"/>
 <text x="292.5" y="791" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">src/ml/serving.py — Engine (موجود)</text>
 <text x="292.5" y="818" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">recommend · learner_profile · presentation_overview</text>
-<text x="292.5" y="836" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">أقرب قطع c لا يتجاوز t؛ وحالة المتعلم عند t (D-49)</text>
-<text x="292.5" y="854" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">تحفيظ cluster_choice عند t (D-68)</text>
+<text x="292.5" y="836" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">nearest cut c ≤ t; learner state at t (D-49)</text>
+<text x="292.5" y="854" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">cluster_choice memo at t (D-68)</text>
 <rect x="545" y="770" width="225" height="108" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.5"/>
 <text x="657.5" y="791" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">routes/ + schemas.py</text>
-<text x="657.5" y="818" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">score، relevance، model_cut</text>
-<text x="657.5" y="836" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">قائمة بيضاء (D-70)</text>
+<text x="657.5" y="818" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">score · relevance · provenance</text>
+<text x="657.5" y="836" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">whitelist (D-70)</text>
 <rect x="790" y="770" width="215" height="108" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.5"/>
 <text x="897.5" y="791" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">app.py (Factory)</text>
 <text x="897.5" y="818" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">create_app(settings)</text>
-<text x="897.5" y="836" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">127.0.0.1 افتراضياً</text>
+<text x="897.5" y="836" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">127.0.0.1 by default</text>
 <text x="897.5" y="854" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">StaticFiles ← dist/</text>
 <rect x="30" y="910" width="1240" height="130" rx="10" fill="#EDE9FE" stroke="#7F8A9C" stroke-width="1.2"/>
 <text x="1255" y="936" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">الطبقة 4: الواجهة</text>
@@ -123,8 +123,8 @@
 <text x="1255" y="974" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">HTML/CSS/TS (tsc)، RTL</text>
 <rect x="60" y="935" width="225" height="88" rx="6" fill="#fff" stroke="#6D28D9" stroke-width="1.5"/>
 <text x="172.5" y="956" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">api.ts · state.ts</text>
-<text x="172.5" y="983" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">عميل typed + وضع محاكاة</text>
-<text x="172.5" y="1001" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">الحالة في URL</text>
+<text x="172.5" y="983" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">typed client + mock mode</text>
+<text x="172.5" y="1001" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">state in URL</text>
 <rect x="300" y="935" width="225" height="88" rx="6" fill="#fff" stroke="#6D28D9" stroke-width="1.5"/>
 <text x="412.5" y="956" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">components/</text>
 <text x="412.5" y="983" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">DayScrubber، RecCard، WhyPanel</text>
@@ -149,8 +149,8 @@
 <line x1="172" y1="742" x2="892" y2="742" stroke="#B45309" stroke-width="1.8"/>
 <line x1="292" y1="742" x2="292" y2="768" stroke="#B45309" stroke-width="1.8" marker-end="url(#arra)"/>
 <path d="M1240,120 L1262,120 L1262,752 L480,752 L480,768" fill="none" stroke="#1D4ED8" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arr)"/>
-<rect x="542.49" y="740" width="195.01999999999998" height="18" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="640" y="753" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#1D4ED8" text-anchor="middle" direction="rtl">أحداث 2013 + serving_clusters</text>
+<rect x="539.3" y="740" width="201.39999999999998" height="18" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="640" y="753" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="normal" fill="#1D4ED8" text-anchor="middle">2013 events + serving_clusters</text>
 <line x1="545" y1="824" x2="527" y2="824" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
 <line x1="790" y1="824" x2="772" y2="824" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
 <line x1="892" y1="878" x2="892" y2="933" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>

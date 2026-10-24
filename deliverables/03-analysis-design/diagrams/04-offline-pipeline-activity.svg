@@ -14,7 +14,7 @@
 <line x1="800" y1="133" x2="800" y2="148" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="500.0" y="148" width="600" height="56" rx="16" fill="#fff" stroke="#0F766E" stroke-width="1.6"/>
 <text x="800" y="171.84" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">E0–E2 (منفَّذة): التحقق، وحزام التقييم، وخطوط الأساس B1–B10</text>
-<text x="800" y="189.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">MD5 7/7؛ 96 اختباراً في src/ml تمر</text>
+<text x="800" y="189.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">MD5 7/7؛ 106 اختبارات في src/ml تمر</text>
 <line x1="800" y1="204" x2="800" y2="228" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="470" y="228" width="660" height="7" rx="2" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
 <line x1="1075" y1="235" x2="1075" y2="254" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>

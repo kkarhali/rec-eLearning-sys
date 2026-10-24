@@ -9,7 +9,7 @@
 python3 -m src.ml.experiments.build_artifacts   # أولاً (D-70: artifacts/ خارج git، تُعاد في ≈ دقيقة): نماذج الخطر والعناقيد والقطوع
 bash src/frontend/build.sh                      # مرة واحدة: يبني src/frontend/dist
 python3 -m src.backend                          # http://127.0.0.1:8000  (الواجهة + /api)
-python3 -m src.backend --warm                   # تسخين في خيط خلفي لأيام العرض الرئيسية 75/56/70/112/126/182 (≈ 81 ث كاملاً؛ 75 جاهز بعد ≈ 12 ث)
+python3 -m src.backend --warm                   # تسخين في خيط خلفي لأيام العرض الرئيسية 75/56/70/112/126/182 (≈ 36 ث كاملاً بعد ربط serving.warm؛ 75 جاهز بعد ≈ 25 ث)
 python3 -m src.backend --warm --warm-weekly     # + شبكة أسبوعية من اليوم 56 (≈ 10 ث لكل يوم؛ عدة دقائق)
 python3 -m src.backend --no-instructor          # /api/instructor/* ⇒ 404 instructor_disabled، وصفحة المدرّس 404، وتُخفى روابطها
 python3 -m src.backend --host 127.0.0.1 --port 8000 --warm-presentation BBB_2013J --warm-days 75,126
@@ -84,7 +84,7 @@ tests/       asgi_client.py (عميل ASGI بلا httpx)  test_contract_no_risk.
 
 بعد التسخين (وسيط/أقصى بـms): health 0.9/1.2، meta 1.7/2.4، presentations 1.5/2.0، registrations(100) 3.2/5.5، recommendations 6.1/9.3، explanations 17.3/19.0،
 history 5.6/6.1، overview 1.4/1.9، clusters 2.2/3.3، learners(100) 6.0/6.9، learner 2.0/2.2 — كلها ≪ 300 ms (NFR-01؛ يفرضه `test_latency_after_warmup`).
-زمن التسخين الكامل للأيام الستة: 81 ث (75: 12.0، 56: 12.2، 70: 16.6، 112: 12.7، 126: 15.1، 182: 12.1 ث). يوم جديد (مثلاً 90 أو 91) لا يغطيه التسخين: ≈ 9.8–10.7 ث للطلب الأول ثم ≈ 0.8–0.9 ث لبناء لقطة المدرّس ثم من الذاكرة؛ عرض آخر (BBB_2013J) ≈ 8.3 ث للأول.
+زمن التسخين الكامل: ≈ 36 ث = خطّاف serving.warm ≈ 20.6 ث ثم الأيام الستة (75: 2.4، 56: 1.2، 70: 5.6، 112: 0.9، 126: 3.8، 182: 1.0 ث)؛ قياس 2026-10-24 على جهاز العمل (قبل ربط الخطّاف كان 81 ث). يوم جديد (مثلاً 90 أو 91) لا يغطيه التسخين: ≈ 9.8–10.7 ث للطلب الأول ثم ≈ 0.8–0.9 ث لبناء لقطة المدرّس ثم من الذاكرة؛ عرض آخر (BBB_2013J) ≈ 8.3 ث للأول.
 ذاكرات: LRU للتوصيات (1024 قائمة من 20)، ولقطات المدرّس (6)، و`lru_cache` داخل `Engine`.
 
 ## الاختبارات

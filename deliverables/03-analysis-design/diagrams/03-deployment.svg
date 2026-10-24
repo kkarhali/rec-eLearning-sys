@@ -6,23 +6,23 @@
 <marker id="open" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L11,6 L0,12" fill="none" stroke="#64748B" stroke-width="1.5"/></marker>
 </defs><rect x="0" y="0" width="1200" height="760" fill="#ffffff"/><text x="600" y="34" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" font-weight="bold" fill="#134E4A" text-anchor="middle" direction="rtl">مخطط النشر: جهاز واحد، عملية خدمة واحدة، ومعالجة أوفلاين دفعية</text>
 <rect x="40" y="60" width="1120" height="600" rx="12" fill="#F8FAFC" stroke="#134E4A" stroke-width="2"/>
-<text x="1140" y="88" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">«device» جهاز الفريق / حاسوب العرض — Linux، 4 أنوية، 15 GB، بلا شبكة خارجية لازمة</text>
+<text x="1140" y="88" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">«device» جهاز الفريق أو حاسوب العرض، بلا شبكة خارجية لازمة (Linux · 4 cores · 15 GB)</text>
 <rect x="620" y="110" width="520" height="290" rx="10" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="1.6"/>
 <text x="1125" y="136" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1D4ED8" text-anchor="end">«execution environment» Python 3.13</text>
 <rect x="650" y="155" width="460" height="110" rx="6" fill="#fff" stroke="#1D4ED8" stroke-width="1.5"/>
 <text x="880.0" y="176" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">«process» uvicorn — 127.0.0.1:8000</text>
 <text x="880.0" y="203" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">starlette (src/backend) ← serving.Engine (src/ml)</text>
-<text x="880.0" y="221" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">الحساب عند اليوم المطلوب (D-49)؛ تحفيظ عند t (D-68)</text>
-<text x="880.0" y="239" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">lru_cache + ذاكرة استجابات؛ ‎RSS ‎≤‎ 1.5 GB‎</text>
+<text x="880.0" y="221" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">compute at the requested day (D-49); memo at t (D-68)</text>
+<text x="880.0" y="239" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">lru_cache + response cache; RSS ≤ 1.5 GB</text>
 <rect x="650" y="280" width="460" height="100" rx="6" fill="#fff" stroke="#0F766E" stroke-width="1.5"/>
 <text x="880.0" y="301" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="middle">«batch» python3 -m src.ml.experiments.*</text>
-<text x="880.0" y="328" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">4 عمليات × خيط BLAS واحد (D-34)</text>
+<text x="880.0" y="328" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">4 processes × 1 BLAS thread (D-34)</text>
 <text x="880.0" y="346" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">run_* · build_artifacts · reproduce_dev · run_confirmatory</text>
 <rect x="70" y="110" width="520" height="380" rx="10" fill="#fff" stroke="#64748B" stroke-width="1.6"/>
 <text x="575" y="136" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#475569" text-anchor="start" direction="rtl">«file system» مستودع العمل</text>
 <rect x="95" y="155" width="470" height="52" rx="6" fill="#E2E8F0" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="550" y="177" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1F2937" text-anchor="end">data/raw/oulad/ + data/cache/</text>
-<text x="550" y="197" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">خارج git؛ أحداث 2013 + serving_clusters/</text>
+<text x="550" y="197" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="end">outside git: 2013 events + serving_clusters/</text>
 <rect x="95" y="219" width="470" height="52" rx="6" fill="#F0FDFA" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="550" y="241" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1F2937" text-anchor="end">src/ (ml, backend, frontend)</text>
 <text x="550" y="261" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">في git؛ وسم التجميد</text>
@@ -31,20 +31,20 @@
 <text x="550" y="325" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">في git؛ مصدر كل رقم</text>
 <rect x="95" y="347" width="470" height="52" rx="6" fill="#FEF3C7" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="550" y="369" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1F2937" text-anchor="end">artifacts/&lt;pres&gt;/&lt;c&gt;/ …</text>
-<text x="550" y="389" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">خارج git (D-70)؛ نحو 0.5 MB حالياً</text>
+<text x="550" y="389" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="end">outside git (D-70); ≈ 0.5 MB today</text>
 <rect x="95" y="411" width="470" height="52" rx="6" fill="#EDE9FE" stroke="#7F8A9C" stroke-width="1.5"/>
 <text x="550" y="433" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1F2937" text-anchor="end">src/frontend/dist/</text>
-<text x="550" y="453" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">ناتج tsc؛ خارج git (dist/ متجاهَل)</text>
+<text x="550" y="453" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="end">tsc output; outside git (ignored)</text>
 <rect x="620" y="420" width="520" height="120" rx="10" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.6"/>
 <text x="1125" y="446" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#6D28D9" text-anchor="start" direction="rtl">«client» متصفح (Chromium/Firefox)</text>
 <text x="1125" y="474" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">learner.html · instructor.html · about.html</text>
-<text x="1125" y="492" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">JS مصرَّف من TypeScript، بلا مكتبات ولا CDN</text>
-<text x="1125" y="510" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">اتجاه RTL، خطوط النظام</text>
+<text x="1125" y="492" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">JS compiled from TypeScript; no libraries, no CDN</text>
+<text x="1125" y="510" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">RTL layout · system fonts</text>
 <rect x="70" y="510" width="520" height="130" rx="10" fill="#fff" stroke="#64748B" stroke-width="1.4" stroke-dasharray="6 4"/>
 <text x="575" y="536" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#475569" text-anchor="start" direction="rtl">«build-time» سلسلة الأدوات</text>
-<text x="575" y="563" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">tsc (TypeScript 6) ← src/frontend/dist</text>
-<text x="575" y="581" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">Playwright/Chromium ← لقطات دليل المستخدم</text>
-<text x="575" y="599" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">pandoc + LibreOffice ← وثائق Word (deliverables/)</text>
+<text x="575" y="563" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">tsc (TypeScript 6) → src/frontend/dist</text>
+<text x="575" y="581" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">Playwright/Chromium → user-guide screenshots</text>
+<text x="575" y="599" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="end">pandoc + LibreOffice → Word (deliverables/)</text>
 <path d="M1125,420 L1125,210 L1113,210" fill="none" stroke="#64748B" stroke-width="2" marker-end="url(#arr)"/>
 <path d="M1125,212 L1125,418" fill="none" stroke="#64748B" stroke-width="2" marker-end="url(#arr)"/>
 <rect x="961.92" y="395" width="156.16" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
@@ -58,5 +58,5 @@
 <line x1="650" y1="345" x2="568" y2="392" stroke="#0F766E" stroke-width="1.6" marker-end="url(#arr)"/>
 <rect x="568.72" y="359" width="86.55999999999999" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
 <text x="612" y="373" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#0F766E" text-anchor="middle" direction="rtl">الدفعي يكتب</text>
-<text x="600" y="700" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">عرض توضيحي بلا أمان وصول: الربط بـ127.0.0.1 افتراضياً، وخيار ‎--no-instructor‎ يعطّل مسارات المدرّس (D-66).</text>
+<text x="600" y="700" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">عرض توضيحي بلا أمان وصول: الربط بـ127.0.0.1 افتراضياً، وخيار التشغيل no-instructor يعطّل مسارات المدرّس (D-66).</text>
 <text x="600" y="728" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">الخدمة لا تدرّب: تقرأ أحداث ‎‎≤‎ t‎ ومعاملات القطع ‎c ‎≤‎ t‎ وتحسب حالة المتعلم عند t؛ والدفعي لا يعمل أثناء العرض.</text></svg>

@@ -24,7 +24,7 @@
 <text x="795" y="550" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">استكشاف العناقيد ووصفها</text>
 <ellipse cx="795" cy="630" rx="170" ry="36" fill="#fff" stroke="#0F766E" stroke-width="1.8"/>
 <text x="795" y="617" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#0F766E" text-anchor="middle">UC-06</text>
-<text x="795" y="634" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">مراجعة احتمال الخطر</text>
+<text x="795" y="634" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">مراجعة درجة الخطر النسبية</text>
 <text x="795" y="652" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">وقائمة المتعلمين</text>
 <ellipse cx="795" cy="735" rx="170" ry="36" fill="#fff" stroke="#0F766E" stroke-width="1.8"/>
 <text x="795" y="731" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#0F766E" text-anchor="middle">UC-07</text>
@@ -85,5 +85,5 @@
 <line x1="410" y1="499" x2="410" y2="478" stroke="#64748B" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
 <rect x="298.68" y="479" width="72.63999999999999" height="19" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
 <text x="335" y="493" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle">«include»</text>
-<text x="600" y="818" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">لا مصادقة ولا جمع حي: الفصل بين الأدوار بالمسارات والواجهات (D-22). احتمال الخطر في مسارات المدرّس وحدها.</text>
+<text x="600" y="818" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">لا مصادقة ولا جمع حي: الفصل بين الأدوار بالمسارات والواجهات (D-22). درجة الخطر النسبية في مسارات المدرّس وحدها.</text>
 <text x="600" y="878" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">البيضاوي البرتقالي: حالة مشتركة مضمَّنة؛ الرمادي: حالات الباحث (أوفلاين وتشغيلية).</text></svg>

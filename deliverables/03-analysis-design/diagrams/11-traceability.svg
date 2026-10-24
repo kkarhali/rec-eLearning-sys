@@ -150,7 +150,7 @@
 <line x1="330.0" y1="799" x2="302.0" y2="799" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
 <rect x="30.0" y="768" width="270" height="62" rx="8" fill="#fff" stroke="#6D28D9" stroke-width="1.3"/>
 <text x="165" y="794" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle" direction="rtl">test_splits،</text>
-<text x="165" y="814" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">test_contract_no_risk</text>
+<text x="165" y="814" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">test_contract_json</text>
 <rect x="1145.0" y="850" width="210" height="62" rx="8" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.3"/>
 <text x="1250" y="887" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1F2937" text-anchor="middle" direction="rtl">D-68 (الأداء)</text>
 <line x1="1145.0" y1="881" x2="1102.0" y2="881" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
@@ -165,5 +165,5 @@
 <text x="455" y="896" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="middle">backend/bench.py</text>
 <line x1="330.0" y1="881" x2="302.0" y2="881" stroke="#64748B" stroke-width="1.4" marker-end="url(#arr)"/>
 <rect x="30.0" y="850" width="270" height="62" rx="8" fill="#fff" stroke="#6D28D9" stroke-width="1.3"/>
-<text x="165" y="887" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">test_memo_matches_live *</text>
-<text x="700.0" y="946" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">* مخطط في هذه المرحلة؛ البقية موجودة (96 اختباراً في src/ml و34 في الخلفية). المصفوفة الكاملة في الجدول 19.</text></svg>
+<text x="165" y="887" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1F2937" text-anchor="middle">test_cluster_cache_matches_live</text>
+<text x="700.0" y="946" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">* مخطط في هذه المرحلة؛ البقية موجودة (106 اختبارات في src/ml و48 في الخلفية). المصفوفة الكاملة في الجدول 19.</text></svg>
