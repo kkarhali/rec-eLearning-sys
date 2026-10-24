@@ -13,7 +13,7 @@
 | 6 | Online Behavior Analysis-Based Student Profile for Intelligent E-Learning | Online Behavior Analysis-Based Student Profile for Intelligent E-Learning | Liang et al. — 2017 — J. Electrical and Computer Engineering |
 | 7 | A Hybrid Recommender System for an E-learning System2016 | CodERS: A Hybrid Recommender System for an E-learning System | Ansari et al. — 2016 — ICSPIS |
 | 8 | A Hybrid Recommender System Based on | A Hybrid Recommender System Based on User-Recommender Interaction | Zhang, Min, He, Xu — 2015 — Mathematical Problems in Engineering |
-| 9 | A HYBRID COLLABORATIVE RECOMMENDER SYSTEM | A Hybrid Collaborative Recommender System Based on User Profiles | Degemmis et al. — Univ. of Bari (سنة/وعاء يُتحقَّق) |
+| 9 | A HYBRID COLLABORATIVE RECOMMENDER SYSTEM | A Hybrid Collaborative Recommender System Based on User Profiles | Degemmis et al. — 2004 — ICEIS (مؤتمر) — Univ. of Bari |
 | 10 | S-0007 | Developing a Personalized E-Learning and MOOC Recommender System in IoT-Enabled Smart Education | Amin et al. — 2023 — IEEE Access |
 | 11 | S-0035 | Machine Learning-Based Recommendation System for E-Learning: A Personalized Approach Using Learner Behavior Analytics | Chandna, Kumar — 2026 — IJCISIM |
 | 12 | S-0042 | A Multi-Model Machine Learning Framework for Personalised Course Recommendation with Dynamic Feedback | Kshirsagar et al. — 2025 — African J. of Applied Research |
@@ -26,7 +26,7 @@
 | 19 | S-0107 | Enhanced Educational Recommendations via Feedback-Refined Learning-to-Rank with XGBoost | Chavhan et al. — 2026 — IJIEEB (MECS) |
 | 20 | S-0109 | A Hybrid Explainable Machine Learning Framework for Adaptive Recommendation in E-Learning Systems | Praveen et al. — 2026 — IJITIS |
 | 21 | S-0110 | Modeling and application of implicit feedback in personalized recommender systems | Li et al. — 2025 — Electronic Research Archive (AIMS) |
-| 22 | S-0111 | Research on MOOCs course recommendation system based on hybrid attention mechanism in frequency and time domain | Yuan et al. — 2025 — (وعاء يُتحقَّق) |
+| 22 | S-0111 | Research on MOOCs course recommendation system based on hybrid attention mechanism in frequency and time domain | Yuan et al. — 2025 — PLOS ONE |
 | 23 | S-0168 | Collaborative Evolution for User Profiling in Recommender Systems | Lu et al. — 2016 — IJCAI |
 | 24 | S-0420 | The Learning Behavior Analysis of Online Vocational Education Students and Learning Resource Recommendation Based on Big Data | Jia, Zhao — 2022 — iJET |
 | 25 | S-0455 | A Combined E-Learning Course Recommender System | Talaghzi et al. — 2023 — iJET |
@@ -38,8 +38,8 @@
 | 31 | S-0609 | Hierarchical Reinforcement Learning for Course Recommendation in MOOCs | Zhang et al. — 2019 — AAAI |
 | 32 | S-0618 | Bandit Learning with Implicit Feedback | Qi et al. — 2018 — NeurIPS |
 | 33 | S-0703 | Learning personalization in block-based programming languages using clustering and static code analysis | Person et al. — 2026 — Computers and Education Open |
-| 34 | S-0766 | Graph-Based Personalized Recommendation in Intelligent Educational Platforms: A Case Study in Engineering Education | Costa, Pinto, Gonçalves — (سنة/وعاء يُتحقَّق) |
+| 34 | S-0766 | Graph-Based Personalized Recommendation in Intelligent Educational Platforms: A Case Study in Engineering Education | Costa, Pinto, Gonçalves — 2025 — WEBIST (مؤتمر) |
 | 35 | S-0767 | HMSTNet: A Deep Learning Multimodal Approach for Personalized English Literature Recommendations | Wang, Liang — 2025 — IEEE Access |
 | 36 | S-0813 | Cognitive and behavioral neurology approaches to personalized Japanese language learning path recommendations | — 2026 — Frontiers in Psychology |
-| 37 | S-0836 | Personalized E-Learning Knowledge Graph-based Recommender System using Ensemble Attention Networks | Boubaker, Kodia, Ayadi — 2024 — MEDES (Springer) |
+| 37 | S-0836 | Personalized E-Learning Knowledge Graph-based Recommender System using Ensemble Attention Networks | Boubaker, Kodia, Ayadi — 2024 — MEDES (Springer CCIS) |
 | 38 | S-0848 | Enhancing personalized learning with deep learning in Saudi Arabian universities | Smirani, Yamani — 2024 — IJAAS |

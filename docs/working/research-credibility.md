@@ -1,0 +1,112 @@
+# تقرير مصداقية المراجع (38 مرجعاً)
+
+> **منهجية وقيود:** استُخرجت بيانات كل مرجع من ملف النص في `docs/working/reftext/` (DOI، ISSN، تواريخ Received/Accepted/Published، الوعاء). التحقق من الفهرسة والأرباع عبر WebSearch فقط، لأن مواقع Scimago وScopus وCrossref وIEEE محجوبة للجلب المباشر. **معظم أرباع Scimago وحالات Scopus الواردة هنا مصدرها مُجمِّعات ثانوية** (Editage، Journal Metrics، researcher.life، ScholarHub، MIAR)، ولم أجد لها تأكيداً من المصدر الأولي. لذلك يُعامَل كل ربع أو حالة فهرسة لم تُؤكَّد من مصدر أولي على أنها "تحتاج تحقق نهائي".
+
+> **الرموز:** ✅ موثوق | ⚠️ مقبول بحذر | ❌ مشكوك | ❓ لم يُتحقَّق
+
+## 1. الجدول الرئيسي
+
+| # | المرجع المختصر | الوعاء/الناشر | النوع | السنة | DOI (كما في الورقة) | ISSN | دليل التحكيم (Received/Accepted) | الفهرسة (Scopus/WoS/Quartile) حسب WebSearch | إشارات خطر | الحكم | السبب |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Kumar et al., Session-based Song Recommendation (RNN) | ورد في الفهرس: LNEE (Springer)؛ لم يتأكد من النص | مؤتمر (حسب ResearchGate في الـPDF) | 2022 | لا يوجد في النص | لم يرد | لا يوجد في النص | لم أجد الورقة في البحث؛ سلسلة LNEE مذكورة كمفهرسة في Scopus لكن لم أتحقق منها للورقة | عنوان ومؤلفون لا يظهرون في أي نتيجة بحث | ❓ | لا DOI ولا تحكيم في النص، والورقة غير موجودة في نتائج البحث |
+| 2 | Gao et al., Online Course Recommendation (Deep CNN) | Wireless Communications and Mobile Computing (Hindawi/Wiley) | مقال | 2022 | 10.1155/2022/9054149 | 1530-8669 | Received 11 May / Accepted 13 Jul 2022 ✔ | Scopus غير مؤكد (ScholarHub: 2001–2023)؛ حُذف من WoS في مارس 2023؛ أُغلق الوعاء | حذف من WoS (2023)، إغلاق الوعاء | ⚠️ | محكّم بتواريخ كاملة، لكن الوعاء فقد WoS وحالة Scopus الحالية غير واضحة |
+| 3 | Sabitha et al., User Interaction-Based RS | IASC (Tech Science Press) | مقال | 2022 | 10.32604/iasc.2022.018985 | لم يرد في النص | Received 28 Mar / Accepted 3 Jul 2021 ✔ | Scopus حسب Editage (مُجمِّع)؛ SJR Q3 (مُجمِّع) | لا | ⚠️ | مفهرس حسب مُجمِّع لا المصدر الأولي، والربع Q3 |
+| 4 | Huang et al., Adaptive Mechanism for Recommendation Ensemble | IEEE Access | مقال | 2019 | 10.1109/ACCESS.2019.2891561 | 2169-3536 | النص نسخة "accepted, not fully edited" ولا تواريخ مدرجة | Scopus ✔ (صفحة IEEE Bibliometrics)؛ Q1 لقطة قديمة (2021) | نسخة قبل التحرير، استشهد بالنسخة المنشورة | ✅ | IEEE Access مفهرس في Scopus حسب IEEE نفسها |
+| 5 | Chaudhary & Gupta, E-Learning RS (ML) | IJMEMS (Ram Arti Publishers) | مقال | 2019 | 10.33889/IJMEMS.2019.4.4-076 | 2455-7749 | Received 15 Sep 2018 / Accepted 4 Apr 2019 ✔ | Editage يذكر Scopus وWoS وDOAJ؛ SJR Q3 (مُجمِّع) | لم أجد إشارة افتراس، لكن لم أجد تأكيداً أولياً | ⚠️ | محكّم ومفهرس حسب مُجمِّع، والربع منخفض والمصدر ثانوي |
+| 6 | Liang et al., Online Behavior Analysis Student Profile | Journal of Electrical and Computer Engineering (Hindawi) | مقال | 2017 | 10.1155/2017/9720396 | 2090-0155 (السجل الدولي) | Received 15 Nov 2016 / Accepted 23 Feb 2017 / Published 13 Mar 2017 ✔ | سجل ISSN يذكر Scopus؛ لم أجد تأكيداً للحالة الحالية | ناشر Hindawi؛ لم أتحقق إن كانت المجلة ضمن قوائم 2023 | ⚠️ | محكّم وDOI سليم، لكن الفهرسة الحالية غير مؤكدة والناشر من مجموعة سُحبت من فهارس |
+| 7 | Ansari et al., CodERS hybrid RS | ICSPIS 2016 (IEEE) | مؤتمر | 2016 | لا يوجد في النص | ISBN 9781509058211 (من NDL) | لا يوجد في النص | IEEE ناشر حسب سجل NDL؛ لم أجد الصفحة على IEEE Xplore | لا DOI في النص | ⚠️ | مؤتمر IEEE موثّق في سجل NDL، لكن لا DOI ولم يُتحقق من Xplore |
+| 8 | Zhang et al., Hybrid RS based on User-Recommender Interaction | Mathematical Problems in Engineering (Hindawi) | مقال | 2015 | 10.1155/2015/145636 | 1024-123X | Received 8 Oct 2014 / Accepted 19 Dec 2014 ✔ | MIAR: Scopus (آخر تحديث 2024)؛ COBISS: تغطية حتى 2023 فقط؛ أُغلق للتقديم | إغلاق الوعاء؛ ضمن Hindawi | ⚠️ | محكّم وDOI سليم، والمجلة مغلقة للتقديم وحالة Scopus الحالية غير مؤكدة |
+| 9 | Degemmis et al., Hybrid Collaborative RS Based on User Profiles | **ICEIS 2004** (Sixth Int. Conf. on Enterprise Information Systems)، SciTePress | مؤتمر (ليس مجلة) | 2004 | 10.5220/0002638201620169 | لم يرد | لم يرد (مؤتمر) | لم أتحقق؛ إعلانات ICEIS تذكر نية الإرسال لـ Scopus وDBLP وليس تأكيداً | عمر الورقة أكثر من 20 سنة؛ اسم الوعاء في الفهرس ("Univ. of Bari") غير صحيح | ⚠️ | DOI سليم ومؤتمر محكّم، لكن الفهرسة غير مؤكدة ويجب تصحيح بيانات الوعاء |
+| 10 | Amin et al., Personalized E-Learning and MOOC RS in IoT | IEEE Access | مقال (نسخة مقبولة) | 2023 | 10.1109/ACCESS.2023.3336676 | 2169-3536 | النص نسخة "accepted, not fully edited" | Scopus ✔ (IEEE) | نسخة قبل التحرير | ✅ | IEEE Access مفهرس؛ استشهد بالنسخة المنشورة |
+| 11 | Chandna & Kumar, ML-Based RS for E-Learning | IJCISIM (Machine Intelligence Research Labs حسب مُجمِّع) | مقال | 2026 | 10.70917/ijcisim-2026-5377 (بادئة لم أستطع التحقق منها) | 2150-7988 | لا يوجد في النص | لم أجد الورقة؛ الوعاء له أرباع SJR Q3–Q4 لسنوات 2016–2023 (مُجمِّع)، وحالة Scopus الحالية غير مؤكدة | لم أجد أي أثر للورقة أو الـDOI على الويب | ❓ | لا تحقق من وجود الورقة ولا من DOI؛ يُتحقق قبل أي استشهاد |
+| 12 | Kshirsagar et al., Multi-Model ML for Course Recommendation | African Journal of Applied Research | مقال | 2025 | **https://doi.org/10.26437/ajar.v11 (غير مكتمل)** | 2408-7920 | Received 2 Jan / Peer reviewed 13 Apr / Revised 25 Aug / Published Oct 2025 ✔ | لم أجد أي ذكر للوعاء في نتائج البحث | DOI غير مكتمل في الورقة نفسها | ❌ | DOI المذكور لا يُشير إلى مقال محدد، ولم أجد الوعاء في أي مصدر |
+| 13 | Errakha et al., Context-Aware Hybrid Recommendation | IJACSA (SAI Organization) | مقال | 2026 | لا يوجد في النص | لم يرد | لم يرد (Vol. 17, No. 2, 2026) | الناشر يذكر أنه مفهرس في Scopus (تصريح ذاتي)؛ لا تحقق مستقل | لا DOI في النص | ⚠️ | وُجدت الورقة في فهرس thesai (Vol. 17 No. 2)، لكن فهرسة Scopus ذاتية ولا DOI |
+| 14 | Yang & Hao, English learning behaviour analysis and RS | IJCEELL (Inderscience) | مقال | 2026 | 10.1504/IJCEELL.2026.10077378 | 1560-4624 / 1741-5055 | Received 30 Jul 2025 / Accepted 29 Jan 2026 / Published 18 May 2026 ✔ | Scopus حسب SCImago (البيانات من Scopus)؛ SJR Q3 Education (مُجمِّع) | تعارض: مستودع Iscte (2020) يذكر عدم فهرسة WoS لمنشور بعينه | ✅ | DOI وتواريخ سليمة وناشر معروف؛ مفهرس في Scopus حسب SCImago |
+| 15 | Hybrid attribute-based RS for e-learning (cold start) | Frontiers in Computer Science | مقال | 2024 | 10.3389/fcomp.2024.1404391 | 2624-9898 | Received 21 Mar / Accepted 12 Aug / Published 9 Sep 2024 ✔ | Scopus حسب موقع الناشر؛ ESCI في WoS؛ لم أجد ربع Scopus | لا | ✅ | DOI وتواريخ وناشر معروف؛ الفهرسة بتصريح الناشر |
+| 16 | Joshi & Gupta, Personalized Web-Based E-Learning RS | IJRTE (Blue Eyes Intelligence Engineering) | مقال | 2020 | 10.35940/ijrte.F9991.059120 | 2277-3878 | Manuscript received 4 Apr / Published 30 May 2020 (بلا Accepted) | لم أجد تأكيداً لفهرسة Scopus الحالية | شقيق الناشر: IJEAT أُزيل من Scopus في 2019 (حسب نتيجة بحث دون رابط مباشر) | ⚠️ | محكّم بتواريخ وDOI، لكن الفهرسة الحالية غير مؤكدة والناشر له سجل إزالة في شقيقة |
+| 17 | Zriaa et al., Trace Learners Clustering for LO Recommendation | IJACSA | مقال | 2022 | لا يوجد في النص | لم يرد | لم يرد (Vol. 13, No. 6, 2022) | تصريح ذاتي بالفهرسة في Scopus؛ لا تحقق مستقل | لا DOI في النص | ⚠️ | الورقة موجودة في IJACSA؛ لا DOI ولا تحكيم في النص |
+| 18 | Dias & Wives, Recommender System for Learning Objects (MERLOT) | SBIE/CBIE (Brazilian Computer Society) | مؤتمر وطني | 2020 | 10.5753/cbie.sbie.2020.922 | لم يرد | لا يوجد في النص | لم أجد دليل فهرسة دولية | مؤتمر وطني البرازيل | ⚠️ | صيغة DOI لمؤتمر SBC سليمة، لكن لا دليل على فهرسة دولية |
+| 19 | Chavhan et al., Feedback-Refined LTR with XGBoost | IJIEEB (MECS Press) | مقال | 2026 | 10.5815/ijieeb.2026.04.12 | لم يرد | Received 10 Oct 2025 / Accepted 19 Dec 2025 ✔ | لم أجد أي دليل فهرسة | لم أجد إشارة افتراس ولا تأكيد | ❓ | لا نتيجة تحقق لا إيجاباً ولا سلباً؛ التحقق من Scopus مطلوب |
+| 20 | Praveen et al., Hybrid Explainable ML for Adaptive RS | IJITIS (EU Association of Talent under Liberty in Technology) | مقال | 2026 | 10.15157/IJITIS.2026.9.2.1445-1495 | 2613-7305 | Received 21 May / Revised 2 Jul / Accepted 22 Jul 2026 ✔ | لم أجد؛ المصدر الوحيد ملف تعريفي في SafetyLit | لم أجد إشارة افتراس ولا تأكيد فهرسة | ❓ | DOI وتحكيم في النص، لكن لا دليل على فهرسة أو مكانة الوعاء |
+| 21 | Li et al., Implicit Feedback in Personalized RS | Electronic Research Archive (AIMS Press) | مقال | 2025 | 10.3934/era.2025053 | 2473-6988 | Received 17 Dec 2024 / Accepted 17 Feb 2025 / Published 3 Mar 2025 ✔ | JCR Q1 Mathematics (مُجمِّع Journal Metrics)؛ Scopus غير مؤكد | لا | ⚠️ | محكّم ومفهرس في JCR حسب مُجمِّع، ولم يُتحقق من Scopus من مصدر أولي |
+| 22 | Yuan et al., MOOC RS with Hybrid Attention | **PLOS ONE** | مقال | 2025 | 10.1371/journal.pone.0338738 | لم يرد في النص | Received 12 Jun / Accepted 26 Nov / Published 30 Dec 2025 ✔ | Scopus وWoS (PLOS؛ مُجمِّع)؛ SCImago Q1 Multidisciplinary 2024 (مُجمِّع) | لا | ✅ | وعاء كبير مفهرس، DOI وتحكيم كاملان؛ يُصحَّح الفهرس (كان "يُتحقَّق") |
+| 23 | Lu et al., Collaborative Evolution for User Profiling | IJCAI-16 | مؤتمر | 2016 | لا يوجد في النص | — | — | مؤتمر CORE A* (ICORE2026) | لا | ✅ | مؤتمر دولي معروف (A*) |
+| 24 | Jia & Zhao, Learning Behavior Analysis of Vocational Students | iJET | مقال | 2022 | 10.3991/ijet.v17i20.34521 | 1863-0383 | لا تواريخ في النص | قائمة SCImago موجودة (مفهرسة)؛ SJR Q2 (Editage، سنة غير محددة) | لا | ✅ | DOI سليم ووعاء له قائمة SCImago؛ غياب تواريخ التحكيم في النص نقطة ضعف |
+| 25 | Talaghzi et al., Combined E-Learning Course RS | iJET | مقال | 2023 | 10.3991/ijet.v18i06.36987 | 1863-0383 | لا تواريخ في النص | كما في #24 | لا | ✅ | كما في #24 |
+| 26 | Mediani, Interactive Hybrid Recommendation of Pedagogical Resources | Ingénierie des Systèmes d'Information (IIETA) | مقال | 2022 | 10.18280/isi.270502 | 1633-1311 / 2116-7125 | Received 17 Apr / Accepted 30 Aug 2022 ✔ | Scopus حسب صفحات IIETA؛ CiteScore 2.5–2.6 | لا | ✅ | DOI وتواريخ سليمة؛ الفهرسة بتصريح الناشر |
+| 27 | Nafea et al., LO Recommendation with Felder-Silverman | IEEE Access | مقال | 2019 | 10.1109/ACCESS.2019.2935417 | 2169-3536 | Received 2 Jul / Accepted 3 Aug 2019 ✔ | Scopus ✔ (IEEE) | لا | ✅ | IEEE Access مفهرس؛ DOI وتواريخ سليمة |
+| 28 | Zhu et al., Group-Oriented Recommendation Algorithm | IEEE Access | مقال | 2018 | 10.1109/ACCESS.2018.2856753 | 2169-3536 | Received 22 May / Accepted 6 Jul 2018 ✔ | Scopus ✔ (IEEE) | لا | ✅ | كما في #27 |
+| 29 | Rahman & Abdullah, Group-Based RS for Web Search | IEEE Access | مقال | 2018 | 10.1109/ACCESS.2018.2850376 | 2169-3536 | Received 29 Mar / Accepted 13 Jun 2018 ✔ | Scopus ✔ (IEEE) | لا | ✅ | كما في #27 |
+| 30 | Sergis & Sampson, LO Recommendations for Teachers | IEEE Transactions on Learning Technologies | مقال | 2016 | لم يظهر في النص المستخرج (يُضاف من IEEE) | 1939-1382 | Received 5 Jan / Revised 20 Apr / Accepted 2 May 2015 ✔ | مفهرس في Scopus؛ Q1 Education (مُجمِّع)؛ CiteScore 7.4–7.5 (مُجمِّعات) | لا | ✅ | من أعلى أوعية التعليم التقني؛ DOI يُستكمل من IEEE |
+| 31 | Zhang et al., Hierarchical RL for Course Recommendation in MOOCs | AAAI-19 | مؤتمر | 2019 | لا يوجد في النص | — | — | مؤتمر CORE A* | لا | ✅ | مؤتمر معروف (A*) |
+| 32 | Qi et al., Bandit Learning with Implicit Feedback | NeurIPS 2018 | مؤتمر | 2018 | لا يوجد في النص | — | — | مؤتمر CORE A* | لا | ✅ | مؤتمر معروف (A*) |
+| 33 | Person et al., Learning personalization in block-based programming | Computers and Education Open (Elsevier) | مقال | 2026 | 10.1016/j.caeo.2026.100333 | 2666-5573 | Received 29 May 2025 / Revised 8 Jan / Accepted 13 Jan 2026 ✔ | JCR Q1 (مُجمِّع)؛ حالة Scopus لم تُؤكَّد من مصدر أولي | لا | ✅ | ناشر Elsevier، DOI وتحكيم كاملان، مفهرس في WoS حسب JCR |
+| 34 | Costa, Pinto & Gonçalves, Graph-Based Personalized RS | WEBIST 2025 (SCITEPRESS) | مؤتمر | 2025 | 10.5220/0013830200003985 | 2184-3252 | لا يوجد في النص | الإعلان ينص على نية الإرسال لـ Scopus وDBLP؛ لا تأكيد للفهرسة الفعلية | لا | ⚠️ | DOI SCITEPRESS صالح، لكن الفهرسة غير مؤكدة |
+| 35 | Wang & Liang, HMSTNet Multimodal English Literature RS | IEEE Access | مقال | 2025 | 10.1109/ACCESS.2025.3564677 | 2169-3536 | Received 22 Mar / Accepted 23 Apr 2025 ✔ | Scopus ✔ (IEEE) | لا | ✅ | IEEE Access مفهرس؛ DOI وتواريخ سليمة |
+| 36 | Cognitive and behavioral neurology approaches to Japanese language learning path RS | Frontiers in Psychology | مقال | 2026 | 10.3389/fpsyg.2026.1750189 | 1664-1078 | Received 19 Nov 2025 / Accepted 29 Jun / Published 31 Jul 2026 ✔ | Scopus (سجل ISSN)؛ SCImago Q2 Psychology misc (مُجمِّع) | ادعاء الدقة (89.12%) على مجموعة "Cognitive Patterns" لم أتحقق منها | ✅ | الوعاء موثوق، لكن الأرقام المحورية تحتاج تحقق من مجموعة البيانات قبل الاستشهاد بها |
+| 37 | Boubaker, Kodia & Ayadi, Knowledge Graph RS with Ensemble Attention | MEDES 2024 (Springer، سلسلة CCIS) | مؤتمر | 2024 | 10.1007/978-3-031-93598-5_7 (من استشهاد HAL في النص) | لم يرد | لا يوجد في النص | CCIS (حسب CFP)؛ لم أجد تأكيداً لفهرسة Scopus | النسخة في الـPDF من HAL (preprint) وليست نسخة الناشر | ⚠️ | ناشر Springer ومؤتمر دولي، لكن الفهرسة غير مؤكدة ونسخة preprint |
+| 38 | Smirani & Yamani, Personalized learning with DL in Saudi universities | IJAAS (Science-Gate) | مقال | 2024 | 10.21833/ijaas.2024.07.018 | لم يرد في النص (سجل ISSN 2313-3724) | Received 19 Mar / Accepted 10 Jul 2024 ✔ | Scopus حسب سجل ISSN (مُجمِّع)؛ لم أتحقق من الموقع الأولي | اسم مشابه لوعاء IAES IJAAS (ISSN 2722-2594) وهو ملتبس | ⚠️ | مفهرس حسب سجل ISSN لا المصدر، واسم الوعاء ملتبس مع IAES |
+
+## 2. الأوعية المميزة ونتائج البحث عنها
+
+| الوعاء | المراجع | نتيجة البحث | الحكم | المصدر الذي اعتمدت عليه |
+|---|---|---|---|---|
+| IEEE Access | 4، 10، 27، 28، 29، 35 | مفهرس في Scopus و Inspec و Ei؛ Q1 لقطة قديمة (2021)؛ SJR 0.849 (2024) | ✅ | https://ieeeaccess.ieee.org/about/bibliometrics/ |
+| IJCAI / AAAI / NeurIPS | 23، 31، 32 | مؤتمرات A* في CORE | ✅ | https://portal.core.edu.au/conf-ranks/1313/ (ICORE2026)، وسطر CORE في مسح 2025 (arxiv.org/pdf/2512.04448) |
+| PLOS ONE | 22 | Scopus وWoS؛ SCImago Q1 Multidisciplinary (2024، مُجمِّع) | ✅ | https://manusights.com/blog/plos-one-sjr-scopus-metrics |
+| IEEE Transactions on Learning Technologies | 30 | Q1 Education؛ CiteScore 7.4–8.1 (مُجمِّعات) | ✅ | https://www.editage.com/research-solutions/journal/ieee-transactions-on-learning-technologies/4332 |
+| Computers and Education Open | 33 | JCR Q1 (2026، مُجمِّع)؛ Scopus غير مؤكد | ✅ | https://www.journalmetrics.org/journal/computers-and-education-open |
+| Frontiers in Psychology | 36 | Scopus (سجل ISSN)؛ SCImago Q2 psychology misc (مُجمِّع) | ✅ | https://issn.org/resource/issn/1664-1078 ؛ https://www.journalmetrics.org/journal/frontiers-in-psychology |
+| Frontiers in Computer Science | 15 | Scopus وWoS ESCI بتصريح الناشر؛ لم أجد ربع Scopus | ✅ | https://www.frontiersin.org/journals/computer-science/about |
+| IJCEELL (Inderscience) | 14 | Scopus حسب SCImago؛ SJR Q3 Education (مُجمِّع) | ✅ | https://www.scimagojr.com/journalsearch.php?q=15604624 |
+| iJET | 24، 25 | قائمة SCImago موجودة (ISSN 1863-0383)؛ SJR Q2 (Editage، سنة غير محددة) | ✅ | https://www.scimagojr.com/journalsearch.php?q=18630383 ؛ https://www.editage.com/research-solutions/journal/international-journal-of-emerging-technologies-in-learning-ijet/14849 |
+| ISI (IIETA) | 26 | Scopus حسب صفحات IIETA؛ CiteScore 2.5–2.6 | ✅ | https://www.iieta.org/Journals/ISI |
+| Electronic Research Archive (AIMS) | 21 | JCR Q1 Math (مُجمِّع)؛ Scopus غير مؤكد | ⚠️ | https://www.journalmetrics.org/journal/electronic-research-archive |
+| IJMEMS (Ram Arti) | 5 | Scopus وWoS (Editage)؛ SJR Q3 Engineering (مُجمِّع) | ⚠️ | https://www.editage.com/research-solutions/journal/international-journal-of-mathematical-engineering-and-management-sciences/14999 |
+| IASC (Tech Science Press) | 3 | Scopus (Editage)؛ SJR Q3 (مُجمِّع) | ⚠️ | https://www.editage.com/research-solutions/journal/intelligent-automation-soft-computing/7814 |
+| Wireless Communications and Mobile Computing (Hindawi/Wiley) | 2 | حُذف من WoS في مارس 2023؛ Scopus حتى 2023 (مُجمِّع)؛ أُغلق | ⚠️ | https://retractionwatch.com/2023/03/21/nearly-20-hindawi-journals-delisted-from-leading-index-amid-concerns-of-papermill-activity ؛ https://scholarhub.vn/publisher/Wireless-Communications-and-Mobile-Computing/3ec31e8b-349d-43e2-af67-c0e3615fca03 |
+| Mathematical Problems in Engineering (Hindawi) | 8 | MIAR: Scopus (آخر تحديث 2024)؛ COBISS: تغطية حتى 2023؛ مغلق للتقديم | ⚠️ | https://miar.ub.edu/issn/1024-123X ؛ https://plus.cobiss.net/cobiss/si/en/bib/12769113 |
+| Journal of Electrical and Computer Engineering (Hindawi) | 6 | سجل ISSN يذكر Scopus؛ لم أجد تأكيداً للحالة الحالية | ⚠️ | https://keepers.issn.org/resource/ISSN/2090-0155 |
+| IJACSA (SAI) | 13، 17 | تصريح ذاتي بالفهرسة في Scopus؛ لم أجد تأكيداً مستقلاً ولا إزالة | ⚠️ | https://thesai.org/Publications/GIDP |
+| IJRTE (Blue Eyes) | 16 | لم أجد تأكيداً لفهرسة حالية؛ شقيقة IJEAT أُزيلت من Scopus 2019 (نتيجة بحث بلا رابط مباشر) | ⚠️ | لا رابط مباشر؛ انظر أيضاً https://f1000research.com/articles/9-415/v1 (سياق الإزالات) |
+| IJAAS (Science-Gate) | 38 | Scopus حسب سجل ISSN 2313-3724؛ اسم ملتبس مع IAES IJAAS | ⚠️ | https://keepers.issn.org/resource/ISSN/2313-3724 |
+| SBIE/CBIE (SBC) | 18 | مؤتمر وطني؛ Anais على sol.sbc.org.br؛ لم أجد فهرسة دولية | ⚠️ | https://sol.sbc.org.br/index.php/sbie/issue/view/1194 |
+| WEBIST 2025 (SCITEPRESS) | 34 | نية الإرسال لـ Scopus وDBLP فقط (إعلانات CFP) | ⚠️ | https://www.heysuccess.com/opportunity/WEBIST-2021-17th-International-Conference-on-Web-Information-Systems-and-Technologies-16239 (CFP 2021) |
+| ICEIS 2004 (SciTePress) | 9 | نية الإرسال لـ Scopus وDBLP (إعلانات CFP 2015–2019) فقط | ⚠️ | https://lists.aisnet.org/pipermail/aisworld_lists.aisnet.org/20181016/031925.html |
+| ICSPIS 2016 (IEEE) | 7 | IEEE ناشر حسب NDL، ISBN 9781509058211 | ⚠️ | https://ndlsearch.ndl.go.jp/books/R100000002-I028579236 |
+| MEDES 2024 (Springer CCIS) | 37 | ناشر Springer، سلسلة CCIS (ليس LNCS)، مجلد 2518؛ الفهرسة لم تُؤكَّد | ⚠️ | https://link.springer.com/book/9783031935978 ؛ https://dbjapan.dbsj.org/mailman3/hyperkitty/list/dbjapan@dbsj.org/message/POFNKCNCXSNT3FWKDIL5NKEZAMB5M3MG/attachment/4/MEDES2024cfp.pdf |
+| IJIEEB (MECS Press) | 19 | لم أجد أي دليل فهرسة أو إشارة افتراس | ❓ | لا نتيجة مفيدة |
+| IJITIS | 20 | لم أجد فهرسة؛ الملف التعريفي فقط | ❓ | https://safetylit.org/week/journalpage.php?jid=26685 |
+| African Journal of Applied Research | 12 | لم أجد أي ذكر للوعاء | ❓ (والمرجع ❌ لـ DOI غير مكتمل) | لا نتيجة مفيدة |
+| IJCISIM | 11 | SJR Q3–Q4 لسنوات 2016–2023 (مُجمِّع)؛ لم أجد الورقة | ❓ | https://iit.comillas.edu/publicacion/info_revista/en/810/International%20Journal%20of%20Computer%20Information%20Systems%20and%20Industrial%20Management%20Applications |
+| LNEE (Springer) | 1 | سلسلة Springer مذكورة كمفهرسة في Scopus في حقوق نشر مجلدات 2022–2024 | ✅ للسلسلة، ❓ للورقة | https://content.e-bookshelf.de/media/reading/L-24529821-e10aece492.pdf (ليس الناشر الأصلي) |
+
+## 3. ملخص إحصائي
+
+- **المجموع: 38**
+- ✅ موثوق: **18** (#4، 10، 14، 15، 22، 23، 24، 25، 26، 27، 28، 29، 30، 31، 32، 33، 35، 36)
+- ⚠️ مقبول بحذر: **15** (#2، 3، 5، 6، 7، 8، 9، 13، 16، 17، 18، 21، 34، 37، 38)
+- ❌ مشكوك: **1** (#12)
+- ❓ لم يُتحقَّق: **4** (#1، 11، 19، 20)
+
+### تصحيحات لفهرس المراجع (`references-index.md`)
+- **#9:** الوعاء الصحيح هو **ICEIS 2004** (مؤتمر)، وليس "Univ. of Bari" (جهة الانتماء).
+- **#12:** الـDOI المذكور في الورقة (`10.26437/ajar.v11`) غير مكتمل.
+- **#22:** الوعاء هو **PLOS ONE** وليس "يُتحقَّق".
+- **#34:** الوعاء **WEBIST 2025** (مؤتمر SCITEPRESS، DOI 10.5220/...).
+- **#37:** السلسلة **CCIS** وليس LNCS.
+- **#1:** ادعاء "LNEE vol. 997" غير مؤكد من النص ولم أجد الورقة.
+- **#11:** بادئة DOI (10.70917) لم أستطع التحقق منها.
+- **#19 و#20:** وعاءان لم أجد لهما أي دليل فهرسة؛ التواريخ موجودة في النص.
+
+### المراجع التي يجب على الفريق الحذر عند الاستناد إليها
+- **أشد الخطر:** #12 (DOI غير صالح)، #11 (ورقة غير موجودة على الويب)، #1 (ورقة غير موجودة على الويب)، #19 و#20 (وعاءان غير مُتحقَّقين).
+- **وعاءات أُغلقت أو فقدت الفهرسة:** #2 و#8 (Hindawi/Wiley؛ أُغلقا)، #6 (Hindawi)، #16 (شقيق IJEAT أُزيل من Scopus).
+- **وعاءات تعتمد على تصريح ذاتي أو مُجمِّع:** #13 و#17 (IJACSA)، #38 (التباس الاسم مع IAES).
+- **مراجع ذات أرقام تحتاج تحقق من مجموعة البيانات:** #36 (ادعاء 89.12% على "Cognitive Patterns").
+
+### توصية
+- **للفجوة البحثية (أساس الاستدلال):** استخدم فقط مراجع ✅ من الأوعية الكبيرة والمؤتمرات A*: IEEE Access (#4، 10، 27، 28، 29، 35)، IEEE TLT (#30)، PLOS ONE (#22)، Computers and Education Open (#33)، IJCAI/AAAI/NeurIPS (#23، 31، 32)، ومنها iJET وISI وIJCEELL (#14، 24، 25، 26) بعد التحقق من حالة الفهرسة الحالية لأنها مبنية على سجلات ومُجمِّعات.
+- **الاستشهاد بحذر (خلفية فقط، مع ذكر التحفظ):** المراجع ⚠️ جميعها، خاصة #2، 6، 8 (Hindawi المغلقة) و#16 و#13 و#17 و#34 و#37.
+- **عدم الاستشهاد كأساس:** #12 (DOI غير صالح)، وكل مرجع ❓ (#1، 11، 19، 20) حتى يُتحقق من وجودها.
+- **قبل الاعتماد النهائي:** التحقق من أرباع Scopus وحالة الفهرسة من موقع Scimago وScopus Sources مباشرة، لأنها هنا مستمدة من مُجمِّعات.
