@@ -1,0 +1,12 @@
+comparison,n,mean,ci_lo,ci_hi,degenerate,n_degenerate,pct_lo,pct_hi,p,status
+"H4-a secondary M2 − M1 (AUC, day 56)",13.000000,0.064274,0.040309,0.079093,False,0.000000,0.048633,0.078812,0.000244,
+"H4-a secondary M2 − M0 (AUC, day 56)",13.000000,0.072534,0.052538,0.088130,False,0.000000,0.057175,0.087202,0.000244,
+"H4-a secondary CART_M2 − M0 (AUC, day 56)",13.000000,0.049941,0.033452,0.066247,False,0.000000,0.035939,0.064437,0.000488,
+"H4-a secondary M1 − M0 (AUC, day 28)",13.000000,0.002418,-0.002128,0.008388,False,0.000000,-0.001754,0.007017,0.317383,
+"H4-a secondary M1 − M0 (AUC, day 112)",13.000000,0.011046,0.000026,0.024410,False,0.000000,0.000911,0.021873,0.066406,
+"H4-a CCC unseen-course slice, CART_M2 mean AUC",2.000000,0.798924,,,,,,,,
+"H4-a CCC unseen-course slice, M0 mean AUC",2.000000,0.721433,,,,,,,,
+"H4-a CCC unseen-course slice, M1 mean AUC",2.000000,0.732964,,,,,,,,
+"H4-a CCC unseen-course slice, M2 mean AUC",2.000000,0.822612,,,,,,,,
+"H4-a CCC unseen-course slice, majority mean AUC",2.000000,0.500000,,,,,,,,
+H2-b,,,,,,,,,,not applicable by construction (D-59)

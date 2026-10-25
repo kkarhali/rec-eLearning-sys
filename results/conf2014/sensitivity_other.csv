@@ -1,0 +1,17 @@
+analysis,hypothesis,n_units,n,mean,ci_lo,ci_hi,degenerate,n_degenerate,pct_lo,pct_hi,p
+"course-level bootstrap (robustness, D-31)",H1,7,7.000000,0.001610,-0.019650,0.042992,False,1.000000,-0.015862,0.021383,0.906250
+"course-level bootstrap (robustness, D-31)",H2-a,7,7.000000,0.051307,0.031489,0.080129,False,1.000000,0.035533,0.068289,0.015625
+"course-level bootstrap (robustness, D-31)",H3,7,7.000000,-0.007093,-0.038894,0.022171,False,1.000000,-0.029472,0.014637,0.578125
+"course-level bootstrap (robustness, D-31)",H4-a,7,7.000000,0.007761,-0.001138,0.015576,False,1.000000,0.001250,0.014226,0.078125
+"nominal floor (D-51), H1 pair",H1,13,13.000000,-0.001273,-0.017995,0.018679,False,0.000000,-0.016418,0.014278,0.875977
+H4-a full training,H4-a,13,13.000000,0.008592,0.002486,0.014504,False,0.000000,0.003441,0.013775,0.010010
+H4-a deployable training,H4-a,13,13.000000,0.006972,-0.000042,0.013427,False,0.000000,0.001153,0.012756,0.043457
+origin t = 70 alone (descriptive),H1,13,,-0.004024,,,,,,,
+origin t = 126 alone (descriptive),H1,13,,-0.006287,,,,,,,
+origin t = 182 alone (descriptive),H1,13,,0.008603,,,,,,,
+origin t = 70 alone (descriptive),H2-a,13,,0.044518,,,,,,,
+origin t = 126 alone (descriptive),H2-a,13,,0.055547,,,,,,,
+origin t = 182 alone (descriptive),H2-a,13,,0.048986,,,,,,,
+origin t = 70 alone (descriptive),H3,13,,0.036838,,,,,,,
+origin t = 126 alone (descriptive),H3,13,,-0.014497,,,,,,,
+origin t = 182 alone (descriptive),H3,13,,-0.052462,,,,,,,
