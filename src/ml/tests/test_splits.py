@@ -154,7 +154,7 @@ class TestConfirmatoryIdRead(unittest.TestCase):
                                  "id_student": [1, 2, 3]})[list(usecols)]
         with tempfile.TemporaryDirectory() as d:
             log = Path(d) / "access_log.jsonl"
-            ids = data.confirmatory_student_ids(log_path=log, reader=fake_reader)
+            ids = data.confirmatory_student_ids("risk_final", log_path=log, reader=fake_reader)
             recs = [json.loads(x) for x in log.read_text().strip().splitlines()]
         self.assertEqual([r["event"] for r in recs], ["attempt", "success"])     # N3
         rec = recs[-1]
@@ -163,6 +163,7 @@ class TestConfirmatoryIdRead(unittest.TestCase):
         self.assertEqual(calls, [("studentRegistration.csv", ("code_module", "code_presentation", "id_student"), {})])
         self.assertEqual(rec["columns"], ["code_module", "code_presentation", "id_student"])
         self.assertEqual(rec["n_ids"], 2)
+        self.assertEqual({r["purpose"] for r in recs}, {"risk_final"})              # D-76: purpose logged per call
         for k in ("time", "md5", "commit"):
             self.assertIn(k, rec)
 
@@ -178,9 +179,77 @@ class TestConfirmatoryIdRead(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             log = Path(d) / "access_log.jsonl"
             with self.assertRaises(RuntimeError):
-                data.confirmatory_student_ids(log_path=log, reader=leaky_reader)
+                data.confirmatory_student_ids("learner_analysis", log_path=log, reader=leaky_reader)
             events = [json.loads(x)["event"] for x in log.read_text().strip().splitlines()]
         self.assertEqual(events, ["attempt", "failure"])
+
+    def test_purpose_whitelist(self):
+        """D-76: purpose is mandatory and whitelisted; anything else raises before any read or log line."""
+        import tempfile
+        from pathlib import Path
+        read = []
+
+        def reader(path, usecols=None, **kw):
+            read.append(path)
+            return pd.DataFrame({c: [] for c in usecols})
+        with tempfile.TemporaryDirectory() as d:
+            log = Path(d) / "access_log.jsonl"
+            for bad in ("serving", "clustering", "recommend", "analysis_2014", "", None, "RISK_FINAL"):
+                with self.assertRaises(ValueError, msg=repr(bad)):
+                    data.confirmatory_student_ids(bad, log_path=log, reader=reader)
+            with self.assertRaises(TypeError):
+                data.confirmatory_student_ids(log_path=log, reader=reader)          # no default purpose
+            self.assertFalse(log.exists())
+            self.assertEqual(read, [])
+            for ok in data.CONFIRMATORY_ID_PURPOSES:
+                data.confirmatory_student_ids(ok, log_path=log, reader=reader)
+        self.assertEqual(len(read), 4)
+
+    def test_ids_only_filter_2013_risk_training(self):
+        """D-76 negative test: the ids are used only in the four whitelisted functions (literal purpose = module),
+        never in serving, recommendation, clustering, the backend or the 2014 analysis; in run_confirmatory.h4a they
+        touch only the 2013 training table (dfd), never the scored table (dft)."""
+        import ast
+        from pathlib import Path
+        root = Path(data.__file__).resolve().parents[1]                   # src/
+        allowed = {("build_artifacts", "build_learner_models"), ("run_confirmatory", "h4a"),
+                   ("risk_final", "main"), ("learner_analysis", "main")}
+        found = set()
+        for p in root.rglob("*.py"):
+            if "tests" in p.parts or p.name == "data.py":
+                continue
+            src = p.read_text(encoding="utf-8")
+            tree = ast.parse(src)
+            parents = {}
+            for node in ast.walk(tree):
+                for ch in ast.iter_child_nodes(node):
+                    parents[ch] = node
+            for node in ast.walk(tree):
+                name = getattr(node, "attr", None) if isinstance(node, ast.Attribute) else getattr(node, "id", None)
+                if name not in ("confirmatory_student_ids", "CONFIRMATORY_ID_PURPOSES"):
+                    continue
+                fn = node
+                while fn in parents and not isinstance(fn, ast.FunctionDef):
+                    fn = parents[fn]
+                key = (p.stem, getattr(fn, "name", "<module>"))
+                self.assertIn(key, allowed, f"ids referenced outside the D-76 whitelist: {p}:{node.lineno}")
+                call = parents.get(node)
+                self.assertIsInstance(call, ast.Call)
+                self.assertEqual([a.value for a in call.args if isinstance(a, ast.Constant)], [p.stem])
+                found.add(key)
+                if p.stem != "run_confirmatory":
+                    self.assertNotIn("allow_confirmatory=True", src, p)    # 2013-only modules
+                    self.assertNotIn('"conf"', src, p)
+        self.assertEqual(found, allowed)
+        rc = (root / "ml" / "experiments" / "run_confirmatory.py").read_text(encoding="utf-8")
+        h4a = next(n for n in ast.walk(ast.parse(rc)) if isinstance(n, ast.FunctionDef) and n.name == "h4a")
+        for st in ast.walk(h4a):
+            if isinstance(st, (ast.Assign, ast.Expr, ast.AugAssign)):
+                names = {n.id for n in ast.walk(st) if isinstance(n, ast.Name)}
+                if "overlap" in names and not any(isinstance(t, ast.Name) and t.id == "overlap"
+                                                  for t in getattr(st, "targets", [])):
+                    self.assertIn("dfd", names, ast.unparse(st))
+                    self.assertNotIn("dft", names, ast.unparse(st))
 
     def test_rest_of_barrier_intact(self):
         """N1: no public loader returns a 2014 row before the freeze; confirmatory roles need permission."""

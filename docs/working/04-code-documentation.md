@@ -639,26 +639,26 @@ python3 scripts/build_docx.py "deliverables/04-code-documentation/توثيق-ا�
 | ML: الخدمة | `test_serving.py` | 13 | الخطة قبل أول قطع، عدم استعمال المستقبل، fold-in، الملف والنظرة العامة، رفض 2014 وFR-40، العنقدة المخزَّنة، الخطر |
 | ML: الإشارة | `test_signals.py` | 7 | الجدول 8، تداخل المستويات، وسيط النوع من التدريب وحده، الثقة الثنائية |
 | ML: التقسيم | `test_splits.py` | 14 | النوافذ والتسرب، الكتالوج، المهمتان، مفاتيح التعادل، حاجز 2014، قراءة D-47 |
-| ML: التجميد | `test_confirmatory.py` | 5 | حراس `run_confirmatory`، تدقيق قراءة 2014، جدول الأحكام وH3 المتعذرة، التدريب القابل للنشر |
-| **مجموع ML** | `python3 -m unittest discover -s src/ml/tests` | **108** | ناجحة، ≈ 5 ثوانٍ، بلا البيانات الخام |
+| ML: التجميد | `test_confirmatory.py` | 11 | حراس `run_confirmatory` و`verify_lock`، تدقيق قراءة 2014، جدول الأحكام وH3 المتعذرة، التدريب القابل للنشر |
+| **مجموع ML** | `python3 -m unittest discover -s src/ml/tests` | **114** | ناجحة، ≈ 4 ثوانٍ، بلا البيانات الخام |
 | الخلفية: العقد | `test_contract_no_risk.py` | 6 | نماذج المتعلم بلا خطر ولا عنقود ولا سمات حساسة، لا `outcome`، `provenance` في `PROVENANCE_MODELS` |
 | الخلفية: الأخطاء والثابت | `test_static_errors.py` | 9 | الصحة، 404، 405، 409 لـ2014 على كل المسارات، 422، `--no-instructor`، الجذر يخدم `index.html` |
 | الخلفية: النصوص | `test_text.py` | 7 | صيغ العدد العربية وحذف أرقام القرارات من نصوص المستخدم (بلا بيانات) |
 | الخلفية: صيغ الواجهة | `test_labels_js.py` | 2 | تشغيل `labels.js` المبني بـnode ومقارنة `countAr` و`fmt` (تُتخطّى إن غاب node أو `dist/`) |
 | الخلفية: JSON المسلسَل | `test_contract_json.py` | 6 | D-70: لا مفاتيح محظورة في JSON المتعلم، التسجيلات بلا `date_unregistration` و`final_result`، تسمية دليل C7، قائمة بيضاء للمدرّس |
 | الخلفية: الحي | `test_api_live.py` | 22 | العقود مقابل mock، المنطق، التطابق مع `Engine`، الأداء بعد التسخين (تحتاج البيانات) |
-| **مجموع الخلفية** | `python3 -m unittest discover -s src/backend/tests -t .` | **52** | ناجحة، ≈ 120 ثانية |
+| **مجموع الخلفية** | `python3 -m unittest discover -s src/backend/tests -t .` | **52** | ناجحة، ≈ 24-120 ثانية (بحسب العنقدة المخزَّنة) |
 | الواجهة | `tsc --noEmit -p tsconfig.json` | — | فحص أنواع strict؛ خرج 0. لا اختبارات DOM آلية |
 
 ## 7.2 المخرجات المسجَّلة وقت الكتابة
 
 ```
 $ python3 -m unittest discover -s src/ml/tests
-Ran 108 tests in 5.221s       OK
+Ran 114 tests in 4.190s       OK
 $ python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors
 Ran 15 tests in 0.111s        OK        (السريعة، بلا بيانات)
 $ python3 -m unittest discover -s src/backend/tests -t .
-Ran 52 tests in 120.762s      OK
+Ran 52 tests in 24.001s       OK
 $ python3 -m unittest discover -s src/backend/tests
 Ran 18 tests ... FAILED (errors=3)      (بلا -t . : خطأ استيراد نسبي)
 $ cd src/frontend && npx tsc --noEmit        # exit code 0
@@ -730,6 +730,10 @@ freeze03_config.json  d80ad472e015da8f190fb96e0b761aa0726d435aabb940758166447d9e
 | `reproduce_dev.py` | الأمر الواحد مع `repro_diff.md` (§2.4) |
 | `run_confirmatory.py` | مشغّل E10 بحراسه وطوريه وقفله والتشغيل الجاف (أدناه) |
 | `risk_final.py` | `results/frozen/risk_final.json`: M0 وM1 وM2 وCART لكل قطع؛ λ = 0.001 لـM0 وM2 و0.01 لـM1، وCART بعمق 4 وحد أدنى للورقة 100؛ وعتبات Youden عند 56: 0.4744 و0.4557 و0.4074 (D-58) |
+
+**إضافات `run_confirmatory` الأخيرة (في الكود):** `verify_lock(out, tag, dry)` قبل الطور 2 (وعند `--phase 2` وحده): يطابق SHA-256 لـ`verdicts.csv` و`verdicts.md` مع `LOCK`، ويشترط أن commit الـLOCK هو HEAD، وأن HEAD هو الوسم في الوضع التأكيدي؛ ومقارنة MD5 للملفات الخام بالقيمة المجمَّدة في `freeze03_config.json` مع تسجيلها في `log_full_read`؛ وفرع H4-أ المجمَّد في التشغيل الجاف (`h4a_frozen_branch.csv`)؛ وتسجيل `guard_rehearsal` و`audit_2014` و`path_checks` في `run_meta.json`.
+
+**قرارات اجتماع الإشراف 06 (`meeting-06-freeze-gate.md`) وحالتها في الكود وقت الكتابة:** **D-75** (الاستئناف المأذون: LOCK في آخر الطور 1 يغطي كل نواتجه؛ استثناء `access_log.jsonl` بشرط الإلحاق فقط و`conf2014_aborted_*` من حارس الشجرة النظيفة؛ العلم `--resume` بثلاث حالات: غياب LOCK ينقل المجلد إلى `conf2014_aborted_<n>/` ويعيد الطور 1، ووجوده بتطابق البصمات يعيد الطور 2، وأي اختلاف يوقف الأمر؛ تسجيل كل استئناف في `deviations.md`؛ والخلل البرمجي يُصلح بأصغر تعديل ويُوسم `freeze-03.1`) و**D-76** (`purpose` إلزامي من قائمة بيضاء بأربع قيم في `confirmatory_student_ids`، لمواضعها الأربعة: `learner_analysis` و`risk_final` و`run_confirmatory` و`build_artifacts`، مع تسجيل لكل استدعاء واختبار سلبي) **قيد التنفيذ ولم تظهر بعد في الشيفرة** (لا `--resume` في `argparse`، و`purpose` في `data.py` نص ثابت): **تُستكمل بعد التنفيذ**. و**D-77**: رموز القرارات تبقى في الكود وREADME والوثائق التقنية وتُحذف من الواجهة والدليل (`test_text.py`).
 
 **قائمة الشروط المولَّدة** (`results/frozen/freeze_checklist.md`، 2026-10-25): **6 من 10 مستوفاة**.
 
