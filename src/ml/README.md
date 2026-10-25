@@ -202,7 +202,7 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
   وحده، ش5)، و`dirty_paths` (النطاق المحروس).
 - **`freeze03_config.json`:** حقلا `date` و`git_commit_when_written` يُعاد كتابتهما في كل `reproduce_dev`، فتتغير بصمته
   (محجوبان في `repro_diff.md`؛ والحراس يفحصون بصمات الملفات الثلاثة المجمَّدة وMD5 الخام لا بصمته). بصمته بعد `reproduce_dev`
-  النهائي (نسخة الوسم ما لم يُعَد التشغيل): `b1981f1fc46aec268265eedc852862bda10927127c41a4326787aac45bc54580`.
+  النهائي على `865e5ce` (نسخة الوسم ما لم يُعَد التشغيل): `aba1545671bc73a5314043a67c323494f94ec54c30e2e10dd33051fcf5b090cf`.
 - **D-80 بتعديل D-84:** فحص ش8 هو السطر الحرفي «الحكم النهائي: موافق» في `docs/meetings/peer-signoff-freeze03-final.md`
   وحده (`peer_final_approval`؛ الملف الغائب أو «غير موافق…» ✗)، ويقرؤه المشرف عند ش10.
 
@@ -223,9 +223,9 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
 
 ## شروط وسم `freeze-03` (D-62)
 
-القائمة المولَّدة مع مسارات الأدلة: `results/frozen/freeze_checklist.md` (`freeze_config --checklist`).
-**⏸ الجدول أدناه حالة سابقة ومعلَّق** حتى قرار المشرف في عطل `--checklist` (آخر هذا القسم)؛ نتيجتا ش5 وش7 مثبتتان من
-ملفاتهما في النقطتين أسفله.
+القائمة المولَّدة مع مسارات الأدلة: `results/frozen/freeze_checklist.md` (`python3 -m src.ml.experiments.freeze_config --checklist`،
+2026-10-25 بعد الوسم): **10 من 10 مستوفاة**. الوسم `freeze-03` (مشروح) على commit `eb34d6a7ba23f9ff0ecffab8081228c5d6ce94c5`
+(محلي: دفع الوسم إلى GitHub رُفض بـ403 من وكيل git للجلسة، والفرع مدفوع حتى هذا الـcommit؛ الحراس تقرأ الوسم محلياً).
 
 | # | الشرط | الحالة | الدليل | المسؤول |
 |---|---|---|---|---|
@@ -233,23 +233,50 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
 | ش2 | MDE80 لـH1 بالـHYB* الجديد | ✓ | results/dev2013/mde80.md (H1 = 0.0375) | مهندس ML |
 | ش3 | الهجين على B؛ M1 افتراضياً؛ وسم «منحلّ»؛ H2-ب غير منطبقة | ✓ | hybrid.csv (task B)، serving.py (risk_model="M1")، stats.cluster_bootstrap_t + اختبار، hybrid_frozen.json (H2b) | مهندس ML |
 | ش4 | نماذج الخطر النهائية | ✓ | results/frozen/risk_final.json | مهندس ML |
-| ش5 | reproduce_dev + repro_diff.md | ✗ | results/dev2013/repro_diff.md | مهندس ML |
+| ش5 | reproduce_dev + repro_diff.md على commit نظيف | ✓ | results/dev2013/repro_diff.md، repro_meta.json (commit 865e5cef09، src_dirty=False) | مهندس ML |
 | ش6 | freeze03_config.json + SHA-256 | ✓ | results/frozen/freeze03_config.json | مهندس ML |
-| ش7 | run_confirmatory + تشغيل جاف كامل على 2013 | ✗ | src/ml/experiments/run_confirmatory.py، results/dryrun2013/ | مهندس ML |
-| ش8 | مراجعة الزميل وتوقيعه | ✗ | docs/meetings/peer-signoff-freeze03-final.md (السطر الحرفي «الحكم النهائي: موافق») | الزميل الباحث |
+| ش7 | run_confirmatory + تشغيل جاف كامل على 2013 | ✓ | results/dryrun2013/run_meta.json (status=completed، audit_2014.ok=True، guard_rehearsal=pass، resume_simulation.ok=True، commit 20eeb98240)، dryrun_vs_dev max |Δ| = 0.0 (≤ 1e-6، عدا λ) | مهندس ML |
+| ش8 | مراجعة الزميل وتوقيعه | ✓ | docs/meetings/peer-signoff-freeze03-final.md (السطر الحرفي «الحكم النهائي: موافق»: موجود؛ ويقرؤه المشرف عند ش10، D-80/D-84) | الزميل الباحث |
 | ش9 | تحديث الوثيقة 02 بالملحق ب وREADME | ✓ | docs/working/02-hypotheses-algorithms.md، src/ml/README.md | مصمّم الفرضيات + مهندس ML |
-| ش10 | تحقق المشرف وتوقيعه ثم الوسم | ✗ | §8 من محضر الاجتماع 03؛ git tag freeze-03 | المشرف ← مهندس ML |
+| ش10 | تحقق المشرف وتوقيعه ثم الوسم | ✓ | §8 من محضر الاجتماع 03؛ git tag freeze-03 | المشرف ← مهندس ML |
 
-- **ش5 ✓:** `reproduce_dev` النهائي على commit `20eeb98240` (src نظيف): `repro_diff.md` «**الحالة: مطابق**»، 36/36 ملفاً
+- **ش5 ✓:** `reproduce_dev` النهائي على commit الإصلاح `865e5ce` (src نظيف): `repro_diff.md` «**الحالة: مطابق**»، 36/36 ملفاً
   (كل `dev2013/` و`frozen/freeze03_config.json` و`frozen/risk_final.json`)، `repro_meta.json`: `src_dirty=false`، `identical=true`،
-  47.8 دقيقة (2869.6 ث)، بدأ 2026-10-25 18:42:03 UTC. (الفروق الأربعة في التشغيل الأول، 53.6 دقيقة، شُخِّصت وأُصلحت قبله.)
+  49.0 دقيقة (2937.9 ث)، بدأ 2026-10-25 19:42:16 UTC. وسبقه تشغيل «مطابق» على `20eeb98` (47.8 دقيقة) انهار بعده مولّد القائمة؛
+  والفروق الأربعة في أول تشغيل كامل (53.6 دقيقة) شُخِّصت وأُصلحت قبلهما.
 - **ش7 ✓:** التشغيل الجاف على commit `20eeb98240` (`results/dryrun2013/run_meta.json`): `status=completed`، `audit_2014.ok=true`
   (4 قراءات D-47 بثلاثة أعمدة، 0 قراءة كاملة، لا عرض 2014)، `guard_rehearsal`: `check_guards_with_tag_at_HEAD=pass`،
   `resume_simulation.ok=true` (الحالات الثلاث)، LOCK بـ35 ملفاً، 7 SVG و7 PNG؛ `dryrun_vs_dev`: أقصى |Δ| = 0 عدا AUC لـH4-أ
   (0.0036، λ مجمَّد مقابل λ متداخل). قُتل التشغيل الأول عند سقف الساعتين بعد LOCK فأُعيد الطور 2 وحده بعد `verify_lock`
-  (95.7 دقيقة): `results/dryrun2013/deviations.md` «وقائع التنفيذ».
-- **قائمة الشروط (D-84):** انهار مولّد القائمة على pandas 3.0.5 (`TypeError` في مرشّح صف λ لـش7)، وأُصلح في commit الإصلاح
-  قبل الوسم (`" ".join(map(str, r))`، اختبار `test_freeze_config`)، ويُعاد `reproduce_dev` عليه ثم يُستبدل الجدول أعلاه بالمولَّد.
+  (95.7 دقيقة): `results/dryrun2013/deviations.md` «وقائع التنفيذ». ولا يُعاد الجاف بعد D-84 (لا مسار كود فيه تغيّر).
+- **قائمة الشروط (D-84):** انهار مولّد القائمة على pandas 3.0.5 (`TypeError` في مرشّح صف λ لـش7)، وأُصلح في commit `865e5ce`
+  قبل الوسم (`" ".join(map(str, r))`، اختبار `test_freeze_config`)، وأُعيد `reproduce_dev` عليه.
+- **ملاحظات معلنة بلا تعديل كود (experiments/ مجمَّدة):** (1) `reproduce_dev` يولّد القائمة **قبل** أن يكتب `repro_meta.json`
+  و`repro_diff.md`، فتعكس نسخته ش5 للتشغيل السابق؛ يُعاد `freeze_config --checklist` بعد كل `reproduce_dev` (الجدول أعلاه معاد
+  توليده بعده). (2) تعليق `OWN_OUTPUT` في `run_confirmatory.py:74` («the dry run's own output (git-ignored)») صار قديماً بعد D-85:
+  `results/dryrun2013/` يُحفظ الآن في المستودع دليلاً لش7، ويبقى مستثنى من الحارس لأنه ناتج التشغيل الجاف نفسه.
+
+## التشغيل التأكيدي E10 (D-63، D-75، D-81، D-82) — مكتمل
+
+وقائع التنفيذ وحدها؛ الأحكام في `results/conf2014/verdicts.md` وتفسيرها في الأطروحة.
+
+- **الأمر:** `setsid nohup python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 > <scratchpad>/e10-logs/run.log 2>&1 &`
+  (طوران في استدعاء واحد؛ السجل خارج المستودع ثم نُسخ إلى `results/conf2014/logs/run.log` بعد الطورين، D-82).
+- **قبل الإطلاق:** HEAD = `freeze-03^{commit}` = `eb34d6a7ba`، و`git status --porcelain` فارغ، و`results/conf2014/` غائب.
+  ثم `check_integrity` (البصمات المجمَّدة وMD5 الخام، `raw_md5_match_frozen=true`) و`check_guards`، وسجل البدء `.lock`
+  (20:38:17 UTC) وحدث `confirmatory_full_read` واحد في `results/access_log.jsonl`، وبعدهما فقط `allow_confirmatory=True`.
+- **الطور 1:** 2200.8 ث؛ `LOCK` كُتب في 21:14:57 UTC (وسم `freeze-03`، commit `eb34d6a7ba`) ويغطي **34 ملفاً**. الجاف غطّى 35
+  لأنه وحده يكتب `h4a_frozen_branch.csv` (تمرين الفرع المجمَّد لـH4-أ على 2013)؛ وفي التأكيدي هذا الفرع هو H4-أ نفسه.
+  بصمة `verdicts.csv` = `82c9b541c5da8d976aabbb4cbb22f56bacd35708a542a0a7c0e78682bf83e368`، و`verdicts.md` =
+  `ba69edd02a54773f7d8971c6a6a291269667e7ee619ad0d49407966c63d8d4b9`، وملف `LOCK` نفسه =
+  `ab1c563985703a64bc1d5371b4bdeec7a28cb11e67bcb54632d4106aae16334d`.
+- **الطور 2:** 6385.5 ث بعد `verify_lock` ناجح. وأعيد `verify_lock` بعد اكتماله: الملفات الـ34 مطابقة، وHEAD = commit القفل = الوسم.
+- **المجموع:** 8588.6 ث (143.1 دقيقة)، 20:38:17 → 23:01:24 UTC، 4 عمليات؛ Python 3.13.17، numpy 2.5.3، pandas 3.0.5.
+  `results/conf2014/run_meta.json`: `status=completed`، 13 عرضاً لـ2014، `frozen_config_sha256` =
+  `aba1545671bc73a5314043a67c323494f94ec54c30e2e10dd33051fcf5b090cf`.
+- **الانحرافات:** لا شيء (`results/conf2014/deviations.md`)؛ لا تعطل ولا `--resume` ولا `--phase 2`. وبعد قراءة 2014 الكاملة
+  سُجِّلت قراءتا D-47 بثلاثة أعمدة (`purpose=run_confirmatory`، تدريب نماذج الخطر على 2013 في H4-أ).
+- **المخرجات:** ملفات الطورين وسبعة أشكال SVG/PNG مع CSV كل منها في `results/conf2014/` (للقراءة فقط بعد الإيداع).
 
 ## التعارضات بين المسوّدة وADR وأخطاء الأمثلة
 
