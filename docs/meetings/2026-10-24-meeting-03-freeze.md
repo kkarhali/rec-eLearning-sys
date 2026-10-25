@@ -454,11 +454,21 @@ python3 -m src.ml.experiments.run_confirmatory --tag freeze-03
 
 | البند | القيمة |
 |---|---|
-| `freeze_checklist.md`: كل البنود ✓ | [ ] |
-| MDE80 لـH1 (بعد ش2) | [ ] |
-| SHA-256 لـ`freeze03_config.json` / `mde80.json` / `hybrid_frozen.json` / `risk_final.json` | [ ] |
-| hash الـcommit الموسوم `freeze-03` | [ ] |
-| توقيع المشرف وتاريخه | [ ] |
+| `freeze_checklist.md`: كل البنود ✓ | ✓ ش1–ش9 (مولَّدة بالأمر الموثَّق 2026-10-25 20:34:19، 9 من 10)، وش10 هو هذا التوقيع. قرأتُها بنفسي، وطابقتُ ش5 (`repro_diff.md` «مطابق» 36/36، commit `865e5ce`، `src_dirty=false`، `identical=true`) وش7 (`results/dryrun2013/run_meta.json`) من ملفاتهما |
+| MDE80 لـH1 (بعد ش2) | 0.0375 (`mde80.md`، D-51/D-61) |
+| SHA-256 لـ`freeze03_config.json` / `mde80.json` / `hybrid_frozen.json` / `risk_final.json` | `aba1545671bc73a5314043a67c323494f94ec54c30e2e10dd33051fcf5b090cf` / `607468aeab296da35fae7e047b502d52c1ee919b26cb00cf8415cb6a9b81e88a` / `cdfb3b553a8ebc1ef555da0247b8f482708f4fdd77bc8df7f9ea80dc668a0c0e` / `76857226775c233b67cb67057ae3bf0c70ed11ff1622ec48dcdde1ef37c2a189` (حسبتُها بنفسي، وتطابق القائمة) |
+| hash الـcommit الموسوم `freeze-03` | commit التوقيع الذي يلي `6f39162` مباشرة، وفرقه عنه محصور في هذا الملف وفي سجل القرارات (`.claude/…/thesis-context.md`)، فلا يمس `src/` ولا `scripts/` ولا `data/` ولا `results/`. ويثبت المنسّق الـhash الكامل بعد الوسم في commit توثيقي لاحق خارج النطاق المحروس |
+| توقيع المشرف وتاريخه | د. باسل الخطيب، 2026-10-25 |
+
+**ما تحققتُ منه بنفسي عند ش10 (2026-10-25):**
+- `git status --porcelain` فارغ عند `6f39162`، فالشجرة كلها نظيفة (D-79).
+- `git diff 865e5ce..6f39162 -- src/ scripts/ data/` فارغ (D-84).
+- لا وسوم قبله.
+- ملف الزميل `peer-signoff-freeze03-final.md` قرأتُه كاملاً، وفيه السطر الحرفي «الحكم النهائي: موافق» (السطر 5)، وشروطه الخمسة مستوفاة (D-80/D-84).
+
+توقيع المشرف على ش10: موافق — يُوسم HEAD بـfreeze-03
+
+(HEAD = commit هذا التوقيع، ابن `6f39162`. والإذن بـE10 قائم وفق D-63 وD-75 وD-81 وD-82: تشغيل واحد، وإطلاق منفصل، والسجلات خارج المستودع، و`--resume` وحده بعد التعطل، ولا `--phase 2`.)
 
 ---
 
