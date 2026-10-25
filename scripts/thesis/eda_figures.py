@@ -85,7 +85,7 @@ def check_against_results(summ: pd.DataFrame, e5_share: float):
 
 # ----------------------------------------------------------------------------------------------- figures
 def pct(v):
-    return f"{100 * v:.1f}%"
+    return f"{100 * v:.1f}%" if v >= 0.0005 else "< 0.1%"     # never print a non-zero share as 0.0%
 
 
 def fig_long_tail(df: pd.DataFrame, summ: pd.DataFrame) -> str:
