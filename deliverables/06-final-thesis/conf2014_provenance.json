@@ -1,0 +1,367 @@
+{
+ "decision": "D-97 (annex of meeting 04); D-90 tables, D-95 figures",
+ "lock_sha256": "ab1c563985703a64bc1d5371b4bdeec7a28cb11e67bcb54632d4106aae16334d",
+ "e10_results_commit": "86c0885",
+ "references": {
+  "LOCK": "phase-1 files covered by LOCK, incl. verdicts.csv",
+  "commit 86c0885": "phase-2 outputs, and run_meta.json and deviations.md (phase 1, outside LOCK by construction)"
+ },
+ "n_files": 44,
+ "all_match": true,
+ "files": [
+  {
+   "file": "results/conf2014/run_meta.json",
+   "use": "table (D-90)",
+   "sha256": "c05d31896f7e4cf631326b33c4cbb20e359b43626fc9e6bc91828c5dc893e18a",
+   "reference": "commit 86c0885 (phase 1, outside LOCK by construction (UNLOCKED))",
+   "reference_sha256": "c05d31896f7e4cf631326b33c4cbb20e359b43626fc9e6bc91828c5dc893e18a",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/LOCK",
+   "use": "table (D-90)",
+   "sha256": "ab1c563985703a64bc1d5371b4bdeec7a28cb11e67bcb54632d4106aae16334d",
+   "reference": "recorded LOCK SHA-256 (ui_open.json, meeting 04)",
+   "reference_sha256": "ab1c563985703a64bc1d5371b4bdeec7a28cb11e67bcb54632d4106aae16334d",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/deviations.md",
+   "use": "table (D-90)",
+   "sha256": "a1924f7200ce39edfa5eca96f77a9e9679991f29e02f33ccd53dee64067e8186",
+   "reference": "commit 86c0885 (phase 1, outside LOCK by construction (UNLOCKED))",
+   "reference_sha256": "a1924f7200ce39edfa5eca96f77a9e9679991f29e02f33ccd53dee64067e8186",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/folds.csv",
+   "use": "table (D-90)",
+   "sha256": "e8e089c49012972ba791f28708b76008882b67826358493d1aab0cf8e66972e4",
+   "reference": "LOCK",
+   "reference_sha256": "e8e089c49012972ba791f28708b76008882b67826358493d1aab0cf8e66972e4",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/hybrid_2014.json",
+   "use": "table (D-90)",
+   "sha256": "bea2e0f8f5549ebe6d0b4b8370d8cd8214e7823db90c7814d193e67f059a3edb",
+   "reference": "LOCK",
+   "reference_sha256": "bea2e0f8f5549ebe6d0b4b8370d8cd8214e7823db90c7814d193e67f059a3edb",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/verdicts.csv",
+   "use": "table (D-90) and verdict labels of the figures",
+   "sha256": "82c9b541c5da8d976aabbb4cbb22f56bacd35708a542a0a7c0e78682bf83e368",
+   "reference": "LOCK",
+   "reference_sha256": "82c9b541c5da8d976aabbb4cbb22f56bacd35708a542a0a7c0e78682bf83e368",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/per_presentation.csv",
+   "use": "table (D-90)",
+   "sha256": "5ee6583f8e5927f64a858ff1c105fc1fc295737645bb6266dd24327ee615f471",
+   "reference": "LOCK",
+   "reference_sha256": "5ee6583f8e5927f64a858ff1c105fc1fc295737645bb6266dd24327ee615f471",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/h1_decomposition.csv",
+   "use": "table (D-90)",
+   "sha256": "6a4e0d23ec9cd6ec1084a7885d4c4464ae91c7dd4e00e4e19e8b62835638458e",
+   "reference": "LOCK",
+   "reference_sha256": "6a4e0d23ec9cd6ec1084a7885d4c4464ae91c7dd4e00e4e19e8b62835638458e",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/per_origin.csv",
+   "use": "table (D-90)",
+   "sha256": "8d2d40fcd39c056c0d210d4f7d3ac4952cfb1da51e252fa73fc904c4a56577e1",
+   "reference": "LOCK",
+   "reference_sha256": "8d2d40fcd39c056c0d210d4f7d3ac4952cfb1da51e252fa73fc904c4a56577e1",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/ablation_signals.csv",
+   "use": "table (D-90)",
+   "sha256": "ff33ca0656aa323d35e0b38259d5f1434dd274ec5e41517b0d6ab76cbd4ac0f8",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "ff33ca0656aa323d35e0b38259d5f1434dd274ec5e41517b0d6ab76cbd4ac0f8",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/summary.md",
+   "use": "table (D-90)",
+   "sha256": "af588308e635d211b46f888fe6489359e58d2290aa6f4a50bed7ae1a2a47348e",
+   "reference": "LOCK",
+   "reference_sha256": "af588308e635d211b46f888fe6489359e58d2290aa6f4a50bed7ae1a2a47348e",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/h4a_auc.csv",
+   "use": "table (D-90)",
+   "sha256": "6359c8dde74bbf9237c53c52e54efcb3b91aebc823f03c9ad0d43791a8bb5992",
+   "reference": "LOCK",
+   "reference_sha256": "6359c8dde74bbf9237c53c52e54efcb3b91aebc823f03c9ad0d43791a8bb5992",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/secondary.csv",
+   "use": "table (D-90)",
+   "sha256": "89ea6dcf6414256d195dc85eebeb0fcd614ba91f05f89924c2b48f2f0f8763b8",
+   "reference": "LOCK",
+   "reference_sha256": "89ea6dcf6414256d195dc85eebeb0fcd614ba91f05f89924c2b48f2f0f8763b8",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/h4b.csv",
+   "use": "table (D-90)",
+   "sha256": "2fbf4771d354889ce829cfd18e205c97f76f48e5f2874978bf73579543cf083d",
+   "reference": "LOCK",
+   "reference_sha256": "2fbf4771d354889ce829cfd18e205c97f76f48e5f2874978bf73579543cf083d",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/baselines.csv",
+   "use": "table (D-90)",
+   "sha256": "a83ecfbd924b886b6da05c9b19ff81b62e0442148b80a1def9835ca747126839",
+   "reference": "LOCK",
+   "reference_sha256": "a83ecfbd924b886b6da05c9b19ff81b62e0442148b80a1def9835ca747126839",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/hybrid.csv",
+   "use": "table (D-90)",
+   "sha256": "e29323004952a347cad8d5cf552e8257ba00ec44a85c1ce652f233894c3b8b4c",
+   "reference": "LOCK",
+   "reference_sha256": "e29323004952a347cad8d5cf552e8257ba00ec44a85c1ce652f233894c3b8b4c",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/sensitivity_E4.csv",
+   "use": "table (D-90)",
+   "sha256": "4632ddf48567c57854b5c8205dcdb9dea20f9af00d101f6743d6d92954047adf",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "4632ddf48567c57854b5c8205dcdb9dea20f9af00d101f6743d6d92954047adf",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/sensitivity_none.csv",
+   "use": "table (D-90)",
+   "sha256": "e23a6f9e02ab9aa1b00a2ed3bc63fd82a6db97ca7fb01f1a0df5e0e26c972381",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "e23a6f9e02ab9aa1b00a2ed3bc63fd82a6db97ca7fb01f1a0df5e0e26c972381",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/sensitivity_other.csv",
+   "use": "table (D-90)",
+   "sha256": "450027f9a201fe6f0ef191adbe251d405c188488d49b79a70e4d76655bf520cc",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "450027f9a201fe6f0ef191adbe251d405c188488d49b79a70e4d76655bf520cc",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/ablation_components.csv",
+   "use": "table (D-90)",
+   "sha256": "b1c42698d6f872b980ace1f446cbeb459dfae431e59654a5aade2cd7ce2a162b",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "b1c42698d6f872b980ace1f446cbeb459dfae431e59654a5aade2cd7ce2a162b",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/protocol_sampled.csv",
+   "use": "table (D-90)",
+   "sha256": "d9ae748a5b79114657a90938cbe68efb5f55fcaad9a0543b1f03aa6101fb6178",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "d9ae748a5b79114657a90938cbe68efb5f55fcaad9a0543b1f03aa6101fb6178",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/fairness.csv",
+   "use": "table (D-90)",
+   "sha256": "06925a99190d92b5410bead8a32986c063f838a6826764b3e3ca2ee4a995ba99",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "06925a99190d92b5410bead8a32986c063f838a6826764b3e3ca2ee4a995ba99",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/intervals_appendix.csv",
+   "use": "appendix (D-90)",
+   "sha256": "0c404880438053c1c4935cbac183ef5b52d660ad73eb36c23596a7384a164bd4",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "0c404880438053c1c4935cbac183ef5b52d660ad73eb36c23596a7384a164bd4",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig1_forest.csv",
+   "use": "figure source (D-95)",
+   "sha256": "c8fc66f415b80cc9b075ab18106fd68aa44e250b08ae5068cacf9f38c8c70993",
+   "reference": "LOCK",
+   "reference_sha256": "c8fc66f415b80cc9b075ab18106fd68aa44e250b08ae5068cacf9f38c8c70993",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig1_forest.svg",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "1cc93f3c97d65794aec434b354e9632a8e492b722ee94612d0aed219a4c53d69",
+   "reference": "LOCK",
+   "reference_sha256": "1cc93f3c97d65794aec434b354e9632a8e492b722ee94612d0aed219a4c53d69",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig1_forest.png",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "563d98ce32f45a5dfca64002e8b43c159c936a980867aa71cf2be5c3df12777f",
+   "reference": "LOCK",
+   "reference_sha256": "563d98ce32f45a5dfca64002e8b43c159c936a980867aa71cf2be5c3df12777f",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig2_per_presentation.csv",
+   "use": "figure source (D-95)",
+   "sha256": "f92a7fbedcac877d544b1af8ba66bfce89a90062c6c8ad9edb9aa65d903120d1",
+   "reference": "LOCK",
+   "reference_sha256": "f92a7fbedcac877d544b1af8ba66bfce89a90062c6c8ad9edb9aa65d903120d1",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig2_per_presentation.svg",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "9fc951180cb746d38ed03d6fd0ca3128e2704ebbfec1e1d09d099994fcc90c02",
+   "reference": "LOCK",
+   "reference_sha256": "9fc951180cb746d38ed03d6fd0ca3128e2704ebbfec1e1d09d099994fcc90c02",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig2_per_presentation.png",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "eada77c53ca88acf34f4ac946f035de8825d64856abdd7fe8384175e4107dce4",
+   "reference": "LOCK",
+   "reference_sha256": "eada77c53ca88acf34f4ac946f035de8825d64856abdd7fe8384175e4107dce4",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig3_signal_ablation.csv",
+   "use": "figure source (D-95)",
+   "sha256": "cc8e5cb6eb32fe029e02e2de68cfde745aecca919a126ac837a529c2eed39326",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "cc8e5cb6eb32fe029e02e2de68cfde745aecca919a126ac837a529c2eed39326",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig3_signal_ablation.svg",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "f456560bcdf4b38090693f8d50599258b330abec2efef147a7a2edf2b2172585",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "f456560bcdf4b38090693f8d50599258b330abec2efef147a7a2edf2b2172585",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig3_signal_ablation.png",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "f0092c2dccbfed572a56055d7d309e3671a090697eeed3f8fb02748201ba955c",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "f0092c2dccbfed572a56055d7d309e3671a090697eeed3f8fb02748201ba955c",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig4_models_dev_vs_target.csv",
+   "use": "figure source (D-95)",
+   "sha256": "7d04ae02ad46456be5bb60dcdd31b4653ee94b09cae6a81939cb59d93fa4ae30",
+   "reference": "LOCK",
+   "reference_sha256": "7d04ae02ad46456be5bb60dcdd31b4653ee94b09cae6a81939cb59d93fa4ae30",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig4_models_dev_vs_target.svg",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "445c1265357f8ff302ecfb144961a790a078ff81b04e6a83c02a469512257ff7",
+   "reference": "LOCK",
+   "reference_sha256": "445c1265357f8ff302ecfb144961a790a078ff81b04e6a83c02a469512257ff7",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig4_models_dev_vs_target.png",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "4856331dbd2fca6fe5461bd7086c76027391d3016f13014f0adb3e895243a6eb",
+   "reference": "LOCK",
+   "reference_sha256": "4856331dbd2fca6fe5461bd7086c76027391d3016f13014f0adb3e895243a6eb",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig5_roc.csv",
+   "use": "figure source (D-95)",
+   "sha256": "72190fc7b5fe6fe892f636ce54d41f6dd7fb2d7f6f2d1bd7a21797f00fd12f14",
+   "reference": "LOCK",
+   "reference_sha256": "72190fc7b5fe6fe892f636ce54d41f6dd7fb2d7f6f2d1bd7a21797f00fd12f14",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig5_roc.svg",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "384a94b5464182ba111274cb85ec120361f0174612521b26a231b5ab0ae60255",
+   "reference": "LOCK",
+   "reference_sha256": "384a94b5464182ba111274cb85ec120361f0174612521b26a231b5ab0ae60255",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig5_roc.png",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "8585586383c150f118dfc856d5ea032c2970a24f7fa0e8323145c1315dcbeaff",
+   "reference": "LOCK",
+   "reference_sha256": "8585586383c150f118dfc856d5ea032c2970a24f7fa0e8323145c1315dcbeaff",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig6_h4b.csv",
+   "use": "figure source (D-95)",
+   "sha256": "252999abbe0b780cd3d83ed386a36c0721ea2a1ea69361bb33c5c54f254a27f1",
+   "reference": "LOCK",
+   "reference_sha256": "252999abbe0b780cd3d83ed386a36c0721ea2a1ea69361bb33c5c54f254a27f1",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig6_h4b.svg",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "bf10db15b3308b0b4f61acfcba14867d62dacabb7a91d1987e5591b0f243c6f1",
+   "reference": "LOCK",
+   "reference_sha256": "bf10db15b3308b0b4f61acfcba14867d62dacabb7a91d1987e5591b0f243c6f1",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig6_h4b.png",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "a3c7610cf09e38af8d2de760ac85aed9465b8ea5260eb85739f968436e05a88d",
+   "reference": "LOCK",
+   "reference_sha256": "a3c7610cf09e38af8d2de760ac85aed9465b8ea5260eb85739f968436e05a88d",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig7_fairness.csv",
+   "use": "figure source (D-95)",
+   "sha256": "2f8d3f322abd423163c09f37dafae1bd3509d725a7ce49c343442a0b566c7e85",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "2f8d3f322abd423163c09f37dafae1bd3509d725a7ce49c343442a0b566c7e85",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig7_fairness.svg",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "c8f35e4f2bba2864e1044a6089d2fcb019bab59de7cea5003fa8cc9a39cd2eee",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "c8f35e4f2bba2864e1044a6089d2fcb019bab59de7cea5003fa8cc9a39cd2eee",
+   "match": true
+  },
+  {
+   "file": "results/conf2014/figures/fig7_fairness.png",
+   "use": "original figure (D-95: the original, kept as is)",
+   "sha256": "10b50ce2b4c3de9ef3421f88cb5f0772f08f0cf42cf0a531abaa1afc673cbd42",
+   "reference": "commit 86c0885 (phase 2)",
+   "reference_sha256": "10b50ce2b4c3de9ef3421f88cb5f0772f08f0cf42cf0a531abaa1afc673cbd42",
+   "match": true
+  }
+ ],
+ "generated_utc": "2026-10-25T23:25:40Z",
+ "script_sha256": "9722a8f84403aadc91caeef4763c79c38d1005f6b5d426d9f105bcd8bf4a763d"
+}

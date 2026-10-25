@@ -1,6 +1,6 @@
 {
  "decision": "D-95 (annex of meeting 04)",
- "generated_utc": "2026-10-25T23:21:46Z",
+ "generated_utc": "2026-10-25T23:25:58Z",
  "lock_sha256": "ab1c563985703a64bc1d5371b4bdeec7a28cb11e67bcb54632d4106aae16334d",
  "sources": {
   "verdicts.csv": {
@@ -17,7 +17,7 @@
   },
   "figures/fig3_signal_ablation.csv": {
    "sha256": "cc8e5cb6eb32fe029e02e2de68cfde745aecca919a126ac837a529c2eed39326",
-   "reference": "commit 86c0885"
+   "reference": "commit 86c0885 (phase 2)"
   },
   "figures/fig4_models_dev_vs_target.csv": {
    "sha256": "7d04ae02ad46456be5bb60dcdd31b4653ee94b09cae6a81939cb59d93fa4ae30",
@@ -33,7 +33,7 @@
   },
   "figures/fig7_fairness.csv": {
    "sha256": "2f8d3f322abd423163c09f37dafae1bd3509d725a7ce49c343442a0b566c7e85",
-   "reference": "commit 86c0885"
+   "reference": "commit 86c0885 (phase 2)"
   }
  },
  "figures": {
@@ -179,9 +179,11 @@
   }
  },
  "script": {
-  "head": "0fbfa76654a10c9255e3c5d4b512bf91433099ad",
-  "script_last_commit": null,
-  "script_uncommitted_changes": true
+  "head": "1cfb1ebf081ede987fea6f7609070115c5c3f504",
+  "script_last_commit": "9972f55d1a1c454b733858d26b231870c1fdb7fa",
+  "script_uncommitted_changes": true,
+  "script_sha256": "46fb13bcdaa35fdc63bcbd0b63e7a2e6fee6cc27d7edcb69a75f93b44c6cae8c",
+  "provenance_script_sha256": "9722a8f84403aadc91caeef4763c79c38d1005f6b5d426d9f105bcd8bf4a763d"
  },
  "unchanged": "no value recomputed, filtered or dropped; zero/δ lines and original axis-range rules kept"
 }

@@ -9,11 +9,10 @@ ordered Arabic title (RTL text with LTR runs in Unicode isolates, shaped by Chro
 verdict label «مدحوضة للتفوق» (D-93); the other verdict labels are those of verdicts.csv. No borderline comment on
 the H1 figure (D-92 is disclosed in text only).
 
-Before drawing, the SHA-256 of every source must match its reference, otherwise the script refuses:
-  * phase-1 sources (fig1, fig2, fig4, fig5, fig6, verdicts.csv): the hash recorded in ``results/conf2014/LOCK``;
-  * phase-2 sources (fig3, fig7) are not covered by LOCK by design (LOCK is written at the end of phase 1, D-75 (1));
-    their reference is the blob committed with the E10 results (commit 86c0885), fixed below and re-read from git.
-The LOCK file itself must hash to the value recorded in ui_open.json / the meeting minutes.
+Before drawing, the SHA-256 of every source must match its reference (D-97), checked by the single provenance
+script ``scripts/conf2014_provenance.py``, otherwise the script refuses: phase-1 sources (fig1, fig2, fig4, fig5,
+fig6, verdicts.csv) against ``results/conf2014/LOCK``; phase-2 sources (fig3, fig7, outside LOCK by design, D-75 (1))
+against the blob committed with the E10 results (commit 86c0885); and LOCK itself against ab1c5639….
 
 Outputs in ``deliverables/06-final-thesis/figures/derived/``: ``<fig>.svg``, ``<fig>.png`` (rendered by
 scripts/svg2png.py at scale 3, PNG tagged 300 dpi), ``<fig>_plotted.csv`` (the values drawn, byte-identical to the
@@ -43,11 +42,6 @@ ROOT = Path(__file__).resolve().parents[1]
 CONF = ROOT / "results" / "conf2014"
 OUT = ROOT / "deliverables" / "06-final-thesis" / "figures" / "derived"
 LOCK_SHA256 = "ab1c563985703a64bc1d5371b4bdeec7a28cb11e67bcb54632d4106aae16334d"
-E10_RESULTS_COMMIT = "86c0885"
-PHASE2_SHA256 = {  # not in LOCK (phase 2); reference = blob committed in 86c0885
-    "figures/fig3_signal_ablation.csv": "cc8e5cb6eb32fe029e02e2de68cfde745aecca919a126ac837a529c2eed39326",
-    "figures/fig7_fairness.csv": "2f8d3f322abd423163c09f37dafae1bd3509d725a7ce49c343442a0b566c7e85",
-}
 FIGS = ["fig1_forest", "fig2_per_presentation", "fig3_signal_ablation", "fig4_models_dev_vs_target", "fig5_roc",
         "fig6_h4b", "fig7_fairness"]
 DPI = 300
@@ -71,27 +65,17 @@ def sha256(p: Path) -> str:
 
 
 def check_sources() -> dict:
-    if sha256(CONF / "LOCK") != LOCK_SHA256:
-        raise SystemExit("REFUSED: results/conf2014/LOCK does not match its recorded SHA-256")
-    lock = json.loads((CONF / "LOCK").read_text())
-    out = {}
-    for rel in ["verdicts.csv"] + [f"figures/{f}.csv" for f in FIGS]:
-        h = sha256(CONF / rel)
-        if rel in lock["files"]:
-            ref, src = lock["files"][rel], "LOCK"
-        else:
-            ref, src = PHASE2_SHA256[rel], f"commit {E10_RESULTS_COMMIT}"
-            try:
-                blob = subprocess.run(["git", "show", f"{E10_RESULTS_COMMIT}:results/conf2014/{rel}"], cwd=ROOT,
-                                      capture_output=True, check=True).stdout
-                if hashlib.sha256(blob).hexdigest() != ref:
-                    raise SystemExit(f"REFUSED: committed blob of {rel} differs from the fixed reference")
-            except (OSError, subprocess.CalledProcessError):
-                pass                                   # git unavailable: the fixed reference still applies
-        if h != ref:
-            raise SystemExit(f"REFUSED: {rel} SHA-256 {h[:12]}… does not match {src} ({ref[:12]}…)")
-        out[rel] = {"sha256": h, "reference": src}
-    return out
+    """D-97: the single provenance check (scripts/conf2014_provenance.py) for the figure sources and verdicts.csv;
+    LOCK for phase 1, commit 86c0885 for phase 2. Refuses on any mismatch."""
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import conf2014_provenance as P
+    files = ["verdicts.csv"] + [f"figures/{f}.csv" for f in FIGS]
+    try:
+        st = P.verify(files)
+    except P.ProvenanceError as exc:
+        raise SystemExit(f"REFUSED: {exc}")
+    return {e["file"].removeprefix("results/conf2014/"): {"sha256": e["sha256"], "reference": e["reference"]}
+            for e in st["files"]}
 
 
 # ----------------------------------------------------------------------------------------------- svg helpers
@@ -367,7 +351,9 @@ def git_info():
         return subprocess.run(["git", *a], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     rel = "scripts/derive_conf2014_figures.py"
     return {"head": run("rev-parse", "HEAD"), "script_last_commit": run("log", "-1", "--format=%H", "--", rel) or None,
-            "script_uncommitted_changes": bool(run("status", "--porcelain", "--", rel))}
+            "script_uncommitted_changes": bool(run("status", "--porcelain", "--", rel)),
+            "script_sha256": sha256(ROOT / rel),
+            "provenance_script_sha256": sha256(ROOT / "scripts" / "conf2014_provenance.py")}
 
 
 # ----------------------------------------------------------------------------------------------- main
