@@ -178,9 +178,13 @@ def pill(slide, x, y, w, h, text, fill, color, size=14, bold=True, name=None):
     return s
 
 
+def badge_w(text: str) -> float:
+    return 0.55 if (text.isdigit() and len(text) <= 2) else 0.85
+
+
 def badge(slide, x, y, text, fill=PRIMARY, color=WHITE, size=16, name=None):
     """دائرة رقم أو كبسولة إن كان النص أطول من حرفين."""
-    w = 0.55 if len(text) <= 2 else 0.85
+    w = badge_w(text)
     return pill(slide, x, y, w, 0.55, text, fill, color, size, True, name=name), w
 
 
@@ -315,6 +319,76 @@ def first_float(s: str) -> float:
     return float(m.group())
 
 
+# ---------------------------------------------------------------- رموز {{...}} من نتائج التأكيد
+import csv as _csv
+_CSV_CACHE = {}
+
+
+def conf_csv(name: str):
+    if name not in _CSV_CACHE:
+        with open(ROOT / "results/conf2014" / f"{name}.csv", encoding="utf-8", newline="") as f:
+            _CSV_CACHE[name] = list(_csv.DictReader(f))
+    return _CSV_CACHE[name]
+
+
+_TOK_ROW = re.compile(r"\{\{(\w+)\[([^=\]]+)=([^\]]+)\]\.(\w+)(?:\|([^}]+))?\}\}")
+_TOK_H = re.compile(r"\{\{([\w-]+)\.(\w+)(?:\|([^}]+))?\}\}")
+
+
+def _fmt(v, f):
+    return format(float(v), f) if f else v
+
+
+def resolve_tokens(obj):
+    """يستبدل {{H1.mean_delta|.4f}} (من verdicts.csv) و{{h4b[slice=cold_q1].mean|.4f}} (من أي CSV) بالقيم."""
+    if isinstance(obj, str):
+        def r1(m):
+            name, col, val, field, f = m.groups()
+            for row in conf_csv(name):
+                if row[col] == val:
+                    return _fmt(row[field], f)
+            raise SystemExit(f"رمز بلا صف: {m.group(0)}")
+        def r2(m):
+            h, field, f = m.groups()
+            for row in conf_csv("verdicts"):
+                if row["hypothesis"] == h:
+                    return _fmt(row[field], f)
+            raise SystemExit(f"رمز بلا فرضية: {m.group(0)}")
+        return _TOK_H.sub(r2, _TOK_ROW.sub(r1, obj))
+    if isinstance(obj, list):
+        return [resolve_tokens(o) for o in obj]
+    if isinstance(obj, dict):
+        return {k: resolve_tokens(v) for k, v in obj.items()}
+    return obj
+
+
+VERDICT_AR = {"confirmed": "مؤكَّدة", "inconclusive": "غير حاسمة", "refuted": "مدحوضة عملياً"}
+
+
+def verdict_rows(src: dict):
+    """صفوف جدول الأحكام من results/conf2014/verdicts.csv (لا كتابة يدوية)."""
+    labels = src.get("labels", {})
+    rows, notes = [], []
+    for r in conf_csv("verdicts"):
+        h = r["hypothesis"]
+        verdict = VERDICT_AR.get(r["verdict"], r["verdict"])
+        verdict = src.get("verdict_override", {}).get(h, verdict)   # وسم مسجل لصف بعينه
+        _ov = h in src.get("verdict_override", {})
+        if not _ov and r["verdict"] == "confirmed" and r.get("confirmed_with_margin") == "True":
+            verdict += " (بهامش)"
+        rows.append([
+            labels.get(h, h),
+            LRM + f"{float(r['mean_delta']):+.4f}" + LRM,
+            LRM + f"[{float(r['ci_lo']):+.4f}, {float(r['ci_hi']):+.4f}]" + LRM,
+            LRM + f"{float(r['p_holm']):.4f}" + LRM,
+            LRM + f"{r['n_delta_pos']}/{r['n']}" + LRM,
+            verdict,
+        ])
+        if r.get("D48_text"):
+            notes.append(r["D48_text"])
+    return rows, notes
+
+
 # ---------------------------------------------------------------- أنواع الشرائح
 def build_title(ctx, spec):
     s = new_slide(ctx, dark=True)
@@ -400,8 +474,8 @@ def build_cards(ctx, spec):
             badge(s, x + cw - 0.2 - 0.55, y + 0.15, it["n"], fill=PRIMARY, size=15, name="رقم")
             textbox(s, x + 0.1, y + 0.8, cw - 0.2, ch - 0.9, it["head"], size=17, bold=True, anchor="t", line=1.05)
             continue
-        bd, bw = badge(s, x + cw - 0.2 - (0.55 if len(it["n"]) <= 2 else 0.85), y + 0.2, it["n"],
-                       fill=PRIMARY, size=16 if len(it["n"]) <= 2 else 14, name="رقم")
+        bd, bw = badge(s, x + cw - 0.2 - badge_w(it["n"]), y + 0.2, it["n"],
+                       fill=PRIMARY, size=16 if it["n"].isdigit() else 14, name="رقم")
         hx = x + 0.15
         hw = cw - 0.15 - 0.2 - bw - 0.1
         textbox(s, hx, y + 0.12, hw, 0.75, it["head"], size=head_sz, bold=True, anchor="m", line=1.0)
@@ -580,7 +654,8 @@ def build_image(ctx, spec):
         iw, ih = im.size
     crop_b = spec.get("crop_bottom", 0.0)
     crop_t = spec.get("crop_top", 0.0)
-    asp = iw / (ih * (1 - crop_b - crop_t))
+    crop_l, crop_r = spec.get("crop_left", 0.0), spec.get("crop_right", 0.0)
+    asp = iw * (1 - crop_l - crop_r) / (ih * (1 - crop_b - crop_t))
     cap_h = 0.4 if spec.get("caption") else 0
     y0 = min(y0, 1.5)
     max_w, max_h = 7.8, 6.85 - y0 - cap_h
@@ -594,6 +669,10 @@ def build_image(ctx, spec):
         pic.crop_bottom = crop_b
     if crop_t:
         pic.crop_top = crop_t
+    if crop_l:
+        pic.crop_left = crop_l
+    if crop_r:
+        pic.crop_right = crop_r
     pic.line.color.rgb = rgb(BORDER)
     pic.line.width = Pt(1)
     pic._element.nvPicPr.cNvPr.set("descr", spec.get("alt") or spec.get("caption") or spec["title"])
@@ -619,6 +698,8 @@ def build_image(ctx, spec):
 
 
 def style_cell(cell, text, size, color, bold=False, fill=None, italic=False, align="r"):
+    if len(text) > 2 and text.startswith(LRM) and text.endswith(LRM):   # أرقام: فرض اتجاه LTR صريح
+        text = "\u202d" + text[1:-1] + "\u202c"
     cell.text = ""
     tf = cell.text_frame
     tf.word_wrap = True
@@ -638,7 +719,12 @@ def build_table(ctx, spec):
     title_bar(s, spec["title"])
     y0 = top_of_content(spec, s)
     columns, rows = spec.get("columns"), spec.get("rows")
-    if spec.get("source"):
+    if spec.get("source", {}).get("format") == "verdicts":
+        rows, d48 = verdict_rows(spec["source"])
+        spec = dict(spec)
+        if d48:
+            spec["caption"] = spec.get("caption", "") + " " + " ".join(d48)
+    elif spec.get("source"):
         src = spec["source"]
         columns, rows = read_md_table(ROOT / src["file"], src["heading_contains"])
         if src.get("cols"):
@@ -676,12 +762,12 @@ def build_table(ctx, spec):
             fill = PRIMARY_SOFT
             for j, v in enumerate(row):
                 last = j == len(row) - 1
-                style_cell(tbl.cell(i, j), v, size, ACCENT_INK if v.startswith("[") else PRIMARY_DARK,
-                           bold=(j in (0, len(row) - 1)), fill=ACCENT_SOFT if v.startswith("[") else fill,
-                           italic=v.startswith("["), align="ctr" if (v.startswith("[") or last) else "r")
+                style_cell(tbl.cell(i, j), v, size, ACCENT_INK if v.startswith("[2014]") else PRIMARY_DARK,
+                           bold=(j in (0, len(row) - 1)), fill=ACCENT_SOFT if v.startswith("[2014]") else fill,
+                           italic=v.startswith("[2014]"), align="ctr" if (v.startswith("[2014]") or last) else "r")
             continue
         for j, v in enumerate(row):
-            ph = v.strip().startswith("[")
+            ph = v.strip().startswith("[2014]")
             style_cell(tbl.cell(i, j), v, size, ACCENT_INK if ph else PRIMARY_DARK,
                        bold=(j == len(row) - 1), fill=ACCENT_SOFT if ph else fill, italic=ph,
                        align="ctr" if ph else "r")
@@ -910,7 +996,7 @@ def main(argv=None):
     else:
         y = ROOT / "docs/working/07-presentation.yaml"
         spec_path = y if y.exists() else ROOT / "docs/working/07-presentation.json"
-    spec = load_spec(spec_path)
+    spec = resolve_tokens(load_spec(spec_path))
     meta = spec["meta"]
     out = Path(a.out) if a.out else ROOT / meta["output"]
     out.parent.mkdir(parents=True, exist_ok=True)

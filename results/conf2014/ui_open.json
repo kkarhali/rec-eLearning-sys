@@ -1,0 +1,13 @@
+{
+ "decision": "D-91 (FR-40, D-67); authorised by D-94(1), annex of docs/meetings/meeting-04-confirmatory-verdicts.md",
+ "lock_sha256": "ab1c563985703a64bc1d5371b4bdeec7a28cb11e67bcb54632d4106aae16334d",
+ "lock_time": "2026-10-25T21:14:57",
+ "tag": "freeze-03",
+ "commit": "eb34d6a7ba23f9ff0ecffab8081228c5d6ce94c5",
+ "written_utc": "2026-10-25T23:11:42Z",
+ "references": [
+  "docs/meetings/meeting-04-confirmatory-verdicts.md (annex, D-94(1); D-91)",
+  "docs/meetings/peer-verify-conf2014.md"
+ ],
+ "note": "Opening record only; outside LOCK; contains no verdict or hypothesis number. No code reads this file."
+}
