@@ -658,7 +658,7 @@ def build_image(ctx, spec):
     asp = iw * (1 - crop_l - crop_r) / (ih * (1 - crop_b - crop_t))
     cap_h = 0.4 if spec.get("caption") else 0
     y0 = min(y0, 1.5)
-    max_w, max_h = 7.8, 6.85 - y0 - cap_h
+    max_w, max_h = spec.get("max_w", 7.8), 6.85 - y0 - cap_h
     pw = min(max_w, max_h * asp)
     ph = pw / asp
     px = MX                                # الصورة يساراً والنص يميناً (RTL)
