@@ -12,7 +12,7 @@
 
 يبني الكود ثلاثة أشياء مترابطة فوق مجموعة بيانات OULAD (Open University Learning Analytics Dataset):
 
-1. **منصة تجارب أوفلاين** (`src/ml/`): تحمّل السجلات، وتبني الإشارة السلوكية، وتقسّم الزمن إلى طيّات بلا تسرب، وتدرّب خطوط الأساس B1–B10 والنموذج العصبوني GRU-lite والهجين، وتحسب المقاييس والاستدلال الإحصائي، وتكتب كل النتائج في ملفات صغيرة تحت `results/`. الغاية أن يكون كل رقم في الرسالة قابلاً لإعادة الإنتاج من جذر المستودع.
+1. **منصة تجارب أوفلاين** (`src/ml/`): تحمّل السجلات، وتبني الإشارة السلوكية، وتقسّم الزمن إلى طيّات بلا تسرب، وتدرّب خطوط الأساس B1–B10 والنموذج العصبوني GRU-lite والهجين، وتحسب المقاييس والاستدلال الإحصائي، وتكتب كل النتائج في ملفات صغيرة تحت `results/`. 
 2. **خدمة توصية بنمط إعادة التشغيل (Replay)** (`src/ml/serving.py` ثم `src/backend/`): تأخذ تسجيلاً ويوماً t، وتعيد ما كان سيوصى به عند ذلك اليوم مع تفسير كل توصية، من التركيبة المجمَّدة على بيانات 2013، دون أن تستعمل أي حدث بعد اليوم t.
 3. **واجهة عربية RTL** (`src/frontend/`): صفحة للمتعلم (أفضل 10 توصيات وتفسيرها) ولوحة للمدرّس (الملامح والعناقيد ودرجة الخطر النسبية)، وتعمل فوق الخدمة أو بوضع محاكاة مستقل.
 
@@ -120,7 +120,7 @@ bash data/download.sh          # يستنسخ مرآتين من GitHub، ثم ي
 python3 data/verify_oulad.py   # يعيد التحقق وحده (يطبع integrity: PASS)
 ```
 
-`data/download.sh` يستنسخ مرآة `LuongAnh1/oulad-data-warehouse` لأجزاء `studentVle_*.csv` الثمانية ومرآة `reyquiroz/OULAD_CourseAware` للجداول الستة الصغيرة إلى `data/raw/oulad/`. المواقع الرسمية محجوبة في بيئة العمل، ويكون الاستشهاد في الرسالة بالمصدر الرسمي (Kuzilek وHlosta وZdrahal، Scientific Data 4:170171، الترخيص CC BY 4.0).
+`data/download.sh` يستنسخ مرآة `LuongAnh1/oulad-data-warehouse` لأجزاء `studentVle_*.csv` الثمانية ومرآة `reyquiroz/OULAD_CourseAware` للجداول الستة الصغيرة إلى `data/raw/oulad/`. والاستشهاد في الرسالة بالمصدر الرسمي (Kuzilek وآخرون، Scientific Data 4:170171، CC BY 4.0).
 
 `data/verify_oulad.py` يعيد بناء `studentVle.csv` من الأجزاء الثمانية (يطبّق اقتباس كل الحقول ونهايات الأسطر CRLF لتطابق الملف الأصلي بايتاً)، ثم يقارن MD5 للملفات السبعة بـ`data/oulad_md5_reference.txt` وعدد الصفوف (10,655,280) ويخرج برمز غير صفري عند أي اختلاف. المخرج الفعلي عند التحقق:
 
@@ -203,7 +203,7 @@ bash src/frontend/build.sh                      # tsc → dist/js، ونسخ htm
 python3 -m src.backend --warm                   # http://127.0.0.1:8000 (الواجهة + /api)
 ```
 
-**قبل الخادم لا بد من `build_artifacts`** ومن وجود `data/raw/oulad/` و`data/cache/` و`results/dev2013/hybrid_frozen.json`؛ غيابها يعطي 503 `artifacts_missing` (وهذا ما يراه من يستنسخ المستودع ويشغّل الخادم مباشرة). `build_artifacts` يقرأ معرّفات 2014 بالاستثناء المسجَّل D-47 فيضيف سطراً إلى `results/access_log.jsonl`.
+**قبل الخادم لا بد من `build_artifacts`** ومن وجود `data/raw/oulad/` و`data/cache/` و`hybrid_frozen.json`؛ غيابها يعطي 503 `artifacts_missing` (ما يراه من يستنسخ المستودع ويشغّل الخادم مباشرة). و`build_artifacts` يقرأ معرّفات 2014 بالاستثناء D-47 فيضيف سطراً إلى `access_log.jsonl`.
 
 التسخين (D-68) للأيام 75 و56 و70 و112 و126 و182: ≈ 25 ثانية (قياس 2026-10-25 مع عنقدة مخزَّنة على القرص)، و≈ 61 ثانية في أول تشغيل بعد تغيّر بصمة التجميد لأن العنقدة تُعاد وتُخزَّن. بعده تُفتح الصفحات:
 
@@ -269,8 +269,6 @@ W_ui(t₀) = Σ_{d ∈ D_ui} exp(−(t₀−d)/τ) · (1 + β·log1p(c_uid / m_t
 | `SignalSpec(level, tau, beta)` | dataclass مجمَّد؛ الخاصية `key` تعطي نصاً مثل `L2(tau=14)` أو `L3(tau=28,beta=1)` |
 | `TAU_SPACE` | (7، 14، 28، 56، ∞)؛ و`BETA_SPACE` = (0.5، 1، 2)؛ و`ALPHA_SPACE` = (1، 2، 5، 10، 20، 40) |
 | `signal_matrix(train, spec)` | مصفوفة كثيفة U×I (float64) للمستوى المطلوب من `TrainData` |
-| `wrmf_preference_confidence(W, alpha, binary_confidence)` | التفضيل p = 1[W>0] والثقة c = 1 + α·W (أو 1 + α·1[W>0] للمقارن الثنائي في H2-أ) |
-| `all_signal_specs()` | 21 مواصفة: L0 وL1 و4 قيم τ لـL2 و15 مزيجاً (τ, β) لـL3 |
 
 ## 3.4 `splits.py`: القطع الزمني والمهمتان A وB بلا تسرب
 
@@ -350,15 +348,11 @@ model.recommend(student_id, k=10, exclude_seen=True)     # قائمة id_site
 | الدالة | الوظيفة |
 |---|---|
 | `cluster_bootstrap_t(diffs, n_boot=10000, seed=0)` | الفاصل المعيَّر t* = (m_b − Δ̄)/(max(s_b,1e-12)/√n)؛ ووسم «منحلّ» وحد ±∞ عند تطابق الفروق (D-52) |
-| `cluster_bootstrap_t_ci` / `cluster_bootstrap_ci` / `t_interval` | واجهة (mean, lo, hi)؛ الفاصل المئيني والتقليدي للملحق فقط |
 | `sign_flip_test(diffs, exact_max_n=20)` | اختبار قلب الإشارات ثنائي الطرف: إحصاء دقيق على 2ⁿ (8,192 لـn = 13)، أو مونت-كارلو فوق الحد |
 | `holm(pvals)` | تصحيح Holm؛ العائلة الثابتة m = 4 = {H1، H2-أ، H3، H4-أ} (D-23) |
-| `margin_test`، `confirmed_with_margin` | اختبار الهامش (Δ − δ) والوسم «مؤكَّدة بهامش»، وصفيان |
 | `verdict(mean, lo, hi, p_holm)` | جدول الحكم الأحادي بالأسبقية: مؤكَّدة ← مدحوضة عكسياً ← مدحوضة ← غير حاسمة |
 | `verdict_bidirectional(...)` | جدول H3 السداسي: تفوّق مؤكَّد، تأخّر مؤكَّد، تكافؤ، تأخّر، مدحوضة، غير حاسمة |
-| `compare(diffs)` | يجمع المتوسط والفاصلين وp في قاموس |
 | `confirmation_power(mu, sigma, n=13, ...)` و`mde80(sigma, n=13, ...)` | قوة التأكيد الكاملة بالقاعدة الأحادية وHolm = 4، وأصغر أثر بقوة 80% (D-46) |
-| `t_quantile` | توزيع t بالتنصيف على دالة بيتا الناقصة المنظَّمة |
 
 الثوابت: `DELTA = 0.02`، `ALPHA = 0.05`. والمعاملات المسجَّلة قبل التجميد لا تُغيَّر.
 
@@ -386,11 +380,9 @@ model.recommend(student_id, k=10, exclude_seen=True)     # قائمة id_site
 
 | الأسلوب | الوظيفة |
 |---|---|
-| `plan(name, day)` | (قطع، مكوّنات، أوزان، إعدادات، ملاحظة) ليوم الطلب |
 | `recommend(name, registration, day, k=10, exclude_seen=True)` | قائمة عناصر لكل منها `id_site` و`activity_type` و`score` (درجة الهجين؛ تسمّيها الخلفية `relevance`، D-70) و`components{m: rtilde, weight, contribution, raw}` و`explanation{main, secondary}` و`model_cut` و`day` و`note` و`known_learner` |
 | `learner_profile(name, registration, day, risk_model="M1")` | ملامح وعنقود اليوم 56 ودرجة الخطر، للمدرّس فقط |
 | `presentation_overview(name, day, risk_model="M1")` | لوحة المدرّس: المتعلمون النشطون و`median_active_days` وأكثر الموارد استعمالاً وحزم درجة الخطر |
-| `registrations(name, day)` | قائمة بيضاء بلا `final_result`، وتاريخ الانسحاب null إن كان بعد اليوم (D-70) |
 | `cluster_choice_at(name, day)` | اختيار k-means++ عند اليوم t نفسه، مخزَّناً في الذاكرة وفي `data/cache/serving_clusters/<pres>_<day>.npz`، ولا يُخدَم إلا لذلك اليوم (D-68) |
 | `warm(name, days=None)` | تسخين درجات المكوّنات (والعنقدة) على شبكة أسبوعية والقطوع؛ ويستدعيه خطّاف التسخين في الخلفية |
 
@@ -514,7 +506,7 @@ $ curl 'localhost:8000/api/recommendations?registration=FFF_2013J-371869&day=75&
  "provenance":{"run_id":"replay-dev2013-0e2547b627","role":"dev","model_cut":70}}
 ```
 
-**تفسير** المورد الأول نفسه (`/api/explanations/FFF_2013J-371869/716344?day=75`): مكوّنان، لكل منهما `r_tilde` و`contribution` و`evidence` من نوع `count` (85 متعلماً مشابهاً في نافذة 3 أيام، `scope: "similar"`) أو `item` (المورد 716219 من نوع forumng زاره المتعلم 67 يوماً، آخرها اليوم 75) والجملة المعروضة. **جدول متعلمين** (للمدرّس):
+**التفسير** (`/api/explanations/FFF_2013J-371869/716344?day=75`): مكوّنان بـ`evidence` من نوع `count` (85 متعلماً مشابهاً في نافذة 3 أيام) أو `item` (المورد 716219 زاره المتعلم 67 يوماً). **جدول المتعلمين** (للمدرّس):
 
 ```
 $ curl 'localhost:8000/api/instructor/learners?presentation=FFF_2013J&day=75&sort=-risk&limit=1'
@@ -677,7 +669,7 @@ $ python3 -m src.backend --help               # يطبع الخيارات الم
 
 ## 7.3 ما لا تغطيه الاختبارات
 
-لا اختبار آلي لسلوك المتصفح (DOM)؛ يُغطّى بفحص الأنواع وبلقطات Playwright (التمرير الأفقي وأخطاء الكونسول). ولا اختبار لـ`run_confirmatory` لأنه لم يُكتب بعد.
+لا اختبار آلي لسلوك المتصفح (DOM)؛ يُغطّى بفحص الأنواع وبلقطات Playwright. ولا اختبار لمسار 2014 الفعلي في `run_confirmatory` لأنه لم يُشغَّل بعد (تغطّي الحراس اختبارات `test_confirmatory`).
 
 ## 7.4 تناقضات رُصدت بين README والكود (حتى commit `2d86082`، 2026-10-25)
 
@@ -698,9 +690,8 @@ $ python3 -m src.backend --help               # يطبع الخيارات الم
 ## 8.1 البذور
 
 - **بذور التقرير:** `harness.SEEDS = (0,1,2,3,4)` للنماذج العشوائية (B1 وWRMF وGRU-lite وC7)؛ وبذرة **0** وحدها للضبط (D-34).
-- **العشوائيات الداخلية:** B1 يشتق مولّده من `[seed, crc32("pres|cut|phase")]`؛ `sample_space` من `crc32(اسم النموذج) + 20261024`؛ تهيئة WRMF `N(0, 0.01²)` من البذرة؛ خلط دفعات GRU ببذرة كل حقبة؛ bootstrap بـ`seed=0` و`n_boot=10000`؛ مونت-كارلو بـ`seed=0`.
-- **كسر التعادل:** مفاتيح splitmix64 مشتقة من (عرض، قطع، متعلم، مورد) وتطابق كل النماذج.
-- **الخيوط:** `OPENBLAS_NUM_THREADS=1` (و`OMP`/`MKL` في run_baselines) ثابتة في كل تجربة، فتتوازى العمليات (`fork` عبر `multiprocessing`) بدل الخيوط ويثبت ترتيب الجمع العددي.
+- **العشوائيات الداخلية:** B1 من `[seed, crc32("pres|cut|phase")]`؛ `sample_space` من `crc32(اسم النموذج) + 20261024`؛ تهيئة WRMF `N(0, 0.01²)`؛ خلط دفعات GRU ببذرة كل حقبة؛ bootstrap بـ`seed=0` و`n_boot=10000`. وكسر التعادل بمفاتيح splitmix64 المطابقة لكل النماذج (§3.4).
+- **الخيوط:** `OPENBLAS_NUM_THREADS=1` ثابتة، فتتوازى العمليات (`fork`) بدل الخيوط ويثبت ترتيب الجمع العددي.
 
 ## 8.2 المسارات والبصمات
 
