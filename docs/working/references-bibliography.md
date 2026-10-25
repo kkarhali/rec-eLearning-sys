@@ -111,9 +111,9 @@
 [51] N. I. Jha, I. Ghergulescu, and A.-N. Moldovan, "OULAD MOOC dropout and result prediction using ensemble, deep learning and regression techniques," in *Proc. 11th Int. Conf. Computer Supported Education (CSEDU)*, SciTePress, 2019, pp. 154–164, doi: 10.5220/0007767901540164.
 
 
-## مراجع منهجية ومراجع التحليل والتصميم ([52]–[64])
+## مراجع منهجية ومراجع التحليل والتصميم ([52]–[65])
 
-> [52]–[62] أُضيفت في الفصل الثالث للأطروحة (المقاييس، والطرق الإحصائية، وخوارزميات التجميع والتصنيف)، و[63]–[64] في الفصل الرابع. أعاد كاتب الوثائق التحقق منها في 2026-10-25 (D-104)، ولم تُدرج إلا البيانات المؤكَّدة. سجل التحقق في `research-credibility.md` القسم 5. لا نص كاملاً لأي منها في `references/`، وكلها تحمل التنبيه «كلاسيكي منهجي، تُحقّق من بياناته دون نص كامل».
+> [52]–[62] أُضيفت في الفصل الثالث للأطروحة (المقاييس، والطرق الإحصائية، وخوارزميات التجميع والتصنيف)، و[63]–[64] في الفصل الرابع. أعاد كاتب الوثائق التحقق منها في 2026-10-25 (D-104)، ولم تُدرج إلا البيانات المؤكَّدة. سجل التحقق في `research-credibility.md` القسم 5. لا نص كاملاً لأي منها في `references/`. الكلاسيكيات تحمل التنبيه «كلاسيكي منهجي، تُحقّق من بياناته دون نص كامل»، و[61] و[62] و[63] و[65] تحمل صيغة النص المفتوح (D-109). وحُذف [64] من قائمة الأطروحة (D-109) وبقي هنا للأثر برقمه، وحلّ محله [65] مصدراً لتعريف MoSCoW.
 
 [52] B. M. Sarwar, G. Karypis, J. A. Konstan, and J. Riedl, "Item-based collaborative filtering recommendation algorithms," in *Proc. 10th Int. Conf. World Wide Web (WWW10)*, Hong Kong, May 2001, pp. 285–295, doi: 10.1145/371920.372071.
 
@@ -139,4 +139,6 @@
 
 [63] World Wide Web Consortium (W3C), *Web Content Accessibility Guidelines (WCAG) 2.2*, W3C Recommendation, Oct. 5, 2023. [Online]. Available: https://www.w3.org/TR/2023/REC-WCAG22-20231005/
 
-[64] D. Clegg and R. Barker, *CASE Method Fast-Track: A RAD Approach*. Wokingham, U.K.: Addison-Wesley, 1994.
+[64] *(محذوف من قائمة الأطروحة، D-109: إسناد MoSCoW إليه ثانوي غير مؤكَّد)* D. Clegg and R. Barker, *CASE Method Fast-Track: A RAD Approach*. Wokingham, U.K.: Addison-Wesley, 1994.
+
+[65] DSDM Consortium, "MoSCoW prioritisation," in *The DSDM Agile Project Framework Handbook*. Ashford, U.K.: DSDM Consortium, 2014, ch. 10.

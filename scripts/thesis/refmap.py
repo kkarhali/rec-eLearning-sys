@@ -11,11 +11,19 @@ MAP_REL = os.path.join("deliverables", "06-final-thesis", "refs_renumber_map.csv
 
 
 def render(nums):
-    """Render a set of citation numbers: a contiguous run of 3+ as [a]–[b], otherwise a list."""
+    """Render a set of citation numbers ascending; runs of 3+ consecutive numbers become [a]–[b]."""
     nums = sorted(set(nums))
-    if len(nums) >= 3 and nums == list(range(nums[0], nums[-1] + 1)):
-        return f"[{nums[0]}]–[{nums[-1]}]"
-    return "، ".join(f"[{n}]" for n in nums)
+    parts, i = [], 0
+    while i < len(nums):
+        j = i
+        while j + 1 < len(nums) and nums[j + 1] == nums[j] + 1:
+            j += 1
+        if j - i >= 2:
+            parts.append(f"[{nums[i]}]–[{nums[j]}]")
+        else:
+            parts.extend(f"[{n}]" for n in nums[i:j + 1])
+        i = j + 1
+    return "، ".join(parts)
 
 
 def apply_citations(text, mapping):

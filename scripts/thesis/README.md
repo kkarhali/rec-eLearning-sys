@@ -23,6 +23,7 @@ python3 scripts/thesis/build_ch6.py       # 3) يبني الفصل 6 من نصه
 | `make_tables.py` | `results/conf2014/*` (CSV وJSON وLOCK وsummary.md)، `results/dev2013/ablation_signals.csv` | `deliverables/06-final-thesis/tables/` (جدول `.md` لكل جدول، و`figures.txt` لكتل الأشكال وتعليقاتها، و`CHECKS.txt`) |
 | `assemble.py` | `templates/sec58_template.md`، `templates/appD_template.md`، مخرجات الخطوة 1 | `docs/working/06-thesis/ch5-implementation-results.md` (ما بين عنوان 5-8 وعنوان 5-9 وحده)، `docs/working/06-thesis/appendix-D-confirmatory-details.md` |
 | `build_ch6.py` | `templates/ch6_freeze03.md` | `docs/working/06-thesis/ch6-discussion.md` |
+| `refmap.py` | — | دوال مشتركة لإعادة ترقيم الإحالات، يستعملها `renumber.py` و`build_ch6.py`. يطبّق `build_ch6.py` جدول المقابلة المحفوظ على النص المسجل وقت البناء، فتبقى صياغة الفقرات المسجلة كما هي وتتبع أرقام الإحالات ترقيم الرسالة |
 | `renumber.py` | الفصول والملاحق و`references.md` و`docs/working/07-presentation.json` | إعادة ترقيم المراجع بترتيب الظهور، وفحص ترقيم الأشكال والجداول، و`deliverables/06-final-thesis/refs_renumber_map.csv` (لا يُشغَّل على المستودع إلا بعد اكتمال سجل التحقق من المراجع) |
 
 ## قواعد
@@ -42,3 +43,15 @@ python3 scripts/thesis/build_ch6.py       # 3) يبني الفصل 6 من نصه
 
   ويفشل `build_ch6.py` إن ظهر في الفرق مع النص المسجل أي تغيير آخر. ولتعديل ما بعد النتيجة يُعدَّل القاموس `INSERT` في السكربت.
 - **الأشكال المشتقة** يرسمها `scripts/derive_conf2014_figures.py`، وتُدرج كتلها من `figures.txt`.
+
+## إعادة الترقيم (بعد اكتمال سجل التحقق من المراجع)
+
+```bash
+python3 scripts/thesis/renumber.py            # تشغيل جاف: تقرير وفحوص فقط (رمز الخروج 1 عند أي خطأ)
+python3 scripts/thesis/renumber.py --apply    # يكتب التغييرات، ثم تُعاد الخطوات 1–3 للتحقق من أنها لا تغيّر شيئاً
+```
+
+- **ما يعيد ترقيمه:** المراجع بترتيب الظهور الأول في المقدمات والفصول 1–7 والملاحق أ–د، بما فيها عمود «#» في جداول الملحق أ، وتُرتَّب صفوف تلك الجداول بالرقم الجديد.
+- **ما يحدّثه:** `references.md` (الترقيم والترتيب والفقرة التمهيدية)، والقوالب، و`docs/working/07-presentation.json`. أما النص المسجل `templates/ch6_freeze03.md` فلا يُمَس.
+- **جدول المقابلة:** يكتبه تراكمياً من الترقيم الموحّد الأصلي إلى الجديد في `deliverables/06-final-thesis/refs_renumber_map.csv`.
+- **الأشكال والجداول:** يفحص أنها مرقّمة بترتيب الظهور، ومُشار إليها قبل ظهورها، ولها مصدر. ويعيد ترقيم المخالف منها في الفصول والقوالب وأرقام الأشكال في `make_tables.py` والشرائح.

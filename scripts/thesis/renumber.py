@@ -155,13 +155,14 @@ for n, e in sorted(entries.items()):
         errors.append(f"IEEE entry [{n}] incomplete: missing {', '.join(pr)}")
 
 # ------------------------------------------------------------------ figures and tables
-CAP_T = re.compile(r"^\*\*جدول ([0-9ء-ي]+)-(\d+)((?:-[ء-ي]+)?)[:：]\s*(.*)\*\*\s*$")
-CAP_F = re.compile(r"^!\[الشكل ([0-9ء-ي]+)-(\d+)[:：]\s*([^\]]*)\]\(([^)]+)\)")
-SPAN_T = re.compile(r"(الجدول|الجدولان|الجدولين|الجداول|جدول|للجدول|بالجدول)\s+((?:[0-9ء-ي]+-\d+(?:-[ء-ي]+)?)(?:\s*(?:و|،|–|إلى)\s*[0-9ء-ي]+-\d+(?:-[ء-ي]+)?)*)")
-SPAN_F = re.compile(r"(الشكل|الشكلان|الشكلين|الأشكال|للشكل|بالشكل)\s+((?:[0-9ء-ي]+-\d+)(?:\s*(?:و|،|–|إلى)\s*[0-9ء-ي]+-\d+)*)")
+CAP_T = re.compile(r"^\*\*جدول (\d+|[ء-ي])-(\d+)((?:-[ء-ي]+)?)[:：]\s*(.*)\*\*\s*$")
+CAP_F = re.compile(r"^!\[الشكل (\d+|[ء-ي])-(\d+)[:：]\s*([^\]]*)\]\(([^)]+)\)")
+SPAN_T = re.compile(r"(الجدول|الجدولان|الجدولين|الجداول|جدول|للجدول|بالجدول)\s+((?:(?:\d+|[ء-ي])-\d+(?:-[ء-ي]+)?)(?:\s*(?:و|،|–|إلى)\s*(?:\d+|[ء-ي])-\d+(?:-[ء-ي]+)?)*)")
+SPAN_F = re.compile(r"(الشكل|الشكلان|الشكلين|الأشكال|للشكل|بالشكل)\s+((?:(?:\d+|[ء-ي])-\d+)(?:\s*(?:و|،|–|إلى)\s*(?:\d+|[ء-ي])-\d+)*)")
 SOURCE_HINTS = ("المصدر", "إعداد الباحث", "مولَّد من", "مولّد من", "(مقفل)", "الطور الثاني", "أُعيد رسمه", "لقطة", "منقولة", "مقتبس", "بتصرف")
 
 renum = {"T": {}, "F": {}}  # kind -> {old_label: new_label}
+prior = ""  # text of the files before the current one (a mention in an earlier chapter counts)
 for f in ORDER:
     t = texts[f]
     lines = t.split("\n")
@@ -188,16 +189,18 @@ for f in ORDER:
         if not has_src:
             warnings.append(f"{f}: {'جدول' if kind == 'T' else 'الشكل'} {label} has no stated source")
         # mentioned before
-        before = "\n".join(lines[:k])
+        before = prior + "\n".join(lines[:k])
         span = SPAN_T if kind == "T" else SPAN_F
         found = False
         for sm in span.finditer(before):
-            labels = re.findall(r"[0-9ء-ي]+-\d+(?:-[ء-ي]+)?", sm.group(2))
+            labels = re.findall(r"(?:\d+|[ء-ي])-\d+(?:-[ء-ي]+)?", sm.group(2))
             if label in labels or (kind == "T" and any(l == main for l in labels)):
                 found = True
                 break
         if not found:
             warnings.append(f"{f}: {'جدول' if kind == 'T' else 'الشكل'} {label} is not mentioned in the text before it appears")
+    prior += t + "\n"
+    prior += t + "\n"
     # order of main numbers per chapter prefix
     for kind in ("T", "F"):
         by_ch = {}
@@ -223,7 +226,7 @@ def relabel(text, kind, mp):
         def rep_label(lm):
             lab = lm.group(1)
             return mp.get(lab, lab) + (lm.group(2) or "")
-        inner = re.sub(r"([0-9ء-ي]+-\d+)((?:-[ء-ي]+)?)", rep_label, sm.group(2))
+        inner = re.sub(r"((?:\d+|[ء-ي])-\d+)((?:-[ء-ي]+)?)", rep_label, sm.group(2))
         return sm.group(1) + " " + inner
     return span.sub(rep_span, text)
 
