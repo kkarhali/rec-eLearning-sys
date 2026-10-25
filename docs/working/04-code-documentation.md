@@ -3,7 +3,7 @@
 **المرحلة الرابعة من رسالة الماجستير: «نظام توصية للتعليم الإلكتروني القائم على تحليل سلوك المستخدم»**
 
 - **القارئ المستهدف:** لجنة التحكيم، وأي مطوّر يريد أن يفهم كيف بُني النظام، وكيف يُشغَّل، وكيف يُعاد إنتاج كل رقم في الرسالة.
-- **حالة المستودع وقت الكتابة:** 2026-10-24، قبل الوسم `freeze-03`. كل ما يُذكر هنا من أسماء ملفات ودوال وأوامر قُرئ من الشيفرة نفسها، وشُغّلت الاختبارات والأوامر المذكورة فعلاً (الفصل 7). وحين يخالف README الشيفرة يُذكر ذلك صراحة (§7.4).
+- **حالة المستودع وقت الكتابة:** 2026-10-25، commit `85a0376`، قبل الوسم `freeze-03`. كل ما يُذكر هنا من أسماء ملفات ودوال وأوامر قُرئ من الشيفرة نفسها، وشُغّلت الاختبارات والأوامر المذكورة فعلاً (الفصل 7). الأرقام المتحركة (أعداد الاختبارات والأزمنة) مؤرَّخة بالتاريخ والـcommit حيث وردت، وحين يخالف README الشيفرة يُذكر ذلك صراحة (§7.4). **تُستكمل بعد التشغيل:** نتائج الشرطين ش5 (`reproduce_dev`) وش7 (التشغيل الجاف) في §8.4.
 - **المصطلحات:** تبقى بالإنكليزية كما وردت في الكود (`fit`، `recommend`، `Engine`…)، والشرح بالعربية.
 
 # 1. نظرة عامة
@@ -22,34 +22,47 @@
 
 ```
 rec-eLearning-sys/
-├── README.md                 خريطة المستودع وأمر بناء Word
-├── data/
-│   ├── download.sh           استنساخ مرايا OULAD من GitHub ثم التحقق
-│   ├── verify_oulad.py       إعادة بناء studentVle.csv من 8 أجزاء + MD5 لكل ملف
-│   ├── oulad_md5_reference.txt
-│   ├── raw/oulad/            (خارج git) الجداول السبعة، ≈ 825 MB
-│   └── cache/                (خارج git) أحداث مجمَّعة + درجات المكوّنات، ≈ 1.3 GB
-├── src/
-│   ├── ml/                   منصة التجارب + serving.py
-│   │   ├── data.py signals.py splits.py metrics.py hybrid.py stats.py
-│   │   ├── harness.py learners.py components.py serving.py plots.py
-│   │   ├── models/           base, simple, knn, baskets, markov, wrmf, ease, cbf,
-│   │   │                     context, gru_lite
-│   │   ├── experiments/      eda, run_baselines, gru_sanity, run_gru, run_ablation,
-│   │   │                     learner_analysis, run_hybrid, power, build_artifacts,
-│   │   │                     risk_final, report
-│   │   └── tests/            unittest (8 ملفات)
-│   ├── backend/              starlette + pydantic: app, routes/, services/, schemas
-│   └── frontend/             TypeScript + HTML + CSS: src/, styles/, mock/, build.sh
-├── results/
-│   ├── dev2013/              مخرجات التطوير النصية (CSV/JSON/MD)، ≈ 3.4 MB، في git
-│   └── access_log.jsonl      سجل قراءات D-47
-├── artifacts/                معاملات القطوع: risk_*.json وclusters_56.npz (≈ 0.5 MB)
-├── scripts/                  build_docx.py, lo_update_toc.py, svg2png.js/.py, build_pptx.py
-├── docs/                     working/ (مسوّدات)، decisions/ (ADR)، meetings/ (المحاضر)
-├── deliverables/             مخرجات المراحل (Word/PowerPoint) ولقطات الشاشة
-└── references/               المراجع العلمية (PDF)
+  README.md
+  data/
+    download.sh  verify_oulad.py  oulad_md5_reference.txt
+    raw/oulad/            (untracked)
+    cache/                (untracked)
+    repro_snapshot/       (untracked)
+  src/
+    ml/
+      data.py  signals.py  splits.py  metrics.py  hybrid.py  stats.py
+      harness.py  learners.py  components.py  serving.py  plots.py
+      models/        base simple knn baskets markov wrmf ease cbf
+                     context gru_lite
+      experiments/   eda run_baselines gru_sanity run_gru run_ablation
+                     learner_analysis run_hybrid power build_artifacts
+                     report risk_final freeze_config reproduce_dev
+                     run_confirmatory
+      tests/         9 test files
+    backend/         app.py settings.py errors.py schemas.py repository.py
+                     routes/ services/ tests/ e2e/ bench.py
+    frontend/        src/ styles/ mock/ screenshots/ build.sh
+  results/
+    dev2013/         development outputs
+    frozen/          freeze03_config.json risk_final.json freeze_checklist.md
+    access_log.jsonl
+  artifacts/         (untracked)
+  scripts/           build_docx.py lo_update_toc.py svg2png.js svg2png.py
+                     build_pptx.py
+  docs/  deliverables/  references/
 ```
+
+| المسار | الدور |
+|---|---|
+| `data/raw/oulad/`، `data/cache/`، `data/repro_snapshot/` | بيانات OULAD الخام (≈ 825 MB)، والذاكرة المؤقتة (أحداث مجمَّعة ودرجات المكوّنات وعنقدة الخدمة، ≈ 1.3 GB)، ولقطة `reproduce_dev`؛ كلها خارج git |
+| `src/ml/` | منصة التجارب وخدمة إعادة التشغيل `serving.py` ومولّد الأشكال `plots.py` |
+| `src/backend/` | خدمة starlette: المسارات والخدمات والعقود والاختبارات وقياس الأداء ولقطات الواجهة الحية |
+| `src/frontend/` | الواجهة (TypeScript وHTML وCSS) وملفات المحاكاة ولقطاتها |
+| `results/dev2013/` | مخرجات التطوير النصية (CSV وJSON وMD)، ≈ 3.4 MB، في git |
+| `results/frozen/` | الإعداد المجمَّد ونماذج الخطر النهائية وقائمة شروط التجميد، في git |
+| `artifacts/` | معاملات القطوع (`risk_*.json` و`clusters_56.npz`)، ≈ 0.5 MB، **خارج git** (D-70) وتُعاد بـ`build_artifacts` |
+| `scripts/` | أدوات البناء (الفصل 6) |
+| `docs/`، `deliverables/`، `references/` | المسوّدات والقرارات والمحاضر، ومخرجات المراحل (Word وPowerPoint ولقطات الشاشة)، والمراجع العلمية |
 
 ## 1.3 الفصل بين الكود والمخرجات النصية
 
@@ -58,8 +71,8 @@ rec-eLearning-sys/
 | النوع | أين | يُولَّد بـ | في git؟ |
 |---|---|---|---|
 | **الكود** | `src/`، `scripts/`، `data/*.py\|sh` | يُكتب يدوياً | نعم |
-| **مخرجات التجارب** (أرقام وجداول صغيرة) | `results/dev2013/`، `artifacts/` | أوامر `python3 -m src.ml.experiments.*` | نعم (صغيرة) |
-| **البيانات والذاكرات المؤقتة** | `data/raw/`، `data/cache/` | `data/download.sh` وأول تحميل | لا (`.gitignore`) |
+| **مخرجات التجارب** (أرقام وجداول صغيرة) | `results/dev2013/`، `results/frozen/` | أوامر `python3 -m src.ml.experiments.*` | نعم (صغيرة) |
+| **البيانات والذاكرات المؤقتة والمعاملات المبنية** | `data/raw/`، `data/cache/`، `data/repro_snapshot/`، `artifacts/` | `data/download.sh` وأول تحميل و`build_artifacts` | لا (`.gitignore`) |
 | **المخرجات النصية** (مسوّدات ووثائق Word/PPTX) | `docs/working/`، `deliverables/` | `scripts/build_docx.py`، `build_pptx.py` | نعم |
 
 قاعدة التصميم: الوثائق لا تُنشئ أرقاماً؛ الشيفرة تكتبها في `results/` وتنقلها الوثائق (مثال: `summary.md` يولّده `report.py` من ملفات CSV وحدها).
@@ -78,11 +91,23 @@ rec-eLearning-sys/
 
 كل خوارزمية موثّقة باختبارات تعيد حساب الأمثلة العددية المنشورة في وثيقة الفرضيات (الجداول 7 و8 و12 و14 و19 وغيرها)، فتحل الاختبارات محل الثقة بمكتبة جاهزة.
 
+## 1.5 مصطلحات الوثيقة
+
+| المصطلح | المعنى في الكود والوثيقة |
+|---|---|
+| **الأصل (t)** | نقطة القطع الزمنية العامة t ∈ {70، 126، 182} (`splits.CUTS`)؛ ويرد أحياناً «القطع» في الخدمة بمعنى «قطع النموذج» (`model_cut`) |
+| **الطور** | `tune` (تدريب حتى t−14 وتحقق في (t−14، t]) أو `test` (تدريب حتى t واختبار في (t، t+14]) |
+| **الطيّة (fold)** | الثلاثية (عرض، أصل، طور) التي يبنيها `splits.make_fold` |
+| **HYB\*** | التركيبة المجمَّدة للهجين: C7 (7) مع SKNN (4) بأرضية شخصنة ≥ 1/4 (D-51) |
+| **فحوص الصحة S1–S6** | فحوص GRU-lite (§3.7) |
+| **تصحيح هولم (Holm)** | التصحيح التنازلي على العائلة الثابتة m = 4 |
+| **عائلة الإشارة W\*** | اتحاد المستويات L1 وL2 وL3 بمعاملاتها المضبوطة على التحقق (H2-أ) |
+
 # 2. المتطلبات والتثبيت والتشغيل من الصفر
 
 ## 2.1 المتطلبات
 
-- Python 3.13 مع numpy وpandas (لمنصة التجارب)، وstarlette وuvicorn وpydantic (للخدمة).
+- Python 3.13 مع numpy وpandas (لمنصة التجارب)، وstarlette وuvicorn وpydantic (للخدمة). لا يوجد ملف `requirements.txt` (لا تثبيت ممكن في بيئة العمل)؛ **الإصدارات المعتمدة للتحقق**: Python 3.13.17 وnumpy 2.5.3 وpandas 3.0.5 وstarlette 1.7.0 وuvicorn 0.54.0 وpydantic 2.13.5 وNode v22.22.0، وهي المسجَّلة في `run_meta.json`.
 - Node.js مع `typescript` مثبَّتاً عالمياً (الأمر `tsc`) لبناء الواجهة؛ وPlaywright العالمي لسكربتات اللقطات فقط.
 - `git` و`bash` و`curl` والاتصال بـGitHub (لتحميل البيانات).
 - مساحة: ≈ 825 MB للبيانات الخام، و≈ 1.3 GB للذاكرة المؤقتة. والذاكرة العاملة: أقصى RSS مقيس ≈ 550 MB لكل عملية في `run_baselines`.
@@ -114,55 +139,84 @@ integrity: PASS
 
 ## 2.3 تشغيل الاختبارات
 
+الأعداد أدناه مقيسة في 2026-10-25 على commit `85a0376` (4 أنوية):
+
 ```
-python3 -m unittest discover -s src/ml/tests               # 96 اختباراً، ≈ 4 ث، بلا البيانات الخام
+python3 -m unittest discover -s src/ml/tests               # 108 اختباراً، ≈ 5 ث، بلا البيانات الخام
 python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors
-python3 -m unittest discover -s src/backend/tests -t .     # الخلفية كاملة، ≈ 85 ث (تحتاج البيانات)
+python3 -m unittest discover -s src/backend/tests -t .     # 52 اختباراً، ≈ 120 ث (تحتاج البيانات)
 cd src/frontend && tsc --noEmit -p tsconfig.json           # فحص الأنواع (strict)
 ```
 
-ملاحظة: اختبارات الخلفية تستعمل استيراداً نسبياً (`from .asgi_client import Client`)، فلا بد من الخيار `-t .` (جذر المستودع مجلداً أعلى) عند استعمال `discover`. الأمر `discover -s src/backend/tests` بلا `-t .` يفشل في استيراد `test_api_live` و`test_static_errors` بالخطأ `attempted relative import with no known parent package`، وقد تحقّقنا منه (§7.4).
+اختبارات الخلفية تستعمل استيراداً نسبياً (`from .asgi_client import Client`)، فلا بد من الخيار `-t .` عند استعمال `discover`. الأمر `discover -s src/backend/tests` بلا `-t .` يفشل في استيراد ثلاث وحدات بالخطأ `attempted relative import with no known parent package` (تحققنا منه: `Ran 18 tests … FAILED (errors=3)`)، فلا يُستعمل مع `-k` أيضاً. زمن الخلفية الكاملة يتراوح بين ≈ 25 و≈ 120 ثانية بحسب وجود عنقدة الخدمة المخزَّنة على القرص (§4.5).
 
 ## 2.4 إعادة إنتاج نتائج التطوير
 
-الأمر المعتمد في `src/ml/README.md` ليس أمراً واحداً بعد، بل تسلسل مرتَّب من تسع خطوات، تُشغَّل كلها من جذر المستودع على عروض 2013 التسعة وحدها (حاجز D-09). الأمر الواحد `python3 -m src.ml.experiments.reproduce_dev` مطلوب في شروط التجميد (D-62 ش5) ولم يُكتب بعد (§8.4). التسلسل الحالي:
+**أمر واحد:** `reproduce_dev` (D-62 ش5) يعيد إنتاج كل نتائج التطوير من ذاكرة مؤقتة فارغة ويقارنها بلقطة ما قبل التشغيل:
+
+```
+python3 -m src.ml.experiments.reproduce_dev              # ≈ 50 دقيقة على 4 أنوية
+python3 -m src.ml.experiments.reproduce_dev --diff-only  # إعادة المقارنة وحدها مع اللقطة الأخيرة
+```
+
+يحفظ الأمر نسخة من `results/dev2013/` و`results/frozen/` في `data/repro_snapshot/` ويفرغ `data/cache/`، ثم يشغّل كل خطوة في عملية مستقلة بالترتيب: `eda` ثم `run_baselines` ثم `gru_sanity` ثم `run_gru` ثم `run_ablation` ثم `learner_analysis` ثم `run_hybrid` ثم `power` ثم `risk_final` ثم `build_artifacts` ثم `freeze_config` ثم `report`. بعد ذلك يقارن كل ملف بلقطته حرفياً بعد حجب الحقول المتقلبة وحدها (الأزمنة والتواريخ وhash الـcommit والذاكرة والسرعة)، ويكتب `results/dev2013/repro_diff.md` (الحالة «مطابق» أو «فروق») و`repro_meta.json` (زمن كل خطوة). **تُستكمل بعد التشغيل:** حالة `repro_diff.md` على commit نظيف (§8.4). والتسلسل اليدوي المكافئ لما في `src/ml/README.md`:
 
 ```
 python3 -m unittest discover -s src/ml/tests -v
-python3 -m src.ml.experiments.eda               # ≈ 25 ث
-python3 -m src.ml.experiments.run_baselines     # 5.2 د (4 عمليات)
+python3 -m src.ml.experiments.eda               # ≈ 25-40 ث
+python3 -m src.ml.experiments.run_baselines     # ≈ 8 د (473.5 ث في run_meta.json الحالي)
 python3 -m src.ml.experiments.gru_sanity        # ≈ 1 د؛ بوابة: لا نتائج GRU بلا اجتيازها
 python3 -m src.ml.experiments.run_gru           # 15.2 د
 python3 -m src.ml.experiments.run_ablation      # 19.2 د
 python3 -m src.ml.experiments.learner_analysis  # ≈ 2.5 د
 python3 -m src.ml.experiments.run_hybrid        # ≈ 2-3 د
 python3 -m src.ml.experiments.power             # ≈ 1 د
-python3 -m src.ml.experiments.build_artifacts   # ≈ 1 د
+python3 -m src.ml.experiments.risk_final        # نماذج الخطر النهائية
+python3 -m src.ml.experiments.build_artifacts   # ≈ 1 د؛ لازمة قبل الخادم
 ```
 
-المجموع المقيس في تشغيل الفريق: ≈ 48 دقيقة فعلية و≈ 4.8 ساعة CPU، تحت سقف 8 ساعات CPU (D-34). والأوامر تعيد كتابة ملفات `results/dev2013/` المتتبَّعة في git؛ تتطابق قيم المقاييس لأن كل شيء حتمي (§8)، وتتغير أعمدة الأزمنة والتواريخ فقط.
+المجموع المقيس في تشغيل الفريق ≈ 48 دقيقة فعلية و≈ 4.8 ساعة CPU تحت سقف 8 ساعات (D-34)، وأول `reproduce_dev` كامل استغرق 53.6 دقيقة. الأوامر تعيد كتابة ملفات `results/` المتتبَّعة؛ تتطابق المقاييس لأن كل شيء حتمي (§8)، وتتغير الأزمنة والتواريخ فقط. `run_hybrid` لا يعتمد على كاش جاهز: يبني درجات المكوّنات في `data/cache/components/` (≈ 1.1 GB) في خطوته الأولى ويعيد استعمال درجات GRU التي كتبها `run_gru`.
 
-المخرجات الوسيطة الكبيرة (درجات المكوّنات لكل طيّة وطور وبذرة) تُخزَّن في `data/cache/components/` (≈ 1.1 GB، خارج git) وتعيد استعمالها `run_hybrid` وغيره.
+**أرقام مرجعية للمطابقة** (مأخوذة من `results/dev2013/`، المهمة A، الشريحة `all`، متوسط ثم متوسط الأصول، تقريب 3 منازل):
 
-الملف `experiments/risk_final.py` (نماذج الخطر النهائية، D-58) ليس ضمن تسلسل README؛ يكتب في `results/frozen/` الذي لم يُنشأ بعد، ويُستعمل في مسار التجميد (§8.4).
+| الرقم | القيمة | المصدر |
+|---|---|---|
+| NDCG@10 لـB3 (Recent-Pop) | 0.541 | `summary.md` الجدول 1 |
+| NDCG@10 لـB5 (SKNN) | 0.531 | `summary.md` الجدول 1 |
+| NDCG@10 لـGRU-lite | 0.519 | `summary.md` الجدول 1 |
+| NDCG@10 لـHYB\* على نوافذ الاختبار | 0.561 (الأرضية الاسمية 0.556) | `hybrid_meta.json` |
+| H4-أ: AUC(M1) − AUC(M0) عند اليوم 56 | +0.0142 | `learner_h4a_summary.csv` |
+
+**اختبار سريع (≈ 2 ثانية)** يتحقق من سلامة الخط بلا انتظار التشغيل الكامل:
+
+```
+python3 -m src.ml.experiments.run_baselines --presentations FFF_2013J --cuts 70 --models B2_Pop B3_RecentPop --workers 1 --out /tmp/q
+```
+
+والناتج المتوقع في `/tmp/q/baselines.csv` (المهمة A، الشريحة `all`، FFF_2013J عند القطع 70، `n_eval` = 991): NDCG@10 = 0.108476 لـB2_Pop و0.394036 لـB3_RecentPop بالإعداد `w=3`، وهي مطابقة لصفوف `results/dev2013/baselines.csv` (تحققنا منها).
+
+الملف `experiments/risk_final.py` (نماذج الخطر النهائية، D-58) يكتب `results/frozen/risk_final.json` وينسخه إلى `artifacts/`، وهو ضمن خطوات `reproduce_dev`. وتجارب التجميد (`freeze_config` و`run_confirmatory`) في §8.4.
 
 ## 2.5 بناء الواجهة وتشغيل الخادم وفتح الصفحات
 
 ```
-bash src/frontend/build.sh                 # tsc → dist/js، ونسخ html/css/mock إلى dist/
-python3 -m src.backend --warm              # http://127.0.0.1:8000 (الواجهة + /api)
+python3 -m src.ml.experiments.build_artifacts   # أولاً: artifacts/ خارج git (D-70)، ≈ دقيقة
+bash src/frontend/build.sh                      # tsc → dist/js، ونسخ html/css/mock إلى dist/
+python3 -m src.backend --warm                   # http://127.0.0.1:8000 (الواجهة + /api)
 ```
 
-بعد التسخين (≈ 80 ثانية للأيام الستة الافتراضية) تُفتح الصفحات:
+**قبل الخادم لا بد من `build_artifacts`** ومن وجود `data/raw/oulad/` و`data/cache/` و`results/dev2013/hybrid_frozen.json`؛ غيابها يعطي 503 `artifacts_missing` (وهذا ما يراه من يستنسخ المستودع ويشغّل الخادم مباشرة). `build_artifacts` يقرأ معرّفات 2014 بالاستثناء المسجَّل D-47 فيضيف سطراً إلى `results/access_log.jsonl`.
+
+التسخين (D-68) للأيام 75 و56 و70 و112 و126 و182: ≈ 25 ثانية (قياس 2026-10-25 مع عنقدة مخزَّنة على القرص)، و≈ 61 ثانية في أول تشغيل بعد تغيّر بصمة التجميد لأن العنقدة تُعاد وتُخزَّن. بعده تُفتح الصفحات:
 
 | الصفحة | الرابط | ملاحظة |
 |---|---|---|
 | الرئيسية (معالج الاختيار) | `http://127.0.0.1:8000/` | اختيار العرض والتسجيل واليوم |
 | واجهة المتعلم | `/learner.html?p=FFF_2013J&r=FFF_2013J-371869&d=75` | أفضل 10 وزر «لماذا؟» |
-| لوحة المدرّس | `/instructor.html?p=FFF_2013J&d=75` | تتطلب اليوم ≥ 56 |
+| لوحة المدرّس | `/instructor.html?p=FFF_2013J&d=75` | تتطلب اليوم ≥ 56 (422 قبله، D-74) |
 | عن النظام | `/about.html` | نص ثابت (FR-35) |
 
-خيارات الخادم (من `--help`): `--host` و`--port` و`--no-instructor` و`--warm` و`--warm-presentation` و`--warm-days` و`--warm-weekly` و`--log-level`. من دون `dist/` يعيد الجذر 503 برسالة تدل على أمر البناء وتبقى مسارات `/api/*` تعمل. وللتجربة بلا خادم: `python3 -m http.server 8000 -d src/frontend/dist` ثم تفتح الواجهة بوضع المحاكاة تلقائياً (§5.4).
+خيارات الخادم (من `--help`): `--host` و`--port` و`--no-instructor` و`--warm` و`--warm-presentation` و`--warm-days` و`--warm-weekly` و`--log-level`. من دون `dist/` يعيد الجذر 503 برسالة تدل على أمر البناء وتبقى مسارات `/api/*` تعمل. وللتجربة بلا خادم: `python3 -m http.server 8000 -d src/frontend/dist` ثم تفتح الواجهة بوضع المحاكاة تلقائياً (§5.3).
 
 # 3. وحدة `src/ml`
 
