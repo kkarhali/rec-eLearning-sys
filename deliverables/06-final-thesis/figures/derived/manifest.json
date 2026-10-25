@@ -1,6 +1,6 @@
 {
  "decision": "D-95 (annex of meeting 04)",
- "generated_utc": "2026-10-25T23:25:58Z",
+ "generated_utc": "2026-10-25T23:26:24Z",
  "lock_sha256": "ab1c563985703a64bc1d5371b4bdeec7a28cb11e67bcb54632d4106aae16334d",
  "sources": {
   "verdicts.csv": {
@@ -179,9 +179,9 @@
   }
  },
  "script": {
-  "head": "1cfb1ebf081ede987fea6f7609070115c5c3f504",
-  "script_last_commit": "9972f55d1a1c454b733858d26b231870c1fdb7fa",
-  "script_uncommitted_changes": true,
+  "head": "a7f44f1c60e37e18ec1d7b1031bb7fd2e2ec8f4c",
+  "script_last_commit": "a7f44f1c60e37e18ec1d7b1031bb7fd2e2ec8f4c",
+  "script_uncommitted_changes": false,
   "script_sha256": "46fb13bcdaa35fdc63bcbd0b63e7a2e6fee6cc27d7edcb69a75f93b44c6cae8c",
   "provenance_script_sha256": "9722a8f84403aadc91caeef4763c79c38d1005f6b5d426d9f105bcd8bf4a763d"
  },
