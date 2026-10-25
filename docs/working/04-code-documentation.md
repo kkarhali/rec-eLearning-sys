@@ -323,6 +323,18 @@ model.recommend(student_id, k=10, exclude_seen=True)     # قائمة id_site
 | C7_ClusterPop | `context.py` | شعبية المورد داخل عنقود المتعلم (k-means++ يُعاد عند كل t₀) | w ∈ {3، 7، 14، 21، 28} |
 | GRU_lite | `gru_lite.py` | شبكة GRU يدوية (§3.7) | lr ∈ {1e-3، 3e-3، 1e-2}، target ∈ {next، next-new} |
 
+**مطابقة مكوّنات الهجين** (وثيقتا الفرضيات والتصميم) مع أسماء الكود:
+
+| رقم المكوّن | الاسم في الكود | ملاحظة |
+|---|---|---|
+| (1) | `B3_RecentPop` | Recent-Pop؛ B_np\* المرجعي في H1 |
+| (2) | `B7_WRMF` | شخصي |
+| (3) | `B4_ItemKNN` | شخصي |
+| (4) | `B5_SKNN` (S\*)، ومرشحان: `B6_Markov` و`GRU_lite` | خانة واحدة (D-53)؛ و`B5_SKNN` هو مكوّن الأرضية في التركيبة المجمَّدة |
+| (5) | `B9_CBF` | شخصي |
+| (6) | `C6_AssessProx` | سياقي |
+| (7) | `C7_ClusterPop` | سياقي؛ معرّفه في الواجهة `similar_pop` (D-70) |
+
 مساعدات: `baskets.py` يوفّر `day_keys` و`recency_rank` و`last_days_query` (استعلام آخر L أيام نشطة، ثنائي أو خطي) و`week_baskets` و`consecutive_day_transitions`. وWRMF مكتوب بخطوة ALS نصفية `als_half_step` تشكّل مصفوفات المعادلات الطبيعية بضرب مصفوفات واحد لكل كتلة صفوف وتحلّها بـfloat64، وتُستعمل نفسها في «fold-in» عند الخدمة.
 
 ## 3.7 GRU-lite
@@ -393,11 +405,27 @@ model.recommend(student_id, k=10, exclude_seen=True)     # قائمة id_site
 6. كل استجابة تحمل `model_cut` (تاريخ النموذج).
 7. لا رقم تقييم يُشتق من إعادة التشغيل.
 
-المعامل `allow_confirmatory` (FR-40) لا يُقبل إلا إذا وُجد `results/conf2014/verdicts.csv` والملف `LOCK` وإلا رُفع `ConfirmatoryAccessError`؛ وبه تُفتح عروض 2014 للإعادة بعد التشغيل التأكيدي وحده. الأساليب العامة: `plan(name, day)` ← (قطع، مكوّنات، أوزان، إعدادات، ملاحظة)؛ `recommend(name, registration, day, k=10, exclude_seen=True)` يعيد قائمة عناصر لكل منها `id_site` و`activity_type` و`score` و`components{m: rtilde, weight, contribution, raw}` و`explanation{main, secondary}` و`model_cut` و`day` و`note` و`known_learner`؛ `learner_profile(name, registration, day, risk_model="M1")` (ملامح وعنقود اليوم 56 ودرجة الخطر، للمدرّس فقط)؛ `presentation_overview(name, day, risk_model="M1")`؛ وأضيفت حديثاً (§8.4 من وثيقة التصميم، D-68) `learner_table(name, day)` (جدول المدرّس المتجهي مخزَّناً لكل عرض ويوم) و`cluster_summary(name)` (k والاستقرار والأحجام ووصف عربي حتمي وإسقاط PCA بـSVD) و`registrations(name, day)` (قائمة بيضاء بلا `final_result`) و`cluster_choice_at(name, day)` (اختيار k-means++ عند اليوم t نفسه مخزَّناً في الذاكرة وفي `data/cache/serving_clusters/<pres>_<day>.npz` ببصمة SHA-256 لمنظر التدريب، ولا يُخدَم إلا لذلك اليوم) و`warm(name, days)` (تسخين درجات المكوّنات على شبكة أسبوعية والقطوع). وعلى مستوى الوحدة دوال بالأسماء نفسها تستدعي `engine()` (مثيل وحيد كسول).
+المعامل `allow_confirmatory` (FR-40) لا يُقبل إلا إذا وُجد `results/conf2014/verdicts.csv` والملف `LOCK` وإلا رُفع `ConfirmatoryAccessError`؛ وبه تُفتح عروض 2014 للإعادة بعد التشغيل التأكيدي وحده. الأساليب العامة:
 
-التفسير يأتي من المساهمة الفعلية w_m·r̃_m: يُعرض المكوّن الأعلى مساهمة، والثاني إن تجاوزت مساهمته ثلث المجموع، بقوالب `TEMPLATES` (مثلاً «شائع لدى متعلمين بنمط مشابه لنمطك» للمكوّن C7) ودليل `evidence` من `_evidence`. ذاكرات `lru_cache` داخل المحرك تحفظ منظر التدريب (طيّة اليوم) ودرجات المكوّنات والملامح، ما يجعل الطلب الأول لـ(عرض، يوم) ≈ 10 ث (منها 9.9 ث `choose_k` في C7) ثم يتراجع الزمن إلى أقل من 0.01 ث للمتعلمين الآخرين في اليوم نفسه؛ والتخزين الدائم لاختيار العنقدة (D-68) يُلغي كلفة `choose_k` في التشغيلات اللاحقة لليوم نفسه.
+| الأسلوب | الوظيفة |
+|---|---|
+| `plan(name, day)` | (قطع، مكوّنات، أوزان، إعدادات، ملاحظة) ليوم الطلب |
+| `recommend(name, registration, day, k=10, exclude_seen=True)` | قائمة عناصر لكل منها `id_site` و`activity_type` و`score` (درجة الهجين؛ تسمّيها الخلفية `relevance`، D-70) و`components{m: rtilde, weight, contribution, raw}` و`explanation{main, secondary}` و`model_cut` و`day` و`note` و`known_learner` |
+| `learner_profile(name, registration, day, risk_model="M1")` | ملامح وعنقود اليوم 56 ودرجة الخطر، للمدرّس فقط |
+| `presentation_overview(name, day, risk_model="M1")` | لوحة المدرّس: المتعلمون النشطون و`median_active_days` وأكثر الموارد استعمالاً وحزم درجة الخطر |
+| `registrations(name, day)` | قائمة بيضاء بلا `final_result`، وتاريخ الانسحاب null إن كان بعد اليوم (D-70) |
+| `cluster_choice_at(name, day)` | اختيار k-means++ عند اليوم t نفسه، مخزَّناً في الذاكرة وفي `data/cache/serving_clusters/<pres>_<day>.npz`، ولا يُخدَم إلا لذلك اليوم (D-68) |
+| `warm(name, days=None)` | تسخين درجات المكوّنات (والعنقدة) على شبكة أسبوعية والقطوع؛ ويستدعيه خطّاف التسخين في الخلفية |
 
-الخطر: `_risk` يعيد **درجة خطر نسبية غير معايَرة** `score` (D-65) من نموذج M1 في أقرب `risk_{28,56,112}.json` ≤ اليوم (مدرَّب على العروض الثمانية الأخرى، `provenance = lopo_2013`، فلا تسرب من العرض المعروض)، مع `threshold` (Youden) و`above_threshold` و`factors` (w·z) و`top_factors`، ولا تقدير قبل اليوم 28؛ ولعروض 2014 يقرأ `_risk_spec` النماذج المجمَّدة من `results/frozen/risk_final.json` (`test_2014`). و`_cluster` يسند التسجيل إلى مراكز اليوم 56 من `clusters_56.npz` ولا يعمل قبل اليوم 56.
+وعلى مستوى الوحدة دوال بالأسماء نفسها (`recommend` و`learner_profile` و`presentation_overview` و`registrations` و`warm`) تستدعي `engine()` (مثيل وحيد كسول). **ملاحظة:** نسختا `learner_table` و`cluster_summary` اللتان أُضيفتا مؤقتاً إلى `serving.py` حُذفتا؛ تنفّذهما الخلفية وحدها في `services/instructor.py`.
+
+**مفتاح ذاكرة العنقدة** يضم (عرض، يوم) وبصمة SHA-256 لمنظر التدريب وللبصمة `frozen_fingerprint` (SHA-256 مركَّب لـ`hybrid_frozen.json` و`freeze03_config.json`)، فأي تغيير في التجميد يُبطل العنقدة المخزَّنة. وبذلك لا يُلغي التخزين الدائم أي بند من D-68: الإعدادات نفسها (`n_init` والبذور وk) بلا تقليص.
+
+التفسير يأتي من المساهمة الفعلية w_m·r̃_m: يُعرض المكوّن الأعلى مساهمة، والثاني إن تجاوزت مساهمته ثلث المجموع، بقوالب `TEMPLATES` (مثلاً «شائع لدى متعلمين بنمط مشابه لنمطك» للمكوّن C7) ودليل `evidence` من `_evidence` (مفتاح C7 هو `similar_learners_in_window` منذ D-70). ذاكرات `lru_cache` داخل المحرك تحفظ منظر التدريب (طيّة اليوم) ودرجات المكوّنات والملامح، فيكون الطلب الأول لـ(عرض، يوم) بلا تسخين ≈ 10 ث (قياس سابق: منها 9.9 ث `choose_k` في C7) ثم أقل من 0.01 ث للمتعلمين الآخرين في اليوم نفسه.
+
+الخطر: `_risk` يعيد **درجة خطر نسبية غير معايَرة** `score` (D-65) من نموذج M1 في أقرب `risk_{28,56,112}.json` ≤ اليوم (مدرَّب على العروض الثمانية الأخرى، `provenance = lopo_2013`، فلا تسرب من العرض المعروض)، مع `threshold` و`threshold_source` و`above_threshold` و`factors` (w·z) و`top_factors`، ولا تقدير قبل اليوم 28؛ ولعروض 2014 يقرأ `_risk_spec` النماذج المجمَّدة من `results/frozen/risk_final.json` (`test_2014`). و`_cluster` يسند التسجيل إلى مراكز اليوم 56 من `clusters_56.npz` ولا يعمل قبل اليوم 56.
+
+**ما نُفِّذ ولم يُقَس في الإنتاج:** مساران في `Engine` لا تمارسهما التركيبة المجمَّدة (C7 وSKNN فقط): `_wrmf_foldin` (خطوة ALS نصفية على عوامل الموارد من `wrmf.npz`) و`_gru_forward` (تمريرة أمامية بمعاملات `gru.npz`). هما منفَّذان ويختبرهما `test_serving.py` بمحرك اصطناعي (`test_wrmf_foldin_uses_artifact_items`) لكنهما لم يُقاسا على بيانات حقيقية ولا يولَّد لهما `artifacts/<pres>/<c>/` حالياً. وهنا `model_cut` هو «تاريخ الأوزان والإعدادات» (القطع الذي أُخذت منه أوزان الهجين وإعداداته) لا تاريخ معاملات مدرَّبة، وفق §1.2 من وثيقة التصميم.
 
 ## 3.13 التجارب (`experiments/*`) ومخرجاتها
 
@@ -412,8 +440,11 @@ model.recommend(student_id, k=10, exclude_seen=True)     # قائمة id_site
 | `run_hybrid` | القبول الجشع والتجميد وH1/H3 وصفياً وH4-ب والمهمة B | `hybrid_frozen.json`، `hybrid_acceptance.md`، `hybrid.csv`، `h4b.csv`، `h1_decomposition.csv`، `hybrid_meta.json` |
 | `power` | MDE80 لكل فرضية من زوجها الفعلي | `mde80.md`، `mde80.json` |
 | `build_artifacts` | قطع الثقيلة لكل قطع، ونماذج الخطر والعناقيد | `artifacts/<pres>/...` |
-| `risk_final` | نماذج الخطر النهائية على التسعة (D-58) | `results/frozen/risk_final.json` (لم يُشغَّل بعد) |
-| `report` | يعيد توليد `summary.md` من CSV دون إعادة تشغيل | `python3 -m src.ml.experiments.report results/dev2013` |
+| `risk_final` | نماذج الخطر النهائية على التسعة (D-58): M0 وM1 وM2 (Logistic L2) وCART على ملامح M2، بعد حذف المتداخلين مع 2014 (D-47)؛ λ والعمق الأدنى للورقة بأعلى متوسط AUC بترك عرض خارج التدريب | `results/frozen/risk_final.json` ونسخة في `artifacts/` |
+| `freeze_config` | يجمع كل الخيارات المجمَّدة (فضاءات النماذج والتركيبة والبذور وδ وm والقطوع وE وعتبات Youden وقاعدة k وMD5 للملفات السبعة وSHA-256 للملفات المجمَّدة) | `results/frozen/freeze03_config.json`؛ و`--checklist` يولّد `freeze_checklist.md` |
+| `reproduce_dev` | أمر واحد يعيد إنتاج التطوير من ذاكرة فارغة ويقارن بلقطة سابقة (§2.4) | `results/dev2013/repro_diff.md` و`repro_meta.json` |
+| `run_confirmatory` | مشغّل E10 بحراسه وطوريه وقفل SHA-256، مع تشغيل جاف على 2013 (§8.4) | `results/conf2014/` أو `results/dryrun2013/` |
+| `report` | يعيد توليد `summary.md` من CSV دون إعادة تشغيل (ما زال عنوانه «B1–B9» مع أن B10 موجود في الجداول) | `python3 -m src.ml.experiments.report results/dev2013` |
 
 الوحدة `plots.py` (جديدة، غير متتبَّعة بعد) مولّد أشكال SVG بلا matplotlib يكتب مع كل شكل ملف CSV لبياناته، وتخدم أشكال التشغيل التأكيدي المخطط.
 
@@ -441,11 +472,13 @@ model.recommend(student_id, k=10, exclude_seen=True)     # قائمة id_site
 | `hybrid_acceptance.md`، `hybrid.csv`، `hybrid_meta.json` | تقرير الجولات الجشعة، ونتائج الهجين لكل (عرض، قطع)، وH1/H3/H4-ب وصفياً |
 | `h4b.csv`، `h1_decomposition.csv` | H4-ب الاستكشافية (الربع الأدنى مقابل الأعلى)، وتفكيك H1 (D-60) |
 | `mde80.md/json` | MDE80 وσ وقوة التأكيد عند δ و1.5δ و2δ لكل فرضية |
-| `../access_log.jsonl` | سجل قراءات D-47 |
+| `repro_diff.md`، `repro_meta.json` | تقرير مطابقة `reproduce_dev` وزمن كل خطوة |
+| `../access_log.jsonl` | سجل قراءات D-47 (وقراءة 2014 الكاملة في E10) |
+| `../frozen/freeze03_config.json`، `risk_final.json`، `freeze_checklist.md` | الإعداد المجمَّد، ونماذج الخطر النهائية، وقائمة شروط التجميد المولَّدة |
 
 ## 3.14 `artifacts/`
 
-`artifacts/<presentation>/` يحوي `risk_{28,56,112}.json` (نموذجا Logistic M1 وM2 بـ`features` و`weights` و`lambda` و`youden_threshold` و`trained_on`: العروض الثمانية الأخرى)، و`clusters_56.npz` (المراكز `centres` ومعاملات `mu` و`sd` و`k` و`stable` و`features` و`students` و`labels`)، ومجلدات القطوع `70/` و`126/` و`182/` التي تحمل `wrmf.npz` و`gru.npz` إن دخل أحدهما التركيبة المجمَّدة. التركيبة الحالية (C7 وSKNN) لا تحوي مكوّناً ثقيلاً، فمجلدات القطوع فارغة. الحجم الكلي ≈ 0.5 MB. وتُعاد كلها بـ`build_artifacts`، وهي لازمة للخلفية: غيابها يعطي 503 `artifacts_missing`.
+المجلد **خارج git** (D-70: `.gitignore` يستثني `artifacts/`) ويجب بناؤه بـ`python3 -m src.ml.experiments.build_artifacts` (≈ دقيقة) قبل أول تشغيل للخادم. يحوي `artifacts/<presentation>/` الملفات `risk_{28,56,112}.json` (نموذجا Logistic M1 وM2 بـ`features` و`weights` و`lambda` و`youden_threshold` و`threshold_source` و`provenance = lopo_2013` و`trained_on`: العروض الثمانية الأخرى)، وعتبة اليوم 56 هي العتبة المجمَّدة في D-58، أما عند 28 و112 فعتبة Youden مجمَّعة من التنبؤات خارج الطيّة للعرض فقط (D-65)؛ و`clusters_56.npz` (المراكز `centres` ومعاملات `mu` و`sd` و`k` و`stable` و`features` و`students` و`labels`)؛ ومجلدات القطوع `70/` و`126/` و`182/` التي تحمل `wrmf.npz` و`gru.npz` إن دخل أحدهما التركيبة المجمَّدة (فارغة اليوم لأن C7 وSKNN خفيفان). ويُنسخ إلى جذر `artifacts/` الملف `risk_final.json`. الحجم الكلي ≈ 0.5 MB، وغيابها يعطي 503 `artifacts_missing`.
 
 # 4. وحدة `src/backend`
 
@@ -482,44 +515,45 @@ src/backend/
 | `/api/meta` | — | الإصدار و`git_commit` و`git_dirty` و`freeze_tag` و`data_fingerprint` (MD5 لـ`oulad_md5_reference.txt`) و`data_files` و`components` (الأوزان الأولية المجمَّدة) و`cutoffs` = [70،126،182] و`risk_cutoffs` = [28،56،112] و`snapshot_grid` و`presentations` و`risk_score` |
 | `/api/presentations` | — | 9 عروض 2013 `published` + عرض 2014 واحد `locked` للتمثيل (طوله وتسجيلاته 0) |
 | `/api/registrations` | `presentation`، `q`، `limit≤100`، `offset`، `day` | قائمة بيضاء `registration` و`id_student` و`date_registration` و`status` (`ok\|no_history\|withdrawn` تُحسب عند `day` إن مُرّر) |
-| `/api/recommendations` | `registration`، `day`، `k` 1..20، `task=A\|B` | `items[{rank,id_site,activity_type,score,contributions,reason,reason_secondary}]` و`components` و`context` و`provenance.model_cut` |
-| `/api/explanations/{reg}/{id_site}` | `day`، `task` | مكوّنات `{weight, r_tilde, contribution, evidence, sentence}`؛ 404 `item_not_in_list` لمورد خارج أفضل 20 |
+| `/api/recommendations` | `registration`، `day`، `k` 1..20، `task=A\|B` | `items[{rank,id_site,activity_type,relevance,contributions,reason,reason_secondary}]` و`components` و`context` و`provenance` (والاسم `relevance` لا `score`: D-70 (4)، فالمفتاح `score` محجوز لدرجة الخطر في مسارات المدرّس) |
+| `/api/explanations/{reg}/{id_site}` | `day`، `task` | `relevance` ومكوّنات `{weight, r_tilde, contribution, evidence, sentence}`؛ 404 `item_not_in_list` لمورد خارج أفضل 20 |
 | `/api/learner/{reg}/history` | `day`، `window` (28) | `daily` و`recent` (3) و`active_days` |
 | `/api/instructor/overview` | `presentation`، `day` | مؤشرات وملخص الملامح ومدرج الخطر والتغطية |
-| `/api/instructor/clusters` | `presentation`، `day` | k والاستقرار والجودة وأحجام ووصف عربي حتمي وإسقاط PCA |
+| `/api/instructor/clusters` | `presentation`، `day` | k و`cluster_day` (= 56، لقطة العناقيد) و`unstable` و`unstable_reason` والجودة (`ari` يقبل null إن غاب العرض من `learner_clusters.csv`) وأحجام ووصف عربي حتمي وإسقاط PCA |
 | `/api/instructor/learners` | `presentation`، `day`، `cluster`، `risk=all\|above`، `sort`، `limit≤500`، `offset` | `{items,total,limit,offset}` |
-| `/api/instructor/learner/{reg}` | `day` | العنقود والخطر بعوامل w·z والملامح مقابل الوسيط وأفضل 3 توصيات و`outcome: null` دائماً |
+| `/api/instructor/learner/{reg}` | `day` | العنقود والخطر بعوامل w·z والملامح مقابل الوسيط وأفضل 3 توصيات و`withdrawn_day`؛ **بلا أي حقل نتيجة نهائية** (حُذف `outcome` من العقد) |
 
-صيغة `registration` = `^[A-G]{3}_20(13|14)[BJ]-\d+$` وتُحلَّل إلى (العرض، `id_student`). والمهمة الافتراضية A (موارد جديدة) لأن التوصية إرشاد إلى ما لم يُكتشف بعد.
+**`provenance {run_id, role, model_cut}`** موجود في كل استجابة بيانات (التوصية والتفسير وسجل النشاط والنظرة العامة والعناقيد وصفحة المتعلمين وملف المتعلم)، ويفرضه الثابت `schemas.PROVENANCE_MODELS` ويفحصه اختبار العقد (D-49 (6)). صيغة `registration` = `^[A-G]{3}_20(13|14)[BJ]-\d+$` وتُحلَّل إلى (العرض، `id_student`). والمهمة الافتراضية A (موارد جديدة) لأن التوصية إرشاد إلى ما لم يُكتشف بعد.
 
 ## 4.3 أمثلة طلب/استجابة من التشغيل الفعلي
 
-كل ما يلي ناتج تشغيل الخادم على FFF_2013J (`--warm`). **توصية:**
+كل ما يلي ناتج تشغيل الخادم على FFF_2013J (`--warm`) في 2026-10-25. **توصية:**
 
 ```
-$ curl 'localhost:8012/api/recommendations?registration=FFF_2013J-371869&day=75&k=2'
+$ curl 'localhost:8000/api/recommendations?registration=FFF_2013J-371869&day=75&k=2'
 {"registration":"FFF_2013J-371869","presentation":"FFF_2013J","id_student":371869,
  "requested_day":75,"snapshot_day":75,"task":"A","status":"ok","known_learner":true,"note":null,
  "context":{"week":11,"next_assessment":{"type":"TMA","day":96,"days_ahead":21},"active_days_to_date":93},
  "components":[{"id":"similar_pop","label":"شعبية الأنماط المشابهة (7)","weight":0.75},
                {"id":"sknn","label":"SKNN (4)","weight":0.25}],
- "items":[{"rank":1,"id_site":716344,"activity_type":"oucontent","score":0.9963,
+ "items":[{"rank":1,"id_site":716344,"activity_type":"oucontent","relevance":0.9963,
            "contributions":{"similar_pop":0.75,"sknn":0.2463},
            "reason":"شائع لدى متعلمين بنمط مشابه لنمطك","reason_secondary":null}, ...],
- "provenance":{"run_id":"replay-dev2013-62e2651927","role":"dev","model_cut":70}}
+ "provenance":{"run_id":"replay-dev2013-0e2547b627","role":"dev","model_cut":70}}
 ```
 
 **تفسير** المورد الأول نفسه (`/api/explanations/FFF_2013J-371869/716344?day=75`): مكوّنان، لكل منهما `r_tilde` و`contribution` و`evidence` من نوع `count` (85 متعلماً مشابهاً في نافذة 3 أيام، `scope: "similar"`) أو `item` (المورد 716219 من نوع forumng زاره المتعلم 67 يوماً، آخرها اليوم 75) والجملة المعروضة. **جدول متعلمين** (للمدرّس):
 
 ```
-$ curl 'localhost:8012/api/instructor/learners?presentation=FFF_2013J&day=75&sort=-risk&limit=1'
+$ curl 'localhost:8000/api/instructor/learners?presentation=FFF_2013J&day=75&sort=-risk&limit=1'
 {"items":[{"registration":"FFF_2013J-590714","cluster":{"id":0,"label":"أيام نشطة قليلة · نشاط متقطع"},
   "active_days":1,"last_access_day":-7,"on_time":"0/2",
-  "risk":{"score":0.999,"cut_day":56,"threshold":0.456,"above_threshold":true,
-          "provenance":"lopo_2013","top_factor":"حصة page"}}],"total":1872,"limit":1,"offset":0}
+  "risk":{"score":0.998553,"cut_day":56,"threshold":0.455716,"above_threshold":true,
+          "provenance":"lopo_2013","top_factor":"حصة page"}}],"total":1872,"limit":1,"offset":0,
+ "provenance":{"run_id":"replay-dev2013-0e2547b627","role":"dev","model_cut":70}}
 ```
 
-قبل أول قطع (اليوم 40): `model_cut: null` و`note` يشرح الرجوع إلى المكوّنات الخفيفة («اليوم 40 قبل أول قطع (70): لا مكوّن ثقيل…»).
+الدرجة والعتبة بست منازل عشرية والتقريب للعرض فقط في الواجهة، فيكون حكم `above_threshold` واحداً في الخادم والعارض. **التفسير:** الحقل `relevance` بدل `score`، وبعد `components` الحقلان `notes` و`provenance`. قبل أول قطع (اليوم 40): `model_cut: null` و`note` يشرح الرجوع إلى المكوّنات الخفيفة («اليوم 40 قبل أول قطع (70): لا مكوّن ثقيل…»).
 
 ## 4.4 صيغة الأخطاء، و409 لعروض 2014
 
@@ -532,36 +566,36 @@ $ curl 'localhost:8012/api/instructor/learners?presentation=FFF_2013J&day=75&sor
 | 409 | `confirmatory_locked` | أي عرض 2014، على **كل** المسارات |
 | 422 | `validation_error` (مع `details.errors[{field, reason, type}]`) | مدخلات غير صالحة، مثلاً `day` > 400 أو `registration` بصيغة خاطئة |
 | 422 | `day_out_of_range` (`details.max_day`) | اليوم أكبر من طول العرض |
-| 422 | `day_before_first_snapshot` (`details.first_day = 56`) | المدرّس قبل اليوم 56 (أول عنقدة)؛ الواجهة تنقل الشريط تلقائياً |
+| 422 | `day_before_first_snapshot` (`details.first_day = 56`) | المدرّس قبل اليوم 56 (أول عنقدة). **قرار D-74:** يبقى 422 (لا 404 ولا استجابة جزئية) وهو سلوك موثَّق، والواجهة تنقل الشريط تلقائياً |
 | 503 | `artifacts_missing` | `hybrid_frozen.json` أو مخرجات القطوع غير موجودة |
 
 حاجز 2014 هنا بطبقتين فوق حاجز `src/ml`: `Repository.check_presentation` يرفع 409 **قبل أي قراءة** لأي اسم من `CONF_PRESENTATIONS`، ومعالج `ConfirmatoryAccessError` يحوّل الاستثناء المقابل إلى 409 أيضاً. ويعرض `/api/presentations` عرضاً مقفلاً واحداً (BBB_2014J) للتمثيل بتسجيلات وطول 0، فلا يُقرأ شيء من 2014.
 
 ## 4.5 التسخين والكاش والأداء المقاس
 
-التسخين (`--warm`) خيط خلفي يشغّل `Services.run_warmup`: يبني قوائم العروض، ثم لأول تسجيل في العرض الافتراضي (FFF_2013J) يحسب التوصية (ولقطة المدرّس إن كان اليوم ≥ 56)، ثم يستدعي الخطّاف `serving.warm` إن وُجد (D-68) لكل يوم في `--warm-days` (الافتراضي في `settings.WARM_DAYS` = 75، 56، 70، 112، 126، 182)، ويدعم `--warm-weekly` شبكة أسبوعية. وأي `--host` غير 127.0.0.1 يطلق تحذيراً لغياب المصادقة (D-66: عرض توضيحي بلا أمان وصول؛ ويظهر `bind_host` و`access_notice` في `/api/meta`). فشل التسخين تحسيني ويُسجَّل `failed` في `/api/health` ولا يوقف الخدمة. الذاكرات: LRU للتوصيات (1024 قائمة من 20)، ولقطات المدرّس (6)، و`lru_cache` داخل `Engine`. وهي ذاكرات لا مصدر حقيقة: مسحها لا يغيّر أي ناتج.
+التسخين (`--warm`) خيط خلفي يشغّل `Services.run_warmup`: يبني قوائم العروض، ثم يستدعي الخطّاف `serving.warm(presentation, days)` (D-68) إن وُجد، ثم لأول تسجيل في العرض الافتراضي (FFF_2013J) يحسب التوصية (ولقطة المدرّس إن كان اليوم ≥ 56) لكل يوم في `--warm-days` (الافتراضي `settings.WARM_DAYS` = 75، 56، 70، 112، 126، 182)، ويدعم `--warm-weekly` شبكة أسبوعية. وأي `--host` غير 127.0.0.1 يطلق تحذيراً لغياب المصادقة (D-66: عرض توضيحي بلا أمان وصول؛ ويظهر `bind_host` و`access_notice` في `/api/meta`). فشل التسخين تحسيني ويُسجَّل `failed` في `/api/health` ولا يوقف الخدمة. الذاكرات: LRU للتوصيات (1024 قائمة من 20)، ولقطات المدرّس (6)، و`lru_cache` داخل `Engine`، وعنقدة الخدمة الدائمة. وهي ذاكرات لا مصدر حقيقة: مسحها لا يغيّر أي ناتج.
 
-قياس `python3 -m src.backend.bench http://127.0.0.1:8012` (20 طلباً لكل مسار؛ FFF_2013J، اليوم 75، 4 أنوية) **بعد التسخين**:
+**ظروف القياس:** `python3 -m src.backend.bench` على خادم مسخَّن، 20 طلباً لكل مسار، FFF_2013J، اليوم 75، تسجيل `FFF_2013J-364974`، commit `85a0376`، 2026-10-25، آلة 4 أنوية (Intel Xeon @ 2.10GHz، Python 3.13.17). الفرق عن أرقام README (الوسيط والأقصى بقياس 2026-10-24) أن الجدول هنا يعرض الوسيط وp95 (المطلوب في NFR-01) والأقصى من قياس مستقل، ومن ثم تختلف الخانات العشرية بين التشغيلات (مثلاً وسيط `explanations` 23.3 ms هنا مقابل 17.3 في README):
 
-| المسار | الأول (ms) | الوسيط (ms) | الأقصى (ms) |
-|---|---|---|---|
-| health | 1.4 | 1.0 | 1.8 |
-| meta | 1.9 | 1.6 | 2.4 |
-| presentations | 1.7 | 1.5 | 1.8 |
-| registrations (100) | 2.2 | 2.4 | 3.1 |
-| recommendations | 7.3 | 4.9 | 6.0 |
-| explanations | 25.3 | 25.0 | 30.1 |
-| history | 6.1 | 5.4 | 8.3 |
-| instructor/overview | 1.4 | 1.3 | 1.7 |
-| instructor/clusters | 2.2 | 2.2 | 3.7 |
-| instructor/learners (100) | 8.3 | 6.0 | 6.9 |
-| instructor/learner | 2.1 | 1.7 | 3.7 |
+| المسار | الأول (ms) | الوسيط (ms) | p95 (ms) | الأقصى (ms) |
+|---|---|---|---|---|
+| health | 1.0 | 0.8 | 1.0 | 1.0 |
+| meta | 2.0 | 1.6 | 1.8 | 1.9 |
+| presentations | 1.6 | 1.5 | 2.0 | 5.5 |
+| registrations (100) | 2.4 | 2.6 | 3.1 | 3.3 |
+| recommendations | 8.3 | 6.0 | 6.7 | 8.8 |
+| explanations | 32.0 | 23.3 | 31.4 | 35.6 |
+| history | 8.3 | 6.1 | 11.2 | 11.3 |
+| instructor/overview | 1.4 | 1.5 | 1.7 | 2.5 |
+| instructor/clusters | 3.6 | 3.2 | 3.5 | 3.5 |
+| instructor/learners (100) | 7.2 | 6.4 | 11.2 | 11.2 |
+| instructor/learner | 2.4 | 1.9 | 2.1 | 2.1 |
 
-كلها ≪ 200 مللي ثانية (NFR-01، ويفرضه `test_latency_after_warmup`). أما **بلا تسخين** فالطلب الأول لـ`recommendations` ≈ 10.3 ث ولـ`instructor/overview` ≈ 11 ث (بناء لقطة اليوم: الملامح والخطر والعناقيد والتغطية لكل المتعلمين)، ثم الوسيط 4.8 و1.1 ms (قياسات README). ويوم جديد غير مسخَّن يكلّف ≈ 10 ث للأول، وعرض آخر ≈ 8.3 ث، وزمن تسخين الأيام الستة ≈ 83 ثانية (≈ 71 منها في الخطّاف `serving.warm`، D-68). ولا يجوز تقليص `n_init` أو البذور أو k لتسريع الطلب البارد (D-68).
+كلها ≪ 200 مللي ثانية في p95 (NFR-01، ويفرضه `test_latency_after_warmup`). **زمن التسخين:** ≈ 25 ثانية (الخطّاف `serving.warm` ≈ 14 ث ثم الأيام الستة: 75 → 1.3 ث و56 → 0.6 و70 → 4.1 و112 → 0.8 و126 → 3.1 و182 → 0.9) والعنقدة مخزَّنة على القرص؛ وفي أول تشغيل بعد تغيّر بصمة التجميد ≈ 61 ثانية (الخطّاف ≈ 50 ث) لأن العنقدة تُحسب وتُخزَّن. وقياس README (≈ 36 ث، 2026-10-24) يقع بين الحالتين. **بلا تسخين** (README): أول `recommendations` ≈ 10.3 ث وأول `instructor/overview` ≈ 11 ث، ثم الوسيط 4.8 و1.1 ms؛ ويوم جديد غير مسخَّن ≈ 10 ث للأول، وعرض آخر ≈ 8.3 ث. ولا يجوز تقليص `n_init` أو البذور أو k لتسريع الطلب البارد (D-68).
 
 ## 4.6 الاختبارات والعميل ASGI المدمج
 
-`tests/asgi_client.py` عميل ASGI صغير بلا httpx: يبني `scope` ويستدعي `await app(scope, receive, send)` مباشرة ويعيد `Response(status, headers, body)` مع `.json()` و`.text`، ويغلّفه `Client.get(url)`. مجموعات الاختبار: `test_contract_no_risk` (لا خطر ولا عنقود ولا سمات حساسة ولا `final_result` في نماذج المتعلم، بقائمة بيضاء للمدرّس، و`outcome` دائماً null)، و`test_contract_json` (اختبار العقد على JSON المسلسَل فعلياً، D-70)، و`test_static_errors` (الأخطاء الموحدة، 409 لـ2014، `--no-instructor`، الملفات الثابتة؛ لا تحتاج البيانات)، و`test_api_live` (يقارن مفاتيح كل استجابة بملف mock المقابل ويفحص المنطق والتطابق مع `Engine` والأداء؛ يُتخطّى إن غابت البيانات). تفاصيل الأعداد في الفصل 7.
+`tests/asgi_client.py` عميل ASGI صغير بلا httpx: يبني `scope` ويستدعي `await app(scope, receive, send)` مباشرة ويعيد `Response(status, headers, body)` مع `.json()` و`.text`، ويغلّفه `Client.get(url)`. المجموعات الست وأعدادها في §7.1: `test_contract_no_risk` (العقد على النماذج: لا خطر ولا عنقود ولا سمات حساسة في نماذج المتعلم، وقائمة بيضاء للمدرّس، وغياب حقول أرقام التقييم و`outcome`، ووجود `provenance` في `PROVENANCE_MODELS`)، و`test_contract_json` (العقد على JSON المسلسَل فعلياً، D-70)، و`test_static_errors` (الأخطاء الموحدة و409 و`--no-instructor` والملفات الثابتة؛ بلا بيانات)، و`test_text` (صيغ العدد العربية وحذف أرقام القرارات من نصوص المستخدم؛ بلا بيانات)، و`test_labels_js` (يشغّل `labels.js` المبني بـnode ويقارن `countAr` و`fmt`؛ يُتخطّى إن غاب node أو `dist/`)، و`test_api_live` (يقارن مفاتيح كل استجابة بملف mock ويفحص المنطق والتطابق مع `Engine` والأداء؛ يُتخطّى إن غابت البيانات).
 
 # 5. وحدة `src/frontend`
 
@@ -582,6 +616,7 @@ build.sh  tsconfig.json  screenshots.js
 
 | الملف | يصدّر | الدور |
 |---|---|---|
+| `labels.ts` | `typeAr`، `countAr`، `daysAr`، `learnersAr`، `itemsAr`، `fmt`، `range`، `pct`، ألوان المكوّنات والعناقيد | `countAr` يطبّق صيغة العدد العربية (1 «يوم واحد»، 2 «يومان»، 3–10 «أيام»، 11+ «يوماً»)؛ و`fmt` يكتب الأعداد بعلامة طرح حقيقية U+2212 وبلا «−0» ويعزل السالب باتجاه LTR (LRI…PDI)، و`range` يكتب «a – b» كتلة LTR واحدة |
 | `dom.ts` | `h`، `s` (SVG)، `mount`، `clear`، `bdi`، `$` | مساعدات DOM صغيرة بلا إطار؛ `bdi` يعزل المعرّفات اللاتينية داخل نص RTL |
 | `controls.ts` | `presentationSelect`، `makeScrubber`، `registrationPicker` | عناصر التحكم المشتركة بين الصفحات |
 | `components/DayScrubber.ts` | `DayScrubber` | شريط اليوم: `input[type=range]` أصلي مع حقل رقمي وأزرار اللقطات ومواعيد التقييم |
@@ -600,14 +635,14 @@ build.sh  tsconfig.json  screenshots.js
 
 الحالة كلها في الرابط (`state.ts`: `readState` و`writeState(patch, push)` و`carryQuery`): `p` العرض، `r` التسجيل، `d` اليوم، `task` (A|B)، `cl` العنقود المصفّى، `f` (all|above|idle)، `sort` (مثل `-risk`). تُحذف القيم الافتراضية من الرابط، فيمكن مشاركة أي منظر بنسخ الرابط، ويُحفظ الاختيار عبر الصفحات عن طريق `carryQuery`. الصفحات: `home.ts` معالج الاختيار، و`learner.ts` يعرض أفضل 10 مع عدّاد طلبات `seq` لتجاهل الاستجابات المتأخرة، و`instructor.ts` للمؤشرات والعناقيد والجدول والدرج.
 
-تدقيق إمكانية الوصول (WCAG 2.2 AA) مطبَّق بالبناء: `lang="ar" dir="rtl"` وخصائص CSS المنطقية، ورموز التصميم في `tokens.css` بتباين نص ≥ 4.5:1 وحدود عناصر التحكم ≥ 3:1، ولا اعتماد على اللون وحده (أسماء نصية وأشكال مميزة للعناقيد وإطار متقطع ونص «فوق العتبة»)، ولوحة المفاتيح كاملة (شريط اليوم والجدول بالأسهم وEnter، وEsc يغلق لوحة «لماذا؟» والدرج ويعيد التركيز)، وحلقة تركيز سميكة وأهداف لمس ≥ 44px، و`aria-live` و`aria-busy` و`aria-sort`، و`prefers-reduced-motion`، وبلا تمرير أفقي من 360px. وواجهة المتعلم بلا أي حقل خطر أو عنقود (NFR-09) ولا سمات حساسة (D-21). وبعد D-65 يقرأ `types.ts` و`instructor.ts` الحقل `risk.score` ويعرضه بعنوان «درجة الخطر النسبية»، وبعد D-70 معرّف المكوّن السابع `similar_pop` (`labels.ts`).
+الواجهة **مصمَّمة** لتوافق WCAG 2.2 AA، **ولم يُقَس التوافق آلياً** (لا سكربت تباين في المستودع؛ NFR-22 غير منفَّذ، والتباين المذكور محسوب من رموز التصميم لا مقيس): `lang="ar" dir="rtl"` وخصائص CSS المنطقية، ورموز التصميم في `tokens.css` بتباين نص ≥ 4.5:1 وحدود عناصر التحكم ≥ 3:1، ولا اعتماد على اللون وحده (أسماء نصية وأشكال مميزة للعناقيد وإطار متقطع ونص «فوق العتبة»)، ولوحة المفاتيح كاملة (شريط اليوم والجدول بالأسهم وEnter، وEsc يغلق لوحة «لماذا؟» والدرج ويعيد التركيز)، وحلقة تركيز سميكة وأهداف لمس ≥ 44px، و`aria-live` و`aria-busy` و`aria-sort`، و`prefers-reduced-motion`، وبلا تمرير أفقي من 360px. وواجهة المتعلم بلا أي حقل خطر أو عنقود (NFR-09) ولا سمات حساسة (D-21). وبعد D-65 يقرأ `types.ts` و`instructor.ts` الحقل `risk.score` ويعرضه بعنوان «درجة الخطر النسبية»، وبعد D-70 معرّف المكوّن السابع `similar_pop` (`labels.ts`).
 
 ## 5.5 لقطات الشاشة وكيف تُولَّد
 
 سكربتان بـPlaywright العالمي (`NODE_PATH=$(npm root -g)`):
 
-- `src/frontend/screenshots.js` (بوضع المحاكاة): يخدم `dist/` بـ`python3 -m http.server` على المنفذ 8765، ويلتقط ست لقطات لكل من سطح المكتب (1440×900) والجوال (375×800)، ويفحص التمرير الأفقي وأخطاء الكونسول، ويكتب إلى `deliverables/05-user-guide/screenshots/` (`01-home` إلى `06-learner-day-before-snapshot`). يتطلب `build.sh` قبله.
-- `src/backend/e2e/live-screenshots.js`: لقطات مع الخادم الحي (بلا mock) باسم `live-*.png`، ويُشغَّل بعد `python3 -m src.backend --warm`.
+- `src/frontend/screenshots.js` (بوضع المحاكاة): يخدم `dist/` بـ`python3 -m http.server` على المنفذ 8765، ويلتقط ست لقطات لكل من سطح المكتب (1440×900) والجوال (375×800)، ويفحص التمرير الأفقي وأخطاء الكونسول، ويكتب إلى `src/frontend/screenshots/mock/` (`01-home` إلى `06-learner-day-before-snapshot`، وهي في git). يتطلب `build.sh` قبله.
+- `src/backend/e2e/live-screenshots.js`: لقطات مع الخادم الحي (بلا mock) باسم `live-*.png` في `deliverables/05-user-guide/screenshots/`، ويُشغَّل بعد `python3 -m src.backend --warm`. ويطبّق **قاعدة D-73** لاختيار متعلم اللقطات برمجياً: من بين صفحة الجدول المعروضة (مفروزة بالتسجيل، أول 100 صف) يُختار المتعلم الأقرب إلى وسيط درجات الفوج كله بشروط: درجته دون العتبة و≥ 5 أيام نشطة، والتعادل بترتيب التسجيل؛ فإن زاد الفرق عن 0.05 يُفتح الجدول بمعامل `off` عند صفحة أقرب متعلم مؤهَّل، ويطبع السكربت معرّفه ودرجته وفرقه. والمتغير `CHECK_ONLY=1` يجري الفحوص (الأرقام والصيغ العربية وغياب أرقام القرارات) دون كتابة لقطات.
 
 # 6. أدوات البناء `scripts/`
 
