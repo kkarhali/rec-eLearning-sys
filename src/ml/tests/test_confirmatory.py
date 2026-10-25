@@ -155,6 +155,119 @@ class TestPeerM1M2M3(unittest.TestCase):
             RC.FROZEN, RC.DEV, RC.data.RAW_DIR = old
 
 
+def repo_git(head="aaa", tag="aaa", status="", tagged_log="", tag_exists=True):
+    def git(*args):
+        if args[:1] == ("rev-parse",) and args[1].endswith("^{commit}"):
+            if not tag_exists:
+                raise RuntimeError("no tag")
+            return tag
+        if args == ("rev-parse", "HEAD"):
+            return head
+        if args == ("status", "--porcelain"):
+            return status
+        if args[:1] == ("show",):
+            return tagged_log
+        raise AssertionError(args)
+    return git
+
+
+class TestD75Resume(unittest.TestCase):
+    """D-75: clean-tree exemptions, LOCK over every phase-1 file, and the three --resume outcomes."""
+
+    def setUp(self):
+        import json
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+        (self.root / "results").mkdir()
+        self.log = self.root / "results" / "access_log.jsonl"
+        self.log.write_text('{"a": 1}\n' + json.dumps({"event": "confirmatory_full_read", "commit": "aaa"}) + "\n")
+        self.out = self.root / "results" / "conf2014"
+        self.old = RC.data.REPO_ROOT, RC.data.RESULTS_DIR
+        RC.data.REPO_ROOT, RC.data.RESULTS_DIR = self.root, self.root / "results"
+
+    def tearDown(self):
+        RC.data.REPO_ROOT, RC.data.RESULTS_DIR = self.old
+        self.tmp.cleanup()
+
+    def _phase1(self, lock=True):
+        import json
+
+        class Ctx:
+            tag, commit, out = "freeze-03", "aaa", self.out
+        (self.out / "figures").mkdir(parents=True)
+        (self.out / ".lock").write_text(json.dumps({"tag": "freeze-03", "commit": "aaa"}))
+        for f in ("verdicts.csv", "verdicts.md", "secondary.csv", "figures/fig1.svg", "figures/fig1.png"):
+            (self.out / f).write_text(f)
+        (self.out / "deviations.md").write_text("# d\n\nلا شيء.\n")
+        if lock:
+            RC.write_lock(Ctx())
+
+    def test_exemptions(self):
+        st = " M results/access_log.jsonl\n?? results/conf2014_aborted_1/\n?? results/conf2014_aborted_1.sha256.json"
+        self.assertEqual(RC.dirty_paths("freeze-03", repo_git(status=st, tagged_log='{"a": 1}')), [])
+        # the tagged log is not a prefix (a line was edited, not appended) → not exempt
+        self.assertEqual(len(RC.dirty_paths("freeze-03", repo_git(status=st, tagged_log='{"a": 2}'))), 1)
+        self.assertEqual(len(RC.dirty_paths("freeze-03", repo_git(status=" M src/ml/data.py"))), 1)
+        self.assertEqual(RC.check_guards("freeze-03", self.out, git=repo_git(status=st, tagged_log='{"a": 1}')), "aaa")
+        self.out.mkdir()
+        with self.assertRaises(RC.GuardError):
+            RC.check_guards("freeze-03", self.out, git=repo_git())
+        self.assertEqual(RC.check_guards("freeze-03", self.out, git=repo_git(status="?? results/conf2014/"), resume=True), "aaa")
+
+    def test_lock_covers_phase1_files(self):
+        import json
+        self._phase1()
+        lock = json.loads((self.out / "LOCK").read_text())
+        self.assertEqual(set(lock["files"]), {"verdicts.csv", "verdicts.md", "secondary.csv", "figures/fig1.svg", "figures/fig1.png"})
+        (self.out / "figures/fig1.png").write_text("changed")
+        with self.assertRaises(RC.GuardError):
+            RC.verify_lock(self.out, "freeze-03", dry=False, git=repo_git())
+
+    def test_resume_before_lock(self):
+        import json
+        self._phase1(lock=False)
+        info = RC.resume_prepare(self.out, "freeze-03", git=repo_git(status="?? results/conf2014/"))
+        self.assertEqual(info["action"], "phase1")
+        self.assertFalse(self.out.exists())
+        self.assertTrue((self.root / "results" / "conf2014_aborted_1" / "verdicts.csv").exists())
+        man = json.loads((self.root / "results" / "conf2014_aborted_1.sha256.json").read_text())
+        self.assertEqual(len(man), 7)
+        self.assertIn('"confirmatory_resume"', self.log.read_text())
+        self.out.mkdir()
+        RC.record_resume_deviation(self.out, info)
+        self.assertIn("conf2014_aborted_1", (self.out / "deviations.md").read_text())
+
+    def test_resume_after_lock(self):
+        self._phase1()
+        (self.out / "fairness.csv").write_text("partial phase 2")
+        info = RC.resume_prepare(self.out, "freeze-03", git=repo_git(status="?? results/conf2014/"))
+        self.assertEqual(info["action"], "phase2")
+        self.assertEqual(info["removed_unlocked"], ["fairness.csv"])
+        self.assertTrue((self.out / "verdicts.csv").exists() and (self.out / "deviations.md").exists())
+
+    def test_resume_refusals(self):
+        import json
+        self._phase1()
+        g = repo_git(status="?? results/conf2014/")
+        (self.out / "secondary.csv").write_text("tampered")
+        with self.assertRaises(RC.GuardError):
+            RC.resume_prepare(self.out, "freeze-03", git=g)                       # locked file changed → stop
+        (self.out / "secondary.csv").write_text("secondary.csv")
+        with self.assertRaises(RC.GuardError):
+            RC.resume_prepare(self.out, "freeze-03", git=repo_git(head="bbb", tag="ccc", status="?? results/conf2014/"))
+        with self.assertRaises(RC.GuardError):
+            RC.resume_prepare(self.out, "freeze-03", git=repo_git(status="?? results/conf2014/\n M src/ml/data.py"))
+        (self.out / ".lock").write_text(json.dumps({"tag": "freeze-03", "commit": "zzz"}))
+        with self.assertRaises(RC.GuardError):
+            RC.resume_prepare(self.out, "freeze-03", git=g)                       # start record of another commit
+        (self.out / ".lock").write_text(json.dumps({"tag": "freeze-03", "commit": "aaa"}))
+        self.log.write_text("")
+        with self.assertRaises(RC.GuardError):
+            RC.resume_prepare(self.out, "freeze-03", git=g)                       # no full-read record
+        with self.assertRaises(RC.GuardError):
+            RC.resume_prepare(self.out.parent / "conf2014_never_started", "freeze-03", git=repo_git())  # nothing to resume
+
+
 class TestVerdicts(unittest.TestCase):
     def test_table(self):
         idx = [f"P{i}" for i in range(13)]

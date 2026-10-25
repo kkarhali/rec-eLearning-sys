@@ -11,7 +11,7 @@
 bash data/download.sh                     # أو: python3 data/verify_oulad.py
 
 # 1) اختبارات الوحدة (≈ 3 ثوانٍ، لا تحتاج البيانات الخام)
-python3 -m unittest discover -s src/ml/tests -v   # 108 اختبارات (≈ 6 ث)
+python3 -m unittest discover -s src/ml/tests -v   # 121 اختباراً (≈ 6 ث)
 
 # 2) الإحصاءات الوصفية + إعادة إنتاج فحص الزميل 0.2 وفحص المشرف (≈ 25 ثانية)
 python3 -m src.ml.experiments.eda
@@ -48,7 +48,8 @@ python3 -m src.ml.experiments.freeze_config --checklist   # results/frozen/freez
 # مشغّل E10 (D-63): تشغيل جاف كامل على 2013، ثم — بعد الوسم وحده — التشغيل التأكيدي مرة واحدة
 python3 -m src.ml.experiments.run_confirmatory --dry-run-dev --force   # (= --dry-run-2013) → results/dryrun2013/
 python3 -m src.ml.experiments.run_confirmatory --tag freeze-03          # يرفض ما لم يكن HEAD = الوسم والشجرة نظيفة
-python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --phase 2   # إعادة الطور 2 وحده بعد LOCK
+python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --phase 2   # الطور 2 وحده: يتحقق من LOCK وHEAD = الوسم (م2)
+python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --resume    # المسار الوحيد بعد تعطل بيئي (D-75)
 ```
 
 **خدمة الواجهة (D-49، إعادة تشغيل):**
@@ -110,14 +111,14 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
 | `experiments/eda.py` | الإحصاءات الوصفية وإعادة إنتاج الفحوص الاستكشافية | T1 |
 | `experiments/run_baselines.py` | B1–B10 → `results/dev2013/` | D-10، D-14، D-37 |
 | `experiments/report.py` | يبني `summary.md` من ملفات CSV فقط | — |
-| `tests/` | 108 اختبارات unittest (المقاييس، التقسيم والتسرب، الإشارة، النماذج وأمثلة الوثيقة، GRU وفحص التدرج والقناع، المتعلمون، الهجين والإحصاء، الخدمة، قراءة D-47) | §4.11، §5.9، ADR-004 |
+| `tests/` | 121 اختباراً unittest (المقاييس، التقسيم والتسرب، الإشارة، النماذج وأمثلة الوثيقة، GRU وفحص التدرج والقناع، المتعلمون، الهجين والإحصاء، الخدمة، قراءة D-47 وغاية D-76، حراس E10 والاستئناف D-75) | §4.11، §5.9، ADR-004 |
 
 كل النماذج ترث `models.base.Recommender` (`_fit`/`_score`/`param_space`)؛ ملامح المتعلم تأخذ `TrainData.all_events`
 (كل الأنواع حتى t₀) ولا تُحمَّل السمات الحساسة إلا لتحليل الإنصاف (D-21).
 
-**الاستثناء الوحيد من حاجز 2014 (D-47):** `data.confirmatory_student_ids()` تقرأ من `studentRegistration.csv` الأعمدة
-`code_module, code_presentation, id_student` وحدها (`usecols`) وتعيد مجموعة معرّفات لحذف المتداخلين من تدريب H4-أ،
-وتسجّل كل وصول في `results/access_log.jsonl` (الزمن، MD5، الأعمدة، عدد المعرّفات، commit)؛ اختبار وحدة يتحقق من الأعمدة
+**الاستثناء الوحيد من حاجز 2014 (D-47، موسَّع بـD-76):** `data.confirmatory_student_ids(purpose)` تقرأ من `studentRegistration.csv` الأعمدة
+`code_module, code_presentation, id_student` وحدها (`usecols`) وتعيد مجموعة معرّفات لحذف المتداخلين من تدريب مصنِّفات الخطر على 2013 وحده،
+وتسجّل كل وصول في `results/access_log.jsonl` (الزمن، MD5، الأعمدة، عدد المعرّفات، commit، `purpose`)؛ اختبار وحدة يتحقق من الأعمدة
 ومن بقاء الحاجز. `load_student_assessment()` يرشّح تقييمات 2013 لحظة القراءة.
 
 ## بنية النتائج (`results/dev2013/`، صغيرة ومضمَّنة في git)
@@ -138,7 +139,7 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
 | `mde80.md/json` | MDE80 لكل فرضية (D-46) |
 | `../access_log.jsonl` | سجل قراءات D-47 |
 
-`artifacts/<presentation>/` (≈ 0.5 MB، في git): `risk_{28,56,112}.json`، `clusters_56.npz`، ومجلدات القطوع لقطع WRMF/GRU
+`artifacts/<presentation>/` (≈ 0.5 MB، **خارج git** منذ D-70؛ يُعاد بناؤه بخطوة `build_artifacts` ضمن `reproduce_dev`): `risk_{28,56,112}.json`، `clusters_56.npz`، ومجلدات القطوع لقطع WRMF/GRU
 إن دخلت التركيبة المجمَّدة (لا تدخلها حالياً). تُعاد بـ`build_artifacts`. `data/cache/components/` (≈ 1.1 GB) متجاهَل.
 
 قيمة الوحدة الإحصائية = العرض: متوسط البذور ← متوسط الأصول الثلاثة ← (متوسط ± انحراف) عبر العروض.
@@ -157,7 +158,32 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
 | `power`، `build_artifacts` | ≈ 1 دقيقة لكل منهما |
 | **مجموع التطوير الكامل (الجولتان)** | ≈ 48 دقيقة فعلية، **≈ 4.8 ساعة CPU** (< 8 ساعات، D-34؛ لم يُستعمل سلّم التقليص) |
 | `serving.recommend` | ≈ 10 ث لأول طلب لكل (عرض، يوم) (عنقدة اليوم وSKNN لكل المتعلمين)، ثم < 0.01 ث من الذاكرة لبقية المتعلمين في اليوم نفسه |
-| `run_baselines` (B1–B10، 9 عروض × 3 أصول، 4 عمليات) | **5.2 دقائق** فعلية (≈ 20 دقيقة CPU؛ WRMF ≈ 15 دقيقة CPU بعشرين إعداداً أساسياً عند f ≤ 64، SKNN ≈ 3 دقائق؛ أقصى RSS ≈ 550 MB لكل عملية) — بعيد عن سقف 8 ساعات CPU (D-34)، فلم يُستعمل سلّم التقليص. الجولة الأولى (ADR-002) استغرقت 7.0 دقائق |
+| `run_baselines` (B1–B10، 9 عروض × 3 أصول، 4 عمليات) | **434.4 ث ≈ 7.2 دقائق** فعلية (مقيس في `results/dev2013/run_meta.json`، 2026-10-25؛ وقيس 473.5 ث ≈ 7.9 د في تشغيل سابق اليوم نفسه؛ ≈ 20 دقيقة CPU؛ WRMF ≈ 15 دقيقة CPU بعشرين إعداداً أساسياً عند f ≤ 64، SKNN ≈ 3 دقائق؛ أقصى RSS ≈ 550 MB لكل عملية) — بعيد عن سقف 8 ساعات CPU (D-34)، فلم يُستعمل سلّم التقليص. الجولة الأولى (ADR-002) استغرقت 7.0 دقائق |
+
+## الاستئناف المأذون والقراءة المحدودة (D-75، D-76) — منفَّذان
+
+- **LOCK** يُكتب في آخر الطور 1 ويحمل SHA-256 لكل ملفات الطور 1 (ومنها الثانوي والأشكال SVG/PNG)، عدا `.lock`
+  و`deviations.md` و`run_meta.json`. الطور 2 (وحده أو ضمن `all`) لا يبدأ إلا بعد `verify_lock`: كل ملف مقفل مطابق،
+  وcommit القفل = HEAD، وفي التأكيدي HEAD = الوسم ووسم القفل = الوسم.
+- **حارس الشجرة النظيفة** يستثني `results/access_log.jsonl` إن كانت نسخة الوسم بادئة حرفية له (إلحاق فقط)،
+  و`results/conf2014_aborted_*`. البصمات المجمَّدة الثلاث وMD5 الملفات الخام السبعة تُقارَن بـ`freeze03_config.json`
+  قبل أي عمل (م3)، ويرفض المشغّل عند أي اختلاف.
+- **`--resume`** (التأكيدي فقط، بلا `--phase`): يتحقق من HEAD = الوسم والشجرة والبصمات وسجل البدء (`.lock` وسطر
+  `confirmatory_full_read`). بلا LOCK: يُنقل `conf2014/` دون فتحه إلى `conf2014_aborted_<n>/` مع بيان SHA-256 في
+  `conf2014_aborted_<n>.sha256.json`، ويُعاد الطور 1 كاملاً ثم الطور 2. مع LOCK مطابق: تُحذف بقايا الطور 2 غير المقفلة
+  ويُعاد الطور 2 كاملاً. وأي اختلاف يوقف الأمر. يُسجَّل كل استئناف (`confirmatory_resume`) في `access_log.jsonl`
+  وفي `deviations.md`، ولا يُعدّ تشغيلاً ثانياً.
+- **الخلل البرمجي** (لا البيئي) يُصلح بأصغر تعديل، بمراجعة الزميل وموافقة المشرف كتابةً، ثم يُوسم `freeze-03.1`
+  ويُعاد الطور 1 (D-75 (4)). لا مسار في الكود لذلك عمداً: هو قرار بشري موثَّق.
+- **التشغيل الجاف** يسجّل في `run_meta.json`: `guard_rehearsal` (كل حارس، و`check_guards` بوسم يساوي HEAD)،
+  و`audit_2014` (لا قراءة كاملة، وقراءات D-47 بثلاثة أعمدة فقط، ولا عرض 2014 في أي محمِّل)، و`path_checks`
+  (LOCK وعدد الملفات المقفلة وSVG/PNG)، و`resume_simulation` بالحالات الثلاث على نسخة منه: انهيار قبل LOCK،
+  وانهيار بعده، وتلاعب بملف مقفل (شكل ثم verdicts)، بـ`resume_prepare` نفسها. ويشغّل فرع H4-أ النهائي
+  (أوزان `risk_final.json` وشجرة CART كما هي) إلى `h4a_frozen_branch.csv` (داخل العينة على 2013: تمرين مسار لا دليل؛ م1).
+- **D-76:** `confirmatory_student_ids(purpose)`؛ `purpose` إلزامي من القائمة البيضاء `learner_analysis` و`risk_final`
+  و`run_confirmatory` و`build_artifacts`، ويُسجَّل في كل سطر من السجل، وأي قيمة أخرى ترفع `ValueError` قبل أي قراءة.
+  اختبار سلبي (`test_ids_only_filter_2013_risk_training`) يفحص شجرة الكود: لا استدعاء خارج الدوال الأربع، ولا استعمال
+  في الخدمة أو التوصية أو العنقدة أو الواجهة الخلفية أو تحليل 2014، وفي `h4a` لا تمس المعرّفات إلا جدول تدريب 2013.
 
 ## القرارات التنفيذية — كلها مثبَّتة
 

@@ -60,11 +60,37 @@ class GuardError(RuntimeError):
 # guards and integrity
 # =============================================================================================
 def _git(*args) -> str:
-    return subprocess.check_output(["git", *args], cwd=data.REPO_ROOT, stderr=subprocess.DEVNULL).decode().strip()
+    return subprocess.check_output(["git", *args], cwd=data.REPO_ROOT, stderr=subprocess.DEVNULL).decode().rstrip("\n")
 
 
-def check_guards(tag: str, out: Path, git=_git) -> str:
-    """D-63 §1: HEAD = tag, clean tree, output directory absent. Returns the tagged commit."""
+ACCESS_LOG = "results/access_log.jsonl"
+ABORTED_PREFIX = "results/conf2014_aborted_"
+UNLOCKED = {"LOCK", ".lock", "deviations.md", "run_meta.json"}     # never covered by LOCK (D-75 (1))
+
+
+def dirty_paths(tag: str, git=_git, extra_exempt: tuple = ()) -> list[str]:
+    """``git status --porcelain`` minus the D-75 (2) exemptions: ``results/access_log.jsonl`` when the tagged version is
+    a literal prefix of it (append only), ``results/conf2014_aborted_*``, and ``extra_exempt`` path prefixes."""
+    out = []
+    for line in git("status", "--porcelain").splitlines():
+        path = line[3:].strip().strip('"')
+        if path.startswith(ABORTED_PREFIX) or any(path.startswith(e) for e in extra_exempt):
+            continue
+        if path == ACCESS_LOG and line[:2].strip() == "M":
+            try:
+                tagged = git("show", f"{tag}:{ACCESS_LOG}")
+            except Exception:
+                tagged = None
+            current = (data.REPO_ROOT / ACCESS_LOG).read_text(encoding="utf-8")
+            if tagged is not None and current.startswith(tagged):
+                continue
+        out.append(line)
+    return out
+
+
+def check_guards(tag: str, out: Path, git=_git, resume: bool = False) -> str:
+    """D-63 §1 / D-75: HEAD = tag, clean tree (D-75 (2) exemptions), output directory absent (present on --resume).
+    Returns the tagged commit."""
     try:
         tagged = git("rev-parse", f"{tag}^{{commit}}")
     except Exception as exc:
@@ -72,10 +98,13 @@ def check_guards(tag: str, out: Path, git=_git) -> str:
     head = git("rev-parse", "HEAD")
     if head != tagged:
         raise GuardError(f"HEAD {head[:10]} is not the tagged commit {tagged[:10]}")
-    if git("status", "--porcelain"):
-        raise GuardError("working tree is not clean")
-    if out.exists():
-        raise GuardError(f"{out} already exists: a second confirmatory run needs a written decision of the supervisor")
+    rel = out.relative_to(data.REPO_ROOT).as_posix() + "/" if out.is_relative_to(data.REPO_ROOT) else str(out)
+    dirty = dirty_paths(tag, git, extra_exempt=(rel,) if resume else ())
+    if dirty:
+        raise GuardError(f"working tree is not clean: {dirty[:5]}")
+    if out.exists() and not resume:
+        raise GuardError(f"{out} already exists: after an environmental failure only --resume is allowed (D-75); "
+                         "a second confirmatory run needs a written decision of the supervisor")
     return tagged
 
 
@@ -97,6 +126,8 @@ def guard_rehearsal(tag: str, out: Path, git=_git) -> dict:
     def at_head(*args):
         if args[:1] == ("rev-parse",) and args[1].startswith(tag):
             return head
+        if args[:1] == ("show",) and args[1].startswith(f"{tag}:"):
+            return git("show", "HEAD:" + args[1].split(":", 1)[1])
         return git(*args)
     try:
         check_guards(tag, out, git=at_head)
@@ -147,15 +178,33 @@ def check_integrity() -> dict:
     return cfg
 
 
+def lock_manifest(out: Path) -> dict:
+    """SHA-256 of every file under ``out`` except the unlocked bookkeeping files (D-75 (1))."""
+    return {f.relative_to(out).as_posix(): sha256(f) for f in sorted(out.rglob("*"))
+            if f.is_file() and f.relative_to(out).as_posix() not in UNLOCKED}
+
+
+def write_lock(ctx) -> dict:
+    out = ctx.out
+    lock = {"tag": ctx.tag, "commit": ctx.commit, "verdicts_csv_sha256": sha256(out / "verdicts.csv"),
+            "verdicts_md_sha256": sha256(out / "verdicts.md"), "files": lock_manifest(out),
+            "time": time.strftime("%Y-%m-%dT%H:%M:%S")}
+    (out / "LOCK").write_text(json.dumps(lock, indent=1))
+    return lock
+
+
 def verify_lock(out: Path, tag: str, dry: bool, git=_git) -> dict:
-    """Before phase 2 (also when run alone, peer m2): LOCK exists and matches the phase-1 verdict files, and its commit
-    is HEAD; in confirmatory mode HEAD must also be the tagged commit."""
+    """Before phase 2 (also when run alone, peer m2; and on --resume, D-75): LOCK exists, every phase-1 file it covers
+    is unchanged (D-75 (1)), its commit is HEAD; in confirmatory mode HEAD must also be the tagged commit."""
     p = out / "LOCK"
     if not p.exists():
         raise GuardError("phase 2 needs the phase-1 LOCK")
     lock = json.loads(p.read_text())
-    for f in ("verdicts.csv", "verdicts.md"):
-        if not (out / f).exists() or sha256(out / f) != lock.get(f"{f.replace('.', '_')}_sha256"):
+    files = dict(lock.get("files", {}))
+    files.setdefault("verdicts.csv", lock.get("verdicts_csv_sha256"))
+    files.setdefault("verdicts.md", lock.get("verdicts_md_sha256"))
+    for f, h in sorted(files.items()):
+        if not (out / f).is_file() or sha256(out / f) != h:
             raise GuardError(f"{f} does not match LOCK")
     head = git("rev-parse", "HEAD")
     if lock.get("commit") != head:
@@ -170,11 +219,79 @@ def verify_lock(out: Path, tag: str, dry: bool, git=_git) -> dict:
     return lock
 
 
-def log_full_read(tag: str, commit: str, md5: dict):
+def _append_log(rec: dict, log_path: Path | None = None):
+    log = log_path or (data.RESULTS_DIR / "access_log.jsonl")
+    with open(log, "a", encoding="utf-8") as f:
+        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+
+
+def resume_prepare(out: Path, tag: str, git=_git, log_path: Path | None = None) -> dict:
+    """D-75 (3): the only path after an environmental failure.
+
+    Checks HEAD = tag and the clean tree (``check_guards(resume=True)``; the frozen fingerprints and raw MD5 are checked
+    by ``check_integrity`` before), and the start record (``.lock`` with this tag and commit, and the
+    ``confirmatory_full_read`` line of the access log). Then:
+      * no LOCK  → the directory is moved, unopened, to ``conf2014_aborted_<n>/`` with a SHA-256 manifest, and phase 1
+                   is re-run in full (action ``phase1``);
+      * LOCK     → every locked file must match (else ``GuardError``: stop); the unlocked phase-2 leftovers are removed and
+                   phase 2 is re-run in full (action ``phase2``).
+    Each resume is logged (``confirmatory_resume``) and recorded in deviations.md; it is not a second run.
+    """
+    commit = check_guards(tag, out, git=git, resume=True)
+    if not out.is_dir():
+        raise GuardError(f"--resume: {out} does not exist (nothing to resume; a first run needs no --resume)")
+    start = out / ".lock"
+    if not start.is_file():
+        raise GuardError("--resume: start record .lock missing; the supervisor decides")
+    rec = json.loads(start.read_text())
+    if rec.get("tag") != tag or rec.get("commit") != commit:
+        raise GuardError(f"--resume: start record {rec} does not match tag {tag} / commit {commit[:10]}")
+    log = log_path or (data.RESULTS_DIR / "access_log.jsonl")
+    lines = [json.loads(l) for l in log.read_text(encoding="utf-8").splitlines() if l.strip()] if log.exists() else []
+    if not any(r.get("event") == "confirmatory_full_read" and r.get("commit") == commit for r in lines):
+        raise GuardError("--resume: no confirmatory_full_read record for this commit in the access log")
+    info = {"time": time.strftime("%Y-%m-%dT%H:%M:%S"), "event": "confirmatory_resume", "tag": tag, "commit": commit,
+            "not_a_second_run": True}
+    if not (out / "LOCK").exists():
+        n = 1
+        while (out.parent / f"{out.name}_aborted_{n}").exists():
+            n += 1
+        dest = out.parent / f"{out.name}_aborted_{n}"
+        manifest = {f.relative_to(out).as_posix(): sha256(f) for f in sorted(out.rglob("*")) if f.is_file()}
+        shutil.move(str(out), str(dest))
+        (out.parent / f"{out.name}_aborted_{n}.sha256.json").write_text(json.dumps(manifest, indent=1))
+        info.update(action="phase1", aborted_dir=dest.name, aborted_files=len(manifest),
+                    aborted_manifest_sha256=hashlib.sha256(json.dumps(manifest, sort_keys=True).encode()).hexdigest())
+    else:
+        lock = verify_lock(out, tag, dry=False, git=git)
+        keep = set(lock.get("files", {})) | UNLOCKED
+        removed = sorted(f.relative_to(out).as_posix() for f in out.rglob("*")
+                         if f.is_file() and f.relative_to(out).as_posix() not in keep)
+        for f in removed:
+            (out / f).unlink()
+        info.update(action="phase2", removed_unlocked=removed, locked_files=len(lock.get("files", {})))
+    _append_log(info, log)
+    return info
+
+
+def record_resume_deviation(out: Path, info: dict):
+    p = out / "deviations.md"
+    txt = p.read_text(encoding="utf-8") if p.exists() else "# سجل الانحرافات (D-63 §5)\n\n"
+    txt = txt.replace("لا شيء.\n", "")
+    what = (f"نُقل المجلد دون فتحه إلى `{info.get('aborted_dir')}/` ({info.get('aborted_files')} ملفاً، بيان SHA-256 مرفق) "
+            "وأُعيد الطور 1 كاملاً" if info["action"] == "phase1"
+            else f"طابق LOCK ({info.get('locked_files')} ملفاً)، وحُذفت بقايا الطور 2 ({len(info.get('removed_unlocked', []))}) "
+                 "وأُعيد الطور 2 كاملاً")
+    p.write_text(txt + f"- {info['time']}: استئناف مأذون بعد تعطل بيئي (D-75 (3))، commit `{info['commit'][:10]}`: {what}. "
+                       "لا يُعدّ تشغيلاً ثانياً.\n", encoding="utf-8")
+
+
+def log_full_read(tag: str, commit: str, md5: dict, resume: dict | None = None):
     rec = {"time": time.strftime("%Y-%m-%dT%H:%M:%S"), "event": "confirmatory_full_read", "tag": tag, "commit": commit,
            "files_md5": md5, "files_md5_match_frozen": True, "purpose": "E10 (D-63)"}
-    with open(data.RESULTS_DIR / "access_log.jsonl", "a", encoding="utf-8") as f:
-        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    if resume:
+        rec["resume"] = {k: resume[k] for k in ("action", "aborted_dir") if k in resume}
+    _append_log(rec)
 
 
 # =============================================================================================
@@ -511,10 +628,6 @@ def phase1(ctx: Context, label: str):
         for c, g in d.groupby(level="cut"):
             cuts.append({"hypothesis": h, "cut": c, "mean_delta": float(g.mean()), "n": len(g)})
     pd.DataFrame(cuts).to_csv(out / "per_origin.csv", index=False, float_format="%.6f")
-    # ---- LOCK before phase 2
-    lock = {"tag": ctx.tag, "commit": ctx.commit, "verdicts_csv_sha256": sha256(out / "verdicts.csv"),
-            "verdicts_md_sha256": sha256(out / "verdicts.md"), "time": time.strftime("%Y-%m-%dT%H:%M:%S")}
-    (out / "LOCK").write_text(json.dumps(lock, indent=1))
     # ---- secondary, exploratory, decomposition, summaries
     sec = []
     for a_, b_ in (("M2", "M1"), ("M2", "M0"), ("CART_M2", "M0")):
@@ -534,7 +647,10 @@ def phase1(ctx: Context, label: str):
     mde80_frozen(ctx, per)
     summary(ctx, rows, gru, an, h4, label)
     figures_phase1(ctx, ver, per, rows, gru, an, oof)
+    render_pngs(ctx)
     ctx.timing["phase1_seconds"] = round(time.time() - t0, 1)
+    # ---- LOCK at the very end of phase 1, over every phase-1 output incl. figures and secondary (D-75 (1))
+    write_lock(ctx)
     return an
 
 
@@ -797,7 +913,8 @@ def phase2(ctx: Context, an=None, label=""):
 
 
 def render_pngs(ctx: Context):
-    svgs = sorted(ctx.figs.glob("*.svg"))
+    """PNG for every SVG that has none yet (phase-1 PNGs are locked and never re-rendered)."""
+    svgs = [p for p in sorted(ctx.figs.glob("*.svg")) if not p.with_suffix(".png").exists()]
     if svgs:
         subprocess.run([sys.executable, str(data.REPO_ROOT / "scripts" / "svg2png.py"), *map(str, svgs),
                         "--out-dir", str(ctx.figs)], cwd=data.REPO_ROOT, capture_output=True)
@@ -845,17 +962,94 @@ def compare_with_dev(ctx: Context) -> str:
     return _md(df)
 
 
+def simulate_resume(ctx: Context) -> dict:
+    """D-75 (5): on a copy of the finished dry run, rehearse the three failure cases with the real ``resume_prepare``
+    (tag mapped to HEAD, the dry-run directory itself exempt, access log in the sandbox):
+    crash before LOCK → moved unopened to conf2014_aborted_1/ + phase 1 again; crash after LOCK → locked files intact,
+    phase-2 leftovers removed + phase 2 again; tampering with a locked file → stop."""
+    import tempfile
+    head = _git("rev-parse", "HEAD")
+    rel_dry = ctx.out.relative_to(data.REPO_ROOT).as_posix() + "/"
+
+    def git(*args):
+        if args[:1] == ("rev-parse",) and args[1].startswith(ctx.tag):
+            return head
+        if args[:1] == ("show",) and args[1].startswith(f"{ctx.tag}:"):
+            return _git("show", "HEAD:" + args[1].split(":", 1)[1])
+        if args == ("status", "--porcelain"):
+            return "\n".join(l for l in _git(*args).splitlines() if not l[3:].startswith(rel_dry))
+        return _git(*args)
+
+    res = {}
+    with tempfile.TemporaryDirectory(dir=data.CACHE_DIR if data.CACHE_DIR.exists() else None) as tmp:
+        tmp = Path(tmp)
+        log = tmp / "access_log.jsonl"
+        log.write_text(json.dumps({"event": "confirmatory_full_read", "tag": ctx.tag, "commit": head}) + "\n")
+        start = json.dumps({"tag": ctx.tag, "commit": head, "started": "simulated"})
+
+        def fresh(name):
+            d = tmp / name / "conf2014"
+            shutil.copytree(ctx.out, d)
+            (d / ".lock").write_text(start)
+            return d
+        # (a) crash before LOCK: LOCK and the phase-2 outputs absent, a phase-1 file half written
+        d = fresh("a")
+        (d / "LOCK").unlink()
+        for f in ("ablation_signals.csv", "fairness.csv", "protocol_sampled.csv"):
+            (d / f).unlink(missing_ok=True)
+        (d / "summary.md").write_text("partial")
+        try:
+            info = resume_prepare(d, ctx.tag, git=git, log_path=log)
+            ok = (info["action"] == "phase1" and not d.exists() and (d.parent / "conf2014_aborted_1").is_dir()
+                  and (d.parent / "conf2014_aborted_1.sha256.json").is_file())
+            res["crash_before_LOCK"] = {"expected": "move to conf2014_aborted_1/ and re-run phase 1", "action": info["action"],
+                                        "aborted_files": info.get("aborted_files"), "ok": bool(ok)}
+        except GuardError as exc:
+            res["crash_before_LOCK"] = {"expected": "phase1", "blocked": str(exc), "ok": False}
+        # (b) crash after LOCK: one phase-2 file half written, another missing
+        d = fresh("b")
+        (d / "fairness.csv").write_text("partial")
+        (d / "protocol_sampled.csv").unlink(missing_ok=True)
+        try:
+            info = resume_prepare(d, ctx.tag, git=git, log_path=log)
+            lock = json.loads((d / "LOCK").read_text())
+            intact = all(sha256(d / f) == h for f, h in lock["files"].items())
+            ok = info["action"] == "phase2" and intact and not (d / "fairness.csv").exists()
+            res["crash_after_LOCK"] = {"expected": "locked files intact, phase-2 leftovers removed, re-run phase 2",
+                                       "action": info["action"], "locked_files": info.get("locked_files"),
+                                       "removed_unlocked": len(info.get("removed_unlocked", [])), "ok": bool(ok)}
+        except GuardError as exc:
+            res["crash_after_LOCK"] = {"expected": "phase2", "blocked": str(exc), "ok": False}
+        # (c) tampering with a locked file (a phase-1 figure and the verdicts, separately)
+        for case, f in (("tamper_locked_figure", "figures/fig1_forest.svg"), ("tamper_locked_verdicts", "verdicts.csv")):
+            d = fresh(case)
+            target = d / f if (d / f).exists() else d / "verdicts.csv"
+            target.write_bytes(target.read_bytes() + b" ")
+            try:
+                info = resume_prepare(d, ctx.tag, git=git, log_path=log)
+                res[case] = {"expected": "stop", "action": info["action"], "ok": False}
+            except GuardError as exc:
+                res[case] = {"expected": "stop", "blocked": str(exc), "file": target.relative_to(d).as_posix(), "ok": True}
+        res["resume_log_records"] = sum(1 for l in log.read_text().splitlines() if '"confirmatory_resume"' in l)
+    res["ok"] = all(v.get("ok") for v in res.values() if isinstance(v, dict))
+    return res
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default="freeze-03")
     ap.add_argument("--phase", choices=["all", "1", "2"], default="all")
+    ap.add_argument("--resume", action="store_true", help="confirmatory only, after an environmental failure (D-75)")
     ap.add_argument("--dry-run-dev", "--dry-run-2013", dest="dry", action="store_true")
     ap.add_argument("--force", action="store_true", help="dry run only: overwrite results/dryrun2013/")
     ap.add_argument("--workers", type=int, default=4)
     a = ap.parse_args(argv)
     t0 = time.time()
     cfg = check_integrity()
+    resume = None
     if a.dry:
+        if a.resume:
+            raise GuardError("--resume is for the confirmatory run; the dry run simulates it (D-75 (5))")
         out = data.RESULTS_DIR / "dryrun2013"
         if out.exists() and a.phase in ("all", "1"):
             if not a.force:
@@ -864,39 +1058,60 @@ def main(argv=None):
         names, allow, label, commit = data.DEV_PRESENTATIONS, False, "تشغيل جاف على عروض 2013 (D-62 ش7)", _git("rev-parse", "HEAD")
         data.assert_allowed(names)
         rehearsal = guard_rehearsal(a.tag, data.RESULTS_DIR / "conf2014")
+        phases = {"all": ("1", "2"), "1": ("1",), "2": ("2",)}[a.phase]
     else:
         out = data.RESULTS_DIR / "conf2014"
-        if a.phase in ("all", "1"):
+        if a.resume:
+            if a.phase != "all":
+                raise GuardError("--resume decides the phase itself (D-75 (3))")
+            resume = resume_prepare(out, a.tag)
+            commit = resume["commit"]
+            phases = ("1", "2") if resume["action"] == "phase1" else ("2",)
+            if resume["action"] == "phase1":
+                out.mkdir(parents=True)
+                (out / ".lock").write_text(json.dumps({"tag": a.tag, "commit": commit, "resume": resume.get("aborted_dir"),
+                                                       "started": time.strftime("%Y-%m-%dT%H:%M:%S")}))
+                log_full_read(a.tag, commit, cfg["raw_md5_checked"], resume)
+        elif a.phase in ("all", "1"):
             commit = check_guards(a.tag, out)
             out.mkdir(parents=True)
             (out / ".lock").write_text(json.dumps({"tag": a.tag, "commit": commit, "started": time.strftime("%Y-%m-%dT%H:%M:%S")}))
             log_full_read(a.tag, commit, cfg["raw_md5_checked"])
+            phases = {"all": ("1", "2"), "1": ("1",)}[a.phase]
         else:
             commit = _git("rev-parse", "HEAD")
             verify_lock(out, a.tag, dry=False)            # LOCK matches, HEAD = LOCK commit = tag (peer m2)
+            phases = ("2",)
         names, allow, label = data.CONF_PRESENTATIONS, True, "التشغيل التأكيدي على عروض 2014 (E10)"
     ctx = Context(names, out, allow, a.workers, a.dry, "dryrun2013" if a.dry else "conf2014")
     ctx.tag, ctx.commit = a.tag, commit
     log_before = access_log_lines()
     out.mkdir(parents=True, exist_ok=True)
     (out / "deviations.md").exists() or (out / "deviations.md").write_text("# سجل الانحرافات (D-63 §5)\n\nلا شيء.\n")
-    an = phase1(ctx, label) if a.phase in ("all", "1") else None
+    if resume:
+        record_resume_deviation(out, resume)
+    an = phase1(ctx, label) if "1" in phases else None
     status = "phase1"
-    if a.phase in ("all", "2"):
+    if "2" in phases:
         phase2(ctx, an, label)
         status = "completed"
     render_pngs(ctx)
     extra = compare_with_dev(ctx) if a.dry else ""
     meta = {"mode": "dry-run on 2013" if a.dry else "confirmatory", "tag": a.tag, "commit": commit, "status": status,
             "presentations": list(names), "frozen_config_sha256": sha256(FROZEN / "freeze03_config.json"),
-            "raw_md5": {k: v["md5"] for k, v in cfg["raw_md5"].items()}, "python": platform.python_version(),
+            "raw_md5": cfg["raw_md5_checked"], "raw_md5_match_frozen": True, "python": platform.python_version(),
             "numpy": np.__version__, "pandas": pd.__version__, **ctx.timing,
             "wall_seconds": round(time.time() - t0, 1), "workers": a.workers, "date": time.strftime("%Y-%m-%d %H:%M:%S")}
+    if resume:
+        meta["resume"] = resume
     if a.dry:
         meta["guard_rehearsal"] = rehearsal
         meta["audit_2014"] = audit_2014(log_before, ctx)
         meta["path_checks"] = {"LOCK": (out / "LOCK").exists(),
+                               "LOCK_files": len(json.loads((out / "LOCK").read_text()).get("files", {})) if (out / "LOCK").exists() else 0,
                                "svg": len(list(ctx.figs.glob("*.svg"))), "png": len(list(ctx.figs.glob("*.png")))}
+        if status == "completed":
+            meta["resume_simulation"] = simulate_resume(ctx)
     (out / "run_meta.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False))
     if extra:
         (out / "dryrun_vs_dev.md").write_text("# التشغيل الجاف مقابل نتائج التطوير\n\n" + extra + "\n", encoding="utf-8")

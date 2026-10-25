@@ -126,8 +126,20 @@ def checklist() -> str:
     dry = data.RESULTS_DIR / "dryrun2013" / "run_meta.json"
     drym = json.loads(dry.read_text()) if dry.exists() else {}
     cfgp = FROZEN / "freeze03_config.json"
-    peer = sorted((data.REPO_ROOT / "docs" / "meetings").glob("*peer*freeze*")) + \
-        sorted((data.REPO_ROOT / "docs" / "meetings").glob("*peer-signoff-D47*"))
+    peer = sorted((data.REPO_ROOT / "docs" / "meetings").glob("*peer*freeze*"))      # ش8 = the freeze-03 sign-off
+    rmeta = json.loads((DEV / "repro_meta.json").read_text()) if (DEV / "repro_meta.json").exists() else {}
+    dvd = data.RESULTS_DIR / "dryrun2013" / "dryrun_vs_dev.csv"
+    dvd_max = None
+    if dvd.exists():
+        import pandas as pd
+        dv = pd.read_csv(dvd)
+        dv = dv[~dv.astype(str).apply(lambda r: "λ" in " ".join(r), axis=1)]    # H4-a λ row differs by design
+        dvd_max = float(dv["max_abs_diff"].max()) if len(dv) else None
+    sim = drym.get("resume_simulation", {})
+    dry_ok = (drym.get("status") == "completed" and drym.get("audit_2014", {}).get("ok") is True
+              and drym.get("guard_rehearsal", {}).get("check_guards_with_tag_at_HEAD") == "pass"
+              and sim.get("ok") is True and drym.get("path_checks", {}).get("LOCK") is True
+              and dvd_max is not None and dvd_max <= 1e-6)
     doc02 = (data.REPO_ROOT / "docs" / "working" / "02-hypotheses-algorithms.md").read_text()
     tags = subprocess.run(["git", "tag", "-l", "freeze-03"], cwd=data.REPO_ROOT, capture_output=True, text=True).stdout.strip()
     rows = [
@@ -140,14 +152,19 @@ def checklist() -> str:
          "hybrid.csv (task B)، serving.py (risk_model=\"M1\")، stats.cluster_bootstrap_t + اختبار، hybrid_frozen.json (H2b)",
          "مهندس ML"),
         ("ش4", "نماذج الخطر النهائية", (FROZEN / "risk_final.json").exists(), "results/frozen/risk_final.json", "مهندس ML"),
-        ("ش5", "reproduce_dev + repro_diff.md", "**الحالة: مطابق**" in repro,
-         "results/dev2013/repro_diff.md", "مهندس ML"),
+        ("ش5", "reproduce_dev + repro_diff.md على commit نظيف", "**الحالة: مطابق**" in repro and rmeta.get("src_dirty") is False,
+         f"results/dev2013/repro_diff.md، repro_meta.json (commit {str(rmeta.get('commit'))[:10]}، "
+         f"src_dirty={rmeta.get('src_dirty')})", "مهندس ML"),
         ("ش6", "freeze03_config.json + SHA-256", cfgp.exists(), "results/frozen/freeze03_config.json", "مهندس ML"),
-        ("ش7", "run_confirmatory + تشغيل جاف كامل على 2013", drym.get("status") == "completed",
-         "src/ml/experiments/run_confirmatory.py، results/dryrun2013/", "مهندس ML"),
+        ("ش7", "run_confirmatory + تشغيل جاف كامل على 2013", dry_ok,
+         f"results/dryrun2013/run_meta.json (status={drym.get('status')}، audit_2014.ok={drym.get('audit_2014', {}).get('ok')}، "
+         f"guard_rehearsal={drym.get('guard_rehearsal', {}).get('check_guards_with_tag_at_HEAD')}، "
+         f"resume_simulation.ok={sim.get('ok')}، commit {str(drym.get('commit'))[:10]})، dryrun_vs_dev max |Δ| = {dvd_max} (≤ 1e-6، عدا λ)",
+         "مهندس ML"),
         ("ش8", "مراجعة الزميل وتوقيعه", any("موافق" in p.read_text() and "غير موافق في الحالة الحالية" not in p.read_text()
                                             for p in peer), "docs/meetings/*peer*", "الزميل الباحث"),
-        ("ش9", "تحديث الوثيقة 02 بالملحق ب وREADME", "جدول 2-ب" in doc02 and "[x_H1]" not in doc02,
+        ("ش9", "تحديث الوثيقة 02 بالملحق ب وREADME",
+         "جدول 2-ب" in doc02 and "[x_H1]" not in doc02 and "[تُعاد بعد D-51]" not in doc02,
          "docs/working/02-hypotheses-algorithms.md، src/ml/README.md", "مصمّم الفرضيات + مهندس ML"),
         ("ش10", "تحقق المشرف وتوقيعه ثم الوسم", tags == "freeze-03", "§8 من محضر الاجتماع 03؛ git tag freeze-03",
          "المشرف ← مهندس ML"),

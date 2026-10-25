@@ -60,7 +60,7 @@ def build_summary(out_dir) -> Path:
     units = presentation_units(rows, metric_cols)
     n_pres = units["presentation"].nunique()
     md = []
-    md.append("# نتائج خطوط الأساس B1–B9 — عروض التطوير 2013\n")
+    md.append("# نتائج خطوط الأساس B1–B10 — عروض التطوير 2013\n")
     md.append("> مولَّد آلياً بـ`src/ml/experiments/report.py` من ملفات CSV في هذا المجلد؛ لا رقم مكتوب يدوياً.")
     md.append(f"> الأمر: `{meta.get('command', 'python3 -m src.ml.experiments.run_baselines')}` · "
               f"commit `{meta.get('git_commit', '?')[:10]}` · بصمة البيانات `{meta.get('data_fingerprint', '?')}` · "
