@@ -7,7 +7,7 @@
 - **منطلق التصميم:** المستودع كما هو في 2026-10-24: منصة التجارب `src/ml/` بتشغيلات التطوير E2–E7 وMDE80 منفَّذة في `results/dev2013/`، والتركيبة المجمَّدة في `hybrid_frozen.json`، ونماذج الخطر النهائية في `results/frozen/risk_final.json`، وخدمة إعادة التشغيل `serving.py`، و**106 اختبارات وحدة** في `src/ml/tests/`؛ والخلفية `src/backend/` (52 اختباراً)؛ وواجهة `src/frontend/` في وضع المحاكاة. والتصميم هنا يبني فوقها، ويحدد ما يُواءَم وما يُضاف.
 - **الأرقام:** كل رقم في الأمثلة والإطارات السلكية **توضيحي**. وأحجام العروض مأخوذة من `results/dev2013/` المولّدة بشيفرة `src/ml/`.
 - **رموز القرارات (D-77):** الجملة الملزمة تُلزم بنصها، والرمز بين قوسين إحالة داخلية يبقى في هذه الوثيقة والمحاضر وREADME والكود، ويُحذف من نصوص الواجهة ودليل المستخدم، ويُستبدل في الأطروحة بإحالة إلى §4-4-2.
-- **تحديث بعد الاجتماع 04 (D-96):** عروض 2014 تبقى مغلقة في الواجهة، ويُعاد تصنيف FR-40 إلى «مؤجَّل إلى عمل مستقبلي»: يُسجَّل الإذن في `results/conf2014/ui_open.json` بعد التحقق، ولا تُخدَم عروض 2014 في هذه النسخة. والسبب أن الفتح لا يضيف دليلاً لأن الأرقام لا تؤخذ من الشاشات (D-67)، وأنه يقتضي بناء مخرجات 2014 في الخدمة بعد التجميد. فالمتطلبات 61: ستون نشطاً وواحد مؤجَّل. وطُبِّق ذلك في الجداول 4 و6 و7 و8 و10 و13 و15 و15-أ و18 و19 و20 و22، وفي UC-02 وUC-06 وUC-10، والتدفقين (أ) و(د)، والقسم 12؛ وما بقي من مواصفة الفتح يُذكر للتاريخ موسوماً بالتأجيل.
+- **تحديث بعد الاجتماع 04 (D-96):** عروض 2014 تبقى مغلقة في الواجهة، ويُعاد تصنيف FR-40 إلى «مؤجَّل إلى عمل مستقبلي»: يُسجَّل الإذن في `results/conf2014/ui_open.json` بعد التحقق، ولا تُخدَم عروض 2014 في هذه النسخة. والسبب أن الفتح لا يضيف دليلاً لأن الأرقام لا تؤخذ من الشاشات (D-67)، وأنه يقتضي بناء مخرجات 2014 في الخدمة بعد التجميد. فالمتطلبات 61: ستون نشطاً وواحد مؤجَّل. وطُبِّق ذلك في الجداول 4 و6 و7 و8 و10 و13 و15 و15-أ و18 و19 و20 و22، وفي UC-02 وUC-06 وUC-10، والتدفقين (أ) و(د)، والقسم 12؛ وما بقي من مواصفة الفتح يُذكر للتاريخ موسوماً بالتأجيل، والشكل 7 مُعاد رسمه بالحالة الرابعة مؤجَّلة. وحُدِّثت حالات FR-13 وFR-14 وFR-15 وFR-38 (الجدول 3 والجدول 19) إلى الواقع بعد الوسم `freeze-03` واكتمال E10، بدليل ملف لكل منها.
 
 # 1. مقدمة ونطاق النظام
 
@@ -110,13 +110,13 @@
 | FR-10 | الهجين: رتبة وسطى، وسمبلكس D-29، وقاعدة القبول على نوافذ اختبار 2013، وأرضية الشخصنة بوزن لا يقل عن 1/4، و4 مكوّنات على الأكثر، وتجميد في `hybrid_frozen.json` (الحالي: C7 + B5) | Must | D-11، D-29، D-30، D-32، D-42، D-51، D-53 | موجود ومنفَّذ على 2013، قيد المراجعة (`hybrid.py`، `components.py`، `run_hybrid.py`) |
 | FR-11 | bootstrap-t عنقودي، وقلب الإشارات الدقيق، وHolm بـ m = 4، وجدولا الحكم، واختبار الهامش | Must | D-23 إلى D-26 | موجود (`stats.py`) |
 | FR-12 | سجل زمن وذاكرة لكل (نموذج، زوج، طور)، ومقارنته بسقف 8 ساعات CPU وسلّم التقليص | Must | D-34 | جزئي (`timing.csv`؛ يلزم ملخص الميزانية) |
-| FR-13 | التجميد بشروط ش1–ش10: `freeze03_config.json` بالفضاءات والتركيبة والعتبات وSHA-256 للملفات المجمَّدة، و`freeze_checklist.md` المولَّدة بمسار دليل لكل بند (منها سجل D-47 وجدول MDE80)، ثم الوسم `freeze-03` | Must | D-62، D-47، D-69 | جزئي (`freeze_config.py` و`freeze03_config.json` موجودان؛ القائمة مخططة) |
-| FR-14 | التشغيل التأكيدي الوحيد E10 بطورين في استدعاء واحد وقفل SHA-256 للأحكام بينهما، بعد تشغيل جاف على 2013، والمخرجات في `results/conf2014/` | Must | D-09، D-15، D-26، D-57، D-63 | منفَّذ (`experiments/run_confirmatory.py`)، وتشغيل التأكيد بعد الوسم |
-| FR-15 | تحليلات الحساسية E11، والإنصاف الوصفي E12، وأثر البروتوكول E13، أوفلاين وحده | Should | ADR-002 §3.6.11، D-21 | جزئي (إنصاف التطوير في `learner_analysis.py`) |
+| FR-13 | التجميد بشروط ش1–ش10: `freeze03_config.json` بالفضاءات والتركيبة والعتبات وSHA-256 للملفات المجمَّدة، و`freeze_checklist.md` المولَّدة بمسار دليل لكل بند (منها سجل D-47 وجدول MDE80)، ثم الوسم `freeze-03` | Must | D-62، D-47، D-69 | منفَّذ (`freeze_checklist.md`: ش1–ش10 ✓؛ الوسم `freeze-03`) |
+| FR-14 | التشغيل التأكيدي الوحيد E10 بطورين في استدعاء واحد وقفل SHA-256 للأحكام بينهما، بعد تشغيل جاف على 2013، والمخرجات في `results/conf2014/` | Must | D-09، D-15، D-26، D-57، D-63 | منفَّذ ومشغَّل مرة واحدة (`verdicts.csv` وLOCK؛ لا انحراف) |
+| FR-15 | تحليلات الحساسية E11، والإنصاف الوصفي E12، وأثر البروتوكول E13، أوفلاين وحده | Should | ADR-002 §3.6.11، D-21 | منفَّذ (الطور 2 من `run_confirmatory`) |
 | FR-16 | بناء مخرجات القطوع: `wrmf.npz` و`gru.npz` لكل (عرض، c) إن كان المكوّن الثقيل في HYB*، و`risk_<tc>.json` لعروض 2013 (M1 مدرَّب على العروض الثمانية الأخرى، وعتبة D-58 عند 56 وعتبات عرض مجمَّعة عند 28 و112 بحقل `threshold_source`)، و`clusters_56.npz` | Must | D-49، D-13، D-39، D-65 | موجود (`build_artifacts.py`؛ عتبات 28/112 مطلوبة، 8.4) |
 | FR-17 | تفكيك الدرجة إلى مساهمات $w_m\tilde r_m$، والجملة الرئيسية والثانية (إن تجاوزت مساهمتها ثلث الدرجة)، ودليل كل مكوّن | Must | D-22، الوثيقة 02 §4.8 | موجود (`serving.TEMPLATES`، `_evidence`) |
 | FR-36 | قراءة معرّفات 2014 المحدودة لترشيح تدريب مصنِّفات الخطر على 2013 في أربعة مواضع وحدها (`learner_analysis`، و`risk_final`، و`run_confirmatory`، و`build_artifacts`)، بمعامل `purpose` إلزامي من قائمة بيضاء يُسجَّل لكل استدعاء في `results/access_log.jsonl` (مع الزمن، وMD5، والأعمدة، والعدد، وcommit)؛ ويُمنع استعمالها لترشيح صفوف مخدومة أو وسمها، وفي التوصية والعنقدة وتحليل 2014 | Must | D-47، D-76 | موجود (`data.confirmatory_student_ids`) |
-| FR-38 | أمر واحد `python3 -m src.ml.experiments.reproduce_dev` يعيد نتائج التطوير من ذاكرة فارغة عند commit واحد، ويولّد `results/dev2013/repro_diff.md` | Must | D-62 (ش5)، ADR-002 §3.6.12 | منفَّذ (`experiments/reproduce_dev.py`)، ويُشغَّل ضمن ش5 |
+| FR-38 | أمر واحد `python3 -m src.ml.experiments.reproduce_dev` يعيد نتائج التطوير من ذاكرة فارغة عند commit واحد، ويولّد `results/dev2013/repro_diff.md` | Must | D-62 (ش5)، ADR-002 §3.6.12 | منفَّذ ومشغَّل (`repro_diff.md`: «مطابق») |
 | FR-39 | جدول MDE80 المجمَّد لكل فرضية (H2-أ 0.045، وH3 0.050، وH4-أ 0.0225، وH1 بعد D-51)، والوصف المسجل الملحق بحكم «غير حاسمة» | Must | D-46، D-48، D-61 | موجود (`power.py`، `mde80.md`؛ الوصف في `run_confirmatory`) |
 
 ## 3.3 المتطلبات الوظيفية: الخدمة والواجهة البرمجية
@@ -786,9 +786,9 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 | FR-10 | RQ1 · H1، D-51 | hybrid.py، components.py، run\_hybrid.py | test\_hybrid\_stats؛ hybrid\_frozen.json |
 | FR-11 | D-23…D-26، D-52 | stats.py | test\_hybrid\_stats |
 | FR-12 | D-34 | harness.py؛ ملخص الميزانية\* | test\_budget\* |
-| FR-13 | D-62، D-47 | freeze\_config.py؛ freeze\_checklist.md\* | freeze03\_config.json؛ توقيع ش10 |
-| FR-14 | D-63، D-57 | experiments/run\_confirmatory.py | test\_confirmatory (الحراس والطوران)؛ التشغيل الجاف على 2013؛ التأكيد بعد الوسم |
-| FR-15 | D-21 · RQ4 | learner\_analysis.py، run\_fairness.py\*، run\_sensitivity.py\* | مراجعة الجداول |
+| FR-13 | D-62، D-47 | freeze\_config.py؛ results/frozen/freeze\_checklist.md | freeze03\_config.json؛ test\_freeze\_config؛ توقيع ش10؛ الوسم freeze-03 |
+| FR-14 | D-63، D-57 | experiments/run\_confirmatory.py | test\_confirmatory (الحراس والطوران، ومنها رفض التشغيل الثاني)؛ التشغيل الجاف على 2013؛ results/conf2014/verdicts.csv وLOCK |
+| FR-15 | D-21 · RQ4 | learner\_analysis.py، run\_confirmatory.py (الطور 2: fairness، protocol\_sampled، الحساسيات) | مراجعة الجداول |
 | FR-16 | D-49، D-65 | build\_artifacts.py | test\_serving (wrmf\_foldin\_uses\_artifact\_items)؛ عتبات tc\* |
 | FR-17 | D-22 · ش7 | serving.py (TEMPLATES، \_evidence) | test\_serving (recommend\_structure\_and\_unseen) |
 | FR-18 | D-09، D-22 | backend/routes/meta.py | test\_api\_live؛ test\_fr40\_gate |
@@ -810,7 +810,7 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 | FR-35 | D-08، D-65، D-66 | about.html | قائمة تفحّص |
 | FR-36 | D-47، D-76 | data.confirmatory\_student\_ids (purpose من قائمة بيضاء) | test\_splits (test\_columns\_and\_log)؛ results/access\_log.jsonl |
 | FR-37 | D-49 (5) | serving.Engine.plan، learner.ts | test\_serving (plan\_before\_first\_cut) |
-| FR-38 | D-62 (ش5) | experiments/reproduce\_dev.py | results/dev2013/repro\_diff.md\* بلا فرق غير مفسَّر |
+| FR-38 | D-62 (ش5) | experiments/reproduce\_dev.py | results/dev2013/repro\_diff.md («مطابق») |
 | FR-39 | D-46، D-48، D-61 | power.py، run\_confirmatory.py | results/dev2013/mde80.md؛ test\_hybrid\_stats (test\_margin\_and\_power) |
 | FR-40 (مؤجَّل، D-96) | D-09، D-63، D-67، D-96 | serving.Engine (allow\_confirmatory منفَّذ وغير مستعمل)؛ results/conf2014/ui\_open.json سجل إذن لا يقرؤه كود | test\_serving (fr40\_gate)؛ test\_static\_errors (confirmatory\_locked\_409\_everywhere) |
 | NFR-01 | D-22، D-68 | backend/bench.py، تحفيظ cluster\_choice\* | results/ui/latency.csv\*؛ test\_latency\_after\_warmup |
