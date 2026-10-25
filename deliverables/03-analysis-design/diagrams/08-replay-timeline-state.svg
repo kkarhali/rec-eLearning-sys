@@ -73,6 +73,7 @@
 <text x="1240" y="532" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الحالي: HYB* = C7 + SKNN بلا مكوّن ثقيل (D-51)؛ وC7 يقرأ k والوسوم المحفوظة لليوم t نفسه (D-68).</text>
 <text x="1240" y="557" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">السياق: التقييم القادم بعد t = 75 هو TMA في اليوم 96 (بعد 21 يوماً).</text>
 <text x="1270" y="640" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#134E4A" text-anchor="start" direction="rtl">(ب) حالات إتاحة عروض 2014 في الخدمة</text>
+<text x="1270" y="662" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="start" direction="rtl">التواريخ فعلية والمخطط بين قوسين؛ الانتقال يحكمه تحقق الشرط لا الموعد (الجدول المدفوع بالأحداث، D-64).</text>
 <rect x="1030" y="680" width="220" height="92" rx="22" fill="#FEE2E2" stroke="#B91C1C" stroke-width="1.8"/>
 <text x="1140" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#B91C1C" text-anchor="middle" direction="rtl">محجوب (Locked)</text>
 <text x="1140" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">assert_allowed يرفض؛ API ← 409</text>
@@ -90,11 +91,15 @@
 <circle cx="1278" cy="726" r="9" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
 <line x1="1268" y1="726" x2="1252" y2="726" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <line x1="1030" y1="726" x2="952" y2="726" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
-<rect x="928.3050000000001" y="699.5" width="123.38999999999999" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="990.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">ش10 والوسم: 31 ت1</text>
+<rect x="926.29" y="699.5" width="127.42" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="990.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">ش10 والوسم: 25 ت1</text>
+<rect x="937.18" y="734.5" width="105.64" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="990.0" y="748" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#64748B" text-anchor="middle" direction="rtl">(المخطط 31 ت1)</text>
 <line x1="730" y1="726" x2="652" y2="726" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
-<rect x="648.315" y="699.5" width="83.36999999999999" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="690.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">E10: 2–3 ت2</text>
+<rect x="622.66" y="699.5" width="134.68" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="690.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">تشغيل E10 في 25 ت1</text>
+<rect x="633.55" y="734.5" width="112.9" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="690.0" y="748" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#64748B" text-anchor="middle" direction="rtl">(المخطط 2–3 ت2)</text>
 <line x1="430" y1="726" x2="332" y2="726" stroke="#94A3B8" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arr)"/>
 <rect x="337" y="699.5" width="86" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
 <text x="380.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#B45309" text-anchor="middle" direction="rtl">مؤجَّل</text>
