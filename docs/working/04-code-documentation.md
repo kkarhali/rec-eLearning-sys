@@ -3,7 +3,7 @@
 **المرحلة الرابعة من رسالة الماجستير: «نظام توصية للتعليم الإلكتروني القائم على تحليل سلوك المستخدم»**
 
 - **القارئ المستهدف:** لجنة التحكيم، وأي مطوّر يريد أن يفهم كيف بُني النظام، وكيف يُشغَّل، وكيف يُعاد إنتاج كل رقم في الرسالة.
-- **حالة المستودع وقت الكتابة:** 2026-10-25، commit `20eeb98` (القياسات الزمنية على `85a0376` ولا فرق في الخدمة)، قبل الوسم `freeze-03`. كل ما يُذكر هنا من أسماء ملفات ودوال وأوامر قُرئ من الشيفرة نفسها، وشُغّلت الاختبارات والأوامر المذكورة فعلاً (الفصل 7). الأرقام المتحركة (أعداد الاختبارات والأزمنة) مؤرَّخة بالتاريخ والـcommit حيث وردت، وحين يخالف README الشيفرة يُذكر ذلك صراحة (§7.4). نتائج الشرطين ش5 (`reproduce_dev`، «مطابق»، 47.8 دقيقة) وش7 (التشغيل الجاف، مكتمل) على commit `20eeb98` في §8.4.
+- **حالة المستودع وقت الكتابة:** 2026-10-25، commit `20eeb98` (القياسات الزمنية على `85a0376` ولا فرق في الخدمة)، قبل الوسم `freeze-03`. كل ما يُذكر هنا من أسماء ملفات ودوال وأوامر قُرئ من الشيفرة نفسها، وشُغّلت الاختبارات والأوامر المذكورة فعلاً (الفصل 7). الأرقام المتحركة (أعداد الاختبارات والأزمنة) مؤرَّخة بالتاريخ والـcommit حيث وردت، وحين يخالف README الشيفرة يُذكر ذلك صراحة (§7.4). نتائج الشرطين ش5 (`reproduce_dev`، «مطابق»، 49.0 دقيقة على commit الإصلاح `865e5ce`) وش7 (التشغيل الجاف، مكتمل على `20eeb98`) في §8.4.
 - **المصطلحات:** تبقى بالإنكليزية كما وردت في الكود (`fit`، `recommend`، `Engine`…)، والشرح بالعربية.
 
 # 1. نظرة عامة
@@ -157,7 +157,7 @@ python3 -m src.ml.experiments.reproduce_dev              # ≈ 50 دقيقة ع�
 python3 -m src.ml.experiments.reproduce_dev --diff-only  # إعادة المقارنة وحدها مع اللقطة الأخيرة
 ```
 
-يحفظ الأمر نسخة من `results/dev2013/` و`results/frozen/` في `data/repro_snapshot/` ويفرغ `data/cache/`، ثم يشغّل الخطوات الاثنتي عشرة (من `eda` إلى `report`) كلاً في عملية مستقلة. بعد ذلك يقارن كل ملف بلقطته حرفياً بعد حجب الحقول المتقلبة وحدها (الأزمنة والتواريخ وhash الـcommit والذاكرة والسرعة)، ويكتب `results/dev2013/repro_diff.md` (الحالة «مطابق» أو «فروق») و`repro_meta.json` (زمن كل خطوة). حالة `repro_diff.md` على commit `20eeb98` النظيف (`src_dirty=false`): **«مطابق»** في 36/36 ملفاً، 47.8 دقيقة (§8.4). والتسلسل اليدوي المكافئ لما في `src/ml/README.md`:
+يحفظ الأمر نسخة من `results/dev2013/` و`results/frozen/` في `data/repro_snapshot/` ويفرغ `data/cache/`، ثم يشغّل الخطوات الاثنتي عشرة (من `eda` إلى `report`) كلاً في عملية مستقلة. بعد ذلك يقارن كل ملف بلقطته حرفياً بعد حجب الحقول المتقلبة وحدها (الأزمنة والتواريخ وhash الـcommit والذاكرة والسرعة)، ويكتب `results/dev2013/repro_diff.md` (الحالة «مطابق» أو «فروق») و`repro_meta.json` (زمن كل خطوة). حالة `repro_diff.md` على commit `865e5ce` النظيف (`src_dirty=false`): **«مطابق»** في 36/36 ملفاً، 49.0 دقيقة (§8.4). والتسلسل اليدوي المكافئ لما في `src/ml/README.md`:
 
 ```
 python3 -m unittest discover -s src/ml/tests -v
@@ -751,7 +751,7 @@ freeze03_config.json  d80ad472e015da8f190fb96e0b761aa0726d435aabb940758166447d9e
 - **قائمة الشروط المشدَّدة:** ش5 تشترط `src_dirty = false`. **ش7 ستة شروط** من `results/dryrun2013/run_meta.json`: `status = completed`، و`audit_2014.ok`، و`guard_rehearsal = pass`، و`resume_simulation.ok`، ووجود `LOCK`، و`dryrun_vs_dev` بفرق أقصى ≤ 1e-6 عدا λ. **ش8:** السطر الحرفي «الحكم النهائي: موافق» في `docs/meetings/peer-signoff-freeze03-final.md` وحده (`peer_final_approval`، لا glob ولا كلمة «موافق» العامة)، ويبقى أن يقرأ المشرف الملف عند ش10 (D-80 بتعديل D-84، أدناه). وش9 غياب النوائب في وثيقة 02.
 - **D-77:** رموز القرارات تبقى في الكود وREADME والوثائق التقنية وتُحذف من الواجهة والدليل (`test_text.py`).
 
-**قائمة الشروط المولَّدة** (`results/frozen/freeze_checklist.md`): **⏸ معلَّقة حتى قرار المشرف في عطل `--checklist`** (انظر «نتائج ش5 وش7» أدناه). الجدول التالي هو الحالة السابقة المولَّدة (2026-10-25: 6 من 10)، ويُستبدل بالقائمة المعاد توليدها بعد القرار؛ أما نتيجتا ش5 وش7 فمثبتتان من ملفاتهما أدناه.
+**قائمة الشروط المولَّدة** (`python3 -m src.ml.experiments.freeze_config --checklist`، `results/frozen/freeze_checklist.md`، 2026-10-25، بعد `reproduce_dev` على `865e5ce`): **8 من 10 مستوفاة**.
 
 | الشرط | الحالة | الدليل |
 |-----------------------|----------|-----------------------------|
@@ -759,18 +759,18 @@ freeze03_config.json  d80ad472e015da8f190fb96e0b761aa0726d435aabb940758166447d9e
 | ش2 MDE80 لـH1 | ✓ | `mde80.md` (H1 = 0.0375) |
 | ش3 الهجين على B، M1، «منحلّ»، H2-ب | ✓ | `hybrid.csv`، `hybrid_frozen.json` |
 | ش4 نماذج الخطر النهائية | ✓ | `risk_final.json` |
-| ش5 `reproduce_dev` | ⏸ (الملف: «مطابق»، `src_dirty=false`) | `repro_diff.md`، `repro_meta.json` |
+| ش5 `reproduce_dev` | ✓ | `repro_diff.md`، `repro_meta.json` (commit `865e5cef09`، `src_dirty=False`) |
 | ش6 الإعداد المجمَّد | ✓ | `freeze03_config.json` |
-| ش7 التشغيل الجاف | ⏸ (الشروط الستة مستوفاة في الملفات) | `dryrun2013/run_meta.json`، `dryrun_vs_dev.md` |
-| ش8 توقيع الزميل | ✗ خارجي | `peer-signoff-freeze03-final.md` (السطر الحرفي) |
+| ش7 التشغيل الجاف | ✓ | `dryrun2013/run_meta.json` (status=completed، audit_2014.ok=True، guard_rehearsal=pass، resume_simulation.ok=True، commit `20eeb98240`)، `dryrun_vs_dev` max \|Δ\| = 0.0 (≤ 1e-6، عدا λ) |
+| ش8 توقيع الزميل | ✗ خارجي | `peer-signoff-freeze03-final.md` (السطر الحرفي «الحكم النهائي: موافق»: غائب) |
 | ش9 الوثيقة 02 وREADME | ✓ | `02-hypotheses...md` |
-| ش10 توقيع المشرف والوسم | ✗ خارجي | محضر الاجتماع 03 §8 |
+| ش10 توقيع المشرف والوسم | ✗ خارجي | محضر الاجتماع 03 §8؛ `git tag freeze-03` |
 
 (المسارات الكاملة في `results/frozen/freeze_checklist.md`.)
 
 **نتائج ش5 وش7** (منقولة حرفياً من الملفات المذكورة):
 
-- **ش5:** `results/dev2013/repro_diff.md`: «**الحالة: مطابق** · بدأ 2026-10-25 18:42:03 · commit `20eeb9824030187de6f7ba847b4273dfaefb8144` · المدة 47.8 دقيقة»، و36 ملفاً كلها «مطابق» (كل `dev2013/` و`frozen/freeze03_config.json` و`frozen/risk_final.json`). و`repro_meta.json`: `"src_dirty": false`، و`"identical": true`، و`"wall_seconds": 2869.6`. والفروق الأربعة في أول تشغيل كامل (53.6 دقيقة) شُخِّصت وأُصلحت قبل هذا التشغيل.
+- **ش5:** `results/dev2013/repro_diff.md`: «**الحالة: مطابق** · بدأ 2026-10-25 19:42:16 · commit `865e5cef09771f4b201802fac50f361224fe6350` · المدة 49.0 دقيقة»، و36 ملفاً كلها «مطابق» (كل `dev2013/` و`frozen/freeze03_config.json` و`frozen/risk_final.json`). و`repro_meta.json`: `"src_dirty": false`، و`"identical": true`، و`"wall_seconds": 2937.9`. وسبقه على `20eeb98` تشغيل «مطابق» أيضاً (47.8 دقيقة) انهار بعده مولّد القائمة (D-84)؛ والفروق الأربعة في أول تشغيل كامل (53.6 دقيقة) شُخِّصت وأُصلحت قبلهما.
 - **ش7:** `results/dryrun2013/run_meta.json` (commit `20eeb9824030187de6f7ba847b4273dfaefb8144`):
   - `"status": "completed"`، و`"raw_md5_match_frozen": true`؛
   - `guard_rehearsal`: `"tree_clean": true`، و`"conf2014_absent": true`، و`"check_guards_with_tag_at_HEAD": "pass"`؛
@@ -779,7 +779,7 @@ freeze03_config.json  d80ad472e015da8f190fb96e0b761aa0726d435aabb940758166447d9e
   - `resume_simulation`: `"ok": true`. انهيار قبل LOCK ← `phase1` (نُقل 49 ملفاً إلى `conf2014_aborted_1/`)؛ انهيار بعده ← `phase2` (35 ملفاً مقفلاً سليمة، وحُذفت 14 بقية)؛ وتلاعب بـ`figures/fig1_forest.svg` ثم بـ`verdicts.csv` ← توقف بـ«does not match LOCK».
   - `dryrun_vs_dev.md`: أقصى فرق 0 في `baselines.csv` (3780 صفاً) و`gru.csv` (1080) وصيغ الهجين على A وB و`ablation_signals.csv` (3240). الاستثناء الوحيد AUC لـH4-أ: 0.0036، لأن الجاف يستعمل λ المجمَّد (D-58) والتطوير λ المختار بـLOPO متداخل.
   - **واقعة التنفيذ:** قُتل التشغيل الأول عند سقف الساعتين لأداة الوكيل (≈ 17:05 UTC) بعد LOCK (15:40:01). ثم أُعيد الطور 2 وحده بـ`setsid nohup … --dry-run-dev --phase 2` بعد نجاح `verify_lock` (35/35)، واستغرق 95.7 دقيقة، ولم يُعَد الطور 1 (≈ 35 دقيقة). المصدر: `results/dryrun2013/deviations.md` («وقائع التنفيذ») و`results/dryrun2013/logs/`.
-- **قائمة الشروط (D-84):** انهار مولّد القائمة على pandas 3.0.5 (`TypeError: sequence item 4: expected str instance, float found` في مرشّح صف λ لـش7)، وأُصلح في commit الإصلاح قبل الوسم (`" ".join(map(str, r))` مع اختبار `test_freeze_config`)، وأُعيد `reproduce_dev`.
+- **قائمة الشروط (D-84):** انهار مولّد القائمة على pandas 3.0.5 (`TypeError: sequence item 4: expected str instance, float found` في مرشّح صف λ لـش7)، وأُصلح في commit `865e5ce` قبل الوسم (`" ".join(map(str, r))` مع اختبار `test_freeze_config`)، وأُعيد `reproduce_dev`. **ملاحظة ترتيب:** `reproduce_dev` يولّد القائمة قبل أن يكتب `repro_meta.json` و`repro_diff.md`، فتعكس نسخته ش5 للتشغيل السابق، ولذلك يُعاد `freeze_config --checklist` بعد كل `reproduce_dev` (القائمة أعلاه معاد توليدها بعده).
 
 **كيف يُشغَّل E10** (D-63؛ المشغّل منفَّذ ولم يُشغَّل على 2014):
 
@@ -806,7 +806,7 @@ python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --resume  # بع�
 | `reproduce_dev.git_state()` (الحقل `src_dirty` في `repro_meta.json`) | `src/` وحده (`git status --porcelain -- src`)، ويُقرأ مرة عند البدء | شرط ش5: `src_dirty = false` |
 | `run_confirmatory.dirty_paths()` (حارس وقت التشغيل و`guard_rehearsal.tree_clean`) | النطاق المحروس: `src/` و`data/` و`results/` (عدا `results/dryrun2013/`) و`scripts/` وملفات الجذر التنفيذية، مع استثناءَي D-75 (2) | يمنع البدء والاستئناف إن تغيّر ما يؤثر في التجربة. وهذا لوقت التشغيل وحده؛ **أما commit الوسم فيوضع والشجرة كلها نظيفة** (D-79، D-62 ش10) |
 
-**بصمة `freeze03_config.json`:** يحوي الملف حقلين متقلبين، `date` و`git_commit_when_written`، يعيد كتابتهما `freeze_config` (خطوة في `reproduce_dev`). لذلك تتغير بصمته SHA-256 بعد كل `reproduce_dev` وإن لم يتغير أي إعداد، و`repro_diff.md` يحجب هذين الحقلين في المقارنة. ولا يدخل هذا التغير في حراس التشغيل، لأن `check_integrity` يقارن بصمات الملفات المجمَّدة الثلاثة (`mde80.json` و`hybrid_frozen.json` و`risk_final.json`) وMD5 الملفات الخام بما في `freeze03_config.json`، لا بصمة الملف نفسه، ثم يسجّل بصمته في `run_meta.json` (`frozen_config_sha256`). بصمته بعد `reproduce_dev` النهائي (2026-10-25، commit `20eeb98`)، وهي بصمة نسخة الوسم ما لم يُعَد التشغيل: `b1981f1fc46aec268265eedc852862bda10927127c41a4326787aac45bc54580` (كانت قبله `d80ad472…`).
+**بصمة `freeze03_config.json`:** يحوي الملف حقلين متقلبين، `date` و`git_commit_when_written`، يعيد كتابتهما `freeze_config` (خطوة في `reproduce_dev`). لذلك تتغير بصمته SHA-256 بعد كل `reproduce_dev` وإن لم يتغير أي إعداد، و`repro_diff.md` يحجب هذين الحقلين في المقارنة. ولا يدخل هذا التغير في حراس التشغيل، لأن `check_integrity` يقارن بصمات الملفات المجمَّدة الثلاثة (`mde80.json` و`hybrid_frozen.json` و`risk_final.json`) وMD5 الملفات الخام بما في `freeze03_config.json`، لا بصمة الملف نفسه، ثم يسجّل بصمته في `run_meta.json` (`frozen_config_sha256`). بصمته بعد `reproduce_dev` النهائي (2026-10-25، commit `865e5ce`)، وهي بصمة نسخة الوسم ما لم يُعَد التشغيل: `aba1545671bc73a5314043a67c323494f94ec54c30e2e10dd33051fcf5b090cf` (وكانت `b1981f1f…` بعد تشغيل `20eeb98`، و`d80ad472…` قبله).
 
 **D-80 بتعديل D-84 (فحص ش8):** صار فحص ش8 في `freeze_config --checklist` هو السطر الحرفي «**الحكم النهائي: موافق**» في `docs/meetings/peer-signoff-freeze03-final.md` وحده (`freeze_config.peer_final_approval`). تُتجاهل علامات Markdown حول السطر فقط، فلا يُحتسب «الحكم النهائي: غير موافق في الحالة الحالية» ولا «موافق بشرط»، والملف الغائب ✗ (`test_freeze_config.TestPeerSignoff`). وأمكن التعديل لأن `reproduce_dev` يُعاد على commit الإصلاح على أي حال (D-84). ويبقى شرطاً أن يقرأ المشرف الملف بنفسه عند ش10 ويثبته في §8 من المحضر 03.
 
