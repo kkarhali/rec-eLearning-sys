@@ -3,7 +3,7 @@
 **المرحلة الرابعة من رسالة الماجستير: «نظام توصية للتعليم الإلكتروني القائم على تحليل سلوك المستخدم»**
 
 - **القارئ المستهدف:** لجنة التحكيم، وأي مطوّر يريد أن يفهم كيف بُني النظام، وكيف يُشغَّل، وكيف يُعاد إنتاج كل رقم في الرسالة.
-- **حالة المستودع وقت الكتابة:** 2026-10-25، commit `20eeb98` (القياسات الزمنية على `85a0376` ولا فرق في الخدمة)، ثم حُدِّث §8.4 بعد الوسم `freeze-03` (commit `eb34d6a`) واكتمال التشغيل التأكيدي E10 (commit النتائج `86c0885`). كل ما يُذكر هنا من أسماء ملفات ودوال وأوامر قُرئ من الشيفرة نفسها، وشُغّلت الاختبارات والأوامر المذكورة فعلاً (الفصل 7). الأرقام المتحركة (أعداد الاختبارات والأزمنة) مؤرَّخة بالتاريخ والـcommit حيث وردت، وحين يخالف README الشيفرة يُذكر ذلك صراحة (§7.4). نتائج الشرطين ش5 (`reproduce_dev`، «مطابق»، 49.0 دقيقة على commit الإصلاح `865e5ce`) وش7 (التشغيل الجاف، مكتمل على `20eeb98`) في §8.4.
+- **حالة المستودع وقت الكتابة:** 2026-10-25، commit `20eeb98` (القياسات الزمنية على `85a0376` ولا فرق في الخدمة)، ثم حُدِّث §8.4 بعد الوسم `freeze-03` (commit `eb34d6a`) واكتمال التشغيل التأكيدي E10 (commit النتائج `86c0885`)، ثم حُدِّثت §3.12 و§4.4 و§8.4 و§9.3 بقرار D-96 (إبقاء عروض 2014 مغلقة في الواجهة وتأجيل FR-40). كل ما يُذكر هنا من أسماء ملفات ودوال وأوامر قُرئ من الشيفرة نفسها، وشُغّلت الاختبارات والأوامر المذكورة فعلاً (الفصل 7). الأرقام المتحركة (أعداد الاختبارات والأزمنة) مؤرَّخة بالتاريخ والـcommit حيث وردت، وحين يخالف README الشيفرة يُذكر ذلك صراحة (§7.4). نتائج الشرطين ش5 (`reproduce_dev`، «مطابق»، 49.0 دقيقة على commit الإصلاح `865e5ce`) وش7 (التشغيل الجاف، مكتمل على `20eeb98`) في §8.4.
 - **المصطلحات:** تبقى بالإنكليزية كما وردت في الكود (`fit`، `recommend`، `Engine`…)، والشرح بالعربية.
 
 # 1. نظرة عامة
@@ -388,7 +388,7 @@ model.recommend(student_id, k=10, exclude_seen=True)     # قائمة id_site
 
 (1) المكوّنات الثقيلة (WRMF وGRU-lite) تأخذ معاملاتها من أقرب قطع c ≤ اليوم في `artifacts/<pres>/<c>/`؛ (2) حالة المتعلم تُحسب عند يوم الطلب (fold-in لـWRMF بخطوة ALS نصفية، أو تمريرة GRU أمامية) بلا تدريب وقت الطلب؛ (3) المكوّنات الخفيفة تُحسب عند اليوم نفسه؛ (4) الأوزان من القطع c في `hybrid_frozen.json`؛ (5) قبل اليوم 70 تُستعمل الخفيفة بأوزان المنوال المعاد تطبيعها مع `note`؛ (6) كل استجابة تحمل `model_cut`؛ (7) لا رقم تقييم يُشتق من إعادة التشغيل.
 
-المعامل `allow_confirmatory` (FR-40) لا يُقبل إلا إذا وُجد `results/conf2014/verdicts.csv` والملف `LOCK` وإلا رُفع `ConfirmatoryAccessError`؛ وبه تُفتح عروض 2014 للإعادة بعد التشغيل التأكيدي وحده. الأساليب العامة:
+المعامل `allow_confirmatory` (FR-40) لا يُقبل إلا إذا وُجد `results/conf2014/verdicts.csv` والملف `LOCK`، وإلا رُفع `ConfirmatoryAccessError`؛ ويختبر `test_fr40_gate` حالة الرفض (ويُتخطّى منذ وُجد `verdicts.csv`). **وهذه القدرة منفَّذة ومختبرة وغير مستعملة (D-96):** المثيل الوحيد في الخدمة يُبنى في `engine()` بـ`Engine()` دون المعامل، ولا مستدعٍ في `src/` يمرّر `allow_confirmatory=True` إلى `Engine` (يمرّره `run_confirmatory` إلى محمِّلات `data` وحدها)، والخلفية ترد 409 لكل عرض 2014 قبل الوصول إلى `Engine` (§4.4). والشرط لا يقرأ `results/conf2014/ui_open.json`، ولا يقرؤه أي كود. فـFR-40 مؤجَّل إلى عمل مستقبلي، وعروض 2014 لا تُخدَم في هذه النسخة. الأساليب العامة:
 
 | الأسلوب | الوظيفة |
 |---|---|
@@ -545,7 +545,7 @@ $ curl 'localhost:8000/api/instructor/learners?presentation=FFF_2013J&day=75&sor
 | 422 | `day_before_first_snapshot` (`details.first_day = 56`) | المدرّس قبل اليوم 56 (أول عنقدة). **قرار D-74:** يبقى 422 (لا 404 ولا استجابة جزئية) وهو سلوك موثَّق، والواجهة تنقل الشريط تلقائياً |
 | 503 | `artifacts_missing` | `hybrid_frozen.json` أو مخرجات القطوع غير موجودة |
 
-حاجز 2014 هنا بطبقتين فوق حاجز `src/ml`: `Repository.check_presentation` يرفع 409 **قبل أي قراءة** لأي اسم من `CONF_PRESENTATIONS`، ومعالج `ConfirmatoryAccessError` يحوّل الاستثناء المقابل إلى 409 أيضاً. ويعرض `/api/presentations` عرضاً مقفلاً واحداً (BBB_2014J) للتمثيل بتسجيلات وطول 0، فلا يُقرأ شيء من 2014.
+حاجز 2014 هنا بطبقتين فوق حاجز `src/ml`: `Repository.check_presentation` يرفع 409 **قبل أي قراءة** لأي اسم من `CONF_PRESENTATIONS`، ومعالج `ConfirmatoryAccessError` يحوّل الاستثناء المقابل إلى 409 أيضاً. ويعرض `/api/presentations` عرضاً مقفلاً واحداً (BBB_2014J، `LOCKED_LISTED` في `settings.py`) للتمثيل بتسجيلات وطول 0، فلا يُقرأ شيء من 2014. والرفض دون شرط: لا يتغير بوجود `verdicts.csv` أو `ui_open.json`، لأن FR-40 مؤجَّل (D-96).
 
 ## 4.5 التسخين والكاش والأداء المقاس
 
@@ -802,9 +802,9 @@ python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --resume  # بع�
 - **الانحرافات:** لا شيء (`results/conf2014/deviations.md`)؛ لا تعطل ولا `--resume` ولا `--phase 2`. وبعد القراءة الكاملة سُجِّلت قراءتا D-47 بثلاثة أعمدة (`purpose = run_confirmatory`، لتدريب نماذج الخطر على 2013 في H4-أ).
 - **السجل:** كُتب خارج المستودع ونُسخ بعد الطورين إلى `results/conf2014/logs/run.log` (D-82 (2))، فلا يدخل LOCK. وأودعت النتائج في commit `86c0885`، و`results/conf2014/` للقراءة فقط بعده.
 
-**فتح الواجهة لعروض 2014 (D-91، D-94(1)):** كُتب `results/conf2014/ui_open.json` في 2026-10-25T23:11:42Z بعد تحقق الزميل المطابق (`docs/meetings/peer-verify-conf2014.md`)، ويحوي بصمة LOCK الكاملة (`ab1c563985703a64bc1d5371b4bdeec7a28cb11e67bcb54632d4106aae16334d`) ووقت LOCK والوسم `freeze-03` والـcommit `eb34d6a7ba` والإحالة إلى ملحق المحضر 04، ولا رقم حكم فيه. الملف خارج LOCK، وأُعيد التحقق بعد كتابته فطابقت الملفات الـ34 المقفلة. ولا كود يقرأ هذا الملف: الخلفية تعيد 409 لكل عروض 2014 بلا شرط (`LOCKED_LISTED` في `src/backend/settings.py`)، و`serving.Engine` لا يفتح 2014 إلا بـ`allow_confirmatory=True` مع وجود `verdicts.csv` وLOCK، ولا مستدعٍ يمرّره. فالملف سجل إذن، والفتح الفعلي في الواجهة يتطلب تعديل كود بقرار.
+**سجل الإذن لعروض 2014 (D-91، D-94(1)، D-96):** كُتب `results/conf2014/ui_open.json` في 2026-10-25T23:11:42Z بعد تحقق الزميل المطابق (`docs/meetings/peer-verify-conf2014.md`)، ويحوي بصمة LOCK الكاملة (`ab1c563985703a64bc1d5371b4bdeec7a28cb11e67bcb54632d4106aae16334d`) ووقت LOCK والوسم `freeze-03` والـcommit `eb34d6a7ba` والإحالة إلى ملحق المحضر 04، ولا رقم حكم فيه. الملف خارج LOCK، وأُعيد التحقق بعد كتابته فطابقت الملفات الـ34 المقفلة. **والملف سجل إذن فقط (D-96):** لا كود في `src/` يقرؤه. والخلفية ترد 409 `confirmatory_locked` لكل عرض 2014 دون شرط: `Repository.check_presentation` يرفع الخطأ لأي اسم من `data.CONF_PRESENTATIONS` قبل أي قراءة، و`/api/presentations` يدرج عرضاً مقفلاً واحداً للتمثيل (`LOCKED_LISTED` في `src/backend/settings.py`) بتسمية «تأكيدي 2014 (مقفل في الواجهة)». وقدرة `serving.Engine` على `allow_confirmatory=True` (بشرط وجود `verdicts.csv` وLOCK) منفَّذة ومختبرة وغير مستعملة، فلا مستدعٍ يمرّرها إلى `Engine` (§3.12). وقرر المشرف إبقاء عروض 2014 مغلقة في الواجهة وإعادة تصنيف FR-40 إلى «مؤجَّل إلى عمل مستقبلي»، لأن الفتح لا يضيف دليلاً (الأرقام لا تؤخذ من الشاشات، D-67)، ولأنه يقتضي قراءة 2014 كاملة في الخدمة وبناء عناقيدها ومخرجاتها بـ`build_artifacts` بعد التجميد. فنتائج 2014 تُقرأ من `results/conf2014/` وحده.
 
-**التشغيل الجاف** (`--dry-run-dev`): يولّد كل المخرجات على 2013 في `results/dryrun2013/` بلا مس 2014 (`data.assert_allowed`)، ويجري `guard_rehearsal` (كل حارس على حدة، و`check_guards` بتعيين الوسم إلى HEAD)، ويعيد نماذج الخطر بترك عرض خارج التدريب، ويكتب `dryrun_vs_dev.md`. وعروض 2014 لا تُخدَم من الواجهة إلا بوجود `verdicts.csv` و`LOCK` (FR-40، D-67).
+**التشغيل الجاف** (`--dry-run-dev`): يولّد كل المخرجات على 2013 في `results/dryrun2013/` بلا مس 2014 (`data.assert_allowed`)، ويجري `guard_rehearsal` (كل حارس على حدة، و`check_guards` بتعيين الوسم إلى HEAD)، ويعيد نماذج الخطر بترك عرض خارج التدريب، ويكتب `dryrun_vs_dev.md`. وعروض 2014 لا تُخدَم من الواجهة في هذه النسخة (FR-40 مؤجَّل، D-96).
 
 **ما يحرسه الكود اليوم:** لا يمرّر أي سكربت سوى `run_confirmatory` (بعد حراسه) المعامل `allow_confirmatory=True`؛ والخلفية لا تقرأ 2014 أبداً؛ وجميع المحمِّلات ترشّح عند القراءة (D-47 N1). وشرط D-69: `serving.py` و`build_artifacts.py` و`src/backend/` و`src/frontend/` خارج نطاق التجميد بشرط ألا تعدّل وحدة مجمَّدة، ويُفحص بـ`git diff freeze-03`.
 
@@ -890,7 +890,7 @@ python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --resume  # بع�
 | FR-02 حجب 2014 (D-09) | `data.assert_allowed`، `Repository.check_presentation` | `test_splits.TestConfirmatoryGuard`، `test_static_errors.test_confirmatory_locked_409_everywhere` |
 | FR-21 أفضل 10 بتفسير من المساهمة | `serving.Engine.recommend`، `ReplayService`، `ExplanationService` | `test_serving`، `test_api_live.test_explanation_contract_and_consistency` |
 | FR-37 المهمتان A وB | `splits.Targets.task`، `recommend(exclude_seen)` | `test_splits.test_tasks`، `test_api_live.test_task_a_excludes_seen_task_b_may_include` |
-| FR-40 فتح 2014 بعد الأحكام | `Engine(allow_confirmatory)`، `run_confirmatory` | `test_serving`، `test_confirmatory` |
+| FR-40 فتح 2014 بعد الأحكام (مؤجَّل إلى عمل مستقبلي، D-96) | `Engine(allow_confirmatory)` منفَّذ وغير مستعمل؛ `ui_open.json` سجل إذن لا يقرؤه كود | `test_serving.test_fr40_gate` (يُتخطّى منذ وُجد `verdicts.csv`)، `test_static_errors.test_confirmatory_locked_409_everywhere` |
 | NFR-01 زمن الاستجابة | `Services.run_warmup`، `serving.warm`، ذاكرات LRU | `test_api_live.test_latency_after_warmup`، `bench.py` |
 | NFR-06 بلا تخزين حالة متعلم | `Engine` (بلا كتابة) | `test_serving.test_no_future_data_used` |
 | NFR-07 حتمية وإعادة إنتاج | `harness.SEEDS`، `tiebreak_keys`، `reproduce_dev` | `test_splits.test_tiebreak_deterministic_and_order_free`، `repro_diff.md` |

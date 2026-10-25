@@ -143,14 +143,14 @@
   "id": "BBB_2014J",
   "role": "confirm",
   "status": "locked",
-  "length_days": 262,
+  "length_days": 0,
   "snapshots": [],
   "cutoffs": [
    28,
    56,
    112
   ],
-  "registrations": 1936,
+  "registrations": 0,
   "label_ar": "تأكيدي 2014 (مقفل في الواجهة)",
   "assessments": []
  }
