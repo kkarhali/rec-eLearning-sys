@@ -63,5 +63,5 @@ python3 scripts/build_pptx.py --spec docs/working/07-presentation.json --out /tm
 
 - الشريحة 15: `source.format = "verdicts"` يقرأ `results/conf2014/verdicts.csv` (Δ̄، الفاصل، p بعد هولم، عروض Δ>0، الحكم) ويلحق نص «غير حاسمة» من العمود `D48_text`. **استثناء مسجّل:** وسم صف H3 يُستبدل في خطوة التوليد (`source.verdict_override`) بـ«مدحوضة للتفوق» (قرار المشرف: الوسم المسجل للصف الخامس من الجدول السداسي)، مع حاشية في التعليق تذكر ما يطبعه الملف. بقية الأحكام كما في الملف.
 - الأرقام داخل النصوص: رموز `{{H4-a.mean_delta|.4f}}` (من verdicts.csv) و`{{h4b[slice=cold_q1].mean|+.4f}}` (من أي CSV في results/conf2014) تُستبدل عند البناء.
-- الشريحة 16: `results/conf2014/figures/fig1_forest.png` مقصوصة الأطراف (`crop_left/crop_right`) لأن تسميات الحكم في الشكل مقطوعة عند حافته.
+- الشريحة 16: النسخة المشتقة `deliverables/06-final-thesis/figures/derived/fig1_forest.png` (أُعيد رسمها من fig1_forest.csv المقفل)؛ لا يُقصّ أي PNG مقفل. خيارا `crop_*` عامان في السكربت ولا يُستعملان هنا.
 - الشريحة 21 (احتياطية): الثانوي والاستكشافي بوسم «ثانوي/استكشافي»، وفيها سطر حدّية H1.

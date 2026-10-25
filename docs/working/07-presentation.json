@@ -470,11 +470,9 @@
     {
       "type": "image",
       "title": "الفرق لكل فرضية وفاصل الثقة",
-      "image": "results/conf2014/figures/fig1_forest.png",
-      "crop_left": 0.27,
-      "crop_right": 0.22,
+      "image": "deliverables/06-final-thesis/figures/derived/fig1_forest.png",
       "alt": "مخطط غابي لفروق الفرضيات الأربع وفواصلها",
-      "caption": "الشكل: Δ̄ وفاصل bootstrap-t لكل فرضية (results/conf2014/figures)",
+      "caption": "الشكل: Δ̄ وفاصل bootstrap-t لكل فرضية. أُعيد رسمه من fig1_forest.csv المقفل؛ الأصل في results/conf2014/figures/",
       "items": [
         {
           "head": "الخطان المتقطعان",
@@ -489,7 +487,7 @@
           "text": "H1 غير حاسمة؛ H3 وH4-أ حدّها الأعلى دون العتبة"
         }
       ],
-      "notes": "الشكل من results/conf2014/figures/fig1_forest.png (قُصّت أطرافه الفارغة؛ الأحكام في الجدول السابق). أشكال أخرى متاحة للاستعمال: fig2 الفروق لكل عرض، fig3 استئصال الإشارة، fig4 النماذج، fig5 منحنيات ROC، fig6 H4-ب، fig7 الإنصاف."
+      "notes": "الشكل من deliverables/06-final-thesis/figures/derived/fig1_forest.png (نسخة مشتقة معتمدة بتسميات كاملة؛ لا قص للأصل المقفل). أشكال أخرى متاحة للاستعمال: fig2 الفروق لكل عرض، fig3 استئصال الإشارة، fig4 النماذج، fig5 منحنيات ROC، fig6 H4-ب، fig7 الإنصاف."
     },
     {
       "type": "cards",

@@ -79,12 +79,14 @@
 <rect x="730" y="680" width="220" height="92" rx="22" fill="#E2E8F0" stroke="#64748B" stroke-width="1.8"/>
 <text x="840" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#64748B" text-anchor="middle" direction="rtl">مجمَّد (Frozen)</text>
 <text x="840" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">الوسم freeze-03 (D-62)</text>
-<rect x="430" y="680" width="220" height="92" rx="22" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="1.8"/>
+<rect x="430" y="680" width="220" height="92" rx="22" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="3"/>
 <text x="540" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1D4ED8" text-anchor="middle" direction="rtl">مقيَّم (Evaluated)</text>
 <text x="540" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">E10 مرة واحدة + LOCK (D-63)</text>
-<rect x="110" y="680" width="220" height="92" rx="22" fill="#DCFCE7" stroke="#15803D" stroke-width="1.8"/>
-<text x="220" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#15803D" text-anchor="middle" direction="rtl">متاح في الواجهة (Served)</text>
-<text x="220" y="752" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">ثلاثة شروط + ui_open.json</text>
+<rect x="110" y="680" width="220" height="92" rx="22" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="220" y="708" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="bold" fill="#94A3B8" text-anchor="middle" direction="rtl">متاح في الواجهة (Served)</text>
+<rect x="168" y="724" width="104" height="22" rx="11" fill="#FEF3C7" stroke="#B45309" stroke-width="1.2"/>
+<text x="220" y="740" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#B45309" text-anchor="middle" direction="rtl">مؤجَّل (D-96)</text>
+<text x="220" y="763" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">عمل مستقبلي؛ لا تُخدَم 2014</text>
 <circle cx="1278" cy="726" r="9" fill="#134E4A" stroke="#134E4A" stroke-width="1.5"/>
 <line x1="1268" y1="726" x2="1252" y2="726" stroke="#64748B" stroke-width="1.6" marker-end="url(#arr)"/>
 <line x1="1030" y1="726" x2="952" y2="726" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
@@ -93,12 +95,14 @@
 <line x1="730" y1="726" x2="652" y2="726" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
 <rect x="648.315" y="699.5" width="83.36999999999999" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
 <text x="690.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">E10: 2–3 ت2</text>
-<line x1="430" y1="726" x2="332" y2="726" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr)"/>
-<rect x="324.975" y="699.5" width="110.05" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
-<text x="380.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#134E4A" text-anchor="middle" direction="rtl">بعد الاجتماع 04</text>
+<line x1="430" y1="726" x2="332" y2="726" stroke="#94A3B8" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+<rect x="337" y="699.5" width="86" height="18.5" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+<text x="380.0" y="713" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#B45309" text-anchor="middle" direction="rtl">مؤجَّل</text>
 <path d="M1110,772 C1110,815 1180,815 1180,774" fill="none" stroke="#64748B" stroke-width="1.5" marker-end="url(#arr)"/>
 <text x="1145" y="832" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#B91C1C" text-anchor="middle" direction="rtl">أي طلب ← 409 confirmatory_locked</text>
-<text x="220" y="800" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">لا عودة: أي تغيير بعد E10 يوسم post-hoc</text>
+<text x="540" y="796" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1D4ED8" text-anchor="middle" direction="rtl">الحالة الحالية لعروض 2014 (منذ E10)</text>
+<text x="540" y="816" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">لا عودة: أي تغيير بعد E10 يوسم post-hoc</text>
+<text x="220" y="796" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="normal" fill="#475569" text-anchor="middle" direction="rtl">ui_open.json سجل إذن فقط، لا يقرؤه كود</text>
 <rect x="40" y="850" width="1220" height="60" rx="8" fill="#fff" stroke="#7F8A9C" stroke-width="1.5" stroke-dasharray="5 4"/>
 <text x="1240" y="876" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">عروض 2013 التسعة متاحة منذ بناء مخرجاتها؛ ودرجات خطرها من نموذج دُرِّب على العروض الثمانية الأخرى (lopo_2013).</text>
-<text x="1240" y="900" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الإتاحة تُقرَّر من وجود ‎artifacts/‎&lt;‎pres‎&gt;‎/‎، ولعروض 2014 من ملف الأحكام وقفله وui_open.json (D-67)، لا من الواجهة.</text></svg>
+<text x="1240" y="900" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1F2937" text-anchor="start" direction="rtl">الإتاحة تُقرَّر من وجود ‎artifacts/‎&lt;‎pres‎&gt;‎/‎، وعروض 2014 مقفلة في الواجهة في كل الحالات: الخلفية ترد 409 دون شرط (D-96)، ولا رقم يؤخذ من الشاشات (D-67).</text></svg>
