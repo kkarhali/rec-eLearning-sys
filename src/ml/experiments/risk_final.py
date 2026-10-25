@@ -69,7 +69,7 @@ def main():
     t0 = time.time()
     pres = data.load_dev_presentations()
     sa = data.load_student_assessment("dev")
-    overlap = data.confirmatory_student_ids()
+    overlap = data.confirmatory_student_ids("risk_final")
     meta = json.loads((OUT / "learner_meta.json").read_text())
     thr = meta["youden_thresholds_day56"]
     res = {"description": "final risk models (D-58), trained on the nine 2013 presentations after the D-47 overlap "

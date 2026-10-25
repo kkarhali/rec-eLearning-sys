@@ -316,8 +316,16 @@ def proximity_bin(gap: np.ndarray) -> np.ndarray:
 CONFIRMATORY_ID_COLUMNS = ("code_module", "code_presentation", "id_student")
 
 
-def confirmatory_student_ids(log_path: Path | None = None, reader=None) -> set[int]:
+CONFIRMATORY_ID_PURPOSES = ("learner_analysis", "risk_final", "run_confirmatory", "build_artifacts")   # D-76
+
+
+def confirmatory_student_ids(purpose: str, log_path: Path | None = None, reader=None) -> set[int]:
     """IDs of students with a registration in any 2014 presentation (D-47, H4-a overlap removal).
+
+    ``purpose`` is mandatory and must be one of ``CONFIRMATORY_ID_PURPOSES`` (D-76): the ids may only filter the
+    2013 training rows of the risk classifiers, in those four places. Any other value raises ``ValueError`` before
+    anything is read or logged. The ids must never filter or label served rows, nor enter recommendation,
+    clustering or the analysis of 2014 (enforced by ``test_splits.TestConfirmatoryIdPurpose``).
 
     Reads ``studentRegistration.csv`` with ``usecols`` = (code_module, code_presentation, id_student)
     **only** — no registration/unregistration dates, no other table — and returns a set of ids, used solely
@@ -327,6 +335,9 @@ def confirmatory_student_ids(log_path: Path | None = None, reader=None) -> set[i
     import json
     import subprocess
 
+    if purpose not in CONFIRMATORY_ID_PURPOSES:
+        raise ValueError(f"confirmatory_student_ids: purpose {purpose!r} is not in the D-76 whitelist "
+                         f"{CONFIRMATORY_ID_PURPOSES}")
     path = RAW_DIR / "studentRegistration.csv"
     read = reader or pd.read_csv
     log = log_path or (RESULTS_DIR / "access_log.jsonl")
@@ -348,7 +359,8 @@ def confirmatory_student_ids(log_path: Path | None = None, reader=None) -> set[i
     commit, dirty = _commit()
     base = {"time": time.strftime("%Y-%m-%dT%H:%M:%S"), "file": "data/raw/oulad/studentRegistration.csv",
             "columns": list(CONFIRMATORY_ID_COLUMNS), "commit": commit, "dirty": dirty,
-            "purpose": "D-47: remove 2013 training registrations of students registered in 2014 (H4-a)"}
+            "purpose": purpose, "rule": "D-47/D-76: remove 2013 training registrations of students registered in 2014 "
+                                        "(risk classifiers only)"}
     _log({**base, "event": "attempt"})                      # N3: the attempt is recorded before reading
     try:
         df = read(path, usecols=list(CONFIRMATORY_ID_COLUMNS))

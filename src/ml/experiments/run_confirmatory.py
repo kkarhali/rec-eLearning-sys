@@ -315,7 +315,7 @@ def h4a(ctx: Context, exclude_overlap=True, training="final"):
     sa_d = data.load_student_assessment("dev") if dev_pres else None
     ctx.note("load_student_assessment", sa_t)
     ctx.note("load_student_assessment", sa_d)
-    overlap = data.confirmatory_student_ids() if (dev_pres and exclude_overlap) else set()
+    overlap = data.confirmatory_student_ids("run_confirmatory") if (dev_pres and exclude_overlap) else set()
     for tc in (56, 28, 112):
         spec = ctx.risk["cuts"][str(tc)]["models"]
         dft = build_table(pres_t, tc, sa_t)

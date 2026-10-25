@@ -52,7 +52,7 @@ def build_heavy(p, frozen):
 
 def build_learner_models(pres, meta):
     sa = data.load_student_assessment("dev")
-    overlap = data.confirmatory_student_ids()
+    overlap = data.confirmatory_student_ids("build_artifacts")
     lam = meta.get("lambda_by_heldout_day56", {})
     thr = meta.get("youden_thresholds_day56", {})
     for tc in (28, 56, 112):

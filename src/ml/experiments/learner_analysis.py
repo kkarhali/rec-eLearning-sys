@@ -201,7 +201,7 @@ def main(argv=None):
     t0 = time.time()
     pres = data.load_dev_presentations()
     sa = data.load_student_assessment("dev")
-    overlap = data.confirmatory_student_ids()            # D-47 (logged in results/access_log.jsonl)
+    overlap = data.confirmatory_student_ids("learner_analysis")            # D-47 (logged in results/access_log.jsonl)
     all_tabs, summary, deltas = [], [], {}
     md = ["# تحليل المتعلمين — عروض التطوير 2013 (مولَّد بـ`python3 -m src.ml.experiments.learner_analysis`)\n",
           "> وصفي على التطوير: «ترك عرض واحد خارج التدريب» داخل 2013 (9 وحدات). الاختبار التأكيدي (تدريب 2013 واختبار 2014) "
