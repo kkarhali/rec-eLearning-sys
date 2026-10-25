@@ -3,7 +3,7 @@
 **المرحلة الرابعة من رسالة الماجستير: «نظام توصية للتعليم الإلكتروني القائم على تحليل سلوك المستخدم»**
 
 - **القارئ المستهدف:** لجنة التحكيم، وأي مطوّر يريد أن يفهم كيف بُني النظام، وكيف يُشغَّل، وكيف يُعاد إنتاج كل رقم في الرسالة.
-- **حالة المستودع وقت الكتابة:** 2026-10-25، commit `85a0376`، قبل الوسم `freeze-03`. كل ما يُذكر هنا من أسماء ملفات ودوال وأوامر قُرئ من الشيفرة نفسها، وشُغّلت الاختبارات والأوامر المذكورة فعلاً (الفصل 7). الأرقام المتحركة (أعداد الاختبارات والأزمنة) مؤرَّخة بالتاريخ والـcommit حيث وردت، وحين يخالف README الشيفرة يُذكر ذلك صراحة (§7.4). **تُستكمل بعد التشغيل:** نتائج الشرطين ش5 (`reproduce_dev`) وش7 (التشغيل الجاف) في §8.4.
+- **حالة المستودع وقت الكتابة:** 2026-10-25، commit `2d86082` (لا فرق في `src/` عن `85a0376` الذي أُخذت عليه القياسات)، قبل الوسم `freeze-03`. كل ما يُذكر هنا من أسماء ملفات ودوال وأوامر قُرئ من الشيفرة نفسها، وشُغّلت الاختبارات والأوامر المذكورة فعلاً (الفصل 7). الأرقام المتحركة (أعداد الاختبارات والأزمنة) مؤرَّخة بالتاريخ والـcommit حيث وردت، وحين يخالف README الشيفرة يُذكر ذلك صراحة (§7.4). **تُستكمل بعد التشغيل:** نتائج الشرطين ش5 (`reproduce_dev`) وش7 (التشغيل الجاف) في §8.4.
 - **المصطلحات:** تبقى بالإنكليزية كما وردت في الكود (`fit`، `recommend`، `Engine`…)، والشرح بالعربية.
 
 # 1. نظرة عامة
@@ -446,7 +446,7 @@ model.recommend(student_id, k=10, exclude_seen=True)     # قائمة id_site
 | `run_confirmatory` | مشغّل E10 بحراسه وطوريه وقفل SHA-256، مع تشغيل جاف على 2013 (§8.4) | `results/conf2014/` أو `results/dryrun2013/` |
 | `report` | يعيد توليد `summary.md` من CSV دون إعادة تشغيل (ما زال عنوانه «B1–B9» مع أن B10 موجود في الجداول) | `python3 -m src.ml.experiments.report results/dev2013` |
 
-الوحدة `plots.py` (جديدة، غير متتبَّعة بعد) مولّد أشكال SVG بلا matplotlib يكتب مع كل شكل ملف CSV لبياناته، وتخدم أشكال التشغيل التأكيدي المخطط.
+الوحدة `plots.py` مولّد أشكال SVG بلا matplotlib يكتب مع كل شكل ملف CSV لبياناته، وتخدم أشكال التشغيل التأكيدي المخطط.
 
 خيارات مفيدة: `run_baselines --presentations FFF_2013J --cuts 70 --models B2_Pop B3_RecentPop --workers 4 --exclusion {E5,E4,none} --out DIR` (حساسية E تُكتب إلى `--out` مختلف). وتقبل `run_gru` و`run_ablation` الخيارات `--presentations` و`--cuts` و`--workers`.
 
@@ -648,7 +648,7 @@ build.sh  tsconfig.json  screenshots.js
 
 | الأداة | الأمر | الوظيفة |
 |---|---|---|
-| `build_docx.py` | `python3 scripts/build_docx.py OUT.docx IN.md [--title ... --title-en ... --subtitle ...]` | Markdown ← Word RTL: يمرّ على pandoc (امتدادات pipe_tables وgrid_tables وfenced_divs وfootnotes…) بـ`-M lang=ar -M dir=rtl` وفهرس بعمق 3، ثم يعالج python-docx الخطوط (Simplified Arabic للعربي وTimes New Roman للاتيني) وأخيراً الفقرات والجداول RTL، ويحمي الرموز المتماثلة من الانعكاس، ويضيف غلافاً (العنوان والمشرف والجامعة والسنة) وترقيم صفحات ثم يمرّر الملف على `lo_update_toc.py` ما لم يُعطَ `--no-update-toc`. أنماط الشيفرة (`Source Code` و`Verbatim Char` و`SourceCode`) تُستثنى من RTL فتبقى LTR |
+| `build_docx.py` | `python3 scripts/build_docx.py OUT.docx IN.md [--title ... --title-en ... --subtitle ...]` | Markdown ← Word RTL: يمرّ على pandoc (امتدادات pipe_tables وgrid_tables وfenced_divs وfootnotes…) بـ`-M lang=ar -M dir=rtl` وفهرس بعمق 3، ثم يعالج python-docx الخطوط (Simplified Arabic للعربي وTimes New Roman للاتيني) وأخيراً الفقرات والجداول RTL، ويحمي الرموز المتماثلة من الانعكاس، ويضيف غلافاً (العنوان والمشرف والجامعة والسنة) وترقيم صفحات ثم يمرّر الملف على `lo_update_toc.py` ما لم يُعطَ `--no-update-toc`. أنماط الشيفرة (`Source Code` و`Verbatim Char` و`SourceCode`) تُستثنى من RTL فتبقى LTR، ويُستعمل خط العربية للنص المركّب داخل كتل الشيفرة فتظهر التعليقات العربية مشكَّلة، ويُحاط الشيفرة المضمَّنة (المسارات والمعرّفات والخيارات) بعلامة LRM لتبقى جزيرة LTR واحدة داخل النص RTL |
 | `lo_update_toc.py` | `python3 scripts/lo_update_toc.py file.docx [...]` | يفتح الملف في LibreOffice عبر UNO ويحدّث الفهارس ويحفظ docx، لأن pandoc يكتب الفهرس حقلاً فارغاً لا يملؤه إلا Word عند الفتح |
 | `svg2png.js` / `svg2png.py` | `node scripts/svg2png.js in.svg [--out-dir DIR --scale 2 --width 1400]` | تصيير SVG أو HTML إلى PNG بـPlaywright (Node) وChromium؛ والنسخة `.py` غلاف يستدعي `.js` |
 | `build_pptx.py` | `python3 scripts/build_pptx.py [--spec X.json --out Y.pptx]` | مولّد العرض التقديمي بـpython-pptx من مخطط `docs/working/07-presentation.json`: شرائح RTL بنسبة 16:9 وأنواع عنوان وبطاقات وإحصاءات وتدفق وجدول ومخطط وأسئلة |
@@ -663,61 +663,65 @@ python3 scripts/build_docx.py "deliverables/04-code-documentation/توثيق-ا�
 
 ## 7.1 مجموعات الاختبار ونتائجها الفعلية
 
-كلها `unittest` من المكتبة القياسية، وقد شُغّلت جميعها أثناء كتابة هذا الملف:
+كلها `unittest` من المكتبة القياسية. **الأعداد مقيسة في 2026-10-25 على commit `85a0376` (لا فرق في `src/` حتى `2d86082`)، 4 أنوية**؛ وعدّها مأخوذ من تشغيل `discover` نفسه لا من README:
 
 | المجموعة | الملف | العدد | ما تغطيه |
 |---|---|---|---|
 | ML: GRU | `test_gru.py` | 7 | المثال العددي 4.4.2، فحص التدرج، بقاء الحالة في الخطوات المحشوة، التقطيع بنافذة طويلة = الحساب الكامل، الأهداف، قناع المهمة A، قص Adam |
-| ML: الهجين والإحصاء | `test_hybrid_stats.py` | 20 | الجدول 14 (الدمج الرتبي)، حجم السمبلكس، الرتبة الوسطى، البحث عن الأوزان، قاعدة القبول والجشع والأرضية، قلب الإشارات وHolm وbootstrap والتغطية، جداول الحكم 19-أ وH3، الهامش والقوة، حالة الانحلال، توزيع t |
+| ML: الهجين والإحصاء | `test_hybrid_stats.py` | 20 | الجدول 14 (الدمج الرتبي)، حجم السمبلكس، الرتبة الوسطى، البحث عن الأوزان، القبول والجشع والأرضية، قلب الإشارات وHolm وbootstrap والتغطية، جداول الحكم، الهامش والقوة، الانحلال، توزيع t |
 | ML: المتعلمون | `test_learners.py` | 10 | k-means++ وsilhouette وDBI وARI واسترجاع عناقيد مفصولة، Logistic (مثال وفصل تام وبُعد واحد)، جيني، AUC/AP/Youden، الملامح |
 | ML: المقاييس | `test_metrics.py` | 9 | الجدول 19 يدوياً، المتجه = المرجعي، المثالي = 1، HR النظري للعشوائي، التعادل، غير القابل للوصول في IDCG، مئين الشعبية |
-| ML: النماذج | `test_models.py` | 23 | Item-kNN وSKNN/V-SKNN (واستبعاد سلال المستعلِم) وMarkov وWRMF (خطوة ALS واحدة، رتابة الخسارة، استرجاع رتبة منخفضة، حتمية البذرة) وEASE (شروط KKT) وفضاءات ADR-004 والنماذج البسيطة وCBF وواجهة `recommend` وC6 وC7 |
-| ML: الخدمة | `test_serving.py` | 6 | الخطة قبل أول قطع، بنية التوصية وغير المزار، عدم استعمال بيانات المستقبل، fold-in، الملف والنظرة العامة، رفض 2014 |
+| ML: النماذج | `test_models.py` | 23 | Item-kNN وSKNN/V-SKNN وMarkov وWRMF وEASE وفضاءات ADR-004 والنماذج البسيطة وCBF وواجهة `recommend` وC6 وC7 |
+| ML: الخدمة | `test_serving.py` | 13 | الخطة قبل أول قطع، بنية التوصية، عدم استعمال بيانات المستقبل، fold-in، الملف والنظرة العامة، رفض 2014 وFR-40، العنقدة المخزَّنة ومفتاحها، الخطر |
 | ML: الإشارة | `test_signals.py` | 7 | الجدول 8، تداخل المستويات، وسيط النوع من التدريب وحده، الثقة الثنائية |
-| ML: التقسيم | `test_splits.py` | 14 | النوافذ، منع التسرب، الكتالوج والاستبعاد، المهمتان، غير القابل للوصول، مفاتيح التعادل، حاجز 2014، قراءة D-47 (الأعمدة والسجل والرفض) |
-| **مجموع ML** | `python3 -m unittest discover -s src/ml/tests` | **96** | ناجحة، ≈ 3.8 ثانية، بلا البيانات الخام |
-| الخلفية: العقد | `test_contract_no_risk.py` | 5 | نماذج المتعلم بلا خطر ولا عنقود ولا سمات حساسة، والمدرّس بلا سمات حساسة، `outcome` null، لا حقول أرقام تقييم، `model_cut` في `provenance` |
-| الخلفية: الأخطاء والثابت | `test_static_errors.py` | 9 | الصحة، 404 للمسار المجهول، 405 لـPOST، 409 لـ2014 على كل المسارات، 404 لعرض مجهول، 422، `--no-instructor` وإخفاء الصفحة، الجذر يخدم `index.html` |
-| الخلفية: JSON المسلسَل | `test_contract_json.py` | 4 | D-70: لا مفاتيح محظورة في JSON المتعلم، التسجيلات بلا `date_unregistration` و`final_result`، تسمية دليل C7، قائمة بيضاء للمدرّس |
-| الخلفية: الحي | `test_api_live.py` | 21 | العقود مقابل mock، المنطق، التطابق مع `Engine`، الأداء بعد التسخين، إعلان «بلا أمان وصول» ودرجة الخطر في `/api/meta` (تحتاج البيانات) |
-| **مجموع الخلفية** | `python3 -m unittest discover -s src/backend/tests -t .` | **39** | ناجحة، ≈ 99 ثانية (أغلبها تسخين أول يوم) |
-| الواجهة | `tsc --noEmit -p tsconfig.json` | — | فحص أنواع strict؛ خرج 0 بلا أخطاء. لا اختبارات DOM آلية؛ يُتحقق بصرياً بـ`screenshots.js` وبفحص التمرير الأفقي وأخطاء الكونسول |
+| ML: التقسيم | `test_splits.py` | 14 | النوافذ، منع التسرب، الكتالوج والاستبعاد، المهمتان، غير القابل للوصول، مفاتيح التعادل، حاجز 2014، قراءة D-47 |
+| ML: التجميد | `test_confirmatory.py` | 5 | حراس `run_confirmatory` (الشجرة النظيفة والوسم و`results/conf2014/`)، تقرير المحجوب، تدقيق قراءة 2014 الكاملة، جدول الأحكام وH3 المتعذرة، والتدريب القابل للنشر |
+| **مجموع ML** | `python3 -m unittest discover -s src/ml/tests` | **108** | ناجحة، ≈ 5 ثوانٍ، بلا البيانات الخام |
+| الخلفية: العقد | `test_contract_no_risk.py` | 6 | نماذج المتعلم بلا خطر ولا عنقود ولا سمات حساسة، والمدرّس بلا سمات حساسة، لا `outcome` ولا حقول تقييم، `provenance` في `PROVENANCE_MODELS` |
+| الخلفية: الأخطاء والثابت | `test_static_errors.py` | 9 | الصحة، 404، 405، 409 لـ2014 على كل المسارات، 422، `--no-instructor`، الجذر يخدم `index.html` |
+| الخلفية: النصوص | `test_text.py` | 7 | صيغ العدد العربية وحذف أرقام القرارات من نصوص المستخدم (بلا بيانات) |
+| الخلفية: صيغ الواجهة | `test_labels_js.py` | 2 | تشغيل `labels.js` المبني بـnode ومقارنة `countAr` و`fmt` (تُتخطّى إن غاب node أو `dist/`) |
+| الخلفية: JSON المسلسَل | `test_contract_json.py` | 6 | D-70: لا مفاتيح محظورة في JSON المتعلم، التسجيلات بلا `date_unregistration` و`final_result`، تسمية دليل C7، قائمة بيضاء للمدرّس |
+| الخلفية: الحي | `test_api_live.py` | 22 | العقود مقابل mock، المنطق، التطابق مع `Engine`، الأداء بعد التسخين، إعلان «بلا أمان وصول» ودرجة الخطر في `/api/meta` (تحتاج البيانات) |
+| **مجموع الخلفية** | `python3 -m unittest discover -s src/backend/tests -t .` | **52** | ناجحة، ≈ 120 ثانية |
+| الواجهة | `tsc --noEmit -p tsconfig.json` | — | فحص أنواع strict؛ خرج 0. لا اختبارات DOM آلية |
 
 ## 7.2 المخرجات المسجَّلة وقت الكتابة
 
 ```
 $ python3 -m unittest discover -s src/ml/tests
-Ran 96 tests in 4.084s        OK
+Ran 108 tests in 5.221s       OK
 $ python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors
-Ran 14 tests in 0.083s        OK        (السريعة، بلا بيانات)
+Ran 15 tests in 0.111s        OK        (السريعة، بلا بيانات)
 $ python3 -m unittest discover -s src/backend/tests -t .
-Ran 39 tests in 98.706s       OK
-$ cd src/frontend && npx tsc --noEmit        # exit code 0، بلا أخطاء
+Ran 52 tests in 120.762s      OK
+$ python3 -m unittest discover -s src/backend/tests
+Ran 18 tests ... FAILED (errors=3)      (بلا -t . : خطأ استيراد نسبي)
+$ cd src/frontend && npx tsc --noEmit        # exit code 0
 $ python3 -m src.backend --help               # يطبع الخيارات المذكورة في §2.5
 ```
 
-الجولة الأولى لمجموعة الخلفية الكاملة (34 اختباراً في 84 ثانية) سبقت إضافة الفريق `test_contract_json.py` (4 اختبارات) واختبار إضافي في `test_api_live.py` أثناء إعداد هذه الوثيقة؛ والأعداد في الجدول أعلاه هي ما أُعيد قياسه بعدها. ومن جهة أخرى اختبارات `src/ml` لا تكتب في `results/access_log.jsonl` الحقيقي (تستعمل مجلداً مؤقتاً وقارئاً وهمياً)؛ السطور المضافة هناك أثناء الإعداد صادرة عن تشغيلات `learner_analysis`/`build_artifacts` الفعلية للفريق.
+اختبارات `src/ml` لا تكتب في `results/access_log.jsonl` الحقيقي (تستعمل مجلداً مؤقتاً وقارئاً وهمياً).
 
 ## 7.3 ما لا تغطيه الاختبارات
 
 لا اختبار آلي لسلوك المتصفح (DOM)؛ يُغطّى بفحص الأنواع وبلقطات Playwright (التمرير الأفقي وأخطاء الكونسول). ولا اختبار لـ`run_confirmatory` لأنه لم يُكتب بعد.
 
-## 7.4 تناقضات رُصدت بين README والكود
+## 7.4 تناقضات رُصدت بين README والكود (حتى commit `2d86082`، 2026-10-25)
+
+أُصلح كثير مما ورد في النسخة الأولى (عدد الاختبارات، M1 بدل M2، الأمر الواحد، `probability`، مواضع `learner_table`)، وبقي ما يلي:
 
 | # | README / الوثيقة تقول | الكود/التشغيل يقول | الأثر |
 |---|---|---|---|
-| 1 | `src/ml/README.md`: «92 اختباراً» (مرتين) | `discover -s src/ml/tests` يجد **96** اختباراً (7+20+10+9+23+6+7+14) | عدد قديم؛ يُحدَّث |
-| 2 | README الـml (القرار 9): خطر اللوحة من M2 بمعامل `risk_model` | الافتراضي في `serving.learner_profile` و`presentation_overview` هو `"M1"` (D-56)، وكذلك في الخلفية | نص قديم قبل D-56 |
-| 3 | README الـml يعرض «أمراً واحداً» لإعادة الإنتاج | لا يوجد `reproduce_dev`؛ README نفسه يسرد تسع خطوات | الأمر الواحد شرط تجميد لم ينفَّذ (D-62 ش5) |
-| 4 | README الـml لا يذكر `experiments/risk_final.py` ولا `h1_decomposition.csv` ولا `results/frozen/` | الملفان موجودان (والمجلد غير موجود بعد) | ثغرة توثيق |
-| 5 | `build_artifacts.py` (docstring) و§7.3 من وثيقة التصميم: `artifacts/` «git-ignored» | `.gitignore` لا يستثني `artifacts/` وملفاتها متتبَّعة في git (README الـml صحيح: «في git») | docstring قديم |
-| 6 | `src/ml/__init__.py` (docstring): «B1–B9» وحزمة 0.1.0 وخريطة وحدات ناقصة | الكود فيه B10 وGRU-lite وlearners وserving | docstring قديم |
-| 7 | أمر الاختبار `discover -s src/backend/tests -k test_contract -k test_static` | يفشل (خطأ استيراد نسبي في وحدتين) بلا `-t .` | يُستعمل أمر README: `-t .` أو أسماء الوحدات الكاملة |
-| 8 | README الخلفية: مثال المدرّس يعرض `"probability": 0.999` و`"oof_2013"` | الاستجابة الحالية `"score": 0.999` و`"lopo_2013"` (D-65) | المثال قبل D-65؛ وعرض المكوّن C7 تغيّر من `cluster_pop` إلى `similar_pop` (D-70) |
-| 8-ب | README الخلفية: دوال `learner_table` و`cluster_summary` «لم تُضَف بعد إلى `serving.py`» ونُفِّذت في الخلفية | `serving.py` فيها الآن `learner_table` و`cluster_summary` و`registrations` و`warm` أيضاً، وما زالت الخلفية تنفّذ نسختها (`services/instructor.py`) | ازدواج يلزم حسمه قبل التجميد، علماً أن `test_risk_matches_engine_m1` و`test_cluster_matches_engine` تتحققان من تطابق النتائج |
-| 9 | `gru_meta.json` و`ablation_meta.json` مطلوبان مصدراً للمعاملات | يحويان الزمن وعدد العمليات فقط | المعاملات من الكود (§9) ومن `gru.csv`/`ablation_tuning.csv` |
-| 10 | D-69 يفترض الوسم `freeze-03` | `git tag -l` فارغ؛ `/api/meta.freeze_tag` = null | لم يُوسم المستودع بعد |
-| 11 | README الجذر يعدّد `svg2png.py` أداةَ التصيير | المنفِّذ الفعلي `svg2png.js` والـ`.py` غلاف | لا أثر |
+| 1 | `src/ml/README.md`: `artifacts/` «≈ 0.5 MB، في git» | `.gitignore` يستثني `artifacts/` وD-70 يقول «خارج git»؛ ولا ملف منها متتبَّع | نص README قديم؛ المرجع `.gitignore` |
+| 2 | `src/ml/README.md` وجدول الأزمنة: `run_baselines` «5.2 دقائق» | `results/dev2013/run_meta.json` الحالي: 473.5 ث ≈ 7.9 دقيقة (commit `d820bce`، 2026-10-24) | الرقم الأول من تشغيل الجولة الأولى؛ يُعتمد 7.9 |
+| 3 | `src/ml/__init__.py` (docstring): «B1–B9» وخريطة وحدات ناقصة | الكود فيه B10 وGRU-lite وlearners وserving | docstring قديم |
+| 4 | `experiments/report.py` يطبع «نتائج خطوط الأساس B1–B9» | الجداول تحوي B10_EASE | عنوان قديم |
+| 5 | أمر `discover -s src/backend/tests` (مع `-k` أو بدونه) | يفشل بلا `-t .` (3 أخطاء استيراد) | يُستعمل `-t .` أو أسماء الوحدات الكاملة |
+| 6 | `gru_meta.json` و`ablation_meta.json` مصدر للمعاملات | يحويان الزمن وعدد العمليات فقط | المعاملات من الكود ومن `gru.csv` و`ablation_tuning.csv` (§9.1) |
+| 7 | README الخلفية: التسخين «≈ 36 ث» | 25 ث (عنقدة مخزَّنة) و61 ث (أول تشغيل بعد تغيّر بصمة التجميد)، قياس 2026-10-25 | يتوقف الزمن على حالة الذاكرة الدائمة |
+| 8 | قائمة README الـml: ش5 وش7 «✗» | `reproduce_dev.py` و`run_confirmatory.py` موجودان، لكن نتيجتا التشغيل لم تُسجَّلا بعد | تُستكمل (§8.4) |
+| 9 | `git tag -l` | فارغ؛ `/api/meta.freeze_tag` = null | الوسم `freeze-03` لم يوضع بعد (ش10) |
 
 # 8. قابلية إعادة الإنتاج والحتمية
 
@@ -735,19 +739,21 @@ $ python3 -m src.backend --help               # يطبع الخيارات الم
 | بيانات المصدر | MD5 للملفات السبعة في `oulad_md5_reference.txt` مقابل `verify_oulad.py`؛ وعدد صفوف `studentVle` = 10,655,280 |
 | ذاكرة الأحداث | `raw_fingerprint()` (حجم الملفين الخام) يدخل اسم ملف الذاكرة المؤقتة (`85fda9abc3` وقت التشغيل) ويُبطلها عند التغيير |
 | تشغيل `run_baselines` | `run_meta.json`: الأمر، `git_commit`، `data_fingerprint`، إصدارات python/numpy/pandas، الزمن |
-| التركيبة المجمَّدة | `hybrid_frozen.json` يحمل `git_commit_at_freeze_run` وتاريخ التوليد |
+| التركيبة المجمَّدة | `hybrid_frozen.json` بلا حقول متقلبة (بايتياً ثابت)، و`freeze03_config.json` يحمل SHA-256 لثلاثة ملفات مجمَّدة وMD5 للبيانات السبعة وcommit كتابته |
 | الخدمة | `/api/meta`: `git_commit` و`git_dirty` و`data_fingerprint` (MD5 لـ`oulad_md5_reference.txt`، أي `md5:e952490724b1e808d218ea580a234c89`) و`data_files` (MD5 لكل ملف) و`frozen_at_commit` |
 | قراءات 2014 | `results/access_log.jsonl`: الزمن، MD5، الأعمدة، عدد المعرّفات، commit، `dirty` |
-| ملف الأحكام | SHA-256 يُكتب في `results/conf2014/LOCK` قبل بدء الطور 2 (مخطط، D-63) |
+| ملف الأحكام | `run_confirmatory` يكتب SHA-256 لـ`verdicts.csv` في `results/conf2014/LOCK` قبل بدء الطور 2 (D-63؛ منفَّذ، ولم يُشغَّل على 2014) |
 
-بصمات ملفات النتائج المجمَّدة وقت الكتابة (تتغير عند أي إعادة توليد، ويُسجَّل الجديد في شرط التجميد ش6):
+بصمات SHA-256 للملفات المجمَّدة وقت الكتابة (2026-10-25)؛ هي نفسها المسجَّلة في `freeze_checklist.md`، وتتغير عند أي إعادة توليد للملف (ويصبح الجديد هو المعتمد في الشرط ش6):
 
 ```
-SHA-256 hybrid_frozen.json  9abdf4d834311846b3e6366c466e98fb8ce2bef01edf7f3b392c16d1628c4848
-SHA-256 mde80.json          607468aeab296da35fae7e047b502d52c1ee919b26cb00cf8415cb6a9b81e88a
-SHA-256 learner_meta.json   84476b5dda4496dbd005eae8c4b627026c1ccff19443e8c9406f8857ec9dc78a
-MD5     hybrid_frozen.json  d053cb3389de86947be97ccf6a689d4f
+hybrid_frozen.json    cdfb3b553a8ebc1ef555da0247b8f482708f4fdd77bc8df7f9ea80dc668a0c0e
+mde80.json            607468aeab296da35fae7e047b502d52c1ee919b26cb00cf8415cb6a9b81e88a
+risk_final.json       76857226775c233b67cb67057ae3bf0c70ed11ff1622ec48dcdde1ef37c2a189
+freeze03_config.json  d80ad472e015da8f190fb96e0b761aa0726d435aabb940758166447d9ec4d2c4
 ```
+
+بُنيت هذه الملفات بحيث تكون **بايتياً ثابتة** بين التشغيلات: أُزيلت منها الحقول المتقلبة (التواريخ وhash الـcommit) من الملفات المبصومة، ورُتِّب سجل الجشع في `hybrid_acceptance.md` (كان يتغير مع `PYTHONHASHSEED` بسبب التكرار على `set`، وأُصلح في `hybrid.greedy_forward`). ويقيّد `run_confirmatory` سلامتها بمقارنتها بالقيم المسجَّلة في `freeze03_config.json`.
 
 ## 8.3 حدود الحتمية المعلنة
 
@@ -755,30 +761,45 @@ MD5     hybrid_frozen.json  d053cb3389de86947be97ccf6a689d4f
 
 ## 8.4 الوسم `freeze-03` وشروطه والتشغيل التأكيدي
 
-حالة الوسم وقت الكتابة: **غير موجود** (`git tag -l` فارغ). شروطه ش1–ش10 (محضر الاجتماع 03، D-62) وحالتها من الشيفرة:
+حالة الوسم وقت الكتابة: **غير موجود** (`git tag -l` فارغ). صارت أجزاء التجميد كوداً منفَّذاً:
 
-| الشرط | الحالة في المستودع |
+| الملف | ما يفعله |
 |---|---|
-| ش1 هجين بأرضية D-51 و`hybrid_frozen.json` | موجود (`floor_rule`، `weight_grid_points`) |
-| ش2 MDE80 لـH1 بعد D-51 | موجود (`mde80.json`: H1 = 0.0375) |
-| ش3 الهجين على B، M1 افتراضياً، وسم «منحلّ»، H2-ب | موجود (`risk_model="M1"`، `degenerate`، `H2b`) |
-| ش4 نماذج الخطر النهائية | الكود موجود (`risk_final.py`) والمخرج `results/frozen/risk_final.json` لم يُولَّد |
-| ش5 أمر `reproduce_dev` و`repro_diff.md` | غير موجود |
-| ش6 `results/frozen/freeze03_config.json` | غير موجود |
-| ش7 `run_confirmatory.py` وتشغيل جاف على 2013 | غير موجود (`--dry-run-dev` مخطط) |
-| ش8 توقيع الزميل (D-47، الحراس، `repro_diff.md`) | توقيع D-47 في `peer-signoff-D47.md` مشروط بإغلاق N1؛ والكود الحالي يرشّح الجداول عند التحميل ويكتب `attempt` قبل القراءة (N1 وN3)، وإقرار الزميل المحدَّث لم يُسجَّل بعد؛ والباقي معلَّق |
-| ش9 تحديث الوثيقة 02 والـREADME | قيد التنفيذ |
-| ش10 توقيع المشرف والوسم على commit نظيف | معلَّق |
+| `experiments/freeze_config.py` | يكتب `results/frozen/freeze03_config.json` (الأقسام: `presentations`، `exclusion_set_E`، `cuts`، البذور والميزانية، `signal_family`، `model_spaces`، `hybrid`، `inference`، `learners`، `raw_md5`، `sha256`) ويولّد بخيار `--checklist` الملف `freeze_checklist.md` بحالة ش1–ش10 ومسار دليل كل شرط |
+| `experiments/reproduce_dev.py` | الأمر الواحد لإعادة الإنتاج مع `repro_diff.md` (§2.4) |
+| `experiments/run_confirmatory.py` | مشغّل E10 بحراسه وطوريه والقفل والتشغيل الجاف (أدناه) |
+| `experiments/risk_final.py` | نماذج الخطر النهائية `results/frozen/risk_final.json`: لكل قطع (56 أساسي، و28 و112 ثانويان) النماذج M0 وM1 وM2 وCART على M2؛ λ = 0.001 لـM0 وM2 و0.01 لـM1 في القطوع الثلاثة، وCART بعمق 4 وحد أدنى للورقة 100؛ وعتبات Youden عند 56: M0 = 0.4744 وM1 = 0.4557 وM2 = 0.4074 (D-58) |
 
-**كيف يُشغَّل التشغيل التأكيدي (E10) عند اكتمال الشروط**، وفق D-63 (لم يُكتب مشغّله بعد، فهذا وصف للمواصفة لا للكود):
+**قائمة الشروط المولَّدة** (`results/frozen/freeze_checklist.md`، 2026-10-25): **6 من 10 مستوفاة**.
+
+| الشرط | الحالة | الدليل |
+|---|---|---|
+| ش1 هجين بأرضية D-51 | ✓ | `hybrid_frozen.json` (`floor_rule`)، `hybrid_acceptance.md` |
+| ش2 MDE80 لـH1 بعد D-51 | ✓ | `mde80.md` (H1 = 0.0375) |
+| ش3 الهجين على B، M1، وسم «منحلّ»، H2-ب | ✓ | `hybrid.csv`، `serving.py` (`risk_model="M1"`)، `hybrid_frozen.json` (`H2b`) |
+| ش4 نماذج الخطر النهائية | ✓ | `results/frozen/risk_final.json` |
+| ش5 `reproduce_dev` و`repro_diff.md` | ✗ قيد التشغيل | **تُستكمل بعد التشغيل** |
+| ش6 `freeze03_config.json` وSHA-256 | ✓ | `results/frozen/freeze03_config.json` |
+| ش7 `run_confirmatory` وتشغيل جاف كامل على 2013 | ✗ قيد التشغيل | **تُستكمل بعد التشغيل** (`results/dryrun2013/`) |
+| ش8 مراجعة الزميل وتوقيعه | ✗ خارجي | `docs/meetings/*peer*` |
+| ش9 تحديث الوثيقة 02 وREADME | ✓ | الوثيقة 02، `src/ml/README.md` |
+| ش10 تحقق المشرف ثم الوسم | ✗ خارجي | §8 من محضر الاجتماع 03 |
+
+**نتائج ش5 وش7 (تُستكمل بعد التشغيل):** حالة `results/dev2013/repro_diff.md` (مطابق أو فروق) وزمن الأمر الكامل؛ ونتيجة التشغيل الجاف: `results/dryrun2013/run_meta.json` (`guard_rehearsal` و`audit_2014` و`path_checks`) و`dryrun_vs_dev.md` (مطابقة أرقام التطوير حيث تتقاطع). والمعلوم حتى الآن من README الـml أن أول `reproduce_dev` كامل (53.6 دقيقة) طابق كل الملفات عدا فروق شُخِّصت وأُصلحت (ترتيب السجل الجشع، وجدول الأزمنة، والحقول المتقلبة في الملفات المبصومة، ونسخة وسيطة خاطئة من `risk_final.json` في اللقطة)، ويلزم تشغيل أخير على commit نظيف لاعتماد «مطابق».
+
+**كيف يُشغَّل E10** (D-63؛ المشغّل منفَّذ ولم يُشغَّل على 2014):
 
 ```
-python3 -m src.ml.experiments.run_confirmatory --tag freeze-03
+python3 -m src.ml.experiments.run_confirmatory --dry-run-dev --force     # تشغيل جاف على 2013 → results/dryrun2013/
+python3 -m src.ml.experiments.run_confirmatory --tag freeze-03           # التشغيل التأكيدي، مرة واحدة
+python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --phase 2 # إعادة الطور 2 وحده بعد LOCK
 ```
 
-يرفض المشغّل العمل ما لم يكن HEAD هو الوسم والشجرة نظيفة والمجلد `results/conf2014/` غير موجود؛ ويكتب `.lock` عند البدء، ولا يمرّر `allow_confirmatory=True` إلا بعد هذه الفحوص، ويسجّل القراءة الكاملة لـ2014 في `access_log.jsonl`. **الطور 1** (الفرضيات الأربع H1 وH2-أ وH3 وH4-أ مع خطوط الأساس): يضبط على تحقق كل عرض داخل الفضاءات المجمَّدة ويقيّم (t، t+14] ببذرة 0 للضبط والبذور 0–4 للتقرير، ويكتب `verdicts.csv` ويحسب SHA-256 في `LOCK` **قبل** بدء **الطور 2** (الثانوي: الاستئصال، حساسيات E، الإنصاف). التشغيل الثاني يحتاج قراراً مكتوباً من المشرف، وانحراف البروتوكول يُسجَّل في `deviations.md`. وعروض 2014 لا تُخدَم من الواجهة إلا بوجود `verdicts.csv` ومطابقة قفل SHA-256 (FR-40، D-67).
+الحراس (`check_guards`): الوسم موجود، وHEAD هو commit الوسم، والشجرة نظيفة، والمجلد `results/conf2014/` غير موجود؛ وإلا رُفع `GuardError` قبل لمس 2014. بعدها يكتب `.lock` ويسجّل القراءة الكاملة لـ2014 في `results/access_log.jsonl` (`log_full_read`)، ثم يتحقق من سلامة الملفات المجمَّدة بمقارنة SHA-256 مع `freeze03_config.json` (`check_integrity`)، ولا يمرّر `allow_confirmatory=True` إلا بعد ذلك. **الطور 1** (E10): B1–B10 للمهمتين وGRU-lite وزوج H2-أ (WRMF بـW\* وL0) وHYB\* والهجين بالقبول وحده والمهمة B بأوزان A وH4-أ بنماذج الخطر النهائية وH4-ب وتفكيك H1، ثم الأحكام (bootstrap-t وقلب الإشارات الدقيق وHolm بـm = 4 وجدولا D-26 ونص D-48 بقيمة MDE80 المجمَّدة) في `verdicts.csv`، وتُقفل بـSHA-256 في `LOCK` **قبل** الطور 2، ولا تُطبع نتيجة فرضية أثناء التشغيل. **الطور 2** (E11–E13): استئصال الإشارة والمكوّنات، وحساسيات E (E∖{page} وبلا استبعاد) وحساسيات أخرى، والإنصاف الوصفي، وبروتوكول السوالب المعيَّنة، والأشكال (`plots.py` ثم تصييرها PNG). التشغيل الثاني للطور 1 يحتاج قراراً مكتوباً من المشرف، والانحراف يُسجَّل في `deviations.md`.
 
-ما يحرسه الكود اليوم: لا يمرّر أي سكربت في `src/` المعامل `allow_confirmatory=True` (تحقق بالبحث في المستودع)، والخلفية لا تقرأ 2014 أبداً، وجميع المحمِّلات ترشّح عند القراءة. وشرط D-69: `serving.py` و`build_artifacts.py` و`src/backend/` و`src/frontend/` خارج نطاق التجميد بشرط ألا تعدّل وحدة مجمَّدة، ويُفحص بـ`git diff freeze-03`.
+**التشغيل الجاف** (`--dry-run-dev`، ويطابقه `--dry-run-2013`): ينتج كل المخرجات على عروض 2013 التسعة في `results/dryrun2013/` بلا مس 2014 أبداً (`data.assert_allowed`)؛ ويجري `guard_rehearsal` فيقيّم كل حارس على حدة ويختبر `check_guards` بتعيين الوسم إلى HEAD؛ ويعيد مواصفة نماذج الخطر بترك عرض خارج التدريب (لا يُقيَّم 2013 بنموذج دُرِّب عليها)، ويكتب `dryrun_vs_dev.md`. وعروض 2014 لا تُخدَم من الواجهة إلا بوجود `verdicts.csv` والملف `LOCK` (FR-40، D-67): `Engine(allow_confirmatory=True)` يرفض بدونهما.
+
+**ما يحرسه الكود اليوم:** لا يمرّر أي سكربت سوى `run_confirmatory` (بعد حراسه) المعامل `allow_confirmatory=True`؛ والخلفية لا تقرأ 2014 أبداً؛ وجميع المحمِّلات ترشّح عند القراءة (D-47 N1). وشرط D-69: `serving.py` و`build_artifacts.py` و`src/backend/` و`src/frontend/` خارج نطاق التجميد بشرط ألا تعدّل وحدة مجمَّدة، ويُفحص بـ`git diff freeze-03`.
 
 # 9. ملحق
 
@@ -788,7 +809,7 @@ python3 -m src.ml.experiments.run_confirmatory --tag freeze-03
 
 | الحقل | القيمة |
 |---|---|
-| `status` | مجمَّدة على عروض التطوير 2013 (D-11، D-30، D-51)؛ التشغيل التأكيدي يعيد ضبط معاملات المكوّنات والأوزان على تحقق كل عرض داخل هذا الفضاء فقط |
+| `status` | مجمَّدة على عروض التطوير 2013 (D-11، D-30، D-51)؛ التشغيل التأكيدي يعيد ضبط معاملات المكوّنات والأوزان على تحقق كل عرض داخل هذا الفضاء فقط. والملف بلا حقول متقلبة (بلا commit ولا تاريخ) ليكون بايتياً ثابتاً |
 | `components` | `C7_ClusterPop` (7)، `B5_SKNN` (4) |
 | `floor_component` / `accept_only_components` | `B5_SKNN` / `C7_ClusterPop` |
 | `floor_rule` | وزن مكوّن الأرضية ≥ 0.25 (أصغر نقطة موجبة في شبكة D-29)؛ تُحذف نقاط الوزن الصفري ولا تُضاف قيمة (D-51) |
@@ -800,7 +821,6 @@ python3 -m src.ml.experiments.run_confirmatory --tag freeze-03
 | `component_configs_by_fold` | C7: `w=3` في 18 زوجاً و`w=7` في 6 و`w=14` في 3؛ SKNN: `L=1;M=1000;k=500;variant=sknn` (12)، `L=1;M=1000;k=200;variant=sknn` (8)، `L=7;M=1000;k=500;variant=vsknn` (6)، `L=7;M=1000;k=200;variant=vsknn` (1) |
 | `H2b` | غير منطبقة بالبناء: لا مكوّن في HYB* يقرأ W (D-59) |
 | `task` / `seeds_report` | A (D-42)؛ والمهمة B بأوزان A (D-57) / [0..4] |
-| `git_commit_at_freeze_run` | `86ea36f011159c16ac1ff37ec97ee0ea67a2c630` |
 
 **معاملات منصة التجارب** (من الكود ومن CSV؛ تنبيه: `gru_meta.json` و`ablation_meta.json` يحويان الزمن لا المعاملات):
 
@@ -814,7 +834,7 @@ python3 -m src.ml.experiments.run_confirmatory --tag freeze-03
 | GRU-lite | lr / الهدف | {1e-3، 3e-3، 1e-2} / {next، next-new}؛ ستة إعدادات |
 | GRU-lite | L2 / القص / الدفعة / BPTT | 1e-5 / 5 / 128 / T = 20 |
 | GRU-lite | الحقب / الصبر | ≤ 30 / 3 |
-| GRU-lite | المختار (27 زوجاً، المهمة A) | lr = 0.001 في 13 زوجاً و0.01 في 8 و0.003 في 6؛ والهدف `next-new` في 24 زوجاً و`next` في 3؛ والحقب المختارة بين 1 و19 (الأكثر تكراراً 2 ثم 1) |
+| GRU-lite | المختار (27 زوجاً، المهمة A) | lr = 0.001 في 13 زوجاً و0.01 في 8 و0.003 في 6؛ والهدف `next-new` في 24 زوجاً و`next` في 3؛ والحقب المختارة بين 1 و20 (الأكثر تكراراً 2 ثم 1) |
 | الهجين | حد المكوّنات / شبكة الأوزان | 4 / 1/4 (2–3 مكوّنات) و1/3 (4)، و0.1 حساسية |
 | الهجين | فاصل القبول / B | bootstrap-t 95%، B = 10,000 |
 | التجميع | ks / البذور / n_init / ARI الأدنى | 2..8 / 0–4 / 10 / 0.8 |
@@ -843,9 +863,24 @@ python3 -m src.ml.experiments.run_confirmatory --tag freeze-03
 | `context.active_days_to_date` | int | عدد أيام نشاط المتعلم حتى اليوم |
 | `components[]` | list | `id` و`label` و`weight` لمكوّنات الهجين عند هذا القطع |
 | `items[].rank` / `id_site` / `activity_type` | int/int/str | الترتيب ومعرّف المورد ونوعه |
-| `items[].score` | float | الدرجة المدمجة Σ w_m r̃_m (ليست مقياس تقييم) |
+| `items[].relevance` | float | الدرجة المدمجة Σ w_m r̃_m (ليست مقياس تقييم)؛ حلّت محل `score` (D-70 (4)) |
 | `items[].contributions` | dict | مساهمة كل مكوّن w_m·r̃_m |
 | `items[].reason` / `reason_secondary` | str / str\|null | جملة التفسير الرئيسية والثانوية |
-| `provenance.run_id` / `role` / `model_cut` | str/str/int\|null | معرّف التشغيل (`replay-dev2013-<commit>`)، الدور (`dev`)، وقطع النموذج (null قبل 70) |
+| `provenance.run_id` / `role` / `model_cut` | str/str/int\|null | معرّف التشغيل (`replay-dev2013-<commit>`)، الدور (`dev`)، وقطع النموذج (null قبل 70)؛ موجود في **كل** استجابة بيانات (D-49 (6)) |
 
-حقول التفسير (`/api/explanations`): `score` و`components[]` بـ`id` و`label` و`weight` و`r_tilde` (الرتبة المطبَّعة ∈ [0,1]) و`contribution` و`sentence` و`evidence` من ثلاثة أنواع: `count` (`n` و`window` و`scope` = all\|similar)، و`item` (`id_site` و`activity_type` و`days` و`last_day`)، و`assessment` (`assessment_type` و`days_ahead`). وحقول المدرّس: الخطر `risk.score` (درجة نسبية غير معايَرة، D-65) و`cut_day` و`threshold` (Youden) و`above_threshold` و`provenance` (`lopo_2013`: نموذج مدرَّب على العروض الثمانية الأخرى) و`top_factor` و`factors[{name, wz}]` (مساهمة الميزة المعيارية في اللوغاريتم)؛ والعنقود `cluster{id,label}` (وفي `/api/instructor/clusters` الحقلان `cluster_day` = 56 و`unstable_reason` يشرحان سبب وسم «غير مستقر»)؛ و`profile[{name,value,median,z}]`؛ و`withdrawn_day`؛ و`outcome` (null دائماً). ودرجة الخطر للمدرّس فقط، ولا يظهر أي خطر أو عنقود في مسارات المتعلم (يفحصه `test_contract_no_risk` و`test_contract_json`).
+حقول التفسير (`/api/explanations`): `relevance` و`components[]` بـ`id` و`label` و`weight` و`r_tilde` (الرتبة المطبَّعة ∈ [0,1]) و`contribution` و`sentence` و`evidence` من ثلاثة أنواع: `count` (`n` و`window` و`scope` = all\|similar)، و`item` (`id_site` و`activity_type` و`days` و`last_day`)، و`assessment` (`assessment_type` و`days_ahead`). وحقول المدرّس: الخطر `risk.score` (درجة نسبية غير معايَرة، D-65) و`cut_day` و`threshold` (Youden) و`above_threshold` و`provenance` (`lopo_2013`: نموذج مدرَّب على العروض الثمانية الأخرى) و`top_factor` و`factors[{name, wz}]` (مساهمة الميزة المعيارية في اللوغاريتم)؛ والعنقود `cluster{id,label}` (وفي `/api/instructor/clusters` الحقلان `cluster_day` = 56 و`unstable_reason` يشرحان سبب وسم «غير مستقر»)؛ و`profile[{name,value,median,z}]`؛ و`withdrawn_day` (ولا حقل نتيجة نهائية: حُذف `outcome`). ودرجة الخطر للمدرّس فقط، ولا يظهر أي خطر أو عنقود في مسارات المتعلم (يفحصه `test_contract_no_risk` و`test_contract_json`).
+
+حقول المدرّس الجديدة: في `/api/instructor/clusters` الحقل `cluster_day` (= 56) و`unstable_reason` (سبب الوسم: ثبات البذور ضعيف، أو k خارج أفضل اثنين)، وجودة التجميع `quality{silhouette, dbi, ari}` حيث `ari` يقبل null؛ وفي الخطر `score` و`threshold` بست منازل عشرية، و`label_ar` = «درجة خطر نسبية غير معايَرة»؛ وفي `/api/meta` الحقل `risk_score` (يصف الهدف: رسوب أو انسحاب مقابل نجاح أو امتياز، ومدخلات النموذج، و`calibrated = false`) و`bind_host` و`access_notice` (D-66) و`freeze_tag`.
+
+## 9.3 مصفوفة تتبّع مختصرة (متطلب ← وحدة ← اختبار)
+
+| المتطلب | الوحدة والملف | الاختبار |
+|---|---|---|
+| FR-02 حجب 2014 (D-09) | `data.assert_allowed`، `Repository.check_presentation` | `test_splits.TestConfirmatoryGuard`، `test_static_errors.test_confirmatory_locked_409_everywhere` |
+| FR-21 أفضل 10 بتفسير من المساهمة | `serving.Engine.recommend`، `ReplayService`، `ExplanationService` | `test_serving`، `test_api_live.test_explanation_contract_and_consistency` |
+| FR-37 المهمتان A وB | `splits.Targets.task`، `recommend(exclude_seen)` | `test_splits.test_tasks`، `test_api_live.test_task_a_excludes_seen_task_b_may_include` |
+| FR-40 فتح 2014 بعد الأحكام | `Engine(allow_confirmatory)`، `run_confirmatory` | `test_serving`، `test_confirmatory` |
+| NFR-01 زمن الاستجابة | `Services.run_warmup`، `serving.warm`، ذاكرات LRU | `test_api_live.test_latency_after_warmup`، `bench.py` |
+| NFR-06 بلا تخزين حالة متعلم | `Engine` (بلا كتابة) | `test_serving.test_no_future_data_used` |
+| NFR-07 حتمية وإعادة إنتاج | `harness.SEEDS`، `tiebreak_keys`، `reproduce_dev` | `test_splits.test_tiebreak_deterministic_and_order_free`، `repro_diff.md` |
+| NFR-09 فصل مسارات المتعلم عن الخطر | `schemas.LEARNER_MODELS` | `test_contract_no_risk`، `test_contract_json` |
