@@ -3,7 +3,7 @@
 **المرحلة الرابعة من رسالة الماجستير: «نظام توصية للتعليم الإلكتروني القائم على تحليل سلوك المستخدم»**
 
 - **القارئ المستهدف:** لجنة التحكيم، وأي مطوّر يريد أن يفهم كيف بُني النظام، وكيف يُشغَّل، وكيف يُعاد إنتاج كل رقم في الرسالة.
-- **حالة المستودع وقت الكتابة:** 2026-10-25، commit `2d86082` (لا فرق في `src/` عن `85a0376` الذي أُخذت عليه القياسات)، قبل الوسم `freeze-03`. كل ما يُذكر هنا من أسماء ملفات ودوال وأوامر قُرئ من الشيفرة نفسها، وشُغّلت الاختبارات والأوامر المذكورة فعلاً (الفصل 7). الأرقام المتحركة (أعداد الاختبارات والأزمنة) مؤرَّخة بالتاريخ والـcommit حيث وردت، وحين يخالف README الشيفرة يُذكر ذلك صراحة (§7.4). **تُستكمل بعد التشغيل:** نتائج الشرطين ش5 (`reproduce_dev`) وش7 (التشغيل الجاف) في §8.4.
+- **حالة المستودع وقت الكتابة:** 2026-10-25، commit `57479cd` (القياسات الزمنية على `85a0376` ولا فرق في الخدمة)، قبل الوسم `freeze-03`. كل ما يُذكر هنا من أسماء ملفات ودوال وأوامر قُرئ من الشيفرة نفسها، وشُغّلت الاختبارات والأوامر المذكورة فعلاً (الفصل 7). الأرقام المتحركة (أعداد الاختبارات والأزمنة) مؤرَّخة بالتاريخ والـcommit حيث وردت، وحين يخالف README الشيفرة يُذكر ذلك صراحة (§7.4). **تُستكمل بعد التشغيل:** نتائج الشرطين ش5 (`reproduce_dev`) وش7 (التشغيل الجاف) في §8.4.
 - **المصطلحات:** تبقى بالإنكليزية كما وردت في الكود (`fit`، `recommend`، `Engine`…)، والشرح بالعربية.
 
 # 1. نظرة عامة
@@ -627,7 +627,7 @@ python3 scripts/build_docx.py "deliverables/04-code-documentation/توثيق-ا�
 
 ## 7.1 مجموعات الاختبار ونتائجها الفعلية
 
-كلها `unittest` من المكتبة القياسية. **الأعداد مقيسة في 2026-10-25 على commit `85a0376` (لا فرق في `src/` حتى `2d86082`)، 4 أنوية**؛ وعدّها مأخوذ من تشغيل `discover` نفسه لا من README:
+كلها `unittest` من المكتبة القياسية. **الأعداد مقيسة في 2026-10-25 على commit `57479cd`، 4 أنوية**؛ وعدّها مأخوذ من تشغيل `discover` نفسه لا من README:
 
 | المجموعة | الملف | العدد | ما تغطيه |
 |---|---|---|---|
@@ -638,9 +638,9 @@ python3 scripts/build_docx.py "deliverables/04-code-documentation/توثيق-ا�
 | ML: النماذج | `test_models.py` | 23 | أمثلة B4–B10 وC6 وC7 العددية، وفضاءات ADR-004، وواجهة `recommend` |
 | ML: الخدمة | `test_serving.py` | 13 | الخطة قبل أول قطع، عدم استعمال المستقبل، fold-in، الملف والنظرة العامة، رفض 2014 وFR-40، العنقدة المخزَّنة، الخطر |
 | ML: الإشارة | `test_signals.py` | 7 | الجدول 8، تداخل المستويات، وسيط النوع من التدريب وحده، الثقة الثنائية |
-| ML: التقسيم | `test_splits.py` | 14 | النوافذ والتسرب، الكتالوج، المهمتان، مفاتيح التعادل، حاجز 2014، قراءة D-47 |
-| ML: التجميد | `test_confirmatory.py` | 11 | حراس `run_confirmatory` و`verify_lock`، تدقيق قراءة 2014، جدول الأحكام وH3 المتعذرة، التدريب القابل للنشر |
-| **مجموع ML** | `python3 -m unittest discover -s src/ml/tests` | **114** | ناجحة، ≈ 4 ثوانٍ، بلا البيانات الخام |
+| ML: التقسيم | `test_splits.py` | 16 | النوافذ والتسرب، الكتالوج، المهمتان، مفاتيح التعادل، حاجز 2014، قراءة D-47 وقائمة `purpose` البيضاء (D-76) |
+| ML: التجميد | `test_confirmatory.py` | 16 | حراس `run_confirmatory` و`verify_lock`، تدقيق قراءة 2014، جدول الأحكام وH3 المتعذرة، التدريب القابل للنشر |
+| **مجموع ML** | `python3 -m unittest discover -s src/ml/tests` | **121** | ناجحة، ≈ 5 ثوانٍ، بلا البيانات الخام |
 | الخلفية: العقد | `test_contract_no_risk.py` | 6 | نماذج المتعلم بلا خطر ولا عنقود ولا سمات حساسة، لا `outcome`، `provenance` في `PROVENANCE_MODELS` |
 | الخلفية: الأخطاء والثابت | `test_static_errors.py` | 9 | الصحة، 404، 405، 409 لـ2014 على كل المسارات، 422، `--no-instructor`، الجذر يخدم `index.html` |
 | الخلفية: النصوص | `test_text.py` | 7 | صيغ العدد العربية وحذف أرقام القرارات من نصوص المستخدم (بلا بيانات) |
@@ -654,7 +654,7 @@ python3 scripts/build_docx.py "deliverables/04-code-documentation/توثيق-ا�
 
 ```
 $ python3 -m unittest discover -s src/ml/tests
-Ran 114 tests in 4.190s       OK
+Ran 121 tests in 4.612s       OK
 $ python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors
 Ran 15 tests in 0.111s        OK        (السريعة، بلا بيانات)
 $ python3 -m unittest discover -s src/backend/tests -t .
@@ -733,7 +733,13 @@ freeze03_config.json  d80ad472e015da8f190fb96e0b761aa0726d435aabb940758166447d9e
 
 **إضافات `run_confirmatory` الأخيرة (في الكود):** `verify_lock(out, tag, dry)` قبل الطور 2 (وعند `--phase 2` وحده): يطابق SHA-256 لـ`verdicts.csv` و`verdicts.md` مع `LOCK`، ويشترط أن commit الـLOCK هو HEAD، وأن HEAD هو الوسم في الوضع التأكيدي؛ ومقارنة MD5 للملفات الخام بالقيمة المجمَّدة في `freeze03_config.json` مع تسجيلها في `log_full_read`؛ وفرع H4-أ المجمَّد في التشغيل الجاف (`h4a_frozen_branch.csv`)؛ وتسجيل `guard_rehearsal` و`audit_2014` و`path_checks` في `run_meta.json`.
 
-**قرارات اجتماع الإشراف 06 (`meeting-06-freeze-gate.md`) وحالتها في الكود وقت الكتابة:** **D-75** (الاستئناف المأذون: LOCK في آخر الطور 1 يغطي كل نواتجه؛ استثناء `access_log.jsonl` بشرط الإلحاق فقط و`conf2014_aborted_*` من حارس الشجرة النظيفة؛ العلم `--resume` بثلاث حالات: غياب LOCK ينقل المجلد إلى `conf2014_aborted_<n>/` ويعيد الطور 1، ووجوده بتطابق البصمات يعيد الطور 2، وأي اختلاف يوقف الأمر؛ تسجيل كل استئناف في `deviations.md`؛ والخلل البرمجي يُصلح بأصغر تعديل ويُوسم `freeze-03.1`) و**D-76** (`purpose` إلزامي من قائمة بيضاء بأربع قيم في `confirmatory_student_ids`، لمواضعها الأربعة: `learner_analysis` و`risk_final` و`run_confirmatory` و`build_artifacts`، مع تسجيل لكل استدعاء واختبار سلبي) **قيد التنفيذ ولم تظهر بعد في الشيفرة** (لا `--resume` في `argparse`، و`purpose` في `data.py` نص ثابت): **تُستكمل بعد التنفيذ**. و**D-77**: رموز القرارات تبقى في الكود وREADME والوثائق التقنية وتُحذف من الواجهة والدليل (`test_text.py`).
+**قرارات اجتماع الإشراف 06 (D-75 وD-76 وD-77) كما هي في الكود:**
+
+- **D-76:** `confirmatory_student_ids(purpose, ...)`: المعامل إلزامي من القائمة البيضاء `data.CONFIRMATORY_ID_PURPOSES` = (`learner_analysis`، `risk_final`، `run_confirmatory`، `build_artifacts`)، وأي قيمة أخرى ترفع `ValueError` قبل القراءة أو التسجيل، ويُسجَّل `purpose` في كل سطر من `access_log.jsonl`. واختبار AST سلبي (`test_splits.TestConfirmatoryIdRead`: `test_purpose_whitelist` والاختبار السلبي بعده) يتحقق ألا مرجع للمعرّفات خارج الدوال الأربع ولا في `serving` والتوصية والعنقدة والخلفية وتحليل 2014، وأنها في H4-أ تمس إطار التدريب `dfd` وحده.
+- **D-75 (الاستئناف المأذون):** يُكتب `LOCK` في نهاية الطور 1 ويغطي كل ملفاته عدا `.lock` و`deviations.md` و`run_meta.json` (`lock_manifest`، `UNLOCKED`)؛ و`verify_lock` يتحقق منه قبل الطور 2. حارس الشجرة النظيفة (`dirty_paths`) يستثني `access_log.jsonl` بشرط أن تكون نسخة الوسم بادئةً حرفيةً له (إلحاق فقط) و`conf2014_aborted_*`. والعلم `--resume` (للوضع التأكيدي وحده، يختار الطور بنفسه عبر `resume_prepare`): يتحقق أن HEAD = الوسم، وسلامة البصمات المجمَّدة، وسجل البدء `.lock` وسجل `confirmatory_full_read`؛ ثم إن غاب `LOCK` نقل المجلد دون فتحه إلى `conf2014_aborted_<n>/` مع بيان SHA-256 وأعاد الطور 1 كاملاً، وإن وُجد `LOCK` مطابق حذف بقايا الطور 2 غير المقفلة وأعاد الطور 2، وأي اختلاف يوقف الأمر (`GuardError`). كل استئناف يُسجَّل حدثاً `confirmatory_resume` وفي `deviations.md` (`record_resume_deviation`) ولا يُعدّ تشغيلاً ثانياً. والخلل البرمجي يُصلح بأصغر تعديل بمراجعة الزميل وموافقة المشرف ثم يُوسم `freeze-03.1` (موثَّق في README الـml).
+- **التشغيل الجاف:** يضيف `resume_simulation` الذي يحاكي انهياراً قبل `LOCK` وبعده وتلاعباً بشكل ثم بـ`verdicts`.
+- **قائمة الشروط المشدَّدة:** ش5 تشترط `src_dirty = false`، وش7 ستة شروط، وش8 وجود ملف التوقيع، وش9 غياب النوائب في وثيقة 02.
+- **D-77:** رموز القرارات تبقى في الكود وREADME والوثائق التقنية وتُحذف من الواجهة والدليل (`test_text.py`).
 
 **قائمة الشروط المولَّدة** (`results/frozen/freeze_checklist.md`، 2026-10-25): **6 من 10 مستوفاة**.
 
@@ -757,7 +763,8 @@ freeze03_config.json  d80ad472e015da8f190fb96e0b761aa0726d435aabb940758166447d9e
 ```
 python3 -m src.ml.experiments.run_confirmatory --dry-run-dev --force     # تشغيل جاف على 2013 → results/dryrun2013/
 python3 -m src.ml.experiments.run_confirmatory --tag freeze-03           # التشغيل التأكيدي، مرة واحدة
-python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --phase 2 # إعادة الطور 2 وحده بعد LOCK
+python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --phase 2 # الطور 2 وحده بعد LOCK
+python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --resume  # بعد تعطل بيئي فقط (D-75)
 ```
 
 الحراس (`check_guards`): الوسم موجود وHEAD هو commit الوسم والشجرة نظيفة والمجلد `results/conf2014/` غير موجود، وإلا رُفع `GuardError` قبل لمس 2014. بعدها يكتب `.lock` ويسجّل قراءة 2014 الكاملة في `access_log.jsonl` ويتحقق من SHA-256 للملفات المجمَّدة (`check_integrity`)، ثم يمرّر `allow_confirmatory=True`. **الطور 1** (E10): B1–B10 وGRU-lite وزوج H2-أ وHYB\* والمهمة B وH4-أ بنماذج الخطر النهائية وH4-ب وتفكيك H1، ثم الأحكام (bootstrap-t وقلب الإشارات وHolm بـm = 4 وجدولا D-26 ونص D-48) في `verdicts.csv` المقفل بـSHA-256 في `LOCK` **قبل** الطور 2، ولا تُطبع نتيجة أثناء التشغيل. **الطور 2** (E11–E13): الاستئصال وحساسيات E والإنصاف الوصفي والسوالب المعيَّنة والأشكال. التشغيل الثاني للطور 1 يحتاج قراراً مكتوباً من المشرف، والانحراف يُسجَّل في `deviations.md`.

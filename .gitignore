@@ -13,3 +13,4 @@ data/cache/
 ~$*.pptx
 artifacts/
 data/repro_snapshot/
+results/dryrun2013/
