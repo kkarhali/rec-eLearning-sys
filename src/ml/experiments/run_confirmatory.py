@@ -79,6 +79,55 @@ def check_guards(tag: str, out: Path, git=_git) -> str:
     return tagged
 
 
+def guard_rehearsal(tag: str, out: Path, git=_git) -> dict:
+    """Dry run (D-62 ش7): evaluate every D-63 §1 guard without stopping, so the 2014 path is rehearsed on 2013.
+
+    Each guard is reported separately, then ``check_guards`` itself is exercised with the tag mapped to HEAD (the tag
+    does not exist yet before freeze-03); it must pass on a clean tree with ``results/conf2014/`` absent.
+    """
+    head = git("rev-parse", "HEAD")
+    try:
+        tagged = git("rev-parse", f"{tag}^{{commit}}")
+    except Exception:
+        tagged = None
+    dirty = git("status", "--porcelain")
+    rep = {"head": head, "tag": tag, "tag_exists": tagged is not None, "head_is_tag": tagged == head,
+           "tree_clean": not dirty, "dirty_paths": dirty.splitlines()[:20], "conf2014_absent": not out.exists()}
+
+    def at_head(*args):
+        if args[:1] == ("rev-parse",) and args[1].startswith(tag):
+            return head
+        return git(*args)
+    try:
+        check_guards(tag, out, git=at_head)
+        rep["check_guards_with_tag_at_HEAD"] = "pass"
+    except GuardError as exc:
+        rep["check_guards_with_tag_at_HEAD"] = f"blocked: {exc}"
+    return rep
+
+
+def access_log_lines() -> list[str]:
+    p = data.RESULTS_DIR / "access_log.jsonl"
+    return p.read_text(encoding="utf-8").splitlines() if p.exists() else []
+
+
+def audit_2014(before: list[str], ctx) -> dict:
+    """Dry run: no full 2014 read was logged, only D-47 id reads (3 columns), and no 2014 row reached any frame."""
+    new = [json.loads(l) for l in access_log_lines()[len(before):] if l.strip()]
+    full = [r for r in new if r.get("event") == "confirmatory_full_read"]
+    ids = [r for r in new if r.get("columns") == ["code_module", "code_presentation", "id_student"]]
+    other = [r for r in new if r not in full and r not in ids]
+    conf = set(data.CONF_PRESENTATIONS)
+    seen = sorted(ctx.presentations())
+    leaked = {k: sorted(v & conf) for k, v in ctx.loaded.items() if v & conf}
+    rep = {"new_access_log_records": len(new), "confirmatory_full_read": len(full), "d47_id_reads_3_columns": len(ids),
+           "other_records": len(other), "presentations_loaded": seen,
+           "any_2014_presentation_loaded": bool(set(seen) & conf),
+           "loader_presentations": {k: len(v) for k, v in ctx.loaded.items()}, "loaders_with_2014_rows": leaked}
+    rep["ok"] = not full and not other and not rep["any_2014_presentation_loaded"] and not leaked
+    return rep
+
+
 def sha256(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()
 
@@ -135,6 +184,7 @@ class Context:
         self.figs = out / "figures"
         self.timing = {}
         self._pres = None
+        self.loaded = {}              # loader → presentations present in what it returned (2014 audit of the dry run)
         self.frozen = json.loads((DEV / "hybrid_frozen.json").read_text())
         self.risk = json.loads((FROZEN / "risk_final.json").read_text())
         self.mde80 = {r["hypothesis"]: r for r in json.loads((DEV / "mde80.json").read_text())}
@@ -143,8 +193,13 @@ class Context:
         if self._pres is None:
             role = "dev" if self.dry else "conf"
             ev = data.load_daily_events(role, allow_confirmatory=self.allow)
+            self.note("load_daily_events", ev)
             self._pres = {n: data.load_presentation(n, events=ev, allow_confirmatory=self.allow) for n in self.names}
         return self._pres
+
+    def note(self, loader: str, df):
+        if isinstance(df, pd.DataFrame) and "presentation" in df:
+            self.loaded.setdefault(loader, set()).update(map(str, pd.unique(df["presentation"])))
 
     def folds(self):
         return [(n, c) for c in sorted(CUTS, reverse=True) for n in self.names]
@@ -231,6 +286,8 @@ def h4a(ctx: Context, exclude_overlap=True, training="final"):
     rows, oof_all = [], {}
     dev_pres = data.load_dev_presentations() if (ctx.dry or training != "final") else None
     sa_d = data.load_student_assessment("dev") if dev_pres else None
+    ctx.note("load_student_assessment", sa_t)
+    ctx.note("load_student_assessment", sa_d)
     overlap = data.confirmatory_student_ids() if (dev_pres and exclude_overlap) else set()
     for tc in (56, 28, 112):
         spec = ctx.risk["cuts"][str(tc)]["models"]
@@ -523,6 +580,7 @@ def figures_phase1(ctx, ver, per, rows, gru, an, oof):
 def fairness(ctx: Context, an, oof, n_boot=2000) -> pd.DataFrame:
     role = "dev" if ctx.dry else "conf"
     info = data.load_student_info(include_sensitive=True, role=role, allow_confirmatory=ctx.allow)
+    ctx.note("load_student_info", info)
     info = info.set_index(["presentation", "id_student"])
     rng = np.random.default_rng(0)
     rows = []
@@ -774,6 +832,7 @@ def main(argv=None):
             shutil.rmtree(out)
         names, allow, label, commit = data.DEV_PRESENTATIONS, False, "تشغيل جاف على عروض 2013 (D-62 ش7)", _git("rev-parse", "HEAD")
         data.assert_allowed(names)
+        rehearsal = guard_rehearsal(a.tag, data.RESULTS_DIR / "conf2014")
     else:
         out = data.RESULTS_DIR / "conf2014"
         if a.phase in ("all", "1"):
@@ -788,6 +847,7 @@ def main(argv=None):
         names, allow, label = data.CONF_PRESENTATIONS, True, "التشغيل التأكيدي على عروض 2014 (E10)"
     ctx = Context(names, out, allow, a.workers, a.dry, "dryrun2013" if a.dry else "conf2014")
     ctx.tag, ctx.commit = a.tag, commit
+    log_before = access_log_lines()
     out.mkdir(parents=True, exist_ok=True)
     (out / "deviations.md").exists() or (out / "deviations.md").write_text("# سجل الانحرافات (D-63 §5)\n\nلا شيء.\n")
     an = phase1(ctx, label) if a.phase in ("all", "1") else None
@@ -802,6 +862,11 @@ def main(argv=None):
             "raw_md5": {k: v["md5"] for k, v in cfg["raw_md5"].items()}, "python": platform.python_version(),
             "numpy": np.__version__, "pandas": pd.__version__, **ctx.timing,
             "wall_seconds": round(time.time() - t0, 1), "workers": a.workers, "date": time.strftime("%Y-%m-%d %H:%M:%S")}
+    if a.dry:
+        meta["guard_rehearsal"] = rehearsal
+        meta["audit_2014"] = audit_2014(log_before, ctx)
+        meta["path_checks"] = {"LOCK": (out / "LOCK").exists(),
+                               "svg": len(list(ctx.figs.glob("*.svg"))), "png": len(list(ctx.figs.glob("*.png")))}
     (out / "run_meta.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False))
     if extra:
         (out / "dryrun_vs_dev.md").write_text("# التشغيل الجاف مقابل نتائج التطوير\n\n" + extra + "\n", encoding="utf-8")

@@ -46,6 +46,53 @@ class TestGuards(unittest.TestCase):
             RC.check_guards("freeze-03", self.out, git=fake_git())
 
 
+class TestDryRunRehearsal(unittest.TestCase):
+    """ش7: the dry run evaluates every guard without stopping and audits the access log for 2014 reads."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.out = Path(self.tmp.name) / "conf2014"
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_clean_tree_passes_with_tag_at_head(self):
+        r = RC.guard_rehearsal("freeze-03", self.out, git=fake_git(tag_exists=False))
+        self.assertFalse(r["tag_exists"])
+        self.assertTrue(r["tree_clean"] and r["conf2014_absent"])
+        self.assertEqual(r["check_guards_with_tag_at_HEAD"], "pass")
+
+    def test_blocked_reported_not_raised(self):
+        r = RC.guard_rehearsal("freeze-03", self.out, git=fake_git(tag_exists=False, dirty=" M a.py"))
+        self.assertFalse(r["tree_clean"])
+        self.assertTrue(r["check_guards_with_tag_at_HEAD"].startswith("blocked"))
+
+    def test_audit_flags_full_read(self):
+        import json
+
+        class Ctx:
+            loaded = {"load_daily_events": {"AAA_2013J"}}
+
+            def presentations(self):
+                return {"AAA_2013J": None}
+        log = Path(self.tmp.name) / "access_log.jsonl"
+        old = RC.data.RESULTS_DIR
+        try:
+            RC.data.RESULTS_DIR = Path(self.tmp.name)
+            log.write_text("")
+            before = RC.access_log_lines()
+            log.write_text(json.dumps({"columns": ["code_module", "code_presentation", "id_student"]}) + "\n")
+            self.assertTrue(RC.audit_2014(before, Ctx())["ok"])
+            with open(log, "a") as f:
+                f.write(json.dumps({"event": "confirmatory_full_read"}) + "\n")
+            self.assertFalse(RC.audit_2014(before, Ctx())["ok"])
+            Ctx.loaded = {"load_daily_events": {"AAA_2014J"}}
+            log.write_text("")
+            self.assertFalse(RC.audit_2014(before, Ctx())["ok"])
+        finally:
+            RC.data.RESULTS_DIR = old
+
+
 class TestVerdicts(unittest.TestCase):
     def test_table(self):
         idx = [f"P{i}" for i in range(13)]
