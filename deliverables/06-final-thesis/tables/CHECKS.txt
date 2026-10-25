@@ -1,0 +1,54 @@
+OK  per_presentation mean H1: -0.000569538461538461 vs -0.000569
+OK  per_presentation mean H2-a: 0.049683384615384615 vs 0.049683
+OK  per_presentation mean H3: -0.010040615384615387 vs -0.010041
+OK  per_presentation mean H4-a: 0.008260692307692307 vs 0.008261
+OK  ablation WRMF L0 2014 vs fig3: 0.2212845692307692 vs 0.221285
+OK  ablation WRMF L0 2013 vs fig3: 0.19419454814814816 vs 0.194195
+OK  ablation WRMF L1 2014 vs fig3: 0.2248114358974359 vs 0.224811
+OK  ablation WRMF L1 2013 vs fig3: 0.19452154074074074 vs 0.194522
+OK  ablation WRMF L2 2014 vs fig3: 0.26191165128205124 vs 0.261912
+OK  ablation WRMF L2 2013 vs fig3: 0.2350547111111111 vs 0.235055
+OK  ablation WRMF L3 2014 vs fig3: 0.2659043282051282 vs 0.265904
+OK  ablation WRMF L3 2013 vs fig3: 0.24668092592592591 vs 0.246681
+OK  ablation WRMF Wstar 2014 vs fig3: 0.27096795384615385 vs 0.270968
+OK  ablation WRMF Wstar 2013 vs fig3: 0.2435537925925926 vs 0.243554
+OK  H2-a pair = WRMF Wstar − L0 (ablation file): 0.049683384615384636 vs 0.049683
+OK  H4-a majority ROC_AUC vs summary.md: 0.5 vs 0.5
+OK  H4-a M0 ROC_AUC vs summary.md: 0.7197 vs 0.7197
+OK  H4-a M1 ROC_AUC vs summary.md: 0.7279 vs 0.7279
+OK  H4-a M2 ROC_AUC vs summary.md: 0.7922 vs 0.7922
+OK  H4-a CART_M2 ROC_AUC vs summary.md: 0.7696 vs 0.7696
+INFO H2-b row status: not applicable by construction (D-59)
+OK  5-24 A B3_RecentPop NDCG@10 vs summary.md: 0.5698 vs 0.5698
+OK  5-24 A HYB* NDCG@10 vs summary.md: 0.5692 vs 0.5692
+OK  5-24 A HYB_nominal_floor NDCG@10 vs summary.md: 0.5685 vs 0.5685
+OK  5-24 A HYB_accept_only NDCG@10 vs summary.md: 0.5595 vs 0.5595
+OK  5-24 A B5_SKNN NDCG@10 vs summary.md: 0.5405 vs 0.5405
+OK  5-24 A GRU_lite NDCG@10 vs summary.md: 0.5305 vs 0.5305
+OK  5-24 A B6_Markov NDCG@10 vs summary.md: 0.4149 vs 0.4149
+OK  5-24 A B4_ItemKNN NDCG@10 vs summary.md: 0.3472 vs 0.3472
+OK  5-24 A B7_WRMF NDCG@10 vs summary.md: 0.2708 vs 0.2708
+OK  5-24 A B10_EASE NDCG@10 vs summary.md: 0.2072 vs 0.2072
+OK  5-24 A B2_Pop NDCG@10 vs summary.md: 0.1606 vs 0.1606
+OK  5-24 A B9_CBF NDCG@10 vs summary.md: 0.1397 vs 0.1397
+OK  5-24 A B1_Random NDCG@10 vs summary.md: 0.0608 vs 0.0608
+OK  5-24 B B3_RecentPop NDCG@10 vs summary.md: 0.5518 vs 0.5518
+OK  5-24 B HYB* NDCG@10 vs summary.md: 0.5687 vs 0.5687
+OK  5-24 B HYB_accept_only NDCG@10 vs summary.md: 0.5578 vs 0.5578
+OK  5-24 B B5_SKNN NDCG@10 vs summary.md: 0.5379 vs 0.5379
+OK  5-24 B GRU_lite NDCG@10 vs summary.md: 0.4243 vs 0.4243
+OK  5-24 B B8_PersonalRepeat NDCG@10 vs summary.md: 0.4401 vs 0.4401
+OK  5-24 B B6_Markov NDCG@10 vs summary.md: 0.4636 vs 0.4636
+OK  5-24 B B4_ItemKNN NDCG@10 vs summary.md: 0.189 vs 0.189
+OK  5-24 B B7_WRMF NDCG@10 vs summary.md: 0.2731 vs 0.2731
+OK  5-24 B B10_EASE NDCG@10 vs summary.md: 0.1586 vs 0.1586
+OK  5-24 B B2_Pop NDCG@10 vs summary.md: 0.1442 vs 0.1442
+OK  5-24 B B9_CBF NDCG@10 vs summary.md: 0.1822 vs 0.1822
+OK  5-24 B B1_Random NDCG@10 vs summary.md: 0.0567 vs 0.0567
+FIG fig1_forest: sha256 c8fc66f415b8 locked=True
+FIG fig2_per_presentation: sha256 f92a7fbedcac locked=True
+FIG fig3_signal_ablation: sha256 cc8e5cb6eb32 locked=False
+FIG fig4_models_dev_vs_target: sha256 7d04ae02ad46 locked=True
+FIG fig5_roc: sha256 72190fc7b5fe locked=True
+FIG fig6_h4b: sha256 252999abbe0b locked=True
+FIG fig7_fairness: sha256 2f8d3f322abd locked=False
