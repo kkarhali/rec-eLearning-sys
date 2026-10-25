@@ -1,6 +1,6 @@
 # repro_diff — إعادة إنتاج نتائج التطوير من ذاكرة مؤقتة فارغة (D-62 ش5)
 
-**الحالة: مطابق** · بدأ 2026-10-25 18:42:03 · commit `20eeb9824030187de6f7ba847b4273dfaefb8144` · المدة 47.8 دقيقة
+**الحالة: مطابق** · بدأ 2026-10-25 19:42:16 · commit `865e5cef09771f4b201802fac50f361224fe6350` · المدة 49.0 دقيقة
 
 المقارنة حرفية بعد حجب الحقول المتقلبة وحدها (الأزمنة، والتواريخ، وhash الـcommit، والذاكرة، والسرعة): أعمدة CSV ['fit_score_seconds', 'maxrss_mb', 'seconds', 'seconds_total']، ومفاتيح JSON ['command', 'cpu_seconds', 'cpu_seconds_test', 'cpu_seconds_tune', 'date', 'git_commit', 'git_commit_at_freeze_run', 'git_commit_when_written', 'maxrss_mb', 'positions_per_second', 'seconds', 'seconds_total', 'wall_seconds'].
 

@@ -1,0 +1,5 @@
+component,n,mean,ci_lo,ci_hi,degenerate,n_degenerate,pct_lo,pct_hi,p,n_pos,status
+(a) HYB* − non-personal hybrid (1)+(6),9,0.019633,-0.007402,0.041609,False,0,-0.002116,0.039063,0.121094,8,secondary
+(b) (7) alone − B3 [partitioning gain],9,0.011614,-0.011132,0.037958,False,0,-0.010213,0.033546,0.402344,7,secondary
+(c) HYB* − (7) alone [personalisation gain],9,0.008020,0.002118,0.014417,False,0,0.002906,0.013350,0.019531,8,secondary
+(d) HYB* nominal floor − B3,9,0.014772,-0.011137,0.040372,False,0,-0.006674,0.035518,0.261719,7,secondary

@@ -1,0 +1,12 @@
+file,metric,rows_compared,max_abs_diff,note
+baselines.csv,NDCG@10,3780,0.00000000,
+baselines.csv,HR@10,3780,0.00000000,
+gru.csv,NDCG@10,1080,0.00000000,
+gru.csv,HR@10,1080,0.00000000,
+hybrid.csv HYB* A,NDCG@10,27,0.00000000,
+hybrid.csv HYB* B,NDCG@10,27,0.00000000,
+hybrid.csv HYB_accept_only A,NDCG@10,27,0.00000000,
+hybrid.csv HYB_accept_only B,NDCG@10,27,0.00000000,
+hybrid.csv HYB_nominal_floor A,NDCG@10,27,0.00000000,
+ablation_signals.csv,NDCG@10,3240,0.00000000,
+h4a_auc.csv vs learner_auc.csv (day 56),ROC_AUC,45,0.00360100,dev: λ chosen by nested inner LOPO per held-out presentation; dry run: frozen λ (D-58)

@@ -1,0 +1,109 @@
+part,model,attribute,group,metric,n,small_group,value,ci_lo,ci_hi,FNR,FPR,FNR_ci_lo,FNR_ci_hi,FPR_ci_lo,FPR_ci_hi
+recommendation,B3_RecentPop,gender,F,NDCG@10,7529,False,0.528768,0.521574,0.536069,,,,,,
+recommendation,B3_RecentPop,gender,M,NDCG@10,9023,False,0.514039,0.507506,0.520038,,,,,,
+recommendation,B3_RecentPop,gender,F,HR@10,7529,False,0.855891,0.847775,0.863709,,,,,,
+recommendation,B3_RecentPop,gender,M,HR@10,9023,False,0.871883,0.865176,0.878745,,,,,,
+recommendation,HYB*,gender,F,NDCG@10,7529,False,0.557942,0.550601,0.565151,,,,,,
+recommendation,HYB*,gender,M,NDCG@10,9023,False,0.532662,0.526341,0.539196,,,,,,
+recommendation,HYB*,gender,F,HR@10,7529,False,0.869677,0.862236,0.876956,,,,,,
+recommendation,HYB*,gender,M,HR@10,9023,False,0.891012,0.884785,0.897357,,,,,,
+recommendation,B3_RecentPop,disability,N,NDCG@10,15152,False,0.523183,0.518201,0.527929,,,,,,
+recommendation,B3_RecentPop,disability,Y,NDCG@10,1400,False,0.494279,0.477126,0.510569,,,,,,
+recommendation,B3_RecentPop,disability,N,HR@10,15152,False,0.866948,0.861417,0.871929,,,,,,
+recommendation,B3_RecentPop,disability,Y,HR@10,1400,False,0.839286,0.820626,0.857878,,,,,,
+recommendation,HYB*,disability,N,NDCG@10,15152,False,0.546204,0.541132,0.551075,,,,,,
+recommendation,HYB*,disability,Y,NDCG@10,1400,False,0.522048,0.504264,0.538388,,,,,,
+recommendation,HYB*,disability,N,HR@10,15152,False,0.883659,0.878503,0.888542,,,,,,
+recommendation,HYB*,disability,Y,HR@10,1400,False,0.855857,0.838456,0.874712,,,,,,
+recommendation,B3_RecentPop,imd_band,0-10%,NDCG@10,1287,False,0.506287,0.488323,0.524266,,,,,,
+recommendation,B3_RecentPop,imd_band,10-20,NDCG@10,1578,False,0.519681,0.503609,0.535707,,,,,,
+recommendation,B3_RecentPop,imd_band,20-30%,NDCG@10,1624,False,0.516272,0.500047,0.531359,,,,,,
+recommendation,B3_RecentPop,imd_band,30-40%,NDCG@10,1818,False,0.520939,0.506456,0.535625,,,,,,
+recommendation,B3_RecentPop,imd_band,40-50%,NDCG@10,1639,False,0.514922,0.500108,0.531293,,,,,,
+recommendation,B3_RecentPop,imd_band,50-60%,NDCG@10,1675,False,0.528708,0.513508,0.544115,,,,,,
+recommendation,B3_RecentPop,imd_band,60-70%,NDCG@10,1537,False,0.522675,0.507140,0.539295,,,,,,
+recommendation,B3_RecentPop,imd_band,70-80%,NDCG@10,1616,False,0.518107,0.502608,0.534402,,,,,,
+recommendation,B3_RecentPop,imd_band,80-90%,NDCG@10,1508,False,0.537995,0.521904,0.554735,,,,,,
+recommendation,B3_RecentPop,imd_band,90-100%,NDCG@10,1491,False,0.518106,0.501797,0.533960,,,,,,
+recommendation,B3_RecentPop,imd_band,NA,NDCG@10,779,False,0.523976,0.501852,0.545789,,,,,,
+recommendation,B3_RecentPop,imd_band,0-10%,HR@10,1287,False,0.852370,0.832598,0.872505,,,,,,
+recommendation,B3_RecentPop,imd_band,10-20,HR@10,1578,False,0.863118,0.845507,0.879653,,,,,,
+recommendation,B3_RecentPop,imd_band,20-30%,HR@10,1624,False,0.869458,0.851982,0.885119,,,,,,
+recommendation,B3_RecentPop,imd_band,30-40%,HR@10,1818,False,0.861936,0.845356,0.877213,,,,,,
+recommendation,B3_RecentPop,imd_band,40-50%,HR@10,1639,False,0.851739,0.834361,0.867984,,,,,,
+recommendation,B3_RecentPop,imd_band,50-60%,HR@10,1675,False,0.870448,0.854130,0.886034,,,,,,
+recommendation,B3_RecentPop,imd_band,60-70%,HR@10,1537,False,0.865322,0.847894,0.882202,,,,,,
+recommendation,B3_RecentPop,imd_band,70-80%,HR@10,1616,False,0.869431,0.852958,0.885894,,,,,,
+recommendation,B3_RecentPop,imd_band,80-90%,HR@10,1508,False,0.874005,0.856765,0.888741,,,,,,
+recommendation,B3_RecentPop,imd_band,90-100%,HR@10,1491,False,0.862508,0.845587,0.880133,,,,,,
+recommendation,B3_RecentPop,imd_band,NA,HR@10,779,False,0.872914,0.849803,0.895526,,,,,,
+recommendation,HYB*,imd_band,0-10%,NDCG@10,1287,False,0.537875,0.519307,0.555168,,,,,,
+recommendation,HYB*,imd_band,10-20,NDCG@10,1578,False,0.548069,0.531981,0.564296,,,,,,
+recommendation,HYB*,imd_band,20-30%,NDCG@10,1624,False,0.536935,0.521993,0.552591,,,,,,
+recommendation,HYB*,imd_band,30-40%,NDCG@10,1818,False,0.548269,0.533056,0.563441,,,,,,
+recommendation,HYB*,imd_band,40-50%,NDCG@10,1639,False,0.539479,0.523863,0.554458,,,,,,
+recommendation,HYB*,imd_band,50-60%,NDCG@10,1675,False,0.550638,0.535429,0.565845,,,,,,
+recommendation,HYB*,imd_band,60-70%,NDCG@10,1537,False,0.540199,0.524017,0.555087,,,,,,
+recommendation,HYB*,imd_band,70-80%,NDCG@10,1616,False,0.540290,0.525182,0.555470,,,,,,
+recommendation,HYB*,imd_band,80-90%,NDCG@10,1508,False,0.558934,0.543456,0.574634,,,,,,
+recommendation,HYB*,imd_band,90-100%,NDCG@10,1491,False,0.541465,0.524399,0.556913,,,,,,
+recommendation,HYB*,imd_band,NA,NDCG@10,779,False,0.540434,0.518154,0.562456,,,,,,
+recommendation,HYB*,imd_band,0-10%,HR@10,1287,False,0.866356,0.847029,0.884094,,,,,,
+recommendation,HYB*,imd_band,10-20,HR@10,1578,False,0.878707,0.862298,0.893879,,,,,,
+recommendation,HYB*,imd_band,20-30%,HR@10,1624,False,0.884236,0.868090,0.899182,,,,,,
+recommendation,HYB*,imd_band,30-40%,HR@10,1818,False,0.883388,0.869248,0.897994,,,,,,
+recommendation,HYB*,imd_band,40-50%,HR@10,1639,False,0.867480,0.851069,0.884613,,,,,,
+recommendation,HYB*,imd_band,50-60%,HR@10,1675,False,0.886448,0.871335,0.901593,,,,,,
+recommendation,HYB*,imd_band,60-70%,HR@10,1537,False,0.882238,0.866844,0.897407,,,,,,
+recommendation,HYB*,imd_band,70-80%,HR@10,1616,False,0.890842,0.876349,0.905494,,,,,,
+recommendation,HYB*,imd_band,80-90%,HR@10,1508,False,0.889655,0.873312,0.905329,,,,,,
+recommendation,HYB*,imd_band,90-100%,HR@10,1491,False,0.876727,0.860446,0.893233,,,,,,
+recommendation,HYB*,imd_band,NA,HR@10,779,False,0.889345,0.866500,0.910165,,,,,,
+recommendation,B3_RecentPop,age_band,0-35,NDCG@10,11081,False,0.525685,0.519939,0.531727,,,,,,
+recommendation,B3_RecentPop,age_band,35-55,NDCG@10,5308,False,0.511234,0.502498,0.519839,,,,,,
+recommendation,B3_RecentPop,age_band,55<=,NDCG@10,163,False,0.494017,0.449326,0.542265,,,,,,
+recommendation,B3_RecentPop,age_band,0-35,HR@10,11081,False,0.866980,0.860806,0.873055,,,,,,
+recommendation,B3_RecentPop,age_band,35-55,HR@10,5308,False,0.859646,0.849869,0.869008,,,,,,
+recommendation,B3_RecentPop,age_band,55<=,HR@10,163,False,0.865031,0.813244,0.916131,,,,,,
+recommendation,HYB*,age_band,0-35,NDCG@10,11081,False,0.552145,0.546434,0.558059,,,,,,
+recommendation,HYB*,age_band,35-55,NDCG@10,5308,False,0.528838,0.520379,0.537596,,,,,,
+recommendation,HYB*,age_band,55<=,NDCG@10,163,False,0.500323,0.453674,0.545934,,,,,,
+recommendation,HYB*,age_band,0-35,HR@10,11081,False,0.885119,0.879305,0.891222,,,,,,
+recommendation,HYB*,age_band,35-55,HR@10,5308,False,0.873625,0.864939,0.882887,,,,,,
+recommendation,HYB*,age_band,55<=,HR@10,163,False,0.872393,0.821686,0.921931,,,,,,
+classifier,M1,gender,F,FNR/FPR,5498,False,,,,0.441820,0.253736,0.420232,0.462253,0.238214,0.269234
+classifier,M1,gender,M,FNR/FPR,5936,False,,,,0.397207,0.246575,0.378284,0.416539,0.231326,0.261799
+classifier,M1,disability,N,FNR/FPR,10360,False,,,,0.414425,0.250827,0.399588,0.429472,0.240171,0.262048
+classifier,M1,disability,Y,FNR/FPR,1074,False,,,,0.447464,0.241379,0.405900,0.486536,0.205028,0.278989
+classifier,M1,imd_band,0-10%,FNR/FPR,1128,False,,,,0.386124,0.255914,0.349682,0.422752,0.215555,0.297302
+classifier,M1,imd_band,10-20,FNR/FPR,1202,False,,,,0.406504,0.248722,0.368000,0.444826,0.214026,0.282375
+classifier,M1,imd_band,20-30%,FNR/FPR,1229,False,,,,0.406463,0.252730,0.363936,0.445763,0.219253,0.285499
+classifier,M1,imd_band,30-40%,FNR/FPR,1262,False,,,,0.422509,0.291667,0.381911,0.464516,0.258277,0.326477
+classifier,M1,imd_band,40-50%,FNR/FPR,1136,False,,,,0.396694,0.236196,0.354121,0.441966,0.203002,0.268723
+classifier,M1,imd_band,50-60%,FNR/FPR,1129,False,,,,0.434783,0.269058,0.387846,0.480769,0.235903,0.304485
+classifier,M1,imd_band,60-70%,FNR/FPR,1011,False,,,,0.448649,0.257410,0.396172,0.498674,0.223437,0.292684
+classifier,M1,imd_band,70-80%,FNR/FPR,1047,False,,,,0.425693,0.240000,0.376921,0.475706,0.207446,0.273311
+classifier,M1,imd_band,80-90%,FNR/FPR,950,False,,,,0.399399,0.249595,0.347431,0.452472,0.216746,0.284128
+classifier,M1,imd_band,90-100%,FNR/FPR,936,False,,,,0.454545,0.224522,0.398678,0.512903,0.192428,0.258517
+classifier,M1,imd_band,NA,FNR/FPR,404,False,,,,0.576923,0.186667,0.480372,0.673272,0.141869,0.232207
+classifier,M1,age_band,0-35,FNR/FPR,7966,False,,,,0.403484,0.266167,0.386869,0.419671,0.253592,0.278788
+classifier,M1,age_band,35-55,FNR/FPR,3395,False,,,,0.456168,0.219373,0.429824,0.484682,0.201609,0.237186
+classifier,M1,age_band,55<=,FNR/FPR,73,False,,,,0.625000,0.140351,0.363636,0.857143,0.057665,0.234425
+classifier,M2 (appendix),gender,F,FNR/FPR,5498,False,,,,0.315836,0.253425,0.297123,0.334042,0.238412,0.268409
+classifier,M2 (appendix),gender,M,FNR/FPR,5936,False,,,,0.288984,0.213222,0.272093,0.306740,0.199393,0.227599
+classifier,M2 (appendix),disability,N,FNR/FPR,10360,False,,,,0.305427,0.230324,0.291919,0.319176,0.219562,0.240726
+classifier,M2 (appendix),disability,Y,FNR/FPR,1074,False,,,,0.271739,0.262452,0.233026,0.309160,0.225867,0.300000
+classifier,M2 (appendix),imd_band,0-10%,FNR/FPR,1128,False,,,,0.244344,0.262366,0.210996,0.276694,0.221484,0.304529
+classifier,M2 (appendix),imd_band,10-20,FNR/FPR,1202,False,,,,0.284553,0.293015,0.249585,0.320661,0.255972,0.330506
+classifier,M2 (appendix),imd_band,20-30%,FNR/FPR,1229,False,,,,0.273810,0.235569,0.239344,0.311360,0.203470,0.268935
+classifier,M2 (appendix),imd_band,30-40%,FNR/FPR,1262,False,,,,0.280443,0.251389,0.241933,0.318935,0.220703,0.284024
+classifier,M2 (appendix),imd_band,40-50%,FNR/FPR,1136,False,,,,0.311983,0.248466,0.270266,0.356547,0.216429,0.283361
+classifier,M2 (appendix),imd_band,50-60%,FNR/FPR,1129,False,,,,0.326087,0.231689,0.285707,0.370215,0.200000,0.263555
+classifier,M2 (appendix),imd_band,60-70%,FNR/FPR,1011,False,,,,0.305405,0.224649,0.258144,0.349866,0.191652,0.257190
+classifier,M2 (appendix),imd_band,70-80%,FNR/FPR,1047,False,,,,0.352645,0.232308,0.305965,0.400000,0.201212,0.266355
+classifier,M2 (appendix),imd_band,80-90%,FNR/FPR,950,False,,,,0.324324,0.199352,0.275227,0.374251,0.166667,0.232000
+classifier,M2 (appendix),imd_band,90-100%,FNR/FPR,936,False,,,,0.363636,0.173567,0.308963,0.413907,0.146103,0.202839
+classifier,M2 (appendix),imd_band,NA,FNR/FPR,404,False,,,,0.413462,0.200000,0.320357,0.512205,0.154092,0.246623
+classifier,M2 (appendix),age_band,0-35,FNR/FPR,7966,False,,,,0.291936,0.236896,0.276930,0.306940,0.224734,0.249139
+classifier,M2 (appendix),age_band,35-55,FNR/FPR,3395,False,,,,0.328937,0.226971,0.301931,0.354431,0.208926,0.245177
+classifier,M2 (appendix),age_band,55<=,FNR/FPR,73,False,,,,0.250000,0.140351,0.058742,0.476190,0.053571,0.236387

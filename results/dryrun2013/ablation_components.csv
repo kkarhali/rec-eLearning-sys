@@ -1,0 +1,3 @@
+ablation,NDCG@10_without,delta_full_minus_without,ci_lo,ci_hi,p
+HYB* − C7_ClusterPop,0.531058,0.029813,0.006728,0.089397,0.031250
+HYB* − B5_SKNN,0.552851,0.008020,0.002118,0.014417,0.019531

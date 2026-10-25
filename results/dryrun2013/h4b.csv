@@ -1,0 +1,3 @@
+slice,n,mean,ci_lo,ci_hi,degenerate,n_degenerate,pct_lo,pct_hi,p,direction,status
+cold_q1,9,0.051554,0.021858,0.132504,False,0,0.023043,0.084888,0.007812,positive,exploratory
+top_q4,9,0.016185,-0.000184,0.051637,False,0,0.000419,0.036332,0.101562,unclear,exploratory

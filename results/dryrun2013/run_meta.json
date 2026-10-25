@@ -1,0 +1,105 @@
+{
+  "mode": "dry-run on 2013",
+  "tag": "freeze-03",
+  "commit": "20eeb9824030187de6f7ba847b4273dfaefb8144",
+  "status": "completed",
+  "presentations": [
+    "AAA_2013J",
+    "BBB_2013B",
+    "BBB_2013J",
+    "DDD_2013B",
+    "DDD_2013J",
+    "EEE_2013J",
+    "FFF_2013B",
+    "FFF_2013J",
+    "GGG_2013J"
+  ],
+  "frozen_config_sha256": "d80ad472e015da8f190fb96e0b761aa0726d435aabb940758166447d9ec4d2c4",
+  "raw_md5": {
+    "assessments.csv": "6126f9d435767bcc70134b46f21c2a90",
+    "courses.csv": "4c3df8a42a98a0d26b22f507007c31a8",
+    "studentAssessment.csv": "9ceb38acaeb26fbc15c98b563290c1db",
+    "studentInfo.csv": "ead11d001fe8b7aed1469daa643a812c",
+    "studentRegistration.csv": "ef06e3d5784dc7dffe06ef911c5b190c",
+    "studentVle.csv": "b8aae6f4ffd1523319aeb56d66b17f72",
+    "vle.csv": "0e7ef38c483daca42900ca426b66f8da"
+  },
+  "raw_md5_match_frozen": true,
+  "python": "3.13.17",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
+  "phase2_seconds": 5739.8,
+  "wall_seconds": 5742.0,
+  "workers": 4,
+  "date": "2026-10-25 18:41:20",
+  "guard_rehearsal": {
+    "head": "20eeb9824030187de6f7ba847b4273dfaefb8144",
+    "tag": "freeze-03",
+    "tag_exists": false,
+    "head_is_tag": false,
+    "tree_clean": true,
+    "dirty_paths": [],
+    "conf2014_absent": true,
+    "guard_scope": "src/, data/, results/ (minus results/dryrun2013/), scripts/, executable root files",
+    "check_guards_with_tag_at_HEAD": "pass"
+  },
+  "audit_2014": {
+    "new_access_log_records": 4,
+    "confirmatory_full_read": 0,
+    "d47_id_reads_3_columns": 4,
+    "other_records": 0,
+    "presentations_loaded": [
+      "AAA_2013J",
+      "BBB_2013B",
+      "BBB_2013J",
+      "DDD_2013B",
+      "DDD_2013J",
+      "EEE_2013J",
+      "FFF_2013B",
+      "FFF_2013J",
+      "GGG_2013J"
+    ],
+    "any_2014_presentation_loaded": false,
+    "loader_presentations": {
+      "load_daily_events": 9,
+      "load_student_info": 9
+    },
+    "loaders_with_2014_rows": {},
+    "ok": true
+  },
+  "path_checks": {
+    "LOCK": true,
+    "LOCK_files": 35,
+    "svg": 7,
+    "png": 7
+  },
+  "resume_simulation": {
+    "crash_before_LOCK": {
+      "expected": "move to conf2014_aborted_1/ and re-run phase 1",
+      "action": "phase1",
+      "aborted_files": 49,
+      "ok": true
+    },
+    "crash_after_LOCK": {
+      "expected": "locked files intact, phase-2 leftovers removed, re-run phase 2",
+      "action": "phase2",
+      "locked_files": 35,
+      "removed_unlocked": 14,
+      "ok": true
+    },
+    "tamper_locked_figure": {
+      "expected": "stop",
+      "blocked": "figures/fig1_forest.svg does not match LOCK",
+      "file": "figures/fig1_forest.svg",
+      "ok": true
+    },
+    "tamper_locked_verdicts": {
+      "expected": "stop",
+      "blocked": "verdicts.csv does not match LOCK",
+      "file": "verdicts.csv",
+      "ok": true
+    },
+    "resume_log_records": 2,
+    "ok": true
+  }
+}

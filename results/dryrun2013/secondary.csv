@@ -1,0 +1,7 @@
+comparison,n,mean,ci_lo,ci_hi,degenerate,n_degenerate,pct_lo,pct_hi,p,status
+"H4-a secondary M2 − M1 (AUC, day 56)",9.000000,0.082964,0.060788,0.102405,False,0.000000,0.066390,0.098793,0.003906,
+"H4-a secondary M2 − M0 (AUC, day 56)",9.000000,0.097178,0.075655,0.119461,False,0.000000,0.079867,0.114195,0.003906,
+"H4-a secondary CART_M2 − M0 (AUC, day 56)",9.000000,0.072753,0.033511,0.099469,False,0.000000,0.044455,0.097786,0.007812,
+"H4-a secondary M1 − M0 (AUC, day 28)",9.000000,0.010128,0.000954,0.016412,False,0.000000,0.004335,0.015659,0.023438,
+"H4-a secondary M1 − M0 (AUC, day 112)",9.000000,0.017623,0.007254,0.029919,False,0.000000,0.008458,0.026825,0.007812,
+H2-b,,,,,,,,,,not applicable by construction (D-59)

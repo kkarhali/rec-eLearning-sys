@@ -4,6 +4,7 @@ __pycache__/
 node_modules/
 dist/
 *.log
+!results/dryrun2013/logs/*.log
 .DS_Store
 # raw datasets are downloaded by scripts in data/ — keep only small samples in git
 data/raw/
@@ -13,5 +14,4 @@ data/cache/
 ~$*.pptx
 artifacts/
 data/repro_snapshot/
-results/dryrun2013/
 .~lock.*#
