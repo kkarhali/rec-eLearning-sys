@@ -1,6 +1,6 @@
 # المراجع
 
-تتبع القائمة نمط IEEE الرقمي، وتحافظ على الترقيم الموحّد المعتمد في كل وثائق الرسالة: المراجع [1]–[38] هي المراجع المحللة في الدراسة المرجعية، و[39]–[51] مراجع داعمة من خارجها، و[52]–[62] مراجع منهجية للخوارزميات والمقاييس والاستدلال الإحصائي، و[63]–[64] مراجع التحليل والتصميم. ولا تتضمن القائمة إلا البيانات البيبليوغرافية المؤكَّدة، أما ملاحظات التحقق فمكانها الملحق أ (الجدول أ-4).
+تتبع القائمة نمط IEEE الرقمي، وتحافظ على الترقيم الموحّد المعتمد في كل وثائق الرسالة: المراجع [1]–[38] هي المراجع المحللة في الدراسة المرجعية، و[39]–[51] مراجع داعمة من خارجها، و[52]–[62] مراجع منهجية للخوارزميات والمقاييس والاستدلال الإحصائي، و[63] و[65] مراجع التحليل والتصميم. ولا تتضمن القائمة إلا البيانات البيبليوغرافية المؤكَّدة. وسُجّل التحقق من بيانات كل مرجع (المعرّف الرقمي أو الناشر، والوعاء، والتحكيم، ومصدر التحقق) في سجل التحقق من مصداقية المراجع المرفق بوثائق الرسالة، وتُعرض ملاحظات مراجع الدراسة المرجعية في الملحق أ (الجدول أ-4).
 
 [1] C. Kumar, M. Kumar, and A. Jindal, "Session-based song recommendation using recurrent neural network," 2022.
 
@@ -126,6 +126,6 @@
 
 [62] H. Steck, "Embarrassingly shallow autoencoders for sparse data," in *Proc. World Wide Web Conf. (WWW)*, San Francisco, CA, USA, 2019, pp. 3251–3257, doi: 10.1145/3308558.3313710.
 
-[63] World Wide Web Consortium (W3C), *Web Content Accessibility Guidelines (WCAG) 2.2*, W3C Recommendation, Oct. 5, 2023. [Online]. Available: https://www.w3.org/TR/WCAG22/
+[63] World Wide Web Consortium (W3C), *Web Content Accessibility Guidelines (WCAG) 2.2*, W3C Recommendation, Oct. 5, 2023. [Online]. Available: https://www.w3.org/TR/2023/REC-WCAG22-20231005/
 
-[64] D. Clegg and R. Barker, *Case Method Fast-Track: A RAD Approach*. Wokingham, U.K.: Addison-Wesley, 1994.
+[65] DSDM Consortium, "MoSCoW prioritisation," in *The DSDM Agile Project Framework Handbook*. Ashford, U.K.: DSDM Consortium, 2014, ch. 10.
