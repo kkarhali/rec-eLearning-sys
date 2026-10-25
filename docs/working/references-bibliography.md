@@ -111,15 +111,15 @@
 [51] N. I. Jha, I. Ghergulescu, and A.-N. Moldovan, "OULAD MOOC dropout and result prediction using ensemble, deep learning and regression techniques," in *Proc. 11th Int. Conf. Computer Supported Education (CSEDU)*, SciTePress, 2019, pp. 154–164, doi: 10.5220/0007767901540164.
 
 
-## مراجع منهجية كلاسيكية إضافية ([52]–[62])
+## مراجع منهجية ومراجع التحليل والتصميم ([52]–[64])
 
-> أُضيفت أثناء كتابة الفصل الثالث للأطروحة (المقاييس والطرق الإحصائية وخوارزميات التجميع/التصنيف). تحقق منها كاتب الأطروحة عبر WebSearch ولم تُدرج إلا البيانات المؤكدة؛ سجل التحقق في `research-credibility.md` القسم 5.
+> [52]–[62] أُضيفت في الفصل الثالث للأطروحة (المقاييس، والطرق الإحصائية، وخوارزميات التجميع والتصنيف)، و[63]–[64] في الفصل الرابع. أعاد كاتب الوثائق التحقق منها في 2026-10-25 (D-104)، ولم تُدرج إلا البيانات المؤكَّدة. سجل التحقق في `research-credibility.md` القسم 5. لا نص كاملاً لأي منها في `references/`، وكلها تحمل التنبيه «كلاسيكي منهجي، تُحقّق من بياناته دون نص كامل».
 
-[52] B. Sarwar, G. Karypis, J. Konstan, and J. Riedl, "Item-based collaborative filtering recommendation algorithms," in *Proc. 10th Int. Conf. World Wide Web (WWW)*, Hong Kong, 2001, pp. 285–295, doi: 10.1145/371920.372071.
+[52] B. M. Sarwar, G. Karypis, J. A. Konstan, and J. Riedl, "Item-based collaborative filtering recommendation algorithms," in *Proc. 10th Int. Conf. World Wide Web (WWW10)*, Hong Kong, May 2001, pp. 285–295, doi: 10.1145/371920.372071.
 
 [53] K. Järvelin and J. Kekäläinen, "Cumulated gain-based evaluation of IR techniques," *ACM Transactions on Information Systems*, vol. 20, no. 4, pp. 422–446, Oct. 2002, doi: 10.1145/582415.582418.
 
-[54] D. Arthur and S. Vassilvitskii, "k-means++: The advantages of careful seeding," in *Proc. 18th Annu. ACM-SIAM Symp. Discrete Algorithms (SODA)*, 2007, pp. 1027–1035.
+[54] D. Arthur and S. Vassilvitskii, "k-means++: The advantages of careful seeding," in *Proc. 18th Annu. ACM-SIAM Symp. Discrete Algorithms (SODA)*, SIAM, 2007, pp. 1027–1035.
 
 [55] P. J. Rousseeuw, "Silhouettes: A graphical aid to the interpretation and validation of cluster analysis," *Journal of Computational and Applied Mathematics*, vol. 20, pp. 53–65, 1987, doi: 10.1016/0377-0427(87)90125-7.
 
@@ -129,10 +129,14 @@
 
 [58] L. Breiman, J. H. Friedman, R. A. Olshen, and C. J. Stone, *Classification and Regression Trees*. Belmont, CA, USA: Wadsworth, 1984.
 
-[59] B. Efron and R. J. Tibshirani, *An Introduction to the Bootstrap*. New York, NY, USA: Chapman & Hall, 1993.
+[59] B. Efron and R. J. Tibshirani, *An Introduction to the Bootstrap* (Monographs on Statistics and Applied Probability, no. 57). New York, NY, USA: Chapman & Hall, 1993.
 
 [60] S. Holm, "A simple sequentially rejective multiple test procedure," *Scandinavian Journal of Statistics*, vol. 6, no. 2, pp. 65–70, 1979.
 
-[61] D. P. Kingma and J. Ba, "Adam: A method for stochastic optimization," in *Proc. 3rd Int. Conf. Learning Representations (ICLR)*, San Diego, CA, USA, 2015.
+[61] D. P. Kingma and J. Ba, "Adam: A method for stochastic optimization," in *Proc. 3rd Int. Conf. Learning Representations (ICLR)*, San Diego, CA, USA, May 2015. [Online]. Available: https://arxiv.org/abs/1412.6980
 
-[62] H. Steck, "Embarrassingly shallow autoencoders for sparse data," in *Proc. World Wide Web Conf. (WWW)*, San Francisco, CA, USA, 2019, pp. 3251–3257, doi: 10.1145/3308558.3313710.
+[62] H. Steck, "Embarrassingly shallow autoencoders for sparse data," in *Proc. World Wide Web Conf. (WWW '19)*, San Francisco, CA, USA, May 2019, pp. 3251–3257, doi: 10.1145/3308558.3313710.
+
+[63] World Wide Web Consortium (W3C), *Web Content Accessibility Guidelines (WCAG) 2.2*, W3C Recommendation, Oct. 5, 2023. [Online]. Available: https://www.w3.org/TR/2023/REC-WCAG22-20231005/
+
+[64] D. Clegg and R. Barker, *CASE Method Fast-Track: A RAD Approach*. Wokingham, U.K.: Addison-Wesley, 1994.

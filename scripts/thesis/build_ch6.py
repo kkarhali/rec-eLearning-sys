@@ -22,6 +22,11 @@ if "--verify-tag" in sys.argv:
     if ref != TAGTEXT:
         raise SystemExit("templates/ch6_freeze03.md differs from the freeze-03 recorded text")
     print("recorded text verified against freeze-03")
+sys.path.insert(0, HERE)
+from refmap import apply_citations, load_map
+REFMAP = load_map(ROOT)  # original unified citation number -> thesis number (after renumber.py), or None
+if REFMAP:
+    TAGTEXT = apply_citations(TAGTEXT, REFMAP)
 TAG = TAGTEXT.split("\n")
 OUTP = os.path.join(ROOT, "docs", "working", "06-thesis", "ch6-discussion.md")
 PH = "«[نتيجة 2014]»"
@@ -60,6 +65,10 @@ INSERT = {
     131: f"{AFTER} أضاف التشغيل التأكيدي قيدين:\n\n19. **درجة الخطر في اللوحة مبنية على ملامح السلوك (M1)** لأن السلوك موضوع الفرضية، مع أن النموذج الذي يضيف الملامح الأكاديمية أقوى تنبؤاً.\n20. **عروض 2014 لا تُعرض في الواجهة**، وفتحها مؤجَّل إلى عمل مستقبلي.",
     143: f"{AFTER} ثبّت الفصل لكل فرضية حكمها التأكيدي: H2-أ مؤكَّدة بهامش داخل WRMF، وH1 غير حاسمة لم يتفوق فيها الهجين على الشعبية الآنية، وH3 مدحوضة للتفوق، وH4-أ مدحوضة عملياً مع أثر موجب دال دون العتبة؛ وأضاف التشغيل التأكيدي قيدين فصارت القيود عشرين.",
 }
+
+if REFMAP:
+    INSERT = {k: apply_citations(v, REFMAP) for k, v in INSERT.items()}
+    FILL = {k: [apply_citations(x, REFMAP) for x in v] for k, v in FILL.items()}
 
 out = []
 for i, line in enumerate(TAG, 1):
