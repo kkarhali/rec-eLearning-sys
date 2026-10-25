@@ -38,7 +38,7 @@ function render(): void {
     const b = h('button', { class: 'choice' + (p.id === st.p ? ' choice--on' : ''), type: 'button', role: 'radio', 'aria-checked': String(p.id === st.p), disabled: locked,
       onclick: () => { writeState({ p: p.id, r: '' }); render(); } },
       h('strong', {}, bdi(p.id)), h('span', {}, p.label_ar ?? p.role), h('span', { class: 'muted' }, `${registrationsAr(p.registrations)} · ${daysAr(p.length_days)}`),
-      locked ? h('span', { class: 'badge badge--warn' }, 'مقفل حتى النشر') : null);
+      locked ? h('span', { class: 'badge badge--warn' }, 'مقفل في الواجهة') : null);
     presGroup.append(b);
   }
   const picker = registrationPicker(st.p, st.r, (reg) => { writeState({ r: reg }); mount($('#cta-slot'), links()); });

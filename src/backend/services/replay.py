@@ -93,7 +93,7 @@ class ReplayService:
         for n in LOCKED_LISTED:   # 2014: لا يُقرأ منها شيء (D-09)؛ العدد والطول غير معلنين
             out.append(Presentation(id=n, role="confirm", status="locked", length_days=0, snapshots=[],
                                     cutoffs=list(MODEL_CUTS), registrations=0,
-                                    label_ar="تأكيدي 2014 (مقفل حتى النشر)", assessments=[]))
+                                    label_ar="تأكيدي 2014 (مقفل في الواجهة)", assessments=[]))
         return out
 
     def _registration_frame(self, pres: str) -> pd.DataFrame:

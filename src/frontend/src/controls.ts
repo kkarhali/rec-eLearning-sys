@@ -16,7 +16,7 @@ export function presentationSelect(list: Presentation[], current: string, onChan
   for (const p of list) sel.append(h('option', { value: p.id, selected: p.id === current, disabled: p.status === 'locked' }, presLabel(p)));
   sel.addEventListener('change', () => onChange(sel.value));
   return h('div', { class: 'ctl' }, h('label', { for: id, class: 'ctl__lbl' }, 'العرض (presentation)'), sel,
-    list.some((p) => p.status === 'locked') ? h('span', { class: 'ctl__hint' }, 'عروض 2014 مقفلة حتى يُنشر التشغيل التأكيدي بعد التجميد.') : null);
+    list.some((p) => p.status === 'locked') ? h('span', { class: 'ctl__hint' }, 'عروض 2014 من مجموعة التأكيد؛ نتائجها في الرسالة ولا تُعرض في الواجهة.') : null);
 }
 
 export function makeScrubber(pres: Presentation, day: number, onChange: (d: number) => void): Scrubber {

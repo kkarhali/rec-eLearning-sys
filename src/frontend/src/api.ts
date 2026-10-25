@@ -72,7 +72,7 @@ async function mockCheckDay(presentation: string, day: number): Promise<{ pres: 
   const list = await mockFile<Presentation[]>('presentations.json');
   const pres = list.find((x) => x.id === presentation);
   if (!pres) throw new ApiError(404, 'presentation_not_found', 'العرض غير موجود.');
-  if (pres.status !== 'published') throw new ApiError(409, 'confirmatory_locked', 'عرض 2014 مقفل حتى يُنشر بعد التجميد.');
+  if (pres.status !== 'published') throw new ApiError(409, 'confirmatory_locked', 'عرض 2014 من مجموعة التأكيد؛ نتائجه في الرسالة ولا يُعرض في الواجهة.');
   if (day > pres.length_days || day < 0) throw new ApiError(422, 'day_out_of_range', 'اليوم خارج مدى العرض.', { max_day: pres.length_days });
   const first = pres.snapshots[0];
   if (day < first) throw new ApiError(422, 'day_before_first_snapshot', `لا لقطة قبل اليوم ${first}.`, { first_day: first });
