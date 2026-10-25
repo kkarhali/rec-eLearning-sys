@@ -40,12 +40,12 @@
     "workers": 4,
     "out": "/home/user/rec-eLearning-sys/results/dev2013"
   },
-  "git_commit": "2d8608250bd678b60b9fecd36f0206402537336c",
+  "git_commit": "20eeb9824030187de6f7ba847b4273dfaefb8144",
   "data_fingerprint": "85fda9abc3",
   "python": "3.13.17",
   "numpy": "2.5.3",
   "pandas": "3.0.5",
-  "wall_seconds": 434.4,
+  "wall_seconds": 322.3,
   "workers": 4,
-  "date": "2026-10-25 14:47:02"
+  "date": "2026-10-25 18:48:03"
 }

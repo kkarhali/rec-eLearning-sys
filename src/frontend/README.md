@@ -3,11 +3,12 @@
 واجهة عربية RTL بلا أي اعتماد خارجي: TypeScript (`tsc` وحده) وHTML وCSS خالص وSVG. تُخدَم ملفات ثابتة من `dist/`.
 
 ## التشغيل والبناء
+المتطلبات: `tsc` (TypeScript) و`playwright` للّقطات، مثبَّتان عمومياً (`npm root -g`)؛ بلا `package.json` ولا `npm install` في هذا المجلد.
 ```bash
 cd src/frontend
 ./build.sh                      # tsc -> dist/js ، نسخ html/css/mock -> dist/
 tsc --noEmit -p tsconfig.json   # فحص الأنواع (strict) بلا إخراج
-python3 -m http.server 8000 -d dist   # ثم افتح http://127.0.0.1:8000/  (وضع المحاكاة تلقائياً)
+python3 -m http.server 8765 -d dist   # ثم افتح http://127.0.0.1:8765/ (منفذ غير 8000 كي لا يتعارض مع الخلفية)  (وضع المحاكاة تلقائياً)
 NODE_PATH=$(npm root -g) node screenshots.js   # لقطات وضع mock إلى src/frontend/screenshots/mock/ (لقطات الدليل الحية: src/backend/e2e/live-screenshots.js)
 ```
 مع الـbackend: يخدم Starlette StaticFiles المجلد `src/frontend/dist` من `/`، وتُستهلك المسارات `/api/*`.

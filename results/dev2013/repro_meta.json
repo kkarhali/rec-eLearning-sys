@@ -1,69 +1,69 @@
 {
-  "started": "2026-10-24 22:26:26",
-  "commit": "62e26519276340f54a13f4d8baaafcede2486ed0",
-  "src_dirty": true,
+  "started": "2026-10-25 18:42:03",
+  "commit": "20eeb9824030187de6f7ba847b4273dfaefb8144",
+  "src_dirty": false,
   "steps": [
     {
       "step": "eda",
       "returncode": 0,
-      "seconds": 41.1
+      "seconds": 35.1
     },
     {
       "step": "run_baselines",
       "returncode": 0,
-      "seconds": 479.4
+      "seconds": 328.1
     },
     {
       "step": "gru_sanity",
       "returncode": 0,
-      "seconds": 60.7
+      "seconds": 64.5
     },
     {
       "step": "run_gru",
       "returncode": 0,
-      "seconds": 938.3
+      "seconds": 932.4
     },
     {
       "step": "run_ablation",
       "returncode": 0,
-      "seconds": 1261.3
+      "seconds": 1122.0
     },
     {
       "step": "learner_analysis",
       "returncode": 0,
-      "seconds": 153.3
+      "seconds": 145.5
     },
     {
       "step": "run_hybrid",
       "returncode": 0,
-      "seconds": 184.0
+      "seconds": 144.0
     },
     {
       "step": "power",
       "returncode": 0,
-      "seconds": 15.9
+      "seconds": 15.5
     },
     {
       "step": "risk_final",
       "returncode": 0,
-      "seconds": 20.2
+      "seconds": 18.2
     },
     {
       "step": "build_artifacts",
       "returncode": 0,
-      "seconds": 54.9
+      "seconds": 56.7
     },
     {
       "step": "freeze_config",
       "returncode": 0,
-      "seconds": 1.4
+      "seconds": 1.2
     },
     {
       "step": "report",
       "returncode": 0,
-      "seconds": 5.8
+      "seconds": 5.9
     }
   ],
-  "identical": false,
-  "wall_seconds": 3217.0
+  "identical": true,
+  "wall_seconds": 2869.6
 }

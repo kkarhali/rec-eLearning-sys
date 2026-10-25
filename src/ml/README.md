@@ -48,7 +48,7 @@ python3 -m src.ml.experiments.freeze_config --checklist   # results/frozen/freez
 # مشغّل E10 (D-63): تشغيل جاف كامل على 2013، ثم — بعد الوسم وحده — التشغيل التأكيدي مرة واحدة
 python3 -m src.ml.experiments.run_confirmatory --dry-run-dev --force   # (= --dry-run-2013) → results/dryrun2013/
 python3 -m src.ml.experiments.run_confirmatory --tag freeze-03          # يرفض ما لم يكن HEAD = الوسم والشجرة نظيفة
-python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --phase 2   # الطور 2 وحده: يتحقق من LOCK وHEAD = الوسم (م2)
+python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --phase 2   # ممنوع في التأكيدي (D-81)؛ بعد أي تعطل: --resume وحده
 python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --resume    # المسار الوحيد بعد تعطل بيئي (D-75)
 ```
 
@@ -187,6 +187,25 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
   اختبار سلبي (`test_ids_only_filter_2013_risk_training`) يفحص شجرة الكود: لا استدعاء خارج الدوال الأربع، ولا استعمال
   في الخدمة أو التوصية أو العنقدة أو الواجهة الخلفية أو تحليل 2014، وفي `h4a` لا تمس المعرّفات إلا جدول تدريب 2013.
 
+## الإطلاق التأكيدي وقيوده المعلنة (D-79…D-82)
+
+- **الإطلاق (D-82):** منفصل عن جلسة الوكيل، بطوريه في استدعاء واحد (≈ 2.2 ساعة؛ سقف الأوامر الخلفية للوكيل ساعتان):
+  `setsid nohup python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 > ~/e10-logs/run.log 2>&1 &`
+  السجلات خارج المستودع (scratchpad أو `~/e10-logs/`؛ لا `results/logs/` لأنه محروس فيتعذر `--resume`)، وتُنسخ إلى
+  `results/conf2014/logs/` بعد اكتمال الطورين فلا تدخل LOCK. لا كتابة في النطاق المحروس أثناء التشغيل.
+- **D-81:** `--phase 2` ممنوع في التأكيدي؛ بعد أي تعطل `--resume` وحده. استعماله خطأً يُسجَّل في `deviations.md` انحرافاً
+  إجرائياً ولا يمس الأحكام المقفلة (`verify_lock`). لا تعديل في الشيفرة قبل الوسم.
+- **الخلل البرمجي (D-75 (4)، D-82 (4)):** نقل `results/conf2014/` يدوياً إلى `results/conf2014_aborted_<n>/` مع بيان SHA-256،
+  ثم أصغر إصلاح بمراجعة الزميل وموافقة المشرف كتابةً، والوسم `freeze-03.1`.
+- **D-79:** نطاق `dirty_paths` لحارس وقت التشغيل وحده؛ commit الوسم يوضع والشجرة كلها نظيفة. وفي الكود ثلاثة تعريفات لـ«dirty»:
+  `dirty` في أسطر D-47 (`data._commit`، الشجرة كلها، فقد يكون true بسبب docs/)، و`src_dirty` في `repro_meta.json` (`src/`
+  وحده، ش5)، و`dirty_paths` (النطاق المحروس).
+- **`freeze03_config.json`:** حقلا `date` و`git_commit_when_written` يُعاد كتابتهما في كل `reproduce_dev`، فتتغير بصمته
+  (محجوبان في `repro_diff.md`؛ والحراس يفحصون بصمات الملفات الثلاثة المجمَّدة وMD5 الخام لا بصمته). بصمته بعد `reproduce_dev`
+  النهائي (نسخة الوسم ما لم يُعَد التشغيل): `b1981f1fc46aec268265eedc852862bda10927127c41a4326787aac45bc54580`.
+- **D-80:** ✓ في ش8 من القائمة المولَّدة شرط لازم غير كافٍ (فحص نصي)؛ الحجة سطر «الحكم النهائي: موافق» في
+  `docs/meetings/peer-signoff-freeze03-final.md` يقرؤه المشرف. لا يُعدَّل `freeze_config.py`.
+
 ## القرارات التنفيذية — كلها مثبَّتة
 
 - **D-41…D-49** (ADR-004 §4-مكرر) و**D-51…D-58** (الاجتماع 03): المقيَّم؛ الاختيار لكل مهمة والفرضيات والهجين على A؛
@@ -220,8 +239,16 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
 | ش9 | تحديث الوثيقة 02 بالملحق ب وREADME | ✓ | docs/working/02-hypotheses-algorithms.md، src/ml/README.md | مصمّم الفرضيات + مهندس ML |
 | ش10 | تحقق المشرف وتوقيعه ثم الوسم | ✗ | §8 من محضر الاجتماع 03؛ git tag freeze-03 | المشرف ← مهندس ML |
 
-- **ش5:** أول تشغيل كامل (53.6 دقيقة) طابق كل الملفات عدا: (1) ترتيب سجل التركيبات في `hybrid_acceptance.md` بسبب التكرار على `set` (يتغير مع PYTHONHASHSEED) — أُصلح (`hybrid.greedy_forward`) وتحقق التطابق تحت بذرتي تجزئة؛ (2) جدول الأزمنة في `summary.md` — صار محجوباً؛ (3) بصمات `freeze03_config.json` — أُزيلت الحقول المتقلبة من الملفات المبصومة فصارت ثابتة بايتياً؛ (4) `risk_final.json` في اللقطة كان نسخة وسيطة غير مُودَعة خاطئة (AUC لـM0 = 0.567) والمعاد إنتاجه يطابق المُودَع وتحليل المتعلمين (0.712). **يلزم تشغيل كامل أخير على commit نظيف** لاعتماد «مطابق».
-- **ش7:** المشغّل واختباراته جاهزة؛ **التشغيل الجاف الكامل لم يُنفَّذ بعد** (≈ 2 ساعة).
+- **ش5 ✓:** `reproduce_dev` النهائي على commit `20eeb98240` (src نظيف): `repro_diff.md` «**الحالة: مطابق**»، 36/36 ملفاً
+  (كل `dev2013/` و`frozen/freeze03_config.json` و`frozen/risk_final.json`)، `repro_meta.json`: `src_dirty=false`، `identical=true`،
+  47.8 دقيقة (2869.6 ث)، بدأ 2026-10-25 18:42:03 UTC. (الفروق الأربعة في التشغيل الأول، 53.6 دقيقة، شُخِّصت وأُصلحت قبله.)
+- **ش7 ✓:** التشغيل الجاف على commit `20eeb98240` (`results/dryrun2013/run_meta.json`): `status=completed`، `audit_2014.ok=true`
+  (4 قراءات D-47 بثلاثة أعمدة، 0 قراءة كاملة، لا عرض 2014)، `guard_rehearsal`: `check_guards_with_tag_at_HEAD=pass`،
+  `resume_simulation.ok=true` (الحالات الثلاث)، LOCK بـ35 ملفاً، 7 SVG و7 PNG؛ `dryrun_vs_dev`: أقصى |Δ| = 0 عدا AUC لـH4-أ
+  (0.0036، λ مجمَّد مقابل λ متداخل). قُتل التشغيل الأول عند سقف الساعتين بعد LOCK فأُعيد الطور 2 وحده بعد `verify_lock`
+  (95.7 دقيقة): `results/dryrun2013/deviations.md` «وقائع التنفيذ».
+- **قائمة الشروط:** `freeze_config --checklist` يتعطل بعد التشغيل النهائي (`TypeError` في مرشّح λ لـش7 تحت استنتاج النصوص في
+  pandas 3)؛ ولا يُعدَّل قبل الوسم (D-80). الجدول أعلاه ينتظر قرار المنسّق والمشرف.
 
 ## التعارضات بين المسوّدة وADR وأخطاء الأمثلة
 

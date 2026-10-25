@@ -5,11 +5,12 @@
 (D-49)، ولا مصادقة ولا جمع حي (D-22)، ولا أرقام تقييم.
 
 ## التشغيل
+المتطلبات الأولى (من جذر المستودع): `bash data/download.sh` (≈ 45 ث، ينتهي بـ«integrity: PASS»)، و`tsc` من TypeScript لبناء الواجهة، و`playwright` (Node، عمومي) للفحص الحي؛ وتفاصيل الإصدارات في README الجذر.
 ```bash
 python3 -m src.ml.experiments.build_artifacts   # أولاً (D-70: artifacts/ خارج git، تُعاد في ≈ دقيقة): نماذج الخطر والعناقيد والقطوع
 bash src/frontend/build.sh                      # مرة واحدة: يبني src/frontend/dist
 python3 -m src.backend                          # http://127.0.0.1:8000  (الواجهة + /api)
-python3 -m src.backend --warm                   # تسخين في خيط خلفي لأيام العرض الرئيسية 75/56/70/112/126/182 (≈ 36 ث كاملاً بعد ربط serving.warm؛ 75 جاهز بعد ≈ 25 ث)
+python3 -m src.backend --warm                   # تسخين في خيط خلفي لأيام العرض الرئيسية 75/56/70/112/126/182 (≈ 36 ث كاملاً بعد ربط serving.warm؛ 75 جاهز بعد ≈ 25 ث. على نسخة نظيفة بلا ذاكرة عنقدة دائمة `data/cache/serving_clusters` ≈ 61 ث كاملاً، والخطّاف وحده ≈ 47 ث، واليوم 75 جاهز بعد ≈ 49 ث)
 python3 -m src.backend --warm --warm-weekly     # + شبكة أسبوعية من اليوم 56 (≈ 10 ث لكل يوم؛ عدة دقائق)
 python3 -m src.backend --no-instructor          # /api/instructor/* ⇒ 404 instructor_disabled، وصفحة المدرّس 404، وتُخفى روابطها
 python3 -m src.backend --host 127.0.0.1 --port 8000 --warm-presentation BBB_2013J --warm-days 75,126
@@ -89,7 +90,7 @@ history 5.6/6.1، overview 1.4/1.9، clusters 2.2/3.3، learners(100) 6.0/6.9، 
 
 ## الاختبارات
 ```bash
-python3 -m unittest discover -s src/backend/tests -t .      # 52 اختباراً، ≈ 25–90 ث (حسب ذاكرة العنقدة الدائمة) (أغلبها تسخين أول يوم)
+python3 -m unittest discover -s src/backend/tests -t .      # 52 اختباراً، ≈ 25–90 ث (حسب ذاكرة العنقدة الدائمة؛ ≈ 110 ث على نسخة نظيفة) (أغلبها تسخين أول يوم)
 python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors   # < 1 ث، بلا بيانات
 python3 -m src.backend --warm &   # ثم التحقق الحي بمتصفح حقيقي (لا mock) ولقطات deliverables/05-user-guide/screenshots/live-*.png:
 NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js

@@ -31,6 +31,8 @@ from pptx.oxml.ns import qn
 from pptx.util import Emu, Inches, Pt
 
 ROOT = Path(__file__).resolve().parent.parent
+if not (ROOT / "docs/working").exists():      # تشغيل من نسخة خارج المستودع
+    ROOT = Path.cwd()
 
 # ---------------------------------------------------------------- الهوية البصرية
 # رموز التصميم من docs/working/03-analysis-design.md §9.1 (الجدول 16)
@@ -670,6 +672,14 @@ def build_table(ctx, spec):
         style_cell(tbl.cell(0, j), h, size, WHITE, True, PRIMARY)
     for i, row in enumerate(rows, start=1):
         fill = CARD if i % 2 else "EEF2F6"
+        if (i - 1) in spec.get("explore_rows", []):          # صف استكشافي بتمييز واضح
+            fill = PRIMARY_SOFT
+            for j, v in enumerate(row):
+                last = j == len(row) - 1
+                style_cell(tbl.cell(i, j), v, size, ACCENT_INK if v.startswith("[") else PRIMARY_DARK,
+                           bold=(j in (0, len(row) - 1)), fill=ACCENT_SOFT if v.startswith("[") else fill,
+                           italic=v.startswith("["), align="ctr" if (v.startswith("[") or last) else "r")
+            continue
         for j, v in enumerate(row):
             ph = v.strip().startswith("[")
             style_cell(tbl.cell(i, j), v, size, ACCENT_INK if ph else PRIMARY_DARK,
