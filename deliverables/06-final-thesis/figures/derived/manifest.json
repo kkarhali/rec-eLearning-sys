@@ -1,0 +1,187 @@
+{
+ "decision": "D-95 (annex of meeting 04)",
+ "generated_utc": "2026-10-25T23:21:46Z",
+ "lock_sha256": "ab1c563985703a64bc1d5371b4bdeec7a28cb11e67bcb54632d4106aae16334d",
+ "sources": {
+  "verdicts.csv": {
+   "sha256": "82c9b541c5da8d976aabbb4cbb22f56bacd35708a542a0a7c0e78682bf83e368",
+   "reference": "LOCK"
+  },
+  "figures/fig1_forest.csv": {
+   "sha256": "c8fc66f415b80cc9b075ab18106fd68aa44e250b08ae5068cacf9f38c8c70993",
+   "reference": "LOCK"
+  },
+  "figures/fig2_per_presentation.csv": {
+   "sha256": "f92a7fbedcac877d544b1af8ba66bfce89a90062c6c8ad9edb9aa65d903120d1",
+   "reference": "LOCK"
+  },
+  "figures/fig3_signal_ablation.csv": {
+   "sha256": "cc8e5cb6eb32fe029e02e2de68cfde745aecca919a126ac837a529c2eed39326",
+   "reference": "commit 86c0885"
+  },
+  "figures/fig4_models_dev_vs_target.csv": {
+   "sha256": "7d04ae02ad46456be5bb60dcdd31b4653ee94b09cae6a81939cb59d93fa4ae30",
+   "reference": "LOCK"
+  },
+  "figures/fig5_roc.csv": {
+   "sha256": "72190fc7b5fe6fe892f636ce54d41f6dd7fb2d7f6f2d1bd7a21797f00fd12f14",
+   "reference": "LOCK"
+  },
+  "figures/fig6_h4b.csv": {
+   "sha256": "252999abbe0b780cd3d83ed386a36c0721ea2a1ea69361bb33c5c54f254a27f1",
+   "reference": "LOCK"
+  },
+  "figures/fig7_fairness.csv": {
+   "sha256": "2f8d3f322abd423163c09f37dafae1bd3509d725a7ce49c343442a0b566c7e85",
+   "reference": "commit 86c0885"
+  }
+ },
+ "figures": {
+  "fig1_forest": {
+   "source": "results/conf2014/figures/fig1_forest.csv",
+   "rows_drawn": 4,
+   "verdict_labels_drawn": {
+    "H1": "غير حاسمة",
+    "H2-a": "مؤكَّدة",
+    "H3": "مدحوضة للتفوق",
+    "H4-a": "مدحوضة عملياً (استُبعد أثر ≥ δ)"
+   },
+   "png_px": [
+    3300,
+    1290
+   ],
+   "png_dpi": 300,
+   "outputs_sha256": {
+    ".svg": "c9a5c14ead97d8d4b0dbb7cfed7017ce3a4294803e12e5ee8e3105ef1bf53737",
+    ".png": "c32a1070c02c396e4dacb09f44614154f8408413321b4eb99df99a2d4ab89e03",
+    "_plotted.csv": "c8fc66f415b80cc9b075ab18106fd68aa44e250b08ae5068cacf9f38c8c70993"
+   }
+  },
+  "fig2_per_presentation": {
+   "source": "results/conf2014/figures/fig2_per_presentation.csv",
+   "rows_drawn": 52,
+   "png_px": [
+    3300,
+    1410
+   ],
+   "png_dpi": 300,
+   "outputs_sha256": {
+    ".svg": "b3ab159eb4b7c7cc314f99b7d96672872c803fdb1a631fcd6f3a3d039c903ddc",
+    ".png": "40bf62aca6e6e3cdb3266a2b7a52a9bfb1196b4cf5e7d46e74392b7c345f13ae",
+    "_plotted.csv": "f92a7fbedcac877d544b1af8ba66bfce89a90062c6c8ad9edb9aa65d903120d1"
+   }
+  },
+  "fig3_signal_ablation": {
+   "source": "results/conf2014/figures/fig3_signal_ablation.csv",
+   "rows_drawn": 10,
+   "series_labels": {
+    "WRMF dev 2013": "WRMF — التطوير 2013",
+    "WRMF target": "WRMF — الهدف 2014"
+   },
+   "category_labels": {
+    "Wstar": "W*"
+   },
+   "png_px": [
+    3000,
+    1680
+   ],
+   "png_dpi": 300,
+   "outputs_sha256": {
+    ".svg": "535a5807b77fc70c749e3775e659c2c8cf06c834078c435b79b85bf990e27a1a",
+    ".png": "3715f151742b8badf7f2c7dac93f94e1eef9d08416d487a0cd15a41f382b8cde",
+    "_plotted.csv": "cc8e5cb6eb32fe029e02e2de68cfde745aecca919a126ac837a529c2eed39326"
+   }
+  },
+  "fig4_models_dev_vs_target": {
+   "source": "results/conf2014/figures/fig4_models_dev_vs_target.csv",
+   "rows_drawn": 11,
+   "legend": {
+    "a": "التطوير 2013",
+    "b": "الهدف 2014"
+   },
+   "png_px": [
+    3000,
+    1896
+   ],
+   "png_dpi": 300,
+   "outputs_sha256": {
+    ".svg": "0abba259804f3eb8751a2278f52d9581f6b02c5d5c34905b6a1600f4e1096a31",
+    ".png": "33d90db58c77b0037e7994237847ae281fe2f2cf36164652c8eb9661425d3a63",
+    "_plotted.csv": "7d04ae02ad46456be5bb60dcdd31b4653ee94b09cae6a81939cb59d93fa4ae30"
+   }
+  },
+  "fig5_roc": {
+   "source": "results/conf2014/figures/fig5_roc.csv",
+   "rows_drawn": 1227,
+   "note": "legend shows model names only: the AUC is not in fig5_roc.csv and is not recomputed (h4a_auc.csv)",
+   "png_px": [
+    2280,
+    2280
+   ],
+   "png_dpi": 300,
+   "outputs_sha256": {
+    ".svg": "81836f2bc2c88e8badf82ec4e963a964843c476b3597b574c4a776741c67c144",
+    ".png": "70cf8d2ddfb00c5bab915bc1223946ba12513ae5ba4a4cd762f2ada0ebf03aca",
+    "_plotted.csv": "72190fc7b5fe6fe892f636ce54d41f6dd7fb2d7f6f2d1bd7a21797f00fd12f14"
+   }
+  },
+  "fig6_h4b": {
+   "source": "results/conf2014/figures/fig6_h4b.csv",
+   "rows_drawn": 2,
+   "group_labels": {
+    "cold_q1": "الربع الأدنى (cold_q1)",
+    "top_q4": "الربع الأعلى (top_q4)"
+   },
+   "png_px": [
+    2280,
+    1560
+   ],
+   "png_dpi": 300,
+   "outputs_sha256": {
+    ".svg": "c6bc23b6c87a8ad9f5a180a6b1b8183ea8c748c692aca761db11b7cc24eaf668",
+    ".png": "c90202b6c0c95c41492a6aa8556d7a13b5a2b1e4f48ca2f5354f648eaca60c15",
+    "_plotted.csv": "252999abbe0b780cd3d83ed386a36c0721ea2a1ea69361bb33c5c54f254a27f1"
+   }
+  },
+  "fig7_fairness": {
+   "source": "results/conf2014/figures/fig7_fairness.csv",
+   "rows_drawn": 18,
+   "group_labels": {
+    "gender:F": "الجنس: F",
+    "gender:M": "الجنس: M",
+    "disability:N": "الإعاقة: N",
+    "disability:Y": "الإعاقة: Y",
+    "imd_band:0-10%": "شريحة IMD: 0-10%",
+    "imd_band:10-20": "شريحة IMD: 10-20",
+    "imd_band:20-30%": "شريحة IMD: 20-30%",
+    "imd_band:30-40%": "شريحة IMD: 30-40%",
+    "imd_band:40-50%": "شريحة IMD: 40-50%",
+    "imd_band:50-60%": "شريحة IMD: 50-60%",
+    "imd_band:60-70%": "شريحة IMD: 60-70%",
+    "imd_band:70-80%": "شريحة IMD: 70-80%",
+    "imd_band:80-90%": "شريحة IMD: 80-90%",
+    "imd_band:90-100%": "شريحة IMD: 90-100%",
+    "imd_band:NA": "شريحة IMD: NA",
+    "age_band:0-35": "الفئة العمرية: 0-35",
+    "age_band:35-55": "الفئة العمرية: 35-55",
+    "age_band:55<=": "الفئة العمرية: 55<="
+   },
+   "png_px": [
+    4500,
+    1860
+   ],
+   "png_dpi": 300,
+   "outputs_sha256": {
+    ".svg": "68b5d6f3808f64e7ec44d3e9a9c82ef509c51fc55032dafc84ea704ed7e666fc",
+    ".png": "2a1d2df5f71cafa04dc06b68fb6e57a0d4d62277982f58fbb8e2ccf17b519073",
+    "_plotted.csv": "2f8d3f322abd423163c09f37dafae1bd3509d725a7ce49c343442a0b566c7e85"
+   }
+  }
+ },
+ "script": {
+  "head": "0fbfa76654a10c9255e3c5d4b512bf91433099ad",
+  "script_last_commit": null,
+  "script_uncommitted_changes": true
+ },
+ "unchanged": "no value recomputed, filtered or dropped; zero/δ lines and original axis-range rules kept"
+}
