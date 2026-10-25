@@ -36,7 +36,8 @@ import derive_conf2014_figures as S  # noqa: E402  (shared SVG/PNG helpers, same
 
 OUT = ROOT / "deliverables" / "06-final-thesis" / "figures"
 DEV = ROOT / "results" / "dev2013"
-PAL9 = ["#2b6cb0", "#d9822b", "#2f855a", "#9b2c2c", "#6b46c1", "#b7791f", "#2c7a7b", "#c53030", "#4a5568"]
+# distinguishable categorical palette (tab10 order; olive darkened for legible legend text)
+PAL9 = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#8c8c00"]
 
 
 # ----------------------------------------------------------------------------------------------- data
@@ -97,7 +98,7 @@ def fig_long_tail(df: pd.DataFrame, summ: pd.DataFrame) -> str:
     body.append(f"<rect x='{L}' y='{top}' width='{R - L}' height='{bot - top}' fill='none' stroke='{S.INK}'/>"
                 f"<line x1='{x(0)}' y1='{y(0)}' x2='{x(1)}' y2='{y(1)}' stroke='{S.REF}' stroke-dasharray='6 4'/>"
                 f"<line x1='{x(0.2):.1f}' y1='{top}' x2='{x(0.2):.1f}' y2='{bot}' stroke='{S.REF}' stroke-width='1.5' stroke-dasharray='3 3'/>"
-                + S.text(x(0.2) + 6, top + 18, "أعلى 20% من الموارد", 12, anchor="start", fill=S.REF))
+                + S.text(x(0.2) + 8, bot - 12, "أعلى 20% من الموارد", 12, anchor="start", fill=S.REF))  # below every curve
     body.append(S.text(x(0.62), y(0.55) + 4, "التوزيع المتساوي", 12, fill=S.REF, rotate=-41))
     for k, r in enumerate(summ.itertuples()):
         g = df[df["presentation"] == r.presentation]
@@ -122,20 +123,30 @@ AT_AR = {"resource": "مورد", "oucontent": "محتوى OU", "forumng": "من�
          "sharedsubpage": "صفحة فرعية مشتركة", "folder": "مجلد", "repeatactivity": "نشاط مكرر"}
 
 
+def at_label(at: str) -> str:
+    ar = AT_AR.get(at, at)
+    return at if ar == at else f"{ar} ({at})"                 # no "dataplus (dataplus)"
+
+
 def fig_activity(df: pd.DataFrame, e5_share: float) -> str:
     n = len(df)
     W, H = 1150, 150 + 34 * n
     L, R, top, bot = 330, W - 120, 80, 80 + 34 * n
     hi = float(df["click_share"].max()) * 1.1
     x = S.scale(0, hi, L, R)
-    body = S.xaxis(x, 0, hi, top - 10, bot, "حصة النقرات (مرجّحة بالنقرات على العروض التسعة)")
+    body = [f"<line x1='{x(0):.1f}' y1='{bot}' x2='{x(hi):.1f}' y2='{bot}' stroke='{S.INK}'/>"]
+    for v in S.ticks(0, hi):                                  # percent ticks (0%, 5%, … 25%)
+        body.append(f"<line x1='{x(v):.1f}' y1='{top - 10}' x2='{x(v):.1f}' y2='{bot}' stroke='{S.GRID}'/>"
+                    f"<line x1='{x(v):.1f}' y1='{bot}' x2='{x(v):.1f}' y2='{bot + 5}' stroke='{S.INK}'/>"
+                    + S.text(x(v), bot + 20, f"{100 * v:g}%", 12))
+    body.append(S.text((x(0) + x(hi)) / 2, bot + 44, "حصة النقرات (مرجّحة بالنقرات على العروض التسعة)", 14))
     body.append(f"<line x1='{x(0)}' y1='{top - 10}' x2='{x(0)}' y2='{bot}' stroke='{S.INK}'/>")
     for k, r in enumerate(df.itertuples()):
         yy = top + 17 + 34 * k
         col = PAL9[1] if r.navigational_E5 else PAL9[0]
         body.append(f"<rect x='{x(0):.1f}' y='{yy - 11}' width='{max(x(r.click_share) - x(0), 1):.1f}' height='22' fill='{col}' fill-opacity='0.85'/>"
                     + S.text(x(r.click_share) + 8, yy + 5, pct(r.click_share), 12, anchor="start")
-                    + S.text(L - 12, yy + 5, f"{AT_AR.get(r.activity_type, r.activity_type)} ({r.activity_type})", 13, anchor="end"))
+                    + S.text(L - 12, yy + 5, at_label(r.activity_type), 13, anchor="end"))
     lx = R - 330
     body.append(f"<rect x='{lx}' y='{top + 120}' width='18' height='18' fill='{PAL9[0]}'/>"
                 + S.text(lx + 26, top + 134, "أنواع غير تنقلية (أهداف التوصية)", 13, anchor="start")
