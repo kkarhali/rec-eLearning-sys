@@ -1,6 +1,6 @@
 # قائمة شروط وسم freeze-03 (D-62) — مولَّدة بـ`python3 -m src.ml.experiments.freeze_config --checklist`
 
-الوقت: 2026-10-25 20:34:19
+الوقت: 2026-10-25 23:03:41
 
 | # | الشرط | الحالة | الدليل | المسؤول |
 |---|---|---|---|---|
@@ -13,7 +13,7 @@
 | ش7 | run_confirmatory + تشغيل جاف كامل على 2013 | ✓ | results/dryrun2013/run_meta.json (status=completed، audit_2014.ok=True، guard_rehearsal=pass، resume_simulation.ok=True، commit 20eeb98240)، dryrun_vs_dev max |Δ| = 0.0 (≤ 1e-6، عدا λ) | مهندس ML |
 | ش8 | مراجعة الزميل وتوقيعه | ✓ | docs/meetings/peer-signoff-freeze03-final.md (السطر الحرفي «الحكم النهائي: موافق»: موجود؛ ويقرؤه المشرف عند ش10، D-80/D-84) | الزميل الباحث |
 | ش9 | تحديث الوثيقة 02 بالملحق ب وREADME | ✓ | docs/working/02-hypotheses-algorithms.md، src/ml/README.md | مصمّم الفرضيات + مهندس ML |
-| ش10 | تحقق المشرف وتوقيعه ثم الوسم | ✗ | §8 من محضر الاجتماع 03؛ git tag freeze-03 | المشرف ← مهندس ML |
+| ش10 | تحقق المشرف وتوقيعه ثم الوسم | ✓ | §8 من محضر الاجتماع 03؛ git tag freeze-03 | المشرف ← مهندس ML |
 
 ## SHA-256
 - `freeze03_config.json`: `aba1545671bc73a5314043a67c323494f94ec54c30e2e10dd33051fcf5b090cf`
