@@ -115,6 +115,21 @@ def build_config() -> dict:
     return cfg
 
 
+PEER_SIGNOFF = "docs/meetings/peer-signoff-freeze03-final.md"
+PEER_VERDICT = "الحكم النهائي: موافق"
+
+
+def peer_final_approval(path: Path) -> bool:
+    """ش8 (D-80 as amended by D-84): the sign-off file holds the literal line «الحكم النهائي: موافق».
+
+    Only Markdown emphasis/heading/list markers around the line are ignored; any other text on the line (e.g.
+    «الحكم النهائي: غير موافق في الحالة الحالية») does not count. A missing file is ✗."""
+    if not path.is_file():
+        return False
+    return any(line.strip().strip("*#>-_ \t").strip() == PEER_VERDICT
+               for line in path.read_text(encoding="utf-8").splitlines())
+
+
 def checklist() -> str:
     def ok(b):
         return "✓" if b else "✗"
@@ -126,14 +141,14 @@ def checklist() -> str:
     dry = data.RESULTS_DIR / "dryrun2013" / "run_meta.json"
     drym = json.loads(dry.read_text()) if dry.exists() else {}
     cfgp = FROZEN / "freeze03_config.json"
-    peer = sorted((data.REPO_ROOT / "docs" / "meetings").glob("*peer*freeze*"))      # ش8 = the freeze-03 sign-off
+    peer = data.REPO_ROOT / PEER_SIGNOFF
     rmeta = json.loads((DEV / "repro_meta.json").read_text()) if (DEV / "repro_meta.json").exists() else {}
     dvd = data.RESULTS_DIR / "dryrun2013" / "dryrun_vs_dev.csv"
     dvd_max = None
     if dvd.exists():
         import pandas as pd
         dv = pd.read_csv(dvd)
-        dv = dv[~dv.astype(str).apply(lambda r: "λ" in " ".join(r), axis=1)]    # H4-a λ row differs by design
+        dv = dv[~dv.apply(lambda r: "λ" in " ".join(map(str, r)), axis=1)]    # H4-a λ row differs by design (D-84)
         dvd_max = float(dv["max_abs_diff"].max()) if len(dv) else None
     sim = drym.get("resume_simulation", {})
     dry_ok = (drym.get("status") == "completed" and drym.get("audit_2014", {}).get("ok") is True
@@ -161,8 +176,9 @@ def checklist() -> str:
          f"guard_rehearsal={drym.get('guard_rehearsal', {}).get('check_guards_with_tag_at_HEAD')}، "
          f"resume_simulation.ok={sim.get('ok')}، commit {str(drym.get('commit'))[:10]})، dryrun_vs_dev max |Δ| = {dvd_max} (≤ 1e-6، عدا λ)",
          "مهندس ML"),
-        ("ش8", "مراجعة الزميل وتوقيعه", any("موافق" in p.read_text() and "غير موافق في الحالة الحالية" not in p.read_text()
-                                            for p in peer), "docs/meetings/*peer*", "الزميل الباحث"),
+        ("ش8", "مراجعة الزميل وتوقيعه", peer_final_approval(peer),
+         f"{PEER_SIGNOFF} (السطر الحرفي «{PEER_VERDICT}»: {'موجود' if peer_final_approval(peer) else 'غائب'}؛ "
+         "ويقرؤه المشرف عند ش10، D-80/D-84)", "الزميل الباحث"),
         ("ش9", "تحديث الوثيقة 02 بالملحق ب وREADME",
          "جدول 2-ب" in doc02 and "[x_H1]" not in doc02 and "[تُعاد بعد D-51]" not in doc02,
          "docs/working/02-hypotheses-algorithms.md، src/ml/README.md", "مصمّم الفرضيات + مهندس ML"),

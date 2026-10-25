@@ -11,7 +11,7 @@
 bash data/download.sh                     # أو: python3 data/verify_oulad.py
 
 # 1) اختبارات الوحدة (≈ 3 ثوانٍ، لا تحتاج البيانات الخام)
-python3 -m unittest discover -s src/ml/tests -v   # 121 اختباراً (≈ 6 ث)
+python3 -m unittest discover -s src/ml/tests -v   # 128 اختباراً (≈ 6 ث)
 
 # 2) الإحصاءات الوصفية + إعادة إنتاج فحص الزميل 0.2 وفحص المشرف (≈ 25 ثانية)
 python3 -m src.ml.experiments.eda
@@ -111,7 +111,7 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
 | `experiments/eda.py` | الإحصاءات الوصفية وإعادة إنتاج الفحوص الاستكشافية | T1 |
 | `experiments/run_baselines.py` | B1–B10 → `results/dev2013/` | D-10، D-14، D-37 |
 | `experiments/report.py` | يبني `summary.md` من ملفات CSV فقط | — |
-| `tests/` | 121 اختباراً unittest (المقاييس، التقسيم والتسرب، الإشارة، النماذج وأمثلة الوثيقة، GRU وفحص التدرج والقناع، المتعلمون، الهجين والإحصاء، الخدمة، قراءة D-47 وغاية D-76، حراس E10 والاستئناف D-75) | §4.11، §5.9، ADR-004 |
+| `tests/` | 128 اختباراً unittest (المقاييس، التقسيم والتسرب، الإشارة، النماذج وأمثلة الوثيقة، GRU وفحص التدرج والقناع، المتعلمون، الهجين والإحصاء، الخدمة، قراءة D-47 وغاية D-76، حراس E10 والاستئناف D-75) | §4.11، §5.9، ADR-004 |
 
 كل النماذج ترث `models.base.Recommender` (`_fit`/`_score`/`param_space`)؛ ملامح المتعلم تأخذ `TrainData.all_events`
 (كل الأنواع حتى t₀) ولا تُحمَّل السمات الحساسة إلا لتحليل الإنصاف (D-21).
@@ -203,8 +203,8 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
 - **`freeze03_config.json`:** حقلا `date` و`git_commit_when_written` يُعاد كتابتهما في كل `reproduce_dev`، فتتغير بصمته
   (محجوبان في `repro_diff.md`؛ والحراس يفحصون بصمات الملفات الثلاثة المجمَّدة وMD5 الخام لا بصمته). بصمته بعد `reproduce_dev`
   النهائي (نسخة الوسم ما لم يُعَد التشغيل): `b1981f1fc46aec268265eedc852862bda10927127c41a4326787aac45bc54580`.
-- **D-80:** ✓ في ش8 من القائمة المولَّدة شرط لازم غير كافٍ (فحص نصي)؛ الحجة سطر «الحكم النهائي: موافق» في
-  `docs/meetings/peer-signoff-freeze03-final.md` يقرؤه المشرف. لا يُعدَّل `freeze_config.py`.
+- **D-80 بتعديل D-84:** فحص ش8 هو السطر الحرفي «الحكم النهائي: موافق» في `docs/meetings/peer-signoff-freeze03-final.md`
+  وحده (`peer_final_approval`؛ الملف الغائب أو «غير موافق…» ✗)، ويقرؤه المشرف عند ش10.
 
 ## القرارات التنفيذية — كلها مثبَّتة
 
@@ -236,7 +236,7 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
 | ش5 | reproduce_dev + repro_diff.md | ✗ | results/dev2013/repro_diff.md | مهندس ML |
 | ش6 | freeze03_config.json + SHA-256 | ✓ | results/frozen/freeze03_config.json | مهندس ML |
 | ش7 | run_confirmatory + تشغيل جاف كامل على 2013 | ✗ | src/ml/experiments/run_confirmatory.py، results/dryrun2013/ | مهندس ML |
-| ش8 | مراجعة الزميل وتوقيعه | ✗ | docs/meetings/*peer* | الزميل الباحث |
+| ش8 | مراجعة الزميل وتوقيعه | ✗ | docs/meetings/peer-signoff-freeze03-final.md (السطر الحرفي «الحكم النهائي: موافق») | الزميل الباحث |
 | ش9 | تحديث الوثيقة 02 بالملحق ب وREADME | ✓ | docs/working/02-hypotheses-algorithms.md، src/ml/README.md | مصمّم الفرضيات + مهندس ML |
 | ش10 | تحقق المشرف وتوقيعه ثم الوسم | ✗ | §8 من محضر الاجتماع 03؛ git tag freeze-03 | المشرف ← مهندس ML |
 
@@ -248,8 +248,8 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
   `resume_simulation.ok=true` (الحالات الثلاث)، LOCK بـ35 ملفاً، 7 SVG و7 PNG؛ `dryrun_vs_dev`: أقصى |Δ| = 0 عدا AUC لـH4-أ
   (0.0036، λ مجمَّد مقابل λ متداخل). قُتل التشغيل الأول عند سقف الساعتين بعد LOCK فأُعيد الطور 2 وحده بعد `verify_lock`
   (95.7 دقيقة): `results/dryrun2013/deviations.md` «وقائع التنفيذ».
-- **قائمة الشروط:** `freeze_config --checklist` يتعطل بعد التشغيل النهائي (`TypeError` في مرشّح λ لـش7 تحت استنتاج النصوص في
-  pandas 3)؛ ولا يُعدَّل قبل الوسم (D-80). الجدول أعلاه ينتظر قرار المنسّق والمشرف.
+- **قائمة الشروط (D-84):** انهار مولّد القائمة على pandas 3.0.5 (`TypeError` في مرشّح صف λ لـش7)، وأُصلح في commit الإصلاح
+  قبل الوسم (`" ".join(map(str, r))`، اختبار `test_freeze_config`)، ويُعاد `reproduce_dev` عليه ثم يُستبدل الجدول أعلاه بالمولَّد.
 
 ## التعارضات بين المسوّدة وADR وأخطاء الأمثلة
 
