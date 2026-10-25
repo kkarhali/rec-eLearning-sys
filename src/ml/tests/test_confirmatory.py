@@ -93,6 +93,68 @@ class TestDryRunRehearsal(unittest.TestCase):
             RC.data.RESULTS_DIR = old
 
 
+class TestPeerM1M2M3(unittest.TestCase):
+    """Peer review of freeze-03: m2 (phase 2 verifies LOCK and HEAD = tag), m3 (raw MD5 compared to the frozen value)."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.d = Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def _lock(self, commit="aaa", tag="freeze-03"):
+        import json
+        (self.d / "verdicts.csv").write_text("h,v\n")
+        (self.d / "verdicts.md").write_text("# v\n")
+        (self.d / "LOCK").write_text(json.dumps({"tag": tag, "commit": commit,
+                                                  "verdicts_csv_sha256": RC.sha256(self.d / "verdicts.csv"),
+                                                  "verdicts_md_sha256": RC.sha256(self.d / "verdicts.md")}))
+
+    def test_lock_ok(self):
+        self._lock()
+        self.assertEqual(RC.verify_lock(self.d, "freeze-03", dry=False, git=fake_git())["commit"], "aaa")
+        self.assertEqual(RC.verify_lock(self.d, "freeze-03", dry=True, git=fake_git(tag_exists=False))["commit"], "aaa")
+
+    def test_lock_refusals(self):
+        with self.assertRaises(RC.GuardError):                       # no LOCK
+            RC.verify_lock(self.d, "freeze-03", dry=False, git=fake_git())
+        self._lock()
+        with self.assertRaises(RC.GuardError):                       # HEAD moved after phase 1
+            RC.verify_lock(self.d, "freeze-03", dry=False, git=fake_git(head="bbb", tag="bbb"))
+        with self.assertRaises(RC.GuardError):                       # HEAD is not the tag
+            RC.verify_lock(self.d, "freeze-03", dry=False, git=fake_git(tag="ccc"))
+        with self.assertRaises(RC.GuardError):                       # no tag in confirmatory mode
+            RC.verify_lock(self.d, "freeze-03", dry=False, git=fake_git(tag_exists=False))
+        (self.d / "verdicts.md").write_text("# edited after LOCK\n")
+        with self.assertRaises(RC.GuardError):
+            RC.verify_lock(self.d, "freeze-03", dry=True, git=fake_git())
+
+    def test_raw_md5_compared(self):
+        import hashlib
+        import json
+        raw, fz = self.d / "raw", self.d / "frozen"
+        raw.mkdir(), fz.mkdir()
+        names = ["assessments.csv", "courses.csv", "studentAssessment.csv", "studentInfo.csv",
+                 "studentRegistration.csv", "studentVle.csv", "vle.csv"]
+        for n in names:
+            (raw / n).write_text(n)
+        for n in ("mde80.json", "hybrid_frozen.json", "risk_final.json"):
+            (fz / n).write_text("{}")
+        cfg = {"sha256": {n: RC.sha256(fz / n) for n in ("mde80.json", "hybrid_frozen.json", "risk_final.json")},
+               "raw_md5": {n: {"md5": hashlib.md5(n.encode()).hexdigest()} for n in names}}
+        (fz / "freeze03_config.json").write_text(json.dumps(cfg))
+        old = RC.FROZEN, RC.DEV, RC.data.RAW_DIR
+        try:
+            RC.FROZEN, RC.DEV, RC.data.RAW_DIR = fz, fz, raw
+            self.assertEqual(len(RC.check_integrity()["raw_md5_checked"]), 7)
+            (raw / "studentVle.csv").write_text("changed")
+            with self.assertRaises(RC.GuardError):
+                RC.check_integrity()
+        finally:
+            RC.FROZEN, RC.DEV, RC.data.RAW_DIR = old
+
+
 class TestVerdicts(unittest.TestCase):
     def test_table(self):
         idx = [f"P{i}" for i in range(13)]

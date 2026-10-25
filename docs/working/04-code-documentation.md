@@ -16,7 +16,7 @@
 2. **خدمة توصية بنمط إعادة التشغيل (Replay)** (`src/ml/serving.py` ثم `src/backend/`): تأخذ تسجيلاً ويوماً t، وتعيد ما كان سيوصى به عند ذلك اليوم مع تفسير كل توصية، من التركيبة المجمَّدة على بيانات 2013، دون أن تستعمل أي حدث بعد اليوم t.
 3. **واجهة عربية RTL** (`src/frontend/`): صفحة للمتعلم (أفضل 10 توصيات وتفسيرها) ولوحة للمدرّس (الملامح والعناقيد ودرجة الخطر النسبية)، وتعمل فوق الخدمة أو بوضع محاكاة مستقل.
 
-وحدة التوصية هي المورد غير التنقّلي `id_site` داخل عرض المقرر (D-04)، والمتعلم هو التسجيل (module, presentation, student)، ولكل عرض نموذجه المستقل (D-05).
+وحدة التوصية المورد غير التنقّلي `id_site` داخل عرض المقرر، والمتعلم هو التسجيل (D-04)، ولكل عرض نموذجه المستقل (D-05).
 
 ## 1.2 خريطة المستودع
 
@@ -159,12 +159,12 @@ python3 -m src.ml.experiments.reproduce_dev              # ≈ 50 دقيقة ع�
 python3 -m src.ml.experiments.reproduce_dev --diff-only  # إعادة المقارنة وحدها مع اللقطة الأخيرة
 ```
 
-يحفظ الأمر نسخة من `results/dev2013/` و`results/frozen/` في `data/repro_snapshot/` ويفرغ `data/cache/`، ثم يشغّل كل خطوة في عملية مستقلة بالترتيب: `eda` ثم `run_baselines` ثم `gru_sanity` ثم `run_gru` ثم `run_ablation` ثم `learner_analysis` ثم `run_hybrid` ثم `power` ثم `risk_final` ثم `build_artifacts` ثم `freeze_config` ثم `report`. بعد ذلك يقارن كل ملف بلقطته حرفياً بعد حجب الحقول المتقلبة وحدها (الأزمنة والتواريخ وhash الـcommit والذاكرة والسرعة)، ويكتب `results/dev2013/repro_diff.md` (الحالة «مطابق» أو «فروق») و`repro_meta.json` (زمن كل خطوة). **تُستكمل بعد التشغيل:** حالة `repro_diff.md` على commit نظيف (§8.4). والتسلسل اليدوي المكافئ لما في `src/ml/README.md`:
+يحفظ الأمر نسخة من `results/dev2013/` و`results/frozen/` في `data/repro_snapshot/` ويفرغ `data/cache/`، ثم يشغّل الخطوات الاثنتي عشرة (من `eda` إلى `report`) كلاً في عملية مستقلة. بعد ذلك يقارن كل ملف بلقطته حرفياً بعد حجب الحقول المتقلبة وحدها (الأزمنة والتواريخ وhash الـcommit والذاكرة والسرعة)، ويكتب `results/dev2013/repro_diff.md` (الحالة «مطابق» أو «فروق») و`repro_meta.json` (زمن كل خطوة). **تُستكمل بعد التشغيل:** حالة `repro_diff.md` على commit نظيف (§8.4). والتسلسل اليدوي المكافئ لما في `src/ml/README.md`:
 
 ```
 python3 -m unittest discover -s src/ml/tests -v
 python3 -m src.ml.experiments.eda               # ≈ 25-40 ث
-python3 -m src.ml.experiments.run_baselines     # ≈ 8 د (473.5 ث في run_meta.json الحالي)
+python3 -m src.ml.experiments.run_baselines     # ≈ 8 د (473.5 ث في run_meta.json)
 python3 -m src.ml.experiments.gru_sanity        # ≈ 1 د؛ بوابة: لا نتائج GRU بلا اجتيازها
 python3 -m src.ml.experiments.run_gru           # 15.2 د
 python3 -m src.ml.experiments.run_ablation      # 19.2 د
@@ -175,7 +175,7 @@ python3 -m src.ml.experiments.risk_final        # نماذج الخطر النه
 python3 -m src.ml.experiments.build_artifacts   # ≈ 1 د؛ لازمة قبل الخادم
 ```
 
-المجموع المقيس في تشغيل الفريق ≈ 48 دقيقة فعلية و≈ 4.8 ساعة CPU تحت سقف 8 ساعات (D-34)، وأول `reproduce_dev` كامل استغرق 53.6 دقيقة. الأوامر تعيد كتابة ملفات `results/` المتتبَّعة؛ تتطابق المقاييس لأن كل شيء حتمي (§8)، وتتغير الأزمنة والتواريخ فقط. `run_hybrid` لا يعتمد على كاش جاهز: يبني درجات المكوّنات في `data/cache/components/` (≈ 1.1 GB) في خطوته الأولى ويعيد استعمال درجات GRU التي كتبها `run_gru`.
+المجموع ≈ 48 دقيقة فعلية و≈ 4.8 ساعة CPU (سقف D-34: 8 ساعات)، وأول `reproduce_dev` كامل استغرق 53.6 دقيقة. تتطابق المقاييس لأن كل شيء حتمي (§8)، وتتغير الأزمنة والتواريخ فقط. `run_hybrid` لا يعتمد على كاش جاهز: يبني درجات المكوّنات في `data/cache/components/` (≈ 1.1 GB) في خطوته الأولى ويعيد استعمال درجات GRU التي كتبها `run_gru`.
 
 **أرقام مرجعية للمطابقة** (مأخوذة من `results/dev2013/`، المهمة A، الشريحة `all`، متوسط ثم متوسط الأصول، تقريب 3 منازل):
 
@@ -244,7 +244,7 @@ python3 -m src.backend --warm                   # http://127.0.0.1:8000 (الو�
 - **المحمِّلات:** `load_vle`، `load_assessments`، `load_courses`، `load_student_info(include_sensitive=False)`، `load_student_assessment`، `load_registrations`، كلها تقبل `role` (`dev` أو `conf` أو `all`) و`allow_confirmatory`. وترشّح الصفوف عند القراءة، فلا يمر صف 2014 إلى الذاكرة بلا إذن.
 - **`load_daily_events(role, allow_confirmatory, use_cache)`:** يعيد صفاً لكل (presentation, id_student, id_site, date) بعد جمع `sum_click` للصفوف المكررة (D-06)، بأعمدة `clicks` و`n_rows` و`activity_type` و`week_from` و`week_to`. الذاكرة المؤقتة تُبطَل إذا تغير حجم `studentVle.csv` أو `vle.csv` (`raw_fingerprint()`).
 - **`PresentationData`** (dataclass): `name` و`events` و`items` و`assessments` و`students` (بلا السمات الحساسة) و`registrations` و`length`. تبنيها `load_presentation(name)` وتحمّل التسعة `load_dev_presentations()`.
-- **أدوات:** `target_mask` (قناع الموارد القابلة للتوصية)، `day_baskets` (سلال اليوم غير المرتبة)، `next_assessment_gap` (a(d) = أقرب موعد تقييم منشور)، `proximity_bin` (فئات {0–3، 4–7، 8–14، >14} يوماً).
+- **أدوات:** `target_mask` و`day_baskets` و`next_assessment_gap` (a(d)) و`proximity_bin` (فئات {0–3، 4–7، 8–14، >14} يوماً).
 
 ### الحاجز ضد 2014 والقراءة المحدودة وسجل الوصول
 
@@ -256,7 +256,7 @@ python3 -m src.backend --warm                   # http://127.0.0.1:8000 (الو�
 2. ترفض صراحةً أي قارئ يعيد أعمدة زائدة وتسجّل `failure`؛
 3. تكتب `success` مع الزمن وMD5 للملف والأعمدة وعدد المعرّفات و`commit` وعلم `dirty`، في `results/access_log.jsonl`.
 
-ثلاثة اختبارات وحدة في `test_splits.py` تتحقق من الأعمدة والسجل وفشل الأعمدة الزائدة وبقاء بقية الحاجز سليماً. وفي الملف سجلات التشغيلات الفعلية لـ`learner_analysis` و`build_artifacts` (الصيغة الأقدم سطر واحد لكل قراءة، والأحدث سطران `attempt` و`success`).
+ثلاثة اختبارات في `test_splits.py` تتحقق من الأعمدة والسجل ورفض الأعمدة الزائدة وسلامة بقية الحاجز. وفي الملف سجلات التشغيلات الفعلية لـ`learner_analysis` و`build_artifacts` (الصيغة الأقدم سطر واحد لكل قراءة، والأحدث سطران `attempt` و`success`).
 
 ## 3.3 `signals.py`: عائلة الإشارة المتداخلة
 
@@ -276,17 +276,12 @@ W_ui(t₀) = Σ_{d ∈ D_ui} exp(−(t₀−d)/τ) · (1 + β·log1p(c_uid / m_t
 
 ## 3.4 `splits.py`: القطع الزمني والمهمتان A وB بلا تسرب
 
-لكل عرض ونقطة قطع t ∈ {70، 126، 182} (`CUTS`) وأفق 14 يوماً (`HORIZON`) طوران:
+لكل عرض ونقطة قطع t ∈ {70، 126، 182} (`CUTS`) وأفق 14 يوماً (`HORIZON`) طوران: `tune` (تدريب d ≤ t−14 وتحقق (t−14، t]) و`test` (تدريب d ≤ t واختبار (t، t+14]).
 
-| الطور | التدريب | النافذة |
-|---|---|---|
-| `tune` | d ≤ t−14 | تحقق (t−14، t] |
-| `test` | d ≤ t | اختبار (t، t+14] |
-
-- **`TrainData`** هو الكائن الوحيد الذي يصل إلى النماذج، ويُبنى من صفوف d ≤ t₀ فقط: `users` و`items` (الكتالوج المرتب) و`item_type` والأحداث (`ev_u`، `ev_i`، `ev_d`، `ev_c`) و`seen` (قناع U×I لما زاره المتعلم) و`all_events` (كل الأنواع حتى t₀ للسياق وملامح المتعلم) و`assessments` و`tiebreak` و`type_medians`.
-- **`Targets`** كائن للتقييم وحده: `target` و`unreach` (أهداف خارج الكتالوج، وتُحسب إخفاقاً) و`seen`. والدالة `Targets.task("A"|"B")` تعيد (الأهداف، المرشحين، غير القابلة للوصول، المقيَّمين). المهمة A (الأساسية): أهداف = موارد النافذة غير المزارة قبل t₀، ومرشحون = الكتالوج ناقص المزار. والمهمة B: كل موارد النافذة والمرشحون كل الكتالوج.
-- **`build_train(p, t0, cut, phase, exclusion)`** يبني منظر التدريب لأي يوم، وتعيد استعماله خدمة إعادة التشغيل لأي يوم t (D-49). و**`make_fold(p, cut, phase, exclusion)`** يعيد `(TrainData, Targets)` ويرفض نافذة تتجاوز طول العرض. و**`check_no_overlap`** يؤكد برمجياً أن التدريب والنافذة منفصلان.
-- **كسر التعادل:** `tiebreak_keys(pres, cut, students, items)` يولّد مفاتيح عشوائية حتمية من مزيج (عرض، قطع، متعلم، مورد) بدالة splitmix64، **مطابقة لكل النماذج**، فلا يربح نموذج من ترتيب المعرّفات أو الشعبية عند التعادل.
+- **`TrainData`** الكائن الوحيد الذي يصل إلى النماذج، من صفوف d ≤ t₀ فقط: `users` و`items` (الكتالوج) و`item_type` والأحداث (`ev_u`، `ev_i`، `ev_d`، `ev_c`) و`seen` (قناع U×I) و`all_events` (كل الأنواع للسياق وملامح المتعلم) و`assessments` و`tiebreak`.
+- **`Targets`** للتقييم وحده: `target` و`unreach` (أهداف خارج الكتالوج تُحسب إخفاقاً) و`seen`؛ و`Targets.task("A"|"B")` تعيد (الأهداف، المرشحين، غير القابلة للوصول، المقيَّمين). المهمة A (الأساسية): أهداف = موارد النافذة غير المزارة قبل t₀ ومرشحون = الكتالوج ناقص المزار؛ والمهمة B: كل موارد النافذة والمرشحون كل الكتالوج.
+- **`build_train`** يبني منظر التدريب لأي يوم (وتعيد استعماله الخدمة، D-49)، و**`make_fold`** يعيد `(TrainData, Targets)`، و**`check_no_overlap`** يؤكد انفصال التدريب والنافذة.
+- **كسر التعادل:** `tiebreak_keys(pres, cut, students, items)` مفاتيح حتمية بدالة splitmix64 **مطابقة لكل النماذج**، فلا يربح نموذج من ترتيب المعرّفات عند التعادل.
 
 ## 3.5 `metrics.py`: المقاييس على الكتالوج الكامل
 
@@ -302,10 +297,9 @@ S = model.score()                                        # مصفوفة درجا
 model.recommend(student_id, k=10, exclude_seen=True)     # قائمة id_site
 ```
 
-- يطبّق الصنف المشتق `_fit(train)` و`_score()` ويعلن `param_space()` (قائمة قواميس إعدادات) ثم الخصائص `name` و`stochastic` (إن كان يُقيَّم بخمس بذور) و`tasks`.
-- `exclude_seen=True` هي المهمة A، و`False` المهمة B. والترتيب النهائي بـ`metrics.rank_order` ومفاتيح `train.tiebreak`.
-- `grid(**axes)` يولّد الجداء الديكارتي للإعدادات، و`sample_space(space, budget, name)` يختار ≤ budget إعداداً بعينة عشوائية ببذرة ثابتة مشتقة من اسم النموذج.
-- السجلات: `BASELINES` (B1–B10) و`COMPONENTS` (C6 وC7)، يستهلكها الحزام والهجين و`Engine` بلا تعديل.
+- يطبّق الصنف المشتق `_fit` و`_score` ويعلن `param_space()` والخصائص `name` و`stochastic` و`tasks`؛ و`exclude_seen=True` هي المهمة A.
+- `grid(**axes)` جداء ديكارتي للإعدادات، و`sample_space(space, budget, name)` عينة ≤ budget ببذرة مشتقة من اسم النموذج.
+- السجلات `BASELINES` (B1–B10) و`COMPONENTS` (C6 وC7) يستهلكها الحزام والهجين و`Engine` بلا تعديل.
 
 | المعرّف | الملف | الفكرة | فضاء الإعدادات |
 |---|---|---|---|
@@ -341,23 +335,15 @@ model.recommend(student_id, k=10, exclude_seen=True)     # قائمة id_site
 
 **البنية** (`models/gru_lite.py`، مواصفات D-35): طبقة GRU واحدة بأبعاد d_e = d_h = 64. لكل متعلم متتالية سلال أيام نشطة؛ تمثيل السلة e = متوسط تضمينات موارد الكتالوج فيها، والأيام الفارغة ليست خطوات. البوابات: z = σ(eW_z + hU_z + b_z)، r = σ(eW_r + hU_r + b_r)، h̃ = tanh(eW_h + (r⊙h)U_h + b_h)، h′ = (1−z)⊙h + z⊙h̃، والخرج o = h′V + c (لوجيتات على الكتالوج). الاصطلاح متجه صف، ومصفوفات الأوزان `MATS = (E, Wz, Wr, Wh, Uz, Ur, Uh, V)` والانحيازات `BIASES = (bz, br, bh, c)`.
 
-**التدريب:**
-
-- الخسارة: انتروبيا متقاطعة متعددة الوسوم بهدف مطبَّع y = 1[j ∈ S_tgt]/\|S_tgt\| حيث الهدف `next` (السلة التالية) أو `next-new` (التالية ناقص ما زاره). تُقنَّع الأهداف الفارغة والخطوات المحشوة، وتُضاف عقوبة λΣ‖M‖² بـ`L2 = 1e-5` على المصفوفات لا الانحيازات.
-- المُحسِّن `Adam` (0.9، 0.999، 1e-8، مع تصحيح الانحياز) بقص عام للنظيم عند `CLIP = 5`.
-- الدفعات `BATCH = 128` تسلسلاً تُخلط ببذرة كل حقبة، و`T_BPTT = 20` خطوة مع تمرير الحالة بين النوافذ بلا تدرج، وحشو يميني بقناع (الخطوة المحشوة تُبقي h).
-- التهيئة: Glorot-uniform لـE وW_* وV، ومتعامدة (QR مع تصحيح الإشارة) لـU_*، وانحيازات صفرية.
-- الإيقاف المبكر: `MAX_EPOCHS = 30`، مقياس NDCG@10 (المهمة A) على التحقق بعد كل حقبة، صبر `PATIENCE = 3`، ويُحتفظ بأفضل حقبة. في طور الاختبار يعاد التدريب بعدد الحقب المختار نفسه والبذرة نفسها. لا ميزات زمنية.
-
-**الدوال الأساسية:** `init_params`، و`window_loss_grad` (أمامي وخلفي يدوي لنافذة)، و`forward_states`، و`train_epoch`، و`infer_logits`، والأصناف `Adam` و`Sequences` (تحويل `TrainData` إلى متتاليات مرتبطة بالمتعلمين) و`GRULite`.
+**التدريب:** خسارة انتروبيا متقاطعة متعددة الوسوم بهدف مطبَّع y = 1[j ∈ S_tgt]/\|S_tgt\| حيث الهدف `next` (السلة التالية) أو `next-new` (التالية ناقص ما زاره)، مع تقنيع الأهداف الفارغة والخطوات المحشوة وعقوبة `L2 = 1e-5` على المصفوفات لا الانحيازات؛ والمُحسِّن `Adam` بقص عام للنظيم `CLIP = 5`؛ والدفعات `BATCH = 128` مخلوطة ببذرة كل حقبة، و`T_BPTT = 20` مع تمرير الحالة بين النوافذ بلا تدرج وحشو بقناع؛ والتهيئة Glorot-uniform لـE وW_* وV ومتعامدة لـU_*؛ والإيقاف المبكر بـ`MAX_EPOCHS = 30` و`PATIENCE = 3` على NDCG@10 (المهمة A) مع الاحتفاظ بأفضل حقبة، ثم يعاد التدريب في طور الاختبار بعدد الحقب نفسه والبذرة نفسها. لا ميزات زمنية. الدوال: `init_params` و`window_loss_grad` (أمامي وخلفي يدوي) و`forward_states` و`train_epoch` و`infer_logits` والأصناف `Adam` و`Sequences` و`GRULite`.
 
 **فحوص الصحة** (`experiments/gru_sanity.py` ← `results/dev2013/gru_sanity.md`): S1 فحص تدرج بالفروق المحدودة (ε = 1e-5، ≥ 20 إحداثية لكل مصفوفة، المعيار خطأ نسبي < 1e-4، المقيس 4.28e-6)، S2 فرط ملاءمة 32 تسلسلاً (L − H ≤ 0.05 nat؛ المقيس 0.0012 وHR@10 تدريب = 1)، S3 سلسلة ماركوف اصطناعية على 50 مورداً (TV ≤ 0.10 ومقارنة NDCG@10 بنموذج ماركوف المقدَّر)، S4 طيّة فعلية بلا NaN وبخسارة نهائية ≤ 0.9 الأولى، S5 انحراف خمس بذور (للإبلاغ فقط: 0.0118، يتجاوز الهدف 0.005 ويُوثَّق)، S6 اختبارات القناع. **البوابة:** `run_gru.py` يرفض العمل (`SystemExit`) ما لم يحمل `gru_sanity.json` الحقل `gates_passed`. وتوثّق `gru_sanity.md` أن أول تشغيل لـS2 فشل (L − H = 0.055) لأن الدفعة احتوت بادئات متطابقة بأهداف مختلفة (حد بايز غير قابل للاختزال)، فصُحّح تصميم الاختبار لا النموذج.
 
 ## 3.8 `hybrid.py`: الدمج الرتبي وقاعدة القبول
 
-- **التطبيع:** `rank_normalize(scores, cand)` يحوّل درجات كل مكوّن إلى r̃ ∈ [0,1] داخل مرشحي المتعلم بـ**الرتبة الوسطى عند التعادل** (`mid_ranks`، D-32)، ويعطي 1 إن بقي مرشح وحيد.
-- **الدمج:** `score(u,i) = Σ w_m r̃_m(u,i)` بأوزان على السمبلكس (`fuse`). `simplex_grid(m, step)` يولّد الشبكة: خطوة 1/4 لمكوّنين أو ثلاثة (5 و15 نقطة) و1/3 لأربعة (20 نقطة)، والخطوة 0.1 تحليل حساسية فقط (D-29). `tune_weights` يبحث في الشبكة على نافذة التحقق بمقياس NDCG@10.
-- **القبول:** `accept_component(name, lifts_per_presentation, seed_sd)` يقبل المكوّن إذا استبعد فاصل bootstrap-t (95%) على التسعة رفعَ NDCG@10 المقاس على **نوافذ اختبار 2013** الصفر، وتجاوز الرفع انحراف البذور للمكوّنات العشوائية. `greedy_forward` يبحث جشعاً من أفضل مكوّن منفرد حتى `MAX_COMPONENTS = 4`، وتطبّق **أرضية الشخصنة** (D-30): إن خلت التركيبة المقبولة من مكوّن شخصي {WRMF، Item-kNN، التسلسلي، CBF} أُضيف الأكبر رفعاً ووُسم `floor`.
+- **التطبيع:** `rank_normalize(scores, cand)` يحوّل درجات كل مكوّن إلى r̃ ∈ [0,1] داخل مرشحي المتعلم بـ**الرتبة الوسطى عند التعادل** (`mid_ranks`، D-32).
+- **الدمج:** `score(u,i) = Σ w_m r̃_m` بأوزان على السمبلكس (`fuse`). `simplex_grid(m, step)`: خطوة 1/4 لمكوّنين أو ثلاثة (5 و15 نقطة) و1/3 لأربعة (20 نقطة)، والخطوة 0.1 حساسية فقط (D-29). `tune_weights` يبحث في الشبكة على التحقق بمقياس NDCG@10.
+- **القبول:** `accept_component` يقبل المكوّن إذا استبعد فاصل bootstrap-t (95%) على التسعة رفعَ NDCG@10 على **نوافذ اختبار 2013** الصفر، وتجاوز الرفعُ انحراف البذور للعشوائيات. `greedy_forward` يبحث جشعاً حتى `MAX_COMPONENTS = 4` مع **أرضية الشخصنة** (D-30): إن خلت التركيبة من مكوّن شخصي أُضيف الأكبر رفعاً ووُسم `floor`.
 
 ## 3.9 `stats.py`: الاستدلال الإحصائي بـnumpy وحده
 
@@ -380,18 +366,17 @@ model.recommend(student_id, k=10, exclude_seen=True)     # قائمة id_site
 
 ## 3.10 `harness.py` و`components.py`
 
-`harness.run_job(p, cut, model_names, exclusion, seeds, tasks)` ينفّذ حلقة «اضبط ثم اختبر» لعرض ونقطة قطع: يضبط كل نموذج على نافذة التحقق (≤ `BUDGET = 20` إعداداً بمقياس `NDCG@10`، ببذرة 0 للعشوائيات)، ثم يعيد التدريب على d ≤ t بالإعداد المختار ويقيّم النافذة بخمس بذور (`SEEDS = (0,1,2,3,4)`) للنماذج العشوائية. تُكتب الصفوف بالشرائح `all` و`cold_q1` (الربع الأدنى من الموارد المختلفة بين المقيَّمين) و`top_q4` و`lt5` (أقل من 5 موارد، وصفي) مع `val_NDCG@10` لحساب فجوة التفاؤل (D-29). WRMF تُعامل نقاط تفتيشه (10، 15، 25) إعداداتٍ غير محسوبة في الميزانية (ADR-004 §2.4). و`eval_rows` يكتب صفوفاً بصيغة `baselines.csv` لأي مصفوفة درجات (تستعملها تجارب GRU والاستئصال).
+`harness.run_job(p, cut, model_names, exclusion, seeds, tasks)` ينفّذ حلقة «اضبط ثم اختبر»: يضبط كل نموذج على التحقق (≤ `BUDGET = 20` إعداداً بمقياس `NDCG@10`، ببذرة 0)، ثم يعيد التدريب على d ≤ t ويقيّم النافذة بخمس بذور (`SEEDS`) للعشوائيات. الشرائح: `all` و`cold_q1` و`top_q4` و`lt5` (D-28)، ومعها `val_NDCG@10` لفجوة التفاؤل (D-29). نقاط تفتيش WRMF (10، 15، 25) لا تُحسب إعدادات (ADR-004 §2.4). و`eval_rows` يكتب صفوفاً بصيغة `baselines.csv` لأي مصفوفة درجات.
 
-`components.py` ذاكرة درجات المكوّنات: `save_scores` / `load_scores` / `has_scores` تخزّن مصفوفة float32 U×I لكل (عرض، قطع، مكوّن، طور، بذرة) في `data/cache/components/<pres>_<cut>/<comp>_<phase>_s<seed>.npy`، فيعيد البحث الجشع ترتيب الدرجات دون إعادة التدريب. و`parse_config` يعكس `harness.config_key` (من النص `alpha=20;f=16;signal=L3(tau=14,beta=2)` إلى قاموس)، و`selected_configs` يقرأ الإعدادات المختارة على التحقق للمهمة A من `baselines.csv`.
+`components.py` ذاكرة درجات المكوّنات: `save_scores` / `load_scores` / `has_scores` تخزّن float32 لكل (عرض، قطع، مكوّن، طور، بذرة) في `data/cache/components/`، و`parse_config` يعكس `harness.config_key`، و`selected_configs` يقرأ الإعدادات المختارة للمهمة A.
 
 ## 3.11 `learners.py`: تحليل المتعلمين
 
-- **الملامح:** `vle_features(events, students, t_c)` (M1): `active_days` و`gap_sd` و`first_day` (t_c+1 لمن لا نشاط له) وحصص نقرات 19 نوع نشاط `share_<type>`. `total_clicks` (M0). `academic_features` (M2 = M1 + نسبة الالتزام بالمواعيد `on_time_ratio` ومتوسط الدرجات `mean_score` ومؤشر `no_score` والمحاولات السابقة والساعات المدروسة ويوم التسجيل). لا تدخل السمات الحساسة أي ميزة (D-21).
-- **التجميع:** `kmeans_pp_init` و`lloyd` و`kmeans(X, k, seed, n_init=10)`، ومقاييس الجودة `silhouette` و`silhouette_fast` و`davies_bouldin` و`adjusted_rand_index`، و`choose_k(X)` بقاعدة §4.7.2: أصغر k في أفضل اثنين لكل من silhouette وDBI مع متوسط ARI ≥ 0.8 على خمس بذور، وإلا فأفضل silhouette موسوماً «غير مستقر» (`ClusterChoice.stable`).
-- **التصنيف:** `logistic_fit(X, y, lam)` (L2 بنيوتن، حد قاطع بلا عقوبة) و`logistic_predict`، و`cart_fit(X, y, max_depth=4, min_leaf=20)` و`cart_predict` و`cart_rules` (شجرة جيني)، و`gini`.
-- **التقييم:** `roc_auc` (مان-ويتني بالرتب الوسطى) و`average_precision` و`youden_threshold` و`threshold_metrics` و`brier`.
+- **الملامح:** `vle_features` (M1: `active_days` و`gap_sd` و`first_day` وحصص نقرات 19 نوعاً)، و`total_clicks` (M0)، و`academic_features` (M2 = M1 + الالتزام بالمواعيد ومتوسط الدرجات والمحاولات السابقة وغيرها). لا سمة حساسة (D-21).
+- **التجميع:** `kmeans` (k-means++) و`silhouette_fast` و`davies_bouldin` و`adjusted_rand_index`، و`choose_k(X)` بقاعدة §4.7.2: أصغر k في أفضل اثنين لكل من silhouette وDBI مع متوسط ARI ≥ 0.8 على خمس بذور، وإلا أفضل silhouette موسوماً «غير مستقر» (`ClusterChoice.stable`).
+- **التصنيف والتقييم:** `logistic_fit` (L2 بنيوتن) و`cart_fit` (جيني، عمق ≤ 4) و`roc_auc` و`average_precision` و`youden_threshold` و`brier`.
 
-`experiments/learner_analysis.py` يشغّلها بترك عرض واحد خارج التدريب (LOPO) داخل 2013 عند الأيام 56 (الأساسي) و28 و112: M0 (مجموع النقرات) وM1 (ملامح VLE) وM2 (+الأكاديميا)، λ من {1e-3، …، 10} بترك عرض داخلي، والهدف `final_result ∈ {Fail, Withdrawn}` مقابل `{Pass, Distinction}` باستبعاد المنسحبين قبل القطع، وتُحذف من التدريب تسجيلات الطلاب الموجودين في 2014 (D-47). عتبات Youden من التنبؤات خارج الطيّة: M0 = 0.4744 وM1 = 0.4557 وM2 = 0.4074.
+`experiments/learner_analysis.py` يشغّلها بترك عرض خارج التدريب داخل 2013 عند الأيام 56 (الأساسي) و28 و112: M0 وM1 وM2، والهدف `final_result ∈ {Fail, Withdrawn}` مقابل `{Pass, Distinction}` باستبعاد المنسحبين قبل القطع، مع حذف المتداخلين مع 2014 (D-47). عتبات Youden: M0 = 0.4744 وM1 = 0.4557 وM2 = 0.4074.
 
 ## 3.12 `serving.py`: خدمة إعادة التشغيل (D-49)
 
@@ -630,14 +615,14 @@ build.sh  tsconfig.json  screenshots.js
 
 سكربتان بـPlaywright العالمي (`NODE_PATH=$(npm root -g)`):
 
-- `src/frontend/screenshots.js` (بوضع المحاكاة): يخدم `dist/` بـ`python3 -m http.server` على المنفذ 8765، ويلتقط ست لقطات لكل من سطح المكتب (1440×900) والجوال (375×800)، ويفحص التمرير الأفقي وأخطاء الكونسول، ويكتب إلى `src/frontend/screenshots/mock/` (`01-home` إلى `06-learner-day-before-snapshot`، وهي في git). يتطلب `build.sh` قبله.
-- `src/backend/e2e/live-screenshots.js`: لقطات مع الخادم الحي (بلا mock) باسم `live-*.png` في `deliverables/05-user-guide/screenshots/`، ويُشغَّل بعد `python3 -m src.backend --warm`. ويطبّق **قاعدة D-73** لاختيار متعلم اللقطات برمجياً: من بين صفحة الجدول المعروضة (مفروزة بالتسجيل، أول 100 صف) يُختار المتعلم الأقرب إلى وسيط درجات الفوج كله بشروط: درجته دون العتبة و≥ 5 أيام نشطة، والتعادل بترتيب التسجيل؛ فإن زاد الفرق عن 0.05 يُفتح الجدول بمعامل `off` عند صفحة أقرب متعلم مؤهَّل، ويطبع السكربت معرّفه ودرجته وفرقه. والمتغير `CHECK_ONLY=1` يجري الفحوص (الأرقام والصيغ العربية وغياب أرقام القرارات) دون كتابة لقطات.
+- `src/frontend/screenshots.js` (بوضع المحاكاة): يخدم `dist/` على المنفذ 8765 ويلتقط ست لقطات لسطح المكتب (1440×900) والجوال (375×800)، ويفحص التمرير الأفقي وأخطاء الكونسول، ويكتب إلى `src/frontend/screenshots/mock/` (في git). يتطلب `build.sh` قبله.
+- `src/backend/e2e/live-screenshots.js`: لقطات مع الخادم الحي باسم `live-*.png` في `deliverables/05-user-guide/screenshots/`، بعد `python3 -m src.backend --warm`. **قاعدة D-73:** يُختار متعلم اللقطات برمجياً من صفحة الجدول المعروضة (مفروزة بالتسجيل، أول 100 صف): الأقرب إلى وسيط درجات الفوج كله بشرط درجة دون العتبة و≥ 5 أيام نشطة، والتعادل بترتيب التسجيل؛ فإن زاد الفرق عن 0.05 يُفتح الجدول بمعامل `off` عند صفحة أقرب متعلم مؤهَّل، ويطبع السكربت معرّفه ودرجته وفرقه. و`CHECK_ONLY=1` يجري الفحوص دون كتابة لقطات.
 
 # 6. أدوات البناء `scripts/`
 
 | الأداة | الأمر | الوظيفة |
 |---|---|---|
-| `build_docx.py` | `python3 scripts/build_docx.py OUT.docx IN.md [--title ... --title-en ... --subtitle ...]` | Markdown ← Word RTL: يمرّ على pandoc (امتدادات pipe_tables وgrid_tables وfenced_divs وfootnotes…) بـ`-M lang=ar -M dir=rtl` وفهرس بعمق 3، ثم يعالج python-docx الخطوط (Simplified Arabic للعربي وTimes New Roman للاتيني) وأخيراً الفقرات والجداول RTL، ويحمي الرموز المتماثلة من الانعكاس، ويضيف غلافاً (العنوان والمشرف والجامعة والسنة) وترقيم صفحات ثم يمرّر الملف على `lo_update_toc.py` ما لم يُعطَ `--no-update-toc`. أنماط الشيفرة (`Source Code` و`Verbatim Char` و`SourceCode`) تُستثنى من RTL فتبقى LTR، ويُستعمل خط العربية للنص المركّب داخل كتل الشيفرة فتظهر التعليقات العربية مشكَّلة، ويُحاط الشيفرة المضمَّنة (المسارات والمعرّفات والخيارات) بعلامة LRM لتبقى جزيرة LTR واحدة داخل النص RTL |
+| `build_docx.py` | `python3 scripts/build_docx.py OUT.docx IN.md [--title ... --title-en ... --subtitle ...]` | Markdown ← Word RTL: يمرّ على pandoc بـ`-M lang=ar -M dir=rtl` وفهرس بعمق 3، ثم يعالج python-docx الخطوط (Simplified Arabic وTimes New Roman) والفقرات والجداول RTL، ويحمي الرموز المتماثلة من الانعكاس، ويضيف غلافاً وترقيم صفحات، ثم يمرّر الملف على `lo_update_toc.py` ما لم يُعطَ `--no-update-toc`. أنماط الشيفرة (`Source Code` و`Verbatim Char` و`SourceCode`) تُستثنى من RTL فتبقى LTR، ويُستعمل خط العربية للنص المركّب داخل كتل الشيفرة فتظهر التعليقات العربية مشكَّلة، ويُحاط الشيفرة المضمَّنة (المسارات والمعرّفات والخيارات) بعلامة LRM لتبقى جزيرة LTR واحدة داخل النص RTL |
 | `lo_update_toc.py` | `python3 scripts/lo_update_toc.py file.docx [...]` | يفتح الملف في LibreOffice عبر UNO ويحدّث الفهارس ويحفظ docx، لأن pandoc يكتب الفهرس حقلاً فارغاً لا يملؤه إلا Word عند الفتح |
 | `svg2png.js` / `svg2png.py` | `node scripts/svg2png.js in.svg [--out-dir DIR --scale 2 --width 1400]` | تصيير SVG أو HTML إلى PNG بـPlaywright (Node) وChromium؛ والنسخة `.py` غلاف يستدعي `.js` |
 | `build_pptx.py` | `python3 scripts/build_pptx.py [--spec X.json --out Y.pptx]` | مولّد العرض التقديمي بـpython-pptx من مخطط `docs/working/07-presentation.json`: شرائح RTL بنسبة 16:9 وأنواع عنوان وبطاقات وإحصاءات وتدفق وجدول ومخطط وأسئلة |
@@ -808,8 +793,8 @@ python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --phase 2 # إع�
 
 | المجال | المعامل | القيمة |
 |---|---|---|
-| البروتوكول | قطوع t / الأفق / الميزانية | {70، 126، 182} / 14 يوماً / ≤ 20 إعداداً لكل نموذج |
-| الإشارة | τ / β / α | {7، 14، 28، 56، ∞} / {0.5، 1، 2} / {1، 2، 5، 10، 20، 40} |
+| البروتوكول | قطوع t / الأفق / الميزانية / KS | {70، 126، 182} / 14 يوماً / ≤ 20 إعداداً / (5، 10، 20) |
+| الإشارة والتجميع | τ، β، α / ks، n_init، ARI الأدنى | {7، 14، 28، 56، ∞}، {0.5، 1، 2}، {1…40} / 2..8، 10، 0.8 |
 | WRMF | f / reg / نقاط التفتيش / التهيئة | {16، 32، 64} / {0.01، 0.1، 1، 10} / {10، 15، 25} (افتراضي iters = 15) / N(0, 0.01²) |
 | GRU-lite | البنية | d_e = d_h = 64، طبقة واحدة |
 | GRU-lite | lr / الهدف | {1e-3، 3e-3، 1e-2} / {next، next-new}؛ ستة إعدادات |
@@ -817,38 +802,28 @@ python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --phase 2 # إع�
 | GRU-lite | الحقب / الصبر | ≤ 30 / 3 |
 | GRU-lite | المختار (27 زوجاً، المهمة A) | lr = 0.001 في 13 زوجاً و0.01 في 8 و0.003 في 6؛ والهدف `next-new` في 24 زوجاً و`next` في 3؛ والحقب المختارة بين 1 و20 (الأكثر تكراراً 2 ثم 1) |
 | الهجين | حد المكوّنات / شبكة الأوزان | 4 / 1/4 (2–3 مكوّنات) و1/3 (4)، و0.1 حساسية |
-| التجميع | ks / البذور / n_init / ARI الأدنى | 2..8 / 0–4 / 10 / 0.8 |
 | الإحصاء | δ / α / m (Holm) / δ_AUC | 0.02 / 0.05 / 4 / 0.02 |
 | الإحصاء | MDE80 (H1، H2-أ، H3، H4-أ) | 0.0375، 0.045، 0.050، 0.0225 |
 | الخطر | λ لكل عرض (اليوم 56) | M0: 0.001 للتسعة؛ M1: 0.01 للتسعة؛ M2: 0.001 أو 0.01 |
 | الخطر | عتبات Youden | M0 = 0.4744، M1 = 0.4557، M2 = 0.4074 |
-| الخطر | قطوع الخطر / العنقدة | {28، 56، 112} / اليوم 56 |
 
 ## 9.2 قاموس الحقول في الاستجابات
 
-حقول التوصية (`/api/recommendations`)، مأخوذة من `schemas.RecommendationResponse` وما يرجعه الخادم:
+حقول التوصية (`/api/recommendations`)، من `schemas.RecommendationResponse` وما يرجعه الخادم:
 
-| الحقل | النوع | المعنى |
-|---|---|---|
-| `registration` | str | `<presentation>-<id_student>`، مثل `FFF_2013J-371869` |
-| `requested_day` / `snapshot_day` | int | اليوم المطلوب واليوم الذي حُسبت عنده التوصية؛ متساويان دائماً (D-49) |
-| `task` | A\|B | A: موارد جديدة؛ B: أي وصول بما فيه الإعادات |
-| `status` | enum | `ok` أو `no_history` (لا نشاط سابق: ترتيب غير شخصي) أو `withdrawn` (انسحب ≤ اليوم: قائمة فارغة) |
-| `known_learner` | bool | هل للتسجيل نشاط في الكتالوج حتى اليوم |
-| `note` | str\|null | تنبيه نصي (مثلاً قبل أول قطع أو بلا تاريخ) |
-| `context.week` | int | رقم الأسبوع = اليوم÷7 + 1 |
-| `context.next_assessment` | obj\|null | `type` و`day` و`days_ahead` |
-| `context.active_days_to_date` | int | عدد أيام نشاط المتعلم حتى اليوم |
-| `components[]` | list | `id` و`label` و`weight` لمكوّنات الهجين عند هذا القطع |
-| `items[].rank` / `id_site` / `activity_type` | int/int/str | الترتيب ومعرّف المورد ونوعه |
-| `items[].relevance` | float | الدرجة المدمجة Σ w_m r̃_m (ليست مقياس تقييم)؛ حلّت محل `score` (D-70 (4)) |
-| `items[].contributions` | dict | مساهمة كل مكوّن w_m·r̃_m |
-| `items[].reason` / `reason_secondary` | str / str\|null | جملة التفسير الرئيسية والثانوية |
-| `provenance.run_id` / `role` / `model_cut` | str/str/int\|null | معرّف التشغيل (`replay-dev2013-<commit>`)، الدور (`dev`)، وقطع النموذج (null قبل 70)؛ موجود في **كل** استجابة بيانات (D-49 (6)) |
+| الحقل | المعنى |
+|---|---|
+| `registration` | `<presentation>-<id_student>`، مثل `FFF_2013J-371869` |
+| `requested_day` / `snapshot_day` | اليوم المطلوب واليوم الذي حُسبت عنده؛ متساويان دائماً (D-49) |
+| `task` | A: موارد جديدة؛ B: أي وصول بما فيه الإعادات |
+| `status` / `known_learner` | `ok` أو `no_history` (ترتيب غير شخصي) أو `withdrawn` (قائمة فارغة)؛ وهل للتسجيل نشاط في الكتالوج |
+| `note` | تنبيه نصي (قبل أول قطع أو بلا تاريخ) |
+| `context` | `week` (اليوم÷7 + 1) و`next_assessment{type, day, days_ahead}` و`active_days_to_date` |
+| `components[]` | `id` و`label` و`weight` لمكوّنات الهجين عند هذا القطع |
+| `items[]` | `rank` و`id_site` و`activity_type` و`relevance` (الدرجة المدمجة Σ w_m r̃_m، وليست مقياس تقييم؛ حلّت محل `score`، D-70 (4)) و`contributions` (w_m·r̃_m) و`reason` و`reason_secondary` |
+| `provenance` | `run_id` (`replay-dev2013-<commit>`) و`role` (`dev`) و`model_cut` (null قبل 70)؛ في **كل** استجابة بيانات (D-49 (6)) |
 
-حقول التفسير (`/api/explanations`): `relevance` و`components[]` بـ`id` و`label` و`weight` و`r_tilde` (الرتبة المطبَّعة ∈ [0,1]) و`contribution` و`sentence` و`evidence` من ثلاثة أنواع: `count` (`n` و`window` و`scope` = all\|similar)، و`item` (`id_site` و`activity_type` و`days` و`last_day`)، و`assessment` (`assessment_type` و`days_ahead`). وحقول المدرّس: الخطر `risk.score` (درجة نسبية غير معايَرة، D-65) و`cut_day` و`threshold` (Youden) و`above_threshold` و`provenance` (`lopo_2013`: نموذج مدرَّب على العروض الثمانية الأخرى) و`top_factor` و`factors[{name, wz}]` (مساهمة الميزة المعيارية في اللوغاريتم)؛ والعنقود `cluster{id,label}` (وفي `/api/instructor/clusters` الحقلان `cluster_day` = 56 و`unstable_reason` يشرحان سبب وسم «غير مستقر»)؛ و`profile[{name,value,median,z}]`؛ و`withdrawn_day` (ولا حقل نتيجة نهائية: حُذف `outcome`). ودرجة الخطر للمدرّس فقط، ولا يظهر أي خطر أو عنقود في مسارات المتعلم (يفحصه `test_contract_no_risk` و`test_contract_json`).
-
-حقول المدرّس الجديدة: في `/api/instructor/clusters` الحقل `cluster_day` (= 56) و`unstable_reason` (سبب الوسم: ثبات البذور ضعيف، أو k خارج أفضل اثنين)، وجودة التجميع `quality{silhouette, dbi, ari}` حيث `ari` يقبل null؛ وفي الخطر `score` و`threshold` بست منازل عشرية، و`label_ar` = «درجة خطر نسبية غير معايَرة»؛ وفي `/api/meta` الحقل `risk_score` (يصف الهدف: رسوب أو انسحاب مقابل نجاح أو امتياز، ومدخلات النموذج، و`calibrated = false`) و`bind_host` و`access_notice` (D-66) و`freeze_tag`.
+التفسير (`/api/explanations`): `relevance` و`components[]` بـ`weight` و`r_tilde` (الرتبة المطبَّعة) و`contribution` و`sentence` و`evidence` من ثلاثة أنواع: `count` (`n` و`window` و`scope` = all\|similar)، و`item` (`id_site` و`activity_type` و`days` و`last_day`)، و`assessment` (`assessment_type` و`days_ahead`). **المدرّس:** الخطر `risk.score` (درجة نسبية غير معايَرة، D-65) و`cut_day` و`threshold` بست منازل (Youden) و`above_threshold` و`provenance` (`lopo_2013`) و`top_factor` و`factors[{name, wz}]` و`label_ar` = «درجة خطر نسبية غير معايَرة»؛ و`cluster{id,label}`؛ و`profile[{name,value,median,z}]`؛ و`withdrawn_day`؛ ولا حقل نتيجة نهائية. وفي `/api/instructor/clusters`: `cluster_day` (= 56) و`unstable_reason` و`quality{silhouette, dbi, ari}` (`ari` يقبل null). وفي `/api/meta`: `schema_version` و`version` و`run_id` و`git_commit` و`git_dirty` و`freeze_tag` و`data_fingerprint` و`data_files` و`components` و`snapshot_grid` (28 إلى 266 بخطوة 14) و`cutoffs` و`risk_cutoffs` و`risk_score` (الهدف: رسوب أو انسحاب مقابل نجاح أو امتياز، `calibrated = false`) و`bind_host` و`access_notice` (D-66) و`notes`.
 
 ## 9.3 مصفوفة تتبّع مختصرة (متطلب ← وحدة ← اختبار)
 

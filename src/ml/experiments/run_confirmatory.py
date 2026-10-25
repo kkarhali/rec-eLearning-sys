@@ -139,15 +139,40 @@ def check_integrity() -> dict:
     bad = {k: (sha256(p), cfg["sha256"].get(k)) for k, p in files.items() if sha256(p) != cfg["sha256"].get(k)}
     if bad:
         raise GuardError(f"frozen files changed since freeze03_config.json: {bad}")
+    raw = {f: hashlib.md5((data.RAW_DIR / f).read_bytes()).hexdigest() for f in cfg["raw_md5"]}
+    bad_raw = {f: (m, cfg["raw_md5"][f]["md5"]) for f, m in raw.items() if m != cfg["raw_md5"][f]["md5"]}
+    if bad_raw or len(raw) != 7:
+        raise GuardError(f"raw OULAD files differ from the frozen MD5 (freeze03_config.json): {bad_raw or sorted(raw)}")
+    cfg["raw_md5_checked"] = raw
     return cfg
 
 
-def log_full_read(tag: str, commit: str):
+def verify_lock(out: Path, tag: str, dry: bool, git=_git) -> dict:
+    """Before phase 2 (also when run alone, peer m2): LOCK exists and matches the phase-1 verdict files, and its commit
+    is HEAD; in confirmatory mode HEAD must also be the tagged commit."""
+    p = out / "LOCK"
+    if not p.exists():
+        raise GuardError("phase 2 needs the phase-1 LOCK")
+    lock = json.loads(p.read_text())
+    for f in ("verdicts.csv", "verdicts.md"):
+        if not (out / f).exists() or sha256(out / f) != lock.get(f"{f.replace('.', '_')}_sha256"):
+            raise GuardError(f"{f} does not match LOCK")
+    head = git("rev-parse", "HEAD")
+    if lock.get("commit") != head:
+        raise GuardError(f"LOCK commit {str(lock.get('commit'))[:10]} is not HEAD {head[:10]}")
+    if not dry:
+        try:
+            tagged = git("rev-parse", f"{tag}^{{commit}}")
+        except Exception as exc:
+            raise GuardError(f"tag {tag} does not exist") from exc
+        if head != tagged or lock.get("tag") != tag:
+            raise GuardError(f"HEAD {head[:10]} / LOCK tag {lock.get('tag')} do not match tag {tag} ({tagged[:10]})")
+    return lock
+
+
+def log_full_read(tag: str, commit: str, md5: dict):
     rec = {"time": time.strftime("%Y-%m-%dT%H:%M:%S"), "event": "confirmatory_full_read", "tag": tag, "commit": commit,
-           "files_md5": {f: hashlib.md5((data.RAW_DIR / f).read_bytes()).hexdigest()
-                         for f in ("studentVle.csv", "studentInfo.csv", "studentRegistration.csv",
-                                   "studentAssessment.csv", "vle.csv", "assessments.csv", "courses.csv")},
-           "purpose": "E10 (D-63)"}
+           "files_md5": md5, "files_md5_match_frozen": True, "purpose": "E10 (D-63)"}
     with open(data.RESULTS_DIR / "access_log.jsonl", "a", encoding="utf-8") as f:
         f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
@@ -279,12 +304,14 @@ def h4a(ctx: Context, exclude_overlap=True, training="final"):
 
     Confirmatory: the frozen models of risk_final.json. Dry run on 2013: the same specification refitted
     leave-one-presentation-out with the frozen λ (2013 presentations cannot be scored by a model trained on them).
-    ``training`` ∈ {final, full (no overlap removal), deployable (2013 presentations ended before day 56)}.
+    ``training`` ∈ {final, full (no overlap removal), deployable (2013 presentations ended before day 56)}, plus
+    ``frozen``: the frozen weights/tree of risk_final.json applied as-is (the confirmatory branch), run in the dry run
+    so that no code path is executed for the first time on 2014 (peer m1); on 2013 it is in-sample.
     """
     pres_t = ctx.presentations()
     sa_t = data.load_student_assessment("dev" if ctx.dry else "conf", allow_confirmatory=ctx.allow)
     rows, oof_all = [], {}
-    dev_pres = data.load_dev_presentations() if (ctx.dry or training != "final") else None
+    dev_pres = data.load_dev_presentations() if (ctx.dry or training != "final") and training != "frozen" else None
     sa_d = data.load_student_assessment("dev") if dev_pres else None
     ctx.note("load_student_assessment", sa_t)
     ctx.note("load_student_assessment", sa_d)
@@ -295,7 +322,7 @@ def h4a(ctx: Context, exclude_overlap=True, training="final"):
         y = dft["y"].to_numpy()
         fs = feature_sets(dft)
         scores = {}
-        if training == "final" and not ctx.dry:
+        if (training == "final" and not ctx.dry) or training == "frozen":
             for m in ("M0", "M1", "M2"):
                 X = standardise(dft, spec[m]["features"])
                 scores[m] = L.logistic_predict(np.array(spec[m]["weights"]), X)
@@ -454,6 +481,11 @@ def phase1(ctx: Context, label: str):
     print("[E10] phase 1: H4-a", flush=True)
     h4, oof = h4a(ctx)
     h4.to_csv(out / "h4a_auc.csv", index=False, float_format="%.6f")
+    if ctx.dry:                                   # rehearse the confirmatory branch (frozen weights, CART tree)
+        h4f, _ = h4a(ctx, training="frozen")
+        h4f.assign(note="frozen risk_final.json weights; in-sample on 2013 (path rehearsal, not evidence)").to_csv(
+            out / "h4a_frozen_branch.csv", index=False, float_format="%.6f")
+        ctx.timing["h4a_frozen_branch_rows"] = int(len(h4f))
     # ---- per-presentation differences of the four hypotheses
     hyb = run_hybrid.per_pres(an["final"])
     b3 = pres_means(rows, "B3_RecentPop")
@@ -692,8 +724,7 @@ def protocol_sampled(ctx: Context, an, n_neg=20) -> pd.DataFrame:
 def phase2(ctx: Context, an=None, label=""):
     t0 = time.time()
     out = ctx.out
-    if not (out / "LOCK").exists():
-        raise GuardError("phase 2 needs the phase-1 LOCK")
+    ctx.lock_verified = verify_lock(out, ctx.tag, ctx.dry)
     rows = pd.read_csv(out / "baselines.csv")
     gru = pd.read_csv(out / "gru.csv")
     if an is None:
@@ -839,11 +870,10 @@ def main(argv=None):
             commit = check_guards(a.tag, out)
             out.mkdir(parents=True)
             (out / ".lock").write_text(json.dumps({"tag": a.tag, "commit": commit, "started": time.strftime("%Y-%m-%dT%H:%M:%S")}))
-            log_full_read(a.tag, commit)
+            log_full_read(a.tag, commit, cfg["raw_md5_checked"])
         else:
             commit = _git("rev-parse", "HEAD")
-            if not (out / "LOCK").exists():
-                raise GuardError("phase 2 alone needs results/conf2014/LOCK")
+            verify_lock(out, a.tag, dry=False)            # LOCK matches, HEAD = LOCK commit = tag (peer m2)
         names, allow, label = data.CONF_PRESENTATIONS, True, "التشغيل التأكيدي على عروض 2014 (E10)"
     ctx = Context(names, out, allow, a.workers, a.dry, "dryrun2013" if a.dry else "conf2014")
     ctx.tag, ctx.commit = a.tag, commit
