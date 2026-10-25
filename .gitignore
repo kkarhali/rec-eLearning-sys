@@ -14,3 +14,4 @@ data/cache/
 artifacts/
 data/repro_snapshot/
 results/dryrun2013/
+.~lock.*#
