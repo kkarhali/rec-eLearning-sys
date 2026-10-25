@@ -142,11 +142,11 @@ def ieee_problems(e):
     p = []
     if not re.match(r"^(?:[A-Z]\.|[A-Z][\w&.-]+[ ,])", e):
         p.append("authors")
-    if not re.search(r"[\"“].+?[,.]?[\"”]", e):
-        p.append("quoted title")
+    if not re.search(r"[\"“].+?[,.]?[\"”]", e) and not re.search(r"\*[^*]+\*", e):
+        p.append("title (quoted, or italic for a book or standard)")
     if not re.search(r"\b(19|20)\d{2}\b", e):
         p.append("year")
-    if not re.search(r"\*[^*]+\*|\[Online\]|Available:|https?://|Press|Publishing|Springer|Elsevier|Wiley|ACM|IEEE|MIT", e):
+    if not re.search(r"\*[^*]+\*|\[Online\]|Available:|https?://|arXiv|Press|Publishing|Springer|Elsevier|Wiley|ACM|IEEE|MIT", e):
         p.append("venue/publisher")
     return p
 for n, e in sorted(entries.items()):
