@@ -96,7 +96,7 @@
 **جدول 3: المتطلبات الوظيفية لخط التجارب (الممثل: الباحث)**
 
 | الرقم | المتطلب | الأولوية | المصدر | الحالة |
-|-----------|---------------------------------------------------------------|-----------|-----------|-----------------------|
+|-----------|----------------------------------------------------------------------|-----------|-----------|-------------------|
 | FR-01 | التحقق من جداول OULAD السبعة (MD5 7/7، و10,655,280 صفاً في `studentVle`) قبل أي تشغيل | Must | D-08 | موجود (`data/verify_oulad.py`) |
 | FR-02 | حجب عروض 2014 برمجياً ما لم يُمرَّر `allow_confirmatory=True` بعد وسم التجميد | Must | D-09 | موجود (`data.assert_allowed`) |
 | FR-03 | تجميع الصفوف المكررة، واستبعاد الأنواع الخمسة E من الهدف مع إبقائها ملامح، وسلال الأيام | Must | D-06، D-07، D-38 | موجود (`data.py`) |
@@ -558,7 +558,7 @@ data/cache/serving_clusters/<pres>_<day>.npz       # git-ignored; cluster_choice
 **جدول 13: مسارات API ودوال `serving` التي تستدعيها**
 
 | المسار | المعاملات | دالة `serving` / المصدر | المتطلب |
-|-------------------|-----------------|-------------------------------------------------|---------------|
+|------------------|----------------|----------------------------------------------------|--------------|
 | `GET /api/health` | — | الخلفية (ومعها حالة التسخين) | FR-28 |
 | `GET /api/meta` | — | `hybrid_frozen.json` + `run_meta.json` + القطوع | FR-28 |
 | `GET /api/presentations` | — | `data.DEV_PRESENTATIONS` + وجود `artifacts/` + FR-40 | FR-18 |
@@ -666,7 +666,7 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 **جدول 15-أ: بنود العمل على `serving.py` و`build_artifacts.py` (خارج نطاق التجميد بشرط D-69)**
 
 | # | البند | الحكم والمواصفة | الموعد |
-|------------|------------------------|---------------------------------------------------------------------|------------|
+|------------|-----------------------|-----------------------------------------------------------------------|------------|
 | 1 | `learner_table(name, day, risk_model="M1")` متجهي مع `lru_cache` | يُطبَّع داخل العرض مرة واحدة لكل (عرض، tc)؛ النظرة العامة والجدول أقل من ثانية دافئاً | 1 ت2 |
 | 2 | توحيد M1 | `risk_model` في الدوال العامة الثلاث، والافتراضي M1 (D-56) | قبل الوسم (30 ت1) |
 | 3 | `factors` و`provenance` | `provenance` ∈ {lopo_2013، test_2014}، والحقل في العقد `score` (D-65) | 1 ت2 |
@@ -805,7 +805,7 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 | FR-33 | NFR-04 | state.ts | e2e.spec.js\* |
 | FR-34 | D-49 | components/DayScrubber | e2e.spec.js\* |
 | FR-35 | D-08، D-65، D-66 | about.html | قائمة تفحّص |
-| FR-36 | D-47 | data.confirmatory\_student\_ids | test\_splits (test\_columns\_and\_log)؛ results/access\_log.jsonl |
+| FR-36 | D-47، D-76 | data.confirmatory\_student\_ids (purpose من قائمة بيضاء) | test\_splits (test\_columns\_and\_log)؛ results/access\_log.jsonl |
 | FR-37 | D-49 (5) | serving.Engine.plan، learner.ts | test\_serving (plan\_before\_first\_cut) |
 | FR-38 | D-62 (ش5) | experiments/reproduce\_dev.py | results/dev2013/repro\_diff.md\* بلا فرق غير مفسَّر |
 | FR-39 | D-46، D-48، D-61 | power.py، run\_confirmatory.py | results/dev2013/mde80.md؛ test\_hybrid\_stats (test\_margin\_and\_power) |
