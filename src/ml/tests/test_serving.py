@@ -197,7 +197,7 @@ class TestServingContract(unittest.TestCase):
         self.assertEqual(r["risk_cut"], 56)
         self.assertTrue(0 <= r["score"] <= 1)
         self.assertEqual(len(r["top_factors"]), 3)
-        lt = self.eng.learner_table(NAME, 60)
+        lt = self.eng._learner_rows(NAME, 60)
         self.assertIn("risk_score", lt.columns)
         ov = self.eng.presentation_overview(NAME, 60)
         self.assertIn("median_active_days", ov)
@@ -210,3 +210,34 @@ class TestServingContract(unittest.TestCase):
             self.skipTest("confirmatory verdicts exist")
         with self.assertRaises(data.ConfirmatoryAccessError):
             serving.Engine(frozen=self.eng.frozen, artifacts=self.art, allow_confirmatory=True)
+
+
+class TestServingRound3(unittest.TestCase):
+    def test_no_duplicate_teacher_table(self):
+        """learner_table / cluster_summary live only in the backend instructor service (single implementation)."""
+        self.assertFalse(hasattr(serving, "learner_table"))
+        self.assertFalse(hasattr(serving, "cluster_summary"))
+        self.assertFalse(hasattr(serving.Engine, "learner_table"))
+        self.assertFalse(hasattr(serving.Engine, "cluster_summary"))
+
+    def test_cluster_key_includes_frozen_fingerprints(self):
+        """D-68: changing hybrid_frozen.json or freeze03_config.json invalidates the persisted cluster choice."""
+        tmp = tempfile.TemporaryDirectory()
+        d = Path(tmp.name)
+        p = _augment(random_presentation(seed=13, n_students=40, n_items=25))
+        sa = pd.DataFrame({"id_assessment": [], "id_student": [], "date_submitted": [], "is_banked": [], "score": []})
+        cfg = d / "cfg.json"
+        cfg.write_text('{"v": 1}')
+        frozen = _frozen()
+        e1 = serving.Engine(frozen=frozen, artifacts=d, presentations={NAME: p}, student_assessment=sa,
+                            cluster_cache_dir=d / "cc", freeze_config=cfg)
+        e1.cluster_choice_at(NAME, 100)
+        f = d / "cc" / f"{NAME}_100.npz"
+        fp1 = str(np.load(f)["fingerprint"])
+        cfg.write_text('{"v": 2}')
+        e2 = serving.Engine(frozen=frozen, artifacts=d, presentations={NAME: p}, student_assessment=sa,
+                            cluster_cache_dir=d / "cc", freeze_config=cfg)
+        self.assertNotEqual(e1.frozen_fingerprint, e2.frozen_fingerprint)
+        e2.cluster_choice_at(NAME, 100)                      # stale entry rejected, recomputed and rewritten
+        self.assertNotEqual(str(np.load(f)["fingerprint"]), fp1)
+        tmp.cleanup()

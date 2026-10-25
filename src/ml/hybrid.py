@@ -160,8 +160,8 @@ def greedy_forward(components: list[str], evaluate_combo, stochastic: set[str] =
         base_vals = vals
     if personal and not (set(combo) & set(personal)) and len(combo) < max_components:
         lifts = {}
-        for m in personal:
-            if m in components and m not in combo:
+        for m in [c for c in components if c in personal]:      # deterministic order (not set order)
+            if m not in combo:
                 vals, _ = evaluate_combo(tuple(combo + [m]))
                 lifts[m] = float(np.mean(np.asarray(vals, dtype=float) - base_vals))
         if lifts:

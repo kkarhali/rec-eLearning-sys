@@ -54,7 +54,17 @@ def git_state():
     return c, dirty
 
 
+VOLATILE_MD_SECTIONS = ("## الجدول 9",)       # per-model timing table of summary.md
+
+
 def _mask(text: str) -> str:
+    out, skip = [], False
+    for line in text.splitlines():
+        if line.startswith("## "):
+            skip = line.startswith(VOLATILE_MD_SECTIONS)
+        if not skip:
+            out.append(line)
+    text = "\n".join(out)
     for rx, rep in MASKS:
         text = rx.sub(rep, text)
     return text

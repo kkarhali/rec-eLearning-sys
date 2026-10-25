@@ -409,8 +409,7 @@ def main(argv=None):
         "component_parameter_spaces": "standalone spaces of results/dev2013/baselines.csv (B3, B4, B5, B7, B9), "
                                       "gru.csv (GRU-lite), C7 w ∈ {3,7,14,21,28}",
         "task": "A (D-42); task B reported with task-A weights (D-57)", "seeds_report": list(SEEDS),
-        "git_commit_at_freeze_run": commit, "date": time.strftime("%Y-%m-%d %H:%M:%S"),
-    }
+    }   # no date/commit here: the file is hashed in freeze03_config.json and must be reproducible (ش5/ش6)
     (OUT / "hybrid_frozen.json").write_text(json.dumps(frozen, indent=2, ensure_ascii=False))
     # ---------------- report ----------------
     hyb = per_pres(final)
@@ -491,7 +490,8 @@ def main(argv=None):
     summary = {"components": fr.combination, "floor": fr.floor_component, "floor_step": step,
                "nominal_floor_ndcg": float(per_pres(nominal).mean()) if nominal else None,
                "hyb_ndcg": float(hyb.mean()), "H1": h1, "sd_H1": h1["sd"], "H3": an["h3"], "H4b": an["h4b"],
-               "decomposition": an["decomposition"], "seconds": round(time.time() - t0, 1)}
+               "decomposition": an["decomposition"], "seconds": round(time.time() - t0, 1),
+               "git_commit": commit, "date": time.strftime("%Y-%m-%d %H:%M:%S")}
     (OUT / "hybrid_meta.json").write_text(json.dumps(summary, indent=2, default=float, ensure_ascii=False))
     print(f"[hybrid] HYB* = {fr.combination} (floor={fr.floor_component}, step={step}); H1 Δ={h1['mean']:+.4f} "
           f"in {(time.time() - t0) / 60:.1f} min", flush=True)

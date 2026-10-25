@@ -81,7 +81,7 @@ def main():
     for t_c in (56, 28, 112):
         res["cuts"][str(t_c)] = build(t_c, pres, sa, overlap)
         print(f"[risk_final] cut {t_c} done", flush=True)
-    res["seconds"] = round(time.time() - t0, 1)
+    secs = round(time.time() - t0, 1)      # not stored: the file is hashed and must be reproducible
     FROZEN.mkdir(parents=True, exist_ok=True)
     path = FROZEN / "risk_final.json"
     path.write_text(json.dumps(res, indent=1, default=float))
@@ -89,7 +89,7 @@ def main():
     art.mkdir(exist_ok=True)
     shutil.copy(path, art / "risk_final.json")
     print(f"[risk_final] → {path} sha256={hashlib.sha256(path.read_bytes()).hexdigest()[:16]} "
-          f"({res['seconds']:.0f}s)")
+          f"({secs:.0f}s)")
 
 
 if __name__ == "__main__":

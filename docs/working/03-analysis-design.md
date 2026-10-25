@@ -4,7 +4,7 @@
 
 - **الحالة:** **مقبولة بتعديلات** في مراجعة المشرف (`docs/meetings/2026-10-24-review-analysis-design.md`)، وهذه النسخة تطبّق تعديلاتها (ج1–ج3، وم1–م7، والثانوية، وD-65 إلى D-70) لتحقق الزميل وتوقيعه (2026-10-28). وهي مرجع الفريق التنفيذي (مهندس تعلّم الآلة، ومهندس Backend، ومهندس Frontend، ومهندس الجودة).
 - **المرجعية الملزمة:** سجل القرارات D-01 إلى D-72، وADR-001 إلى ADR-004 بما فيها ملحق ADR-004 §4-مكرر، ومحضر الاجتماع 03 (`docs/meetings/2026-10-24-meeting-03-freeze.md`، D-51 إلى D-64). وأهمها لهذه الوثيقة **D-22** (نطاق الواجهة)، و**D-49** (خدمة إعادة التشغيل)، و**D-51** (التركيبة المجمَّدة)، و**D-62 إلى D-64** (شروط الوسم والجدول المدفوع بالأحداث)، و**D-65 إلى D-70** (درجة الخطر، والفصل، وفتح 2014، وزمن الاستجابة، ونطاق التجميد، ونظافة العقد)، و**D-71 وD-72** (مؤشرات لوحة المدرّس الوصفية، ولقطات المتعلم الفرد؛ محضر الاجتماع 05)، و**D-47** و**D-09** و**D-21**. ووثيقة الفرضيات مقبولة ومثبَّتة (D-50). هذه الوثيقة لا تعيد فتح أي قرار.
-- **منطلق التصميم:** المستودع كما هو في 2026-10-24: منصة التجارب `src/ml/` بتشغيلات التطوير E2–E7 وMDE80 منفَّذة في `results/dev2013/`، والتركيبة المجمَّدة في `hybrid_frozen.json`، ونماذج الخطر النهائية في `results/frozen/risk_final.json`، وخدمة إعادة التشغيل `serving.py`، و**96 اختبار وحدة** في `src/ml/tests/`؛ ونسخة أولى من الخلفية `src/backend/` (34 اختباراً)؛ وواجهة `src/frontend/` في وضع المحاكاة. والتصميم هنا يبني فوقها، ويحدد ما يُواءَم وما يُضاف.
+- **منطلق التصميم:** المستودع كما هو في 2026-10-24: منصة التجارب `src/ml/` بتشغيلات التطوير E2–E7 وMDE80 منفَّذة في `results/dev2013/`، والتركيبة المجمَّدة في `hybrid_frozen.json`، ونماذج الخطر النهائية في `results/frozen/risk_final.json`، وخدمة إعادة التشغيل `serving.py`، و**106 اختبارات وحدة** في `src/ml/tests/`؛ والخلفية `src/backend/` (52 اختباراً)؛ وواجهة `src/frontend/` في وضع المحاكاة. والتصميم هنا يبني فوقها، ويحدد ما يُواءَم وما يُضاف.
 - **الأرقام:** كل رقم في الأمثلة والإطارات السلكية **توضيحي**. وأحجام العروض مأخوذة من `results/dev2013/` المولّدة بشيفرة `src/ml/`.
 
 # 1. مقدمة ونطاق النظام
@@ -339,7 +339,7 @@
 | 3 | `src/backend/app.py`، `services/`، `repository.py` | `create_app`، وذاكرة الاستجابات، والتسخين، والخيار `‎--no-instructor`، والملفات الثابتة؛ و`services/` و`repository.py` تحويل وفهرسة فقط (لا حساب توصية خارج `Engine`) | موجود (نسخة أولى؛ ما فيها من حسابات §8.4 يُنقل إلى `serving.py`) |
 | 4 | `src/frontend/` | الصفحات الأربع والمكوّنات والرسوم SVG وعميل API ووضع المحاكاة | موجود (يُواءم مع العقود، 11.1) |
 
-**`src/backend/` كما هو (نسخة أولى، 34 اختباراً):** `__main__.py`، و`app.py`، و`settings.py`، و`errors.py`، و`schemas.py`، و`repository.py` (فهارس الأحداث وكتالوج العروض)، و`services/{replay,explanation,instructor,labels}.py`، و`routes/{meta,learner,instructor,common}.py`، و`bench.py`، و`tests/{asgi_client, test_contract_no_risk, test_static_errors, test_api_live}.py`. والقاعدة: كل حساب توصية أو درجة أو عنقود في `serving.Engine`، والخلفية تحوّل وتفهرس فقط؛ وما نفّذته الخلفية مؤقتاً من بنود 8.4 (جدول المتعلمين، و`cluster_summary`، وعوامل w·z) يُنقل إلى `serving.py` حين يُضاف هناك، مع اختبارَي التطابق الموجودين.
+**`src/backend/` كما هو (52 اختباراً):** `__main__.py`، و`app.py`، و`settings.py`، و`errors.py`، و`schemas.py`، و`repository.py` (فهارس الأحداث وكتالوج العروض)، و`services/{replay,explanation,instructor,labels}.py`، و`routes/{meta,learner,instructor,common}.py`، و`bench.py`، و`tests/{asgi_client, test_contract_no_risk, test_static_errors, test_api_live}.py`. والقاعدة: كل حساب توصية أو درجة أو عنقود في `serving.Engine`، والخلفية تحوّل وتفهرس فقط؛ وما نفّذته الخلفية مؤقتاً من بنود 8.4 (جدول المتعلمين، و`cluster_summary`، وعوامل w·z) يُنقل إلى `serving.py` حين يُضاف هناك، مع اختبارَي التطابق الموجودين.
 
 ## 5.2 قرارات التصميم
 
@@ -433,7 +433,7 @@
 **قواعد التدفق:**
 
 - **R-C1:** الدرجة (`score`) تُعرض دائماً مع قطعها ومصدرها (`lopo_2013` أو `test_2014`) وبصياغة «درجة خطر نسبية (غير معايَرة)»، بلا «احتمال» ولا %؛ و«فوق العتبة» حصة متعلمين لا احتمال (D-65).
-- **R-C2:** قبل اليوم 56 (أول عنقدة) ترفض مسارات المدرّس الطلب بـ422 ورمز `day_before_first_snapshot` مع `first_day = 56`، وتنقل الواجهة الشريط إليه؛ فقطع الخطر 28 لا يظهر في اللوحة اليوم.
+- **R-C2:** قبل اليوم 56 (أول عنقدة) ترفض مسارات المدرّس الطلب بـ422 ورمز `day_before_first_snapshot` مع `first_day = 56`، وتنقل الواجهة الشريط إليه؛ قطع الخطر 28 معرَّف (D-65) ومبني، ولا يُعرض لأن اللوحة تبدأ من أول لقطة عناقيد (56). فالقطوع المعروضة 56 و112 (D-74).
 - **R-C3:** وصف العنقود مولَّد بقاعدة حتمية من المركز، لا يدوياً.
 - **R-C4:** عوامل الدرجة $w_jz_j$ من معاملات M1 المجمَّدة وملامح المتعلم المطبَّعة؛ الموجب يرفع الدرجة.
 - **R-C5:** `‎--no-instructor` يعيد 404 `instructor_disabled` لكل مسارات `/api/instructor/*` ويخفي التبويب (D-66).
@@ -503,7 +503,7 @@
 | LEARNER_FEATURES | active_days، total_clicks، first_day، gap_sd، share_&lt;type&gt;، on_time_ratio، mean_score | int، int، int، float، float، float، float | `learners.vle_features` + `academic_features` عند اليوم المطلوب؛ M1 = ملامح VLE وحدها |
 | CLUSTER_MODEL_56 | k، stable، centres، features، mu، sd | int، bool، float[][]، str[]، float[]، float[] | `clusters_56.npz` (D-39)؛ للوحة المدرّس وحدها |
 | RISK_MODEL | tc، models[M1]: features، weights، threshold، threshold_source | int، str[]، float[]، float، str | `risk_<tc>.json` لعروض 2013 (`lopo_2013`)؛ و`results/frozen/risk_final.json` لعروض 2014 (`test_2014`) |
-| RISK (عقد) | score، cut_day، threshold، above_threshold، provenance، top_factor؛ وفي الملف أيضاً label_ar وfactors[name، wz] | float، int، float، bool، str، str؛ str، list | «درجة خطر نسبية (غير معايَرة)» (D-65) في `RiskRow`/`RiskDetail`؛ `score` = ناتج اللوجستي (`probability` داخل `serving`)، والعتبة مقرَّبة إلى 3 منازل؛ و`threshold_source` في `risk_<tc>.json` لا في العقد |
+| RISK (عقد) | score، cut_day، threshold، above_threshold، provenance، top_factor؛ وفي الملف أيضاً label_ar وfactors[name، wz] | float، int، float، bool، str، str؛ str، list | «درجة خطر نسبية (غير معايَرة)» (D-65) في `RiskRow`/`RiskDetail`؛ `score` = ناتج اللوجستي (`probability` داخل `serving`)، والعتبة تُرسل بست منازل (`_round(…, 6)`) والتقريب للعرض في الواجهة؛ و`threshold_source` في `risk_<tc>.json` لا في العقد |
 | RECOMMENDATION (عقد) | rank، id_site، activity_type، relevance، contributions{id: float}، reason، reason_secondary؛ وفي الاستجابة requested_day، snapshot_day، status، known_learner، note، provenance.model_cut | int، int، str، float، dict، str، str\|null | `RecItem` فوق `serving.recommend` (فيه `score` و`components{m: rtilde، weight، contribution، raw}`)؛ محسوب عند الطلب |
 | EXPLANATION (عقد) | relevance، components[id، label، weight، r_tilde، contribution، evidence، sentence] | float، list | `ExplanationDetail` من `TEMPLATES` و`_evidence`؛ والجملة الثانية في البطاقة إن **تجاوزت** مساهمتها ثلث الدرجة (`>` في الكود) |
 
@@ -566,7 +566,7 @@ data/cache/serving_clusters/<pres>_<day>.npz       # git-ignored; cluster_choice
 | `GET /api/instructor/overview` | `presentation`، `day` | `presentation_overview(p, day, risk_model="M1")` + `median_active_days` | FR-24 |
 | `GET /api/instructor/clusters` | `presentation`، `day` | `cluster_summary(p)` * | FR-25 |
 | `GET /api/instructor/learners` | `presentation`، `day`، `cluster`، `risk=all\|above`، `sort` من {risk، reg، cluster، active\_days، last\_access، on\_time} والافتراضي `-risk` (السالب للتنازلي)، `limit` حتى 500، `offset` | `learner_table(p, day, risk_model="M1")` * | FR-26، FR-30 |
-| `GET /api/instructor/learner/{registration}` | `day` | `learner_profile(…, risk_model="M1")` + `recommend(k=3)`؛ و`model_cut` فيه ينتظر البند 7 من 8.4 (غير موجود بعد في `InstructorLearnerDetail`) | FR-27 |
+| `GET /api/instructor/learner/{registration}` | `day` | `learner_profile(…, risk_model="M1")` + `recommend(k=3)`؛ و`provenance.model_cut` في `InstructorLearnerDetail` كما في كل استجابات البيانات (`schemas.PROVENANCE_MODELS`) | FR-27 |
 | `GET /` و`/static/*` | — | `src/frontend/dist/` | FR-31، FR-32 |
 
 \* في `serving.py` بعد بنود 8.4 (ونسخة مؤقتة في `src/backend/services/` باختبار تطابق).
@@ -633,7 +633,7 @@ GET /api/explanations/FFF_2013J-28400/546614?day=75&task=A
    {"id": "sknn", "label": "SKNN (4)", "weight": 0.25, "r_tilde": 0.80, "contribution": 0.20,
     "evidence": {"type": "item", "id_site": 546652, "activity_type": "oucontent", "days": 3, "last_day": 68},
     "sentence": "يتبع غالباً ما زرتَه مؤخراً"}],
- "notes": []}
+ "notes": [], "provenance": {"run_id": "…", "role": "dev", "model_cut": 70}}
 ```
 
 **حساب توضيحي لتركيبة افتراضية بثلاثة مكوّنات:** المكوّنات `recent_pop` و`wrmf` و`assess_prox` بأوزان 0.33؛ ولمورد quiz رُتبه المطبَّعة 0.61 و0.45 و1.00، فمساهماته 0.20 و0.15 و0.33، ودرجته **0.68**؛ والجملة الرئيسية من C6 («مرتبط بالتقييم القادم بعد 21 يوماً»، والدليل من النوع `assessment` بـ21 يوماً)، ولا جملة ثانية لأن 0.20 لا تتجاوز 0.68 ÷ 3.
@@ -644,17 +644,17 @@ GET /api/explanations/FFF_2013J-28400/546614?day=75&task=A
 GET /api/instructor/learner/FFF_2013J-30455?day=75
 {"registration": "FFF_2013J-30455", "day": 75, "snapshot_day": 75,
  "cluster": {"id": 1, "label": "متقطعون بنشاط تقييمي"},
- "risk": {"score": 0.38, "cut_day": 56, "threshold": 0.456, "above_threshold": false,
+ "risk": {"score": 0.38, "cut_day": 56, "threshold": 0.455716, "above_threshold": false,
           "provenance": "lopo_2013", "top_factor": "انحراف الفجوات",
           "label_ar": "درجة خطر نسبية غير معايَرة",
           "factors": [{"name": "انحراف الفجوات", "wz": 0.7}, {"name": "يوم أول وصول", "wz": 0.3}]},
  "profile": [{"name": "active_days", "value": 17, "median": 21, "z": -0.5}],
  "top_recs": [{"rank": 1, "id_site": 546712, "activity_type": "quiz",
                "reason": "شائع لدى متعلمين بنمط مشابه لنمطك"}],
- "withdrawn_day": null}
+ "withdrawn_day": null, "provenance": {"run_id": "…", "role": "dev", "model_cut": 70}}
 ```
 
-والعتبة في العقد مقرَّبة إلى 3 منازل (0.456 من 0.4557 المجمَّدة، D-58). وتضيف `GET /api/instructor/clusters` الحقول `k` و`cluster_day = 56` و`unstable` و`unstable_reason` و`quality{silhouette، dbi، ari أو null}` والأحجام ونقاط PCA؛ وتضيف النظرة العامة `kpis` (ومنها `coverage_at_10` المعروض «اتساع التوصيات»، D-71، و`share_above_threshold`) ومدرج الدرجة.
+والعتبة في العقد بست منازل (عتبة D-58 المجمَّدة 0.4557 مقرَّبةً للعرض)، والتقريب في الواجهة وحدها. وتضيف `GET /api/instructor/clusters` الحقول `k` و`cluster_day = 56` و`unstable` و`unstable_reason` و`quality{silhouette، dbi، ari أو null}` والأحجام ونقاط PCA؛ وتضيف النظرة العامة `kpis` (ومنها `coverage_at_10` المعروض «اتساع التوصيات»، D-71، و`share_above_threshold`) ومدرج الدرجة.
 
 **اختبار العقد (D-70):** يعمل `test_contract_json.py` و`test_contract_no_risk.py` على **JSON المسلسَل فعلياً** لطلبات عيّنة من كل مسارات المتعلم: لا مفتاح (تكرارياً، ومنها مفاتيح `evidence`) ولا قيمة نصية تحتوي {risk، score، probability، cluster، final_result، gender، disability، imd_band، age_band، region، highest_education}؛ ومسارات المدرّس تُفحص بقائمة بيضاء للمفاتيح تكرارياً. ولأن `score` اسم درجة الخطر، تُسمّى درجة التوصية في عقود المتعلم `relevance`، فلا يحتاج الاختبار استثناءً.
 
@@ -670,7 +670,7 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 | 4 | `cluster_summary(name)` | الأحجام، والمراكز بمقياس z، ووصف حتمي من أعلى ملمحين، وPCA بـSVD على عيّنة حتى 500 نقطة؛ وتشخيص التجميع (silhouette، وDBI، و`ari` يقبل null فيُعرض «غير متاح»، ومصدره `results/dev2013/learner_clusters.csv`؛ D-71) | 1 ت2 |
 | 5 | `allow_confirmatory` (FR-40) | ثلاثة شروط: `verdicts.csv`، وقفل SHA-256، و`ui_open.json`؛ ويُختبر بعرض 2013 متنكر بدور تأكيدي | 1 ت2 |
 | 6 | `median_active_days` | في ناتج النظرة العامة | 1 ت2 |
-| 7 | `model_cut` في `learner_profile` | D-49 (6) | قبل الوسم |
+| 7 | `model_cut` في `learner_profile` | D-49 (6)؛ منفَّذ: `provenance.model_cut` في كل استجابات البيانات (التوصية، والتفسير، والسجل، والنظرة العامة، والعناقيد، وصفحة المتعلمين، وملف المتعلم؛ `schemas.PROVENANCE_MODELS`) | قبل الوسم |
 | 8 | إعادة تسمية دليل C7 | `same_cluster_learners_in_window` ← `similar_learners_in_window` (D-70) | قبل الوسم |
 | 9 | تحفيظ `cluster_choice` والتسخين | D-68 مع اختبار التطابق الحي/المحفوظ والبصمة | 1 ت2 |
 | 10 | عتبات العرض لكل tc وخطر 2014 من `risk_final.json` | في `build_artifacts` لا في `learners.py` (D-65، D-69) | قبل الوسم |
@@ -749,7 +749,7 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 
 # 10. مصفوفة التتبّع
 
-يلخّص الشكل 12 المسار من سؤال البحث أو القرار إلى المتطلب فالمكوّن فالملف فالاختبار، ويغطي الجدول 19 **كل المتطلبات النشطة الـ61** (FR-29 محذوف). والنجمة (*) ملف أو اختبار مخطط؛ والبقية موجودة في المستودع في 2026-10-24 (106 اختبارات في `src/ml/tests/`، و34 في `src/backend/tests/`). ورموز «ش» و«ف» إشارات إلى معايير الفجوة وفقراتها في الدراسة المرجعية (القسم 7 من الوثيقة 01).
+يلخّص الشكل 12 المسار من سؤال البحث أو القرار إلى المتطلب فالمكوّن فالملف فالاختبار، ويغطي الجدول 19 **كل المتطلبات النشطة الـ61** (FR-29 محذوف). والنجمة (*) ملف أو اختبار مخطط؛ والبقية موجودة في المستودع في 2026-10-24 (106 اختبارات في `src/ml/tests/`، و52 في `src/backend/tests/`). ورموز «ش» و«ف» إشارات إلى معايير الفجوة وفقراتها في الدراسة المرجعية (القسم 7 من الوثيقة 01).
 
 ![الشكل 12: مسار التتبّع من سؤال البحث إلى الاختبار (إعداد الباحث)](deliverables/03-analysis-design/diagrams/11-traceability.png){width=100%}
 
@@ -840,7 +840,7 @@ GET /api/instructor/learner/FFF_2013J-30455?day=75
 
 | المرحلة | الموعد | المحتوى | معيار القبول |
 |------------|------------|---------------------------------------------------|--------------------------------|
-| م0: خط التجارب على 2013 (منفَّذة) | حتى 24 ت1 | E0–E7 وجدول MDE80 و`hybrid_frozen.json` (C7 + SKNN، D-51) و`risk_final.json` (D-58)، و`serving.py` و`build_artifacts.py`، وخلفية أولى | 106 اختبارات في `src/ml` و48 في الخلفية تمر؛ النتائج في `results/dev2013/` |
+| م0: خط التجارب على 2013 (منفَّذة) | حتى 24 ت1 | E0–E7 وجدول MDE80 و`hybrid_frozen.json` (C7 + SKNN، D-51) و`risk_final.json` (D-58)، و`serving.py` و`build_artifacts.py`، وخلفية أولى | 106 اختبارات في `src/ml` و52 في الخلفية تمر؛ النتائج في `results/dev2013/` |
 | م1: الوثيقة والعقد | 27 ت1 إلى 29 ت1 | تعديلات هذه الوثيقة (27 ت1)، وتوقيع الزميل (28 ت1)، و`schemas.py` بـ`score` والقائمة البيضاء (29 ت1) | توقيع الزميل في ذيل المحضر؛ `test_contract_no_risk` على JSON يمر |
 | م2: شروط التجميد | حتى 30 ت1 | ش1–ش9 (D-62، D-64)؛ بنود 8.4 رقم 2 و7 و8 و10؛ `reproduce_dev` و`repro_diff.md`؛ `freeze03_config.json`؛ `freeze_checklist.md` | ش1–ش9 مستوفاة؛ `repro_diff.md` بلا فرق غير مفسَّر |
 | م3: الوسم والتأكيد | 31 ت1 إلى 3 ت2 | ش10 (تحقق المشرف وتوقيعه) ثم الوسم `freeze-03` (31 ت1)؛ E10 بمرحلتين وقفل SHA-256 (D-63)؛ باقي بنود 8.4 وD-68 (1 ت2) | `verdicts.csv` مولَّد مرة واحدة وبصمته في المحضر؛ `git diff freeze-03 --stat` لا يمس النطاق المجمَّد |

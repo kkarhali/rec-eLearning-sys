@@ -26,6 +26,7 @@ import hashlib
 import json
 import time
 from functools import lru_cache
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -66,7 +67,7 @@ TEMPLATES = {
 
 class Engine:
     def __init__(self, frozen=FROZEN, artifacts=ART, presentations: dict | None = None, student_assessment=None,
-                 allow_confirmatory: bool = False, cluster_cache_dir=None):
+                 allow_confirmatory: bool = False, cluster_cache_dir=None, freeze_config=None):
         """``frozen``: path to hybrid_frozen.json or the dict itself; ``presentations``/``student_assessment``
         may be injected (unit tests). ``allow_confirmatory`` (FR-40) is honoured only once the confirmatory verdicts
         and their lock exist (results/conf2014/verdicts.csv and LOCK, D-63/D-67)."""
@@ -79,6 +80,11 @@ class Engine:
             raise data.ConfirmatoryAccessError("2014 replay opens only after results/conf2014/verdicts.csv and LOCK exist")
         self.allow_confirmatory = allow_confirmatory
         self.cluster_cache_dir = cluster_cache_dir or (data.CACHE_DIR / "serving_clusters")
+        # D-68: the cache key includes the fingerprints of hybrid_frozen.json and freeze03_config.json
+        fz = frozen.read_bytes() if not isinstance(frozen, dict) else json.dumps(frozen, sort_keys=True).encode()
+        cfgp = Path(freeze_config) if freeze_config is not None else data.RESULTS_DIR / "frozen" / "freeze03_config.json"
+        cf = cfgp.read_bytes() if cfgp.exists() else b"no-config"
+        self.frozen_fingerprint = hashlib.sha256(hashlib.sha256(fz).digest() + hashlib.sha256(cf).digest()).hexdigest()
 
     # ---------------------------------------------------------------- data
     def presentation(self, name):
@@ -90,7 +96,7 @@ class Engine:
     # ---------------------------------------------------------------- D-68: persisted cluster choice per (presentation, day)
     def _cluster_fingerprint(self, tr) -> str:
         h = hashlib.sha256()
-        h.update(f"{tr.pres}|{tr.t0}|{CLUSTER_CACHE_VERSION}".encode())
+        h.update(f"{tr.pres}|{tr.t0}|{CLUSTER_CACHE_VERSION}|{self.frozen_fingerprint}".encode())
         h.update(np.ascontiguousarray(tr.users).tobytes())
         h.update(np.ascontiguousarray(tr.ev_d).tobytes())
         h.update(np.ascontiguousarray(tr.ev_i).tobytes())
@@ -99,7 +105,7 @@ class Engine:
     def cluster_choice_at(self, name, day):
         """k-means++ choice computed at day t itself (features ≤ t), cached in memory and on disk under (presentation,
         day) with a fingerprint of the training view; served only for that day (D-68). Same n_init/seeds/k as live."""
-        key = (name, int(day))
+        key = (name, int(day), self.frozen_fingerprint)
         if key in _CLUSTER_MEM:
             return _CLUSTER_MEM[key]
         tr = self.train_view(name, int(day))
@@ -406,8 +412,9 @@ class Engine:
                 "risk": self._risk(name, registration, int(day), risk_model)}
 
     @lru_cache(maxsize=32)
-    def learner_table(self, name, day, risk_model="M1"):
-        """Teacher table: one row per registration, computed vectorially and cached per (presentation, day) (§8.4)."""
+    def _learner_rows(self, name, day, risk_model="M1"):
+        """Per-registration rows used by presentation_overview (risk bands, median active days). The teacher table and
+        the cluster summary of the interface are implemented once, in src/backend/services/instructor.py."""
         p = self.presentation(name)
         F = self._features_at(name, int(day))
         ev = p.events[p.events["date"] <= day]
@@ -434,33 +441,6 @@ class Engine:
             rows["cluster"] = cmap.reindex(rows["id_student"]).to_numpy()
         return rows
 
-    @lru_cache(maxsize=16)
-    def cluster_summary(self, name):
-        """Day-56 clusters for the teacher dashboard (D-39-c): k, stability, sizes, z-centres, a deterministic
-        Arabic description (two features with the largest |z|), and a 2-D PCA projection (numpy SVD)."""
-        f = self.art / name / "clusters_56.npz"
-        if not f.exists():
-            return None
-        a = np.load(f)
-        cols = [str(x) for x in a["features"]]
-        F = self._features_at(name, 56)
-        Z = (F.loc[a["students"], cols].to_numpy(dtype=float) - a["mu"]) / a["sd"]
-        Zc = Z - Z.mean(axis=0)
-        _, _, Vt = np.linalg.svd(Zc, full_matrices=False)
-        proj = Zc @ Vt[:2].T
-        cproj = (a["centres"] - Z.mean(axis=0)) @ Vt[:2].T
-        clusters = []
-        for c in range(int(a["k"])):
-            z = a["centres"][c]
-            top = np.argsort(-np.abs(z))[:2]
-            desc = "، ".join(f"{FEATURE_LABELS.get(cols[i], cols[i])} {'أعلى' if z[i] > 0 else 'أدنى'} من المتوسط" for i in top)
-            clusters.append({"cluster": c, "size": int((a["labels"] == c).sum()), "description": desc,
-                             "centre_z": dict(zip(cols, map(float, z))), "centre_2d": list(map(float, cproj[c]))})
-        return {"presentation": name, "cluster_day": 56, "k": int(a["k"]), "stable": bool(a["stable"]),
-                "clusters": clusters,
-                "points_2d": [{"id_student": int(s), "x": float(x), "y": float(y), "cluster": int(l)}
-                              for s, (x, y), l in zip(a["students"], proj, a["labels"])]}
-
     def registrations(self, name, day):
         """Whitelisted registration list for the interface (D-70): no final_result; date_unregistration is null
         when it lies after the request day (it would reveal the future)."""
@@ -482,7 +462,7 @@ class Engine:
         recent = p.events[(p.events["date"] > day - 7) & (p.events["date"] <= day)]
         asm = p.assessments.dropna(subset=["date"])
         nxt = asm[asm["date"] >= day].sort_values("date").head(3)
-        lt = self.learner_table(name, int(day), risk_model)
+        lt = self._learner_rows(name, int(day), risk_model)
         out = {"presentation": name, "day": int(day), "model_cut": self.model_cut(int(day)),
                "registrations": int(len(p.students)), "active_learners_7d": int(recent["id_student"].nunique()),
                "median_active_days": float(np.median(lt["active_days"])), "catalogue_size": int(tr.n_items),
@@ -524,14 +504,6 @@ def learner_profile(presentation, registration, day):
 
 def presentation_overview(presentation, day):
     return engine().presentation_overview(presentation, day)
-
-
-def learner_table(presentation, day):
-    return engine().learner_table(presentation, day).to_dict(orient="records")
-
-
-def cluster_summary(presentation):
-    return engine().cluster_summary(presentation)
 
 
 def registrations(presentation, day):
