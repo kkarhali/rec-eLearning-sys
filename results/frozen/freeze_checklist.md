@@ -1,6 +1,6 @@
 # قائمة شروط وسم freeze-03 (D-62) — مولَّدة بـ`python3 -m src.ml.experiments.freeze_config --checklist`
 
-الوقت: 2026-10-25 20:31:52
+الوقت: 2026-10-25 20:34:19
 
 | # | الشرط | الحالة | الدليل | المسؤول |
 |---|---|---|---|---|
@@ -11,7 +11,7 @@
 | ش5 | reproduce_dev + repro_diff.md على commit نظيف | ✓ | results/dev2013/repro_diff.md، repro_meta.json (commit 865e5cef09، src_dirty=False) | مهندس ML |
 | ش6 | freeze03_config.json + SHA-256 | ✓ | results/frozen/freeze03_config.json | مهندس ML |
 | ش7 | run_confirmatory + تشغيل جاف كامل على 2013 | ✓ | results/dryrun2013/run_meta.json (status=completed، audit_2014.ok=True، guard_rehearsal=pass، resume_simulation.ok=True، commit 20eeb98240)، dryrun_vs_dev max |Δ| = 0.0 (≤ 1e-6، عدا λ) | مهندس ML |
-| ش8 | مراجعة الزميل وتوقيعه | ✗ | docs/meetings/peer-signoff-freeze03-final.md (السطر الحرفي «الحكم النهائي: موافق»: غائب؛ ويقرؤه المشرف عند ش10، D-80/D-84) | الزميل الباحث |
+| ش8 | مراجعة الزميل وتوقيعه | ✓ | docs/meetings/peer-signoff-freeze03-final.md (السطر الحرفي «الحكم النهائي: موافق»: موجود؛ ويقرؤه المشرف عند ش10، D-80/D-84) | الزميل الباحث |
 | ش9 | تحديث الوثيقة 02 بالملحق ب وREADME | ✓ | docs/working/02-hypotheses-algorithms.md، src/ml/README.md | مصمّم الفرضيات + مهندس ML |
 | ش10 | تحقق المشرف وتوقيعه ثم الوسم | ✗ | §8 من محضر الاجتماع 03؛ git tag freeze-03 | المشرف ← مهندس ML |
 
