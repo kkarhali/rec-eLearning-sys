@@ -1,6 +1,6 @@
 # قائمة شروط وسم freeze-03 (D-62) — مولَّدة بـ`python3 -m src.ml.experiments.freeze_config --checklist`
 
-الوقت: 2026-10-24 23:20:04
+الوقت: 2026-10-25 14:34:26
 
 | # | الشرط | الحالة | الدليل | المسؤول |
 |---|---|---|---|---|
@@ -16,7 +16,7 @@
 | ش10 | تحقق المشرف وتوقيعه ثم الوسم | ✗ | §8 من محضر الاجتماع 03؛ git tag freeze-03 | المشرف ← مهندس ML |
 
 ## SHA-256
-- `freeze03_config.json`: `74af801381404e92c7f855c1373b1d6f81c5ab2017187f9371edd055e8dbd535`
+- `freeze03_config.json`: `d80ad472e015da8f190fb96e0b761aa0726d435aabb940758166447d9ec4d2c4`
 - `mde80.json`: `607468aeab296da35fae7e047b502d52c1ee919b26cb00cf8415cb6a9b81e88a`
-- `hybrid_frozen.json`: `de7960ac999f2585c2cb8b7ca15d43e405e4757794dee7656f6d2d7c1389a3b9`
-- `risk_final.json`: `d8b188be0c58f08a9371f87f9bbd637ac8de1ad952d7c08f31c1e60a1511e841`
+- `hybrid_frozen.json`: `cdfb3b553a8ebc1ef555da0247b8f482708f4fdd77bc8df7f9ea80dc668a0c0e`
+- `risk_final.json`: `76857226775c233b67cb67057ae3bf0c70ed11ff1622ec48dcdde1ef37c2a189`

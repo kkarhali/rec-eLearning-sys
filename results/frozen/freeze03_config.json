@@ -893,9 +893,9 @@
  },
  "sha256": {
   "mde80.json": "607468aeab296da35fae7e047b502d52c1ee919b26cb00cf8415cb6a9b81e88a",
-  "hybrid_frozen.json": "de7960ac999f2585c2cb8b7ca15d43e405e4757794dee7656f6d2d7c1389a3b9",
-  "risk_final.json": "d8b188be0c58f08a9371f87f9bbd637ac8de1ad952d7c08f31c1e60a1511e841"
+  "hybrid_frozen.json": "cdfb3b553a8ebc1ef555da0247b8f482708f4fdd77bc8df7f9ea80dc668a0c0e",
+  "risk_final.json": "76857226775c233b67cb67057ae3bf0c70ed11ff1622ec48dcdde1ef37c2a189"
  },
- "git_commit_when_written": "694135434e77c487e0be43536c31ee4c10e42352",
- "date": "2026-10-24 23:19:57"
+ "git_commit_when_written": "3febdcaec948d1a9bbba2bca0f9883994063917f",
+ "date": "2026-10-25 14:34:20"
 }

@@ -11,7 +11,7 @@
 bash data/download.sh                     # أو: python3 data/verify_oulad.py
 
 # 1) اختبارات الوحدة (≈ 3 ثوانٍ، لا تحتاج البيانات الخام)
-python3 -m unittest discover -s src/ml/tests -v   # 106 اختبارات (≈ 5 ث)
+python3 -m unittest discover -s src/ml/tests -v   # 108 اختبارات (≈ 6 ث)
 
 # 2) الإحصاءات الوصفية + إعادة إنتاج فحص الزميل 0.2 وفحص المشرف (≈ 25 ثانية)
 python3 -m src.ml.experiments.eda
@@ -57,8 +57,6 @@ from src.ml import serving
 serving.recommend("FFF_2013J", 2548055, day=100, k=10)      # [{id_site, activity_type, score, components, explanation, model_cut, ...}]
 serving.learner_profile("FFF_2013J", 2548055, day=100)      # الملامح، عنقود اليوم 56، احتمال الخطر (للمدرّس فقط)
 serving.presentation_overview("FFF_2013J", day=100)         # لوحة المدرّس (median_active_days، حزم الدرجة)
-serving.learner_table("FFF_2013J", day=100)                 # جدول المدرّس متجهياً (§8.4 في وثيقة 03)
-serving.cluster_summary("FFF_2013J")                        # عناقيد اليوم 56 + وصف عربي + إسقاط PCA ثنائي
 serving.registrations("FFF_2013J", day=100)                 # قائمة بيضاء بلا final_result؛ الانسحاب بعد اليوم = null (D-70)
 serving.warm("FFF_2013J")                                   # تسخين شبكة أسبوعية + القطوع (D-68)
 ```
@@ -66,8 +64,9 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
   نموذج العروض الثمانية الأخرى؛ `test_2014`: `risk_final.json` بعد فتح 2014)، و`threshold`/`threshold_source` لكل قطع
   (D-58 عند 56، وعتبة Youden مجمَّعة خارج الطيّة للعرض عند 28 و112)، و`factors` (w_j·z_j) و`top_factors`. لا تقدير قبل اليوم 28.
 - **العنقود (D-68، D-70):** اختيار k-means عند اليوم t يُحفظ في الذاكرة وعلى القرص (`data/cache/serving_clusters/`) بمفتاح
-  (عرض، يوم) وبصمة لعرض التدريب، ولا يُخدم إلا لذلك اليوم؛ بالإعدادات نفسها (n_init والبذور وk) دون تقليص. والعنقود يُستعمل
+  (عرض، يوم) وبصمة لعرض التدريب ولـ`hybrid_frozen.json` و`freeze03_config.json`، ولا يُخدم إلا لذلك اليوم؛ بالإعدادات نفسها (n_init والبذور وk) دون تقليص. والعنقود يُستعمل
   داخل التوصية ولا يُعرض: مفتاح الدليل `similar_learners_in_window`.
+- **جدول المدرّس وملخص العناقيد** منفَّذان مرة واحدة في `src/backend/services/instructor.py` (حُذفت نسختا serving المكررتان).
 - **FR-40:** `Engine(allow_confirmatory=True)` يرفض ما لم يوجد `results/conf2014/verdicts.csv` و`LOCK`.
 - **نطاق التجميد (D-69):** `serving.py` و`build_artifacts.py` خارج نطاق `freeze-03` بشرط عدم تعديل وحدة مجمَّدة.
 
@@ -111,7 +110,7 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
 | `experiments/eda.py` | الإحصاءات الوصفية وإعادة إنتاج الفحوص الاستكشافية | T1 |
 | `experiments/run_baselines.py` | B1–B10 → `results/dev2013/` | D-10، D-14، D-37 |
 | `experiments/report.py` | يبني `summary.md` من ملفات CSV فقط | — |
-| `tests/` | 106 اختبارات unittest (المقاييس، التقسيم والتسرب، الإشارة، النماذج وأمثلة الوثيقة، GRU وفحص التدرج والقناع، المتعلمون، الهجين والإحصاء، الخدمة، قراءة D-47) | §4.11، §5.9، ADR-004 |
+| `tests/` | 108 اختبارات unittest (المقاييس، التقسيم والتسرب، الإشارة، النماذج وأمثلة الوثيقة، GRU وفحص التدرج والقناع، المتعلمون، الهجين والإحصاء، الخدمة، قراءة D-47) | §4.11، §5.9، ADR-004 |
 
 كل النماذج ترث `models.base.Recommender` (`_fit`/`_score`/`param_space`)؛ ملامح المتعلم تأخذ `TrainData.all_events`
 (كل الأنواع حتى t₀) ولا تُحمَّل السمات الحساسة إلا لتحليل الإنصاف (D-21).
@@ -180,7 +179,21 @@ serving.warm("FFF_2013J")                                   # تسخين شبك�
 القائمة المولَّدة مع مسارات الأدلة: `results/frozen/freeze_checklist.md` (`freeze_config --checklist`). الجدول أدناه حالها
 عند كتابة هذا الملف.
 
-FREEZE_TABLE
+| # | الشرط | الحالة | الدليل | المسؤول |
+|---|---|---|---|---|
+| ش1 | run_hybrid بأرضية D-51 افتراضياً + الملفات | ✓ | results/dev2013/hybrid_frozen.json (floor_rule)، hybrid_acceptance.md | مهندس ML |
+| ش2 | MDE80 لـH1 بالـHYB* الجديد | ✓ | results/dev2013/mde80.md (H1 = 0.0375) | مهندس ML |
+| ش3 | الهجين على B؛ M1 افتراضياً؛ وسم «منحلّ»؛ H2-ب غير منطبقة | ✓ | hybrid.csv (task B)، serving.py (risk_model="M1")، stats.cluster_bootstrap_t + اختبار، hybrid_frozen.json (H2b) | مهندس ML |
+| ش4 | نماذج الخطر النهائية | ✓ | results/frozen/risk_final.json | مهندس ML |
+| ش5 | reproduce_dev + repro_diff.md | ✗ | results/dev2013/repro_diff.md | مهندس ML |
+| ش6 | freeze03_config.json + SHA-256 | ✓ | results/frozen/freeze03_config.json | مهندس ML |
+| ش7 | run_confirmatory + تشغيل جاف كامل على 2013 | ✗ | src/ml/experiments/run_confirmatory.py، results/dryrun2013/ | مهندس ML |
+| ش8 | مراجعة الزميل وتوقيعه | ✗ | docs/meetings/*peer* | الزميل الباحث |
+| ش9 | تحديث الوثيقة 02 بالملحق ب وREADME | ✓ | docs/working/02-hypotheses-algorithms.md، src/ml/README.md | مصمّم الفرضيات + مهندس ML |
+| ش10 | تحقق المشرف وتوقيعه ثم الوسم | ✗ | §8 من محضر الاجتماع 03؛ git tag freeze-03 | المشرف ← مهندس ML |
+
+- **ش5:** أول تشغيل كامل (53.6 دقيقة) طابق كل الملفات عدا: (1) ترتيب سجل التركيبات في `hybrid_acceptance.md` بسبب التكرار على `set` (يتغير مع PYTHONHASHSEED) — أُصلح (`hybrid.greedy_forward`) وتحقق التطابق تحت بذرتي تجزئة؛ (2) جدول الأزمنة في `summary.md` — صار محجوباً؛ (3) بصمات `freeze03_config.json` — أُزيلت الحقول المتقلبة من الملفات المبصومة فصارت ثابتة بايتياً؛ (4) `risk_final.json` في اللقطة كان نسخة وسيطة غير مُودَعة خاطئة (AUC لـM0 = 0.567) والمعاد إنتاجه يطابق المُودَع وتحليل المتعلمين (0.712). **يلزم تشغيل كامل أخير على commit نظيف** لاعتماد «مطابق».
+- **ش7:** المشغّل واختباراته جاهزة؛ **التشغيل الجاف الكامل لم يُنفَّذ بعد** (≈ 2 ساعة).
 
 ## التعارضات بين المسوّدة وADR وأخطاء الأمثلة
 
