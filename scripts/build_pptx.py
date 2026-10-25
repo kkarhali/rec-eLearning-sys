@@ -394,6 +394,10 @@ def build_cards(ctx, spec):
         x = RIGHT - (c + 1) * cw - c * gx
         y = y0 + r * (ch + gy)
         box(s, x, y, cw, ch, fill=CARD, line=BORDER, name="بطاقة")
+        if cols >= 5:                      # تخطيط مضغوط: رقم ثم عنوان تحته
+            badge(s, x + cw - 0.2 - 0.55, y + 0.15, it["n"], fill=PRIMARY, size=15, name="رقم")
+            textbox(s, x + 0.1, y + 0.8, cw - 0.2, ch - 0.9, it["head"], size=17, bold=True, anchor="t", line=1.05)
+            continue
         bd, bw = badge(s, x + cw - 0.2 - (0.55 if len(it["n"]) <= 2 else 0.85), y + 0.2, it["n"],
                        fill=PRIMARY, size=16 if len(it["n"]) <= 2 else 14, name="رقم")
         hx = x + 0.15
@@ -805,9 +809,22 @@ def build_placeholder(ctx, spec):
         textbox(s, x + 0.15, y + 0.1, cw - 0.3, 0.75, p["head"], size=20 if cols <= 3 else 18, bold=True, anchor="m", line=1.0)
         textbox(s, x + 0.15, y + 0.9, cw - 0.3, 0.9, p["text"], size=15, color=MUTED, line=1.05)
         top = y + 1.9
-        slot = box(s, x + 0.2, top, cw - 0.4, y + ch - 0.2 - top, fill=ACCENT_SOFT, line=ACCENT,
-                   dash=True, radius=0.08, line_w=1.5, name="مكان النتيجة")
-        shape_text(slot, p["slot"], 18, ACCENT_INK, True, italic=True)
+        img = ROOT / p["image"] if p.get("image") else None
+        if img is not None and img.exists():     # شكل جاهز (PNG) يحلّ محلّ المكان النائب
+            from PIL import Image
+            with Image.open(img) as im:
+                iw, ih = im.size
+            aw, ah = cw - 0.4, y + ch - 0.2 - top
+            pw = min(aw, ah * iw / ih)
+            ph = pw * ih / iw
+            pic = s.shapes.add_picture(str(img), Inches(x + 0.2 + (aw - pw) / 2), Inches(top + (ah - ph) / 2),
+                                       Inches(pw), Inches(ph))
+            pic.name = "شكل"
+            pic._element.nvPicPr.cNvPr.set("descr", p.get("alt") or p["head"])
+        else:
+            slot = box(s, x + 0.2, top, cw - 0.4, y + ch - 0.2 - top, fill=ACCENT_SOFT, line=ACCENT,
+                       dash=True, radius=0.08, line_w=1.5, name="مكان النتيجة")
+            shape_text(slot, p["slot"], 18, ACCENT_INK, True, italic=True)
     if has_callout:
         callout(s, spec["callout"], 5.75, 0.95)
     footer(ctx, s)

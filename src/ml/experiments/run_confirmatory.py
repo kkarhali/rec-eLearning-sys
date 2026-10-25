@@ -66,15 +66,30 @@ def _git(*args) -> str:
 ACCESS_LOG = "results/access_log.jsonl"
 ABORTED_PREFIX = "results/conf2014_aborted_"
 UNLOCKED = {"LOCK", ".lock", "deviations.md", "run_meta.json"}     # never covered by LOCK (D-75 (1))
+# "clean tree" = the tree of code, data and results that can change the experiment; docs/, deliverables/, .claude/
+# and other prose are outside the guard (documentation agents keep writing during a run)
+GUARDED_PREFIXES = ("src/", "data/", "results/", "scripts/")
+GUARDED_ROOT_SUFFIXES = (".py", ".sh", ".toml", ".cfg", ".ini", ".txt", ".lock", ".json", ".yml", ".yaml")
+GUARDED_ROOT_NAMES = ("Makefile", "Dockerfile")
+OWN_OUTPUT = ("results/dryrun2013/",)                          # the dry run's own output (git-ignored)
+
+
+def guarded(path: str) -> bool:
+    if path.startswith(OWN_OUTPUT):
+        return False
+    if path.startswith(GUARDED_PREFIXES):
+        return True
+    return "/" not in path and (path.endswith(GUARDED_ROOT_SUFFIXES) or path in GUARDED_ROOT_NAMES)
 
 
 def dirty_paths(tag: str, git=_git, extra_exempt: tuple = ()) -> list[str]:
-    """``git status --porcelain`` minus the D-75 (2) exemptions: ``results/access_log.jsonl`` when the tagged version is
+    """``git status --porcelain`` restricted to the guarded tree (``guarded``: src/, data/, results/ except the dry run's
+    own output, scripts/, executable root files), minus the D-75 (2) exemptions: ``results/access_log.jsonl`` when the tagged version is
     a literal prefix of it (append only), ``results/conf2014_aborted_*``, and ``extra_exempt`` path prefixes."""
     out = []
     for line in git("status", "--porcelain").splitlines():
-        path = line[3:].strip().strip('"')
-        if path.startswith(ABORTED_PREFIX) or any(path.startswith(e) for e in extra_exempt):
+        path = line[3:].split(" -> ")[-1].strip().strip('"')
+        if not guarded(path) or path.startswith(ABORTED_PREFIX) or any(path.startswith(e) for e in extra_exempt):
             continue
         if path == ACCESS_LOG and line[:2].strip() == "M":
             try:
@@ -119,16 +134,17 @@ def guard_rehearsal(tag: str, out: Path, git=_git) -> dict:
         tagged = git("rev-parse", f"{tag}^{{commit}}")
     except Exception:
         tagged = None
-    dirty = git("status", "--porcelain")
-    rep = {"head": head, "tag": tag, "tag_exists": tagged is not None, "head_is_tag": tagged == head,
-           "tree_clean": not dirty, "dirty_paths": dirty.splitlines()[:20], "conf2014_absent": not out.exists()}
-
     def at_head(*args):
         if args[:1] == ("rev-parse",) and args[1].startswith(tag):
             return head
         if args[:1] == ("show",) and args[1].startswith(f"{tag}:"):
             return git("show", "HEAD:" + args[1].split(":", 1)[1])
         return git(*args)
+    dirty = dirty_paths(tag, at_head)
+    rep = {"head": head, "tag": tag, "tag_exists": tagged is not None, "head_is_tag": tagged == head,
+           "tree_clean": not dirty, "dirty_paths": dirty[:20], "conf2014_absent": not out.exists(),
+           "guard_scope": "src/, data/, results/ (minus results/dryrun2013/), scripts/, executable root files"}
+
     try:
         check_guards(tag, out, git=at_head)
         rep["check_guards_with_tag_at_HEAD"] = "pass"
@@ -208,7 +224,9 @@ def verify_lock(out: Path, tag: str, dry: bool, git=_git) -> dict:
             raise GuardError(f"{f} does not match LOCK")
     head = git("rev-parse", "HEAD")
     if lock.get("commit") != head:
-        raise GuardError(f"LOCK commit {str(lock.get('commit'))[:10]} is not HEAD {head[:10]}")
+        raise GuardError(f"LOCK was written at commit {str(lock.get('commit'))[:10]} but HEAD is now {head[:10]}: HEAD moved "
+                         "after phase 1 (a commit or checkout during the run). Phase 2 must run on the commit of phase 1; "
+                         "check out that commit (confirmatory: the tag) and use --resume / --phase 2 again")
     if not dry:
         try:
             tagged = git("rev-parse", f"{tag}^{{commit}}")

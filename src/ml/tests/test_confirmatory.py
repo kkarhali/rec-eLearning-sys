@@ -214,6 +214,21 @@ class TestD75Resume(unittest.TestCase):
             RC.check_guards("freeze-03", self.out, git=repo_git())
         self.assertEqual(RC.check_guards("freeze-03", self.out, git=repo_git(status="?? results/conf2014/"), resume=True), "aaa")
 
+    def test_guard_scope(self):
+        """The clean-tree guard covers code, data and results only; docs/ and deliverables/ are outside it."""
+        st = (" M docs/working/03-analysis-design.md\n M deliverables/x.docx\n?? .claude/settings.json\n"
+              "?? results/dryrun2013/LOCK\n M README.md\n D \"deliverables/.~lock.x#\"")
+        self.assertEqual(RC.dirty_paths("freeze-03", repo_git(status=st)), [])
+        for line in (" M src/ml/data.py", "?? scripts/new.py", " M results/dev2013/summary.md", "?? data/raw/x.csv",
+                     "?? run.py", " M requirements.txt", "R  src/a.py -> src/b.py"):
+            self.assertEqual(RC.dirty_paths("freeze-03", repo_git(status=line)), [line], line)
+        self.assertEqual(RC.check_guards("freeze-03", self.out, git=repo_git(status=st)), "aaa")
+
+    def test_head_moved_message(self):
+        self._phase1()
+        with self.assertRaisesRegex(RC.GuardError, "HEAD moved"):
+            RC.verify_lock(self.out, "freeze-03", dry=True, git=repo_git(head="bbb"))
+
     def test_lock_covers_phase1_files(self):
         import json
         self._phase1()
