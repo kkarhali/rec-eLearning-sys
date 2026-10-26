@@ -9,6 +9,7 @@ python3 scripts/thesis/eda_figures.py      # 0) شكلا الفصل 3 من عر�
 python3 scripts/thesis/make_tables.py     # 1) الجداول من results/conf2014/ (وresults/dev2013/ablation_signals.csv)
 python3 scripts/thesis/assemble.py        # 2) يدرج الجداول والأشكال في §5-8 ويكتب الملحق د
 python3 scripts/thesis/build_ch6.py       # 3) يبني الفصل 6 من نصه المسجل عند الوسم freeze-03
+python3 scripts/thesis/build_thesis_docx.py [--pdf=DIR]   # 4) ملف Word النهائي (ومعاينة PDF اختيارية)
 ```
 
 `build_ch6.py --verify-tag` يتحقق أيضاً من أن `templates/ch6_freeze03.md` مطابق حرفياً لنسخة الوسم (استدعاء `git show` للقراءة فقط).
@@ -23,6 +24,7 @@ python3 scripts/thesis/build_ch6.py       # 3) يبني الفصل 6 من نصه
 | `make_tables.py` | `results/conf2014/*` (CSV وJSON وLOCK وsummary.md)، `results/dev2013/ablation_signals.csv` | `deliverables/06-final-thesis/tables/` (جدول `.md` لكل جدول، و`figures.txt` لكتل الأشكال وتعليقاتها، و`CHECKS.txt`) |
 | `assemble.py` | `templates/sec58_template.md`، `templates/appD_template.md`، مخرجات الخطوة 1 | `docs/working/06-thesis/ch5-implementation-results.md` (ما بين عنوان 5-8 وعنوان 5-9 وحده)، `docs/working/06-thesis/appendix-D-confirmatory-details.md` |
 | `build_ch6.py` | `templates/ch6_freeze03.md` | `docs/working/06-thesis/ch6-discussion.md` |
+| `build_thesis_docx.py` | ملفات `docs/working/06-thesis/` بترتيب الرسالة (المقدمات، والفصول 1–7، والمراجع، والملاحق أ–د)، والصور | `deliverables/06-final-thesis/الأطروحة-النهائية.docx` عبر `scripts/build_docx.py`. يضيف غلافاً عربياً، وصفحة عنوان إنكليزية مستقلة، وفاصل صفحة قبل كل عنوان من المستوى الأول، وحقول فهرس المحتويات والأشكال والجداول (يحدّثها Word عند الفتح). ويضبط أنماط التعليقات، وعروض أعمدة الجداول بحسب محتواها مع تكرار صف الرأس، واتجاه الصفحة الإنكليزية والملخص الإنكليزي. ويتوقف إن غابت أي صورة. والخيار `--pdf=DIR` يكتب معاينة PDF من نسخة تُحدَّث فهارسها بـLibreOffice، وتغيب عنها المعادلات لأن LibreOffice هنا بلا وحدة Math |
 | `refmap.py` | — | دوال مشتركة لإعادة ترقيم الإحالات، يستعملها `renumber.py` و`build_ch6.py`. يطبّق `build_ch6.py` جدول المقابلة المحفوظ على النص المسجل وقت البناء، فتبقى صياغة الفقرات المسجلة كما هي وتتبع أرقام الإحالات ترقيم الرسالة |
 | `renumber.py` | الفصول والملاحق و`references.md` و`docs/working/07-presentation.json` | إعادة ترقيم المراجع بترتيب الظهور، وفحص ترقيم الأشكال والجداول، و`deliverables/06-final-thesis/refs_renumber_map.csv` (لا يُشغَّل على المستودع إلا بعد اكتمال سجل التحقق من المراجع) |
 
