@@ -5,7 +5,7 @@
 
 | # | الملف (بدون .pdf) | العنوان (أولي — يصحّحه المحلل) | المؤلفون/السنة/الوعاء (أولي) |
 |---|---|---|---|
-| 1 | Session based Song Recommendation Using | Session-Based Song Recommendation Using Recurrent Neural Network | Kumar, Kumar, Jindal — 2023 — LNEE vol. 997, Springer |
+| 1 | Session based Song Recommendation Using | Session-Based Song Recommendation Using Recurrent Neural Network | Kumar, Kumar, Jindal — 2022 — ورقة مؤتمر لم يُتحقق من وعائها (نسخة المؤلف؛ D-110) |
 | 2 | Online Course Recommendation Using Deep Convolutional | Online Course Recommendation Using Deep Convolutional Neural Network with Negative Sequence Mining | Gao, Luo, Hu — 2022 — Wireless Communications and Mobile Computing |
 | 3 | User_Interaction_Based_Recommender_System_Using_Ma | User Interaction Based Recommender System Using Machine Learning | Sabitha et al. — 2022 — Intelligent Automation & Soft Computing |
 | 4 | An_Adaptive_Mechanism_for_Recommendation_Algorithm | An Adaptive Mechanism for Recommendation Algorithm Ensemble | Huang et al. — 2019 — IEEE Access |

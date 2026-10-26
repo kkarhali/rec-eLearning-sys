@@ -389,7 +389,7 @@
 1. **المقارنة بين التسلسلي وغير التسلسلي غير محسومة.**
    - في [31] (✅) جاء GRU التسلسلي (0.6863) **أدنى** من NAIS (0.6905) غير التسلسلي، وتفوّق على BPR وMLP وFM وFISM فقط.
    - في [20] (❓) تقدّم SASRec وGRU4Rec على الشعبية بفارق صغير وتنفيذ مخفّف.
-   - في [1] (❓) تفوّقت طرائق الجيران الجلسية على RNN.
+   - في [1] (❓؛ ورقة مؤتمر لم يُتحقق من وعائها) تفوّقت طرائق الجيران الجلسية على RNN.
    - وتشير أعمال خارج المجموعة إلى نتيجة مماثلة في التوصية بالجلسة [42]، [43].
 2. **الإشارات الغنية في البيانات العامة نادراً ما تُستعمل في التوصية نفسها.** فأكثر الأوراق يكتفي بالترتيب أو التسجيل.
 3. **لا يجمع أي مرجع التقسيم الزمني والترتيب على الكتالوج الكامل.** فالمرجع [31] زمني لكنه يعتمد عيّنة سوالب، والمرجع [20] يرتّب على الكتالوج الكامل لكنه يعتمد ترك العنصر الأخير، والمرجع [22] لم يُصرّح.
@@ -442,7 +442,7 @@
 
 | المرجع | المجال (المحور) | ما يُنقل | ما لا يُنقل ولماذا |
 |--------|--------|-------------------------------------------|-----------------------------------------|
-| [1] ❓ | موسيقى (ج) | إطار GRU4Rec؛ الجيران الجلسيون خطوط أساس قوية: V-SKNN أعلى في Precision وIKNN أعلى في Recall وMRR | ادعاء تفوّق RNN، لأن جداول الورقة نفسها تخالفه |
+| [1] ❓ (ورقة مؤتمر لم يُتحقق من وعائها) | موسيقى (ج) | إطار GRU4Rec؛ الجيران الجلسيون خطوط أساس قوية: V-SKNN أعلى في Precision وIKNN أعلى في Recall وMRR | ادعاء تفوّق RNN، لأن جداول الورقة نفسها تخالفه |
 | [3] ⚠️ | تجارة (ب) | تعريف RBFNN ودمج مصادر متعددة | الأرقام، لأن البيانات 120 عميلاً بلا دقة مُبلَّغة |
 | [4] ✅ | أفلام (هـ) | اختيار الخوارزمية حسب التغذية الراجعة | المقياس الثنائي، فهو ليس ترتيباً |
 | [8] ⚠️ | أفلام (ب) | القائمة الرمادية والاستكشاف للبدء البارد | النتائج، لأن المستخدم مُحاكى |
@@ -929,7 +929,7 @@
 
 ## 9.1 المراجع المحللة [1]–[38]
 
-[1] C. Kumar, M. Kumar, and A. Jindal, "Session-based song recommendation using recurrent neural network," conference paper, 2022. [تنبيه: نص الورقة لا يذكر الوعاء ولا DOI. تذكر خطة البحث الأصلية أنه نُشر في *Machine Intelligence Techniques for Data Analysis and Signal Processing*, D. S. Sisodia, L. Garg, R. B. Pachori, and M. Tanveer, Eds., Lecture Notes in Electrical Engineering, vol. 997, Springer, Singapore, 2023, doi: 10.1007/978-981-99-0085-5_58، ولم تؤكّد ذلك البطاقات ولا بحث الويب.]
+[1] C. Kumar, M. Kumar, and A. Jindal, "Session-based song recommendation using recurrent neural network," conference paper (author's version), Mar. 2022. Accessed: Oct. 26, 2026. [Online]. Available: https://www.researchgate.net/publication/367498696 [تنبيه: الوعاء غير مؤكَّد، ولا DOI؛ نسخة المؤلف.]
 
 [2] M. Gao, Y. Luo, and X. Hu, "Online course recommendation using deep convolutional neural network with negative sequence mining," *Wireless Communications and Mobile Computing*, vol. 2022, Art. no. 9054149, 2022, doi: 10.1155/2022/9054149.
 
@@ -949,7 +949,7 @@
 
 [10] S. Amin, M. I. Uddin, W. K. Mashwani, A. A. Alarood, A. Alzahrani, and A. O. Alzahrani, "Developing a personalized e-learning and MOOC recommender system in IoT-enabled smart education," *IEEE Access*, 2023, doi: 10.1109/ACCESS.2023.3336676. [المجلد والصفحات غير مذكورة في النسخة المحفوظة.]
 
-[11] A. Chandna and V. Kumar, "Machine learning-based recommendation system for e-learning: A personalized approach using learner behavior analytics," *International Journal of Computer Information Systems and Industrial Management Applications*, vol. 18, no. 21s, pp. 1045–1064, 2026, doi: 10.70917/ijcisim-2026-5377. [تنبيه: لم يُتحقَّق من وجود الـDOI على الويب.]
+[11] A. Chandna and V. Kumar, "Machine learning-based recommendation system for e-learning: A personalized approach using learner behavior analytics," *International Journal of Computer Information Systems and Industrial Management Applications*, vol. 18, no. 21s, pp. 1045–1064, 2026. [DOI مطبوع في PDF الناشر ولم يُتحقق من تسجيله، فأُغفل.]
 
 [12] M. M. Kshirsagar, U. H. Gawande, S. R. Jain, S. S. Chavhan, D. B. Bhoyar, P. P. Deshpande, S. S. Kurumbanshi, and V. G. Girhepunje, "A multi-model machine learning framework for personalised course recommendation with dynamic feedback," *African Journal of Applied Research*, vol. 11, no. 5, pp. 326–339, 2025. [تنبيه: الـDOI المطبوع في الورقة غير مكتمل (10.26437/ajar.v11).]
 
@@ -987,7 +987,7 @@
 
 [29] M. M. Rahman and N. A. Abdullah, "A personalized group-based recommendation approach for web search in e-learning," *IEEE Access*, vol. 6, pp. 34166–34178, 2018, doi: 10.1109/ACCESS.2018.2850376.
 
-[30] S. Sergis and D. G. Sampson, "Learning object recommendations for teachers based on elicited ICT competence profiles," *IEEE Transactions on Learning Technologies*, vol. 9, no. 1, pp. 67–80, Jan.–Mar. 2016, doi: 10.1109/TLT.2015.2434824. [الصفحة الأخيرة هي آخر صفحة ظاهرة في النص المستخرج؛ يُتحقَّق منها.]
+[30] S. Sergis and D. G. Sampson, "Learning object recommendations for teachers based on elicited ICT competence profiles," *IEEE Transactions on Learning Technologies*, vol. 9, no. 1, pp. 67–80, Jan.–Mar. 2016, doi: 10.1109/TLT.2015.2434824.
 
 [31] J. Zhang, B. Hao, B. Chen, C. Li, H. Chen, and J. Sun, "Hierarchical reinforcement learning for course recommendation in MOOCs," in *Proc. 33rd AAAI Conf. Artificial Intelligence (AAAI-19)*, 2019, pp. 435–442.
 
@@ -997,7 +997,7 @@
 
 [34] S. M. Costa, R. Pinto, and G. Gonçalves, "Graph-based personalized recommendation in intelligent educational platforms: A case study in engineering education," in *Proc. 21st Int. Conf. Web Information Systems and Technologies (WEBIST 2025)*, SCITEPRESS, 2025, pp. 439–446, doi: 10.5220/0013830200003985.
 
-[35] X. Wang and X. Liang, "HMSTNet: A deep learning multimodal approach for personalized English literature recommendations," *IEEE Access*, vol. 13, pp. 74984–74998, 2025, doi: 10.1109/ACCESS.2025.3564677. [الصفحة الأخيرة هي آخر صفحة ظاهرة في النص المستخرج؛ يُتحقَّق منها.]
+[35] X. Wang and X. Liang, "HMSTNet: A deep learning multimodal approach for personalized English literature recommendations," *IEEE Access*, vol. 13, pp. 74984–74999, 2025, doi: 10.1109/ACCESS.2025.3564677.
 
 [36] L. Wang, "Cognitive and behavioral neurology approaches to personalized Japanese language learning path recommendations," *Frontiers in Psychology*, vol. 17, Art. no. 1750189, 2026, doi: 10.3389/fpsyg.2026.1750189.
 
@@ -1049,7 +1049,7 @@
 
 | # | المرجع | الوعاء | المجال | البيانات | عائلة الطريقة |
 |---------|--------------|---------------|--------------|-------------------------|-----------------------|
-| 1 | Kumar، 2022 | غير مؤكد (LNEE حسب الخطة) | موسيقى | 30Music: 2.76 مليون جلسة، 210,633 أغنية | تسلسلي: RNN بنمط GRU4Rec مع BPR-max |
+| 1 | Kumar، 2022 | ورقة مؤتمر لم يُتحقق من وعائها | موسيقى | 30Music: 2.76 مليون جلسة، 210,633 أغنية | تسلسلي: RNN بنمط GRU4Rec مع BPR-max |
 | 2 | Gao، 2022 | WCMC (Hindawi) | MOOC | CourseTalk: 500 متعلم | تسلسلي: CNN مع تسلسل سالب |
 | 3 | Sabitha، 2022 | IASC | تجارة | 120 عميلاً | هجين: CBF وD-S وRBFNN |
 | 4 | Huang، 2019 | IEEE Access | أفلام | MovieLens: 943 × 1,682 و706 × 8,570 (مجموعات فرعية) | تجميع خوارزميات بالمكافأة (kNN، Slope One) |
