@@ -551,6 +551,8 @@ Techniques for Data Analysis and Signal Processing. Lecture Notes in
 Electrical Engineering, vol 997. Springer, Singapore.
 https://doi.org/10.1007/978-981-99-0085-5_58
 
+[*حاشية (2026-10-26): لم يُتحقق من الوعاء (LNEE vol. 997) ولا من الـDOI من بيئة العمل، لحجب مواقع الناشرين؛ والأطروحة تستشهد بنسخة المؤلف. انظر D-110 و`research-credibility.md` §6.*]{dir="rtl"}
+
 \[2\] Ming Gao, Yonghan Luo, Xiaonan Hu, *\"Online Course Recommendation
 Using Deep Convolutional Neural Network with Negative Sequence
 Mining\"*, Wireless Communications and Mobile Computing, vol. 2022,
