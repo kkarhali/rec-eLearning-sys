@@ -30,7 +30,6 @@ from __future__ import annotations
 import argparse
 import json
 import multiprocessing as mp
-import re
 import time
 
 from _s2 import C, check_hybrid_folds, fold_frame, folds_for, np, pd

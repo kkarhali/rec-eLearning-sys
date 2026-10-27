@@ -22,7 +22,7 @@ import multiprocessing as mp
 import time
 
 from _s2 import (C, FLOOR, FROZEN, NONPERSONAL, check_decomposition, check_hybrid_folds, check_locked_files,
-                 decomposition, fold_frame, folds_for, log_read, np, pd, per_pres, require, weight_counts)
+                 decomposition, fold_frame, folds_for, log_read, pd, per_pres, require, weight_counts)
 from src.ml import data
 from src.ml.experiments import run_hybrid as RH
 

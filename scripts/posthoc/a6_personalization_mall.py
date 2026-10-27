@@ -31,7 +31,7 @@ import os
 import time
 
 from _s2 import (C, DEC_LABELS, FLOOR, FROZEN, NONPERSONAL, check_decomposition, check_hybrid_folds,
-                 check_locked_files, decomposition, fold_frame, folds_for, log_read, np, pd, per_pres, require,
+                 check_locked_files, decomposition, fold_frame, folds_for, log_read, pd, per_pres, require,
                  weight_counts)
 from src.ml import components as CP, data
 from src.ml.experiments import run_hybrid as RH
