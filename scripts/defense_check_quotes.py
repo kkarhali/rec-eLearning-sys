@@ -49,11 +49,16 @@ def quotes(md: str):
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
         if not prev_table:                      # header row of a new table
             prev_table = True
-            evid = any(k in cells[-1] for k in ("اقتباس", "الشاهد", "شاهد"))
+            cols = [i for i, c in enumerate(cells) if "اقتباس" in c] or \
+                [i for i, c in enumerate(cells) if any(k in c for k in ("الشاهد", "شاهد"))]
+            evid = bool(cols)
+            col = cols[-1] if cols else -1
+            ncols = len(cells)
             continue
         if not evid or len(cells) < 3:
             continue
-        cell = cells[-1]
+        # a row with an extra cell split the evidence column in two (place | quote): the quote is last
+        cell = cells[-1] if len(cells) > ncols or col >= len(cells) else cells[col]
         if not re.search(r"«[^»]{8,}»", cell) and cell.startswith("`") and ": " in cell:
             cell = cell.split(": ", 1)[1]          # "`file`، section: quote" form
         inner = re.findall(r"«([^»]{8,})»", cell)
