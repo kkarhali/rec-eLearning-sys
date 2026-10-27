@@ -421,13 +421,17 @@ for model in ["B3_RecentPop", "HYB*", "B5_SKNN", "GRU_lite"]:
     src = gru if model == "GRU_lite" else base
     sl = src[(src.task == "A") & (src.model == model) & (src.slice == "all")]
     full[model] = mean_over_pres(sl, "HR@10")["mean"].iloc[0]
+# the hybrid's full-catalogue HR@10 is not in the locked hybrid file; it comes from the post-hoc
+# companion metrics (appendix E, table E-3), marked as such
+cm = pd.read_csv(os.path.join(ROOT, "results", "posthoc", "a4_3_companion_metrics.csv"))
+hyb_hr = cm[(cm.year == 2014) & (cm.model == "HYB*")]["HR@10"].iloc[0]
 rank_s = samp.sort_values(ascending=False).index.tolist()
 for model in rank_s:
-    rows.append((MODEL_AR[model], num(samp[model], 3), num(full[model], 3) if model in full else "—",
-                 rank_s.index(model) + 1))
+    fcell = num(full[model], 3) if model in full else (num(hyb_hr, 3) + " (لاحق، الجدول هـ-3)" if model == "HYB*" else "—")
+    rows.append((MODEL_AR[model], num(samp[model], 3), fcell, rank_s.index(model) + 1))
 write("t-5-8-8d", "جدول 5-8-ز: أثر البروتوكول، HR@10 بالترتيب بين عشرين سالبة معيَّنة مقابل الترتيب على الكتالوج الكامل، المهمة A (ثانوي، وصفي) (المصدر: protocol_sampled.csv وbaselines.csv وgru.csv)",
       table(["النموذج", "HR@10 بالسوالب المعيَّنة", "HR@10 على الكتالوج الكامل", "الرتبة بالسوالب المعيَّنة"], rows),
-      "لا يحمل ملف الهجين على المهمة A عمود HR@10 على الكتالوج الكامل، فتُرك خانته فارغة.")
+      "لا يحمل ملف الهجين المقفل على المهمة A عمود HR@10 على الكتالوج الكامل، فأُخذت قيمته من الحساب اللاحق في الملحق هـ (الجدول هـ-3).")
 
 ia = pd.read_csv(os.path.join(R, "intervals_appendix.csv"))
 rows = []
