@@ -6,7 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 رسالة ماجستير في علوم الوب (الجامعة الافتراضية السورية): **«نظام توصية للتعليم الإلكتروني القائم على تحليل سلوك المستخدم»**.
 الطالب: كنان محمد قرحالي · المشرف: د. باسل الخطيب. لغة الوثائق العربية (RTL)، والمصطلحات التقنية بالإنكليزية بين قوسين.
-الفرع العامل: `kk_auto_/amazing-planck-wzsemh`. الرسالة مكتملة ومقبولة من المشرف (`docs/meetings/final-acceptance.md`).
+الفرع العامل: `kk_auto_/amazing-planck-wzsemh`. الرسالة مكتملة. محاضر «المشرف» و«الزميل الباحث» في `docs/meetings/` (ومنها `final-acceptance.md`) مراجعات محاكاة
+نفّذتها أداة ذكاء اصطناعي بمهارتي `.claude/skills/`، وليست توقيعات أشخاص؛ وما زال اعتماد المشرف الفعلي والإفصاح عن الأداة مطلوبين.
 
 **السؤال العلمي:** ما الذي يضيفه تحليل سلوك المتعلم إلى توصية الموارد داخل المقرر فوق ما يمليه الجدول الدراسي نفسه (ممثلاً بالشعبية الآنية)؟
 أعاد التحليل الاستكشافي صياغة المشكلة: التناثر ضعيف داخل العرض (كثافة 9.8%–41.6%)، والوصول يقوده الجدول والشعبية
@@ -28,7 +29,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **لا رقم يدوي في الأطروحة:** كل رقم يأتي من `results/` عبر `scripts/thesis/`. أرقام الواجهة توضيحية ولا يُستشهد بها.
 - **سجل القرارات D-01…D-113** في `.claude/skills/academic-supervisor-basel-alkhatib/references/thesis-context.md`، والـADR في
   `docs/decisions/` (ADR-004 يسود عند التعارض)، والمحاضر في `docs/meetings/`. قاعدة الفريق: لا قرار افتراضي؛ ما لا نص فيه يُحسم
-  بمهارة المشرف `academic-supervisor-basel-alkhatib`، ويُراجَع بمهارة `peer-reviewer-colleague`.
+  بمهارة المشرف المحاكى `academic-supervisor-basel-alkhatib`، ويُراجَع بمهارة `peer-reviewer-colleague`.
+  محضر المناقشة التجريبية وتصويباتها في `docs/defense/`.
 
 ## الفرضيات وقاعدة الحكم (مسجّلة قبل التأكيد)
 
