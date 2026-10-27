@@ -318,6 +318,12 @@ class Engine:
         return logits
 
     # ---------------------------------------------------------------- explanations
+    @lru_cache(maxsize=8)
+    def _last_basket(self, name, day):
+        """U×I indicator of each learner's last active day ≤ day (SKNN/Markov evidence), built once per (presentation,
+        day): the instructor coverage calls recommend for every learner, and rebuilding it per item was quadratic."""
+        return last_days_query(self.train_view(name, int(day)), 1, "binary")
+
     def _evidence(self, comp, tr, u, j, cfg, name, day, c):
         it = int(tr.items[j])
         if comp == "B3_RecentPop":
@@ -343,7 +349,7 @@ class Engine:
                 return {"closest_in_history": int(tr.items[i])}
             return {}
         if comp in ("B5_SKNN", "B6_Markov"):
-            q = last_days_query(tr, 1, "binary")[u]
+            q = self._last_basket(name, day)[u]
             return {"recent_items": tr.items[q > 0].astype(int).tolist()[:5]}
         if comp == "B9_CBF":
             return {"type": str(tr.item_type[j])}

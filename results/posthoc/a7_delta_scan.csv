@@ -1,0 +1,11 @@
+hypothesis,verdict,delta_from,delta_to,status
+H1,inconclusive,0.005000,0.020000,post-hoc; δ grid step 0.0005; locked mean / interval / Holm p of verdicts.csv
+H1,refuted,0.020500,0.050000,post-hoc; δ grid step 0.0005; locked mean / interval / Holm p of verdicts.csv
+H2-a,confirmed,0.005000,0.049500,post-hoc; δ grid step 0.0005; locked mean / interval / Holm p of verdicts.csv
+H2-a,inconclusive,0.050000,0.050000,post-hoc; δ grid step 0.0005; locked mean / interval / Holm p of verdicts.csv
+H3,inconclusive,0.005000,0.012000,post-hoc; δ grid step 0.0005; locked mean / interval / Holm p of verdicts.csv
+H3,refuted,0.012500,0.034500,post-hoc; δ grid step 0.0005; locked mean / interval / Holm p of verdicts.csv
+H3,equivalent,0.035000,0.050000,post-hoc; δ grid step 0.0005; locked mean / interval / Holm p of verdicts.csv
+H4-a,confirmed,0.005000,0.008000,post-hoc; δ grid step 0.0005; locked mean / interval / Holm p of verdicts.csv
+H4-a,inconclusive,0.008500,0.014000,post-hoc; δ grid step 0.0005; locked mean / interval / Holm p of verdicts.csv
+H4-a,refuted,0.014500,0.050000,post-hoc; δ grid step 0.0005; locked mean / interval / Holm p of verdicts.csv

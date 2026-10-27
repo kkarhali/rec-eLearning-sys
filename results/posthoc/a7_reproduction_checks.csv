@@ -1,0 +1,8 @@
+year,check,n,max_abs_diff,tolerance,pass,stop_condition
+2014,conf2014/verdicts.csv SHA-256 = LOCK manifest,1,0.000000,0.000000,True,
+2014,conf2014/per_presentation.csv SHA-256 = LOCK manifest,1,0.000000,0.000000,True,
+2014,conf2014/sensitivity_other.csv not in the LOCK manifest (secondary file; read as is),1,,,True,False
+2014,sign-flip p from per_presentation.csv vs verdicts.csv p,4,0.000000,0.000001,True,
+2014,Holm p (m = 4) from the recomputed p vs verdicts.csv p_holm,4,0.000000,0.000001,True,
+2014,margin p (δ = 0.02) from per_presentation.csv vs verdicts.csv p_margin,4,0.000000,0.000001,True,
+2014,verdict at δ = 0.02 = verdicts.csv (4 hypotheses),4,0.000000,0.000000,True,

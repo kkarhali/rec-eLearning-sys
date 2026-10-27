@@ -28,6 +28,8 @@ class Settings:
     warm: bool = False                               # --warm: تسخين في خيط خلفي عند الإقلاع
     warm_presentation: str = DEFAULT_PRESENTATION
     warm_days: tuple[int, ...] = WARM_DAYS
+    precompute_clusters: bool = False                # --precompute-clusters: بعد التسخين، اختيار العناقيد لكل أيام العرض (NFR-01)
+    precompute_jobs: int = 2                         # عمليات الحساب المسبق في الخلفية (تُترك بقية الأنوية للطلبات)
     default_presentation: str = DEFAULT_PRESENTATION
     frontend_dist: Path = REPO_ROOT / "src" / "frontend" / "dist"
     md5_reference: Path = REPO_ROOT / "data" / "oulad_md5_reference.txt"

@@ -165,6 +165,8 @@ def run_year(year: str, workers: int, checks: list):
           f"B3+SKNN_Mall weights {wb}", flush=True)
     wrows = [{"year": year, "model": "HYB_Mall = (7) + SKNN(M = all) (floor ≥ 1/4)", "weights": k, "n_folds": v} for k, v in w.items()]
     wrows += [{"year": year, "model": "HYB_B3+SKNN(M = all) (floor ≥ 1/4)", "weights": k, "n_folds": v} for k, v in wb.items()]
+    wn = weight_counts(folds[folds["model"].str.startswith("HYB_Mall nominal")])
+    wrows += [{"year": year, "model": "HYB_Mall nominal grid (no floor)", "weights": k, "n_folds": v} for k, v in wn.items()]
     return folds, per, st, wrows
 
 

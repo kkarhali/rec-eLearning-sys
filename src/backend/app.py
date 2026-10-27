@@ -66,6 +66,24 @@ class Services:
         except Exception as e:           # التسخين تحسيني: فشله لا يوقف الخدمة
             log.exception("warm-up failed")
             st.update(state="failed", error=str(e))
+        if s.precompute_clusters:
+            self.run_precompute()
+
+    def run_precompute(self) -> None:
+        """NFR-01: اختيار العناقيد لكل أيام العرض الافتراضي في عمليات خلفية (serving.Engine.precompute_clusters).
+        الحساب هو حساب الطلب نفسه، ويُحفظ في الذاكرة الدائمة؛ فلا يحسبه بعدها أي طلب بارد."""
+        s = self.settings
+        pc = {"state": "running", "presentation": s.warm_presentation, "done": 0, "total": None}
+        self.warm["precompute"] = pc
+
+        def progress(i, total, day, sec):
+            pc.update(done=i, total=total)
+        try:
+            r = self.repo.engine.precompute_clusters(s.warm_presentation, jobs=s.precompute_jobs, progress=progress)
+            pc.update(state="done", computed=r["computed"], already_cached=r["already_cached"], seconds=r["seconds"])
+        except Exception as e:           # تحسيني كذلك: فشله لا يوقف الخدمة، ويبقى الحساب عند الطلب
+            log.exception("cluster precompute failed")
+            pc.update(state="failed", error=str(e))
 
 
 class TimingMiddleware:
