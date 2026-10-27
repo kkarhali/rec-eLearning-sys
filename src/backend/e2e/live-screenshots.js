@@ -2,6 +2,8 @@
 // يشترط خادماً يعمل (python3 -m src.backend --warm) وواجهة مبنية. يفشل (exit 1) عند أي خطأ JS أو طلب mock أو غياب شارة «تاريخ النموذج».
 // ج-16: ثلاثة عروض (1440 و375 و360؛ الأخير للفحص وحده بلا لقطات)، وترتيب التركيز بـTab مع حلقة تركيز مرئية في صفحتي المتعلم والمدرّس،
 // وترقيم جدول المدرّس بلوحة المفاتيح وتصفية «بلا نشاط 14 يوماً» في الخادم (FR-32، ب-8).
+// NFR-14/NFR-22: روابط التخطي إلى جدول المتعلمين والتوصيات (عدد ضغطات Tab بعدها)، وشجرة الوصول الفعلية في Chromium (كل عنصر تفاعلي
+// أو قابل للتركيز له اسم وصولي)، وتباين كل نص مرسوم مع خلفيته الفعلية (4.5:1، و3:1 للنص الكبير).
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
@@ -115,9 +117,94 @@ async function main() {
         checks.push(`${name} ترتيب التركيز (${label}): ${k}/${expected.length} محطات في ${n} ضغطة Tab · ${trail.join(' ← ')}`);
       };
 
+      // شجرة الوصول (Chromium عبر CDP): كل عقدة غير متجاهلة دورها تفاعلي أو قابلة للتركيز يجب أن يكون لها اسم وصولي غير فارغ.
+      // الصفوف وعناوين الأعمدة غير القابلة للتركيز خارج الفحص (اسمها من محتواها اختياري)؛ والصف القابل للتركيز يدخل بشرط التركيز.
+      const INTERACTIVE = new Set(['button', 'link', 'textbox', 'searchbox', 'combobox', 'listbox', 'option', 'slider', 'spinbutton', 'checkbox',
+        'radio', 'switch', 'tab', 'menuitem', 'treeitem', 'region', 'dialog']);
+      const axTree = async (label) => {
+        const cdp = await ctx.newCDPSession(page);
+        try {
+          const { nodes } = await cdp.send('Accessibility.getFullAXTree');
+          let n = 0; const unnamed = [];
+          for (const x of nodes) {
+            if (x.ignored) continue;
+            const role = x.role?.value || '';
+            const focusable = (x.properties || []).some((p) => p.name === 'focusable' && p.value?.value === true);
+            if (!INTERACTIVE.has(role) && !focusable) continue;
+            if (role === 'RootWebArea' || role === 'WebArea') continue;
+            n++;
+            if (!String(x.name?.value || '').trim()) unnamed.push(`${role}${focusable ? '(focusable)' : ''}`);
+          }
+          checks.push(`${name} شجرة الوصول (${label}): ${n} عنصراً تفاعلياً، بلا اسم ${unnamed.length}`);
+          if (!n) problems.push(`${name} ${label}: شجرة الوصول فارغة`);
+          if (unnamed.length) problems.push(`${name} ${label}: عناصر تفاعلية بلا اسم وصولي: ${[...new Set(unnamed)].join('، ')} (${unnamed.length})`);
+        } finally { await cdp.detach(); }
+      };
+      // تباين النص المرسوم (1.4.3): لون النص المحسوب مقابل أول خلفية معتمة في سلسلة الآباء مع مزج الشفافية؛ الكبير ≥ 24px أو ≥ 18.66px عريض.
+      // يُتخطّى نص SVG (يفحصه test_contrast.py) والعناصر المعطّلة وما فوق خلفية متدرجة (وميض التحميل).
+      const textContrast = async (label) => {
+        const r = await page.evaluate(() => {
+          const parse = (c) => { const m = c.match(/rgba?\(([^)]+)\)/); if (!m) return null; const v = m[1].split(/[ ,/]+/).filter(Boolean).map(Number); return [v[0], v[1], v[2], v.length > 3 ? v[3] : 1]; };
+          const lum = ([r, g, b]) => { const f = (x) => { x /= 255; return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
+          const over = (top, under) => { const a = top[3]; return [0, 1, 2].map((i) => a * top[i] + (1 - a) * under[i]).concat(1); };
+          const bgOf = (el) => {
+            const layers = [];
+            for (let e = el; e; e = e.parentElement) {
+              const cs = getComputedStyle(e);
+              if (cs.backgroundImage && cs.backgroundImage !== 'none') return null;
+              const c = parse(cs.backgroundColor);
+              if (c && c[3] > 0) { layers.push(c); if (c[3] >= 1) break; }
+            }
+            let bg = [255, 255, 255, 1];
+            for (let i = layers.length - 1; i >= 0; i--) bg = over(layers[i], bg);
+            return bg;
+          };
+          let n = 0, skipped = 0; const bad = [];
+          const seen = new Set();
+          const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+          for (let t = walker.nextNode(); t; t = walker.nextNode()) {
+            const el = t.parentElement;
+            if (!el || seen.has(el) || !t.textContent.trim() || el.closest('svg') || el.closest('[hidden]')) continue;
+            seen.add(el);
+            const rect = el.getBoundingClientRect(), cs = getComputedStyle(el);
+            if (rect.width <= 1 || rect.height <= 1 || cs.visibility !== 'visible' || el.closest('.sr-only')) continue;
+            if (el.closest(':disabled')) continue;
+            let op = 1; for (let e = el; e; e = e.parentElement) op *= Number(getComputedStyle(e).opacity);
+            if (op < 1) { skipped++; continue; }
+            const bg = bgOf(el); if (!bg) { skipped++; continue; }
+            const fg = over(parse(cs.color), bg);
+            const [hi, lo] = [lum(fg), lum(bg)].sort((a, b) => b - a), ratio = (hi + 0.05) / (lo + 0.05);
+            const px = parseFloat(cs.fontSize), large = px >= 24 || (px >= 18.66 && Number(cs.fontWeight) >= 700);
+            n++;
+            if (ratio < (large ? 3 : 4.5) - 1e-6) bad.push(`${el.tagName.toLowerCase()}.${el.className || ''} «${t.textContent.trim().slice(0, 24)}» ${ratio.toFixed(2)}:1`);
+          }
+          return { n, skipped, bad };
+        });
+        checks.push(`${name} تباين النص المرسوم (${label}): ${r.n} عنصراً، دون الحد ${r.bad.length}، متخطى ${r.skipped}`);
+        if (r.bad.length) problems.push(`${name} ${label}: تباين نص دون AA: ${r.bad.slice(0, 5).join(' | ')}`);
+      };
+      const a11y = async (label) => { await axTree(label); await textContrast(label); };
+      // رابط التخطي: من أول الصفحة يُبلغ رابط التخطي الثاني، ثم Enter، ثم يُعدّ Tab حتى `target`؛ ويفشل إن تجاوز `maxTabs`.
+      const skipTo = async (label, skipHref, landing, target, maxTabs) => {
+        // يُعاد منطلق التنقل التسلسلي إلى أول الصفحة (Chromium يبقيه عند آخر عنصر فقد التركيز)
+        await page.evaluate(() => { const m = document.createElement('span'); m.tabIndex = -1; document.body.prepend(m); m.focus(); m.remove(); window.scrollTo(0, 0); });
+        let found = false;
+        for (let i = 0; i < 4 && !found; i++) { await page.keyboard.press('Tab'); found = await page.evaluate((hr) => document.activeElement?.getAttribute('href') === hr, skipHref); }
+        if (!found) { problems.push(`${name} ${label}: رابط التخطي ${skipHref} لم يُبلغ في 4 ضغطات Tab`); return; }
+        const visible = await page.evaluate(() => { const r = document.activeElement.getBoundingClientRect(); return r.bottom > 0 && r.width > 0; });
+        if (!visible) problems.push(`${name} ${label}: رابط التخطي لا يظهر عند التركيز`);
+        await page.keyboard.press('Enter'); await page.waitForTimeout(150);
+        const landed = await page.evaluate((sel) => document.activeElement?.matches(sel), landing);
+        if (!landed) problems.push(`${name} ${label}: Enter على رابط التخطي لم ينقل التركيز إلى ${landing}`);
+        let k = 0, hit = false;
+        for (; k < maxTabs && !hit; k++) { await page.keyboard.press('Tab'); hit = await page.evaluate((sel) => !!document.activeElement?.matches(sel), target); }
+        checks.push(`${name} رابط التخطي (${label}): ${hit ? k : '>' + maxTabs} ضغطة Tab بعده حتى ${target}`);
+        if (!hit) problems.push(`${name} ${label}: لم يُبلغ ${target} خلال ${maxTabs} ضغطة بعد رابط التخطي`);
+      };
+
       // 1) الرئيسية
       await page.goto(`${BASE}/index.html?${Q}`); await page.waitForSelector('.choice'); await page.waitForTimeout(500);
-      await noHScroll('home'); await noMockTag('home'); await shot('01-home');
+      await noHScroll('home'); await noMockTag('home'); await a11y('home'); await shot('01-home');
 
       // 2) المتعلم: بطاقات + شارة تاريخ النموذج + لماذا؟
       await page.goto(`${BASE}/learner.html?${Q}`); await page.waitForSelector('.rec', { timeout: 60000 }); await page.waitForTimeout(400);
@@ -127,12 +214,12 @@ async function main() {
       const nrec = await page.locator('.rec').count();
       checks.push(`${name} بطاقات التوصية: ${nrec}`);
       if (nrec < 10) problems.push(`${name} أقل من 10 بطاقات (${nrec})`);
-      await noHScroll('learner'); await noMockTag('learner'); await uiChecks('learner'); await shot('02-learner');
+      await noHScroll('learner'); await noMockTag('learner'); await uiChecks('learner'); await a11y('learner'); await shot('02-learner');
       await page.locator('.rec button[data-site]').nth(1).click(); await page.waitForSelector('.why'); await page.waitForTimeout(500);
       const why = await page.locator('.why__item').count();
       checks.push(`${name} مكوّنات التفسير: ${why}`);
       if (why < 1) problems.push(`${name} لوحة «لماذا؟» بلا مكوّنات`);
-      await uiChecks('learner-why'); await noHScroll('learner-why'); await shot('03-learner-why', false);
+      await uiChecks('learner-why'); await noHScroll('learner-why'); await a11y('learner-why'); await shot('03-learner-why', false);
       await page.keyboard.press('Escape');
 
       // 2ب) قبل أول قطع (اليوم 40): شارة «لا قطع بعد» وإشعار
@@ -145,11 +232,12 @@ async function main() {
       // 2ج) ترتيب التركيز في صفحة المتعلم
       await page.goto(`${BASE}/learner.html?${Q}`); await page.waitForSelector('.rec', { timeout: 60000 }); await page.waitForTimeout(300);
       await focusOrder('learner', ['.skip', 'a.brand', '.nav a', '#sel-pres', '#reg-q', '#sel-reg', '#scrub-num', '#scrub-range', '.rec button[data-site]'], 80);
+      await skipTo('learner', '#result', '#result', '.rec button[data-site]', 3);
 
       // 3) المدرّس: مؤشرات + عناقيد + مدرج + جدول + درج
       await page.goto(`${BASE}/instructor.html?p=${PRES}&d=${DAY}&sort=reg${tableOff ? '&off=' + tableOff : ''}`); await page.waitForSelector('tr.row', { timeout: 60000 }); await page.waitForTimeout(600);
       checks.push(`${name} صفوف جدول المتعلمين: ${await page.locator('tr.row').count()}`);
-      await noHScroll('instructor'); await noMockTag('instructor'); await uiChecks('instructor'); await shot('05-instructor');
+      await noHScroll('instructor'); await noMockTag('instructor'); await uiChecks('instructor'); await a11y('instructor'); await shot('05-instructor');
       // أشرطة الملامح (قيم سالبة) داخل مساراتها وبطاقتها
       const bad = await page.evaluate(() => [...document.querySelectorAll('.prof__row')].filter((row) => {
         const t = row.querySelector('.prof__track').getBoundingClientRect(), card = row.closest('.card').getBoundingClientRect();
@@ -164,7 +252,7 @@ async function main() {
       checks.push(`${name} خلايا الدرجة: ${cells.length}، مخالفة: ${badCells.length}`);
       if (!cells.length || badCells.length) problems.push(`${name} خلايا الدرجة مقصوصة/بلا خانتين: ${JSON.stringify(badCells.slice(0, 3))}`);
       await page.locator(`tr[data-id="${reg}"]`).first().click(); await page.waitForSelector('.drawer:not([hidden]) .chart', { timeout: 20000 }); await page.waitForTimeout(400);
-      await uiChecks('instructor-drawer');
+      await uiChecks('instructor-drawer'); await a11y('instructor-drawer');
       await page.mouse.move(2, 2);    // لا مؤشر فوق صف (تظليل hover يُلتبس بالصف المحدد)
       const sel = await page.evaluate((r) => ({ active: [...document.querySelectorAll('tr.row--active')].map((t) => t.dataset.id), hover: document.querySelectorAll('tr.row:hover').length, want: !!document.querySelector(`tr[data-id="${r}"]`) }), reg);
       checks.push(`${name} الصف المظلل: ${sel.active.join(',')} (المتعلم ${reg})`);
@@ -196,7 +284,10 @@ async function main() {
       if (!pagerTxt || !pagerTxt.includes('1–100') || !pagerTxt.includes(all.length.toLocaleString('en-US'))) problems.push(`${name} نص الترقيم لا يطابق «عرض 1–100 من ${all.length}»: ${pagerTxt}`);
       await focusOrder('instructor', ['.skip', 'a.brand', '.nav a', '#sel-pres', '#scrub-num', '#scrub-range', '.ccard', '#filters .chipbtn',
         '#learners .tablewrap', '#learners .thbtn', '#learners tr.row', '.pager__btn[data-page="next"]'], 300);
-      if (await page.evaluate(() => document.activeElement?.matches('.pager__btn[data-page="next"]'))) {
+      const atNext = await page.evaluate(() => document.activeElement?.matches('.pager__btn[data-page="next"]'));
+      await skipTo('instructor', '#learners-section', '#learners-section', '#learners tr.row', 20);
+      if (atNext) await page.locator('.pager__btn[data-page="next"]').first().focus();
+      if (atNext) {
         await Promise.all([page.waitForResponse((r) => r.url().includes('/api/instructor/learners') && r.url().includes('offset=100')), page.keyboard.press('Enter')]);
         await page.waitForTimeout(300);
         const p2 = await page.evaluate(() => ({ txt: document.querySelector('.pager__status')?.textContent || '', off: new URLSearchParams(location.search).get('off'),
@@ -216,7 +307,7 @@ async function main() {
       await noHScroll('instructor-pager'); await uiChecks('instructor-pager');
 
       // 4) عن النظام
-      await page.goto(`${BASE}/about.html`); await page.waitForTimeout(300); await noHScroll('about');
+      await page.goto(`${BASE}/about.html`); await page.waitForTimeout(300); await noHScroll('about'); await a11y('about');
 
       checks.push(`${name} نداءات API: ${[...new Set(apiCalls)].length} مسارات مختلفة`);
       await ctx.close();

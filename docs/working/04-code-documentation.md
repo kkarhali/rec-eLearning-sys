@@ -137,12 +137,12 @@ integrity: PASS
 
 ## 2.3 تشغيل الاختبارات
 
-الأعداد أدناه مقيسة في 2026-10-25 على commit `20eeb98` (4 أنوية):
+الأعداد أدناه مقيسة في 2026-10-27 (4 أنوية):
 
 ```
-python3 -m unittest discover -s src/ml/tests               # 130 اختباراً، ≈ 7 ث، بلا البيانات الخام
+python3 -m unittest discover -s src/ml/tests               # 131 اختباراً، ≈ 10 ث، بلا البيانات الخام
 python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors
-python3 -m unittest discover -s src/backend/tests -t .     # 55 اختباراً، ≈ 20–120 ث (تحتاج البيانات)
+python3 -m unittest discover -s src/backend/tests -t .     # 63 اختباراً، ≈ 38 ث بعنقدة مخزَّنة (تحتاج البيانات)
 cd src/frontend && tsc --noEmit -p tsconfig.json           # فحص الأنواع (strict)
 ```
 
@@ -185,7 +185,7 @@ python3 -m src.ml.experiments.build_artifacts
 | `power`، `risk_final` | ≈ 1 د لكل منهما |
 | `build_artifacts` | ≈ 1 د؛ لازمة قبل الخادم |
 
-المجموع ≈ 48 دقيقة فعلية و≈ 4.8 ساعة CPU (سقف D-34: 8 ساعات)، وأول `reproduce_dev` كامل استغرق 53.6 دقيقة. تتطابق المقاييس لأن كل شيء حتمي (§8)، وتتغير الأزمنة والتواريخ فقط. `run_hybrid` لا يعتمد على كاش جاهز: يبني درجات المكوّنات في `data/cache/components/` (≈ 1.1 GB) في خطوته الأولى ويعيد استعمال درجات GRU التي كتبها `run_gru`.
+المجموع ≈ 48 دقيقة فعلية و≈ 4.8 ساعة CPU (سقف D-34: 8 ساعات) (والملخص الآلي لكل السجلات مقابل السقف في `results/budget_summary.md` بالأمر `python3 scripts/compute_budget_summary.py`، FR-12؛ ويصحح عدّ ثواني استئصال الإشارة المكرر لكل نقطة تكرار WRMF)، وأول `reproduce_dev` كامل استغرق 53.6 دقيقة. تتطابق المقاييس لأن كل شيء حتمي (§8)، وتتغير الأزمنة والتواريخ فقط. `run_hybrid` لا يعتمد على كاش جاهز: يبني درجات المكوّنات في `data/cache/components/` (≈ 1.1 GB) في خطوته الأولى ويعيد استعمال درجات GRU التي كتبها `run_gru`.
 
 **أرقام مرجعية للمطابقة** (مأخوذة من `results/dev2013/`، المهمة A، الشريحة `all`، متوسط ثم متوسط الأصول، تقريب 3 منازل):
 
@@ -226,7 +226,7 @@ python3 -m src.backend --warm                   # http://127.0.0.1:8000 (الو�
 | لوحة المدرّس | `/instructor.html?p=FFF_2013J&d=75` | تتطلب اليوم ≥ 56 (422 قبله، D-74) |
 | عن النظام | `/about.html` | نص ثابت (FR-35) |
 
-خيارات الخادم (من `--help`): `--host` و`--port` و`--no-instructor` و`--warm` و`--warm-presentation` و`--warm-days` و`--warm-weekly` و`--log-level`. من دون `dist/` يعيد الجذر 503 برسالة تدل على أمر البناء وتبقى مسارات `/api/*` تعمل. وللتجربة بلا خادم: `python3 -m http.server 8000 -d src/frontend/dist` ثم تفتح الواجهة بوضع المحاكاة تلقائياً (§5.3).
+خيارات الخادم (من `--help`): `--host` و`--port` و`--no-instructor` و`--warm` و`--warm-presentation` و`--warm-days` و`--warm-weekly` و`--precompute-clusters` و`--precompute-jobs` و`--log-level`. والأمر المستقل `python3 -m src.backend.precompute [--presentation P | --all] [--jobs 4] [--days 0-268]` يحسب اختيار العناقيد لكل أيام العرض مسبقاً (NFR-01، §4.5). من دون `dist/` يعيد الجذر 503 برسالة تدل على أمر البناء وتبقى مسارات `/api/*` تعمل. وللتجربة بلا خادم: `python3 -m http.server 8000 -d src/frontend/dist` ثم تفتح الواجهة بوضع المحاكاة تلقائياً (§5.3).
 
 # 3. وحدة `src/ml`
 
@@ -567,7 +567,16 @@ $ curl 'localhost:8000/api/instructor/learners?presentation=FFF_2013J&day=75&sor
 | instructor/learners (100) | 7.2 | 6.4 | 11.2 | 11.2 |
 | instructor/learner | 2.4 | 1.9 | 2.1 | 2.1 |
 
-كلها ≪ 200 مللي ثانية في p95 (هدف NFR-01)، بينما الاختبار `test_latency_after_warmup` يفرض عتبة أوسع: < 300 ms لكل مسار. **زمن التسخين:** ≈ 25 ثانية (الخطّاف ≈ 14 ث، ثم الأيام الستة بين 0.6 و4.1 ث) والعنقدة مخزَّنة على القرص، و≈ 61 ثانية في أول تشغيل بعد تغيّر بصمة التجميد؛ وقياس README (≈ 36 ث، 2026-10-24) بينهما. **بلا تسخين:** أول `recommendations` ≈ 10.3 ث وأول `instructor/overview` ≈ 11 ث (README)، ويوم غير مسخَّن ≈ 10 ث. ولا يجوز تقليص `n_init` أو البذور أو k لتسريع الطلب البارد (D-68).
+كلها ≪ 200 مللي ثانية في p95. والاختبار `test_latency_after_warmup` يفرض حدود NFR-01 نفسها: < 200 ms لمسارات المتعلم وملف المتعلم والبيانات الوصفية، و< 1 ث للنظرة العامة والعناقيد والجدول (أدنى ثلاث محاولات بعد طلب تسخين). **زمن التسخين:** ≈ 25 ثانية (الخطّاف ≈ 14 ث، ثم الأيام الستة بين 0.6 و4.1 ث) والعنقدة مخزَّنة على القرص، و≈ 61 ثانية في أول تشغيل بعد تغيّر بصمة التجميد؛ وقياس README (≈ 36 ث، 2026-10-24) بينهما. **الطلب البارد والحساب المسبق (NFR-01، الجلسة الثانية).** أكبر كلفة في أول طلب ليوم جديد هي اختيار العناقيد عند اليوم t (`cluster_choice`: k من 2 إلى 8، وخمس بذور، و`n_init` = 10)، ونحو 11–13 ث في اليوم. ولا يجوز تقليصه (D-68)، فيُحسب مسبقاً: `Engine.precompute_clusters(name, days=None, jobs=1)` يمر على كل الأيام من 0 إلى طول العرض، ويستدعي لكل يوم `_cluster_choice_disk` (الحساب نفسه الذي يجريه الطلب، ويُكتب الملف ذرّياً بـ`os.replace`)، ويتخطى اليوم الذي له ملف ببصمة مطابقة. ومع `jobs` > 1 يعمل في عمليات `spawn` منفصلة بخيط BLAS واحد لكل منها؛ وتحققنا من أن الناتج مطابق بتاً بتاً للحساب داخل العملية (k والتسميات للبذور الخمس والمراكز) في أربعة أيام. الأوامر: `python3 -m src.backend.precompute --presentation FFF_2013J --jobs 4` (أو `--all`)، أو `python3 -m src.backend --warm --precompute-clusters` لتشغيله في الخلفية بعد التسخين (`--precompute-jobs 2`)، ويظهر تقدمه في `/api/health` تحت `warm.precompute`.
+
+قياس 2026-10-27 (آلة 4 أنوية، طلبات HTTP بـurllib على خادم `--warm`، أول طلب في كل يوم):
+
+| الحالة | أول `recommendations` | أول `instructor/overview` |
+|---|---|---|
+| قبل الحساب المسبق (الأيام 95 و160 و240) | 13.0، 13.3، 11.2 ث | بعد التوصية: 1.1، 1.1، **93.1 ث** |
+| بعد الحساب المسبق لكل أيام FFF_2013J (أحد عشر يوماً للتوصية، وخمسة للنظرة العامة قبل أي طلب في يومها) | 1.5–3.2 ث | 2.8–4.2 ث (و0.9–1.2 ث بعد التوصية) |
+
+والـ93 ث في اليوم 240 خلل أداء منفصل أُصلح معه: حساب التغطية في لوحة المدرّس يستدعي `recommend` لكل متعلم، ودليل مكوّن الجيران على السلال كان يبني مصفوفة آخر سلة (U×I) لكل مورد معروض، فصار الزمن تربيعياً في عدد المتعلمين. صارت المصفوفة تُبنى مرة لكل (عرض، يوم) (`Engine._last_basket`، `lru_cache`)، والناتج نفسه. والحساب المسبق لأيام FFF_2013J المئتين والتسعة والستين استغرق 21 دقيقة و14 ثانية بأربع عمليات (47.6 دقيقة معالج)؛ وللعروض التسعة يُقدَّر بنحو ثلاث ساعات. والعروض التي لم يُحسب لها يبقى أول طلب فيها نحو 11–13 ث.
 
 ## 4.6 الاختبارات والعميل ASGI المدمج
 
@@ -611,19 +620,20 @@ build.sh  tsconfig.json  screenshots.js
 
 الحالة كلها في الرابط (`state.ts`: `readState` و`writeState` و`carryQuery`): `p` العرض، `r` التسجيل، `d` اليوم، `task`، `cl` العنقود المصفّى، `f` (all|above|idle)، `sort` (مثل `-risk`). تُحذف القيم الافتراضية، فيمكن مشاركة أي منظر بنسخ الرابط. و`learner.ts` يستعمل عدّاد طلبات `seq` لتجاهل الاستجابات المتأخرة.
 
-الواجهة **مصمَّمة** لتوافق WCAG 2.2 AA و**لم يُقَس التوافق آلياً** (لا سكربت تباين؛ NFR-22 غير منفَّذ، والتباين المذكور محسوب من رموز `tokens.css` لا مقيس): `lang="ar" dir="rtl"` وخصائص CSS المنطقية، وتباين نص ≥ 4.5:1 وحدود ≥ 3:1 بالحساب، ولا اعتماد على اللون وحده (أسماء وأشكال وإطار متقطع ونص «فوق العتبة»)، ولوحة المفاتيح كاملة (Esc يغلق «لماذا؟» والدرج ويعيد التركيز)، وأهداف لمس ≥ 44px، و`aria-live` و`aria-busy` و`aria-sort`، و`prefers-reduced-motion`، وبلا تمرير أفقي من 360px. وواجهة المتعلم بلا خطر أو عنقود (NFR-09) ولا سمات حساسة (D-21)؛ ويعرض `instructor.ts` الحقل `risk.score` بعنوان «درجة الخطر النسبية» (D-65)، و`labels.ts` معرّف المكوّن السابع `similar_pop` (D-70).
+الواجهة **مصمَّمة** لتوافق WCAG 2.2 AA، وتُفحص آلياً البنود القابلة للأتمتة دون تدقيق يدوي كامل ولا اختبار مع قارئ شاشة (NFR-14 «جزئي»). **التباين (NFR-22):** `src/backend/tests/test_contrast.py` يقرأ رموز `tokens.css` ويحسب نسبة WCAG لكل زوج مستعمل في `base.css` و`components.css` (4.5:1 للنص، و3:1 للحدود والأشكال)، ويفحص ألوان المكوّنات والعناقيد في `labels.ts`، ويفشل إن ظهر لون في الأنماط غير مصنَّف زوجاً مفحوصاً أو استثناءً مسبَّباً؛ وجدول النسب بالأمر `python3 -m src.backend.tests.test_contrast`. **روابط التخطي:** في كل صفحة «تخطَّ إلى المحتوى»، وفي لوحة المدرّس رابط ثانٍ «تخطَّ إلى جدول المتعلمين» (إلى `#learners-section`)، وفي صفحة المتعلم «تخطَّ إلى التوصيات» (إلى `#result`)؛ والهدفان بـ`tabindex="-1"` ليستقبلا التركيز. ومن بقية البنود: `lang="ar" dir="rtl"` وخصائص CSS المنطقية، وتباين نص ≥ 4.5:1 وحدود ≥ 3:1 بالحساب، ولا اعتماد على اللون وحده (أسماء وأشكال وإطار متقطع ونص «فوق العتبة»)، ولوحة المفاتيح كاملة (Esc يغلق «لماذا؟» والدرج ويعيد التركيز)، وأهداف لمس ≥ 44px، و`aria-live` و`aria-busy` و`aria-sort`، و`prefers-reduced-motion`، وبلا تمرير أفقي من 360px. وواجهة المتعلم بلا خطر أو عنقود (NFR-09) ولا سمات حساسة (D-21)؛ ويعرض `instructor.ts` الحقل `risk.score` بعنوان «درجة الخطر النسبية» (D-65)، و`labels.ts` معرّف المكوّن السابع `similar_pop` (D-70).
 
 ## 5.5 لقطات الشاشة وكيف تُولَّد
 
 سكربتان بـPlaywright العالمي (`NODE_PATH=$(npm root -g)`):
 
 - `src/frontend/screenshots.js` (بوضع المحاكاة): يخدم `dist/` على المنفذ 8765 ويلتقط ست لقطات لسطح المكتب (1440×900) والجوال (375×800)، ويفحص التمرير الأفقي وأخطاء الكونسول، ويكتب إلى `src/frontend/screenshots/mock/` (في git). يتطلب `build.sh` قبله.
-- `src/backend/e2e/live-screenshots.js`: لقطات مع الخادم الحي باسم `live-*.png` في `deliverables/05-user-guide/screenshots/`، بعد `python3 -m src.backend --warm`. **قاعدة D-73:** يُختار متعلم اللقطات برمجياً من صفحة الجدول المعروضة (مفروزة بالتسجيل، أول 100 صف): الأقرب إلى وسيط درجات الفوج كله بشرط درجة دون العتبة و≥ 5 أيام نشطة، والتعادل بترتيب التسجيل؛ فإن زاد الفرق عن 0.05 يُفتح الجدول بمعامل `off` عند صفحة أقرب متعلم مؤهَّل، ويطبع السكربت معرّفه ودرجته وفرقه. و`CHECK_ONLY=1` يجري الفحوص دون كتابة لقطات.
+- `src/backend/e2e/live-screenshots.js`: فحوص الوصول في كل صفحة وعند كل عرض (1440 و375 و360): ترتيب التركيز وحلقته، ورابطا التخطي (يعدّ ضغطات Tab بعد الرابط حتى أول صف في جدول المدرّس وأول بطاقة توصية، ويفشل فوق 20 و3)، وشجرة الوصول الفعلية في Chromium عبر CDP (`Accessibility.getFullAXTree`؛ كل عقدة تفاعلية أو قابلة للتركيز لها اسم وصولي، لأن `page.accessibility` حُذف من Playwright 1.63)، وتباين كل نص مرسوم مع خلفيته الفعلية بعد مزج الشفافية. ثم لقطات مع الخادم الحي باسم `live-*.png` في `deliverables/05-user-guide/screenshots/`، بعد `python3 -m src.backend --warm`. **قاعدة D-73:** يُختار متعلم اللقطات برمجياً من صفحة الجدول المعروضة (مفروزة بالتسجيل، أول 100 صف): الأقرب إلى وسيط درجات الفوج كله بشرط درجة دون العتبة و≥ 5 أيام نشطة، والتعادل بترتيب التسجيل؛ فإن زاد الفرق عن 0.05 يُفتح الجدول بمعامل `off` عند صفحة أقرب متعلم مؤهَّل، ويطبع السكربت معرّفه ودرجته وفرقه. و`CHECK_ONLY=1` يجري الفحوص دون كتابة لقطات.
 
 # 6. أدوات البناء `scripts/`
 
 | الأداة | الأمر | الوظيفة |
 |---|---|---|
+| `compute_budget_summary.py` | `python3 scripts/compute_budget_summary.py [--out results/budget_summary.md] [--check]` | FR-12: يقرأ قراءة فقط `timing.csv` في `results/dev2013/` و`results/conf2014/` وملفات `*_meta.json`، ويكتب `results/budget_summary.md` بمجموع الثواني وأقصى ذاكرة لكل نموذج ومرحلة، والحد الأعلى (الجدار × العمليات) لكل تشغيل مقابل سقف ثماني ساعات معالج. ويعيد عدّ ثواني استئصال الإشارة دون تكرار نقاط تكرار WRMF. و`--check` يفشل إن اختلف الملف عمّا يولّده، ويرفض الكتابة داخل المجلدات المقفلة |
 | `build_docx.py` | `python3 scripts/build_docx.py OUT.docx IN.md [--title ... --title-en ... --subtitle ...]` | Markdown ← Word RTL: يمرّ على pandoc بـ`-M lang=ar -M dir=rtl` وفهرس بعمق 3، ثم يعالج python-docx الخطوط (Simplified Arabic وTimes New Roman) والفقرات والجداول RTL، ويحمي الرموز المتماثلة من الانعكاس، ويضيف غلافاً وترقيم صفحات، ثم يمرّر الملف على `lo_update_toc.py` ما لم يُعطَ `--no-update-toc`. أنماط الشيفرة (`Source Code` و`Verbatim Char` و`SourceCode`) تُستثنى من RTL فتبقى LTR، ويُستعمل خط العربية للنص المركّب داخل كتل الشيفرة فتظهر التعليقات العربية مشكَّلة، ويُحاط الشيفرة المضمَّنة (المسارات والمعرّفات والخيارات) بعلامة LRM لتبقى جزيرة LTR واحدة داخل النص RTL |
 | `lo_update_toc.py` | `python3 scripts/lo_update_toc.py file.docx [...]` | يفتح الملف في LibreOffice عبر UNO ويحدّث الفهارس ويحفظ docx، لأن pandoc يكتب الفهرس حقلاً فارغاً لا يملؤه إلا Word عند الفتح |
 | `svg2png.js` / `svg2png.py` | `node scripts/svg2png.js in.svg [--out-dir DIR --scale 2 --width 1400]` | تصيير SVG أو HTML إلى PNG بـPlaywright (Node) وChromium؛ والنسخة `.py` غلاف يستدعي `.js` |
@@ -644,7 +654,7 @@ python3 scripts/build_docx.py "deliverables/04-code-documentation/توثيق-ا�
 
 ## 7.1 مجموعات الاختبار ونتائجها الفعلية
 
-كلها `unittest` من المكتبة القياسية. **الأعداد مقيسة في 2026-10-25 على commit `20eeb98`، 4 أنوية (الخلفية 52 في تشغيل سابق)**؛ وعدّها مأخوذ من تشغيل `discover` نفسه لا من README:
+كلها `unittest` من المكتبة القياسية. **الأعداد مقيسة في 2026-10-27 (4 أنوية) بعد تصويبات الجلسة الثانية**؛ وعدّها مأخوذ من تشغيل `discover` نفسه لا من README:
 
 | المجموعة | الملف | العدد | ما تغطيه |
 |---|---|---|---|
@@ -653,29 +663,31 @@ python3 scripts/build_docx.py "deliverables/04-code-documentation/توثيق-ا�
 | ML: المتعلمون | `test_learners.py` | 10 | k-means++ ومقاييس الجودة، Logistic وجيني وAUC/AP/Youden، الملامح |
 | ML: المقاييس | `test_metrics.py` | 9 | الجدول 19 يدوياً، المتجه = المرجعي، المثالي = 1، HR النظري للعشوائي، التعادل، IDCG |
 | ML: النماذج | `test_models.py` | 23 | أمثلة B4–B10 وC6 وC7 العددية، وفضاءات ADR-004، وواجهة `recommend` |
-| ML: الخدمة | `test_serving.py` | 13 | الخطة قبل أول قطع، عدم استعمال المستقبل، fold-in، الملف والنظرة العامة، رفض 2014 وFR-40، العنقدة المخزَّنة، الخطر |
+| ML: الخدمة | `test_serving.py` | 16 | الخطة قبل أول قطع، عدم استعمال المستقبل، fold-in، الملف والنظرة العامة، رفض 2014 وFR-40، العنقدة المخزَّنة، الخطر، والحساب المسبق لاختيار العناقيد لكل الأيام (NFR-01) |
 | ML: الإشارة | `test_signals.py` | 7 | الجدول 8، تداخل المستويات، وسيط النوع من التدريب وحده، الثقة الثنائية |
 | ML: التقسيم | `test_splits.py` | 16 | النوافذ والتسرب، الكتالوج، المهمتان، مفاتيح التعادل، حاجز 2014، قراءة D-47 وقائمة `purpose` البيضاء (D-76) |
+| ML: قائمة التجميد | `test_freeze_config.py` | 5 | توليد قائمة التجميد: صف ش7 مع ملاحظات NaN، وصف ش8 لموافقة المراجعة الآلية |
 | ML: التجميد | `test_confirmatory.py` | 18 | حراس `run_confirmatory` و`verify_lock`، تدقيق قراءة 2014، جدول الأحكام وH3 المتعذرة، التدريب القابل للنشر |
-| **مجموع ML** | `python3 -m unittest discover -s src/ml/tests` | **123** | ناجحة، ≈ 7 ثوانٍ، بلا البيانات الخام |
+| **مجموع ML** | `python3 -m unittest discover -s src/ml/tests` | **131** | ناجحة، ≈ 7 ثوانٍ، بلا البيانات الخام |
 | الخلفية: العقد | `test_contract_no_risk.py` | 6 | نماذج المتعلم بلا خطر ولا عنقود ولا سمات حساسة، لا `outcome`، `provenance` في `PROVENANCE_MODELS` |
-| الخلفية: الأخطاء والثابت | `test_static_errors.py` | 9 | الصحة، 404، 405، 409 لـ2014 على كل المسارات، 422، `--no-instructor`، الجذر يخدم `index.html` |
-| الخلفية: النصوص | `test_text.py` | 7 | صيغ العدد العربية وحذف أرقام القرارات من نصوص المستخدم (بلا بيانات) |
+| الخلفية: الأخطاء والثابت | `test_static_errors.py` | 11 | الصحة، 404، 405، 409 لـ2014 على كل المسارات، 422، `--no-instructor`، الجذر يخدم `index.html` |
+| الخلفية: النصوص | `test_text.py` | 8 | صيغ العدد العربية وحذف أرقام القرارات من نصوص المستخدم (بلا بيانات)، وتسمية «درجة الخطر النسبية» في كل نص ظاهر (NFR-18) |
 | الخلفية: صيغ الواجهة | `test_labels_js.py` | 2 | تشغيل `labels.js` المبني بـnode ومقارنة `countAr` و`fmt` (تُتخطّى إن غاب node أو `dist/`) |
 | الخلفية: JSON المسلسَل | `test_contract_json.py` | 6 | D-70: لا مفاتيح محظورة في JSON المتعلم، التسجيلات بلا `date_unregistration` و`final_result`، تسمية دليل C7، قائمة بيضاء للمدرّس |
-| الخلفية: الحي | `test_api_live.py` | 22 | العقود مقابل mock، المنطق، التطابق مع `Engine`، الأداء بعد التسخين (تحتاج البيانات) |
-| **مجموع الخلفية** | `python3 -m unittest discover -s src/backend/tests -t .` | **52** | ناجحة، 52 في 22.4 ث (commit `20eeb98`، 2026-10-25، بعنقدة مخزَّنة؛ ≈ 120 ث بدونها) |
+| الخلفية: التباين (NFR-22) | `test_contrast.py` | 5 | نسبة WCAG لكل زوج ألوان مستعمل في الأنماط، وألوان المكوّنات والعناقيد، وتصنيف كل لون مستعمل (بلا بيانات) |
+| الخلفية: الحي | `test_api_live.py` | 25 | العقود مقابل mock، المنطق، التطابق مع `Engine`، الأداء بعد التسخين (تحتاج البيانات)؛ وحدود NFR-01: 200 ms و1 ث في يوم مسخَّن، و5 ث و8 ث لأول طلب في يوم بارد بعد الحساب المسبق، وإشعار المتعلم بلا تاريخ (FR-37) |
+| **مجموع الخلفية** | `python3 -m unittest discover -s src/backend/tests -t .` | **63** | ناجحة، 63 في 37–38 ث في ثلاثة تشغيلات متتالية (2026-10-27، بعنقدة مخزَّنة لكل أيام FFF_2013J) |
 | الواجهة | `tsc --noEmit -p tsconfig.json` | — | فحص أنواع strict؛ خرج 0. لا اختبارات DOM آلية |
 
 ## 7.2 المخرجات المسجَّلة وقت الكتابة
 
 ```
 $ python3 -m unittest discover -s src/ml/tests
-Ran 123 tests in 6.569s       OK
+Ran 131 tests in 9.877s       OK  (skipped=1)
 $ python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors
 Ran 15 tests in 0.111s        OK        (السريعة، بلا بيانات)
 $ python3 -m unittest discover -s src/backend/tests -t .
-Ran 52 tests in 22.448s       OK
+Ran 63 tests in 37.250s       OK
 $ python3 -m unittest discover -s src/backend/tests
 Ran 18 tests ... FAILED (errors=3)      (بلا -t . : خطأ استيراد نسبي)
 $ cd src/frontend && npx tsc --noEmit        # exit code 0
@@ -896,7 +908,7 @@ python3 -m src.ml.experiments.run_confirmatory --tag freeze-03 --resume  # بع�
 | FR-21 أفضل 10 بتفسير من المساهمة | `serving.Engine.recommend`، `ReplayService`، `ExplanationService` | `test_serving`، `test_api_live.test_explanation_contract_and_consistency` |
 | FR-37 المهمتان A وB | `splits.Targets.task`، `recommend(exclude_seen)` | `test_splits.test_tasks`، `test_api_live.test_task_a_excludes_seen_task_b_may_include` |
 | FR-40 فتح 2014 بعد الأحكام (مؤجَّل إلى عمل مستقبلي، D-96) | `Engine(allow_confirmatory)` منفَّذ وغير مستعمل؛ `ui_open.json` سجل إذن لا يقرؤه كود | `test_serving.test_fr40_gate` (يُتخطّى منذ وُجد `verdicts.csv`)، `test_static_errors.test_confirmatory_locked_409_everywhere` |
-| NFR-01 زمن الاستجابة | `Services.run_warmup`، `serving.warm`، ذاكرات LRU | `test_api_live.test_latency_after_warmup`، `bench.py` |
+| NFR-01 زمن الاستجابة | `Services.run_warmup`، `serving.warm`، `Engine.precompute_clusters`، `src/backend/precompute.py`، ذاكرات LRU | `test_api_live.test_latency_after_warmup` (200 ms / 1 ث)، `test_api_live.test_cold_day_bounded_after_cluster_precompute` (5 ث / 8 ث)، `test_serving.test_precompute_clusters_fills_cache_for_every_day`، `bench.py` |
 | NFR-06 بلا تخزين حالة متعلم | `Engine` (بلا كتابة) | `test_serving.test_no_future_data_used` |
 | NFR-07 حتمية وإعادة إنتاج | `harness.SEEDS`، `tiebreak_keys`، `reproduce_dev` | `test_splits.test_tiebreak_deterministic_and_order_free`، `repro_diff.md` |
 | NFR-09 فصل مسارات المتعلم عن الخطر | `schemas.LEARNER_MODELS` | `test_contract_no_risk`، `test_contract_json` |

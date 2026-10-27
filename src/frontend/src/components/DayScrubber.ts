@@ -16,7 +16,7 @@ export function DayScrubber(o: ScrubberOpts): Scrubber {
   const pos = (d: number) => `${((d - o.min) / span) * 100}%`;
   const snapOf = (d: number) => { const s = o.snapshots.filter((x) => x <= d); return s.length ? Math.max(...s) : null; };
 
-  const range = h('input', { type: 'range', class: 'scrub__range', min: o.min, max: o.max, step: 1, value: cur, id: 'scrub-range', 'aria-describedby': 'scrub-legend' }) as HTMLInputElement;
+  const range = h('input', { type: 'range', class: 'scrub__range', min: o.min, max: o.max, step: 1, value: cur, id: 'scrub-range', 'aria-label': 'اليوم t', 'aria-describedby': 'scrub-legend' }) as HTMLInputElement;
   const num = h('input', { type: 'number', class: 'field scrub__num', min: o.min, max: o.max, id: 'scrub-num', value: cur, inputmode: 'numeric' }) as HTMLInputElement;
   const badge = h('output', { class: 'scrub__badge', 'aria-live': 'polite', for: 'scrub-range' });
   const marks = h('div', { class: 'scrub__marks', 'aria-hidden': 'true' });

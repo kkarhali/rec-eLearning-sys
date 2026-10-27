@@ -68,6 +68,7 @@ class TestErrorsAndStatic(unittest.TestCase):
     def test_validation_422(self):
         for u in ["/api/recommendations?registration=bad&day=75", "/api/recommendations?registration=FFF_2013J-1",
                   "/api/recommendations?registration=FFF_2013J-1&day=x", "/api/recommendations?registration=FFF_2013J-1&day=5&k=0",
+                  "/api/recommendations?registration=FFF_2013J-1&day=5&k=21",
                   "/api/recommendations?registration=FFF_2013J-1&day=5&task=C",
                   "/api/learner/bad/history?day=5", "/api/explanations/bad/5?day=5",
                   "/api/instructor/learners?presentation=FFF_2013J&day=75&sort=nope",

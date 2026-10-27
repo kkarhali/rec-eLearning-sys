@@ -2,7 +2,7 @@
 
 **نظام توصية للتعليم الإلكتروني القائم على تحليل سلوك المستخدم**
 الجامعة الافتراضية السورية · ماجستير علوم الوب · الطالب: كنان محمد قرحالي · المشرف: د. باسل الخطيب
-تاريخ التسليم: 2026-10-26، وتحديث بعد تصويبات المناقشة التجريبية: 2026-10-27 · محضر القبول `docs/meetings/final-acceptance.md` مراجعة محاكاة بدور المشرف، لا توقيع منه
+تاريخ التسليم: 2026-10-26، وتحديث بعد تصويبات المناقشة التجريبية: 2026-10-27 · محضر القبول `docs/meetings/final-acceptance.md` مراجعة آلية بدور المشرف نفّذتها أداة ذكاء اصطناعي، وليس توقيعاً منه
 
 ## المخرجات
 
@@ -21,7 +21,7 @@
 
 ## النتيجة في سطور
 
-التشغيل التأكيدي على 13 عرضاً من 2014 جرى مرة واحدة على الشيفرة المجمَّدة، وتحقق منه الزميل الباحث مستقلاً:
+التشغيل التأكيدي على 13 عرضاً من 2014 جرى مرة واحدة على الشيفرة المجمَّدة. وأُعيد حساب أحكامه بشيفرة منفصلة في مراجعة آلية بدور «الزميل الباحث» نفّذتها أداة ذكاء اصطناعي، وهي الأداة نفسها التي كتبت خط التجارب، فلا يُعدّ ذلك تحققاً مستقلاً من شخص:
 
 | الفرضية | الحكم |
 |---|---|
@@ -46,21 +46,35 @@
 
 ## إعادة الإنتاج
 
+**اقرأ قبل الأوامر.** الوسم `freeze-03` موجود في نسخة العمل المحلية وحدها، لأن بيئة العمل رفضت دفع الوسوم؛ فلا يوجد في أي نسخة جديدة من المستودع، ويفشل `git checkout freeze-03` عليها. أما الـcommit الموسوم `eb34d6a7ba23f9ff0ecffab8081228c5d6ce94c5` فمدفوع على الفرع، فالانتقال برقمه يعمل دون الوسم. ولم يكن `requirements.txt` موجوداً عند نسخة التجميد، فثبّت الاعتماديات من الفرع الحالي قبل الانتقال إليها. والسكربتات اللاحقة (`scripts/conf2014_provenance.py` و`scripts/posthoc/` و`scripts/thesis/`) أضيفت بعد التجميد، فتُشغَّل من الفرع الحالي.
+
 ```bash
-bash data/download.sh                              # تحميل OULAD والتحقق من MD5
-git checkout freeze-03                             # نسخة التجميد (eb34d6a)؛ الوسم محلي، والـcommit مدفوع على الفرع
-python3 -m src.ml.experiments.reproduce_dev        # إعادة نتائج التطوير 2013 (≈ 50 دقيقة، «مطابق» 36/36)
+# 1) من الفرع الحالي: الاعتماديات والبيانات (data/raw وdata/cache خارج git، فتبقى بعد الانتقال بين النسخ)
+git clone https://github.com/kkarhali/rec-eLearning-sys && cd rec-eLearning-sys
+git checkout kk_auto_/amazing-planck-wzsemh
+python3 -m pip install -r requirements.txt          # الإصدارات المثبتة (Python 3.13)
+bash data/download.sh                              # تحميل OULAD والتحقق من MD5 («integrity: PASS»)
+
+# 2) نسخة التجميد برقم الـcommit (لا تحتاج الوسم)
+git checkout --detach eb34d6a7ba23f9ff0ecffab8081228c5d6ce94c5
+python3 -m src.ml.experiments.reproduce_dev        # إعادة نتائج التطوير 2013 (≈ 50 دقيقة، «مطابق» 36/36 في results/dev2013/repro_diff.md)
+git stash push --include-untracked -m repro-freeze03 -- results/    # يحفظ ما كتبه التشغيل ويعيد الشجرة نظيفة
+
+# 3) العودة إلى الفرع الحالي للسكربتات اللاحقة
+git checkout kk_auto_/amazing-planck-wzsemh
 python3 scripts/conf2014_provenance.py             # بيان منشأ ملفات 2014 المستعملة (44 ملفاً)
 python3 scripts/posthoc/a4_1_recentpop_sknn.py     # التحليلات اللاحقة (الملحق هـ)؛ ومعها a4_2_sknn_all.py وa4_3_companion_metrics.py وdefense_stats.py
 python3 scripts/thesis/appendix_e.py                # الملحق هـ من results/posthoc/
+python3 scripts/compute_budget_summary.py --check   # ملخص ميزانية الحوسبة (FR-12) مطابق لـresults/budget_summary.md
 python3 scripts/thesis/build_thesis_docx.py        # بناء الأطروحة (ترتيب السكربتات في scripts/thesis/README.md)
 ```
 
-ملاحظة: الوسم `freeze-03` موجود في النسخة المحلية للجلسة فقط، لأن بيئة العمل لم تسمح بدفع الوسوم. الـcommit الموسوم `eb34d6a7ba23f9ff0ecffab8081228c5d6ce94c5` مدفوع على الفرع، ويمكن إنشاء الوسم من نسختك:
+ولمن يريد الوسم في نسخته، يُنشأ من رقم الـcommit نفسه، ويُدفع من حاسوب له صلاحية الدفع، ثم يُتحقق منه:
 
 ```bash
 git tag -a freeze-03 eb34d6a7ba23f9ff0ecffab8081228c5d6ce94c5 -m "freeze-03"
 git push origin freeze-03
+git ls-remote --tags origin                         # يجب أن يظهر refs/tags/freeze-03
 ```
 
 تشغيل النظام وواجهاته: القسم «تشغيل النظام من الصفر» في `README.md` بجذر المستودع، والفصل 2 من دليل المستخدم.

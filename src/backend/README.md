@@ -12,6 +12,8 @@ bash src/frontend/build.sh                      # مرة واحدة: يبني sr
 python3 -m src.backend                          # http://127.0.0.1:8000  (الواجهة + /api)
 python3 -m src.backend --warm                   # تسخين في خيط خلفي لأيام العرض الرئيسية 75/56/70/112/126/182 (≈ 36 ث كاملاً بعد ربط serving.warm؛ 75 جاهز بعد ≈ 25 ث. على نسخة نظيفة بلا ذاكرة عنقدة دائمة `data/cache/serving_clusters` ≈ 61 ث كاملاً، والخطّاف وحده ≈ 47 ث، واليوم 75 جاهز بعد ≈ 49 ث)
 python3 -m src.backend --warm --warm-weekly     # + شبكة أسبوعية من اليوم 56 (≈ 10 ث لكل يوم؛ عدة دقائق)
+python3 -m src.backend.precompute --jobs 4      # NFR-01: اختيار العناقيد لكل أيام FFF_2013J مسبقاً (≈ 21 د مرة واحدة؛ --all للعروض التسعة)
+python3 -m src.backend --warm --precompute-clusters   # أو في الخلفية بعد التسخين (--precompute-jobs 2)؛ التقدم في /api/health ← warm.precompute
 python3 -m src.backend --no-instructor          # /api/instructor/* ⇒ 404 instructor_disabled، وصفحة المدرّس 404، وتُخفى روابطها
 python3 -m src.backend --host 127.0.0.1 --port 8000 --warm-presentation BBB_2013J --warm-days 75,126
 ```
@@ -84,13 +86,14 @@ tests/       asgi_client.py (عميل ASGI بلا httpx)  test_contract_no_risk.
 | بتسخين — أول `instructor/learners` (100 صف) عند 56/126/182 | 8–11 ms | وسيط 6–8.6 ms |
 
 بعد التسخين (وسيط/أقصى بـms): health 0.9/1.2، meta 1.7/2.4، presentations 1.5/2.0، registrations(100) 3.2/5.5، recommendations 6.1/9.3، explanations 17.3/19.0،
-history 5.6/6.1، overview 1.4/1.9، clusters 2.2/3.3، learners(100) 6.0/6.9، learner 2.0/2.2 — كلها ≪ 300 ms (NFR-01؛ يفرضه `test_latency_after_warmup`).
+history 5.6/6.1، overview 1.4/1.9، clusters 2.2/3.3، learners(100) 6.0/6.9، learner 2.0/2.2 — كلها ≪ 200 ms (NFR-01؛ يفرض `test_latency_after_warmup` 200 ms لمسارات المتعلم وملف المتعلم و1 ث للوحة المدرّس).
+**الطلب البارد (NFR-01):** `python3 -m src.backend.precompute --presentation FFF_2013J --jobs 4` يحسب اختيار العناقيد لكل أيام العرض ويحفظه في `data/cache/serving_clusters` (21 د و14 ث لـ269 يوماً، 2026-10-27)؛ أو `--precompute-clusters` مع الخادم. بعده أول طلب توصية في أي يوم 1.5–3.2 ث، وأول `instructor/overview` قبل أي طلب في يومه 2.8–4.2 ث (قبله 11.2–13.3 ث للتوصية). ويفرض `test_cold_day_bounded_after_cluster_precompute` 5 ث و8 ث.
 زمن التسخين الكامل: ≈ 36 ث = خطّاف serving.warm ≈ 20.6 ث ثم الأيام الستة (75: 2.4، 56: 1.2، 70: 5.6، 112: 0.9، 126: 3.8، 182: 1.0 ث)؛ قياس 2026-10-24 على جهاز العمل. يوم جديد (مثلاً 90 أو 91) لا يغطيه التسخين: ≈ 9.8–10.7 ث للطلب الأول ثم ≈ 0.8–0.9 ث لبناء لقطة المدرّس ثم من الذاكرة؛ عرض آخر (BBB_2013J) ≈ 8.3 ث للأول.
 ذاكرات: LRU للتوصيات (1024 قائمة من 20)، ولقطات المدرّس (6)، و`lru_cache` داخل `Engine`.
 
 ## الاختبارات
 ```bash
-python3 -m unittest discover -s src/backend/tests -t .      # 55 اختباراً، ≈ 25–90 ث (حسب ذاكرة العنقدة الدائمة؛ ≈ 110 ث على نسخة نظيفة) (أغلبها تسخين أول يوم)
+python3 -m unittest discover -s src/backend/tests -t .      # 63 اختباراً، ≈ 38 ث بعنقدة مخزَّنة (أكثر على نسخة نظيفة: يُحسب اختيار العناقيد لأيام الاختبار)
 python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors   # < 1 ث، بلا بيانات
 python3 -m src.backend --warm &   # ثم التحقق الحي بمتصفح حقيقي (لا mock) ولقطات deliverables/05-user-guide/screenshots/live-*.png:
 NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js
@@ -103,7 +106,7 @@ NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js
 - كل نص يصل المستخدم يمر بـ`services/labels.fix_ar`: تصحيح «بعد 57 أيام» إلى «بعد 57 يوماً» وحذف أرقام القرارات الداخلية (`(D-49 (5))` من ملاحظة `serving` وغيرها)؛ وفي الواجهة `countAr/daysAr/learnersAr/itemsAr` في `labels.ts` (1 يوم واحد، يومان، 3–10 أيام، 11+ يوماً). أرقام القرارات تبقى في تعليقات الكود وREADME فقط، ويفحصه `test_text.py` و`test_contract_json.py` والتحقق الحي.
 - بطاقة «متعلمون نشطون» = الفوج الذي له يوم نشط واحد على الأقل حتى t؛ و`kpis.cohort_size` هو الفوج كله (مسجَّلون ≤ t ولم ينسحبوا ≤ t)، وهو مجموع أحجام العناقيد وعدد صفوف الجدول (1,860 من 1,872 عند اليوم 75).
 - «الحساب عند اليوم t نفسه» تظهر في سياق التوصية بشرط `snapshot_day === requested_day`؛ وإلا يظهر «محسوب عند اليوم {snapshot_day}».
-- `CHECK_ONLY=1 node src/backend/e2e/live-screenshots.js` يتحقق (أشرطة الملامح داخل مساراتها، خلايا الدرجة بخانتين وغير مقصوصة، لا أرقام قرارات ولا صيغ عدد خاطئة، وترتيب التركيز بـTab مع حلقة مرئية في صفحتي المتعلم والمدرّس، والانتقال إلى الصفحة الثانية من جدول المدرّس بـEnter، وتطابق عدد «بلا نشاط 14 يوماً» مع `idle=1`، وغياب التمرير الأفقي على 1440 و375 و360؛ عرض 360 للفحص وحده بلا لقطات) دون كتابة لقطات؛ ويختار متعلماً بدرجة خطر 0.40–0.60 للقطات.
+- `CHECK_ONLY=1 node src/backend/e2e/live-screenshots.js` يتحقق (أشرطة الملامح داخل مساراتها، خلايا الدرجة بخانتين وغير مقصوصة، لا أرقام قرارات ولا صيغ عدد خاطئة، وترتيب التركيز بـTab مع حلقة مرئية في صفحتي المتعلم والمدرّس، ورابطا التخطي إلى جدول المتعلمين والتوصيات مع عدد ضغطات Tab بعدهما، وأسماء العناصر التفاعلية في شجرة الوصول، وتباين كل نص مرسوم، والانتقال إلى الصفحة الثانية من جدول المدرّس بـEnter، وتطابق عدد «بلا نشاط 14 يوماً» مع `idle=1`، وغياب التمرير الأفقي على 1440 و375 و360؛ عرض 360 للفحص وحده بلا لقطات) دون كتابة لقطات؛ ويختار متعلماً بدرجة خطر 0.40–0.60 للقطات.
 
 ## تحديثات D-71/D-72 وربط `serving.warm`
 - `ClusterQuality.ari` يقبل `null` (العرض الغائب من `results/dev2013/learner_clusters.csv`)؛ الواجهة تعرض «غير متاح» و`unstable_reason` لا يستشهد بـARI غائب (`test_text.py`). تشخيص التجميع (silhouette وDBI وARI مع مصدره) يُعرض بلا تسميات؛ وبطاقة التغطية «اتساع التوصيات عند اليوم t: X من Y مورداً» (حقل `coverage.at_10` في API لم يتغير).

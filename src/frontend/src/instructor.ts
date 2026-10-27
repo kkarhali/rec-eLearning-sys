@@ -163,7 +163,7 @@ async function renderTable(focus?: 'prev' | 'next'): Promise<void> {
       { key: 'last_access', header: 'آخر وصول', sortable: true, align: 'num' as const, cell: (r: InstructorLearnerRow) => r.last_access_day === null ? '—' : 'اليوم ' + fmt(r.last_access_day, 0) },
       { key: 'on_time', header: 'الالتزام', sortable: true, align: 'num' as const, cell: (r: InstructorLearnerRow) => bdi(r.on_time) },
       ...(noRisk ? [] : [
-        { key: 'risk', header: 'درجة الخطر', sortable: true, cell: (r: InstructorLearnerRow) => r.risk ? riskCell(r.risk.score, r.risk.above_threshold, thr) : '—' },
+        { key: 'risk', header: 'درجة الخطر النسبية', sortable: true, headWrap: true, cell: (r: InstructorLearnerRow) => r.risk ? riskCell(r.risk.score, r.risk.above_threshold, thr) : '—' },
         { key: 'factor', header: 'أبرز عامل', wrap: true, cell: (r: InstructorLearnerRow) => r.risk?.top_factor ?? '—' }]),
     ];
     const filt = (st.cl !== null ? ' في العنقود المختار' : '') + (st.f === 'idle' ? ' بلا نشاط 14 يوماً' : st.f === 'above' ? ' بدرجة ≥ العتبة' : '');
@@ -179,7 +179,7 @@ async function renderTable(focus?: 'prev' | 'next'): Promise<void> {
     if (focus) focusPager(host, focus);
   } catch (e) { showError(host, e, () => void renderTable()); }
 }
-function sortName(s: string): string { const k = s.replace(/^-/, ''); return ({ risk: 'درجة الخطر', reg: 'التسجيل', cluster: 'العنقود', active_days: 'الأيام النشطة', last_access: 'آخر وصول', on_time: 'الالتزام' } as Record<string, string>)[k] ?? k; }
+function sortName(s: string): string { const k = s.replace(/^-/, ''); return ({ risk: 'درجة الخطر النسبية', reg: 'التسجيل', cluster: 'العنقود', active_days: 'الأيام النشطة', last_access: 'آخر وصول', on_time: 'الالتزام' } as Record<string, string>)[k] ?? k; }
 function riskCell(p: number, above: boolean, thr?: number): HTMLElement {
   return h('span', { class: 'riskcell' + (above ? ' riskcell--above' : ''), title: thr !== undefined ? `العتبة ${fmt(thr)}` : '' },
     h('span', { class: 'riskbar', 'aria-hidden': 'true' }, h('span', { class: 'riskbar__fill', style: `width:${p * 100}%` })),

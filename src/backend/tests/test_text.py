@@ -36,6 +36,22 @@ class TestArabicText(unittest.TestCase):
                 txt = re.sub(r"/\*.*?\*/", "", txt, flags=re.S)
             self.assertNotRegex(txt, r"\bD-\d+", f.name)
 
+    def test_risk_label_is_relative_everywhere(self):
+        """NFR-18: كل تسمية ظاهرة لدرجة الخطر في الواجهة نسبية: «درجة الخطر النسبية» (ومنها عنوان عمود الجدول)
+        أو «درجة خطر نسبية»؛ ولا تبقى «درجة الخطر» وحدها في نص يصل إلى المستخدم."""
+        from pathlib import Path
+        root = Path(__file__).resolve().parents[2] / "frontend"
+        bad = []
+        for f in list(root.glob("*.html")) + list((root / "src").rglob("*.ts")):
+            txt = f.read_text(encoding="utf-8")
+            if f.suffix == ".ts":
+                txt = re.sub(r"//.*", "", txt)
+                txt = re.sub(r"/\*.*?\*/", "", txt, flags=re.S)
+            bad += [f"{f.name}: …{txt[max(0, m.start() - 20):m.end() + 12]}…" for m in re.finditer(r"درجة الخطر(?! النسبية)", txt)]
+        self.assertFalse(bad, "\n".join(bad))
+        ins = (root / "src" / "instructor.ts").read_text(encoding="utf-8")
+        self.assertIn("header: 'درجة الخطر النسبية'", ins)
+
 
 class TestClusterQualityNull(unittest.TestCase):
     """D-71: ARI الغائب null لا 0.0، ولا يُستشهد به في سبب عدم الاستقرار."""

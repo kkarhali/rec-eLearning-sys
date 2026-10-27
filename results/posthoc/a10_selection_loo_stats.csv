@@ -1,0 +1,7 @@
+comparison,year,unit,n_units,mean,ci_lo,ci_hi,degenerate,pct_lo,pct_hi,p_signflip_uncorrected,n_pos,sd,status
+LOO-selected hybrid − B3_RecentPop (held-out presentation),2013,presentation,9,0.017588,-0.009413,0.037243,False,-0.003008,0.035315,0.136719,8,0.031308,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected
+LOO-selected hybrid − B3_RecentPop (held-out presentation),2013,"course (D-31 robustness, table 5-8-هـ)",6,0.011432,-0.034804,0.037603,False,-0.015880,0.033129,0.406250,5,0.033726,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected
+"LOO-selected hybrid, nominal grid − B3_RecentPop",2013,presentation,9,0.012804,-0.012003,0.035546,False,-0.007476,0.032092,0.261719,7,0.031972,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected
+"LOO-selected hybrid, nominal grid − B3_RecentPop",2013,"course (D-31 robustness, table 5-8-هـ)",6,0.005595,-0.028912,0.041499,False,-0.019371,0.029060,0.593750,4,0.033332,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected
+"in-sample reference: HYB* (frozen, selected on all nine) − B3_RecentPop",2013,presentation,9,0.019633,-0.007402,0.041609,False,-0.002116,0.039063,0.121094,8,0.033634,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected
+"in-sample reference: HYB* (frozen, selected on all nine) − B3_RecentPop",2013,"course (D-31 robustness, table 5-8-هـ)",6,0.012966,-0.031922,0.040461,False,-0.015653,0.035521,0.375000,5,0.035352,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected

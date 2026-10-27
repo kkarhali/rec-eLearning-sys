@@ -1,7 +1,7 @@
 import { h, clear } from '../dom.js';
 
 export interface Col<T> {
-  key: string; header: string; sortable?: boolean; align?: 'num'; wrap?: boolean;
+  key: string; header: string; sortable?: boolean; align?: 'num'; wrap?: boolean; headWrap?: boolean;
   cell: (row: T) => Node | string;
 }
 export interface TableOpts<T> {
@@ -12,7 +12,7 @@ export interface TableOpts<T> {
 export function DataTable<T>(o: TableOpts<T>): HTMLElement {
   const dirKey = o.sort.replace(/^-/, ''), desc = o.sort.startsWith('-');
   const head = h('tr', {}, ...o.cols.map((c) => {
-    const th = h('th', { scope: 'col', class: c.align === 'num' ? 'num' : '', 'aria-sort': c.sortable ? (dirKey === c.key ? (desc ? 'descending' : 'ascending') : 'none') : null });
+    const th = h('th', { scope: 'col', class: (c.align === 'num' ? 'num' : '') + (c.headWrap ? ' th--wrap' : ''), 'aria-sort': c.sortable ? (dirKey === c.key ? (desc ? 'descending' : 'ascending') : 'none') : null });
     if (c.sortable) th.append(h('button', { class: 'thbtn', type: 'button', onclick: () => o.onSort(c.key) }, c.header,
       h('span', { class: 'sortmark', 'aria-hidden': 'true' }, dirKey === c.key ? (desc ? ' ▼' : ' ▲') : ' ↕')));
     else th.append(c.header);

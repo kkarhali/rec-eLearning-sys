@@ -7,11 +7,12 @@
 </head>
 <body>
 <a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+<a class="skip" href="#result">تخطَّ إلى التوصيات</a>
 <header class="header" id="site-header"></header>
 <main id="main" class="container">
   <h1 class="h1">توصيات المتعلم</h1>
   <section class="card controls" id="controls" aria-label="التحكم بالعرض والتسجيل واليوم" aria-busy="true"></section>
-  <div id="result" aria-busy="true"></div>
+  <div id="result" class="skip-target" tabindex="-1" role="region" aria-label="التوصيات" aria-busy="true"></div>
   <p class="foot">لا يظهر للمتعلم أي وسم خطر أو عنقود أو مقارنة بالآخرين. الأسماء = نوع النشاط + id_site لأن OULAD بلا عناوين. الأرقام للعرض لا للتقييم.</p>
 </main>
 <script type="module" src="js/learner.js"></script>

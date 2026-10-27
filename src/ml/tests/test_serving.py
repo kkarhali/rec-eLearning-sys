@@ -2,6 +2,7 @@
 import json
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 import numpy as np
@@ -258,6 +259,29 @@ class TestServingContract(unittest.TestCase):
             np.testing.assert_array_equal(x.labels, live.labels)
             for s in range(5):
                 np.testing.assert_array_equal(x.labels_by_seed[s], live.labels_by_seed[s])
+
+    def test_precompute_clusters_fills_cache_for_every_day(self):
+        """NFR-01: the precomputed day-t choice is the one a request computes; a second pass only reads it."""
+        from src.ml.models.context import cluster_choice
+        days = [88, 89, 90]
+        for d in days:
+            self.eng.cluster_cache_file(NAME, d).unlink(missing_ok=True)
+        seen = []
+        r = self.eng.precompute_clusters(NAME, days=days, progress=lambda i, n, d, sec: seen.append((i, n, d)))
+        self.assertEqual((r["days"], r["computed"], r["already_cached"]), (3, 3, 0))
+        self.assertEqual([x[0] for x in seen], [1, 2, 3])
+        self.assertTrue(all(self.eng.cluster_cached(NAME, d) for d in days))
+        r2 = self.eng.precompute_clusters(NAME, days=days, jobs=4)        # injected data: runs in-process
+        self.assertEqual((r2["computed"], r2["already_cached"]), (0, 3))
+        serving._CLUSTER_MEM.clear()
+        with mock.patch.object(serving, "cluster_choice", side_effect=AssertionError("recomputed")):
+            got = self.eng.cluster_choice_at(NAME, 89)                     # read from the precomputed file
+        live = cluster_choice(build_train(self.p, 89, 89, "replay"))
+        np.testing.assert_array_equal(got.labels, live.labels)
+        with mock.patch.object(serving.Engine, "_cluster_choice_disk", return_value=(None, False)) as m:
+            all_days = self.eng.precompute_clusters(NAME, days=None)          # default: every day 0..length
+        self.assertEqual(all_days["days"], int(self.p.length) + 1)
+        self.assertEqual(sorted(c.args[1] for c in m.call_args_list), list(range(int(self.p.length) + 1)))
 
     def test_evidence_has_no_cluster_and_warm(self):
         recs = self.eng.recommend(NAME, self.student, 140, k=5)

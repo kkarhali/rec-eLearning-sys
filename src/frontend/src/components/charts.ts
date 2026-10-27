@@ -127,7 +127,7 @@ export function SvgDonut(title: string, data: DonutDatum[], selected: number | n
 /** Diverging horizontal bars for w*z risk factors (positive raises, negative lowers). */
 export function DivergingBars(title: string, data: { name: string; v: number }[]): HTMLElement {
   const W = 360, rowH = 30, H = data.length * rowH + 8, mid = W / 2 + 40, scale = 60 / Math.max(...data.map((d) => Math.abs(d.v)), 1);
-  const svg = svgRoot(W, H, title, 'عوامل درجة الخطر: الموجب يرفع الدرجة والسالب يخفضها.');
+  const svg = svgRoot(W, H, title, 'عوامل درجة الخطر النسبية: الموجب يرفع الدرجة والسالب يخفضها.');
   svg.append(s('line', { x1: mid, x2: mid, y1: 0, y2: H, class: 'chart__axisline' }));
   data.forEach((d, i) => {
     const y = 4 + i * rowH, w = Math.abs(d.v) * scale;

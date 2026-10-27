@@ -17,6 +17,7 @@ from .asgi_client import Client
 MOCK = REPO_ROOT / "src" / "frontend" / "mock"
 HAVE = (REPO_ROOT / "data" / "raw" / "oulad" / "studentVle.csv").exists() and (REPO_ROOT / "artifacts" / "FFF_2013J").exists()
 P, DAY = "FFF_2013J", 75
+COLD_REC_S, COLD_DASH_S = 5.0, 8.0        # NFR-01: حدا الطلب البارد بعد الحساب المسبق لاختيار العناقيد (الملحق ج)
 SENSITIVE_KEYS = {"gender", "disability", "imd_band", "age_band", "region", "highest_education", "final_result"}
 
 
@@ -194,6 +195,23 @@ class TestApi(unittest.TestCase):
         self.assertIn("withdrawn", {x["status"] for x in reg["items"]})
         early = self.get(f"/api/registrations?presentation={P}&q={sid}&day=0")["items"]    # قبل الانسحاب لا يظهر منسحباً
         self.assertNotEqual(early[0]["status"], "withdrawn") if day > 0 else None
+
+    def test_no_history_notice_fr37(self):
+        """FR-37: متعلم مسجَّل غير منسحب بلا أي وصول حتى اليوم t ≥ 70 يأخذ حالة no_history وإشعار «الترتيب غير شخصي»."""
+        from src.backend.services.replay import NOTE_NO_HISTORY
+        ix = self.sv.repo.index(P)
+        day = 100
+        first = ix.events.groupby("id_student")["date"].min()
+        reg = ix.reg
+        ok = reg[(reg["date_registration"].fillna(-1e9) <= day) & ~(reg["date_unregistration"] <= day)].index
+        cand = [int(i) for i in ok if i not in first.index or first[i] > day]
+        if not cand:
+            self.skipTest("لا متعلم بلا تاريخ في هذا العرض")
+        r = self.get(f"/api/recommendations?registration={P}-{cand[0]}&day={day}&k=5")
+        self.assertEqual(r["status"], "no_history")
+        self.assertFalse(r["known_learner"])
+        self.assertEqual(r["note"], NOTE_NO_HISTORY)
+        self.assertEqual(len(r["items"]), 5)
 
     def test_day_out_of_range(self):
         r = self.get(f"/api/recommendations?registration={self.reg}&day=300", status=422)
@@ -393,23 +411,55 @@ class TestApi(unittest.TestCase):
         r = self.get(f"/api/recommendations?registration={self.reg}&day={DAY}&k=10")
         self.assertEqual([i["id_site"] for i in r["items"]], [x["id_site"] for x in ref])
 
-    # ------------------------------------------------------------ أداء بعد التسخين
+    # ------------------------------------------------------------ أداء بعد التسخين (NFR-01)
     def test_latency_after_warmup(self):
-        urls = [f"/api/health", "/api/meta", "/api/presentations", f"/api/registrations?presentation={P}&limit=100",
+        """NFR-01 في يوم مسخَّن: 200 مللي ثانية لمسارات المتعلم وملف المتعلم والبيانات الوصفية، وثانية للنظرة العامة والعناقيد
+        والجدول. يُقاس الطلب الثاني (الأول يسخّن)، ويُؤخذ أدنى زمن من ثلاث محاولات ليخفف ضجيج الجدولة في الآلة."""
+        fast = [f"/api/health", "/api/meta", "/api/presentations", f"/api/registrations?presentation={P}&limit=100",
                 f"/api/recommendations?registration={self.reg}&day={DAY}&k=10",
                 f"/api/learner/{self.reg}/history?day={DAY}",
-                f"/api/instructor/overview?presentation={P}&day={DAY}", f"/api/instructor/clusters?presentation={P}&day={DAY}",
-                f"/api/instructor/learners?presentation={P}&day={DAY}&limit=100&sort=-risk",
                 f"/api/instructor/learner/{self.reg}?day={DAY}"]
-        top = self.get(urls[4])["items"][0]["id_site"]
-        urls.append(f"/api/explanations/{self.reg}/{top}?day={DAY}")
-        for u in urls:
-            self.c.get(u)                                           # تسخين
-            t = time.perf_counter()
-            r = self.c.get(u)
-            ms = (time.perf_counter() - t) * 1000
-            self.assertEqual(r.status, 200, u)
-            self.assertLess(ms, 300, f"{u}: {ms:.0f}ms")
+        top = self.get(fast[4])["items"][0]["id_site"]
+        fast.append(f"/api/explanations/{self.reg}/{top}?day={DAY}")
+        dash = [f"/api/instructor/overview?presentation={P}&day={DAY}", f"/api/instructor/clusters?presentation={P}&day={DAY}",
+                f"/api/instructor/learners?presentation={P}&day={DAY}&limit=100&sort=-risk",
+                f"/api/instructor/learners?presentation={P}&day={DAY}&limit=100&sort=reg&idle=1"]
+        for urls, bound in ((fast, 200), (dash, 1000)):
+            for u in urls:
+                self.c.get(u)                                       # تسخين
+                best = float("inf")
+                for _ in range(3):
+                    t = time.perf_counter()
+                    r = self.c.get(u)
+                    best = min(best, (time.perf_counter() - t) * 1000)
+                    self.assertEqual(r.status, 200, u)
+                self.assertLess(best, bound, f"{u}: {best:.0f}ms > {bound}ms (NFR-01)")
+
+    def test_cold_day_bounded_after_cluster_precompute(self):
+        """NFR-01 في يوم غير مسخَّن حُسب له اختيار العناقيد مسبقاً: أول طلب توصية في محرّك جديد (بلا أي ذاكرة لذلك اليوم)
+        أقل من COLD_REC_S ثانية، وأول نظرة عامة للمدرّس في يوم بارد آخر (قبل أي توصية فيه) أقل من COLD_DASH_S ثانية."""
+        from src.ml import serving
+        day, dday = 103, 104                                        # ليسا من أيام التسخين ولا من نقاط القطع
+        base = self.sv.repo.engine
+        base.precompute_clusters(P, days=[day, dday])               # يحسب ويحفظ إن لم يكن محفوظاً؛ وإلا يتحقق من البصمة فقط
+        eng = serving.Engine(presentations={P: base.presentation(P)}, student_assessment=base._student_assessment())
+        for d in (day, dday):
+            serving._CLUSTER_MEM.pop((P, d, eng.frozen_fingerprint), None)
+        c2 = Client(create_app(Settings(), engine=eng))
+        # خادم يعمل: فهارس العرض ونماذج الخطر والعناقيد مبنية من طلبات يوم آخر (DAY)؛ واليوم المقيس لم يُطلب قط
+        self.assertEqual(c2.get(f"/api/recommendations?registration={self.reg}&day={DAY}&k=10").status, 200)
+        self.assertEqual(c2.get(f"/api/instructor/overview?presentation={P}&day={DAY}").status, 200)
+        t = time.perf_counter()
+        r = c2.get(f"/api/recommendations?registration={self.reg}&day={day}&k=10")
+        rec_s = time.perf_counter() - t
+        self.assertEqual(r.status, 200, r.text[:200])
+        t = time.perf_counter()
+        r = c2.get(f"/api/instructor/overview?presentation={P}&day={dday}")
+        dash_s = time.perf_counter() - t
+        self.assertEqual(r.status, 200, r.text[:200])
+        self.assertLess(rec_s, COLD_REC_S, f"أول طلب توصية في يوم بارد: {rec_s:.1f} ث")
+        self.assertLess(dash_s, COLD_DASH_S, f"أول نظرة عامة في يوم بارد: {dash_s:.1f} ث")
+        print(f"\n[NFR-01] cold day {day}: recommendations {rec_s:.2f} s; cold day {dday}: instructor overview {dash_s:.2f} s")
 
 
 if __name__ == "__main__":
