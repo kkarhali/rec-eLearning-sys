@@ -92,22 +92,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   **مسارات المتعلم لا تحمل خطراً ولا عنقوداً ولا سمة حساسة** (يفحصها `test_contract_no_risk.py` و`test_contract_json.py`).
 - `src/frontend/`: TypeScript خالص (`tsc` وحده، بلا package.json)، وواجهة عربية للمتعلم ولوحة للمدرّس. وضع mock تلقائي
   حين يفشل `/api/health`. العقود في `src/frontend/src/types.ts` وملفات `mock/*.json` هي المرجع عند التعارض.
-- `results/`: `dev2013/` (التطوير)، و`frozen/` (الإعداد المجمَّد ونماذج الخطر وقائمة الشروط)، و`dryrun2013/`، و`conf2014/` (مقفل).
+- `results/`: `dev2013/` (التطوير)، و`frozen/` (الإعداد المجمَّد ونماذج الخطر وقائمة الشروط)، و`dryrun2013/`، و`conf2014/` (مقفل)،
+  و`posthoc/` (تحليلات لاحقة بعد المناقشة التجريبية، خارج عائلة هولم؛ شيفرتها `scripts/posthoc/`، وتُعرض في الملحق هـ).
   `artifacts/` و`data/cache/` و`data/raw/` خارج git.
 
 ## الأوامر (من جذر المستودع)
 
-المتطلبات: Python 3.13 مع numpy وpandas وstarlette وuvicorn وpydantic (لا ملف requirements)، وNode 22 مع `tsc` و`playwright` عمومياً.
+المتطلبات: Python 3.13 والحزم المثبّتة في `requirements.txt`، وNode 22 مع `tsc` و`playwright` عمومياً.
 
 ```bash
 bash data/download.sh                                   # تحميل OULAD والتحقق من MD5 (يطبع «integrity: PASS»)
-python3 -m unittest discover -s src/ml/tests            # 128 اختباراً، ≈ 6 ث، لا تحتاج البيانات
+python3 -m unittest discover -s src/ml/tests            # 130 اختباراً، ≈ 7 ث، لا تحتاج البيانات
 python3 -m unittest discover -s src/ml/tests -p 'test_hybrid_stats.py'   # ملف اختبار واحد
 python3 -m unittest discover -s src/ml/tests -k test_ids_only            # اختبار بالاسم
 python3 -m src.ml.experiments.build_artifacts           # مطلوب قبل تشغيل الخلفية (artifacts/ خارج git)
 bash src/frontend/build.sh                              # → src/frontend/dist
 tsc --noEmit -p src/frontend/tsconfig.json              # فحص الأنواع (strict)
-python3 -m unittest discover -s src/backend/tests -t .  # 52 اختباراً (≈ 110 ث على نسخة نظيفة)
+python3 -m unittest discover -s src/backend/tests -t .  # 55 اختباراً (≈ 20–110 ث)
 python3 -m unittest src.backend.tests.test_contract_json   # وحدة اختبار خلفية واحدة
 python3 -m src.backend --warm --port 8100               # http://127.0.0.1:8100
 python3 -m src.ml.experiments.reproduce_dev             # إعادة كل نتائج 2013 (≈ 50 د) ومقارنة حرفية → repro_diff.md
@@ -119,6 +120,7 @@ python3 -m src.ml.experiments.freeze_config --checklist # يُعاد بعد كل
 python3 scripts/build_docx.py OUT.docx IN1.md [IN2.md …] --title "…"   # Markdown → Word عربي RTL (pandoc + python-docx)
 python3 scripts/thesis/eda_figures.py && python3 scripts/thesis/make_tables.py && python3 scripts/thesis/assemble.py
 python3 scripts/thesis/build_ch6.py --verify-tag        # الفصل 6 من نصه المسجل؛ يفشل عند أي تغيير خارج المسموح
+python3 scripts/thesis/appendix_e.py                    # الملحق هـ من results/posthoc/
 python3 scripts/thesis/renumber.py                      # تشغيل جاف لترقيم المراجع (IEEE بترتيب الظهور)؛ --apply للكتابة
 python3 scripts/thesis/build_thesis_docx.py [--pdf=DIR] # → deliverables/06-final-thesis/الأطروحة-النهائية.docx
 python3 scripts/build_pptx.py                           # العرض التقديمي (07-presentation)
@@ -131,7 +133,8 @@ python3 scripts/build_pptx.py                           # العرض التقد�
 
 `deliverables/00…07` (خطة البحث، الدراسة المرجعية، الفرضيات والخوارزميات، التحليل والتصميم ومخططاته، توثيق الكود، دليل المستخدم،
 الأطروحة النهائية، العرض التقديمي) و`deliverables/README-التسليم.md` بالتنبيهات الإلزامية قبل الإيداع (التحقق من DOI المرجعين
-[20] و[24]، وتحديث حقول Word، والاسم اللاتيني). المراجع 64 بأسلوب IEEE، ولا يُقبل DOI إلا بعد التحقق من حلّه (D-110).
+[22] و[26]، وتحديث حقول Word، والاسم اللاتيني). المراجع 70 بأسلوب IEEE، ولا يُقبل DOI إلا بعد التحقق من حلّه (D-110).
+تصويبات المناقشة التجريبية وحالتها في `docs/defense/04-corrections-log.md`؛ ونص الرسالة يُعدَّل ثم يُعاد `renumber.py` ثم الخطوات 1–3.
 
 ## حدود معلنة لا تُتجاوز في أي نص
 

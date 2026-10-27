@@ -1,0 +1,15 @@
+comparison,year,unit,n_units,mean,ci_lo,ci_hi,degenerate,pct_lo,pct_hi,p_signflip_uncorrected,n_pos,sd,status,six_level_reading_illustrative_uncorrected_p
+"GRU_lite − B5_SKNN_Mall (H3 inference, M = None)",2013,presentation,9,0.134631,0.093638,0.187696,False,0.100411,0.170485,0.003906,9,0.057906,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,superior_confirmed
+"GRU_lite − B5_SKNN_Mall (H3 inference, M = None)",2013,"course (D-31 robustness, table 5-8-هـ)",6,0.129667,0.086983,0.202785,False,0.095419,0.170002,0.031250,6,0.051544,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+"B5_SKNN_Mall − B5_SKNN (locked, M = 1000)",2013,presentation,9,-0.146224,-0.196124,-0.093691,False,-0.186279,-0.104668,0.003906,0,0.066241,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+"B5_SKNN_Mall − B5_SKNN (locked, M = 1000)",2013,"course (D-31 robustness, table 5-8-هـ)",6,-0.133043,-0.197280,-0.059290,False,-0.182432,-0.081833,0.031250,0,0.069669,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_lite − B5_SKNN_Mall,2013,origin t = 70 alone (descriptive),9,0.131593,,,,,,,9,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_lite − B5_SKNN_Mall,2013,origin t = 126 alone (descriptive),9,0.170885,,,,,,,9,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_lite − B5_SKNN_Mall,2013,origin t = 182 alone (descriptive),9,0.101416,,,,,,,9,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+"GRU_lite − B5_SKNN_Mall (H3 inference, M = None)",2014,presentation,13,0.128208,0.093667,0.173491,False,0.095666,0.163595,0.000244,13,0.064783,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,superior_confirmed
+"GRU_lite − B5_SKNN_Mall (H3 inference, M = None)",2014,"course (D-31 robustness, table 5-8-هـ)",7,0.125653,0.082331,0.199528,False,0.089183,0.166916,0.015625,7,0.058385,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+"B5_SKNN_Mall − B5_SKNN (locked, M = 1000)",2014,presentation,13,-0.138249,-0.188418,-0.111236,False,-0.170160,-0.111460,0.000244,0,0.056451,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+"B5_SKNN_Mall − B5_SKNN (locked, M = 1000)",2014,"course (D-31 robustness, table 5-8-هـ)",7,-0.132746,-0.197985,-0.088789,False,-0.168643,-0.097236,0.015625,0,0.052980,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_lite − B5_SKNN_Mall,2014,origin t = 70 alone (descriptive),13,0.157551,,,,,,,13,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_lite − B5_SKNN_Mall,2014,origin t = 126 alone (descriptive),13,0.136412,,,,,,,13,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_lite − B5_SKNN_Mall,2014,origin t = 182 alone (descriptive),13,0.090661,,,,,,,11,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,

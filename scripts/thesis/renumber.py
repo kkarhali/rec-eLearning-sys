@@ -39,7 +39,8 @@ TH = os.path.join(ROOT, "docs", "working", "06-thesis")
 ORDER = ["00-front-matter.md", "ch1-introduction.md", "ch2-background-literature.md", "ch3-methodology.md",
          "ch4-analysis-design.md", "ch5-implementation-results.md", "ch6-discussion.md", "ch7-conclusion.md",
          "appendix-A-comparison-matrix.md", "appendix-B-numeric-examples.md", "appendix-C-requirements.md",
-         "appendix-D-confirmatory-details.md"]
+         "appendix-D-confirmatory-details.md",
+         "appendix-E-posthoc.md"]
 APPA = "appendix-A-comparison-matrix.md"
 PRES = os.path.join(ROOT, "docs", "working", "07-presentation.json")
 TPL = os.path.join(ROOT, "scripts", "thesis", "templates")

@@ -140,9 +140,9 @@ integrity: PASS
 الأعداد أدناه مقيسة في 2026-10-25 على commit `20eeb98` (4 أنوية):
 
 ```
-python3 -m unittest discover -s src/ml/tests               # 123 اختباراً، ≈ 7 ث، بلا البيانات الخام
+python3 -m unittest discover -s src/ml/tests               # 130 اختباراً، ≈ 7 ث، بلا البيانات الخام
 python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors
-python3 -m unittest discover -s src/backend/tests -t .     # 52 اختباراً، ≈ 120 ث (تحتاج البيانات)
+python3 -m unittest discover -s src/backend/tests -t .     # 55 اختباراً، ≈ 20–120 ث (تحتاج البيانات)
 cd src/frontend && tsc --noEmit -p tsconfig.json           # فحص الأنواع (strict)
 ```
 
@@ -496,7 +496,7 @@ src/backend/
 | `/api/learner/{reg}/history` | `day`، `window` (28) | `daily` و`recent` (3) و`active_days` |
 | `/api/instructor/overview` | `presentation`، `day` | مؤشرات وملخص الملامح ومدرج الخطر والتغطية |
 | `/api/instructor/clusters` | `presentation`، `day` | k و`cluster_day` (= 56، لقطة العناقيد) و`unstable` و`unstable_reason` والجودة (`ari` يقبل null إن غاب العرض من `learner_clusters.csv`) وأحجام ووصف عربي حتمي وإسقاط PCA |
-| `/api/instructor/learners` | `presentation`، `day`، `cluster`، `risk=all\|above`، `sort`، `limit≤500`، `offset` | `{items,total,limit,offset}` |
+| `/api/instructor/learners` | `presentation`، `day`، `cluster`، `risk=all\|above`، `idle=1` (لا وصول منذ 14 يوماً أو لا وصول قط، على الفوج كله قبل الفرز والتقسيم)، `sort`، `limit≤500`، `offset` | `{items,total,limit,offset}` |
 | `/api/instructor/learner/{reg}` | `day` | العنقود والخطر بعوامل w·z والملامح مقابل الوسيط وأفضل 3 توصيات و`withdrawn_day`؛ **بلا أي حقل نتيجة نهائية** (حُذف `outcome` من العقد) |
 
 **`provenance {run_id, role, model_cut}`** موجود في كل استجابة بيانات (التوصية والتفسير وسجل النشاط والنظرة العامة والعناقيد وصفحة المتعلمين وملف المتعلم)، ويفرضه الثابت `schemas.PROVENANCE_MODELS` ويفحصه اختبار العقد (D-49 (6)). صيغة `registration` = `^[A-G]{3}_20(13|14)[BJ]-\d+$` وتُحلَّل إلى (العرض، `id_student`). والمهمة الافتراضية A (موارد جديدة) لأن التوصية إرشاد إلى ما لم يُكتشف بعد.

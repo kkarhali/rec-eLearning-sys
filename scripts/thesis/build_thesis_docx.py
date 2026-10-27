@@ -49,7 +49,8 @@ OUT = ROOT / "deliverables" / "06-final-thesis" / "الأطروحة-النهائ
 ORDER = ["00-front-matter.md", "ch1-introduction.md", "ch2-background-literature.md", "ch3-methodology.md",
          "ch4-analysis-design.md", "ch5-implementation-results.md", "ch6-discussion.md", "ch7-conclusion.md",
          "references.md", "appendix-A-comparison-matrix.md", "appendix-B-numeric-examples.md",
-         "appendix-C-requirements.md", "appendix-D-confirmatory-details.md"]
+         "appendix-C-requirements.md", "appendix-D-confirmatory-details.md",
+         "appendix-E-posthoc.md"]
 TEXT_WIDTH_CM, MAX_HEIGHT_CM = 15.0, 18.0
 MARKER = "@@INDEXES@@"
 EN_TITLE = "A Recommendation System for E-Learning Based on User Behavior Analysis"

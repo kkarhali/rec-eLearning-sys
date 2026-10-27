@@ -1,0 +1,162 @@
+{
+ "source": "results/conf2014/per_presentation.csv (locked), results/dev2013/mde80.json, results/dev2013/summary.md, results/conf2014/summary.md, results/conf2014/h4a_auc.csv",
+ "label": "post-hoc, descriptive, outside the Holm family",
+ "within_course_corr": {
+  "n_courses": 6,
+  "H1": 0.66,
+  "H2-a": 0.77,
+  "H3": 0.26,
+  "H4-a": 0.8
+ },
+ "course_level": {
+  "n_courses": 7,
+  "min_p_two_sided": 0.015625,
+  "min_p_two_sided_x4": 0.0625,
+  "min_p_one_sided": 0.0078125,
+  "min_p_one_sided_x4": 0.03125,
+  "H1": {
+   "mean": 0.0016,
+   "p_two_sided": 0.9062,
+   "p_one_sided": 0.4531
+  },
+  "H2-a": {
+   "mean": 0.0513,
+   "p_two_sided": 0.0156,
+   "p_one_sided": 0.0078
+  },
+  "H3": {
+   "mean": -0.0071,
+   "p_two_sided": 0.5781,
+   "p_one_sided": 0.7188
+  },
+  "H4-a": {
+   "mean": 0.0078,
+   "p_two_sided": 0.0781,
+   "p_one_sided": 0.0391
+  }
+ },
+ "bonferroni_98_75": {
+  "H1": {
+   "lo": -0.0214,
+   "hi": 0.035
+  },
+  "H2-a": {
+   "lo": 0.0306,
+   "hi": 0.0727
+  },
+  "H3": {
+   "lo": -0.0445,
+   "hi": 0.0222
+  },
+  "H4-a": {
+   "lo": -0.0004,
+   "hi": 0.0167
+  }
+ },
+ "delta_share": {
+  "recent_pop_preliminary_FFF_2013J": {
+   "level": 0.417,
+   "share_pct": 4.8
+  },
+  "recent_pop_dev2013": {
+   "level": 0.5412,
+   "share_pct": 3.7
+  },
+  "recent_pop_conf2014": {
+   "level": 0.5698,
+   "share_pct": 3.5
+  },
+  "auc_M0_conf2014": {
+   "level": 0.7197,
+   "share_pct": 2.8
+  }
+ },
+ "sigma": {
+  "chi2_df8_quantiles": [
+   2.179,
+   17.54
+  ],
+  "n_sim_power": 600,
+  "per_hypothesis": {
+   "H1": {
+    "sigma_dev": 0.0336,
+    "sigma_ci95": [
+     0.0227,
+     0.0644
+    ],
+    "mde80_frozen": 0.0375,
+    "mde80_at_ci": [
+     0.0275,
+     0.07
+    ]
+   },
+   "H2-a": {
+    "sigma_dev": 0.0421,
+    "sigma_ci95": [
+     0.0284,
+     0.0807
+    ],
+    "mde80_frozen": 0.045,
+    "mde80_at_ci": [
+     0.0325,
+     0.0875
+    ]
+   },
+   "H3": {
+    "sigma_dev": 0.0459,
+    "sigma_ci95": [
+     0.031,
+     0.088
+    ],
+    "mde80_frozen": 0.05,
+    "mde80_at_ci": [
+     0.035,
+     0.095
+    ]
+   },
+   "H4-a": {
+    "sigma_dev": 0.0091,
+    "sigma_ci95": [
+     0.0062,
+     0.0175
+    ],
+    "mde80_frozen": 0.0225,
+    "mde80_at_ci": [
+     0.0225,
+     0.025
+    ]
+   }
+  },
+  "sigma_conf2014": {
+   "H1": 0.0287,
+   "H2-a": 0.0252,
+   "H3": 0.0386,
+   "H4-a": 0.0103
+  }
+ },
+ "coverage_n13": {
+  "n_rep": 2000,
+  "n_boot": 2000,
+  "nominal": 0.95,
+  "normal": {
+   "bootstrap_t": 0.95,
+   "percentile": 0.914,
+   "t": 0.947
+  },
+  "lognormal_s0.75": {
+   "bootstrap_t": 0.923,
+   "percentile": 0.864,
+   "t": 0.886
+  },
+  "gamma_k2": {
+   "bootstrap_t": 0.956,
+   "percentile": 0.903,
+   "t": 0.932
+  },
+  "contaminated_10pct_x4": {
+   "bootstrap_t": 0.928,
+   "percentile": 0.907,
+   "t": 0.962
+  }
+ }
+}
