@@ -20,6 +20,9 @@ Conditions of D-49:
   8. population statistics at day t (relative risk z-scores, overview counts, the registration list) use the cohort
      known at t: learners who register after t are not counted (ج-16; ``test_serving`` adds future events, resources
      and learners and checks that no response at t changes).
+The day-t cluster choice of the cluster-popularity component (D-68) is the dominant cost of a cold request
+(about ten seconds per day). ``Engine.precompute_clusters`` fills its persistent cache for every day of a presentation
+ahead of time (NFR-01), with the same computation a request would run; only the timing changes.
 Only the 2013 development presentations are served before the freeze (D-09). Risk probabilities are for the
 teacher dashboard only (D-22); no risk label is shown to learners.
 """
@@ -27,6 +30,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import time
 from functools import lru_cache
 from pathlib import Path
@@ -88,6 +92,10 @@ class Engine:
         cfgp = Path(freeze_config) if freeze_config is not None else data.RESULTS_DIR / "frozen" / "freeze03_config.json"
         cf = cfgp.read_bytes() if cfgp.exists() else b"no-config"
         self.frozen_fingerprint = hashlib.sha256(hashlib.sha256(fz).digest() + hashlib.sha256(cf).digest()).hexdigest()
+        # what a worker process needs to rebuild an equivalent engine (precompute_clusters with jobs > 1)
+        self._worker_kw = None if presentations or student_assessment is not None else {
+            "frozen": frozen, "artifacts": artifacts, "allow_confirmatory": allow_confirmatory,
+            "cluster_cache_dir": self.cluster_cache_dir, "freeze_config": freeze_config}
 
     # ---------------------------------------------------------------- data
     def _registered_after(self, name, index, day):
@@ -117,22 +125,93 @@ class Engine:
         key = (name, int(day), self.frozen_fingerprint)
         if key in _CLUSTER_MEM:
             return _CLUSTER_MEM[key]
-        tr = self.train_view(name, int(day))
-        fp = self._cluster_fingerprint(tr)
-        f = self.cluster_cache_dir / f"{name}_{int(day)}.npz"
-        ch = None
-        if f.exists():
-            a = np.load(f, allow_pickle=False)
-            if str(a["fingerprint"]) == fp:
-                ch = L.ClusterChoice(int(a["k"]), a["labels"], a["centres"], bool(a["stable"]), None,
-                                     {s: a[f"labels_s{s}"] for s in range(5)})
-        if ch is None:
-            ch = cluster_choice(tr)
-            f.parent.mkdir(parents=True, exist_ok=True)
-            np.savez(f, fingerprint=fp, k=ch.k, labels=ch.labels, centres=ch.centres, stable=ch.stable,
-                     **{f"labels_s{s}": v for s, v in ch.labels_by_seed.items()})
+        ch, _ = self._cluster_choice_disk(name, day)
         _CLUSTER_MEM[key] = ch
         return ch
+
+    def _cluster_choice_disk(self, name, day):
+        """(ClusterChoice, computed): read the persisted choice when its fingerprint matches, else compute and write it."""
+        tr = self.train_view(name, int(day))
+        fp = self._cluster_fingerprint(tr)
+        f = self.cluster_cache_file(name, day)
+        ch = self._read_cluster_file(f, fp)
+        if ch is not None:
+            return ch, False
+        ch = cluster_choice(tr)
+        f.parent.mkdir(parents=True, exist_ok=True)
+        tmp = f.with_name(f"{f.stem}.{os.getpid()}.tmp.npz")
+        np.savez(tmp, fingerprint=fp, k=ch.k, labels=ch.labels, centres=ch.centres, stable=ch.stable,
+                 **{f"labels_s{s}": v for s, v in ch.labels_by_seed.items()})
+        os.replace(tmp, f)                                  # atomic: a concurrent reader never sees a partial file
+        return ch, True
+
+    def cluster_cache_file(self, name, day) -> Path:
+        return self.cluster_cache_dir / f"{name}_{int(day)}.npz"
+
+    @staticmethod
+    def _read_cluster_file(f, fp):
+        """The cached ClusterChoice in ``f`` if its fingerprint is ``fp``, else None (stale or absent)."""
+        if not f.exists():
+            return None
+        try:
+            a = np.load(f, allow_pickle=False)
+            if str(a["fingerprint"]) != fp:
+                return None
+            return L.ClusterChoice(int(a["k"]), a["labels"], a["centres"], bool(a["stable"]), None,
+                                   {s: a[f"labels_s{s}"] for s in range(5)})
+        except (OSError, ValueError, KeyError):           # truncated or foreign file: recompute
+            return None
+
+    def cluster_cached(self, name, day) -> bool:
+        """True when the persisted cluster choice of (presentation, day) exists and matches the current fingerprint."""
+        tr = self.train_view(name, int(day))
+        return self._read_cluster_file(self.cluster_cache_file(name, day), self._cluster_fingerprint(tr)) is not None
+
+    def precompute_clusters(self, name, days=None, jobs: int = 1, progress=None) -> dict:
+        """NFR-01: compute and persist the day-t cluster choice (D-68) for every day 0..length of a presentation (or
+        ``days``), so that a later cold request on any of these days only reads it. The computation is the one a
+        request runs (``cluster_choice_at``); days already cached with a matching fingerprint are skipped.
+        ``jobs`` > 1 runs the days in separate processes (spawn; one BLAS thread each); an engine built on injected
+        data (unit tests) always runs in-process. ``progress(done, total, day, seconds)`` is called after each day."""
+        p = self.presentation(name)
+        days = sorted({int(d) for d in (days if days is not None else range(0, int(p.length) + 1))})
+        t0 = time.time()
+        computed = []
+
+        def record(i, d, was_computed, sec):
+            if was_computed:
+                computed.append(d)
+            if progress:
+                progress(i, len(days), d, sec)
+        if jobs <= 1 or self._worker_kw is None or len(days) <= 1:
+            for i, d in enumerate(days, 1):
+                t = time.time()
+                _, c = self._cluster_choice_disk(name, d)
+                record(i, d, c, time.time() - t)
+        else:
+            import multiprocessing as mp
+            from concurrent.futures import ProcessPoolExecutor, as_completed
+            keys = ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS")
+            saved = {k: os.environ.get(k) for k in keys}
+
+            def restore():
+                for k, v in saved.items():
+                    if v is None:
+                        os.environ.pop(k, None)
+                    else:
+                        os.environ[k] = v
+            os.environ.update({k: "1" for k in keys})             # inherited by the spawned workers only
+            try:
+                with ProcessPoolExecutor(max_workers=int(jobs), mp_context=mp.get_context("spawn"),
+                                         initializer=_precompute_init, initargs=(self._worker_kw,)) as ex:
+                    futs = [ex.submit(_precompute_day, name, d) for d in days]
+                    restore()
+                    for i, fu in enumerate(as_completed(futs), 1):
+                        record(i, *fu.result())
+            finally:
+                restore()
+        return {"presentation": name, "days": len(days), "computed": len(computed),
+                "already_cached": len(days) - len(computed), "jobs": int(jobs), "seconds": round(time.time() - t0, 1)}
 
     def warm(self, name, days=None):
         """Pre-compute the cluster choice and all component scores for a weekly grid of days plus the cuts (D-68)."""
@@ -529,3 +608,21 @@ def registrations(presentation, day):
 
 def warm(presentation, days=None):
     return engine().warm(presentation, days)
+
+
+def precompute_clusters(presentation, days=None, jobs: int = 1, progress=None):
+    return engine().precompute_clusters(presentation, days, jobs, progress)
+
+
+_WORKER: Engine | None = None
+
+
+def _precompute_init(kw):
+    global _WORKER
+    _WORKER = Engine(**kw)
+
+
+def _precompute_day(name, day):
+    t = time.time()
+    _, computed = _WORKER._cluster_choice_disk(name, day)    # the file is the result; nothing is kept in memory
+    return int(day), computed, round(time.time() - t, 2)

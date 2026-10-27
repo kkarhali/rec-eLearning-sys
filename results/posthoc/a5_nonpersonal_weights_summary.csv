@@ -1,0 +1,3 @@
+year,n_presentations,n_folds,n_folds_weight_C6_positive,presentations_with_C6_weight,mean_nonpersonal,mean_B3_locked,mean_delta_vs_B3,n_presentations_delta_nonzero,min_delta_vs_B3,max_delta_vs_B3,status
+2013,9,27,0,,0.541238,0.541238,0.000000,0,0.000000,0.000000,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected
+2014,13,39,2,GGG_2014B;GGG_2014J,0.565134,0.569816,-0.004682,2,-0.041224,0.000000,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected
