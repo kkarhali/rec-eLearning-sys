@@ -82,6 +82,12 @@ class TestApi(unittest.TestCase):
         self.assertIn(P, m["presentations"])
         self.assertEqual(m["data_files"]["studentVle.csv"], "b8aae6f4ffd1523319aeb56d66b17f72")
         self.assertFalse([p for p in m["presentations"] if "2014" in p])
+        # ج-13: إصدارات بيئة التشغيل الفعلية (ومنها starlette وuvicorn وpydantic)
+        from importlib import metadata
+        self.assertEqual(set(m["runtime"]), {"python", "numpy", "pandas", "starlette", "uvicorn", "pydantic", "anyio"})
+        for pkg in ("numpy", "pandas", "starlette", "uvicorn", "pydantic", "anyio"):
+            self.assertEqual(m["runtime"][pkg], metadata.version(pkg), pkg)
+        self.assertEqual(m["risk_score"]["display_from_day"], 56)       # ج-14: القطع 28 مبني ولا يُعرض
 
     def test_health_and_presentations(self):
         self.assertCovers(mock("health.json"), self.get("/api/health"), "health")
@@ -273,6 +279,54 @@ class TestApi(unittest.TestCase):
         for r in a["items"]:
             if r["risk"]:
                 self.assertEqual(r["risk"]["above_threshold"], r["risk"]["score"] >= r["risk"]["threshold"])
+
+    def _all_rows(self, query, page=100):
+        """كل صفوف الجدول بالترقيم (limit/offset) مع التحقق من ثبات total ومن عدم التداخل بين الصفحات."""
+        rows, total, off = [], None, 0
+        while True:
+            pg = self.get(f"/api/instructor/learners?presentation={P}&day={DAY}{query}&limit={page}&offset={off}")
+            total = pg["total"] if total is None else total
+            self.assertEqual(pg["total"], total, f"total يتغير بين الصفحات ({query}, offset={off})")
+            self.assertEqual((pg["limit"], pg["offset"]), (page, off))
+            self.assertLessEqual(len(pg["items"]), page)
+            rows += pg["items"]
+            off += page
+            if off >= total:
+                break
+        self.assertEqual(len(rows), total, query)
+        self.assertEqual(len({r["registration"] for r in rows}), total, f"صفوف مكررة بين الصفحات ({query})")
+        return rows, total
+
+    def test_learners_idle_filter_server_side_and_paging(self):
+        """ب-8 (FR-32): idle=1 يصفّي الفوج كله في الخادم قبل الترقيم بتعريف الواجهة نفسه (لا وصول ≤ t، أو t − آخر وصول ≥ 14)."""
+        idle = lambda r: r["last_access_day"] is None or DAY - r["last_access_day"] >= 14   # noqa: E731
+        rows, total = self._all_rows("&sort=reg")
+        kpi = self.get(f"/api/instructor/overview?presentation={P}&day={DAY}")["kpis"]["cohort_size"]
+        self.assertEqual(total, kpi)
+        want = {r["registration"] for r in rows if idle(r)}
+        self.assertTrue(0 < len(want) < total)
+        self.assertGreater(len([r for r in rows[100:] if idle(r)]), 0)     # خاملون خارج أول 100 صف (ما كانت الواجهة تفوّته)
+        got, n = self._all_rows("&sort=reg&idle=1")
+        self.assertEqual(n, len(want))
+        self.assertEqual({r["registration"] for r in got}, want)
+        self.assertTrue(all(idle(r) for r in got))
+        ids = [int(r["registration"].split("-")[1]) for r in got]
+        self.assertEqual(ids, sorted(ids))                                   # الفرز محفوظ مع التصفية
+        # التوافق: idle=0 وغياب المعامل سواء؛ والتصفية تُجمع مع risk وcluster
+        self.assertEqual(self.get(f"/api/instructor/learners?presentation={P}&day={DAY}&idle=0&limit=1")["total"], total)
+        self.assertEqual(self.get(f"/api/instructor/learners?presentation={P}&day={DAY}&idle=true&limit=1")["total"], len(want))
+        above = {r["registration"] for r in rows if r["risk"] and r["risk"]["above_threshold"]}
+        both, _ = self._all_rows("&idle=1&risk=above", page=500)
+        self.assertEqual({r["registration"] for r in both}, want & above)
+        c1 = {r["registration"] for r in rows if r["cluster"]["id"] == 1}
+        ic, _ = self._all_rows("&idle=1&cluster=1", page=500)
+        self.assertEqual({r["registration"] for r in ic}, want & c1)
+        # إزاحة بعد آخر صف: صفحة فارغة وtotal نفسه (الواجهة تعود إلى آخر صفحة)
+        far = self.get(f"/api/instructor/learners?presentation={P}&day={DAY}&idle=1&offset={n + 5}&limit=100")
+        self.assertEqual((far["items"], far["total"]), ([], n))
+        # الخمول يتبع اليوم المطلوب نفسه
+        later = self.get(f"/api/instructor/learners?presentation={P}&day=126&idle=1&limit=500")
+        self.assertTrue(all(r["last_access_day"] is None or 126 - r["last_access_day"] >= 14 for r in later["items"]))
 
     def test_learner_detail_contract(self):
         row = self.get(f"/api/instructor/learners?presentation={P}&day={DAY}&limit=1")["items"][0]

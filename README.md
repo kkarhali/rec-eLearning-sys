@@ -30,14 +30,14 @@ python3 scripts/build_docx.py deliverables/01-literature-review/الدراسة-�
 ```
 
 ## تشغيل النظام من الصفر
-المتطلبات: Python 3.13 مع `numpy` و`pandas` و`starlette` و`uvicorn` و`pydantic` (النسخ المختبرة: numpy 2.5.3، pandas 3.0.5، starlette 1.7.0، uvicorn 0.54.0، pydantic 2.13.5، anyio 4.15.1؛ لا ملف requirements)، وNode 22 مع `typescript` (الأمر `tsc`) و`playwright` مثبَّتَين عمومياً (`npm root -g`) لبناء الواجهة واللقطات والفحص الحي، واتصال بـGitHub لتحميل البيانات. كل الأوامر من جذر المستودع:
+المتطلبات: Python 3.13 مع `numpy` و`pandas` و`starlette` و`uvicorn` و`pydantic` (النسخ المختبرة مثبَّتة في [`requirements.txt`](requirements.txt): numpy 2.5.3، pandas 3.0.5، starlette 1.7.0، uvicorn 0.54.0، pydantic 2.13.5، anyio 4.15.1؛ `pip install -r requirements.txt`، ويعيدها `/api/meta` في الحقل `runtime`)، وNode 22 مع `typescript` (الأمر `tsc`) و`playwright` مثبَّتَين عمومياً (`npm root -g`) لبناء الواجهة واللقطات والفحص الحي، واتصال بـGitHub لتحميل البيانات. كل الأوامر من جذر المستودع:
 ```bash
 bash data/download.sh                              # ≈ 45 ث: يحمّل OULAD ويتحقق (يجب أن يطبع «integrity: PASS»، 7 ملفات OK)
-python3 -m unittest discover -s src/ml/tests       # 121 اختباراً، ≈ 5 ث
+python3 -m unittest discover -s src/ml/tests       # 130 اختباراً، ≈ 8 ث
 python3 -m src.ml.experiments.build_artifacts      # ≈ 75 ث (أول مرة تقرأ studentVle وتبني data/cache)؛ artifacts/ خارج git
 bash src/frontend/build.sh                         # ≈ 4 ث → src/frontend/dist
-python3 -m unittest discover -s src/backend/tests -t .   # 52 اختباراً، ≈ 110 ث على نسخة نظيفة (≈ 25–90 ث لاحقاً)
+python3 -m unittest discover -s src/backend/tests -t .   # 55 اختباراً، ≈ 110 ث على نسخة نظيفة (≈ 25–90 ث لاحقاً)
 python3 -m src.backend --warm --port 8100          # http://127.0.0.1:8100 ؛ الصفحة الأولى جاهزة فوراً والتسخين الكامل ≈ 60 ث على نسخة نظيفة
-CHECK_ONLY=1 NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js http://127.0.0.1:8100   # فحص حي ≈ 15 ث بلا كتابة لقطات
+CHECK_ONLY=1 NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js http://127.0.0.1:8100   # فحص حي ≈ 30 ث بلا كتابة لقطات (1440 و375 و360، وترتيب التركيز بـTab، وترقيم جدول المدرّس)
 ```
 التفاصيل: [`src/ml/README.md`](src/ml/README.md) و[`src/backend/README.md`](src/backend/README.md) و[`src/frontend/README.md`](src/frontend/README.md). ملاحظة: تشغيل `build_artifacts` يُلحق سطراً بـ`results/access_log.jsonl` (سجل قراءات D-47 المتتبَّع في git)، فيظهر الملف معدَّلاً بعدها وهذا متوقَّع.

@@ -64,6 +64,7 @@ class Meta(Out):
     bind_host: str = "127.0.0.1"
     access_notice: str = ACCESS_NOTICE_AR
     risk_score: dict = {}
+    runtime: dict[str, str] = {}      # إصدارات Python والحزم المحمَّلة فعلاً (ج-13)
     frozen_at_commit: str | None = None
     notes: list[str] = []
 
@@ -435,6 +436,7 @@ class OverviewIn(In):
 class LearnersIn(OverviewIn):
     cluster: int | None = Field(None, ge=0, le=50)
     risk: Literal["all", "above"] = "all"
+    idle: bool = False                # 1/true: بلا نشاط IDLE_DAYS يوماً حتى اليوم t (يُجمع مع cluster وrisk)
     sort: str = "-risk"
     limit: int = Field(100, ge=1, le=500)
     offset: int = Field(0, ge=0)

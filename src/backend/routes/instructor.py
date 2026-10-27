@@ -26,7 +26,7 @@ def routes(sv) -> list[Route]:
     async def learners(request: Request) -> Response:
         def work():
             q = parse_in(LearnersIn, dict(request.query_params))
-            return sv.instructor.learners(q.presentation, q.day, q.cluster, q.risk, q.sort, q.limit, q.offset)
+            return sv.instructor.learners(q.presentation, q.day, q.cluster, q.risk, q.sort, q.limit, q.offset, q.idle)
         return await respond(work)
 
     async def learner(request: Request) -> Response:

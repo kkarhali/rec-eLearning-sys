@@ -16,7 +16,10 @@ Conditions of D-49:
   5. before day 70 no heavy component exists: the available ones are used with renormalised weights
      (initial frozen weights), and the response says so;
   6. every response carries ``model_cut`` (the model date);
-  7. no evaluation number may be derived from replay.
+  7. no evaluation number may be derived from replay;
+  8. population statistics at day t (relative risk z-scores, overview counts, the registration list) use the cohort
+     known at t: learners who register after t are not counted (ج-16; ``test_serving`` adds future events, resources
+     and learners and checks that no response at t changes).
 Only the 2013 development presentations are served before the freeze (D-09). Risk probabilities are for the
 teacher dashboard only (D-22); no risk label is shown to learners.
 """
@@ -87,6 +90,12 @@ class Engine:
         self.frozen_fingerprint = hashlib.sha256(hashlib.sha256(fz).digest() + hashlib.sha256(cf).digest()).hexdigest()
 
     # ---------------------------------------------------------------- data
+    def _registered_after(self, name, index, day):
+        """Boolean mask over ``index`` (id_student): registered after ``day`` (unknown at ``day``; NaN date -> known)."""
+        p = self.presentation(name)
+        dreg = p.registrations.set_index("id_student")["date_registration"].reindex(index)
+        return (dreg > day).fillna(False).to_numpy(dtype=bool)
+
     def presentation(self, name):
         data.assert_allowed([name], self.allow_confirmatory)       # D-09: 2014 refused before verdicts (FR-40)
         if name not in self._pres:
@@ -342,17 +351,19 @@ class Engine:
         unreg = p.registrations.set_index("id_student")["date_unregistration"]
         F = self._features_at(name, tc)
         withdrawn = (unreg.reindex(F.index) < tc).fillna(False).to_numpy()
+        late = self._registered_after(name, F.index, tc)      # not yet registered at the cut: outside the z statistics
         cols = spec["features"]
         X = F[cols].to_numpy(dtype=float)
-        mu, sd = X[~withdrawn].mean(axis=0), X[~withdrawn].std(axis=0)
+        ok = ~withdrawn & ~late
+        mu, sd = X[ok].mean(axis=0), X[ok].std(axis=0)
         Z = (X - mu) / np.where(sd > 0, sd, 1.0)
         w = np.array(spec["weights"])
         contrib = Z * w[1:][None, :]
         score = 1.0 / (1.0 + np.exp(-(w[0] + contrib.sum(axis=1))))
-        score[withdrawn] = np.nan
+        score[~ok] = np.nan
         top = np.array(cols)[np.argmax(contrib, axis=1)]
         return {"index": F.index.to_numpy(), "score": score, "contrib": contrib, "cols": cols, "top": top,
-                "withdrawn": withdrawn, "threshold": spec.get("youden_threshold"),
+                "withdrawn": withdrawn, "late": late, "threshold": spec.get("youden_threshold"),
                 "threshold_source": spec.get("threshold_source"), "provenance": prov}
 
     def _risk(self, name, registration, day, model="M1"):
@@ -370,6 +381,8 @@ class Engine:
                 "audience": "teacher only (D-22)"}
         if tab["withdrawn"][i]:
             return {**base, "score": None, "note": "withdrawn before the cut"}
+        if tab["late"][i]:
+            return {**base, "score": None, "note": "registered after the cut"}
         sc = float(tab["score"][i])
         thr = tab["threshold"]
         factors = {c: float(v) for c, v in zip(tab["cols"], tab["contrib"][i])}
@@ -417,6 +430,7 @@ class Engine:
         the cluster summary of the interface are implemented once, in src/backend/services/instructor.py."""
         p = self.presentation(name)
         F = self._features_at(name, int(day))
+        F = F[~self._registered_after(name, F.index, day)]   # the cohort known at day (ج-16)
         ev = p.events[p.events["date"] <= day]
         last = ev.groupby("id_student")["date"].max()
         rows = pd.DataFrame({"id_student": F.index.to_numpy(), "active_days": F["active_days"].to_numpy(),
@@ -443,9 +457,11 @@ class Engine:
 
     def registrations(self, name, day):
         """Whitelisted registration list for the interface (D-70): no final_result; date_unregistration is null
-        when it lies after the request day (it would reveal the future)."""
+        when it lies after the request day, and registrations dated after the request day are not listed (both would
+        reveal the future)."""
         p = self.presentation(name)
         reg = p.registrations[["id_student", "date_registration", "date_unregistration"]].copy()
+        reg = reg[~(reg["date_registration"] > day)]
         reg["date_unregistration"] = reg["date_unregistration"].where(reg["date_unregistration"] <= day)
         out = []
         for r in reg.itertuples():
@@ -464,7 +480,8 @@ class Engine:
         nxt = asm[asm["date"] >= day].sort_values("date").head(3)
         lt = self._learner_rows(name, int(day), risk_model)
         out = {"presentation": name, "day": int(day), "model_cut": self.model_cut(int(day)),
-               "registrations": int(len(p.students)), "active_learners_7d": int(recent["id_student"].nunique()),
+               "registrations": int((~(p.registrations["date_registration"] > day)).sum()),       # known at day
+               "active_learners_7d": int(recent["id_student"].nunique()),
                "median_active_days": float(np.median(lt["active_days"])), "catalogue_size": int(tr.n_items),
                "top_resources_7d": [{"id_site": int(tr.items[j]), "activity_type": str(tr.item_type[j]),
                                      "learners": int(rp[j])} for j in top],

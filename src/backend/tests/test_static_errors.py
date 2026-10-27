@@ -72,10 +72,32 @@ class TestErrorsAndStatic(unittest.TestCase):
                   "/api/learner/bad/history?day=5", "/api/explanations/bad/5?day=5",
                   "/api/instructor/learners?presentation=FFF_2013J&day=75&sort=nope",
                   "/api/instructor/learners?presentation=FFF_2013J&day=75&limit=0",
+                  "/api/instructor/learners?presentation=FFF_2013J&day=75&idle=maybe",
                   "/api/registrations?presentation=FFF_2013J&limit=101"]:
             r = self.on.get(u)
             self.assertError(r, 422, "validation_error")
             self.assertTrue(r.json()["error"]["details"]["errors"])
+
+    def test_learners_idle_param(self):
+        """ب-8: idle اختياري (الافتراضي false، فلا يتغير سلوك الطلبات القديمة) ويقبل 1/0 وtrue/false."""
+        from src.backend.schemas import LearnersIn
+        base = {"presentation": "FFF_2013J", "day": 75}
+        self.assertFalse(LearnersIn.model_validate(base).idle)
+        for v, want in (("1", True), ("true", True), ("0", False), ("false", False)):
+            self.assertIs(LearnersIn.model_validate({**base, "idle": v}).idle, want, v)
+
+    def test_requirements_pin_runtime_packages(self):
+        """ج-13: requirements.txt يثبّت (==) كل حزمة تبلّغ /api/meta عن إصدارها."""
+        from src.backend.routes.meta import RUNTIME_PACKAGES
+        from src.backend.settings import REPO_ROOT
+        pins = {}
+        for line in (REPO_ROOT / "requirements.txt").read_text(encoding="utf-8").splitlines():
+            line = line.split("#")[0].strip()
+            if line:
+                name, _, ver = line.partition("==")
+                self.assertTrue(ver, f"إصدار غير مثبَّت: {line}")
+                pins[name.strip().lower()] = ver.strip()
+        self.assertEqual(set(pins), set(RUNTIME_PACKAGES))
 
     def test_instructor_disabled(self):
         for u in ["/api/instructor/overview?presentation=FFF_2013J&day=75", "/api/instructor/learner/FFF_2013J-1?day=75",

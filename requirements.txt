@@ -1,0 +1,8 @@
+# Python 3.13 — the versions the test suites and the live check were run with (README.md, ج-13).
+# pip install -r requirements.txt   (Node 22 with typescript and playwright is installed globally; see README.md)
+numpy==2.5.3
+pandas==3.0.5
+starlette==1.7.0
+uvicorn==0.54.0
+pydantic==2.13.5
+anyio==4.15.1

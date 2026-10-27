@@ -51,5 +51,14 @@
   56,
   112
  ],
+ "runtime": {
+  "python": "3.13.17",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
+  "starlette": "1.7.0",
+  "uvicorn": "0.54.0",
+  "pydantic": "2.13.5",
+  "anyio": "4.15.1"
+ },
  "mock": true
 }

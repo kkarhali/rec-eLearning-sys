@@ -6,6 +6,7 @@ export interface ComponentInfo { id: string; label: string; weight: number }
 export interface Meta {
   schema_version: number; run_id: string; git_commit: string; freeze_tag: string | null;
   data_fingerprint: string; components: ComponentInfo[]; snapshot_grid: number[]; cutoffs?: number[];
+  runtime?: Record<string, string>;   // python, numpy, pandas, starlette, uvicorn, pydantic, anyio (ج-13)
 }
 export interface AssessmentInfo { type: string; day: number | null; weight: number | null }
 export interface Presentation {
@@ -81,4 +82,6 @@ export interface InstructorLearnerDetail {
 }
 export type LearnerQuery = {
   presentation: string; day: number; cluster?: number; risk?: 'all' | 'above'; sort?: string; limit?: number; offset?: number;
+  /** idle=1: «بلا نشاط 14 يوماً» في الخادم على الفوج كله قبل الترقيم = last_access_day فارغ أو day − last_access_day ≥ 14. */
+  idle?: boolean;
 };

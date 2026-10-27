@@ -10,6 +10,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 MODEL_CUTS = (70, 126, 182)
 RISK_CUTS = (28, 56, 112)
 CLUSTER_DAY = 56
+IDLE_DAYS = 14                                       # «بلا نشاط 14 يوماً»: لا وصول ≤ t، أو t − آخر وصول ≥ 14 (FR-32، ب-8)
 SNAPSHOT_GRID = tuple(range(28, 267, 14))          # أيام الانتقال السريع والتسخين؛ الحساب نفسه دائماً عند اليوم المطلوب
 
 DEFAULT_PRESENTATION = "FFF_2013J"

@@ -21,7 +21,7 @@ from ..schemas import (ClusterInfo, ClusterPoint, ClusterQuality, ClusterRef, Cl
                        InstructorLearnerDetail, InstructorLearnerRow, InstructorOverview, Kpis, LearnersPage, OverviewRisk,
                        ProfileRow, ProfileSummary, Provenance, RiskDetail, RiskFactor, RiskRow, TopFeature, TopRec,
                        TypeShare)
-from ..settings import CLUSTER_DAY, Settings
+from ..settings import CLUSTER_DAY, IDLE_DAYS, Settings
 from .labels import feature_ar, fix_ar, phrase
 from .replay import ReplayService, _LRU
 
@@ -197,13 +197,14 @@ class InstructorService:
             reg = self.repo.index(pres).reg.reindex(F.index)
             unreg = reg["date_unregistration"].to_numpy(float)
             dreg = reg["date_registration"].to_numpy(float)
-            keep = ~(unreg < tc)                                              # كما في Engine._risk (NaN -> يُبقى)
+            # كما في Engine._risk_table (NaN -> يُبقى): فوج القطع = لم ينسحب قبل tc ولم يسجّل بعده؛ إحصاءات z عليه وحده (ج-16)
+            keep = ~(unreg < tc) & ~(dreg > tc)
             X = F.loc[keep, spec["features"]].to_numpy(dtype=float)
             mu, sd = X.mean(axis=0), X.std(axis=0)
             Z = (F[spec["features"]].to_numpy(dtype=float) - mu) / np.where(sd > 0, sd, 1)
             w = np.asarray(spec["weights"], dtype=float)
             prob = 1.0 / (1.0 + np.exp(-(w[0] + Z @ w[1:])))
-            valid = keep & ~(dreg > tc)
+            valid = keep
             rm = RiskModel(tc, float(spec["youden_threshold"]), list(spec["features"]), F.index, prob, Z * w[1:], valid)
             self._rm[key] = rm
         return rm
@@ -340,7 +341,8 @@ class InstructorService:
         return RiskRow(score=_round(r.prob, 6), cut_day=rm.tc, threshold=_round(rm.threshold, 6),
                        above_threshold=bool(r.above), provenance=PROVENANCE, top_factor=str(r.top_factor))
 
-    def learners(self, pres: str, day: int, cluster: int | None, risk: str, sort: str, limit: int, offset: int) -> LearnersPage:
+    def learners(self, pres: str, day: int, cluster: int | None, risk: str, sort: str, limit: int, offset: int,
+                 idle: bool = False) -> LearnersPage:
         snap = self.snapshot(pres, day)
         cm = self.cluster_model(pres)
         t = snap.table
@@ -348,6 +350,9 @@ class InstructorService:
             t = t[t["cluster"] == cluster]
         if risk == "above":
             t = t[t["above"]]
+        if idle:      # ب-8: «بلا نشاط 14 يوماً» على الفوج كله قبل الترقيم = لا وصول ≤ t، أو t − آخر وصول ≥ 14
+            la = t["last_access"]
+            t = t[la.isna() | (day - la >= IDLE_DAYS)]
         desc = sort.startswith("-")
         key = sort.lstrip("-")
         t = t.assign(_cl=t["cluster"].map(lambda j: cm.labels_ar[j]), _lr=t["last_access"].fillna(-1),

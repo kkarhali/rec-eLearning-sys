@@ -1,5 +1,7 @@
 // تحقق حيّ على الخادم الحقيقي (لا mock) + لقطات: NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js [base_url]
 // يشترط خادماً يعمل (python3 -m src.backend --warm) وواجهة مبنية. يفشل (exit 1) عند أي خطأ JS أو طلب mock أو غياب شارة «تاريخ النموذج».
+// ج-16: ثلاثة عروض (1440 و375 و360؛ الأخير للفحص وحده بلا لقطات)، وترتيب التركيز بـTab مع حلقة تركيز مرئية في صفحتي المتعلم والمدرّس،
+// وترقيم جدول المدرّس بلوحة المفاتيح وتصفية «بلا نشاط 14 يوماً» في الخادم (FR-32، ب-8).
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
@@ -53,7 +55,8 @@ async function main() {
   const checks = [];
   const browser = await chromium.launch();
   try {
-    for (const [name, vp, mobile] of [['desktop', { width: 1440, height: 900 }, false], ['mobile', { width: 375, height: 800 }, true]]) {
+    for (const [name, vp, mobile] of [['desktop', { width: 1440, height: 900 }, false], ['mobile', { width: 375, height: 800 }, true],
+      ['narrow360', { width: 360, height: 780 }, true]]) {
       const ctx = await browser.newContext({ viewport: vp, deviceScaleFactor: mobile ? 2 : 1, locale: 'ar', isMobile: mobile, hasTouch: mobile });
       const page = await ctx.newPage();
       const apiCalls = [];
@@ -65,7 +68,7 @@ async function main() {
         if (u.pathname.startsWith('/api/')) { apiCalls.push(`${r.status()} ${u.pathname}`); if (r.status() >= 400 && !(expect422 && r.status() === 422)) problems.push(`${name} HTTP ${r.status()} ${u.pathname}${u.search}`); }
         if (u.pathname.startsWith('/mock/')) problems.push(`${name} طلب mock: ${u.pathname}`);
       });
-      const shot = (file, full = true) => (CHECK_ONLY || (ONLY && !ONLY.includes(file))) ? Promise.resolve() : page.screenshot({ path: path.join(OUT, `live-${file}-${name}.png`), fullPage: full });
+      const shot = (file, full = true) => (CHECK_ONLY || name === 'narrow360' || (ONLY && !ONLY.includes(file))) ? Promise.resolve() : page.screenshot({ path: path.join(OUT, `live-${file}-${name}.png`), fullPage: full });
       const noHScroll = async (label) => {
         const w = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
         if (w > 0) problems.push(`${name} ${label}: تمرير أفقي ${w}px`);
@@ -81,6 +84,35 @@ async function main() {
       };
       const noMockTag = async (label) => {
         if (await page.locator('.mode-tag').count()) problems.push(`${name} ${label}: وسم وضع المحاكاة ظاهر`);
+      };
+      // ترتيب التركيز (NFR-14، ج-16): Tab من أول الصفحة؛ يجب أن تُبلغ عناصر التحكم الرئيسية بترتيب `expected` (تكرار المجموعة نفسها
+      // مسموح، والعودة إلى مجموعة سابقة أو القفز فوق التالية مخالفة)، وكل عنصر يستقبل التركيز ظاهر (أبعاد > 0) وبحلقة مرئية (:focus-visible
+      // مع outline ≥ 2px أو box-shadow)، ولا tabindex موجب في الصفحة.
+      const focusOrder = async (label, expected, maxTabs) => {
+        const pos = await page.evaluate(() => [...document.querySelectorAll('[tabindex]')].filter((e) => Number(e.getAttribute('tabindex')) > 0).length);
+        if (pos) problems.push(`${name} ${label}: ${pos} عنصر بـtabindex موجب`);
+        await page.evaluate(() => { if (document.activeElement instanceof HTMLElement) document.activeElement.blur(); window.scrollTo(0, 0); });
+        let k = 0, n = 0; const trail = [];
+        for (let i = 0; i < maxTabs && k < expected.length; i++) {
+          await page.keyboard.press('Tab');
+          const f = await page.evaluate((sels) => {
+            const el = document.activeElement;
+            if (!el || el === document.body) return null;
+            const r = el.getBoundingClientRect(), cs = getComputedStyle(el);
+            const ring = (cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) >= 2) || (cs.boxShadow && cs.boxShadow !== 'none');
+            return { m: sels.findIndex((q) => el.matches(q)), d: el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (el.classList[0] ? '.' + el.classList[0] : ''),
+              vis: r.width > 0 && r.height > 0, ring: !!ring && el.matches(':focus-visible') };
+          }, expected);
+          if (!f) continue;
+          n++;
+          if (!f.vis) problems.push(`${name} ${label}: تركيز على عنصر غير ظاهر ${f.d}`);
+          if (!f.ring) problems.push(`${name} ${label}: حلقة التركيز غير مرئية على ${f.d}`);
+          if (f.m === k) { trail.push(f.d); k++; }
+          else if (f.m > k) { problems.push(`${name} ${label}: ترتيب التركيز بلغ ${expected[f.m]} قبل ${expected[k]}`); k = f.m + 1; }
+          else if (f.m >= 0 && f.m < k - 1) problems.push(`${name} ${label}: عاد التركيز إلى ${expected[f.m]} بعد ${expected[k - 1]}`);
+        }
+        if (k < expected.length) problems.push(`${name} ${label}: لم يبلغ Tab ${expected[k]} خلال ${maxTabs} ضغطة`);
+        checks.push(`${name} ترتيب التركيز (${label}): ${k}/${expected.length} محطات في ${n} ضغطة Tab · ${trail.join(' ← ')}`);
       };
 
       // 1) الرئيسية
@@ -109,6 +141,10 @@ async function main() {
       checks.push(`${name} شارة اليوم 40: «${badge40.trim()}»`);
       if (!badge40.includes('تاريخ النموذج')) problems.push(`${name} شارة اليوم 40 غائبة`);
       await shot('04-learner-before-first-cut', false);
+
+      // 2ج) ترتيب التركيز في صفحة المتعلم
+      await page.goto(`${BASE}/learner.html?${Q}`); await page.waitForSelector('.rec', { timeout: 60000 }); await page.waitForTimeout(300);
+      await focusOrder('learner', ['.skip', 'a.brand', '.nav a', '#sel-pres', '#reg-q', '#sel-reg', '#scrub-num', '#scrub-range', '.rec button[data-site]'], 80);
 
       // 3) المدرّس: مؤشرات + عناقيد + مدرج + جدول + درج
       await page.goto(`${BASE}/instructor.html?p=${PRES}&d=${DAY}&sort=reg${tableOff ? '&off=' + tableOff : ''}`); await page.waitForSelector('tr.row', { timeout: 60000 }); await page.waitForTimeout(600);
@@ -152,6 +188,32 @@ async function main() {
       checks.push(`${name} المدرّس عند d=30 ينتقل إلى d=${dnow}`);
       if (dnow !== '56') problems.push(`${name} لم ينتقل الشريط إلى 56 (${dnow})`);
       expect422 = false;
+
+      // 3ج) المدرّس بلوحة المفاتيح: ترتيب التركيز حتى زر «الصفحة التالية»، ثم Enter للصفحة الثانية، ثم تصفية الخمول في الخادم
+      await page.goto(`${BASE}/instructor.html?p=${PRES}&d=${DAY}&sort=reg`); await page.waitForSelector('tr.row', { timeout: 60000 }); await page.waitForTimeout(400);
+      const pagerTxt = await page.locator('.pager__status').textContent().catch(() => null);
+      checks.push(`${name} الترقيم: «${(pagerTxt || '').replace(/[\u2066\u2069]/g, '').trim()}»`);
+      if (!pagerTxt || !pagerTxt.includes('1–100') || !pagerTxt.includes(all.length.toLocaleString('en-US'))) problems.push(`${name} نص الترقيم لا يطابق «عرض 1–100 من ${all.length}»: ${pagerTxt}`);
+      await focusOrder('instructor', ['.skip', 'a.brand', '.nav a', '#sel-pres', '#scrub-num', '#scrub-range', '.ccard', '#filters .chipbtn',
+        '#learners .tablewrap', '#learners .thbtn', '#learners tr.row', '.pager__btn[data-page="next"]'], 300);
+      if (await page.evaluate(() => document.activeElement?.matches('.pager__btn[data-page="next"]'))) {
+        await Promise.all([page.waitForResponse((r) => r.url().includes('/api/instructor/learners') && r.url().includes('offset=100')), page.keyboard.press('Enter')]);
+        await page.waitForTimeout(300);
+        const p2 = await page.evaluate(() => ({ txt: document.querySelector('.pager__status')?.textContent || '', off: new URLSearchParams(location.search).get('off'),
+          focus: document.activeElement?.className || '', first: document.querySelector('tr.row')?.getAttribute('data-id') }));
+        checks.push(`${name} الصفحة الثانية بالمفاتيح: off=${p2.off} · أول صف ${p2.first} · التركيز على ${p2.focus}`);
+        if (!p2.txt.includes('101–200') || p2.off !== '100' || !/pager__btn/.test(p2.focus) || p2.first !== all[100].registration)
+          problems.push(`${name} الانتقال إلى الصفحة الثانية: ${JSON.stringify(p2)} (المتوقع أول صف ${all[100].registration})`);
+      }
+      const idleTotal = (await getJson(`/api/instructor/learners?presentation=${PRES}&day=${DAY}&idle=1&limit=1`)).total;
+      await Promise.all([page.waitForResponse((r) => r.url().includes('/api/instructor/learners') && r.url().includes('idle=1')),
+        page.locator('#filters .chipbtn', { hasText: 'بلا نشاط' }).click()]);
+      await page.waitForTimeout(300);
+      const idleLine = await page.locator('#learners p.muted').first().textContent();
+      checks.push(`${name} تصفية الخمول في الخادم: ${idleTotal} · «${idleLine.trim().slice(0, 50)}»`);
+      if (!idleLine.includes(idleTotal.toLocaleString('en-US')) || !idleLine.includes('بلا نشاط 14 يوماً')) problems.push(`${name} عدد الخاملين في الواجهة لا يطابق الخادم (${idleTotal}): ${idleLine}`);
+      if (await page.evaluate(() => new URLSearchParams(location.search).get('off'))) problems.push(`${name} التصفية لم تُعد الترقيم إلى الصفحة الأولى`);
+      await noHScroll('instructor-pager'); await uiChecks('instructor-pager');
 
       // 4) عن النظام
       await page.goto(`${BASE}/about.html`); await page.waitForTimeout(300); await noHScroll('about');

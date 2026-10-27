@@ -1,7 +1,10 @@
 """/api/health و/api/meta و/api/presentations و/api/registrations."""
 from __future__ import annotations
 
+import platform
 import time
+from functools import lru_cache
+from importlib import metadata
 
 from starlette.requests import Request
 from starlette.responses import Response
@@ -10,8 +13,22 @@ from starlette.routing import Route
 from .. import SCHEMA_VERSION, __version__
 from ..schemas import RISK_LABEL_AR, ComponentInfo, Health, Meta, PresentationList, RegistrationsIn, parse_in
 from ..services.labels import comp_id, comp_label
-from ..settings import MODEL_CUTS, RISK_CUTS, SNAPSHOT_GRID
+from ..settings import CLUSTER_DAY, MODEL_CUTS, RISK_CUTS, SNAPSHOT_GRID
 from .common import json_response, respond
+
+RUNTIME_PACKAGES = ("numpy", "pandas", "starlette", "uvicorn", "pydantic", "anyio")
+
+
+@lru_cache(maxsize=1)
+def runtime_versions() -> dict[str, str]:
+    """إصدارات بيئة التشغيل الفعلية (ج-13): Python والحزم المثبَّتة في requirements.txt؛ «غير مثبَّت» إن غابت حزمة."""
+    out = {"python": platform.python_version()}
+    for name in RUNTIME_PACKAGES:
+        try:
+            out[name] = metadata.version(name)
+        except metadata.PackageNotFoundError:
+            out[name] = "غير مثبَّت"
+    return out
 
 
 def routes(sv) -> list[Route]:
@@ -35,9 +52,11 @@ def routes(sv) -> list[Route]:
                 presentations=[p.id for p in sv.replay.presentations() if p.status == "published"],
                 instructor_enabled=sv.settings.instructor_enabled, bind_host=sv.settings.host, frozen_at_commit=sv.repo.frozen_commit(),
                 risk_score={"field": "score", "label_ar": RISK_LABEL_AR, "calibrated": False, "audience": "المدرّس فقط",
-                            "model": "M1", "provenance": "lopo_2013", "min_day": 28,
+                            "model": "M1", "provenance": "lopo_2013", "min_day": 28, "display_from_day": CLUSTER_DAY,
                             "target_ar": "رسوب أو انسحاب (Fail/Withdrawn) مقابل نجاح أو امتياز (Pass/Distinction)",
-                            "inputs_ar": "ملامح السلوك في سجل VLE حتى أقرب قطع (28 أو 56 أو 112)"},
+                            "inputs_ar": "ملامح السلوك في سجل VLE حتى أقرب قطع (28 أو 56 أو 112)؛ قطع الخطر 28 مبني ولا يُعرض "
+                                         f"لأن لوحة المدرّس تبدأ من اليوم {CLUSTER_DAY}"},
+                runtime=runtime_versions(),
                 notes=["أوزان المكوّنات المعروضة هي الأوزان الأولية المجمَّدة (منوال)؛ لكل (عرض، قطع) أوزان خاصة تظهر في كل توصية.",
                        "إعادة تشغيل على بيانات تاريخية (OULAD 2013) بلا جمع حي؛ لا أرقام تقييم تُشتق من الخدمة.",
                        "عرض توضيحي بلا أمان وصول: لا مصادقة؛ الربط الافتراضي 127.0.0.1، و--no-instructor يعطّل مسارات المدرّس.",

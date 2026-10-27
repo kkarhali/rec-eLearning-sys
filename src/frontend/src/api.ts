@@ -34,9 +34,9 @@ export async function initApi(): Promise<Mode> {
   return mode;
 }
 
-function qs(params: Record<string, string | number | undefined | null>): string {
+function qs(params: Record<string, string | number | boolean | undefined | null>): string {
   const q = new URLSearchParams();
-  for (const [k, v] of Object.entries(params)) if (v !== undefined && v !== null && v !== '') q.set(k, String(v));
+  for (const [k, v] of Object.entries(params)) if (v !== undefined && v !== null && v !== '' && v !== false) q.set(k, v === true ? '1' : String(v));
   const s = q.toString(); return s ? '?' + s : '';
 }
 
@@ -153,6 +153,7 @@ const mock = {
     let rows = f.items.map((r) => ({ ...r, registration: relabel(r.registration, p.presentation) }));
     if (p.cluster !== undefined) rows = rows.filter((r) => r.cluster.id === p.cluster);
     if (p.risk === 'above') rows = rows.filter((r) => r.risk?.above_threshold);
+    if (p.idle) rows = rows.filter((r) => r.last_access_day === null || p.day - r.last_access_day >= 14);   // كما في الخادم (IDLE_DAYS)
     const sort = p.sort ?? '-risk'; const dir = sort.startsWith('-') ? -1 : 1; const key = sort.replace(/^-/, '');
     const val = (r: InstructorLearnerRow): number | string => key === 'risk' ? r.risk?.score ?? -1 : key === 'active_days' ? r.active_days
       : key === 'last_access' ? r.last_access_day ?? -1 : key === 'cluster' ? r.cluster.label : key === 'on_time' ? r.on_time : r.registration;

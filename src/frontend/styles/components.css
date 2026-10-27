@@ -203,3 +203,10 @@ main > .card { margin-block-end: var(--sp-4); }
 .drawer__body { padding: var(--sp-4); overflow-y: auto; flex: 1; }
 @media (min-width: 1000px) { body.has-drawer main { padding-inline-start: 460px; } }
 .grid-dash .card:last-child { grid-column: 1 / -1; }
+
+/* pager (FR-32): السابق في البداية (يمين RTL) والتالي في النهاية؛ يلتف على 360px */
+.pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-2) var(--sp-3); margin-block-start: var(--sp-3); }
+.pager__status { margin: 0; flex: 1 1 12em; text-align: center; font-size: var(--fs-14); }
+.pager__page { color: var(--color-muted-fg); }
+.pager__btn { flex: none; }
+@media (max-width: 480px) { .pager__status { order: -1; flex-basis: 100%; } .pager__btn { flex: 1 1 0; } }

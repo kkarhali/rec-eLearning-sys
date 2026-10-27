@@ -11,7 +11,7 @@ from src.ml import data, harness, serving
 from src.ml.models import BASELINES
 from src.ml.signals import SignalSpec
 from src.ml.splits import build_train
-from src.ml.tests.helpers import random_presentation
+from src.ml.tests.helpers import make_presentation, random_presentation
 
 NAME = "AAA_2013J"
 
@@ -20,6 +20,76 @@ def _augment(p):
     p.students = p.students.assign(num_of_prev_attempts=0, studied_credits=60, final_result="Pass")
     p.registrations = p.registrations.assign(date_registration=-20, date_unregistration=np.nan)
     return p
+
+
+def _with_future(p, sa, day, seed=0):
+    """A copy of presentation ``p`` (and of ``student_assessment`` ``sa``) with only *future* information added after
+    ``day`` (ج-16): more clicks and events of existing learners, new resources (in the catalogue, used only after
+    ``day``), new learners who register and act only after ``day``, a withdrawal dated after ``day``, and a late
+    assessment submission. Nothing on or before ``day`` changes."""
+    rng = np.random.default_rng(seed)
+    ev = list(p.events[["id_student", "id_site", "date", "clicks"]].itertuples(index=False, name=None))
+    types = dict(zip(p.items["id_site"].astype(int), p.items["activity_type"].astype(str)))
+    old_users = sorted(int(u) for u in p.events["id_student"].unique())
+    old_items = sorted(types)
+    kinds = sorted({t for t in types.values()})
+    new_items = {90_000 + j: kinds[j % len(kinds)] for j in range(6)}          # existing types: same categories
+    new_users = [900_000 + j for j in range(12)]
+    later = lambda: int(rng.integers(day + 1, p.length + 1))                     # noqa: E731
+    future = [(int(u), int(i), d, c) for u, i, d, c in ev if d > day]
+    ev += [(u, i, d, 5 * c) for u, i, d, c in future]                           # heavier clicks after day
+    for _ in range(300):                                                       # existing learners, existing items
+        ev.append((old_users[rng.integers(len(old_users))], old_items[rng.integers(len(old_items))], later(), 3))
+    for i in new_items:                                                        # new resources, used after day only
+        for u in rng.choice(old_users, 15, replace=False):
+            ev.append((int(u), i, later(), 2))
+    for u in new_users:                                                        # new learners, active after day only
+        for _ in range(25):
+            pool = old_items + list(new_items)
+            ev.append((u, pool[rng.integers(len(pool))], later(), 4))
+    q = make_presentation(ev, {**types, **new_items}, name=p.name, length=p.length,
+                          assessment_dates=tuple(p.assessments["date"].tolist()))
+    q.events = q.events.astype({"date": p.events["date"].dtype})
+    q = _augment(q)
+    base = p.registrations.set_index("id_student")
+    reg = q.registrations.set_index("id_student")
+    for col in ("date_registration", "date_unregistration"):
+        reg.loc[base.index, col] = base[col]
+    reg.loc[new_users, "date_registration"] = day + 3
+    stay = base.index[base["date_unregistration"].isna()]
+    reg.loc[stay[-1], "date_unregistration"] = day + 10                        # withdraws after day
+    q.registrations = reg.reset_index()
+    late_sub = pd.DataFrame({"id_assessment": [int(q.assessments["id_assessment"].iloc[-1])],
+                             "id_student": [old_users[0]], "date_submitted": [float(day + 2)], "is_banked": [0],
+                             "score": [90.0]})
+    sa2 = pd.concat([sa, late_sub], ignore_index=True).astype(sa.dtypes.to_dict()) if len(sa.columns) else sa
+    return q, sa2, new_users, list(new_items)
+
+
+def _canon(o):
+    """JSON-comparable form of an Engine response (numpy scalars, NaN -> None, floats to 12 digits)."""
+    if isinstance(o, dict):
+        return {str(k): _canon(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple, np.ndarray)):
+        return [_canon(v) for v in o]
+    if isinstance(o, (np.bool_, bool)):
+        return bool(o)
+    if isinstance(o, (np.integer, int)):
+        return int(o)
+    if isinstance(o, (np.floating, float)):
+        return None if not np.isfinite(o) else round(float(o), 12)
+    return o
+
+
+def _day_responses(eng, day, students):
+    """Every public Engine response at ``day`` (recommendations for tasks A and B with explanations, learner
+    profile with risk and cluster, overview, registration list)."""
+    out = {"overview": eng.presentation_overview(NAME, day), "registrations": eng.registrations(NAME, day)}
+    for u in students:
+        out[f"recs_A_{u}"] = eng.recommend(NAME, u, day, k=10, exclude_seen=True)
+        out[f"recs_B_{u}"] = eng.recommend(NAME, u, day, k=10, exclude_seen=False)
+        out[f"profile_{u}"] = eng.learner_profile(NAME, u, day)
+    return _canon(out)
 
 
 def _frozen():
@@ -90,6 +160,18 @@ class TestServing(unittest.TestCase):
                               student_assessment=self.eng._sa)
         b = eng2.recommend(NAME, self.student, 140, k=5)
         self.assertEqual([r["id_site"] for r in a], [r["id_site"] for r in b])
+
+    def test_future_events_resources_learners_change_nothing(self):
+        """ج-16: adding events, resources and learners after day t leaves every response at day t unchanged
+        (WRMF fold-in from artifacts, light components, explanations, profile, overview, registrations)."""
+        day = 140
+        students = sorted(int(u) for u in self.p.events["id_student"].unique())[:8]
+        q, sa2, _, new_items = _with_future(self.p, self.eng._sa, day)
+        eng2 = serving.Engine(frozen=self.eng.frozen, artifacts=self.art, presentations={NAME: q}, student_assessment=sa2)
+        self.assertGreater(len(q.events), len(self.p.events))
+        self.assertEqual(_day_responses(self.eng, day, students), _day_responses(eng2, day, students))
+        later = {r["id_site"] for r in eng2.recommend(NAME, students[0], 250, k=200, exclude_seen=False)}
+        self.assertTrue(later & set(new_items))                  # the new resources are visible after their day
 
     def test_wrmf_foldin_uses_artifact_items(self):
         S = self.eng.component_scores(NAME, 140, "B7_WRMF", 126,
@@ -204,6 +286,44 @@ class TestServingContract(unittest.TestCase):
         self.assertFalse(ov["risk_bands"]["calibrated"])
         withdrawn = int(self.p.registrations["id_student"].iloc[0])           # withdrew on day 30 < 56
         self.assertIsNone(self.eng.learner_profile(NAME, withdrawn, 60)["risk"]["score"])
+
+    def test_future_information_changes_nothing_with_risk_and_clusters(self):
+        """ج-16 with the teacher-side responses: relative risk score (z within the cohort at the cut), cluster at day
+        56, C7 cluster popularity recomputed at day t, overview counts and bands; for days 60 and 100."""
+        import shutil
+        tmp = tempfile.TemporaryDirectory()
+        art = Path(tmp.name) / "art"
+        shutil.copytree(self.art, art)
+        F = self.eng._features_at(NAME, 56)
+        cols = ["active_days", "gap_sd", "first_day"]
+        X = F[cols].to_numpy(float)
+        mu, sd = X.mean(axis=0), X.std(axis=0) + 1e-9
+        Z = (X - mu) / sd
+        centres = Z[[0, 1, 2]]
+        labels = ((Z[:, None, :] - centres[None]) ** 2).sum(axis=2).argmin(axis=1)
+        np.savez(art / NAME / "clusters_56.npz", features=np.array(cols), mu=mu, sd=sd, centres=centres, k=3, stable=True,
+                 labels=labels, students=F.index.to_numpy())
+        students = [int(x) for x in self.p.registrations["id_student"].iloc[[0, 1, 5, 10, 20, 30, 40]]]
+        for day in (60, 100):
+            with self.subTest(day=day):
+                serving._CLUSTER_MEM.clear()
+                e1 = serving.Engine(frozen=self.eng.frozen, artifacts=art, presentations={NAME: self.p},
+                                    student_assessment=self.eng._sa, cluster_cache_dir=Path(tmp.name) / f"c1_{day}")
+                a = _day_responses(e1, day, students)
+                q, sa2, new_users, _ = _with_future(self.p, self.eng._sa, day, seed=day)
+                serving._CLUSTER_MEM.clear()
+                e2 = serving.Engine(frozen=self.eng.frozen, artifacts=art, presentations={NAME: q}, student_assessment=sa2,
+                                    cluster_cache_dir=Path(tmp.name) / f"c2_{day}")
+                b = _day_responses(e2, day, students)
+                self.assertTrue(any(v["risk"] and v["risk"]["score"] is not None for k, v in a.items() if k.startswith("profile_")))
+                self.assertIsNotNone(a[f"profile_{students[-1]}"]["cluster"])
+                for key in a:
+                    self.assertEqual(a[key], b[key], key)
+                self.assertNotIn(new_users[0], [r["id_student"] for r in b["registrations"]])
+                prof = e2.learner_profile(NAME, new_users[0], day)        # registered after the cut: no estimate
+                self.assertIsNone(prof["risk"]["score"])
+        serving._CLUSTER_MEM.clear()
+        tmp.cleanup()
 
     def test_fr40_gate(self):
         if (data.RESULTS_DIR / "conf2014" / "verdicts.csv").exists():

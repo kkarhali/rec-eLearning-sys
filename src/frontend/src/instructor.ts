@@ -7,6 +7,7 @@ import { KpiCard } from './components/KpiCard.js';
 import { ClusterMarker, ClusterScatter, DivergingBars, SvgBarChart, SvgDonut, SvgHBars } from './components/charts.js';
 import { DataTable } from './components/DataTable.js';
 import { Drawer } from './components/Drawer.js';
+import { Pager, focusPager, pageRange } from './components/Pager.js';
 import { DEFAULT_DAY, firstPublished, loadPresentations, makeScrubber, presentationSelect } from './controls.js';
 import { fmt, itemsAr, learnersAr, pct, range, score2, signed, typeAr } from './labels.js';
 import type { ClusterSet, InstructorLearnerRow, InstructorOverview, Presentation } from './types.js';
@@ -16,7 +17,10 @@ let presList: Presentation[] = [];
 let scrubber: Scrubber | null = null;
 let clusters: ClusterSet | null = null;
 let overview: InstructorOverview | null = null;
-let seq = 0;
+let seq = 0, tseq = 0;
+/** حجم صفحة جدول المتعلمين؛ الإزاحة في حالة الرابط (off). البداية = أول لقطة عناقيد (لا لوحة قبل اليوم 56). */
+const PAGE = 100;
+const BOARD_FIRST_DAY = 56;
 const drawer = Drawer(() => { writeState({ r: '' }); markActive(''); });
 /** يظلّل صف المتعلم المفتوح في الدرج وحده (aria-current) ويزيل التظليل عن غيره. */
 function markActive(reg: string): void {
@@ -62,7 +66,7 @@ async function refresh(): Promise<void> {
   } catch (e) {
     if (my !== seq) return;
     if (e instanceof ApiError && e.code === 'day_before_first_snapshot') {
-      const first = Number(e.details['first_day'] ?? 28);
+      const first = Number(e.details['first_day'] ?? BOARD_FIRST_DAY);
       toast(`لا تقدير قبل اليوم ${first}؛ نُقل الشريط إلى أول يوم متاح.`, 'info'); scrubber?.set(first); writeState({ d: first }); void refresh(); return;
     }
     for (const el of [kpis, prof, cl, risk, cov, tbl]) showError(el, e, () => void refresh());
@@ -76,7 +80,8 @@ function renderKpis(o: InstructorOverview): void {
     KpiCard('وسيط الأيام النشطة', fmt(k.median_active_days, 0), undefined, 'k2'),
     KpiCard(`الكتالوج عند اليوم ${o.snapshot_day}`, itemsAr(k.catalogue_size), undefined, 'k3'),
     KpiCard(`اتساع التوصيات عند اليوم ${d}`, `${fmt(o.coverage.covered_items, 0)} من ${itemsAr(o.coverage.catalogue_size)}`, 'موارد ظهرت في أفضل 10 لأحد المتعلمين', 'k4'),
-    KpiCard('حصة المتعلمين بدرجة خطر نسبية ≥ العتبة', k.share_above_threshold === null ? 'لا تقدير قبل اليوم 28' : pct(k.share_above_threshold), 'درجة نسبية غير معايَرة، للعرض لا للتقييم', 'k5'));
+    KpiCard('حصة المتعلمين بدرجة خطر نسبية ≥ العتبة', k.share_above_threshold === null ? 'لا تقدير معروض' : pct(k.share_above_threshold),
+      k.share_above_threshold === null ? `تبدأ اللوحة من اليوم ${BOARD_FIRST_DAY}؛ قطع الخطر 28 مبني ولا يُعرض` : 'درجة نسبية غير معايَرة، للعرض لا للتقييم', 'k5'));
   setBusy($('#kpis'), false);
 }
 function renderProfiles(o: InstructorOverview): void {
@@ -116,7 +121,7 @@ function renderClusters(cs: ClusterSet): void {
 }
 function renderRisk(o: InstructorOverview): void {
   const host = $('#risk');
-  if (!o.risk) { mount(host, emptyState('لا تقدير قبل اليوم 28', 'تبدأ درجة الخطر النسبية عند أول قطع للنموذج.')); setBusy(host, false); return; }
+  if (!o.risk) { mount(host, emptyState('لا تقدير معروض لهذا اليوم', `تبدأ اللوحة من اليوم ${BOARD_FIRST_DAY} (أول لقطة عناقيد)؛ قطع الخطر 28 مبني ولا يُعرض.`)); setBusy(host, false); return; }
   const r = o.risk;
   const data = r.histogram.map((b) => ({ label: `\u202A${fmt(b.lo, 1)}–${fmt(b.hi, 1)}\u202C`, value: b.count, flag: b.hi > r.threshold }));
   mount(host,
@@ -137,13 +142,18 @@ function renderCoverage(o: InstructorOverview): void {
 }
 
 // ---------------------------------------------------------------- learners table
-async function renderTable(): Promise<void> {
-  const st = readState(); const host = $('#learners'); const my = seq;
+// التصفية كلها (العنقود، ≥ العتبة، بلا نشاط 14 يوماً) والفرز والترقيم في الخادم على الفوج كله؛ الواجهة تعرض صفحة واحدة (FR-32، ب-8).
+async function renderTable(focus?: 'prev' | 'next'): Promise<void> {
+  const st = readState(); const host = $('#learners'); const my = seq, mt = ++tseq;
   try {
-    const page = await api.learners({ presentation: st.p, day: st.d as number, cluster: st.cl ?? undefined, risk: st.f === 'above' ? 'above' : 'all', sort: st.sort, limit: 100, offset: st.off ?? undefined });
-    if (my !== seq) return;
-    let rows = page.items;
-    if (st.f === 'idle') rows = rows.filter((r) => r.last_access_day === null || (st.d as number) - r.last_access_day >= 14);
+    const off = Math.max(0, st.off ?? 0);
+    const page = await api.learners({ presentation: st.p, day: st.d as number, cluster: st.cl ?? undefined, risk: st.f === 'above' ? 'above' : 'all',
+      idle: st.f === 'idle' || undefined, sort: st.sort, limit: PAGE, offset: off || undefined });
+    if (my !== seq || mt !== tseq) return;
+    if (!page.items.length && page.total > 0 && off > 0) {   // إزاحة بعد آخر صف (رابط قديم أو تغيّر اليوم): إلى آخر صفحة
+      writeState({ off: Math.floor((page.total - 1) / PAGE) * PAGE || null }); return renderTable(focus);
+    }
+    const rows = page.items;
     const thr = overview?.risk?.threshold;
     const noRisk = overview?.risk === null;
     const cols = [
@@ -156,12 +166,17 @@ async function renderTable(): Promise<void> {
         { key: 'risk', header: 'درجة الخطر', sortable: true, cell: (r: InstructorLearnerRow) => r.risk ? riskCell(r.risk.score, r.risk.above_threshold, thr) : '—' },
         { key: 'factor', header: 'أبرز عامل', wrap: true, cell: (r: InstructorLearnerRow) => r.risk?.top_factor ?? '—' }]),
     ];
+    const filt = (st.cl !== null ? ' في العنقود المختار' : '') + (st.f === 'idle' ? ' بلا نشاط 14 يوماً' : st.f === 'above' ? ' بدرجة ≥ العتبة' : '');
     mount(host,
-      h('p', { class: 'muted', 'aria-live': 'polite' }, `${learnersAr(rows.length)}` + (st.cl !== null ? ' في العنقود المختار' : '') + ' · مرتبون حسب ' + sortName(st.sort) + (st.sort.startsWith('-') ? ' تنازلياً' : ' تصاعدياً') + ' · Enter أو النقر لفتح الملف · ↑↓ للتنقل'),
+      h('p', { class: 'muted', 'aria-live': 'polite' }, `${learnersAr(page.total)}` + filt + ' · مرتبون حسب ' + sortName(st.sort) + (st.sort.startsWith('-') ? ' تنازلياً' : ' تصاعدياً')
+        + (page.total ? ` · عرض ${pageRange(page.total, off, PAGE)}` : '') + ' · Enter أو النقر لفتح الملف · ↑↓ للتنقل'),
       DataTable<InstructorLearnerRow>({ caption: 'جدول المتعلمين مع درجة الخطر النسبية', cols, rows, rowId: (r) => r.registration, sort: st.sort, activeId: st.r || undefined,
         emptyText: 'لا متعلمين يطابقون التصفية الحالية.', onSort: (k) => { const cur = readState().sort; writeState({ sort: cur === '-' + k ? k : '-' + k, off: null }); void renderTable(); },
-        onOpen: (r, el) => void openLearner(r.registration, el) }));
+        onOpen: (r, el) => void openLearner(r.registration, el) }),
+      page.total > PAGE || off > 0 ? Pager({ total: page.total, offset: off, limit: PAGE, label: 'صفحات جدول المتعلمين', noun: learnersAr,
+        onPage: (o, which) => { writeState({ off: o || null }); void renderTable(which); } }) : null);
     setBusy(host, false);
+    if (focus) focusPager(host, focus);
   } catch (e) { showError(host, e, () => void renderTable()); }
 }
 function sortName(s: string): string { const k = s.replace(/^-/, ''); return ({ risk: 'درجة الخطر', reg: 'التسجيل', cluster: 'العنقود', active_days: 'الأيام النشطة', last_access: 'آخر وصول', on_time: 'الالتزام' } as Record<string, string>)[k] ?? k; }
