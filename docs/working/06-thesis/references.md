@@ -130,7 +130,7 @@
 
 [64] S. Holm, "A simple sequentially rejective multiple test procedure," *Scandinavian Journal of Statistics*, vol. 6, no. 2, pp. 65–70, 1979.
 
-[65] H. Drachsler and W. Greller, "Privacy and analytics: It's a DELICATE issue. A checklist for trusted learning analytics," in *Proc. 6th Int. Conf. Learning Analytics and Knowledge (LAK)*, Edinburgh, U.K., 2016, pp. 89–98.
+[65] H. Drachsler and W. Greller, "Privacy and analytics: It's a DELICATE issue. A checklist for trusted learning analytics," in *Proc. 6th Int. Conf. Learning Analytics and Knowledge (LAK)*, Edinburgh, U.K., 2016, pp. 89–98, doi: 10.1145/2883851.2883893.
 
 [66] DSDM Consortium, "MoSCoW prioritisation," in *The DSDM Agile Project Framework Handbook*. Ashford, U.K.: DSDM Consortium, 2014, ch. 10.
 
@@ -140,4 +140,12 @@
 
 [69] International Organization for Standardization, *Systems and Software Engineering — Systems and Software Quality Requirements and Evaluation (SQuaRE) — Product Quality Model*, ISO/IEC 25010:2023, 2nd ed. Geneva, Switzerland: ISO, 2023.
 
-[70] N. Tintarev and J. Masthoff, "Explaining recommendations: Design and evaluation," in *Recommender Systems Handbook*, 2nd ed., F. Ricci, L. Rokach, and B. Shapira, Eds. Boston, MA, USA: Springer, 2015, pp. 353–382.
+[70] N. Tintarev and J. Masthoff, "Explaining recommendations: Design and evaluation," in *Recommender Systems Handbook*, 2nd ed., F. Ricci, L. Rokach, and B. Shapira, Eds. Boston, MA, USA: Springer, 2015, pp. 353–382, doi: 10.1007/978-1-4899-7637-6_10.
+
+[71] M. C. Urdaneta-Ponte, A. Mendez-Zorrilla, and I. Oleagordia-Ruiz, "Recommendation systems for education: Systematic review," *Electronics*, vol. 10, no. 14, Art. no. 1611, 2021, doi: 10.3390/electronics10141611.
+
+[72] S. Wang, L. Cao, Y. Wang, Q. Z. Sheng, M. A. Orgun, and D. Lian, "A survey on session-based recommender systems," *ACM Computing Surveys*, vol. 54, no. 7, Art. no. 154, 2022, doi: 10.1145/3465401.
+
+[73] Y. Ji, A. Sun, J. Zhang, and C. Li, "A re-visit of the popularity baseline in recommender systems," in *Proc. 43rd Int. ACM SIGIR Conf. Research and Development in Information Retrieval (SIGIR)*, 2020, pp. 1749–1752, doi: 10.1145/3397271.3401233.
+
+[74] C. Krauss, A. Merceron, and S. Arbanowski, "The timeliness deviation: A novel approach to evaluate educational recommender systems for closed-courses," in *Proc. 9th Int. Conf. Learning Analytics and Knowledge (LAK)*, Tempe, AZ, USA, 2019, pp. 195–204, doi: 10.1145/3303772.3303774.
