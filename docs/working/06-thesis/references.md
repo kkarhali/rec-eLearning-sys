@@ -100,52 +100,52 @@
 
 [49] Y. Qi, Q. Wu, H. Wang, J. Tang, and M. Sun, "Bandit learning with implicit feedback," in *Proc. 32nd Conf. Neural Information Processing Systems (NeurIPS 2018)*, Montréal, Canada, 2018.
 
-[50] B. Sarwar, G. Karypis, J. Konstan, and J. Riedl, "Item-based collaborative filtering recommendation algorithms," in *Proc. 10th Int. Conf. World Wide Web (WWW)*, Hong Kong, 2001, pp. 285–295, doi: 10.1145/371920.372071.
+[50] M. C. Urdaneta-Ponte, A. Mendez-Zorrilla, and I. Oleagordia-Ruiz, "Recommendation systems for education: Systematic review," *Electronics*, vol. 10, no. 14, Art. no. 1611, 2021, doi: 10.3390/electronics10141611.
 
-[51] S. Rendle, C. Freudenthaler, Z. Gantner, and L. Schmidt-Thieme, "BPR: Bayesian personalized ranking from implicit feedback," in *Proc. 25th Conf. Uncertainty in Artificial Intelligence (UAI)*, 2009.
+[51] C. Krauss, A. Merceron, and S. Arbanowski, "The timeliness deviation: A novel approach to evaluate educational recommender systems for closed-courses," in *Proc. 9th Int. Conf. Learning Analytics and Knowledge (LAK)*, Tempe, AZ, USA, 2019, pp. 195–204, doi: 10.1145/3303772.3303774.
 
-[52] G. Adomavicius and A. Tuzhilin, "Context-aware recommender systems," in *Recommender Systems Handbook*. Boston, MA, USA: Springer, 2011.
+[52] Y. Ji, A. Sun, J. Zhang, and C. Li, "A re-visit of the popularity baseline in recommender systems," in *Proc. 43rd Int. ACM SIGIR Conf. Research and Development in Information Retrieval (SIGIR)*, 2020, pp. 1749–1752, doi: 10.1145/3397271.3401233.
 
-[53] K. Cho, B. van Merriënboer, C. Gulcehre, D. Bahdanau, F. Bougares, H. Schwenk, and Y. Bengio, "Learning phrase representations using RNN encoder–decoder for statistical machine translation," in *Proc. 2014 Conf. Empirical Methods in Natural Language Processing (EMNLP)*, Doha, Qatar, 2014, pp. 1724–1734, doi: 10.3115/v1/D14-1179.
+[53] S. Wang, L. Cao, Y. Wang, Q. Z. Sheng, M. A. Orgun, and D. Lian, "A survey on session-based recommender systems," *ACM Computing Surveys*, vol. 54, no. 7, Art. no. 154, 2022, doi: 10.1145/3465401.
 
-[54] K. Järvelin and J. Kekäläinen, "Cumulated gain-based evaluation of IR techniques," *ACM Transactions on Information Systems*, vol. 20, no. 4, pp. 422–446, Oct. 2002, doi: 10.1145/582415.582418.
+[54] B. Sarwar, G. Karypis, J. Konstan, and J. Riedl, "Item-based collaborative filtering recommendation algorithms," in *Proc. 10th Int. Conf. World Wide Web (WWW)*, Hong Kong, 2001, pp. 285–295, doi: 10.1145/371920.372071.
 
-[55] M. Ferrari Dacrema, P. Cremonesi, and D. Jannach, "Are we really making much progress? A worrying analysis of recent neural recommendation approaches," in *Proc. 13th ACM Conf. Recommender Systems (RecSys)*, Copenhagen, Denmark, 2019, pp. 101–109, doi: 10.1145/3298689.3347058.
+[55] S. Rendle, C. Freudenthaler, Z. Gantner, and L. Schmidt-Thieme, "BPR: Bayesian personalized ranking from implicit feedback," in *Proc. 25th Conf. Uncertainty in Artificial Intelligence (UAI)*, 2009.
 
-[56] H. Steck, "Embarrassingly shallow autoencoders for sparse data," in *Proc. World Wide Web Conf. (WWW)*, San Francisco, CA, USA, 2019, pp. 3251–3257, doi: 10.1145/3308558.3313710.
+[56] G. Adomavicius and A. Tuzhilin, "Context-aware recommender systems," in *Recommender Systems Handbook*. Boston, MA, USA: Springer, 2011.
 
-[57] D. P. Kingma and J. Ba, "Adam: A method for stochastic optimization," in *Proc. 3rd Int. Conf. Learning Representations (ICLR)*, San Diego, CA, USA, 2015.
+[57] K. Cho, B. van Merriënboer, C. Gulcehre, D. Bahdanau, F. Bougares, H. Schwenk, and Y. Bengio, "Learning phrase representations using RNN encoder–decoder for statistical machine translation," in *Proc. 2014 Conf. Empirical Methods in Natural Language Processing (EMNLP)*, Doha, Qatar, 2014, pp. 1724–1734, doi: 10.3115/v1/D14-1179.
 
-[58] D. Arthur and S. Vassilvitskii, "k-means++: The advantages of careful seeding," in *Proc. 18th Annu. ACM-SIAM Symp. Discrete Algorithms (SODA)*, 2007, pp. 1027–1035.
+[58] K. Järvelin and J. Kekäläinen, "Cumulated gain-based evaluation of IR techniques," *ACM Transactions on Information Systems*, vol. 20, no. 4, pp. 422–446, Oct. 2002, doi: 10.1145/582415.582418.
 
-[59] P. J. Rousseeuw, "Silhouettes: A graphical aid to the interpretation and validation of cluster analysis," *Journal of Computational and Applied Mathematics*, vol. 20, pp. 53–65, 1987, doi: 10.1016/0377-0427(87)90125-7.
+[59] M. Ferrari Dacrema, P. Cremonesi, and D. Jannach, "Are we really making much progress? A worrying analysis of recent neural recommendation approaches," in *Proc. 13th ACM Conf. Recommender Systems (RecSys)*, Copenhagen, Denmark, 2019, pp. 101–109, doi: 10.1145/3298689.3347058.
 
-[60] D. L. Davies and D. W. Bouldin, "A cluster separation measure," *IEEE Transactions on Pattern Analysis and Machine Intelligence*, vol. PAMI-1, no. 2, pp. 224–227, 1979, doi: 10.1109/TPAMI.1979.4766909.
+[60] H. Steck, "Embarrassingly shallow autoencoders for sparse data," in *Proc. World Wide Web Conf. (WWW)*, San Francisco, CA, USA, 2019, pp. 3251–3257, doi: 10.1145/3308558.3313710.
 
-[61] L. Hubert and P. Arabie, "Comparing partitions," *Journal of Classification*, vol. 2, no. 1, pp. 193–218, 1985, doi: 10.1007/BF01908075.
+[61] D. P. Kingma and J. Ba, "Adam: A method for stochastic optimization," in *Proc. 3rd Int. Conf. Learning Representations (ICLR)*, San Diego, CA, USA, 2015.
 
-[62] L. Breiman, J. H. Friedman, R. A. Olshen, and C. J. Stone, *Classification and Regression Trees*. Belmont, CA, USA: Wadsworth, 1984.
+[62] D. Arthur and S. Vassilvitskii, "k-means++: The advantages of careful seeding," in *Proc. 18th Annu. ACM-SIAM Symp. Discrete Algorithms (SODA)*, 2007, pp. 1027–1035.
 
-[63] B. Efron and R. J. Tibshirani, *An Introduction to the Bootstrap*. New York, NY, USA: Chapman & Hall, 1993.
+[63] P. J. Rousseeuw, "Silhouettes: A graphical aid to the interpretation and validation of cluster analysis," *Journal of Computational and Applied Mathematics*, vol. 20, pp. 53–65, 1987, doi: 10.1016/0377-0427(87)90125-7.
 
-[64] S. Holm, "A simple sequentially rejective multiple test procedure," *Scandinavian Journal of Statistics*, vol. 6, no. 2, pp. 65–70, 1979.
+[64] D. L. Davies and D. W. Bouldin, "A cluster separation measure," *IEEE Transactions on Pattern Analysis and Machine Intelligence*, vol. PAMI-1, no. 2, pp. 224–227, 1979, doi: 10.1109/TPAMI.1979.4766909.
 
-[65] H. Drachsler and W. Greller, "Privacy and analytics: It's a DELICATE issue. A checklist for trusted learning analytics," in *Proc. 6th Int. Conf. Learning Analytics and Knowledge (LAK)*, Edinburgh, U.K., 2016, pp. 89–98, doi: 10.1145/2883851.2883893.
+[65] L. Hubert and P. Arabie, "Comparing partitions," *Journal of Classification*, vol. 2, no. 1, pp. 193–218, 1985, doi: 10.1007/BF01908075.
 
-[66] DSDM Consortium, "MoSCoW prioritisation," in *The DSDM Agile Project Framework Handbook*. Ashford, U.K.: DSDM Consortium, 2014, ch. 10.
+[66] L. Breiman, J. H. Friedman, R. A. Olshen, and C. J. Stone, *Classification and Regression Trees*. Belmont, CA, USA: Wadsworth, 1984.
 
-[67] World Wide Web Consortium (W3C), *Web Content Accessibility Guidelines (WCAG) 2.2*, W3C Recommendation, Oct. 5, 2023. [Online]. Available: https://www.w3.org/TR/2023/REC-WCAG22-20231005/
+[67] B. Efron and R. J. Tibshirani, *An Introduction to the Bootstrap*. New York, NY, USA: Chapman & Hall, 1993.
 
-[68] International Organization for Standardization, *Systems and Software Engineering — Life Cycle Processes — Requirements Engineering*, ISO/IEC/IEEE 29148:2018, 2nd ed. Geneva, Switzerland: ISO, 2018.
+[68] S. Holm, "A simple sequentially rejective multiple test procedure," *Scandinavian Journal of Statistics*, vol. 6, no. 2, pp. 65–70, 1979.
 
-[69] International Organization for Standardization, *Systems and Software Engineering — Systems and Software Quality Requirements and Evaluation (SQuaRE) — Product Quality Model*, ISO/IEC 25010:2023, 2nd ed. Geneva, Switzerland: ISO, 2023.
+[69] H. Drachsler and W. Greller, "Privacy and analytics: It's a DELICATE issue. A checklist for trusted learning analytics," in *Proc. 6th Int. Conf. Learning Analytics and Knowledge (LAK)*, Edinburgh, U.K., 2016, pp. 89–98, doi: 10.1145/2883851.2883893.
 
-[70] N. Tintarev and J. Masthoff, "Explaining recommendations: Design and evaluation," in *Recommender Systems Handbook*, 2nd ed., F. Ricci, L. Rokach, and B. Shapira, Eds. Boston, MA, USA: Springer, 2015, pp. 353–382, doi: 10.1007/978-1-4899-7637-6_10.
+[70] DSDM Consortium, "MoSCoW prioritisation," in *The DSDM Agile Project Framework Handbook*. Ashford, U.K.: DSDM Consortium, 2014, ch. 10.
 
-[71] M. C. Urdaneta-Ponte, A. Mendez-Zorrilla, and I. Oleagordia-Ruiz, "Recommendation systems for education: Systematic review," *Electronics*, vol. 10, no. 14, Art. no. 1611, 2021, doi: 10.3390/electronics10141611.
+[71] World Wide Web Consortium (W3C), *Web Content Accessibility Guidelines (WCAG) 2.2*, W3C Recommendation, Oct. 5, 2023. [Online]. Available: https://www.w3.org/TR/2023/REC-WCAG22-20231005/
 
-[72] S. Wang, L. Cao, Y. Wang, Q. Z. Sheng, M. A. Orgun, and D. Lian, "A survey on session-based recommender systems," *ACM Computing Surveys*, vol. 54, no. 7, Art. no. 154, 2022, doi: 10.1145/3465401.
+[72] International Organization for Standardization, *Systems and Software Engineering — Life Cycle Processes — Requirements Engineering*, ISO/IEC/IEEE 29148:2018, 2nd ed. Geneva, Switzerland: ISO, 2018.
 
-[73] Y. Ji, A. Sun, J. Zhang, and C. Li, "A re-visit of the popularity baseline in recommender systems," in *Proc. 43rd Int. ACM SIGIR Conf. Research and Development in Information Retrieval (SIGIR)*, 2020, pp. 1749–1752, doi: 10.1145/3397271.3401233.
+[73] International Organization for Standardization, *Systems and Software Engineering — Systems and Software Quality Requirements and Evaluation (SQuaRE) — Product Quality Model*, ISO/IEC 25010:2023, 2nd ed. Geneva, Switzerland: ISO, 2023.
 
-[74] C. Krauss, A. Merceron, and S. Arbanowski, "The timeliness deviation: A novel approach to evaluate educational recommender systems for closed-courses," in *Proc. 9th Int. Conf. Learning Analytics and Knowledge (LAK)*, Tempe, AZ, USA, 2019, pp. 195–204, doi: 10.1145/3303772.3303774.
+[74] N. Tintarev and J. Masthoff, "Explaining recommendations: Design and evaluation," in *Recommender Systems Handbook*, 2nd ed., F. Ricci, L. Rokach, and B. Shapira, Eds. Boston, MA, USA: Springer, 2015, pp. 353–382, doi: 10.1007/978-1-4899-7637-6_10.

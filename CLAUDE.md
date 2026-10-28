@@ -102,13 +102,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 bash data/download.sh                                   # تحميل OULAD والتحقق من MD5 (يطبع «integrity: PASS»)
-python3 -m unittest discover -s src/ml/tests            # 130 اختباراً، ≈ 7 ث، لا تحتاج البيانات
+python3 -m unittest discover -s src/ml/tests            # 131 اختباراً، ≈ 7 ث، لا تحتاج البيانات
 python3 -m unittest discover -s src/ml/tests -p 'test_hybrid_stats.py'   # ملف اختبار واحد
 python3 -m unittest discover -s src/ml/tests -k test_ids_only            # اختبار بالاسم
 python3 -m src.ml.experiments.build_artifacts           # مطلوب قبل تشغيل الخلفية (artifacts/ خارج git)
 bash src/frontend/build.sh                              # → src/frontend/dist
 tsc --noEmit -p src/frontend/tsconfig.json              # فحص الأنواع (strict)
-python3 -m unittest discover -s src/backend/tests -t .  # 55 اختباراً (≈ 20–110 ث)
+python3 -m unittest discover -s src/backend/tests -t .  # 63 اختباراً (≈ 20–110 ث)
 python3 -m unittest src.backend.tests.test_contract_json   # وحدة اختبار خلفية واحدة
 python3 -m src.backend --warm --port 8100               # http://127.0.0.1:8100
 python3 -m src.ml.experiments.reproduce_dev             # إعادة كل نتائج 2013 (≈ 50 د) ومقارنة حرفية → repro_diff.md
@@ -133,7 +133,7 @@ python3 scripts/build_pptx.py                           # العرض التقد�
 
 `deliverables/00…07` (خطة البحث، الدراسة المرجعية، الفرضيات والخوارزميات، التحليل والتصميم ومخططاته، توثيق الكود، دليل المستخدم،
 الأطروحة النهائية، العرض التقديمي) و`deliverables/README-التسليم.md` بالتنبيهات الإلزامية قبل الإيداع (التحقق من DOI المرجعين
-[22] و[26]، وتحديث حقول Word، والاسم اللاتيني). المراجع 70 بأسلوب IEEE، ولا يُقبل DOI إلا بعد التحقق من حلّه (D-110).
+[22] و[26]، وتحديث حقول Word، والاسم اللاتيني). المراجع 74 بأسلوب IEEE، ولا يُقبل DOI إلا بعد التحقق من حلّه (D-110).
 تصويبات المناقشة التجريبية وحالتها في `docs/defense/04-corrections-log.md`؛ ونص الرسالة يُعدَّل ثم يُعاد `renumber.py` ثم الخطوات 1–3.
 
 ## حدود معلنة لا تُتجاوز في أي نص

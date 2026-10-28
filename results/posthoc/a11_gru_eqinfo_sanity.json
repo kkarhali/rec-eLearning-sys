@@ -18,7 +18,7 @@
    "a": 6.606048591687725e-12
   },
   "pass": 1.0,
-  "seconds": 0.11182379722595215
+  "seconds": 0.2719452381134033
  },
  "S2": {
   "mean_L_minus_H": 0.0009526087107587955,
@@ -26,7 +26,7 @@
   "loss_first": 3.910675811767578,
   "loss_last": 0.541020268201828,
   "pass": true,
-  "seconds": 0.6592283248901367
+  "seconds": 0.5314435958862305
  },
  "S3": {
   "mean_TV": 0.07605802162791662,
@@ -43,7 +43,7 @@
    1.348991172368818
   ],
   "pass": true,
-  "seconds": 12.509636163711548
+  "seconds": 10.384098529815674
  },
  "S6": {
   "zero_info_bitwise_equal": true,
@@ -52,7 +52,7 @@
   "truncation_T_ge_length_equal": true,
   "gru_unit_tests": "7 run, 0 failed",
   "pass": true,
-  "seconds": 0.0910043716430664
+  "seconds": 0.1822199821472168
  },
  "S4": {
   "presentation": "FFF_2013J",
@@ -77,7 +77,7 @@
    0.21958526968955994
   ],
   "best_epoch": 1,
-  "seconds": 24.66087555885315,
+  "seconds": 25.709110975265503,
   "pass": true
  },
  "gates_passed": true

@@ -3,7 +3,7 @@
 مولَّد بـ`python3 scripts/posthoc/a9_inventory.py` (لاحق؛ م-ك-4، البند 2). يُعاد توليده بعد أي تغيير في `results/posthoc/` أو في `scripts/thesis/appendix_e.py`، لأن عمود «يعرضه الملحق» يُستخرج آلياً من شيفرة مولّد الملحق هـ وقت التشغيل: الملفات التي يقرؤها، وتسميات المقارنات التي يمررها إلى جداوله حرفياً.
 
 - عدد الملفات: 45.
-- الملفات التي يقرؤها مولّد الملحق الآن: `a4_1_recentpop_sknn.csv`, `a4_2_sknn_all.csv`, `a4_3_companion_metrics.csv`, `a8_h3_by_cut.csv`, `defense_stats.json`, `sklearn_equivalence.csv`.
+- الملفات التي يقرؤها مولّد الملحق الآن: `a10_selection_loo.csv`, `a10_selection_loo_stats.csv`, `a4_1_recentpop_sknn.csv`, `a4_2_sknn_all.csv`, `a4_3_companion_metrics.csv`, `a5_nonpersonal_weights_counts.csv`, `a5_nonpersonal_weights_summary.csv`, `a6_personalization_mall.csv`, `a7_delta_sensitivity.csv`, `a8_h3_by_cut.csv`, `defense_stats.json`, `sklearn_equivalence.csv`.
 - كل ما في المجلد لاحق، خارج عائلة هولم، وp فيه غير مصححة.
 
 ## الملفات
@@ -13,11 +13,11 @@
 | `INVENTORY.md` | `a9_inventory.py` | هذه القائمة | نعم | لا | ملف توثيق |
 | `README.md` | `—` | وصف كل أداة: الأمر، والزمن، وما تعيد إنتاجه أولاً، والمخرجات | نعم | لا | ملف توثيق |
 | `a10_reproduction_checks.csv` | `a10_selection_loo.py` | التحقق من الإعادة | نعم | لا | ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً |
-| `a10_selection_loo.csv` | `a10_selection_loo.py` | اختيار الهجين بترك عرض خارجاً: التركيبة المختارة لكل عرض متروك وقيمتها عليه | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a10_selection_loo.csv` | `a10_selection_loo.py` | اختيار الهجين بترك عرض خارجاً: التركيبة المختارة لكل عرض متروك وقيمتها عليه | نعم | نعم | نص الملحق |
 | `a10_selection_loo_folds.csv` | `a10_selection_loo.py` | الأوزان والقيم لكل أصل في العرض المتروك | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
-| `a10_selection_loo_stats.csv` | `a10_selection_loo.py` | الاستدلال على العروض والمقررات | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a10_selection_loo_stats.csv` | `a10_selection_loo.py` | الاستدلال على العروض والمقررات | نعم | نعم | الجدول هـ-8 |
 | `a11_gru_eqinfo_sanity.json` | `a11_h3_equal_info.py` | حزمة الصحة S1–S6 للنموذج المعدَّل | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
-| `a11_h3_equal_info_feasibility.md` | `—` | مذكرة جدوى المقارنة المتكافئة في المعلومة (إن لم تُشغَّل) | لا | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a11_h3_equal_info_feasibility.md` | `—` | مذكرة جدوى المقارنة المتكافئة في المعلومة (إن لم تُشغَّل) | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
 | `a4_1_recentpop_sknn.csv` | `a4_1_recentpop_sknn.py` | هجين B3 + SKNN: الأزواج مع B3 ومع HYB\*، والشبكة الاسمية بلا أرضية مع B3، على العروض والمقررات | نعم | نعم | الجدول هـ-1 |
 | `a4_1_recentpop_sknn_folds.csv` | `a4_1_recentpop_sknn.py` | الأوزان وقيمة التحقق والاختبار لكل (عرض، أصل)، بالأرضية وبالشبكة الاسمية | نعم | لا | بيانات تفصيلية للإعادة؛ الملحق يعرض الملخص |
 | `a4_1_recentpop_sknn_per_presentation.csv` | `a4_1_recentpop_sknn.py` | NDCG@10 لكل عرض: الهجين اللاحق بالأرضية وبدونها، وB3 وB5 وHYB\* | نعم | لا | بيانات تفصيلية للإعادة؛ الملحق يعرض الملخص |
@@ -32,17 +32,17 @@
 | `a4_3_companion_metrics_per_presentation.csv` | `a4_3_companion_metrics.py` | المقاييس المرافقة لكل عرض | نعم | لا | بيانات تفصيلية للإعادة؛ الملحق يعرض الملخص |
 | `a4_3_reproduction_checks.csv` | `a4_3_companion_metrics.py` | التحقق من الإعادة | نعم | لا | ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً |
 | `a5_nonpersonal_weights.csv` | `a5_nonpersonal_weights.py` | أوزان الهجين غير الشخصي (1)+(6) لكل (سنة، عرض، أصل)، وقيمة التحقق والاختبار، والفرق عن B3 | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
-| `a5_nonpersonal_weights_counts.csv` | `a5_nonpersonal_weights.py` | عدد الطيّات لكل متجه أوزان | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a5_nonpersonal_weights_counts.csv` | `a5_nonpersonal_weights.py` | عدد الطيّات لكل متجه أوزان | نعم | نعم | نص الملحق |
 | `a5_nonpersonal_weights_per_presentation.csv` | `a5_nonpersonal_weights.py` | الهجين غير الشخصي وB3 وHYB\* لكل عرض | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
-| `a5_nonpersonal_weights_summary.csv` | `a5_nonpersonal_weights.py` | ملخص لكل سنة | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a5_nonpersonal_weights_summary.csv` | `a5_nonpersonal_weights.py` | ملخص لكل سنة | نعم | نعم | نص الملحق |
 | `a5_reproduction_checks.csv` | `a5_nonpersonal_weights.py` | التحقق من الإعادة: تفكيك D-60 وHYB\* | نعم | لا | ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً |
-| `a6_personalization_mall.csv` | `a6_personalization_mall.py` | مكسب الشخصنة بـSKNN(M = الكل): الأزواج على العروض والمقررات، وصفوف التفكيك المقفل للمرجع | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a6_personalization_mall.csv` | `a6_personalization_mall.py` | مكسب الشخصنة بـSKNN(M = الكل): الأزواج على العروض والمقررات، وصفوف التفكيك المقفل للمرجع | نعم | نعم | الجدول هـ-7 |
 | `a6_personalization_mall_folds.csv` | `a6_personalization_mall.py` | الأوزان والقيم لكل (عرض، أصل، نموذج) | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
 | `a6_personalization_mall_per_presentation.csv` | `a6_personalization_mall.py` | كل النماذج لكل عرض | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
 | `a6_personalization_mall_weights.csv` | `a6_personalization_mall.py` | توزيع الأوزان | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
 | `a6_reproduction_checks.csv` | `a6_personalization_mall.py` | التحقق من الإعادة | نعم | لا | ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً |
 | `a7_delta_scan.csv` | `a7_delta_sensitivity.py` | مدى δ الذي يثبت فيه كل حكم مقفل | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
-| `a7_delta_sensitivity.csv` | `a7_delta_sensitivity.py` | الحكم بالقاعدة المسجلة عند δ ∈ {0.015، 0.02، 0.025} للأحكام المقفلة ولصفوف sensitivity_other.csv | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a7_delta_sensitivity.csv` | `a7_delta_sensitivity.py` | الحكم بالقاعدة المسجلة عند δ ∈ {0.015، 0.02، 0.025} للأحكام المقفلة ولصفوف sensitivity_other.csv | نعم | نعم | الجدول هـ-9 |
 | `a7_reproduction_checks.csv` | `a7_delta_sensitivity.py` | التحقق من الإعادة | نعم | لا | ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً |
 | `a8_h3_by_cut.csv` | `a8_h3_by_cut.py` | فروق الجدول هـ-2 لكل أصل بفواصل على العروض والمقررات | نعم | نعم | الجدول هـ-2 |
 | `a8_h3_by_cut_per_presentation.csv` | `a8_h3_by_cut.py` | الفرق لكل (زوج، سنة، أصل، عرض) | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
@@ -62,6 +62,9 @@
 
 | الملف | المقارنة أو النموذج | معروضة؟ | الوحدات في الملف |
 |---|---|---|---|
+| `a10_selection_loo_stats.csv` | LOO-selected hybrid − B3_RecentPop (held-out presentation) | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a10_selection_loo_stats.csv` | LOO-selected hybrid, nominal grid − B3_RecentPop | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a10_selection_loo_stats.csv` | in-sample reference: HYB* (frozen, selected on all nine) − B3_RecentPop | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
 | `a4_1_recentpop_sknn.csv` | HYB_B3+SKNN − B3_RecentPop (H1 inference) | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
 | `a4_1_recentpop_sknn.csv` | HYB_B3+SKNN nominal grid − B3_RecentPop | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
 | `a4_1_recentpop_sknn.csv` | HYB_B3+SKNN − HYB* (frozen) | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
@@ -75,6 +78,16 @@
 | `a4_3_companion_metrics.csv` | model = GRU_lite | نعم | — |
 | `a4_3_companion_metrics.csv` | model = B7_WRMF | **لا** | — |
 | `a4_3_companion_metrics.csv` | model = B2_Pop | **لا** | — |
+| `a6_personalization_mall.csv` | HYB_Mall − (7) alone [personalisation gain, analogue of row (c)] | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a6_personalization_mall.csv` | HYB_Mall − non-personal hybrid (1)+(6) [analogue of row (a)] | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a6_personalization_mall.csv` | HYB_Mall − B3_RecentPop [H1 pair] | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a6_personalization_mall.csv` | HYB_Mall nominal grid − B3_RecentPop [analogue of row (d)] | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a6_personalization_mall.csv` | HYB_Mall − HYB* (frozen, M = 1000) | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a6_personalization_mall.csv` | HYB_B3+SKNN(M = all) − B3_RecentPop [analogue of a4_1] | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a6_personalization_mall.csv` | locked (a) HYB* − non-personal hybrid (1)+(6) | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a6_personalization_mall.csv` | locked (b) (7) alone − B3 [partitioning gain] | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a6_personalization_mall.csv` | locked (c) HYB* − (7) alone [personalisation gain] | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a6_personalization_mall.csv` | locked (d) HYB* nominal floor − B3 | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
 | `a8_h3_by_cut.csv` | GRU_lite − B5_SKNN (locked, M = 1000) | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
 | `a8_h3_by_cut.csv` | GRU_lite − B5_SKNN_Mall (M = None) | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
 | `a8_h3_by_cut.csv` | B5_SKNN_Mall − B5_SKNN (locked) | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |

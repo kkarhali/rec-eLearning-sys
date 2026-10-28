@@ -150,7 +150,7 @@ EDITS = [
     (TH + "ch7-conclusion.md",
      "**الخلاصة الإجمالية:** لم يتفوق الهجين السلوكي",
      "ويلخص الجدول 7-1 ما تحقق من الأهداف الفرعية الأربعة في خطة البحث (القسم 1-3-2)، ونوع الدليل على كل منها.\n\n"
-     "**جدول 7-1: ما تحقق من الأهداف الفرعية ونوع الدليل**\n\n"
+     "**جدول 7-1: ما تحقق من الأهداف الفرعية ونوع الدليل (المصدر: الفصلان الخامس والسادس)**\n\n"
      "| الهدف الفرعي | ما تحقق | نوع الدليل | الموضع |\n"
      "|---|---|---|---|\n"
      "| 1. تحليل السلوك وتمثيله | سلال الأيام وعائلة الإشارة المتداخلة منفّذتان ومختبرتان، وتحسّن WRMF بالإشارة الموزونة | "
@@ -236,6 +236,11 @@ def pattern(old):
 
 
 def main(check=False):
+    refs = open(os.path.join(ROOT, TH, "references.md"), encoding="utf-8").read()
+    if "Urdaneta-Ponte" in refs and "[71]" not in refs.split("Urdaneta-Ponte")[0][-400:]:
+        # renumber.py --apply has run after these edits: citation numbers in EDITS no longer match
+        print("already applied and renumbered; nothing to do")
+        return 0
     errors = 0
     changed = set()
     for e in EDITS:
