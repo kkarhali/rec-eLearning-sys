@@ -1,0 +1,23 @@
+comparison,year,unit,n_units,mean,ci_lo,ci_hi,degenerate,pct_lo,pct_hi,p_signflip_uncorrected,n_pos,sd,status,six_level_reading_illustrative_uncorrected_p
+GRU_eqinfo − B5_SKNN (locked) [equal-information H3 control],2013,presentation,9,0.032724,0.009405,0.079934,False,0.010435,0.062012,0.019531,8,0.042607,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,superior_confirmed
+GRU_eqinfo − B5_SKNN (locked) [equal-information H3 control],2013,"course (D-31 robustness, table 5-8-هـ)",6,0.041058,0.009408,0.144718,False,0.013626,0.080098,0.062500,5,0.047387,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − GRU_lite (locked),2013,presentation,9,0.044316,0.027276,0.069093,False,0.029590,0.059626,0.003906,9,0.024643,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − GRU_lite (locked),2013,"course (D-31 robustness, table 5-8-هـ)",6,0.044433,0.024454,0.072381,False,0.027863,0.061834,0.031250,6,0.022796,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B3_RecentPop (locked),2013,presentation,9,0.022545,-0.008215,0.052053,False,-0.000610,0.045128,0.113281,6,0.037687,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B3_RecentPop (locked),2013,"course (D-31 robustness, table 5-8-هـ)",6,0.016602,-0.049625,0.049882,False,-0.010030,0.041231,0.343750,4,0.035641,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B5_SKNN_Mall (M = None),2013,presentation,9,0.178947,0.137561,0.226970,False,0.145173,0.213233,0.003906,9,0.056331,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B5_SKNN_Mall (M = None),2013,"course (D-31 robustness, table 5-8-هـ)",6,0.174101,0.131214,0.233053,False,0.139169,0.212797,0.031250,6,0.049982,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B5_SKNN (locked),2013,origin t = 70 alone (descriptive),9,0.028617,,,,,,,7,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B5_SKNN (locked),2013,origin t = 126 alone (descriptive),9,0.046351,,,,,,,5,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B5_SKNN (locked),2013,origin t = 182 alone (descriptive),9,0.023203,,,,,,,6,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B5_SKNN (locked) [equal-information H3 control],2014,presentation,13,0.039945,0.020069,0.061143,False,0.022780,0.057599,0.000977,12,0.033350,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,superior_confirmed
+GRU_eqinfo − B5_SKNN (locked) [equal-information H3 control],2014,"course (D-31 robustness, table 5-8-هـ)",7,0.044080,0.019117,0.079041,False,0.023589,0.066821,0.015625,7,0.031676,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − GRU_lite (locked),2014,presentation,13,0.049986,0.036445,0.062928,False,0.038727,0.061273,0.000244,13,0.021908,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − GRU_lite (locked),2014,"course (D-31 robustness, table 5-8-هـ)",7,0.051173,0.035263,0.064403,False,0.040603,0.061123,0.015625,7,0.015514,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B3_RecentPop (locked),2014,presentation,13,0.010649,-0.011284,0.034360,False,-0.008080,0.030751,0.322998,7,0.037369,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B3_RecentPop (locked),2014,"course (D-31 robustness, table 5-8-هـ)",7,0.015571,-0.019993,0.063214,False,-0.011087,0.044757,0.375000,4,0.041145,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B5_SKNN_Mall (M = None),2014,presentation,13,0.178194,0.145300,0.217383,False,0.148626,0.209263,0.000244,13,0.058204,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B5_SKNN_Mall (M = None),2014,"course (D-31 robustness, table 5-8-هـ)",7,0.176826,0.131097,0.232553,False,0.141672,0.212561,0.015625,7,0.052342,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B5_SKNN (locked),2014,origin t = 70 alone (descriptive),13,0.056572,,,,,,,12,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B5_SKNN (locked),2014,origin t = 126 alone (descriptive),13,0.030511,,,,,,,9,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,
+GRU_eqinfo − B5_SKNN (locked),2014,origin t = 182 alone (descriptive),13,0.032752,,,,,,,9,,post-hoc; outside the Holm family (m = 4); descriptive; p uncorrected,

@@ -2,8 +2,8 @@
 
 مولَّد بـ`python3 scripts/posthoc/a9_inventory.py` (لاحق؛ م-ك-4، البند 2). يُعاد توليده بعد أي تغيير في `results/posthoc/` أو في `scripts/thesis/appendix_e.py`، لأن عمود «يعرضه الملحق» يُستخرج آلياً من شيفرة مولّد الملحق هـ وقت التشغيل: الملفات التي يقرؤها، وتسميات المقارنات التي يمررها إلى جداوله حرفياً.
 
-- عدد الملفات: 45.
-- الملفات التي يقرؤها مولّد الملحق الآن: `a10_selection_loo.csv`, `a10_selection_loo_stats.csv`, `a4_1_recentpop_sknn.csv`, `a4_2_sknn_all.csv`, `a4_3_companion_metrics.csv`, `a5_nonpersonal_weights_counts.csv`, `a5_nonpersonal_weights_summary.csv`, `a6_personalization_mall.csv`, `a7_delta_sensitivity.csv`, `a8_h3_by_cut.csv`, `defense_stats.json`, `sklearn_equivalence.csv`.
+- عدد الملفات: 51.
+- الملفات التي يقرؤها مولّد الملحق الآن: `a10_selection_loo.csv`, `a10_selection_loo_stats.csv`, `a11_h3_equal_info.csv`, `a4_1_recentpop_sknn.csv`, `a4_2_sknn_all.csv`, `a4_3_companion_metrics.csv`, `a5_nonpersonal_weights_counts.csv`, `a5_nonpersonal_weights_summary.csv`, `a6_personalization_mall.csv`, `a7_delta_sensitivity.csv`, `a8_h3_by_cut.csv`, `defense_stats.json`, `sklearn_equivalence.csv`.
 - كل ما في المجلد لاحق، خارج عائلة هولم، وp فيه غير مصححة.
 
 ## الملفات
@@ -17,7 +17,13 @@
 | `a10_selection_loo_folds.csv` | `a10_selection_loo.py` | الأوزان والقيم لكل أصل في العرض المتروك | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
 | `a10_selection_loo_stats.csv` | `a10_selection_loo.py` | الاستدلال على العروض والمقررات | نعم | نعم | الجدول هـ-8 |
 | `a11_gru_eqinfo_sanity.json` | `a11_h3_equal_info.py` | حزمة الصحة S1–S6 للنموذج المعدَّل | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a11_h3_equal_info.csv` | `a11_h3_equal_info.py` | GRU-lite بمدخل الشعبية الآنية للأقران: الأزواج مع SKNN وGRU-lite وB3 وSKNN(M = الكل) | لا | نعم | الجدول هـ-10 |
 | `a11_h3_equal_info_feasibility.md` | `—` | مذكرة جدوى المقارنة المتكافئة في المعلومة (إن لم تُشغَّل) | نعم | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a11_h3_equal_info_per_presentation.csv` | `a11_h3_equal_info.py` | النماذج لكل عرض | لا | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a11_h3_equal_info_rows.csv` | `a11_h3_equal_info.py` | صفوف الاختبار بصيغة baselines.csv (خمس بذور) | لا | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a11_h3_equal_info_tuning.csv` | `a11_h3_equal_info.py` | الإعدادات الستة لكل طيّة: أفضل دورة، والتحقق، ومنحنيات الخسارة والتحقق ومعامل a | لا | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
+| `a11_reproduction_checks.csv` | `a11_h3_equal_info.py` | التحقق من الإعادة | لا | لا | ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً |
+| `a11_runtime.csv` | `a11_h3_equal_info.py` | تقدير الزمن من طيّة واحدة قبل التشغيل | لا | لا | أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد |
 | `a4_1_recentpop_sknn.csv` | `a4_1_recentpop_sknn.py` | هجين B3 + SKNN: الأزواج مع B3 ومع HYB\*، والشبكة الاسمية بلا أرضية مع B3، على العروض والمقررات | نعم | نعم | الجدول هـ-1 |
 | `a4_1_recentpop_sknn_folds.csv` | `a4_1_recentpop_sknn.py` | الأوزان وقيمة التحقق والاختبار لكل (عرض، أصل)، بالأرضية وبالشبكة الاسمية | نعم | لا | بيانات تفصيلية للإعادة؛ الملحق يعرض الملخص |
 | `a4_1_recentpop_sknn_per_presentation.csv` | `a4_1_recentpop_sknn.py` | NDCG@10 لكل عرض: الهجين اللاحق بالأرضية وبدونها، وB3 وB5 وHYB\* | نعم | لا | بيانات تفصيلية للإعادة؛ الملحق يعرض الملخص |
@@ -65,6 +71,11 @@
 | `a10_selection_loo_stats.csv` | LOO-selected hybrid − B3_RecentPop (held-out presentation) | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
 | `a10_selection_loo_stats.csv` | LOO-selected hybrid, nominal grid − B3_RecentPop | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
 | `a10_selection_loo_stats.csv` | in-sample reference: HYB* (frozen, selected on all nine) − B3_RecentPop | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a11_h3_equal_info.csv` | GRU_eqinfo − B5_SKNN (locked) [equal-information H3 control] | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a11_h3_equal_info.csv` | GRU_eqinfo − GRU_lite (locked) | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a11_h3_equal_info.csv` | GRU_eqinfo − B3_RecentPop (locked) | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a11_h3_equal_info.csv` | GRU_eqinfo − B5_SKNN_Mall (M = None) | **لا** | course (D-31 robustness, table 5-8-هـ)؛ presentation |
+| `a11_h3_equal_info.csv` | GRU_eqinfo − B5_SKNN (locked) | **لا** | origin t = 126 alone (descriptive)؛ origin t = 182 alone (descriptive)؛ origin t = 70 alone (descriptive) |
 | `a4_1_recentpop_sknn.csv` | HYB_B3+SKNN − B3_RecentPop (H1 inference) | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
 | `a4_1_recentpop_sknn.csv` | HYB_B3+SKNN nominal grid − B3_RecentPop | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |
 | `a4_1_recentpop_sknn.csv` | HYB_B3+SKNN − HYB* (frozen) | نعم | course (D-31 robustness, table 5-8-هـ)؛ presentation |

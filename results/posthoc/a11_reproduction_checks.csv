@@ -1,0 +1,7 @@
+year,check,n,max_abs_diff,tolerance,pass
+2014,conf2014/gru.csv SHA-256 = LOCK manifest,1,0.000000,0.000000,True
+2014,conf2014/baselines.csv SHA-256 = LOCK manifest,1,0.000000,0.000000,True
+2013,"2013 GRU_eqinfo zero-information mode, locked config/epochs, seed 0, test NDCG@10 vs dev2013/gru.csv (3 folds, one per origin)",3,0.000000,0.000001,True
+2013,"2013 popularity table at t0 = models.simple.recent_popularity (every fold, both phases)",27,0.000000,0.000000,True
+2014,"2014 GRU_eqinfo zero-information mode, locked config/epochs, seed 0, test NDCG@10 vs conf2014/gru.csv (3 folds, one per origin)",3,0.000000,0.000001,True
+2014,"2014 popularity table at t0 = models.simple.recent_popularity (every fold, both phases)",39,0.000000,0.000000,True
