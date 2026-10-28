@@ -65,7 +65,9 @@ DESC = {
     "a11_gru_eqinfo_sanity.json": ("a11_h3_equal_info.py", "حزمة الصحة S1–S6 للنموذج المعدَّل"),
     "a11_runtime.csv": ("a11_h3_equal_info.py", "تقدير الزمن من طيّة واحدة قبل التشغيل"),
     "a11_reproduction_checks.csv": ("a11_h3_equal_info.py", "التحقق من الإعادة"),
-    "a11_h3_equal_info_feasibility.md": ("—", "مذكرة جدوى المقارنة المتكافئة في المعلومة (إن لم تُشغَّل)"),
+    "a11_h3_equal_info_feasibility.md": ("—", "مذكرة تصميم المقارنة بعد منح GRU-lite إشارة الشعبية الآنية، وتوثيق التشغيل الأول الذي قُطع"),
+    "a12_symmetric_info.csv": ("a12_symmetric_info.py", "أقرب مقارنة متاحة إلى التماثل لـH3، والشعبية الآنية مقابل الجيران، ومكسب الشخصنة دون أرضية"),
+    "a12_reproduction_checks.csv": ("a12_symmetric_info.py", "التحقق من الإعادة"),
     "sklearn_equivalence.csv": ("sklearn_equivalence.py", "مقارنة التنفيذات اليدوية بـscikit-learn"),
 }
 WHY_NOT = {
@@ -73,7 +75,7 @@ WHY_NOT = {
     "INVENTORY.md": "ملف توثيق",
     "reproduction": "ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً",
     "rows/folds/tuning": "بيانات تفصيلية للإعادة؛ الملحق يعرض الملخص",
-    "new": "أُنتج في الجلسة الثانية بعد آخر توليد للملحق؛ لم يُدرج بعد",
+    "new": "بيانات تفصيلية أو مساعدة للأداة؛ الملحق يعرض ملخصها",
     "log": "سجل تشغيل (خارج git بقاعدة *.log)",
 }
 
@@ -119,7 +121,7 @@ def main():
             shown, where = "لا", WHY_NOT["reproduction"]
         elif name in ("README.md", "INVENTORY.md"):
             shown, where = "لا", WHY_NOT[name]
-        elif re.match(r"a(5|6|7|8|10|11)_", name) or name.startswith("a11_"):
+        elif re.match(r"a(5|6|7|8|10|11|12)_", name):
             shown, where = "لا", WHY_NOT["new"]
         else:
             shown, where = "لا", WHY_NOT["rows/folds/tuning"]
@@ -151,7 +153,7 @@ def main():
           "- **متوسطات الأصول منفردة في `a4_2_sknn_all.csv`:** تعرضها الأداة a8 بفواصلها في `a8_h3_by_cut.csv`.",
           "- **أعمدة P@10 وR@10 والانحرافات، وصفوف B2_Pop وB7_WRMF و«pipeline check»:** في `a4_3_companion_metrics.csv`، "
           "ولا يعرضها الجدول هـ-3.",
-          "- **ملفات الأدوات a5 إلى a11:** أُنتجت في الجلسة الثانية، ولم تُدرج في الملحق عند توليد هذه القائمة.",
+          "- **ملفات الأدوات a5 إلى a12:** أُنتجت في الجلسة الثانية، ويعرض الملحق ملخصاتها في الأقسام هـ-7 إلى هـ-10.",
           "- **ملفات التحقق والصفوف التفصيلية:** للإعادة لا للعرض."]
     for name in sorted(read_by_app):
         if not (PH / name).exists():

@@ -9,6 +9,7 @@ Usage:  python3 scripts/thesis/appendix_e.py
 import json
 import os
 
+import numpy as np
 import pandas as pd
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -23,7 +24,12 @@ def f(x, d=4, sign=True):
 
 
 def ci(lo, hi):
+    if not (np.isfinite(lo) and np.isfinite(hi)):
+        return "منحلّ (الفرق صفر في معظم العروض)"
     return f"[{f(lo)}، {f(hi)}]"
+
+
+NP = [0]   # count of uncorrected p-values shown in this appendix
 
 
 def n_of(k, n):
@@ -46,6 +52,7 @@ def pair_rows(df, comps, names):
                     continue
                 r = r.iloc[0]
                 pos = f"{int(r.n_pos)}/{int(r.n_units)}"
+                NP[0] += 1
                 rows.append(f"| {name} | {year} | {unit_ar(unit)} ({int(r.n_units)}) | {f(r['mean'])} | "
                             f"{ci(r.ci_lo, r.ci_hi)} | {r.p_signflip_uncorrected:.4f} | {pos} |")
     return rows
@@ -66,7 +73,7 @@ L.append("يجمع هذا الملحق تحليلات أُجريت بعد إقف
          "مقفلاً في الجدول 5-18. ولم تُكتب أرقامها قبل أن تعيد شيفرتها إنتاج أرقام مقفلة بفرق لا يتجاوز 10⁻⁶، فإن لم تُعِدها "
          "توقفت. وقُرئت بيانات 2014 فيها بعد الإقفال بتصريح صريح سُجّل في سجل الوصول، ولم تُقرأ أي سمة حساسة. "
          "والشيفرة في `scripts/posthoc/`، والمخرجات في `results/posthoc/` مع ملف يصف أوامرها وأزمنتها، وكل جدول هنا "
-         "مولَّد من تلك المخرجات. ومع كثرة المقارنات اللاحقة في هذا الملحق، وهي عشرات، يُتوقع أن تقل بعض قيم p فيها عن 0.05 "
+         "مولَّد من تلك المخرجات. ومع كثرة المقارنات اللاحقة في هذا الملحق، وفيه {NP_TOTAL} قيمة p غير مصحَّحة، يُتوقع أن تقل بعض قيم p فيها عن 0.05 "
          "بالصدفة وحدها، فلا تُقرأ أي منها منفردة دليلاً، وما يبنى عليها في الفصلين السادس والسابع قراءات استكشافية. ويسرد الملف `results/posthoc/INVENTORY.md` كل ما حُسب، وموضع عرضه هنا، وما لم يُعرض ولماذا.")
 L.append("")
 
@@ -191,6 +198,7 @@ hyp_ar = {"H1": "H1", "H2-a": "H2-أ", "H3": "H3", "H4-a": "H4-أ"}
 for hh, nm in hyp_ar.items():
     c = st["course_level"][hh]
     bb = st["bonferroni_98_75"][hh]
+    NP[0] += 1
     L.append(f"| {nm} | {st['within_course_corr'][hh]:.2f} | {f(c['mean'])} | {c['p_two_sided']:.4f} | "
              f"{ci(bb['lo'], bb['hi'])} |")
 cl = st["course_level"]
@@ -304,15 +312,20 @@ a12 = pd.read_csv(os.path.join(PH, "a12_symmetric_info.csv"))
 L += pair_rows(a12, ["HYB_Mall nominal grid − (7) alone [personalisation gain without the floor]"],
                ["الهجين بالجيران دون تقييد (بالشبكة الاسمية) − شعبية العنقود منفردة (المصدر: a12_symmetric_info.csv)"])
 L.append("")
+a6p = pd.read_csv(os.path.join(PH, "a6_personalization_mall_per_presentation.csv"))
+d6 = (a6p[a6p.year == 2014].HYB_Mall_nominal - a6p[a6p.year == 2014].C7_alone).round(9)
+nz, npos, nneg = int((d6 == 0).sum()), int((d6 > 0).sum()), int((d6 < 0).sum())
 pl = a6[(a6.comparison == "locked (c) HYB* − (7) alone [personalisation gain]") & (a6.year == 2014) & (a6.unit == "presentation")].iloc[0]
 pm = a6[(a6.comparison.str.startswith("HYB_Mall − (7) alone")) & (a6.year == 2014) & (a6.unit == "presentation")].iloc[0]
 L.append(f"فمكسب الشخصنة في الهجين المجمَّد على 2014 {f(pl['mean'])} بفاصل {ci(pl.ci_lo, pl.ci_hi)}. وحين يحل الجيران دون تقييد "
          f"محل المكوّن الشخصي يصير المكسب {f(pm['mean'])} بفاصل {ci(pm.ci_lo, pm.ci_hi)}. فما سمّته الرسالة مكسب "
-         "شخصنة يعتمد على قصر مجمّع جيران المكوّن الشخصي على الأسابيع الأخيرة، أي على إشارة جماعية آنية قريبة من إشارة الجدول الدراسي، "
+         "شخصنة يعتمد على قصر مجمّع جيران المكوّن الشخصي على الأسابيع الأخيرة، أي على إشارة جماعية آنية، "
          "ولا دليل في هذه البيانات على مكسب من تشابه المتعلم بأقرانه في تاريخه كله. وهذه قراءة لاحقة لا تغيّر حكم H1، "
          "وتقيّد ما يُنسب إلى «الشخصنة» في القسمين 5-7-3 و6-3. والمكسب السالب يأتي من الأرضية التي تفرض للمكوّن ربع الوزن في "
-         "كل طيّة؛ وبالشبكة الاسمية أسقط الضبط المكوّن في معظم الطيّات، فجاء المكسب قريباً من الصفر (الصف الأخير، وفواصله "
-         "منحلّة لأن الفرق صفر في معظم العروض). فالجيران دون قصر لا يضيفون شيئاً، والمكسب كله من القصر.")
+         "كل طيّة؛ وبالشبكة الاسمية أسقط الضبط المكوّن في 25 طيّة من 27 في التطوير و35 من 39 في التأكيد "
+         "(results/posthoc/a6_personalization_mall_weights.csv)، فجاء المكسب قريباً من الصفر (الصف الأخير). "
+         f"وفي هذا الصف على 2014 جاء الفرق صفراً في {nz} عروض، وموجباً في {npos}، وسالباً في {nneg}، فعمود «الفرق موجب» "
+         "وحده لا يصفه. فالجيران دون قصر لا يضيفون شيئاً، والمكسب كله من القصر.")
 
 # ---- E-8 non-optimistic estimate of the selection procedure (a10)
 a10 = pd.read_csv(os.path.join(PH, "a10_selection_loo_stats.csv"))
@@ -402,12 +415,14 @@ sy = a12[(a12.comparison.str.startswith("GRU_eqinfo − HYB_B3+SKNN (floor)")) &
 bs = a12[(a12.comparison == "B3_RecentPop − B5_SKNN (locked)") & (a12.year == 2014) & (a12.unit == "presentation")].iloc[0]
 L.append(f"فحين يُمنح GRU-lite إشارة الشعبية الآنية يتقدم على الجيران على السلال في 2014 بـ{f(e1['mean'])} بفاصل "
          f"{ci(e1.ci_lo, e1.ci_hi)}، موجباً في {n_of(int(e1.n_pos), int(e1.n_units))}. ومعظم هذا الفرق تقدّمُ الشعبية الآنية "
-         f"نفسها على الجيران ({f(bs['mean'])}). وحين يرى الطرفان الإشارة نفسها، أي GRU-lite بمدخلها مقابل هجين الشعبية الآنية "
-         f"والجيران (القسم هـ-1)، يصير الفرق {f(sy['mean'])} بفاصل {ci(sy.ci_lo, sy.ci_hi)}، موجباً في "
-         f"{n_of(int(sy.n_pos), int(sy.n_units))}، ويتقدم على الشعبية الآنية وحدها بـ{f(e3['mean'])} بفاصل "
-         f"{ci(e3.ci_lo, e3.ci_hi)}. فلا يدل التحليل على انقلاب مقارنة H3، ويدل على أن حكمها المسجل لا يُقرأ حكماً على نوع "
+         f"نفسها على الجيران ({f(bs['mean'])}). وفي أقرب مقارنة متاحة إلى التماثل، يرى فيها الطرفان إشارة الشعبية الآنية، "
+         f"أي GRU-lite بمدخلها مقابل هجين الشعبية الآنية والجيران (القسم هـ-1، وفيه يبقى الجيران مقصورين على الأسابيع الأخيرة "
+         f"وبالأرضية)، يصير الفرق {f(sy['mean'])} بفاصل {ci(sy.ci_lo, sy.ci_hi)}، موجباً في "
+         f"{n_of(int(sy.n_pos), int(sy.n_units))}، وفرقه عن الشعبية الآنية وحدها {f(e3['mean'])} بفاصل "
+         f"{ci(e3.ci_lo, e3.ci_hi)} يشمل الصفر. فلا يدل التحليل على انقلاب مقارنة H3، ويدل على أن حكمها المسجل لا يُقرأ حكماً على نوع "
          "النموذج: فالسؤال يبقى مفتوحاً. والقناة المضافة إشارة الشعبية الآنية، لا آلية الجيران، فالنموذج أقرب إلى هجين بين "
          "GRU-lite والشعبية الآنية، والتحليل كله لاحق.")
 
+L = [x.replace("{NP_TOTAL}", str(NP[0])) for x in L]
 open(OUT, "w", encoding="utf-8").write("\n".join(L))
 print("written", OUT)
