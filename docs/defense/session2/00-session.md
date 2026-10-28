@@ -28,6 +28,10 @@
 | عرض الباحث للتصويبات | `01-researcher-presentation.md` |
 | الجولة الأولى: إعادة التقييم والأسئلة | `r1-alomar.md`، `r1-alkanj.md`، `r1-abutarab.md` |
 | إجابات الباحث | `02-researcher-answers.md` |
-| الجولة الثانية: تقييم الإجابات والدرجات النهائية | `r2-alomar.md`، `r2-alkanj.md`، `r2-abutarab.md` |
+| الجولة الثانية: تقييم الإجابات والنص المعدَّل بين الجولتين | `r2-alomar.md`، `r2-alkanj.md`، `r2-abutarab.md` |
+| تعقيب الباحث وتصويباته | `02e-researcher-rejoinder.md` |
+| الجولة الثالثة: التحقق من التعقيب والدرجات النهائية | `r3-alomar-verification.md`، `r3-alkanj-verification.md`، `r3-abutarab-verification.md` |
 | قرار اللجنة | `r3-verdict.md` |
 | ملخص المحضر | `03-minutes-summary.md` |
+
+وعدّل الباحث النص والشيفرة بين الجولات، فكل جولة قيّمت النسخة التي أمامها، ورقم الـcommit مذكور في رأس كل ملف.
