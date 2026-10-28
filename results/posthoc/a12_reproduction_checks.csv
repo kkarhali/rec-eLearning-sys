@@ -1,0 +1,8 @@
+check,max_abs_diff,tolerance,pass
+B3 per presentation: a11 = a4_1,0.0,1e-06,True
+locked SKNN per presentation: a11 = a4_1,0.0,1e-06,True
+B3 per presentation: a6 = a4_1,0.0,1e-06,True
+2013 a11 summary mean reproduced,2.22e-07,1e-06,True
+2013 a6 floor gain mean reproduced,2.22e-07,1e-06,True
+2014 a11 summary mean reproduced,7.7e-08,1e-06,True
+2014 a6 floor gain mean reproduced,0.0,1e-06,True
