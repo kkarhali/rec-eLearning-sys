@@ -64,6 +64,9 @@ git stash push --include-untracked -m repro-freeze03 -- results/    # يحفظ �
 git checkout kk_auto_/amazing-planck-wzsemh
 python3 scripts/conf2014_provenance.py             # بيان منشأ ملفات 2014 المستعملة (44 ملفاً)
 python3 scripts/posthoc/a4_1_recentpop_sknn.py     # التحليلات اللاحقة (الملحق هـ)؛ ومعها a4_2_sknn_all.py وa4_3_companion_metrics.py وdefense_stats.py
+python3 scripts/posthoc/a5_nonpersonal_weights.py  # الجلسة الثانية (هـ-7 إلى هـ-10)، بالترتيب: a5، a6_personalization_mall.py،
+                                                  # a7_delta_sensitivity.py، a8_h3_by_cut.py، a10_selection_loo.py،
+                                                  # a11_h3_equal_info.py (≈ 62 د)، a12_symmetric_info.py، ثم a9_inventory.py
 python3 scripts/thesis/appendix_e.py                # الملحق هـ من results/posthoc/
 python3 scripts/compute_budget_summary.py --check   # ملخص ميزانية الحوسبة (FR-12) مطابق لـresults/budget_summary.md
 python3 scripts/thesis/build_thesis_docx.py        # بناء الأطروحة (ترتيب السكربتات في scripts/thesis/README.md)
