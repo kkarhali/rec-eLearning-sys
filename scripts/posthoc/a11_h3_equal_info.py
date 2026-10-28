@@ -258,7 +258,26 @@ def pop_check(train, w):
     return float(np.abs(counts[int(train.t0) - d_min] - recent_popularity(train, w)).max())
 
 
+CKPT = data.CACHE_DIR / "posthoc_a11"       # per-fold checkpoints (git-ignored): a restart keeps finished folds
+_YEAR = {"y": ""}
+
+
 def job(args):
+    """Checkpointed wrapper of _job: a fold already finished (same year, presentation, origin) is read back."""
+    import pickle
+    name, cut = args
+    f = CKPT / _YEAR["y"] / f"{name}_{int(cut)}.pkl"
+    if f.exists():
+        return pickle.loads(f.read_bytes())
+    out = _job(args)
+    f.parent.mkdir(parents=True, exist_ok=True)
+    tmp = f.with_suffix(".tmp")
+    tmp.write_bytes(pickle.dumps(out))
+    tmp.replace(f)
+    return out
+
+
+def _job(args):
     name, cut = args
     t_job = time.time()
     p, w = _PRES[name], _W[(name, cut)]
@@ -313,6 +332,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--max-minutes", type=float, default=90.0)
+    ap.add_argument("--years", nargs="*", default=["2013", "2014"])
     a = ap.parse_args(argv)
     t0 = time.time()
     checks = check_locked_files(["gru.csv", "baselines.csv"])
@@ -332,7 +352,8 @@ def main(argv=None):
     if not gates:
         raise SystemExit("[a11] sanity gates not passed: no result is produced")
     rows, tun, meta, per_all, st = [], [], [], [], []
-    for year in ("2013", "2014"):
+    for year in a.years:
+        _YEAR["y"] = year
         names, src, base = load_year(year) if year == "2014" else (names13, C.DEV, pd.read_csv(C.DEV / "baselines.csv"))
         gru = pd.read_csv(src / "gru.csv")
         g0 = gru[(gru["model"] == "GRU_lite") & (gru["task"] == "A") & (gru["slice"] == "all") & (gru["seed"] == 0)]
@@ -413,16 +434,19 @@ def main(argv=None):
         sel = r[(r["slice"] == "all") & (r["seed"] == 0)]["config"].str.replace(r"epochs=\d+;", "", regex=True).value_counts()
         print(f"[a11] {year}: GRU_eqinfo {ge.mean():.4f} | GRU-lite {per['GRU_lite_locked'].mean():.4f} | SKNN "
               f"{per['B5_SKNN_locked'].mean():.4f} | B3 {per['B3_RecentPop_locked'].mean():.4f} | configs {sel.to_dict()}", flush=True)
-    s5 = rows[0][(rows[0]["presentation"] == "GGG_2013J") & (rows[0]["cut"] == 126) & (rows[0]["slice"] == "all")]["NDCG@10"]
-    san["S5"] = {"presentation": "GGG_2013J", "cut": 126, "test_ndcg10": s5.tolist(), "sd": float(np.std(s5, ddof=1)),
-                 "within_0.005": bool(np.std(s5, ddof=1) <= 0.005)}
+    if "2013" in a.years:
+        r13 = rows[a.years.index("2013")]
+        s5 = r13[(r13["presentation"] == "GGG_2013J") & (r13["cut"] == 126) & (r13["slice"] == "all")]["NDCG@10"]
+        san["S5"] = {"presentation": "GGG_2013J", "cut": 126, "test_ndcg10": s5.tolist(), "sd": float(np.std(s5, ddof=1)),
+                     "within_0.005": bool(np.std(s5, ddof=1) <= 0.005)}
     (C.OUT / "a11_gru_eqinfo_sanity.json").write_text(json.dumps(san, indent=1, default=float))
-    C.write_csv(pd.DataFrame(checks), "a11_reproduction_checks.csv")
-    C.write_csv(pd.concat(rows, ignore_index=True), "a11_h3_equal_info_rows.csv")
-    C.write_csv(pd.concat(tun, ignore_index=True), "a11_h3_equal_info_tuning.csv")
-    C.write_csv(pd.concat(per_all, ignore_index=True), "a11_h3_equal_info_per_presentation.csv")
-    C.write_csv(pd.DataFrame(st), "a11_h3_equal_info.csv")
-    C.write_csv(pd.DataFrame(meta), "a11_runtime.csv")
+    tag = "" if a.years == ["2013", "2014"] else "_" + "_".join(a.years)
+    C.write_csv(pd.DataFrame(checks), f"a11_reproduction_checks{tag}.csv")
+    C.write_csv(pd.concat(rows, ignore_index=True), f"a11_h3_equal_info_rows{tag}.csv")
+    C.write_csv(pd.concat(tun, ignore_index=True), f"a11_h3_equal_info_tuning{tag}.csv")
+    C.write_csv(pd.concat(per_all, ignore_index=True), f"a11_h3_equal_info_per_presentation{tag}.csv")
+    C.write_csv(pd.DataFrame(st), f"a11_h3_equal_info{tag}.csv")
+    C.write_csv(pd.DataFrame(meta), f"a11_runtime{tag}.csv")
     commit, dirty = C.git_commit()
     print(f"[a11] done in {(time.time() - t0) / 60:.1f} min (commit {commit}{' dirty' if dirty else ''})", flush=True)
 
