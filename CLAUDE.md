@@ -93,7 +93,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `src/frontend/`: TypeScript خالص (`tsc` وحده، بلا package.json)، وواجهة عربية للمتعلم ولوحة للمدرّس. وضع mock تلقائي
   حين يفشل `/api/health`. العقود في `src/frontend/src/types.ts` وملفات `mock/*.json` هي المرجع عند التعارض.
 - `results/`: `dev2013/` (التطوير)، و`frozen/` (الإعداد المجمَّد ونماذج الخطر وقائمة الشروط)، و`dryrun2013/`، و`conf2014/` (مقفل)،
-  و`posthoc/` (تحليلات لاحقة بعد المناقشة التجريبية، خارج عائلة هولم؛ شيفرتها `scripts/posthoc/`، وتُعرض في الملحق هـ).
+  و`posthoc/` (تحليلات لاحقة بعد المناقشة التجريبية، خارج عائلة هولم؛ شيفرتها `scripts/posthoc/`، وتُعرض في الملحق هـ)،
+  و`serving_bench/` (زمن استجابة الخدمة بثلاث أحوال من `src/backend/bench.py --out --state`، قياس واحد لكل حال؛ منه الجدول 5-6 و5-6-3 وNFR-01، ت-5).
   `artifacts/` و`data/cache/` و`data/raw/` خارج git.
 
 ## الأوامر (من جذر المستودع)
@@ -109,7 +110,7 @@ python3 -m src.ml.experiments.build_artifacts           # مطلوب قبل تش
 bash src/frontend/build.sh                              # → src/frontend/dist
 python3 scripts/align_mock.py [--check]                 # محاذاة mock/*.json مع الهجين المجمَّد (لا تحرير يدوي)
 tsc --noEmit -p src/frontend/tsconfig.json              # فحص الأنواع (strict)
-python3 -m unittest discover -s src/backend/tests -t .  # 70 اختباراً (≈ 20–110 ث)
+python3 -m unittest discover -s src/backend/tests -t .  # 73 اختباراً (≈ 20–110 ث)
 python3 -m unittest src.backend.tests.test_contract_json   # وحدة اختبار خلفية واحدة
 python3 -m src.backend --warm --port 8100               # http://127.0.0.1:8100
 python3 -m src.ml.experiments.reproduce_dev             # إعادة كل نتائج 2013 (≈ 50 د) ومقارنة حرفية → repro_diff.md

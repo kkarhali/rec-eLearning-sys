@@ -52,3 +52,15 @@ FIG fig4_models_dev_vs_target: sha256 7d04ae02ad46 locked=True
 FIG fig5_roc: sha256 72190fc7b5fe locked=True
 FIG fig6_h4b: sha256 252999abbe0b locked=True
 FIG fig7_fairness: sha256 2f8d3f322abd locked=False
+OK  serving_bench cold.json: 11 rows (median/max = samples), 16 cold days, commit 6c56acf
+OK  serving_bench warm.json: 11 rows (median/max = samples), 0 cold days, commit 6c56acf
+OK  serving_bench precomputed.json: 11 rows (median/max = samples), 16 cold days, commit 6c56acf
+OK  serving_bench: presentation, day, n, registration, cpu_count, platform equal in the three files
+OK  serving_bench: cold = unwarmed and no cluster cache; warm/precomputed = warm-up done; precomputed cold days all cached; same cold days in cold and precomputed
+OK  serving_bench precompute.txt: FFF_2013J 269 days computed from an empty cache, 4 jobs, 1167 s
+OK  t-5-6 دون تسخين: أول طلب توصيات: first 15266.6 median 9.2 max 42.5 ms (file)
+OK  t-5-6 دون تسخين: أول طلب للنظرة العامة للمدرّس: first 1980.3 median 1.6 max 4.2 ms (file)
+OK  t-5-6 دون تسخين: أول طلب لقائمة التسجيلات¹: first 6.6 median 3.0 max 4.4 ms (file)
+OK  t-5-6 بعد التسخين: أول طلب توصيات: first 16.1 median 9.9 max 11.6 ms (file)
+OK  t-5-6 بعد التسخين: أول طلب للنظرة العامة: first 2.6 median 2.0 max 4.2 ms (file)
+INFO serving_bench NFR-01: warm over-bound []; precomputed cold over-bound []

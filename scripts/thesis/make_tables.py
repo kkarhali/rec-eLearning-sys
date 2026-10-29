@@ -504,6 +504,175 @@ write("t-D-5", "جدول د-5: مقابلة كل شكل أصلي في نتائج
 with open(os.path.join(OUT, "figures.txt"), "w", encoding="utf-8") as f:
     f.write("\n".join(caps))
 
+# ---------------------------------------------------------------- 5-6 serving latency (results/serving_bench/, ت-5)
+# Table 5-6 and the latency numbers of section 5-6-3, of the NFR-01 status cell (appendix C) and of the post-result
+# sentence on the cold request in chapter 6 come from the three bench files (one run per server state, written by
+# `src/backend/bench.py --out --state`) and from the saved output of the cluster precompute. The NFR-01 bounds are the
+# requirement itself (appendix C, chapter 4); they are compared with the measurement here and never adjusted.
+SB = os.path.join(ROOT, "results", "serving_bench")
+NFR01 = {"warm_learner_ms": 200.0, "warm_dash_ms": 1000.0, "cold_rec_s": 5.0, "cold_dash_s": 8.0}
+DASH = {"instructor/overview", "instructor/clusters", "instructor/learners"}
+EP_AR = {"health": "فحص الحالة", "meta": "البيانات الوصفية", "presentations": "قائمة العروض",
+         "registrations": "قائمة التسجيلات", "recommendations": "التوصيات", "explanations": "تفسير مورد",
+         "history": "سجل المتعلم", "instructor/overview": "النظرة العامة للمدرّس", "instructor/clusters": "العناقيد",
+         "instructor/learners": "جدول المتعلمين", "instructor/learner": "ملف المتعلم في لوحة المدرّس"}
+
+
+def sb_fail(msg):
+    raise SystemExit(f"serving_bench check failed: {msg}")
+
+
+def sb_load(state):
+    p = os.path.join(SB, f"{state}.json")
+    if not os.path.exists(p):
+        sb_fail(f"missing results/serving_bench/{state}.json")
+    d = json.load(open(p, encoding="utf-8"))
+    if d.get("schema") != "serving_bench/1" or d["meta"].get("state") != state:
+        sb_fail(f"{state}.json: schema {d.get('schema')} / state {d['meta'].get('state')}")
+    import statistics
+    for r in d["rows"]:
+        s = r.get("samples_ms")
+        if r["first_ms"] is None or r["note"] or not s or len(s) != d["meta"]["n"]:
+            sb_fail(f"{state}.json row {r['endpoint']}: failed request or {len(s or [])} samples != n")
+        if abs(statistics.median(s) - r["median_ms"]) > 1e-9 or abs(max(s) - r["max_ms"]) > 1e-9:
+            sb_fail(f"{state}.json row {r['endpoint']}: median/max differ from its samples")
+    for c in d["cold_days"]:
+        if c["first_ms"] is None or c["note"]:
+            sb_fail(f"{state}.json cold day {c['endpoint']} {c['day']}: {c['note']}")
+    CHECKS.append(f"OK  serving_bench {state}.json: {len(d['rows'])} rows (median/max = samples), "
+                  f"{len(d['cold_days'])} cold days, commit {str(d['meta']['git_commit'])[:7]}")
+    return d
+
+
+SBD = {s: sb_load(s) for s in ("cold", "warm", "precomputed")}
+for key in ("presentation", "day", "n", "registration", "cpu_count", "platform"):
+    vals = {SBD[s]["meta"][key] for s in SBD}
+    if len(vals) != 1:
+        sb_fail(f"meta.{key} differs between the three files: {vals}")
+CHECKS.append("OK  serving_bench: presentation, day, n, registration, cpu_count, platform equal in the three files")
+# served code = the recorded commit: no uncommitted Python change in src/ml/ or src/backend/ (bench.py and tests aside)
+for s in SBD:
+    dirty = [p for p in SBD[s]["meta"].get("git_dirty_paths", [])
+             if p.startswith(("src/ml/", "src/backend/")) and (p.endswith(".py") or p.endswith("/"))
+             and p != "src/backend/bench.py" and not p.startswith("src/backend/tests/")]
+    if dirty:
+        sb_fail(f"{s}.json was measured with uncommitted serving code: {dirty}")
+# the state each file claims is the state the server was in
+hc, hw, hp = (SBD[s]["meta"]["server_health_at_start"] or {} for s in ("cold", "warm", "precomputed"))
+if hc.get("warm", {}).get("enabled") is not False or SBD["cold"]["meta"]["cluster_cache_days_at_start"] not in (None, 0) \
+        or any(c["cluster_cached_at_start"] for c in SBD["cold"]["cold_days"]):
+    sb_fail("cold.json: server warmed or cluster precompute present")
+if hw.get("warm", {}).get("state") != "done" or hp.get("warm", {}).get("state") != "done":
+    sb_fail("warm.json/precomputed.json: warm-up not done when the run started")
+if not SBD["precomputed"]["cold_days"] or not all(c["cluster_cached_at_start"] for c in SBD["precomputed"]["cold_days"]):
+    sb_fail("precomputed.json: a measured cold day had no precomputed cluster selection")
+pairs = {s: [(c["endpoint"], c["day"]) for c in SBD[s]["cold_days"]] for s in ("cold", "precomputed")}
+if pairs["cold"] != pairs["precomputed"]:
+    sb_fail("cold days differ between cold.json and precomputed.json")
+CHECKS.append("OK  serving_bench: cold = unwarmed and no cluster cache; warm/precomputed = warm-up done; "
+              "precomputed cold days all cached; same cold days in cold and precomputed")
+ptxt = open(os.path.join(SB, "precompute.txt"), encoding="utf-8").read()
+pm = re.findall(r"^(\S+): (\d+) يوماً؛ حُسب (\d+) وكان (\d+) محسوباً؛ (\d+) عمليات؛ (\d+) ث$", ptxt, re.M)
+if len(pm) != 1 or "# exit: 0" not in ptxt:
+    sb_fail("precompute.txt: no single summary line or non-zero exit")
+pre_pres, pre_days, pre_comp, pre_cached, pre_jobs, pre_sec = pm[0][0], *map(int, pm[0][1:])
+if pre_pres != SBD["cold"]["meta"]["presentation"] or pre_comp != pre_days or pre_cached != 0:
+    sb_fail(f"precompute.txt: {pre_pres}, computed {pre_comp} of {pre_days}, {pre_cached} already cached")
+CHECKS.append(f"OK  serving_bench precompute.txt: {pre_pres} {pre_days} days computed from an empty cache, "
+              f"{pre_jobs} jobs, {pre_sec} s")
+
+
+def ms_ar(x):
+    return f"{x:,.0f} مللي ثانية" if x >= 1000 else f"{x:.1f} مللي ثانية"
+
+
+def s1(ms):
+    return f"{ms / 1000:.1f}"
+
+
+def count_ar(n, one, two, few, many):
+    return one if n == 1 else two if n == 2 else f"{n} {few}" if 3 <= n <= 10 else f"{n} {many}"
+
+
+def days_ar(n):
+    return count_ar(n, "يوم واحد", "يومين", "أيام", "يوماً")
+
+
+def and_ar(items):
+    return " و".join(str(i) for i in items)
+
+
+row = {s: {r["endpoint"]: r for r in SBD[s]["rows"]} for s in ("cold", "warm")}
+m0 = SBD["warm"]["meta"]
+P_, DAY_, N_ = m0["presentation"], m0["day"], m0["n"]
+dates = sorted({SBD[s]["meta"]["date"][:10] for s in SBD})
+commits = sorted({str(SBD[s]["meta"]["git_commit"])[:7] for s in SBD})
+rows = [("دون تسخين: أول طلب توصيات", row["cold"]["recommendations"]),
+        ("دون تسخين: أول طلب للنظرة العامة للمدرّس", row["cold"]["instructor/overview"]),
+        ("دون تسخين: أول طلب لقائمة التسجيلات¹", row["cold"]["registrations"]),
+        ("بعد التسخين: أول طلب توصيات", row["warm"]["recommendations"]),
+        ("بعد التسخين: أول طلب للنظرة العامة", row["warm"]["instructor/overview"])]
+write("t-5-6",
+      f"جدول 5-6: زمن الاستجابة المقاس للخدمة، العرض {P_} عند اليوم {DAY_}، الطلب الأول ثم {N_} طلباً تالياً "
+      f"(آلة بـ{count_ar(m0['cpu_count'], 'نواة واحدة', 'نواتين', 'أنوية', 'نواة')}؛ قياس {and_ar(dates)}، commit `{and_ar(commits)}`) "
+      f"(المصدر: results/serving_bench/cold.json وwarm.json)",
+      table(["الحالة", "الطلب الأول", "الطلبات التالية (الوسيط)", "الطلبات التالية (الأقصى)"],
+            [(lab, ms_ar(r["first_ms"]), ms_ar(r["median_ms"]), ms_ar(r["max_ms"])) for lab, r in rows]),
+      "¹ يسبق القياسَ في كل حال طلبٌ واحد لقائمة التسجيلات تختار به أداة القياس المتعلم، فهذا الصف طلبها الثاني.")
+for lab, r in rows:
+    CHECKS.append(f"OK  t-5-6 {lab}: first {r['first_ms']:.1f} median {r['median_ms']:.1f} max {r['max_ms']:.1f} ms (file)")
+
+# warm state: every path, bound per NFR-01 (every subsequent request, i.e. the max, against the bound)
+wrows = SBD["warm"]["rows"]
+over = [r for r in wrows if r["max_ms"] > (NFR01["warm_dash_ms"] if r["endpoint"] in DASH else NFR01["warm_learner_ms"])]
+wmax = max(wrows, key=lambda r: r["max_ms"])
+warm_bound = ("فلم يتجاوز أي طلب حدّه في NFR-01: 200 مللي ثانية لمسارات المتعلم وملف المتعلم، وثانية للنظرة العامة "
+              "والعناقيد وجدول المتعلمين" if not over else
+              "وتجاوز حدَّه في NFR-01 (200 مللي ثانية لمسارات المتعلم وملف المتعلم، وثانية للوحة) أقصى " +
+              and_ar(f"{EP_AR[r['endpoint']]} ({ms_ar(r['max_ms'])})" for r in over))
+hwarm = hw["warm"]
+cum, day_ready = hwarm.get("serving_warm_seconds", 0.0), None
+for d in hwarm["done"]:
+    cum += d["seconds"]
+    if d["day"] == DAY_:
+        day_ready = cum
+if day_ready is None:
+    sb_fail(f"warm.json: day {DAY_} is not among the warmed days")
+
+
+def cold_range(state, endpoint):
+    xs = [c["first_ms"] for c in SBD[state]["cold_days"] if c["endpoint"] == endpoint]
+    return min(xs), max(xs), len(xs), [c["day"] for c in SBD[state]["cold_days"] if c["endpoint"] == endpoint]
+
+
+cr, co, pr, po = (cold_range(s, e) for s in ("cold", "precomputed") for e in ("recommendations", "instructor/overview"))
+pre_over = ([f"أول طلب توصية في اليوم {c['day']} ({s1(c['first_ms'])} ثانية)" for c in SBD["precomputed"]["cold_days"]
+             if c["endpoint"] == "recommendations" and c["first_ms"] > NFR01["cold_rec_s"] * 1000] +
+            [f"أول نظرة عامة في اليوم {c['day']} ({s1(c['first_ms'])} ثانية)" for c in SBD["precomputed"]["cold_days"]
+             if c["endpoint"] == "instructor/overview" and c["first_ms"] > NFR01["cold_dash_s"] * 1000])
+VALS = {
+    "presentation": P_, "day": DAY_, "n": N_, "date": and_ar(dates), "commit": and_ar(commits),
+    "cpu_ar": count_ar(m0["cpu_count"], "نواة واحدة", "نواتين", "أنوية", "نواة"),
+    "warm_days": and_ar(d["day"] for d in hwarm["done"]),
+    "warm_total_s": f"{hwarm['seconds']:.0f}", "warm_day_ready_s": f"{day_ready:.0f}",
+    "warm_med_min": f"{min(r['median_ms'] for r in wrows):.1f}", "warm_med_max": f"{max(r['median_ms'] for r in wrows):.1f}",
+    "warm_max": f"{wmax['max_ms']:.1f}", "warm_max_label": EP_AR[wmax["endpoint"]], "warm_bound_phrase": warm_bound,
+    "nfr_warm_status": "منفّذ ومقاس" if not over else "منفّذ، وتجاوزه القياس في " + and_ar(EP_AR[r["endpoint"]] for r in over),
+    "rec_days_ar": days_ar(pr[2]), "ov_days_ar": days_ar(po[2]),
+    "rec_days_list": and_ar(pr[3]), "ov_days_list": and_ar(po[3]),
+    "cold_rec_min": s1(cr[0]), "cold_rec_max": s1(cr[1]), "cold_ov_min": s1(co[0]), "cold_ov_max": s1(co[1]),
+    "pre_rec_min": s1(pr[0]), "pre_rec_max": s1(pr[1]), "pre_ov_min": s1(po[0]), "pre_ov_max": s1(po[1]),
+    "pre_bound_phrase": ("أي دون حدّي NFR-01: خمس ثوانٍ لأول طلب توصية، وثماني ثوانٍ لأول نظرة عامة" if not pre_over else
+                         "وتجاوز حدَّي NFR-01 (خمس ثوانٍ لأول طلب توصية، وثماني ثوانٍ لأول نظرة عامة) " + and_ar(pre_over)),
+    "nfr_cold_status": "مستوفى" if not pre_over else "غير مستوفى في القياس",
+    "pre_minutes": f"{pre_sec / 60:.0f}", "pre_jobs_ar": count_ar(pre_jobs, "عملية واحدة", "عمليتين", "عمليات", "عملية"),
+    "pre_days": pre_days,
+}
+with open(os.path.join(OUT, "serving_bench_values.json"), "w", encoding="utf-8") as f:
+    json.dump(VALS, f, ensure_ascii=False, indent=1, sort_keys=True)
+    f.write("\n")
+CHECKS.append(f"INFO serving_bench NFR-01: warm over-bound {[r['endpoint'] for r in over]}; precomputed cold over-bound {pre_over}")
+
 with open(os.path.join(OUT, "CHECKS.txt"), "w") as f:
     f.write("\n".join(CHECKS) + "\n")
 print("\n".join(CHECKS))

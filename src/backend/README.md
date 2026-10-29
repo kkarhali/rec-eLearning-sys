@@ -70,11 +70,18 @@ __main__.py  app.py (create_app، Services، تسخين، TimingMiddleware، Fro
 schemas.py   (pydantic: استجابات + استعلامات)   repository.py (فهارس أحداث، كتالوج العروض، git، بصمة البيانات)
 services/    replay.py (توصيات، سجل، عروض، LRU)  explanation.py  instructor.py  labels.py
 routes/      meta.py  learner.py  instructor.py  common.py     bench.py     e2e/live-screenshots.js
-tests/       asgi_client.py (عميل ASGI بلا httpx)  test_contract_no_risk.py  test_contract_json.py (D-70)  test_static_errors.py  test_api_live.py
+tests/       asgi_client.py (عميل ASGI بلا httpx)  test_contract_no_risk.py  test_contract_json.py (D-70)  test_static_errors.py  test_api_live.py  test_bench.py (ت-5)
 ```
 التنفيذ: كل معالج `async` يشغّل العمل في خيط (`run_in_threadpool`) فلا يحجب `/api/health` أثناء الحساب البارد؛ قفل واحد حول `Engine`.
 
 ## الأداء (آلة 4 أنوية؛ `python3 -m src.backend.bench`، 20 طلباً لكل مسار، FFF_2013J، اليوم 75)
+**القياس المرجعي للرسالة (ت-5، شرط ب-2) محفوظ في `results/serving_bench/`** (ملف لكل حال: `cold.json` و`warm.json` و`precomputed.json`، و`precompute.txt`، وأوامرها وآلتها في `README.md` هناك)، ومنه يولّد `scripts/thesis/make_tables.py` الجدول 5-6 وأرقام 5-6-3 وNFR-01. وأرقام هذا القسم أقدم (2026-10-24 و2026-10-27) وتوضيحية.
+```bash
+python3 -m src.backend.bench http://127.0.0.1:8100 --state warm --out results/serving_bench/warm.json   # JSON: الصفوف وعيّناتها + git_commit والتاريخ والمنصة والأنوية والعرض واليوم وn وحال الخادم
+python3 -m src.backend.bench URL --state precomputed --out F.json --cold-day 63 --cold-overview-day 66   # أول طلب توصية/نظرة عامة في يوم بارد (يتكرر الخياران)
+```
+لا يكتب `--out` فوق ملف موجود (قياس واحد لكل حال)، و`--state` لازم معه. وبلا هذه الخيارات يبقى السلوك كما كان (طباعة الجدول أو `--json`).
+
 | الحالة | الطلب الأول | بعده |
 |---|---|---|
 | **بلا تسخين** — أول `recommendations` | **10 307 ms** | وسيط 4.8 ms |
@@ -93,7 +100,7 @@ history 5.6/6.1، overview 1.4/1.9، clusters 2.2/3.3، learners(100) 6.0/6.9، 
 
 ## الاختبارات
 ```bash
-python3 -m unittest discover -s src/backend/tests -t .      # 70 اختباراً، ≈ 38–45 ث بعنقدة مخزَّنة (أكثر على نسخة نظيفة: يُحسب اختيار العناقيد لأيام الاختبار)
+python3 -m unittest discover -s src/backend/tests -t .      # 73 اختباراً، ≈ 38–45 ث بعنقدة مخزَّنة (أكثر على نسخة نظيفة: يُحسب اختيار العناقيد لأيام الاختبار)
 python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors   # < 1 ث، بلا بيانات
 python3 -m src.backend --warm &   # ثم التحقق الحي بمتصفح حقيقي (لا mock) ولقطات deliverables/05-user-guide/screenshots/live-*.png:
 NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js
