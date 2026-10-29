@@ -36,9 +36,9 @@ bash data/download.sh                              # ≈ 45 ث: يحمّل OULAD
 python3 -m unittest discover -s src/ml/tests       # 131 اختباراً، ≈ 10 ث
 python3 -m src.ml.experiments.build_artifacts      # ≈ 75 ث (أول مرة تقرأ studentVle وتبني data/cache)؛ artifacts/ خارج git
 bash src/frontend/build.sh                         # ≈ 4 ث → src/frontend/dist
-python3 -m unittest discover -s src/backend/tests -t .   # 63 اختباراً (منها فحص التباين NFR-22)، ≈ 38 ث بعنقدة مخزَّنة
-python3 -m src.backend.precompute --jobs 4         # مرة واحدة (≈ 21 د): اختيار العناقيد لكل أيام FFF_2013J، فيصير أول طلب في أي يوم 1.5–3.2 ث بدل 11–13 ث
-python3 -m src.backend --warm --port 8100          # http://127.0.0.1:8100 ؛ الصفحة الأولى جاهزة فوراً والتسخين الكامل ≈ 60 ث على نسخة نظيفة
+python3 -m unittest discover -s src/backend/tests -t .   # 73 اختباراً (منها فحص التباين NFR-22)، ≈ 40 ث بعنقدة مخزَّنة
+python3 -m src.backend.precompute --jobs 4         # مرة واحدة (1167 ث ≈ 19 د): اختيار العناقيد لكل أيام FFF_2013J، فيصير أول طلب توصية في يوم بارد 1.6–3.8 ث بدل 15.2–19.4 ث (results/serving_bench/)
+python3 -m src.backend --warm --port 8100          # http://127.0.0.1:8100 ؛ الصفحة الأولى جاهزة فوراً، والتسخين الكامل ≈ 22 ث بعد الحساب المسبق (results/serving_bench/warm.json)، وأطول على نسخة نظيفة
 CHECK_ONLY=1 NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js http://127.0.0.1:8100   # فحص حي بلا كتابة لقطات (1440 و375 و360، وترتيب التركيز بـTab، وروابط التخطي، وأسماء العناصر في شجرة الوصول، وتباين النص المرسوم، وترقيم جدول المدرّس)
 ```
 التفاصيل: [`src/ml/README.md`](src/ml/README.md) و[`src/backend/README.md`](src/backend/README.md) و[`src/frontend/README.md`](src/frontend/README.md). ملاحظة: تشغيل `build_artifacts` يُلحق سطراً بـ`results/access_log.jsonl` (سجل قراءات D-47 المتتبَّع في git)، فيظهر الملف معدَّلاً بعدها وهذا متوقَّع.

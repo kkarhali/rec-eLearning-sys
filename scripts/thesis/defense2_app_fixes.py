@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Apply the thesis-side edits of the app-impact review after the second mock-defense session
-(docs/defense/session2/app-impact-review.md, section 4: items ت-1 and ت-3).
+(docs/defense/session2/app-impact-review.md, section 4: items ت-1 and ت-3), and the service test count after ت-1…ت-5.
 
 ت-1: the SKNN row of table 3-11 is separated from the Markov row and carries the served template
 (`src.ml.serving.TEMPLATES["B5_SKNN"]`) and the evidence the app actually shows; the Markov row keeps its template.
@@ -29,6 +29,31 @@ EDITS = [
      "(مثل: «استخدمه 70 متعلماً في آخر 3 أيام»،",
      "(مثل: «استخدمه 70 متعلماً بنمط مشابه لنمطك في آخر 3 أيام»،",
      "ت-3"),
+    # ت-1…ت-5 added 10 service tests (63 -> 73; run 2026-10-29: `discover -s src/backend/tests -t .` Ran 73, OK).
+    # The thesis states the current count as a claim about the delivered system (precedent: thesis README note 10),
+    # so it is updated; decision in docs/meetings/2026-10-29-decision-post-session2-release.md. ML stays 131.
+    (TH + "ch5-implementation-results.md",
+     "قياس الأداء، و63 اختباراً (تشغيل 2026-10-27)",
+     "قياس الأداء، و73 اختباراً (تشغيل 2026-10-29)",
+     "ت-5، عدد الاختبارات"),
+    (TH + "ch5-implementation-results.md",
+     "ويتحقق 63 اختباراً من الخدمة (تشغيل 2026-10-27)",
+     "ويتحقق 73 اختباراً من الخدمة (تشغيل 2026-10-29)",
+     "ت-5، عدد الاختبارات"),
+    (TH + "ch5-implementation-results.md",
+     "وخدمة بثلاثة وستين اختباراً",
+     "وخدمة بثلاثة وسبعين اختباراً",
+     "ت-5، عدد الاختبارات"),
+    (TH + "ch7-conclusion.md",
+     "باختبار آلي (63 اختباراً)",
+     "باختبار آلي (73 اختباراً)",
+     "ت-5، عدد الاختبارات"),
+    ("docs/working/06-thesis/README.md",
+     "وحُدّث بهما الجدول 5-1 والأقسام 5-3 و5-6-1 و5-9 والفصل 7.",
+     "وحُدّث بهما الجدول 5-1 والأقسام 5-3 و5-6-1 و5-9 والفصل 7. وبعد بنود أثر الجلسة الثانية على التطبيق (ت-1 إلى ت-5) "
+     "صار عدد الخدمة 73 (تشغيل 2026-10-29)، وحُدّث به جدول بنية الشيفرة (5-2) والقسمان 5-6-1 و5-9 والفصل 7 بنص "
+     "`scripts/thesis/defense2_app_fixes.py`، ويبقى عدد خط التجارب 131.",
+     "ت-5، عدد الاختبارات"),
 ]
 
 

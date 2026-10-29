@@ -13,6 +13,14 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 TH = "docs/working/06-thesis/"
 B6 = "scripts/thesis/build_ch6.py"
 
+
+def obsolete(reason, edit):
+    """Mark an edit whose target text is no longer maintained by this script: it was superseded by a later exact-once
+    edit, or the passage is now generated from a template (e.g. 5-6-3 from results/serving_bench/ via make_tables.py and
+    assemble.py, item ت-5). Such an edit is reported as obsolete and skipped; its old text is never regenerated."""
+    return (*edit, reason)
+
+
 EDITS = [
     # 6-3 contradicted 6-8-1 on selection optimism (ع، ك)
     (B6,
@@ -45,16 +53,18 @@ EDITS = [
      "جماعية آنية (الملحق هـ، القسم هـ-7).",
      "ع"),
     # 5-6-3: bench.py sends HTTP requests (س)
-    (TH + "ch5-implementation-results.md",
+    obsolete("since ت-5: section 5-6-3 and the title of table 5-6 are generated from results/serving_bench/ (scripts/thesis/templates/sec563_template.md and make_tables.py)",
+     (TH + "ch5-implementation-results.md",
      "بطلبات HTTP في ثلاثة أيام (والجدول 5-6 يقيس يوماً واحداً بأداة القياس مباشرة على المحرّك، ولم يُحفظ ناتج تلك الأداة "
      "ملفاً في `results/`)،",
      "بطلبات HTTP في ثلاثة أيام غير مسخَّنة (والجدول 5-6 يقيس اليوم 75 وحده بأداة القياس، وهي ترسل طلبات HTTP أيضاً، فالفرق "
      "بين الرقمين فرق بين الأيام؛ ولم يُحفظ ناتج تلك الأداة ملفاً في `results/`)،",
-     "س"),
-    (TH + "ch5-implementation-results.md",
+     "س")),
+    obsolete("since ت-5: section 5-6-3 and the title of table 5-6 are generated from results/serving_bench/ (scripts/thesis/templates/sec563_template.md and make_tables.py)",
+     (TH + "ch5-implementation-results.md",
      "**جدول 5-6: زمن الاستجابة المقاس للخدمة (حاسوب بأربع أنوية؛ مولَّد من أداة القياس)**",
      "**جدول 5-6: زمن الاستجابة المقاس للخدمة (حاسوب بأربع أنوية؛ المصدر: ناتج أداة القياس في 2026-10-24، ولم يُحفظ ملفاً)**",
-     "س"),
+     "س")),
     # NFR-01 wording (س)
     (TH + "appendix-C-requirements.md",
      "ويقيس اختبار اليوم المسخَّن أفضل ثلاث محاولات بعد طلب تسخين لا كل طلب.",
@@ -85,7 +95,11 @@ EDITS = [
 
 def main(check=False):
     errors = 0
-    for f, old, new, item in EDITS:
+    for e in EDITS:
+        f, old, new, item = e[:4]
+        if len(e) == 5:
+            print(f"obsolete [{item}] {f}: {e[4]}")
+            continue
         if old == new:
             continue
         p = os.path.join(ROOT, f)

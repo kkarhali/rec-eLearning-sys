@@ -10,9 +10,9 @@
 python3 -m src.ml.experiments.build_artifacts   # أولاً (D-70: artifacts/ خارج git، تُعاد في ≈ دقيقة): نماذج الخطر والعناقيد والقطوع
 bash src/frontend/build.sh                      # مرة واحدة: يبني src/frontend/dist
 python3 -m src.backend                          # http://127.0.0.1:8000  (الواجهة + /api)
-python3 -m src.backend --warm                   # تسخين في خيط خلفي لأيام العرض الرئيسية 75/56/70/112/126/182 (≈ 36 ث كاملاً بعد ربط serving.warm؛ 75 جاهز بعد ≈ 25 ث. على نسخة نظيفة بلا ذاكرة عنقدة دائمة `data/cache/serving_clusters` ≈ 61 ث كاملاً، والخطّاف وحده ≈ 47 ث، واليوم 75 جاهز بعد ≈ 49 ث)
+python3 -m src.backend --warm                   # تسخين في خيط خلفي لأيام العرض الرئيسية 75/56/70/112/126/182 (21.95 ث كاملاً بذاكرة عنقدة دائمة كاملة، منها الخطّاف 12.78 ث، `results/serving_bench/warm.json`؛ وعلى نسخة نظيفة بلا الذاكرة الدائمة `data/cache/serving_clusters` أطول، ≈ 61 ث في قياس 2026-10-25)
 python3 -m src.backend --warm --warm-weekly     # + شبكة أسبوعية من اليوم 56 (≈ 10 ث لكل يوم؛ عدة دقائق)
-python3 -m src.backend.precompute --jobs 4      # NFR-01: اختيار العناقيد لكل أيام FFF_2013J مسبقاً (≈ 21 د مرة واحدة؛ --all للعروض التسعة)
+python3 -m src.backend.precompute --jobs 4      # NFR-01: اختيار العناقيد لكل أيام FFF_2013J مسبقاً (1167 ث ≈ 19 د مرة واحدة، results/serving_bench/precompute.txt؛ --all للعروض التسعة)
 python3 -m src.backend --warm --precompute-clusters   # أو في الخلفية بعد التسخين (--precompute-jobs 2)؛ التقدم في /api/health ← warm.precompute
 python3 -m src.backend --no-instructor          # /api/instructor/* ⇒ 404 instructor_disabled، وصفحة المدرّس 404، وتُخفى روابطها
 python3 -m src.backend --host 127.0.0.1 --port 8000 --warm-presentation BBB_2013J --warm-days 75,126
@@ -75,27 +75,28 @@ tests/       asgi_client.py (عميل ASGI بلا httpx)  test_contract_no_risk.
 التنفيذ: كل معالج `async` يشغّل العمل في خيط (`run_in_threadpool`) فلا يحجب `/api/health` أثناء الحساب البارد؛ قفل واحد حول `Engine`.
 
 ## الأداء (آلة 4 أنوية؛ `python3 -m src.backend.bench`، 20 طلباً لكل مسار، FFF_2013J، اليوم 75)
-**القياس المرجعي للرسالة (ت-5، شرط ب-2) محفوظ في `results/serving_bench/`** (ملف لكل حال: `cold.json` و`warm.json` و`precomputed.json`، و`precompute.txt`، وأوامرها وآلتها في `README.md` هناك)، ومنه يولّد `scripts/thesis/make_tables.py` الجدول 5-6 وأرقام 5-6-3 وNFR-01. وأرقام هذا القسم أقدم (2026-10-24 و2026-10-27) وتوضيحية.
+**القياس المرجعي للرسالة (ت-5، شرط ب-2) محفوظ في `results/serving_bench/`** (ملف لكل حال: `cold.json` و`warm.json` و`precomputed.json`، و`precompute.txt`، وأوامرها وآلتها في `README.md` هناك)، ومنه يولّد `scripts/thesis/make_tables.py` الجدول 5-6 وأرقام 5-6-3 وNFR-01. والأرقام أدناه منقولة من تلك الملفات (قياس 2026-10-29، commit `6c56acf`، آلة 4 أنوية).
 ```bash
 python3 -m src.backend.bench http://127.0.0.1:8100 --state warm --out results/serving_bench/warm.json   # JSON: الصفوف وعيّناتها + git_commit والتاريخ والمنصة والأنوية والعرض واليوم وn وحال الخادم
 python3 -m src.backend.bench URL --state precomputed --out F.json --cold-day 63 --cold-overview-day 66   # أول طلب توصية/نظرة عامة في يوم بارد (يتكرر الخياران)
 ```
 لا يكتب `--out` فوق ملف موجود (قياس واحد لكل حال)، و`--state` لازم معه. وبلا هذه الخيارات يبقى السلوك كما كان (طباعة الجدول أو `--json`).
 
-| الحالة | الطلب الأول | بعده |
+| الحالة (الملف) | الطلب الأول | بعده (20 طلباً) |
 |---|---|---|
-| **بلا تسخين** — أول `recommendations` | **10 307 ms** | وسيط 4.8 ms |
-| بلا تسخين — أول `instructor/overview` (يبني لقطة اليوم: ملامح + خطر + عناقيد + تغطية لكل المتعلمين) | 11 081 ms | وسيط 1.1 ms |
-| بلا تسخين — أول `registrations` (فهرس أحداث العرض) | 371 ms | وسيط 2.8 ms |
-| **بتسخين `--warm`** (بعد اكتمال التسخين) — أول `recommendations` | **10.5 ms** | وسيط 6.1 ms |
-| بتسخين — أول `instructor/overview` | 1.4 ms | وسيط 1.4 ms |
-| بتسخين الأيام الستة (D-68) — أول `recommendations` عند 56/126/182 | 7.5–8.4 ms | وسيط ≈ 5 ms |
-| بتسخين — أول `instructor/learners` (100 صف) عند 56/126/182 | 8–11 ms | وسيط 6–8.6 ms |
+| **بلا تسخين** (`cold.json`) — أول `recommendations`، اليوم 75 | **15,267 ms** | وسيط 9.2 ms، أقصى 42.5 ms |
+| بلا تسخين — أول `instructor/overview` | 1,980 ms | وسيط 1.6 ms |
+| بلا تسخين — أول طلب توصية في 11 يوماً باردة (63…203) | 15.2–19.4 ث | — |
+| بلا تسخين — أول `instructor/overview` قبل أي طلب في 5 أيام باردة (66…178) | 17.0–20.3 ث | — |
+| **بتسخين `--warm`** (`warm.json`، بعد اكتمال التسخين) — أول `recommendations` | **16.1 ms** | وسيط 9.9 ms، أقصى 11.6 ms |
+| بتسخين — أول `instructor/overview` | 2.6 ms | وسيط 2.0 ms، أقصى 4.2 ms |
+| **بعد الحساب المسبق** (`precomputed.json`) — أول طلب توصية في الأيام الباردة نفسها | 1.6–3.8 ث | — |
+| بعد الحساب المسبق — أول `instructor/overview` في الأيام الباردة نفسها | 3.1–5.1 ث | — |
 
-بعد التسخين (وسيط/أقصى بـms): health 0.9/1.2، meta 1.7/2.4، presentations 1.5/2.0، registrations(100) 3.2/5.5، recommendations 6.1/9.3، explanations 17.3/19.0،
-history 5.6/6.1، overview 1.4/1.9، clusters 2.2/3.3، learners(100) 6.0/6.9، learner 2.0/2.2 — كلها ≪ 200 ms (NFR-01؛ يفرض `test_latency_after_warmup` 200 ms لمسارات المتعلم وملف المتعلم و1 ث للوحة المدرّس).
-**الطلب البارد (NFR-01):** `python3 -m src.backend.precompute --presentation FFF_2013J --jobs 4` يحسب اختيار العناقيد لكل أيام العرض ويحفظه في `data/cache/serving_clusters` (21 د و14 ث لـ269 يوماً، 2026-10-27)؛ أو `--precompute-clusters` مع الخادم. بعده أول طلب توصية في أي يوم 1.5–3.2 ث، وأول `instructor/overview` قبل أي طلب في يومه 2.8–4.2 ث (قبله 11.2–13.3 ث للتوصية). ويفرض `test_cold_day_bounded_after_cluster_precompute` 5 ث و8 ث.
-زمن التسخين الكامل: ≈ 36 ث = خطّاف serving.warm ≈ 20.6 ث ثم الأيام الستة (75: 2.4، 56: 1.2، 70: 5.6، 112: 0.9، 126: 3.8، 182: 1.0 ث)؛ قياس 2026-10-24 على جهاز العمل. يوم جديد (مثلاً 90 أو 91) لا يغطيه التسخين: ≈ 9.8–10.7 ث للطلب الأول ثم ≈ 0.8–0.9 ث لبناء لقطة المدرّس ثم من الذاكرة؛ عرض آخر (BBB_2013J) ≈ 8.3 ث للأول.
+بعد التسخين (`warm.json`، وسيط/أقصى بـms): health 1.2/1.6، meta 1.9/3.4، presentations 2.2/4.0، registrations(100) 3.3/7.1، recommendations 9.9/11.6، explanations 27.6/31.5،
+history 12.6/15.3، overview 2.0/4.2، clusters 3.6/4.4، learners(100) 11.8/14.2، learner 2.3/3.0 — كلها ≪ 200 ms (NFR-01؛ يفرض `test_latency_after_warmup` 200 ms لمسارات المتعلم وملف المتعلم و1 ث للوحة المدرّس).
+**الطلب البارد (NFR-01):** `python3 -m src.backend.precompute --presentation FFF_2013J --jobs 4` يحسب اختيار العناقيد لكل أيام العرض ويحفظه في `data/cache/serving_clusters` (1167 ث لـ269 يوماً بأربع عمليات، `precompute.txt`)؛ أو `--precompute-clusters` مع الخادم. ويفرض `test_cold_day_bounded_after_cluster_precompute` 5 ث و8 ث.
+زمن التسخين الكامل (`warm.json`، `server_health_at_start.warm`): 21.95 ث = خطّاف serving.warm 12.78 ث ثم الأيام الستة (75: 1.88، 56: 1.25، 70: 1.36، 112: 1.36، 126: 1.40، 182: 1.74 ث)، والذاكرة الدائمة للعناقيد كاملة (269 يوماً). وعلى نسخة نظيفة بلا تلك الذاكرة يطول بقدر اختيار العناقيد لكل يوم مسخَّن.
 ذاكرات: LRU للتوصيات (1024 قائمة من 20)، ولقطات المدرّس (6)، و`lru_cache` داخل `Engine`.
 
 ## الاختبارات
@@ -117,7 +118,7 @@ NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js
 
 ## تحديثات D-71/D-72 وربط `serving.warm`
 - `ClusterQuality.ari` يقبل `null` (العرض الغائب من `results/dev2013/learner_clusters.csv`)؛ الواجهة تعرض «غير متاح» و`unstable_reason` لا يستشهد بـARI غائب (`test_text.py`). تشخيص التجميع (silhouette وDBI وARI مع مصدره) يُعرض بلا تسميات؛ وبطاقة التغطية «اتساع التوصيات عند اليوم t: X من Y مورداً» (حقل `coverage.at_10` في API لم يتغير).
-- `--warm` يستدعي الآن `serving.warm(presentation, days)` ثم يسخّن توصيات ولقطات الأيام الستة. زمن التسخين قياس واحد مؤرَّخ في قسم «الأداء» أعلاه (≈ 36 ث كاملاً، واليوم 75 بعد ≈ 25 ث).
+- `--warm` يستدعي الآن `serving.warm(presentation, days)` ثم يسخّن توصيات ولقطات الأيام الستة. زمن التسخين قياس واحد مؤرَّخ في قسم «الأداء» أعلاه (≈ 22 ث كاملاً بذاكرة عناقيد كاملة، `results/serving_bench/warm.json`).
 - اللقطات الحية (D-72): متعلم الدرج والصف = الأقرب إلى وسيط درجات الفوج من بين من هم دون العتبة ضمن الصفحة المعروضة (مرتبة بالتسجيل، بلا مرشّح)؛ يختاره `e2e/live-screenshots.js` برمجياً ويطبع معرّفه ودرجته وفرقه عن الوسيط. ويتحقق من أن أعمدة الجدول كلها ظاهرة والدرج مفتوح على سطح المكتب.
 - **دقة العتبة والدرجة:** `risk.threshold` و`risk.score` تُعادان بست منازل (العتبة المجمَّدة 0.455716…، لا 0.456)، ويُترك التقريب للعرض في الواجهة؛ فحكم `above_threshold` واحد في الخادم والعارض (يفحصه `test_learners_contract_sort_page_filter`).
 
