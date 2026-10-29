@@ -1,5 +1,5 @@
 import { h, clear } from './dom.js';
-import { api, ApiError } from './api.js';
+import { api, ApiError, MODEL_CUTS } from './api.js';
 import type { Presentation } from './types.js';
 import { DayScrubber, type Scrubber } from './components/DayScrubber.js';
 import { toast } from './components/feedback.js';
@@ -21,7 +21,7 @@ export function presentationSelect(list: Presentation[], current: string, onChan
 
 export function makeScrubber(pres: Presentation, day: number, onChange: (d: number) => void): Scrubber {
   const first = pres.snapshots[0] ?? 28;
-  return DayScrubber({ min: 0, max: pres.length_days, value: day, snapshots: pres.snapshots, cutoffs: pres.cutoffs ?? [28, 56, 112],
+  return DayScrubber({ min: 0, max: pres.length_days, value: day, snapshots: pres.snapshots, cutoffs: pres.cutoffs ?? MODEL_CUTS,
     assessments: pres.assessments ?? [], onChange: (d) => { void first; onChange(d); } });
 }
 

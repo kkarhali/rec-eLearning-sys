@@ -1,7 +1,7 @@
 {
  "presentation": "BBB_2013J",
  "requested_day": 75,
- "snapshot_day": 70,
+ "snapshot_day": 75,
  "k": 4,
  "unstable": false,
  "quality": {
@@ -976,6 +976,6 @@
  "provenance": {
   "run_id": "replay-dev2013-2ddc06c4e3",
   "role": "dev",
-  "model_cut": 56
+  "model_cut": 70
  }
 }

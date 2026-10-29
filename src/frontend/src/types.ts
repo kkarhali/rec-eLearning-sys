@@ -33,7 +33,7 @@ export interface RecommendationResponse {
   items: RecItem[]; provenance: Provenance;
 }
 export type Evidence =
-  | { type: 'count'; n: number; window: number }
+  | { type: 'count'; n: number; window: number; scope?: 'all' | 'similar' }
   | { type: 'item'; id_site: number; activity_type: string; days: number; last_day: number }
   | { type: 'assessment'; assessment_type: string; days_ahead: number };
 export interface ExplComponent {

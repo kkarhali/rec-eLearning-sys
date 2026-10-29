@@ -107,8 +107,9 @@ python3 -m unittest discover -s src/ml/tests -p 'test_hybrid_stats.py'   # مل�
 python3 -m unittest discover -s src/ml/tests -k test_ids_only            # اختبار بالاسم
 python3 -m src.ml.experiments.build_artifacts           # مطلوب قبل تشغيل الخلفية (artifacts/ خارج git)
 bash src/frontend/build.sh                              # → src/frontend/dist
+python3 scripts/align_mock.py [--check]                 # محاذاة mock/*.json مع الهجين المجمَّد (لا تحرير يدوي)
 tsc --noEmit -p src/frontend/tsconfig.json              # فحص الأنواع (strict)
-python3 -m unittest discover -s src/backend/tests -t .  # 63 اختباراً (≈ 20–110 ث)
+python3 -m unittest discover -s src/backend/tests -t .  # 70 اختباراً (≈ 20–110 ث)
 python3 -m unittest src.backend.tests.test_contract_json   # وحدة اختبار خلفية واحدة
 python3 -m src.backend --warm --port 8100               # http://127.0.0.1:8100
 python3 -m src.ml.experiments.reproduce_dev             # إعادة كل نتائج 2013 (≈ 50 د) ومقارنة حرفية → repro_diff.md

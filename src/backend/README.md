@@ -93,7 +93,7 @@ history 5.6/6.1، overview 1.4/1.9، clusters 2.2/3.3، learners(100) 6.0/6.9، 
 
 ## الاختبارات
 ```bash
-python3 -m unittest discover -s src/backend/tests -t .      # 63 اختباراً، ≈ 38 ث بعنقدة مخزَّنة (أكثر على نسخة نظيفة: يُحسب اختيار العناقيد لأيام الاختبار)
+python3 -m unittest discover -s src/backend/tests -t .      # 70 اختباراً، ≈ 38–45 ث بعنقدة مخزَّنة (أكثر على نسخة نظيفة: يُحسب اختيار العناقيد لأيام الاختبار)
 python3 -m unittest src.backend.tests.test_contract_no_risk src.backend.tests.test_static_errors   # < 1 ث، بلا بيانات
 python3 -m src.backend --warm &   # ثم التحقق الحي بمتصفح حقيقي (لا mock) ولقطات deliverables/05-user-guide/screenshots/live-*.png:
 NODE_PATH=$(npm root -g) node src/backend/e2e/live-screenshots.js

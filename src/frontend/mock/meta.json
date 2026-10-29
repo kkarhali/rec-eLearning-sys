@@ -6,24 +6,14 @@
  "data_fingerprint": "sha256:9c1f4e7a0b52d6c8",
  "components": [
   {
-   "id": "recent_pop",
-   "label": "Recent-Pop (1)",
-   "weight": 0.3
-  },
-  {
-   "id": "wrmf",
-   "label": "WRMF (2)",
-   "weight": 0.3
+   "id": "similar_pop",
+   "label": "شعبية الأنماط المشابهة (7)",
+   "weight": 0.75
   },
   {
    "id": "sknn",
    "label": "SKNN (4)",
-   "weight": 0.2
-  },
-  {
-   "id": "assess_prox",
-   "label": "قرب التقييم (6)",
-   "weight": 0.2
+   "weight": 0.25
   }
  ],
  "snapshot_grid": [
@@ -47,9 +37,9 @@
   266
  ],
  "cutoffs": [
-  28,
-  56,
-  112
+  70,
+  126,
+  182
  ],
  "runtime": {
   "python": "3.13.17",

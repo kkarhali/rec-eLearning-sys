@@ -68,7 +68,7 @@ function mockFile<T>(name: string): Promise<T> {
 const norm = (reg: string): string => reg.replace(/^[A-Z]{3}_\d{4}[A-Z]-/, 'BBB_2013J-');
 const relabel = (reg: string, pres: string): string => reg.replace(/^[A-Z]{3}_\d{4}[A-Z]/, pres);
 
-async function mockCheckDay(presentation: string, day: number): Promise<{ pres: Presentation; snap: number }> {
+async function mockCheckDay(presentation: string, day: number): Promise<{ pres: Presentation }> {
   const list = await mockFile<Presentation[]>('presentations.json');
   const pres = list.find((x) => x.id === presentation);
   if (!pres) throw new ApiError(404, 'presentation_not_found', 'العرض غير موجود.');
@@ -76,10 +76,14 @@ async function mockCheckDay(presentation: string, day: number): Promise<{ pres: 
   if (day > pres.length_days || day < 0) throw new ApiError(422, 'day_out_of_range', 'اليوم خارج مدى العرض.', { max_day: pres.length_days });
   const first = pres.snapshots[0];
   if (day < first) throw new ApiError(422, 'day_before_first_snapshot', `لا لقطة قبل اليوم ${first}.`, { first_day: first });
-  const snap = Math.max(...pres.snapshots.filter((s) => s <= day));
-  return { pres, snap };
+  return { pres };
 }
-function modelCut(day: number, cuts: number[]): number { return Math.max(...cuts.filter((c) => c <= day), cuts[0]); }
+// As in the live service (backend settings.py): model cuts for the recommendation model, risk cuts for the instructor's score.
+export const MODEL_CUTS = [70, 126, 182];
+const RISK_CUTS = [28, 56, 112];
+/** Nearest model cut <= day; null before the first cut (no model date yet), as `serving.Engine.model_cut`. */
+function modelCut(day: number): number | null { const cs = MODEL_CUTS.filter((c) => c <= day); return cs.length ? Math.max(...cs) : null; }
+function riskCut(day: number): number { return Math.max(...RISK_CUTS.filter((c) => c <= day), RISK_CUTS[0]); }
 function nextAssessment(pres: Presentation, day: number): NextAssessment | null {
   const a = (pres.assessments ?? []).filter((x) => x.day !== null && (x.day as number) >= day).sort((x, y) => (x.day as number) - (y.day as number))[0];
   return a ? { type: a.type, day: a.day as number, days_ahead: (a.day as number) - day } : null;
@@ -102,11 +106,11 @@ const mock = {
     const base = all[norm(p.registration)];
     if (!base) throw new ApiError(404, 'registration_not_found', 'التسجيل غير موجود في هذا العرض.');
     const pid = p.registration.split('-')[0];
-    const { pres, snap } = await mockCheckDay(pid, p.day);
+    const { pres } = await mockCheckDay(pid, p.day);
     const hist = (await mockFile<HistFile>('history.json'))[norm(p.registration)];
     const out: RecommendationResponse = JSON.parse(JSON.stringify(base));
-    out.registration = p.registration; out.presentation = pid; out.requested_day = p.day; out.snapshot_day = snap; out.task = p.task ?? 'A';
-    out.provenance.model_cut = modelCut(p.day, pres.cutoffs ?? [28, 56, 112]);
+    out.registration = p.registration; out.presentation = pid; out.requested_day = p.day; out.snapshot_day = p.day; out.task = p.task ?? 'A';
+    out.provenance.model_cut = modelCut(p.day);
     out.context = {
       week: Math.floor(p.day / 7) + 1, next_assessment: nextAssessment(pres, p.day),
       active_days_to_date: new Set((hist?.events ?? []).filter((e) => e.day <= p.day).map((e) => e.day)).size,
@@ -119,8 +123,10 @@ const mock = {
     const all = await mockFile<Record<string, ExplanationDetail>>('explanations.json');
     const e = all[`${norm(p.registration)}|${p.id_site}`];
     if (!e) throw new ApiError(404, 'explanation_not_available', 'التفسير غير متاح لهذا المورد (خارج أفضل 20 المخزّنة).');
-    const { snap } = await mockCheckDay(p.registration.split('-')[0], p.day);
-    return { ...JSON.parse(JSON.stringify(e)), registration: p.registration, day: p.day, snapshot_day: snap };
+    await mockCheckDay(p.registration.split('-')[0], p.day);
+    const out = JSON.parse(JSON.stringify(e)) as ExplanationDetail;
+    if (out.provenance) out.provenance.model_cut = modelCut(p.day);
+    return { ...out, registration: p.registration, day: p.day, snapshot_day: p.day };
   },
   async history(p: { registration: string; day: number; window?: number }): Promise<LearnerHistory> {
     const h = (await mockFile<HistFile>('history.json'))[norm(p.registration)];
@@ -131,21 +137,19 @@ const mock = {
     for (let d = Math.max(0, p.day - win + 1); d <= p.day; d++) daily.push({ day: d, clicks: ev.filter((e) => e.day === d).reduce((a, e) => a + e.clicks, 0) });
     const recent = [...ev].sort((a, b) => b.day - a.day).slice(0, 3);
     return { registration: p.registration, day: p.day, window: win, active_days: new Set(ev.map((e) => e.day)).size, daily, recent,
-      provenance: { run_id: 'mock', role: 'dev', model_cut: modelCut(p.day, [28, 56, 112]) } };
+      provenance: { run_id: 'mock', role: 'dev', model_cut: modelCut(p.day) } };
   },
   async overview(p: { presentation: string; day: number }): Promise<InstructorOverview> {
-    const { snap } = await mockCheckDay(p.presentation, p.day);
+    await mockCheckDay(p.presentation, p.day);
     const o = JSON.parse(JSON.stringify(await mockFile<InstructorOverview>('overview.json'))) as InstructorOverview;
-    o.presentation = p.presentation; o.requested_day = p.day; o.snapshot_day = snap;
-    const pres = (await mockFile<Presentation[]>('presentations.json')).find((x) => x.id === p.presentation) as Presentation;
-    const mc = modelCut(p.day, pres.cutoffs ?? [28, 56, 112]);
-    o.provenance.model_cut = mc;
-    if (o.risk) o.risk.cut_day = mc;
+    o.presentation = p.presentation; o.requested_day = p.day; o.snapshot_day = p.day;
+    o.provenance.model_cut = modelCut(p.day);
+    if (o.risk) o.risk.cut_day = riskCut(p.day);
     return o;
   },
   async clusters(p: { presentation: string; day: number }): Promise<ClusterSet> {
-    const { snap } = await mockCheckDay(p.presentation, p.day);
-    return { ...(await mockFile<ClusterSet>('clusters.json')), presentation: p.presentation, requested_day: p.day, snapshot_day: snap };
+    await mockCheckDay(p.presentation, p.day);
+    return { ...(await mockFile<ClusterSet>('clusters.json')), presentation: p.presentation, requested_day: p.day, snapshot_day: p.day };
   },
   async learners(p: LearnerQuery): Promise<Page<InstructorLearnerRow>> {
     await mockCheckDay(p.presentation, p.day);
@@ -164,8 +168,8 @@ const mock = {
   async learner(p: { registration: string; day: number }): Promise<InstructorLearnerDetail> {
     const d = (await mockFile<Record<string, InstructorLearnerDetail>>('learner-details.json'))[norm(p.registration)];
     if (!d) throw new ApiError(404, 'registration_not_found', 'التسجيل غير موجود في هذا العرض.');
-    const { snap } = await mockCheckDay(p.registration.split('-')[0], p.day);
-    return { ...JSON.parse(JSON.stringify(d)), registration: p.registration, day: p.day, snapshot_day: snap };
+    await mockCheckDay(p.registration.split('-')[0], p.day);
+    return { ...JSON.parse(JSON.stringify(d)), registration: p.registration, day: p.day, snapshot_day: p.day };
   },
 };
 
