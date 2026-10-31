@@ -7,6 +7,9 @@
     python3 scripts/build_pptx.py --check              # يبني ثم يطابق نص كل شريحة وملاحظاتها مع meta.content_source
     python3 scripts/build_pptx.py --check-only         # يطابق ملف pptx الموجود دون بناء
 
+ملاحظات كل شريحة = نص الإلقاء (حقل notes) ثم، إن وُجد meta.prep_source، فاصل وطبقة «شرح البروفة» للشريحة نفسها
+من ذلك الملف (عنوان «## شريحة N — …» أو «## شريحة احتياطية أ — …»)، دون قسم «مصادر التحقق».
+
 يقرأ مخطط الشرائح ويُخرج pptx عربياً RTL بنسبة 16:9. أنواع الشرائح:
 title, section, bullets, cards, stats, flow, timeline, two-column, image,
 table, chart, quote, qa, placeholder. التفاصيل في docs/working/07-presentation-README.md
@@ -247,10 +250,12 @@ def est_lines(text: str, width_in: float, size: float) -> int:
 
 # ---------------------------------------------------------------- هيكل الشريحة
 class Ctx:
-    def __init__(self, prs, meta, total):
+    def __init__(self, prs, meta, total, prep=None):
         self.prs = prs
         self.meta = meta
         self.total = total
+        self.prep = prep or {}
+        self.key = None
 
 
 def new_slide(ctx: Ctx, dark=False):
@@ -366,14 +371,59 @@ def callout(slide, text, y, h=0.95, dark=False):
     return b
 
 
+PREP_SEP = "━━━━━━ شرح البروفة: للفهم والتحضير، لا يُقرأ حرفياً ━━━━━━"
+
+
+def load_prep(path: Path | None) -> dict:
+    """يقرأ ملف شرح البروفة ويعيد {مفتاح الشريحة: [أسطر]}. المفتاح رقم الشريحة أو حرف الاحتياطية.
+    يُحذف قسم «مصادر التحقق» وما بعده، وتصير «- » نقطة «• »، وتبقى ** علامةً للخط العريض."""
+    if not path or not path.exists():
+        return {}
+    out = {}
+    for part in re.split(r"\n## ", "\n" + path.read_text(encoding="utf-8")):
+        m = re.match(r"(شريحة (\d+)|شريحة احتياطية (\S+)) — ", part)
+        if not m:
+            continue
+        key = int(m.group(2)) if m.group(2) else m.group(3)
+        body = part.split("\n", 1)[1] if "\n" in part else ""
+        body = re.split(r"\n\*\*مصادر التحقق", body)[0]
+        lines = []
+        for ln in body.strip().split("\n"):
+            st = ln.strip()
+            if not st or re.fullmatch(r"-{3,}", st):
+                continue
+            if st.startswith("- "):
+                st = ("◦ " if ln.startswith("  ") else "• ") + st[2:]
+            lines.append(st)
+        out[key] = lines
+    return out
+
+
+def notes_lines(text: str | None, prep: list | None) -> list:
+    """أسطر الملاحظات كما تُكتب في الشريحة (وكما تُطابَق في --check)."""
+    lines = (text or "").split("\n") if text else []
+    if prep:
+        lines += ["", PREP_SEP] + list(prep)
+    return lines
+
+
 def set_notes(slide, text, ctx):
-    if not text:
+    prep = ctx.prep.get(ctx.key) if ctx is not None else None
+    if not text and not prep:
         return
     tf = slide.notes_slide.notes_text_frame
-    tf.text = text
-    for p in tf.paragraphs:
+    lines = notes_lines(text, prep)
+    tf.text = ""
+    for k, line in enumerate(lines):
+        p = tf.paragraphs[0] if k == 0 else tf.add_paragraph()
         rtl_par(p, "r")
-        for r in p.runs:
+        for j, seg in enumerate(line.split("**")):
+            if not seg:
+                continue
+            r = p.add_run()
+            r.text = seg
+            if j % 2 == 1 or line == PREP_SEP:
+                r.font.bold = True
             rpr = r._r.get_or_add_rPr()
             rpr.set("lang", LANG)
 
@@ -1143,10 +1193,11 @@ def _norm_check(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
-def check_content(content_md: Path, pptx_path: Path) -> int:
+def check_content(content_md: Path, pptx_path: Path, prep_md: Path | None = None) -> int:
     """يطابق ملف pptx مع ملف المحتوى: كل جزء من «نص الشريحة» (سطر أو خلية جدول) موجود حرفياً في الشريحة
-    المقابلة بعد حذف رموز الاتجاه والمسافة غير الفاصلة وعلامات markdown، وملاحظات المتحدث مساوية حرفياً.
-    يعيد عدد الشرائح المخالفة."""
+    المقابلة بعد حذف رموز الاتجاه والمسافة غير الفاصلة وعلامات markdown، وملاحظات المتحدث مساوية حرفياً
+    (نص الإلقاء، ثم طبقة شرح البروفة من prep_md إن وُجد). يعيد عدد الشرائح المخالفة."""
+    prep = load_prep(prep_md)
     text = content_md.read_text(encoding="utf-8")
     want = {}
     for part in re.split(r"\n## ", text):
@@ -1171,8 +1222,14 @@ def check_content(content_md: Path, pptx_path: Path) -> int:
             else:
                 frags += [f for f in line.split(" · ") if f]
         note = re.search(r"\*\*ملاحظات المتحدث:\*\*\n(.*?)(?:\n\n---|\n\n## |\Z)", part, re.S).group(1)
-        want[key] = (frags, _norm_check(note))
+        want[key] = (frags, _norm_check("\n".join(notes_lines(note, prep.get(key)))))
     order = sorted(k for k in want if isinstance(k, int)) + [k for k in want if not isinstance(k, int)]
+    if prep_md is not None and prep_md.exists():
+        extra = [k for k in prep if k not in want]
+        lacking = [k for k in want if k not in prep]
+        if extra or lacking:
+            print(f"شرح البروفة: مفاتيح بلا شريحة {extra}، وشرائح بلا شرح {lacking}")
+            return max(1, len(extra) + len(lacking))
     prs = Presentation(str(pptx_path))
     bad = 0
     if len(prs.slides) != len(order):
@@ -1230,8 +1287,9 @@ def main(argv=None):
     meta = spec["meta"]
     out = Path(a.out) if a.out else ROOT / meta["output"]
     out.parent.mkdir(parents=True, exist_ok=True)
+    prep_md = ROOT / meta["prep_source"] if meta.get("prep_source") else None
     if a.check_only:
-        return 1 if check_content(ROOT / meta["content_source"], out) else 0
+        return 1 if check_content(ROOT / meta["content_source"], out, prep_md) else 0
 
     prs = Presentation()
     prs.slide_width = Inches(W_IN)
@@ -1242,20 +1300,21 @@ def main(argv=None):
     cp.subject = f"{meta['short_title']} — {meta['university']}"
     cp.language = LANG
     slides = spec["slides"]
-    ctx = Ctx(prs, meta, len(slides))
+    ctx = Ctx(prs, meta, len(slides), load_prep(prep_md))
     global BOTTOM
     for i, sp in enumerate(slides, start=1):
         kind = sp["type"]
         if kind not in BUILDERS:
             raise SystemExit(f"الشريحة {i}: نوع غير معروف {kind!r}")
         BOTTOM = BOTTOM_SOURCE if sp.get("source_line") else BOTTOM_DEFAULT
+        ctx.key = sp.get("number_label") or i
         s = BUILDERS[kind](ctx, sp)
         decorate(s, sp)
     BOTTOM = BOTTOM_DEFAULT
     prs.save(out)
     print(f"تم: {out} ({len(slides)} شريحة)")
     if a.check:
-        return 1 if check_content(ROOT / meta["content_source"], out) else 0
+        return 1 if check_content(ROOT / meta["content_source"], out, prep_md) else 0
 
 
 if __name__ == "__main__":
