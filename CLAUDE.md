@@ -27,7 +27,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   ملفات `results/conf2014/` للقراءة فقط. مرجع سلامة مخرجات الطور 2 هو commit `86c0885` (D-97). `--phase 2` ممنوع في التأكيدي،
   و`--resume` هو المسار الوحيد بعد تعطل بيئي.
 - **لا رقم يدوي في الأطروحة:** كل رقم يأتي من `results/` عبر `scripts/thesis/`. أرقام الواجهة توضيحية ولا يُستشهد بها.
-- **سجل القرارات D-01…D-127** في `.claude/skills/academic-supervisor-basel-alkhatib/references/thesis-context.md`، والـADR في
+- **سجل القرارات D-01…D-135** في `.claude/skills/academic-supervisor-basel-alkhatib/references/thesis-context.md`، والـADR في
   `docs/decisions/` (ADR-004 يسود عند التعارض)، والمحاضر في `docs/meetings/`. قاعدة الفريق: لا قرار افتراضي؛ ما لا نص فيه يُحسم
   بمهارة المشرف المحاكى `academic-supervisor-basel-alkhatib`، ويُراجَع بمهارة `peer-reviewer-colleague`.
   محضر المناقشة التجريبية وتصويباتها في `docs/defense/`، والجلسة الثانية على النسخة المصحّحة وقرارها في `docs/defense/session2/`.
