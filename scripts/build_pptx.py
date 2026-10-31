@@ -4,6 +4,8 @@
 الاستعمال:
     python3 scripts/build_pptx.py                      # يقرأ docs/working/07-presentation.yaml أو .json
     python3 scripts/build_pptx.py --spec X.json --out Y.pptx
+    python3 scripts/build_pptx.py --check              # يبني ثم يطابق نص كل شريحة وملاحظاتها مع meta.content_source
+    python3 scripts/build_pptx.py --check-only         # يطابق ملف pptx الموجود دون بناء
 
 يقرأ مخطط الشرائح ويُخرج pptx عربياً RTL بنسبة 16:9. أنواع الشرائح:
 title, section, bullets, cards, stats, flow, timeline, two-column, image,
@@ -1133,10 +1135,91 @@ def load_spec(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+_BIDI = re.compile("[\u200b-\u200f\u202a-\u202e\u2066-\u2069]")
+
+
+def _norm_check(s: str) -> str:
+    s = _BIDI.sub("", s).replace("\u00a0", " ").replace("**", "").replace("\\*", "*").replace("`", "")
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def check_content(content_md: Path, pptx_path: Path) -> int:
+    """يطابق ملف pptx مع ملف المحتوى: كل جزء من «نص الشريحة» (سطر أو خلية جدول) موجود حرفياً في الشريحة
+    المقابلة بعد حذف رموز الاتجاه والمسافة غير الفاصلة وعلامات markdown، وملاحظات المتحدث مساوية حرفياً.
+    يعيد عدد الشرائح المخالفة."""
+    text = content_md.read_text(encoding="utf-8")
+    want = {}
+    for part in re.split(r"\n## ", text):
+        m = re.match(r"(شريحة (\d+)|شريحة احتياطية (\S+))", part)
+        if not m:
+            continue
+        key = int(m.group(2)) if m.group(2) else m.group(3)
+        body = re.search(r"\*\*نص الشريحة:\*\*\n(.*?)\n- \*\*الدليل", part, re.S).group(1)
+        frags = []
+        for line in body.split("\n"):
+            line = line.strip()
+            if not line or re.match(r"^\|[-| ]+\|$", line):
+                continue
+            if line.startswith("|"):
+                frags += [c.strip() for c in line.strip("|").split("|") if c.strip()]
+                continue
+            line = re.sub(r"^- ", "", line)
+            line = re.sub(r"^(العنوان الفرعي|التذييل|الوسم|السؤال): ", "", line)
+            mm = re.match(r"^\*\*(.+?):?\*\*:?\s*(.*)$", line)
+            if mm and mm.group(2):
+                frags += [mm.group(1).rstrip(":"), mm.group(2)]
+            else:
+                frags += [f for f in line.split(" · ") if f]
+        note = re.search(r"\*\*ملاحظات المتحدث:\*\*\n(.*?)(?:\n\n---|\n\n## |\Z)", part, re.S).group(1)
+        want[key] = (frags, _norm_check(note))
+    order = sorted(k for k in want if isinstance(k, int)) + [k for k in want if not isinstance(k, int)]
+    prs = Presentation(str(pptx_path))
+    bad = 0
+    if len(prs.slides) != len(order):
+        print(f"عدد الشرائح {len(prs.slides)} لا يساوي {len(order)} في ملف المحتوى")
+        return max(1, abs(len(prs.slides) - len(order)))
+    for i, (sl, key) in enumerate(zip(prs.slides, order), start=1):
+        texts = []
+        for sh in sl.shapes:
+            if sh.has_text_frame:
+                texts.append(sh.text_frame.text)
+            if getattr(sh, "has_table", False) and sh.has_table:
+                texts += [c.text for r in sh.table.rows for c in r.cells]
+            if getattr(sh, "has_chart", False) and sh.has_chart:
+                for pl in sh.chart.plots:
+                    texts += [str(c) for c in pl.categories]
+                    texts += ["%.4f" % v for se in pl.series for v in se.values]
+                if sh.chart.has_title:
+                    texts.append(sh.chart.chart_title.text_frame.text)
+        alltxt = _norm_check(" \n ".join(texts))
+
+        def found(f):
+            f = _norm_check(f)
+            if f in alltxt:
+                return True
+            # التخطيطات المركبة تضع أجزاء السطر في أشكال منفصلة: «عنوان: نص»، و«أ ← ب»، و«اسم 0.1234»
+            sub = []
+            for x in [x for x in re.split(r": | ← ", f) if x]:
+                mm = re.match(r"^(.*\D) (\d\.\d{4})$", x)
+                sub += [mm.group(1), mm.group(2)] if mm else [x]
+            return len(sub) > 1 and all(_norm_check(x) in alltxt for x in sub)
+
+        frags, note = want[key]
+        miss = [f for f in frags if not found(f)]
+        pnote = _norm_check(sl.notes_slide.notes_text_frame.text) if sl.has_notes_slide else ""
+        if miss or pnote != note:
+            bad += 1
+            print(f"الشريحة {i} ({key}): أجزاء غير موجودة {miss}؛ الملاحظات {'مطابقة' if pnote == note else 'مختلفة'}")
+    print(f"مطابقة المحتوى: {len(prs.slides)} شريحة، المخالف {bad}")
+    return bad
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--spec", help="مسار مخطط الشرائح (yaml/json)")
     ap.add_argument("--out", help="مسار ملف pptx الناتج")
+    ap.add_argument("--check", action="store_true", help="بعد البناء: مطابقة النص والملاحظات مع meta.content_source")
+    ap.add_argument("--check-only", action="store_true", help="مطابقة ملف pptx الموجود دون بناء")
     a = ap.parse_args(argv)
     if a.spec:
         spec_path = Path(a.spec)
@@ -1147,6 +1230,8 @@ def main(argv=None):
     meta = spec["meta"]
     out = Path(a.out) if a.out else ROOT / meta["output"]
     out.parent.mkdir(parents=True, exist_ok=True)
+    if a.check_only:
+        return 1 if check_content(ROOT / meta["content_source"], out) else 0
 
     prs = Presentation()
     prs.slide_width = Inches(W_IN)
@@ -1169,6 +1254,8 @@ def main(argv=None):
     BOTTOM = BOTTOM_DEFAULT
     prs.save(out)
     print(f"تم: {out} ({len(slides)} شريحة)")
+    if a.check:
+        return 1 if check_content(ROOT / meta["content_source"], out) else 0
 
 
 if __name__ == "__main__":
