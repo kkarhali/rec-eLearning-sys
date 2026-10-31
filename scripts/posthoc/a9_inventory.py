@@ -3,7 +3,8 @@
 
 Lists every file of results/posthoc/ (logs included), what it holds, the tool that writes it, and whether and where
 appendix E shows it. "Shown" is detected from the source of scripts/thesis/appendix_e.py at the time this tool runs
-(the file names it reads and the exact comparison labels it passes to its tables), so the inventory must be
+(the file names it reads, the data files whose path results/posthoc/<name>.csv|json its text cites without reading
+them (session 2, ب-3), and the exact comparison labels it passes to its tables), so the inventory must be
 regenerated after any change of appendix_e.py or of results/posthoc/. Reads no data; no number is computed.
 
     python3 scripts/posthoc/a9_inventory.py
@@ -92,6 +93,17 @@ def git_tracked(p: Path) -> str:
 def main():
     src = APP.read_text(encoding="utf-8")
     read_by_app = set(re.findall(r'os\.path\.join\(PH, "([^"]+)"\)', src))
+    # data files whose path the appendix text cites without reading them (ب-3), with the section (هـ-N) of the citation
+    heads = [(m.start(), m.group(1)) for m in re.finditer(r'"## (هـ-\d+)', src)]
+    cited_by_app = {}
+    for m in re.finditer(r'results/posthoc/([A-Za-z0-9_]+\.(?:csv|json))', src):
+        if m.group(1) in read_by_app:
+            continue
+        sec = [h for pos, h in heads if pos < m.start()]
+        where = f"نص القسم {sec[-1]}" if sec else "نص الملحق"
+        cited_by_app.setdefault(m.group(1), [])
+        if where not in cited_by_app[m.group(1)]:
+            cited_by_app[m.group(1)].append(where)
     labels = set(re.findall(r'"([^"]*(?:−|-)[^"]*)"', src))           # string literals with a minus (comparison labels)
     tab_of = {}
     for t, f in re.findall(r'جدول (هـ-\d+)(?:(?!جدول هـ).)*?\(المصدر: results/posthoc/([^)\s*]+)', src, flags=re.S):
@@ -100,9 +112,12 @@ def main():
     L = ["# جرد `results/posthoc/`", "",
          "مولَّد بـ`python3 scripts/posthoc/a9_inventory.py` (لاحق؛ م-ك-4، البند 2). يُعاد توليده بعد أي تغيير في "
          "`results/posthoc/` أو في `scripts/thesis/appendix_e.py`، لأن عمود «يعرضه الملحق» يُستخرج آلياً من شيفرة "
-         "مولّد الملحق هـ وقت التشغيل: الملفات التي يقرؤها، وتسميات المقارنات التي يمررها إلى جداوله حرفياً.", "",
+         "مولّد الملحق هـ وقت التشغيل: الملفات التي يقرؤها، وملفات البيانات التي يستشهد نصه بمسارها دون قراءتها، "
+         "وتسميات المقارنات التي يمررها إلى جداوله حرفياً.", "",
          f"- عدد الملفات: {len(files)}.",
          f"- الملفات التي يقرؤها مولّد الملحق الآن: {', '.join(f'`{x}`' for x in sorted(read_by_app)) or '—'}.",
+         f"- ملفات بيانات يستشهد نص الملحق بمسارها دون أن يقرأها مولّده: "
+         f"{', '.join(f'`{x}`' for x in sorted(cited_by_app)) or '—'}.",
          "- كل ما في المجلد لاحق، خارج عائلة هولم، وp فيه غير مصححة.", "",
          "## الملفات", "",
          "| الملف | الأداة | المحتوى | في git | يعرضه الملحق هـ؟ | أين / لماذا لا |", "|---|---|---|---|---|---|"]
@@ -117,6 +132,9 @@ def main():
         elif name in read_by_app:
             shown = "نعم"
             where = "، ".join(tab_of.get(name, [])) or "نص الملحق"
+        elif name in cited_by_app:
+            shown = "نعم، يُستشهد به في النص"
+            where = "، ".join(cited_by_app[name]) + " (استشهاد بالمصدر، لا جدول)"
         elif "reproduction_checks" in name:
             shown, where = "لا", WHY_NOT["reproduction"]
         elif name in ("README.md", "INVENTORY.md"):

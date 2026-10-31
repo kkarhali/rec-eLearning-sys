@@ -27,7 +27,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   ملفات `results/conf2014/` للقراءة فقط. مرجع سلامة مخرجات الطور 2 هو commit `86c0885` (D-97). `--phase 2` ممنوع في التأكيدي،
   و`--resume` هو المسار الوحيد بعد تعطل بيئي.
 - **لا رقم يدوي في الأطروحة:** كل رقم يأتي من `results/` عبر `scripts/thesis/`. أرقام الواجهة توضيحية ولا يُستشهد بها.
-- **سجل القرارات D-01…D-113** في `.claude/skills/academic-supervisor-basel-alkhatib/references/thesis-context.md`، والـADR في
+- **سجل القرارات D-01…D-127** في `.claude/skills/academic-supervisor-basel-alkhatib/references/thesis-context.md`، والـADR في
   `docs/decisions/` (ADR-004 يسود عند التعارض)، والمحاضر في `docs/meetings/`. قاعدة الفريق: لا قرار افتراضي؛ ما لا نص فيه يُحسم
   بمهارة المشرف المحاكى `academic-supervisor-basel-alkhatib`، ويُراجَع بمهارة `peer-reviewer-colleague`.
   محضر المناقشة التجريبية وتصويباتها في `docs/defense/`، والجلسة الثانية على النسخة المصحّحة وقرارها في `docs/defense/session2/`.
@@ -125,7 +125,7 @@ python3 scripts/thesis/build_ch6.py --verify-tag        # الفصل 6 من نص
 python3 scripts/thesis/appendix_e.py                    # الملحق هـ من results/posthoc/
 python3 scripts/thesis/renumber.py                      # تشغيل جاف لترقيم المراجع (IEEE بترتيب الظهور)؛ --apply للكتابة
 python3 scripts/thesis/build_thesis_docx.py [--pdf=DIR] # → deliverables/06-final-thesis/الأطروحة-النهائية.docx
-python3 scripts/build_pptx.py                           # العرض التقديمي (07-presentation)
+python3 scripts/build_pptx.py                           # النسخة السابقة من العرض (07-presentation.json → pptx)؛ عرض المناقشة الجديد Slides من docs/working/07-presentation/deck-content.md (D-124)
 ```
 معيار قبول خط الأطروحة: إعادة الخطوات 1–3 على نسخة نظيفة لا تغيّر شيئاً في `docs/working/06-thesis/` (`git diff`).
 مصادر الأطروحة Markdown في `docs/working/06-thesis/`؛ لا تعدّل §5-8 ولا الملحق د يدوياً (عدّل `scripts/thesis/templates/`).

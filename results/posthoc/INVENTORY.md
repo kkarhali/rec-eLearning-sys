@@ -1,9 +1,10 @@
 # جرد `results/posthoc/`
 
-مولَّد بـ`python3 scripts/posthoc/a9_inventory.py` (لاحق؛ م-ك-4، البند 2). يُعاد توليده بعد أي تغيير في `results/posthoc/` أو في `scripts/thesis/appendix_e.py`، لأن عمود «يعرضه الملحق» يُستخرج آلياً من شيفرة مولّد الملحق هـ وقت التشغيل: الملفات التي يقرؤها، وتسميات المقارنات التي يمررها إلى جداوله حرفياً.
+مولَّد بـ`python3 scripts/posthoc/a9_inventory.py` (لاحق؛ م-ك-4، البند 2). يُعاد توليده بعد أي تغيير في `results/posthoc/` أو في `scripts/thesis/appendix_e.py`، لأن عمود «يعرضه الملحق» يُستخرج آلياً من شيفرة مولّد الملحق هـ وقت التشغيل: الملفات التي يقرؤها، وملفات البيانات التي يستشهد نصه بمسارها دون قراءتها، وتسميات المقارنات التي يمررها إلى جداوله حرفياً.
 
 - عدد الملفات: 53.
 - الملفات التي يقرؤها مولّد الملحق الآن: `a10_selection_loo.csv`, `a10_selection_loo_stats.csv`, `a11_h3_equal_info.csv`, `a12_symmetric_info.csv`, `a4_1_recentpop_sknn.csv`, `a4_2_sknn_all.csv`, `a4_3_companion_metrics.csv`, `a5_nonpersonal_weights_counts.csv`, `a5_nonpersonal_weights_summary.csv`, `a6_personalization_mall.csv`, `a6_personalization_mall_per_presentation.csv`, `a7_delta_sensitivity.csv`, `a8_h3_by_cut.csv`, `defense_stats.json`, `sklearn_equivalence.csv`.
+- ملفات بيانات يستشهد نص الملحق بمسارها دون أن يقرأها مولّده: `a11_reproduction_checks.csv`, `a6_personalization_mall_weights.csv`.
 - كل ما في المجلد لاحق، خارج عائلة هولم، وp فيه غير مصححة.
 
 ## الملفات
@@ -22,7 +23,7 @@
 | `a11_h3_equal_info_per_presentation.csv` | `a11_h3_equal_info.py` | النماذج لكل عرض | نعم | لا | بيانات تفصيلية أو مساعدة للأداة؛ الملحق يعرض ملخصها |
 | `a11_h3_equal_info_rows.csv` | `a11_h3_equal_info.py` | صفوف الاختبار بصيغة baselines.csv (خمس بذور) | نعم | لا | بيانات تفصيلية أو مساعدة للأداة؛ الملحق يعرض ملخصها |
 | `a11_h3_equal_info_tuning.csv` | `a11_h3_equal_info.py` | الإعدادات الستة لكل طيّة: أفضل دورة، والتحقق، ومنحنيات الخسارة والتحقق ومعامل a | نعم | لا | بيانات تفصيلية أو مساعدة للأداة؛ الملحق يعرض ملخصها |
-| `a11_reproduction_checks.csv` | `a11_h3_equal_info.py` | التحقق من الإعادة | نعم | لا | ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً |
+| `a11_reproduction_checks.csv` | `a11_h3_equal_info.py` | التحقق من الإعادة | نعم | نعم، يُستشهد به في النص | نص القسم هـ-10 (استشهاد بالمصدر، لا جدول) |
 | `a11_runtime.csv` | `a11_h3_equal_info.py` | تقدير الزمن من طيّة واحدة قبل التشغيل | نعم | لا | بيانات تفصيلية أو مساعدة للأداة؛ الملحق يعرض ملخصها |
 | `a12_reproduction_checks.csv` | `a12_symmetric_info.py` | التحقق من الإعادة | نعم | لا | ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً |
 | `a12_symmetric_info.csv` | `a12_symmetric_info.py` | أقرب مقارنة متاحة إلى التماثل لـH3، والشعبية الآنية مقابل الجيران، ومكسب الشخصنة دون أرضية | نعم | نعم | نص الملحق |
@@ -47,7 +48,7 @@
 | `a6_personalization_mall.csv` | `a6_personalization_mall.py` | مكسب الشخصنة بـSKNN(M = الكل): الأزواج على العروض والمقررات، وصفوف التفكيك المقفل للمرجع | نعم | نعم | الجدول هـ-7 |
 | `a6_personalization_mall_folds.csv` | `a6_personalization_mall.py` | الأوزان والقيم لكل (عرض، أصل، نموذج) | نعم | لا | بيانات تفصيلية أو مساعدة للأداة؛ الملحق يعرض ملخصها |
 | `a6_personalization_mall_per_presentation.csv` | `a6_personalization_mall.py` | كل النماذج لكل عرض | نعم | نعم | نص الملحق |
-| `a6_personalization_mall_weights.csv` | `a6_personalization_mall.py` | توزيع الأوزان | نعم | لا | بيانات تفصيلية أو مساعدة للأداة؛ الملحق يعرض ملخصها |
+| `a6_personalization_mall_weights.csv` | `a6_personalization_mall.py` | توزيع الأوزان | نعم | نعم، يُستشهد به في النص | نص القسم هـ-7 (استشهاد بالمصدر، لا جدول) |
 | `a6_reproduction_checks.csv` | `a6_personalization_mall.py` | التحقق من الإعادة | نعم | لا | ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً |
 | `a7_delta_scan.csv` | `a7_delta_sensitivity.py` | مدى δ الذي يثبت فيه كل حكم مقفل | نعم | لا | بيانات تفصيلية أو مساعدة للأداة؛ الملحق يعرض ملخصها |
 | `a7_delta_sensitivity.csv` | `a7_delta_sensitivity.py` | الحكم بالقاعدة المسجلة عند δ ∈ {0.015، 0.02، 0.025} للأحكام المقفلة ولصفوف sensitivity_other.csv | نعم | نعم | الجدول هـ-9 |

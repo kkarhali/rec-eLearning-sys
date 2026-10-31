@@ -5,6 +5,8 @@
 ت-1: the SKNN row of table 3-11 is separated from the Markov row and carries the served template
 (`src.ml.serving.TEMPLATES["B5_SKNN"]`) and the evidence the app actually shows; the Markov row keeps its template.
 ت-3: the C7 evidence line quoted in UC-03 (section 4) names its scope, as the explanation panel now shows it.
+ب-1 (session-2 verdict, researcher item): section 2-1 points to the saved log of the post-hoc literature search,
+docs/working/literature-search-log-session2.md (decision D-127, docs/meetings/2026-10-31-decision-final-phase-b-items.md).
 
 Each edit is (file, old, new, item): `old` must occur exactly once; an edit whose `new` is already present is skipped.
 
@@ -54,6 +56,15 @@ EDITS = [
      "صار عدد الخدمة 73 (تشغيل 2026-10-29)، وحُدّث به جدول بنية الشيفرة (5-2) والقسمان 5-6-1 و5-9 والفصل 7 بنص "
      "`scripts/thesis/defense2_app_fixes.py`، ويبقى عدد خط التجارب 131.",
      "ت-5، عدد الاختبارات"),
+    # ب-1: pointer from 2-1 to the saved search log. The sentence that the raw result pages were not saved stays as is
+    # (they were not, and the log says so); the log adds a dated re-run of the same strings, labelled as such (D-127).
+    (TH + "ch2-background-literature.md",
+     "ولم تُحفظ صفحات النتائج الخام في المستودع، وحُفظ عددها وما أُدخل منها في الجدول 2-1-أ.",
+     "ولم تُحفظ صفحات النتائج الخام في المستودع، وحُفظ عددها وما أُدخل منها في الجدول 2-1-أ. ويحفظ المستودع سجل هذا "
+     "البحث في `docs/working/literature-search-log-session2.md`: السلاسل وتاريخها وأعدادها وقرار كل سلسلة كما سُجّل، "
+     "ومعه إعادة تشغيل للسلاسل نفسها في 2026-10-31 بقرار لكل نتيجة، موسومة بأنها إعادة لاحقة قد تختلف نتائجها، "
+     "وليست الصفحات الأصلية.",
+     "ب-1، سجل البحث اللاحق"),
 ]
 
 
