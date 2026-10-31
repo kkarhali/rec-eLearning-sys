@@ -2,7 +2,7 @@
 
 مولَّد بـ`python3 scripts/posthoc/a9_inventory.py` (لاحق؛ م-ك-4، البند 2). يُعاد توليده بعد أي تغيير في `results/posthoc/` أو في `scripts/thesis/appendix_e.py`، لأن عمود «يعرضه الملحق» يُستخرج آلياً من شيفرة مولّد الملحق هـ وقت التشغيل: الملفات التي يقرؤها، وملفات البيانات التي يستشهد نصه بمسارها دون قراءتها، وتسميات المقارنات التي يمررها إلى جداوله حرفياً.
 
-- عدد الملفات: 53.
+- عدد الملفات: 55.
 - الملفات التي يقرؤها مولّد الملحق الآن: `a10_selection_loo.csv`, `a10_selection_loo_stats.csv`, `a11_h3_equal_info.csv`, `a12_symmetric_info.csv`, `a4_1_recentpop_sknn.csv`, `a4_2_sknn_all.csv`, `a4_3_companion_metrics.csv`, `a5_nonpersonal_weights_counts.csv`, `a5_nonpersonal_weights_summary.csv`, `a6_personalization_mall.csv`, `a6_personalization_mall_per_presentation.csv`, `a7_delta_sensitivity.csv`, `a8_h3_by_cut.csv`, `defense_stats.json`, `sklearn_equivalence.csv`.
 - ملفات بيانات يستشهد نص الملحق بمسارها دون أن يقرأها مولّده: `a11_reproduction_checks.csv`, `a6_personalization_mall_weights.csv`.
 - كل ما في المجلد لاحق، خارج عائلة هولم، وp فيه غير مصححة.
@@ -27,6 +27,7 @@
 | `a11_runtime.csv` | `a11_h3_equal_info.py` | تقدير الزمن من طيّة واحدة قبل التشغيل | نعم | لا | بيانات تفصيلية أو مساعدة للأداة؛ الملحق يعرض ملخصها |
 | `a12_reproduction_checks.csv` | `a12_symmetric_info.py` | التحقق من الإعادة | نعم | لا | ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً |
 | `a12_symmetric_info.csv` | `a12_symmetric_info.py` | أقرب مقارنة متاحة إلى التماثل لـH3، والشعبية الآنية مقابل الجيران، ومكسب الشخصنة دون أرضية | نعم | نعم | نص الملحق |
+| `a4_1_from_csv_checks.csv` | `a4_1_recentpop_sknn.py --from-csv` | التحقق قبل إعادة حساب الملخص من الملفات المحفوظة (تصحيح الأصفار التامة، الجلسة الثالثة) | لا | لا | ملف تحقق من الإعادة، يُذكر في README ولا يُعرض جدولاً |
 | `a4_1_recentpop_sknn.csv` | `a4_1_recentpop_sknn.py` | هجين B3 + SKNN: الأزواج مع B3 ومع HYB\*، والشبكة الاسمية بلا أرضية مع B3، على العروض والمقررات | نعم | نعم | الجدول هـ-1 |
 | `a4_1_recentpop_sknn_folds.csv` | `a4_1_recentpop_sknn.py` | الأوزان وقيمة التحقق والاختبار لكل (عرض، أصل)، بالأرضية وبالشبكة الاسمية | نعم | لا | بيانات تفصيلية للإعادة؛ الملحق يعرض الملخص |
 | `a4_1_recentpop_sknn_per_presentation.csv` | `a4_1_recentpop_sknn.py` | NDCG@10 لكل عرض: الهجين اللاحق بالأرضية وبدونها، وB3 وB5 وHYB\* | نعم | لا | بيانات تفصيلية للإعادة؛ الملحق يعرض الملخص |
@@ -59,6 +60,7 @@
 | `defense_stats.json` | `defense_stats.py` | إحصاءات المناقشة الأولى: ارتباط عرضي المقرر، والتحليل على المقررات، وفواصل 98.75%، ونسبة δ، وفاصل σ وMDE80 عند طرفيه، وتغطية الفواصل بالمحاكاة | نعم | نعم | الجدول هـ-4، الجدول هـ-5، الجدول هـ-6 |
 | `logs/a10_selection_loo.log` | `a10_selection_loo.py` | سجل الأوامر وأرقام التحقق الدقيقة | لا | لا | سجل تشغيل (خارج git بقاعدة *.log) |
 | `logs/a11_h3_equal_info.log` | `a11_h3_equal_info.py` | سجل الأوامر وأرقام التحقق الدقيقة | لا | لا | سجل تشغيل (خارج git بقاعدة *.log) |
+| `logs/a4_1_recentpop_sknn_from_csv.log` | `a4_1_recentpop_sknn.py` | سجل الأوامر وأرقام التحقق الدقيقة | لا | لا | سجل تشغيل (خارج git بقاعدة *.log) |
 | `logs/a4_2_sknn_all.log` | `a4_2_sknn_all.py` | سجل الأوامر وأرقام التحقق الدقيقة | لا | لا | سجل تشغيل (خارج git بقاعدة *.log) |
 | `logs/a5_nonpersonal_weights.log` | `a5_nonpersonal_weights.py` | سجل الأوامر وأرقام التحقق الدقيقة | لا | لا | سجل تشغيل (خارج git بقاعدة *.log) |
 | `logs/a6_personalization_mall.log` | `a6_personalization_mall.py` | سجل الأوامر وأرقام التحقق الدقيقة | لا | لا | سجل تشغيل (خارج git بقاعدة *.log) |

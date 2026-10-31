@@ -1,0 +1,21 @@
+year,check,n,max_abs_diff,tolerance,pass
+2013,2013 per-presentation HYB_B3+SKNN vs fold file (floor),9,0.000000,0.000001,True
+2013,2013 per-presentation HYB_B3+SKNN_nominal vs fold file (nominal),9,0.000000,0.000001,True
+2013,2013 per-presentation B3_RecentPop vs dev2013/baselines.csv,9,0.000000,0.000001,True
+2013,2013 per-presentation B5_SKNN vs dev2013/baselines.csv,9,0.000000,0.000001,True
+2013,2013 per-presentation HYB*_locked vs dev2013/hybrid.csv,9,0.000001,0.000001,True
+2013,2013 per-presentation delta_vs_B3 vs HYB_B3+SKNN − B3_RecentPop of the same file,9,0.000001,0.000002,True
+2014,2014 per-presentation HYB_B3+SKNN vs fold file (floor),13,0.000000,0.000001,True
+2014,2014 per-presentation HYB_B3+SKNN_nominal vs fold file (nominal),13,0.000001,0.000001,True
+2014,2014 per-presentation B3_RecentPop vs conf2014/baselines.csv,13,0.000000,0.000001,True
+2014,2014 per-presentation B5_SKNN vs conf2014/baselines.csv,13,0.000000,0.000001,True
+2014,2014 per-presentation HYB*_locked vs conf2014/hybrid.csv,13,0.000001,0.000001,True
+2014,2014 per-presentation delta_vs_B3 vs HYB_B3+SKNN − B3_RecentPop of the same file,13,0.000001,0.000002,True
+2013,"2013 HYB_B3+SKNN − B3_RecentPop (H1 inference) [presen]: mean, CI, p, n_pos = committed summary (no exact zero)",1,0.000000,0.000001,True
+2013,"2013 HYB_B3+SKNN − B3_RecentPop (H1 inference) [course]: mean, CI, p, n_pos = committed summary (no exact zero)",1,0.000001,0.000001,True
+2013,"2013 HYB_B3+SKNN − HYB* (frozen) [presen]: mean, CI, p, n_pos = committed summary (no exact zero)",1,0.000000,0.000001,True
+2013,"2013 HYB_B3+SKNN − HYB* (frozen) [course]: mean, CI, p, n_pos = committed summary (no exact zero)",1,0.000001,0.000001,True
+2014,"2014 HYB_B3+SKNN − B3_RecentPop (H1 inference) [presen]: mean, CI, p, n_pos = committed summary (no exact zero)",1,0.000001,0.000001,True
+2014,"2014 HYB_B3+SKNN − B3_RecentPop (H1 inference) [course]: mean, CI, p, n_pos = committed summary (no exact zero)",1,0.000001,0.000001,True
+2014,"2014 HYB_B3+SKNN − HYB* (frozen) [presen]: mean, CI, p, n_pos = committed summary (no exact zero)",1,0.000000,0.000001,True
+2014,"2014 HYB_B3+SKNN − HYB* (frozen) [course]: mean, CI, p, n_pos = committed summary (no exact zero)",1,0.000000,0.000001,True

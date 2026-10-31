@@ -607,18 +607,55 @@ m0 = SBD["warm"]["meta"]
 P_, DAY_, N_ = m0["presentation"], m0["day"], m0["n"]
 dates = sorted({SBD[s]["meta"]["date"][:10] for s in SBD})
 commits = sorted({str(SBD[s]["meta"]["git_commit"])[:7] for s in SBD})
+# provenance of the measuring tool (session 3, د. أبوطراب، ن-9): bench.py --out/--state were uncommitted when the three
+# files were measured (git_dirty_paths) and were committed in BENCH_COMMIT; the server of the cold state was started at
+# the commit in its run_id. Both facts are checked against git when the repository history is available.
+BENCH_COMMIT = "bba9739"
+BENCH_FILES = ("src/backend/bench.py", "src/backend/tests/test_bench.py")
+bench_dirty = sorted({p for s in SBD for p in SBD[s]["meta"].get("git_dirty_paths", []) if p in BENCH_FILES})
+if "src/backend/bench.py" not in bench_dirty or len(commits) != 1:
+    sb_fail(f"serving_bench provenance: expected one commit and an uncommitted bench.py, got {commits} {bench_dirty}")
+m_run = re.search(r"-([0-9a-f]{7,})$", str((hc or {}).get("run_id", "")))
+if not m_run:
+    sb_fail("cold.json: no commit in server_health_at_start.run_id")
+cold_server_commit = m_run.group(1)[:7]
+try:
+    import subprocess
+    git = lambda *a: subprocess.run(["git", "-C", ROOT, *a], capture_output=True, text=True, check=True).stdout.split()
+    first = git("log", "--reverse", "--format=%h", "--abbrev=7", f"{commits[0]}..HEAD", "--", "src/backend/bench.py")
+    if not first or first[0] != BENCH_COMMIT:
+        sb_fail(f"serving_bench provenance: first commit after {commits[0]} changing bench.py is {first[:1]}, "
+                f"not {BENCH_COMMIT}")
+    served = git("diff", "--name-only", cold_server_commit, commits[0], "--", "src/ml", "src/backend")
+    if served:
+        sb_fail(f"serving_bench provenance: served code differs between {cold_server_commit} and {commits[0]}: {served}")
+    CHECKS.append(f"OK  serving_bench provenance: bench.py uncommitted at {commits[0]}, first committed in {BENCH_COMMIT}; "
+                  f"cold server started at {cold_server_commit}, no src/ml or src/backend change up to {commits[0]}")
+except (OSError, subprocess.CalledProcessError) as e:     # e.g. a `git archive` copy without history
+    CHECKS.append(f"--  serving_bench provenance: git history not available ({type(e).__name__}); "
+                  f"BENCH_COMMIT {BENCH_COMMIT} and cold server commit {cold_server_commit} not re-verified")
+# the instructor-overview row of the cold state follows the recommendations request of the same day in bench.py, so its
+# cluster selection is already computed (session 3, د. أبوطراب، ن-10): footnote with the truly cold overview range
+order_c = [r["endpoint"] for r in SBD["cold"]["rows"]]
+if order_c.index("recommendations") > order_c.index("instructor/overview"):
+    sb_fail("cold.json: the overview row no longer follows the recommendations request; revise footnote ² of t-5-6")
+_cov = [c["first_ms"] for c in SBD["cold"]["cold_days"] if c["endpoint"] == "instructor/overview"]
 rows = [("دون تسخين: أول طلب توصيات", row["cold"]["recommendations"]),
-        ("دون تسخين: أول طلب للنظرة العامة للمدرّس", row["cold"]["instructor/overview"]),
+        ("دون تسخين: أول طلب للنظرة العامة للمدرّس²", row["cold"]["instructor/overview"]),
         ("دون تسخين: أول طلب لقائمة التسجيلات¹", row["cold"]["registrations"]),
         ("بعد التسخين: أول طلب توصيات", row["warm"]["recommendations"]),
         ("بعد التسخين: أول طلب للنظرة العامة", row["warm"]["instructor/overview"])]
 write("t-5-6",
       f"جدول 5-6: زمن الاستجابة المقاس للخدمة، العرض {P_} عند اليوم {DAY_}، الطلب الأول ثم {N_} طلباً تالياً "
-      f"(آلة بـ{count_ar(m0['cpu_count'], 'نواة واحدة', 'نواتين', 'أنوية', 'نواة')}؛ قياس {and_ar(dates)}، commit `{and_ar(commits)}`) "
+      f"(آلة بـ{count_ar(m0['cpu_count'], 'نواة واحدة', 'نواتين', 'أنوية', 'نواة')}؛ قياس {and_ar(dates)}، commit `{and_ar(commits)}` "
+      f"وأداة القياس فيه غير ملتزمة، والتُزمت في `{BENCH_COMMIT}`) "
       f"(المصدر: results/serving_bench/cold.json وwarm.json)",
       table(["الحالة", "الطلب الأول", "الطلبات التالية (الوسيط)", "الطلبات التالية (الأقصى)"],
             [(lab, ms_ar(r["first_ms"]), ms_ar(r["median_ms"]), ms_ar(r["max_ms"])) for lab, r in rows]),
-      "¹ يسبق القياسَ في كل حال طلبٌ واحد لقائمة التسجيلات تختار به أداة القياس المتعلم، فهذا الصف طلبها الثاني.")
+      "¹ يسبق القياسَ في كل حال طلبٌ واحد لقائمة التسجيلات تختار به أداة القياس المتعلم، فهذا الصف طلبها الثاني. "
+      "² يسبق هذا الطلبَ في أداة القياس طلبُ التوصيات لليوم نفسه، فيكون اختيار العناقيد لذلك اليوم قد حُسب، فليس هذا الصف "
+      f"زمن نظرة عامة باردة؛ وأول نظرة عامة في يوم لم يُطلب قبلها بين {s1(min(_cov))} و{s1(max(_cov))} ثانية دون الحساب "
+      "المسبق (القسم 5-6-3).")
 for lab, r in rows:
     CHECKS.append(f"OK  t-5-6 {lab}: first {r['first_ms']:.1f} median {r['median_ms']:.1f} max {r['max_ms']:.1f} ms (file)")
 
@@ -652,6 +689,8 @@ pre_over = ([f"أول طلب توصية في اليوم {c['day']} ({s1(c['first
              if c["endpoint"] == "instructor/overview" and c["first_ms"] > NFR01["cold_dash_s"] * 1000])
 VALS = {
     "presentation": P_, "day": DAY_, "n": N_, "date": and_ar(dates), "commit": and_ar(commits),
+    "bench_commit": BENCH_COMMIT, "bench_dirty": and_ar(f"`{p}`" for p in bench_dirty),
+    "cold_server_commit": cold_server_commit,
     "cpu_ar": count_ar(m0["cpu_count"], "نواة واحدة", "نواتين", "أنوية", "نواة"),
     "warm_days": and_ar(d["day"] for d in hwarm["done"]),
     "warm_total_s": f"{hwarm['seconds']:.0f}", "warm_day_ready_s": f"{day_ready:.0f}",

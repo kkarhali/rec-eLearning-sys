@@ -58,8 +58,9 @@ OK  serving_bench precomputed.json: 11 rows (median/max = samples), 16 cold days
 OK  serving_bench: presentation, day, n, registration, cpu_count, platform equal in the three files
 OK  serving_bench: cold = unwarmed and no cluster cache; warm/precomputed = warm-up done; precomputed cold days all cached; same cold days in cold and precomputed
 OK  serving_bench precompute.txt: FFF_2013J 269 days computed from an empty cache, 4 jobs, 1167 s
+OK  serving_bench provenance: bench.py uncommitted at 6c56acf, first committed in bba9739; cold server started at ed14dfc, no src/ml or src/backend change up to 6c56acf
 OK  t-5-6 دون تسخين: أول طلب توصيات: first 15266.6 median 9.2 max 42.5 ms (file)
-OK  t-5-6 دون تسخين: أول طلب للنظرة العامة للمدرّس: first 1980.3 median 1.6 max 4.2 ms (file)
+OK  t-5-6 دون تسخين: أول طلب للنظرة العامة للمدرّس²: first 1980.3 median 1.6 max 4.2 ms (file)
 OK  t-5-6 دون تسخين: أول طلب لقائمة التسجيلات¹: first 6.6 median 3.0 max 4.4 ms (file)
 OK  t-5-6 بعد التسخين: أول طلب توصيات: first 16.1 median 9.9 max 11.6 ms (file)
 OK  t-5-6 بعد التسخين: أول طلب للنظرة العامة: first 2.6 median 2.0 max 4.2 ms (file)

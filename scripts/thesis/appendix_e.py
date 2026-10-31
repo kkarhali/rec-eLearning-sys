@@ -38,6 +38,14 @@ def n_of(k, n):
     return f"{k} {noun} من {n}"
 
 
+def zero_ar(k):
+    """«عرضين» / «k عروض» / «عرض واحد» (genitive after «في»)."""
+    return {1: "عرض واحد", 2: "عرضين"}.get(k, f"{k} عروض" if 3 <= k <= 10 else f"{k} عرضاً")
+
+
+neg_ar = zero_ar
+
+
 def unit_ar(u):
     return "العروض" if u == "presentation" else "المقررات"
 
@@ -52,6 +60,8 @@ def pair_rows(df, comps, names):
                     continue
                 r = r.iloc[0]
                 pos = f"{int(r.n_pos)}/{int(r.n_units)}"
+                if "n_zero" in r.index and pd.notna(r.n_zero) and int(r.n_zero) > 0:
+                    pos += f" (وصفر في {int(r.n_zero)})"     # exact zeros counted apart (a4_1 since session 3, د. الكنج)
                 NP[0] += 1
                 rows.append(f"| {name} | {year} | {unit_ar(unit)} ({int(r.n_units)}) | {f(r['mean'])} | "
                             f"{ci(r.ci_lo, r.ci_hi)} | {r.p_signflip_uncorrected:.4f} | {pos} |")
@@ -103,8 +113,12 @@ L.append("")
 L.append(f"وتُعرض النسخة بالشبكة الاسمية، أي دون أرضية الشخصنة، لأنها تجيب عن سؤال آخر: ماذا كانت قاعدة القبول ستفعل لو "
          f"بدأ الإجراء الجشع بالشعبية الآنية، وهي القاعدة التي رجّحها التصميم. فعلى التطوير رفع الجيران فيها NDCG@10 "
          f"بـ{f(n13['mean'])} بفاصل {ci(n13.ci_lo, n13.ci_hi)}، وحده الأدنى فوق الصفر، فكانوا سيجتازون قاعدة القبول. "
+         f"وجاء الفرق موجباً في {n_of(int(n13.n_pos), int(n13.n_units))}، وصفراً تاماً في {zero_ar(int(n13.n_zero))}، إذ أعطى "
+         f"الضبط الجيران وزناً صفرياً في كل طيّات العرض فانحلّ الهجين إلى الشعبية الآنية، وسالباً في {neg_ar(int(n13.n_neg))} "
+         f"(p = {n13.p_signflip_uncorrected:.4f}). "
          "فرفض القاعدة لكل المكوّنات (القسم 5-7-3) مشروط بالقاعدة الابتدائية التي اختيرت بفارق نقطي غير دال. "
-         f"وعلى 2014 جاء فرق هذه النسخة {f(n14['mean'])} بفاصل {ci(n14.ci_lo, n14.ci_hi)}. "
+         f"وعلى 2014 جاء فرق هذه النسخة {f(n14['mean'])} بفاصل {ci(n14.ci_lo, n14.ci_hi)}، موجباً في "
+         f"{n_of(int(n14.n_pos), int(n14.n_units))} وصفراً في {zero_ar(int(n14.n_zero))}. "
          "وتبقى نسخة الأرضية هي الأساس في هذا القسم، لأنها تطابق إجراء الهجين المجمَّد في كل شيء عدا المكوّن الأول.")
 L.append("")
 

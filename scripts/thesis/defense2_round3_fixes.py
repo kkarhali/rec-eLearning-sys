@@ -85,11 +85,13 @@ EDITS = [
      "البارد)، وحُدّث بهما الجدول 5-1 والأقسام 5-3 و5-6-1 و5-9 والفصل 7.",
      "س"),
     # 2-1: the raw search results were not saved (ع)
+    obsolete("superseded by ب-1 in defense2_app_fixes.py, which inserted the pointer to the search log between the two "
+             "sentences of this edit; applying it again would duplicate the sentence (found in session 3)",
     (TH + "ch2-background-literature.md",
      "والمفحوص هنا العنوان والمقتطف لكل نتيجة معروضة،",
      "ولم تُحفظ صفحات النتائج الخام في المستودع، وحُفظ عددها وما أُدخل منها في الجدول 2-1-أ. والمفحوص هنا العنوان والمقتطف "
      "لكل نتيجة معروضة،",
-     "ع"),
+     "ع")),
 ]
 
 

@@ -1,8 +1,11 @@
 {
+ "bench_commit": "bba9739",
+ "bench_dirty": "`src/backend/bench.py` و`src/backend/tests/test_bench.py`",
  "cold_ov_max": "20.3",
  "cold_ov_min": "17.0",
  "cold_rec_max": "19.4",
  "cold_rec_min": "15.2",
+ "cold_server_commit": "ed14dfc",
  "commit": "6c56acf",
  "cpu_ar": "4 أنوية",
  "date": "2026-10-29",

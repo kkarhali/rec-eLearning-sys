@@ -30,6 +30,7 @@ DESC = {
     "a4_1_recentpop_sknn_per_presentation.csv": ("a4_1_recentpop_sknn.py", "NDCG@10 لكل عرض: الهجين اللاحق بالأرضية وبدونها، وB3 وB5 وHYB\\*"),
     "a4_1_recentpop_sknn_folds.csv": ("a4_1_recentpop_sknn.py", "الأوزان وقيمة التحقق والاختبار لكل (عرض، أصل)، بالأرضية وبالشبكة الاسمية"),
     "a4_1_reproduction_checks.csv": ("a4_1_recentpop_sknn.py", "التحقق من الإعادة"),
+    "a4_1_from_csv_checks.csv": ("a4_1_recentpop_sknn.py --from-csv", "التحقق قبل إعادة حساب الملخص من الملفات المحفوظة (تصحيح الأصفار التامة، الجلسة الثالثة)"),
     "a4_2_sknn_all.csv": ("a4_2_sknn_all.py", "GRU-lite − SKNN(M = الكل)، وSKNN(M = الكل) − SKNN المقفل، على العروض والمقررات، ومتوسط كل أصل وصفاً، وقراءة سداسية توضيحية"),
     "a4_2_sknn_all_per_presentation.csv": ("a4_2_sknn_all.py", "GRU-lite وSKNN المقفل وSKNN(M = الكل) لكل عرض"),
     "a4_2_sknn_all_rows.csv": ("a4_2_sknn_all.py", "صفوف الاختبار بصيغة baselines.csv لـSKNN المعاد ولـSKNN(M = الكل)"),
@@ -127,7 +128,7 @@ def main():
         name = p.name
         tool, what = DESC.get(name, ("?", "غير موصوف في هذه القائمة: يُراجَع"))
         if rel.startswith("logs/"):
-            tool = re.sub(r"\.log$", ".py", name)
+            tool = re.sub(r"(_from_csv)?\.log$", ".py", name)
             what, shown, where = "سجل الأوامر وأرقام التحقق الدقيقة", "لا", WHY_NOT["log"]
         elif name in read_by_app:
             shown = "نعم"
@@ -135,7 +136,7 @@ def main():
         elif name in cited_by_app:
             shown = "نعم، يُستشهد به في النص"
             where = "، ".join(cited_by_app[name]) + " (استشهاد بالمصدر، لا جدول)"
-        elif "reproduction_checks" in name:
+        elif "reproduction_checks" in name or name.endswith("_from_csv_checks.csv"):
             shown, where = "لا", WHY_NOT["reproduction"]
         elif name in ("README.md", "INVENTORY.md"):
             shown, where = "لا", WHY_NOT[name]

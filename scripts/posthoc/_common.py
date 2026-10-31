@@ -76,16 +76,33 @@ def fold_means(df: pd.DataFrame, value: str) -> pd.Series:
     return df.groupby(["presentation", "cut"])[value].mean().groupby("presentation").mean().sort_index()
 
 
+def snap_zero(diff: pd.Series, tol: float = TOL) -> pd.Series:
+    """Set |difference| ≤ tol (the reproduction tolerance) to exactly 0.
+
+    A difference between a value computed in the session (full precision) and a value read from a locked CSV file
+    (6 decimals) is never exactly 0, even when the two models are the same ranking (e.g. a hybrid whose tuned weight
+    on the second component is 0 in every fold reduces to its first component): the rounding residue (< 5e-7) would
+    count as a positive or negative difference in n_pos and break the ties of the exact sign-flip test. Same
+    convention as a5_nonpersonal_weights.py (control = B3 up to cache noise → 0). Session 3, round 1 (د. الكنج,
+    problem 1)."""
+    d = diff.copy()
+    d[d.abs() <= tol] = 0.0
+    return d
+
+
 def pair_stats(diff: pd.Series, label: str, year: str, **extra) -> list[dict]:
     """Same inference as H1/H3: cluster bootstrap-t over presentations (B = 10,000, seed 0) and the exact
-    two-sided sign-flip p (uncorrected); plus the course-level resampling of table 5-8-هـ (D-31)."""
+    two-sided sign-flip p (uncorrected); plus the course-level resampling of table 5-8-هـ (D-31).
+    n_pos, n_zero and n_neg count exact signs: callers that subtract a locked (6-decimal) column from a session
+    value pass the difference through snap_zero first."""
     d = diff.dropna().sort_index()
     rows = []
     c = stats.compare(d.to_numpy())
     rows.append({"comparison": label, "year": year, "unit": "presentation", "n_units": len(d), "mean": c["mean"],
                  "ci_lo": c["ci_lo"], "ci_hi": c["ci_hi"], "degenerate": c["degenerate"], "pct_lo": c["pct_lo"],
                  "pct_hi": c["pct_hi"], "p_signflip_uncorrected": c["p"], "n_pos": int((d > 0).sum()),
-                 "sd": float(np.std(d, ddof=1)), "status": POSTHOC_NOTE, **extra})
+                 "sd": float(np.std(d, ddof=1)), "status": POSTHOC_NOTE,
+                 "n_zero": int((d == 0).sum()), "n_neg": int((d < 0).sum()), **extra})
     module = d.index.str.split("_").str[0]
     dm = d.groupby(module).mean()
     c = stats.compare(dm.to_numpy())
@@ -93,7 +110,7 @@ def pair_stats(diff: pd.Series, label: str, year: str, **extra) -> list[dict]:
                  "n_units": len(dm), "mean": c["mean"], "ci_lo": c["ci_lo"], "ci_hi": c["ci_hi"],
                  "degenerate": c["degenerate"], "pct_lo": c["pct_lo"], "pct_hi": c["pct_hi"],
                  "p_signflip_uncorrected": c["p"], "n_pos": int((dm > 0).sum()), "sd": float(np.std(dm, ddof=1)),
-                 "status": POSTHOC_NOTE, **extra})
+                 "status": POSTHOC_NOTE, "n_zero": int((dm == 0).sum()), "n_neg": int((dm < 0).sum()), **extra})
     return rows
 
 
