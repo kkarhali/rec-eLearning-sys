@@ -125,7 +125,7 @@ python3 scripts/thesis/build_ch6.py --verify-tag        # الفصل 6 من نص
 python3 scripts/thesis/appendix_e.py                    # الملحق هـ من results/posthoc/
 python3 scripts/thesis/renumber.py                      # تشغيل جاف لترقيم المراجع (IEEE بترتيب الظهور)؛ --apply للكتابة
 python3 scripts/thesis/build_thesis_docx.py [--pdf=DIR] # → deliverables/06-final-thesis/الأطروحة-النهائية.docx
-python3 scripts/build_pptx.py                           # النسخة السابقة من العرض (07-presentation.json → pptx)؛ عرض المناقشة الجديد Slides من docs/working/07-presentation/deck-content.md (D-124)
+python3 scripts/build_pptx.py                           # عرض المناقشة (22 + 1) من 07-presentation.json → pptx؛ المحتوى من docs/working/07-presentation/deck-content.md، ونسخة الوب Slides (D-124)
 ```
 معيار قبول خط الأطروحة: إعادة الخطوات 1–3 على نسخة نظيفة لا تغيّر شيئاً في `docs/working/06-thesis/` (`git diff`).
 مصادر الأطروحة Markdown في `docs/working/06-thesis/`؛ لا تعدّل §5-8 ولا الملحق د يدوياً (عدّل `scripts/thesis/templates/`).

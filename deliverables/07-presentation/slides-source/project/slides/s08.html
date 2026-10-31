@@ -1,0 +1,51 @@
+<section id="s08" data-transition="fade" style="background:#F8FAFC;color:#134E4A;font-family:'Noto Sans Arabic', Tahoma, sans-serif;font-variant-numeric:tabular-nums;text-align:right;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:24px">
+<h2 style="font-size:60px;font-weight:700;line-height:1.2;color:#134E4A">&#x202B;الفرضيات وقاعدة الحكم&#x202C;</h2>
+<table style="width:1664px;font-size:30px;line-height:1.4;color:#134E4A;background:#FFFFFF">
+<tr style="background:#CCFBF1">
+<th style="width:28%;padding:12px 20px;text-align:right;font-weight:600">&#x202B;المقياس&#x202C;</th>
+<th style="width:56%;padding:12px 20px;text-align:right;font-weight:600">&#x202B;المقارنة&#x202C;</th>
+<th style="width:16%;padding:12px 20px;text-align:right;font-weight:600">&#x202B;الفرضية&#x202C;</th>
+</tr>
+<tr>
+<td style="padding:12px 20px">&#x202B;NDCG@10، الموارد الجديدة&#x202C;</td>
+<td style="padding:12px 20px">&#x202B;الهجين المجمَّد مقابل الشعبية الآنية&#x202C;</td>
+<td style="padding:12px 20px">H1</td>
+</tr>
+<tr>
+<td style="padding:12px 20px">&#x202B;NDCG@10، الموارد الجديدة&#x202C;</td>
+<td style="padding:12px 20px">&#x202B;WRMF بإشارة موزونة مقابل ثنائية&#x202C;</td>
+<td style="padding:12px 20px">&#x202B;H2-أ&#x202C;</td>
+</tr>
+<tr>
+<td style="padding:12px 20px">&#x202B;NDCG@10، الموارد الجديدة&#x202C;</td>
+<td style="padding:12px 20px">&#x202B;GRU-lite مقابل SKNN (اتجاهان)&#x202C;</td>
+<td style="padding:12px 20px">H3</td>
+</tr>
+<tr>
+<td style="padding:12px 20px">ROC-AUC</td>
+<td style="padding:12px 20px">&#x202B;ملامح السلوك مقابل مجموع النقرات، اليوم 56&#x202C;</td>
+<td style="padding:12px 20px">&#x202B;H4-أ&#x202C;</td>
+</tr>
+</table>
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:30px;font-weight:700;line-height:1.5;color:#B45309">&#x202B;القاعدة (&#x202A;δ = 0.02&#x202C;):&#x202C;</p>
+<div style="display:flex;flex-direction:row-reverse;gap:24px">
+<div style="flex:2;display:flex;flex-direction:column;gap:8px;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;padding:24px 32px">
+<p style="font-size:30px;font-weight:700;line-height:1.5;color:#134E4A">&#x202B;مؤكَّدة&#x202C;</p>
+<p style="font-size:30px;line-height:1.5;color:#475569">&#x202B;&#x202A;Δ̄ ≥ δ&#x202C; والفاصل فوق الصفر و&#x202A;p_Holm &lt; 0.05&#x202C;&#x202C;</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;padding:24px 32px">
+<p style="font-size:30px;font-weight:700;line-height:1.5;color:#134E4A">&#x202B;مدحوضة عملياً&#x202C;</p>
+<p style="font-size:30px;line-height:1.5;color:#475569">&#x202B;الحد الأعلى &#x202A;&lt; δ&#x202C;&#x202C;</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;padding:24px 32px">
+<p style="font-size:30px;font-weight:700;line-height:1.5;color:#134E4A">&#x202B;غير حاسمة&#x202C;</p>
+<p style="font-size:30px;line-height:1.5;color:#475569">&#x202B;ما عدا ذلك&#x202C;</p>
+</div>
+</div>
+</div>
+<p style="font-size:30px;line-height:1.5;color:#475569">&#x202B;&#x202A;n = 13&#x202C; عرضاً · bootstrap-t عنقودي · قلب إشارات دقيق · هولم &#x202A;m = 4&#x202C;&#x202C;</p>
+<p style="position:absolute;left:128px;bottom:64px;width:160px;font-size:24px;color:#475569;text-align:left">8</p>
+<p style="position:absolute;right:128px;bottom:64px;width:1300px;font-size:24px;line-height:1.4;color:#475569;text-align:right">&#x202B;المصدر: الفصل 3، الجداول 3-13 إلى 3-15؛ results/conf2014/verdicts.md&#x202C;</p>
+<aside>&#x202B;لكل مسار فرضية في هذا الجدول، وكل منها يعزل عاملاً واحداً. H1 تقيس الشخصنة فوق الشعبية الآنية. وH2-أ استئصال نظيف: النموذج نفسه بإشارتين لا يختلفان إلا في تمثيل السلوك. وH3 تقارن الشبكة المتكررة بأفضل نموذج تسلسلي غير عصبوني اختاره التطوير، باختبار في الاتجاهين. وH4-أ تقيس ما تضيفه ملامح السلوك إلى مجموع النقرات في التنبؤ بالتعثر. وقاعدة الحكم ثلاثية، وتشترط الدلالة الإحصائية وأثراً عملياً لا يقل عن 0.02 معاً، والعتبة 4.8% من مستوى الشعبية الآنية في الفحص الأولي. ووحدة التحليل العرض، فعندي ثلاث عشرة وحدة فقط، ولذلك اخترت فاصل bootstrap-t العنقودي بعشرة آلاف إعادة سحب، واختبار قلب الإشارات الدقيق، وصحّحت للتعدد بطريقة هولم على الفرضيات الأربع.&#x202C;</aside>
+</section>

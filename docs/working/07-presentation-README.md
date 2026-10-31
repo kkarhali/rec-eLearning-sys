@@ -1,6 +1,6 @@
 # مولّد العرض التقديمي
 
-العرض: 21 شريحة رئيسية + 3 شرائح احتياطية للأسئلة المتوقعة = 24 شريحة، بنسبة 16:9 وقالب عربي RTL.
+العرض: 22 شريحة رئيسية + شريحة احتياطية واحدة = 23 شريحة، بنسبة 16:9 وقالب عربي RTL (D-124). النص وملاحظات المتحدث حرفياً من `docs/working/07-presentation/deck-content.md`، ونسخة الوب عرض Slides (`deliverables/07-presentation/slides-source/`).
 
 ## إعادة البناء
 
@@ -14,7 +14,7 @@ python3 scripts/build_pptx.py --spec docs/working/07-presentation.json --out /tm
 - المصدر الوحيد للمحتوى: `docs/working/07-presentation.json`. لا يُعدَّل الـpptx يدوياً.
 - الخط Arial (لـlatin وcs)، الألوان من رموز واجهة النظام (الأساسي `#0F766E`، الكهرماني `#B45309`).
 - كل فقرة تحمل `a:pPr rtl="1" algn="r"`؛ ملاحظات المتحدث لكل شريحة في الحقل `notes`.
-- الفحص البصري: `soffice --headless --convert-to pdf` ثم `pdftoppm -jpeg -r 50`. لا تُترك ملفات PDF/صور في `deliverables/`.
+- الفحص البصري: `soffice --headless --convert-to pdf` ثم `pdftoppm -jpeg -r 50`. يُحفظ في `deliverables/07-presentation/` ملف `العرض-التقديمي.pdf` (عرض LibreOffice بخط DejaVu Sans بدل Arial) وصورة الشريحة 11 `live-03-learner-why-panel.png`، ولا تُترك غيرهما.
 
 ## أنواع الشرائح (`type`)
 

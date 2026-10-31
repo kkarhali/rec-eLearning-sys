@@ -8,6 +8,17 @@
 يقرأ مخطط الشرائح ويُخرج pptx عربياً RTL بنسبة 16:9. أنواع الشرائح:
 title, section, bullets, cards, stats, flow, timeline, two-column, image,
 table, chart, quote, qa, placeholder. التفاصيل في docs/working/07-presentation-README.md
+
+حقول عامة إضافية لكل شريحة:
+    source_line   سطر «المصدر: …» صغير خافت فوق التذييل (يرفع حد المحتوى إلى 6.5 بوصة)
+    lead          عنوان فرعي خافت تحت العنوان
+    tag           وسم كهرماني صغير يسار العنوان («لاحق، استكشافي»)
+    number_label  نص بدل رقم الشريحة (مثل «أ» للشريحة الاحتياطية)
+وحقول أنواع: stats.cols، flow.chips/head_size/text_size/max_row_h، quote.label/items،
+table.strip/callout/highlight_rows/max_row_h/caption (نص أو قائمة)، image.note، two-column بلا heading.
+اتجاه النص: كل فقرة RTL؛ والفقرة الخالية من الحروف العربية (رقم، فاصل، مسار) تُضمَّن LTR آلياً،
+ويُكتب داخل الجمل المختلطة U+202A…U+202C (LRE…PDF) وU+200F (RLM) صراحةً في JSON حيث يلزم.
+السالب في رموز {{…}} يُطبع «−» (U+2212).
 """
 from __future__ import annotations
 
@@ -16,6 +27,7 @@ import copy
 import json
 import math
 import re
+import unicodedata
 import sys
 from pathlib import Path
 
@@ -57,7 +69,9 @@ W_IN, H_IN = 13.333, 7.5
 MX = 0.6                     # الهامش الجانبي
 CONTENT_W = W_IN - 2 * MX
 RIGHT = W_IN - MX
-BOTTOM = 6.75
+BOTTOM_DEFAULT = 6.75
+BOTTOM_SOURCE = 6.5          # حد المحتوى حين تحمل الشريحة سطر مصدر
+BOTTOM = BOTTOM_DEFAULT      # يُضبط لكل شريحة في main()
 
 
 def rgb(h: str) -> RGBColor:
@@ -96,8 +110,43 @@ def rtl_par(p, align="r"):
     ppr.set("algn", align)
 
 
+_AR_LETTER = re.compile(r"[ء-يٱ-ۓ]")
+_REF_LIST = re.compile(r"[\[\]\d،,\s–-]+")       # قائمة مراجع مثل «[14]، [16]» تبقى RTL
+
+
+def bidi_ltr(text: str) -> str:
+    """نص بلا حروف عربية (رقم أو فاصل أو مسار لاتيني) يُضمَّن LTR صراحةً (LRE…PDF)
+    كي لا تنتقل الإشارة أو الشرطة أو الشرطة المائلة إلى الجهة الأخرى في فقرة RTL."""
+    clean = text.replace("**", "")
+    if (not _AR_LETTER.search(clean) and re.search(r"[A-Za-z0-9]", clean)
+            and not _REF_LIST.fullmatch(clean)
+            and not re.search("[\u200e\u200f\u202a-\u202e]", clean)):   # تحكم صريح في JSON يسود
+        if len(clean) <= 32:               # رقم أو فاصل قصير: لا يُكسر عبر السطور
+            text = text.replace(" ", "\u00a0")
+        return "\u202a" + text + "\u202c"
+    return text
+
+
+def _harden_segment(seg: str) -> str:
+    """داخل مقطع LTR: يُحاط كل محرف محايد أو ضعيف بعلامتي LRM، فيبقى المقطع متصلاً بترتيبه
+    حتى في برامج تتجاهل LRE/LRO (مثل LibreOffice)."""
+    out = []
+    for i, c in enumerate(seg):
+        keep = (c.isalnum() or c in "*\u200e" or unicodedata.category(c).startswith("M")
+                or (c == "." and 0 < i < len(seg) - 1 and seg[i - 1].isdigit() and seg[i + 1].isdigit()))
+        out.append(c if keep else LRM + c + LRM)
+    return "".join(out)
+
+
+def harden_ltr(text: str) -> str:
+    return re.sub("([\u202a\u202d])(.*?)\u202c", lambda m: m.group(1) + _harden_segment(m.group(2)) + "\u202c", text)
+
+
 def add_runs(p, text, size, color, bold=False, italic=False, bold_color=None):
     """يدعم **غامق** داخل النص."""
+    text = harden_ltr(bidi_ltr(text))
+    if bold:                               # كل الفقرة غامقة: سطر واحد بلا حدود تشغيل (تحفظ موضع النقطتين في RTL)
+        text = text.replace("**", "")
     parts = re.split(r"(\*\*.+?\*\*)", text)
     for part in parts:
         if not part:
@@ -265,12 +314,45 @@ def status_band(slide, text, kind="pending"):
     return 2.05
 
 
-def top_of_content(spec, slide):
+def top_of_content(spec, slide, dark=False):
     if spec.get("pending"):
-        return status_band(slide, spec["pending"], "pending")
-    if spec.get("badge"):
-        return status_band(slide, spec["badge"], "badge")
-    return 1.6
+        y0 = status_band(slide, spec["pending"], "pending")
+    elif spec.get("badge"):
+        y0 = status_band(slide, spec["badge"], "badge")
+    else:
+        y0 = 1.6
+    if spec.get("lead"):                   # عنوان فرعي (جملة الشريحة) تحت العنوان
+        textbox(slide, MX, y0 - 0.25, CONTENT_W, 0.5, spec["lead"], size=20,
+                color=PRIMARY_SOFT if dark else MUTED, anchor="m", name="العنوان الفرعي")
+        y0 += 0.4
+    return y0
+
+
+def chip_row(slide, items, y, h, size=20):
+    """صف بطاقات صغيرة: {head, text?, n?} من اليمين إلى اليسار."""
+    n = len(items)
+    g = 0.25
+    cw = (CONTENT_W - g * (n - 1)) / n
+    for i, it in enumerate(items):
+        x = RIGHT - (i + 1) * cw - i * g
+        box(slide, x, y, cw, h, fill=PRIMARY_SOFT if it.get("highlight") else CARD, name="بطاقة")
+        if it.get("n"):                    # رمز قصير (RQ1) بلون أساسي فوق العنوان
+            textbox(slide, x + 0.15, y + 0.08, cw - 0.3, h * 0.45, f"**{it['n']}**", size=size + 2,
+                    color=PRIMARY, anchor="b", line=1.0)
+            textbox(slide, x + 0.15, y + h * 0.5, cw - 0.3, h * 0.45, it["head"], size=size,
+                    color=PRIMARY_DARK, anchor="t", line=1.0)
+            continue
+        paras = [f"**{it['head']}**"] + ([it["text"]] if it.get("text") else [])
+        textbox(slide, x + 0.15, y + 0.05, cw - 0.3, h - 0.1, paras, size=size, anchor="m", line=1.05,
+                color=PRIMARY)
+
+
+def soft_strip(slide, paras, y, h, size=17, kind="teal"):
+    """شريط ملاحظة هادئ (قاعدة/تنبيه) بخلفية فاتحة."""
+    fill, col = (PRIMARY_SOFT, PRIMARY_DARK) if kind == "teal" else (ACCENT_SOFT, ACCENT_INK)
+    box(slide, MX, y, CONTENT_W, h, fill=fill, line=None, radius=0.12, name="شريط")
+    textbox(slide, MX + 0.3, y + 0.05, CONTENT_W - 0.6, h - 0.1, paras, size=size, color=col,
+            anchor="m", line=1.15, after=2, bold=(kind != "teal"))
 
 
 def callout(slide, text, y, h=0.95, dark=False):
@@ -336,7 +418,8 @@ _TOK_H = re.compile(r"\{\{([\w-]+)\.(\w+)(?:\|([^}]+))?\}\}")
 
 
 def _fmt(v, f):
-    return format(float(v), f) if f else v
+    """تنسيق رقمي، والسالب بعلامة الطرح «−» (U+2212) كما في نص الرسالة."""
+    return format(float(v), f).replace("-", "−") if f else v
 
 
 def resolve_tokens(obj):
@@ -450,20 +533,16 @@ def build_cards(ctx, spec):
     dark = spec.get("theme") == "dark"
     s = new_slide(ctx, dark=dark)
     title_bar(s, spec["title"], dark)
-    y0 = top_of_content(spec, s)
-    if spec.get("lead"):
-        textbox(s, MX, y0 - 0.05, CONTENT_W, 0.5, spec["lead"], size=20,
-                color=PRIMARY_SOFT if dark else MUTED, anchor="m", bold=True)
-        y0 += 0.6
+    y0 = top_of_content(spec, s, dark)
     items = spec["items"]
     cols = spec.get("cols", 2)
     rows = math.ceil(len(items) / cols)
     has_callout = bool(spec.get("callout"))
-    bottom = (5.45 if has_callout else BOTTOM)
+    bottom = (BOTTOM - 1.3 if has_callout else BOTTOM)
     gx, gy = 0.3, 0.3
     cw = (CONTENT_W - gx * (cols - 1)) / cols
     big = cols <= 3
-    ch = min(3.0 if big else 2.3, (bottom - y0 - gy * (rows - 1)) / rows)
+    ch = min(spec.get("card_h", 3.0 if big else 2.3), (bottom - y0 - gy * (rows - 1)) / rows)
     head_sz, text_sz = (24, 20) if big else (20, 16)
     for i, it in enumerate(items):
         r, c = divmod(i, cols)
@@ -482,7 +561,7 @@ def build_cards(ctx, spec):
         textbox(s, x + 0.15, y + 0.95, cw - 0.3, ch - 1.05, it["text"], size=text_sz,
                 color=MUTED, anchor="t", line=1.15)
     if has_callout:
-        callout(s, spec["callout"], min(5.6, y0 + rows * ch + (rows - 1) * gy + 0.4), 1.1)
+        callout(s, spec["callout"], min(BOTTOM - 1.1, y0 + rows * ch + (rows - 1) * gy + 0.4), 1.1)
     footer(ctx, s, dark)
     set_notes(s, spec.get("notes"), ctx)
     return s
@@ -493,7 +572,7 @@ def build_stats(ctx, spec):
     title_bar(s, spec["title"])
     y0 = top_of_content(spec, s)
     items = spec["items"]
-    cols = 3
+    cols = spec.get("cols", 3)
     rows = math.ceil(len(items) / cols)
     gx, gy = 0.3, 0.3
     cap_h = 0.7 if spec.get("caption") else 0
@@ -504,10 +583,10 @@ def build_stats(ctx, spec):
         x = RIGHT - (c + 1) * cw - c * gx
         y = y0 + r * (ch + gy)
         box(s, x, y, cw, ch, name="بطاقة رقم")
-        textbox(s, x + 0.1, y + 0.18, cw - 0.2, ch * 0.45, LRM + it["value"] + LRM, size=40, bold=True,
-                color=PRIMARY, align="ctr", anchor="m", name="رقم كبير")
-        textbox(s, x + 0.2, y + 0.18 + ch * 0.45, cw - 0.4, ch * 0.55 - 0.3, it["label"], size=16,
-                color=MUTED, align="ctr", anchor="t", line=1.1)
+        textbox(s, x + 0.1, y + 0.12, cw - 0.2, ch * 0.45, it["value"], size=spec.get("value_size", 40),
+                bold=True, color=PRIMARY, align="ctr", anchor="m", name="رقم كبير")
+        textbox(s, x + 0.2, y + 0.12 + ch * 0.45, cw - 0.4, ch * 0.55 - 0.2, it["label"],
+                size=spec.get("label_size", 16), color=MUTED, align="ctr", anchor="t", line=1.1, after=2)
     if spec.get("caption"):
         textbox(s, MX, BOTTOM - cap_h + 0.08, CONTENT_W, cap_h - 0.1, spec["caption"], size=14,
                 color=MUTED, anchor="m")
@@ -522,24 +601,36 @@ def build_flow(ctx, spec):
     y0 = top_of_content(spec, s)
     rows = spec["rows"]
     has_callout = bool(spec.get("callout"))
-    bottom = 5.55 if has_callout else BOTTOM
-    lab_h = 0.4
-    gap = 0.25
+    chips = spec.get("chips", [])
+    chip_h = spec.get("chip_h", 1.0)
+    bottom = BOTTOM - (1.2 if has_callout else 0) - (chip_h + 0.3 if chips else 0)
+    lab_h = 0.4 if any(r.get("label") for r in rows) else 0
+    gap = spec.get("row_gap", 0.25)
     row_h = (bottom - y0 - gap * (len(rows) - 1)) / len(rows) - lab_h
+    row_h = min(row_h, spec.get("max_row_h", row_h))
     arrow_w = 0.42
+    head_sz, text_sz = spec.get("head_size", 22), spec.get("text_size", 16)
     for ri, row in enumerate(rows):
         y = y0 + ri * (row_h + lab_h + gap)
-        textbox(s, MX, y, CONTENT_W, lab_h, row["label"], size=17, bold=True, color=ACCENT_INK, anchor="m")
+        if lab_h:
+            textbox(s, MX, y, CONTENT_W, lab_h, row.get("label", ""), size=17, bold=True, color=ACCENT_INK,
+                    anchor="m")
         steps = row["steps"]
         n = len(steps)
         sw = (CONTENT_W - (n - 1) * (arrow_w + 0.16)) / n
         for i, st in enumerate(steps):
             x = RIGHT - (i + 1) * sw - i * (arrow_w + 0.16)
-            box(s, x, y + lab_h, sw, row_h, fill=CARD, line=PRIMARY, line_w=1.5, name="خطوة")
-            textbox(s, x + 0.1, y + lab_h + 0.1, sw - 0.2, row_h * 0.42, st["head"], size=22, bold=True,
-                    color=PRIMARY, align="ctr", anchor="m", line=1.0)
-            textbox(s, x + 0.1, y + lab_h + row_h * 0.45, sw - 0.2, row_h * 0.52, st["text"], size=16,
-                    color=MUTED, align="ctr", anchor="t", line=1.1)
+            box(s, x, y + lab_h, sw, row_h, fill=PRIMARY_SOFT if st.get("highlight") else CARD,
+                line=PRIMARY, line_w=1.5, name="خطوة")
+            if st.get("text"):
+                textbox(s, x + 0.1, y + lab_h + 0.1, sw - 0.2, row_h * 0.42, st["head"], size=head_sz,
+                        bold=True, color=PRIMARY, align="ctr", anchor="m", line=1.0)
+                textbox(s, x + 0.1, y + lab_h + row_h * 0.45, sw - 0.2, row_h * 0.52, st["text"],
+                        size=text_sz, color=PRIMARY_DARK, align="ctr", anchor="t", line=1.1)
+            else:                          # خطوة بعنوان فقط
+                textbox(s, x + 0.1, y + lab_h + 0.05, sw - 0.2, row_h - 0.1, st["head"], size=head_sz,
+                        bold=st.get("highlight", False), color=PRIMARY_DARK, align="ctr", anchor="m",
+                        line=1.05)
             if i < n - 1:
                 ax = x - 0.16 - arrow_w
                 a = s.shapes.add_shape(MSO_SHAPE.LEFT_ARROW, Inches(ax), Inches(y + lab_h + row_h / 2 - 0.2),
@@ -549,8 +640,12 @@ def build_flow(ctx, spec):
                 a.fill.fore_color.rgb = rgb(ACCENT)
                 a.line.fill.background()
                 a.shadow.inherit = False
+    yb = y0 + len(rows) * (row_h + lab_h) + (len(rows) - 1) * gap + 0.3
     if has_callout:
-        callout(s, spec["callout"], 5.7, 0.95)
+        callout(s, spec["callout"], yb, 0.95)
+        yb += 1.2
+    if chips:
+        chip_row(s, chips, yb, chip_h, size=spec.get("chip_size", 22))
     footer(ctx, s)
     set_notes(s, spec.get("notes"), ctx)
     return s
@@ -610,10 +705,11 @@ def build_timeline(ctx, spec):
 def items_column(s, x, y, w, h, heading, items, size=20):
     """بطاقة عمود بعنوان وصفوف نقطية."""
     box(s, x, y, w, h, name="عمود")
-    hh = 0.75
-    hb = box(s, x, y, w, hh, fill=PRIMARY, line=None, radius=0.2, name="عنوان العمود")
-    shape_text(hb, heading, 20 if w > 5 else 18, WHITE, True, align="r")
-    hb.text_frame.margin_right = Inches(0.2)
+    hh = 0.75 if heading else 0
+    if heading:
+        hb = box(s, x, y, w, hh, fill=PRIMARY, line=None, radius=0.2, name="عنوان العمود")
+        shape_text(hb, heading, 20 if w > 5 else 18, WHITE, True, align="r")
+        hb.text_frame.margin_right = Inches(0.2)
     n = len(items)
     avail = h - hh - 0.25
     rh = avail / n
@@ -636,7 +732,7 @@ def build_two_column(ctx, spec):
     size = 20 if n == 2 else 17
     for i, c in enumerate(cols):
         x = RIGHT - (i + 1) * cw - i * g
-        items_column(s, x, y0, cw, h, c["heading"], c["items"], size=size)
+        items_column(s, x, y0, cw, h, c.get("heading"), c["items"], size=spec.get("size", size))
     footer(ctx, s)
     set_notes(s, spec.get("notes"), ctx)
     return s
@@ -657,8 +753,10 @@ def build_image(ctx, spec):
     crop_l, crop_r = spec.get("crop_left", 0.0), spec.get("crop_right", 0.0)
     asp = iw * (1 - crop_l - crop_r) / (ih * (1 - crop_b - crop_t))
     cap_h = 0.4 if spec.get("caption") else 0
+    note_h = 0.75 if spec.get("note") else 0
     y0 = min(y0, 1.5)
-    max_w, max_h = spec.get("max_w", 7.8), 6.85 - y0 - cap_h
+    bottom = (BOTTOM - note_h - 0.2) if note_h else 6.85
+    max_w, max_h = spec.get("max_w", 7.8), bottom - y0 - cap_h
     pw = min(max_w, max_h * asp)
     ph = pw / asp
     px = MX                                # الصورة يساراً والنص يميناً (RTL)
@@ -684,14 +782,17 @@ def build_image(ctx, spec):
     items = spec.get("items", [])
     n = len(items)
     gap = 0.25
-    rh = min(1.6, (BOTTOM - y0 - gap * (n - 1)) / n)
+    rh = min(spec.get("max_item_h", 1.6), (bottom - y0 - gap * (n - 1)) / n)
     for i, it in enumerate(items):
         y = y0 + i * (rh + gap)
         box(s, tx_x, y, tx_w, rh, name="بطاقة")
         badge(s, tx_x + tx_w - 0.2 - 0.55, y + 0.2, str(i + 1), name="رقم")
         textbox(s, tx_x + 0.15, y + 0.08, tx_w - 0.2 - 0.55 - 0.25, 0.65, it["head"], size=21, bold=True,
                 anchor="m", line=1.0)
-        textbox(s, tx_x + 0.15, y + 0.78, tx_w - 0.3, rh - 0.85, it["text"], size=17, color=MUTED, line=1.1)
+        textbox(s, tx_x + 0.15, y + 0.78, tx_w - 0.3, rh - 0.85, it["text"], size=spec.get("text_size", 17),
+                color=MUTED, line=1.1)
+    if note_h:
+        soft_strip(s, spec["note"], BOTTOM - note_h, note_h, size=18, kind="amber")
     footer(ctx, s)
     set_notes(s, spec.get("notes"), ctx)
     return s
@@ -734,9 +835,13 @@ def build_table(ctx, spec):
         if src.get("max_rows"):
             rows = rows[: src["max_rows"]]
     weights = spec.get("col_weights") or [1] * len(columns)
-    cap_h = 0.55 if spec.get("caption") else 0
+    cap = spec.get("caption")
+    cap_h = (0.55 if isinstance(cap, str) else 0.45 * len(cap)) if cap else 0
+    strip_h = spec.get("strip_h", 1.0) if spec.get("strip") else 0
+    call_h = 1.0 if spec.get("callout") else 0
+    extra = (strip_h + 0.15 if strip_h else 0) + (call_h + 0.2 if call_h else 0)
     n_rows = len(rows) + 1
-    row_h = min(0.8, (BOTTOM - cap_h - y0) / n_rows)
+    row_h = min(spec.get("max_row_h", 0.8), (BOTTOM - cap_h - extra - y0 - 0.1) / n_rows)
     tbl_h = row_h * n_rows
     gs = s.shapes.add_table(n_rows, len(columns), Inches(MX), Inches(y0), Inches(CONTENT_W), Inches(tbl_h))
     gs.name = "جدول"
@@ -758,6 +863,10 @@ def build_table(ctx, spec):
         style_cell(tbl.cell(0, j), h, size, WHITE, True, PRIMARY)
     for i, row in enumerate(rows, start=1):
         fill = CARD if i % 2 else "EEF2F6"
+        if (i - 1) in spec.get("highlight_rows", []):        # صف مُبرَز (كهرماني هادئ)
+            for j, v in enumerate(row):
+                style_cell(tbl.cell(i, j), v, size, ACCENT_INK, bold=True, fill=ACCENT_SOFT)
+            continue
         if (i - 1) in spec.get("explore_rows", []):          # صف استكشافي بتمييز واضح
             fill = PRIMARY_SOFT
             for j, v in enumerate(row):
@@ -771,8 +880,16 @@ def build_table(ctx, spec):
             style_cell(tbl.cell(i, j), v, size, ACCENT_INK if ph else PRIMARY_DARK,
                        bold=(j == len(row) - 1), fill=ACCENT_SOFT if ph else fill, italic=ph,
                        align="ctr" if ph else "r")
+    yb = y0 + tbl_h + 0.15
+    if strip_h:
+        soft_strip(s, spec["strip"], yb, strip_h, size=spec.get("strip_size", 17))
+        yb += strip_h + 0.15
     if spec.get("caption"):
-        textbox(s, MX, y0 + tbl_h + 0.1, CONTENT_W, cap_h, spec["caption"], size=14, color=MUTED, anchor="m")
+        textbox(s, MX, yb - 0.05, CONTENT_W, cap_h, spec["caption"], size=spec.get("caption_size", 14),
+                color=MUTED, anchor="m", after=2)
+        yb += cap_h
+    if call_h:
+        callout(s, spec["callout"], yb + 0.1, call_h)
     footer(ctx, s)
     set_notes(s, spec.get("notes"), ctx)
     return s
@@ -827,7 +944,7 @@ def build_chart(ctx, spec):
     dl.number_format = ch.get("number_format", "0.000")
     dl.number_format_is_linked = False
     dl.position = XL_LABEL_POSITION.OUTSIDE_END
-    dl.font.size = Pt(13)
+    dl.font.size = Pt(ch.get("label_size", 13))
     dl.font.bold = True
     dl.font.name = FONT
     dl.font.color.rgb = rgb(PRIMARY_DARK)
@@ -842,7 +959,7 @@ def build_chart(ctx, spec):
             pt.format.fill.fore_color.rgb = rgb(COLOR_NAMES.get(hl[lab], hl[lab]))
     ca = chart.category_axis
     ca.reverse_order = True
-    ca.tick_labels.font.size = Pt(13)
+    ca.tick_labels.font.size = Pt(ch.get("label_size", 13))
     ca.format.line.color.rgb = rgb(BORDER)
     ca.has_major_gridlines = False
     va = chart.value_axis
@@ -875,10 +992,21 @@ def build_quote(ctx, spec):
     s = new_slide(ctx)
     title_bar(s, spec["title"])
     y0 = top_of_content(spec, s)
-    textbox(s, MX + 0.6, y0, 1.2, 1.4, "”", size=96, bold=True, color=ACCENT, align="r")
-    textbox(s, MX + 0.6, y0 + 0.9, CONTENT_W - 1.2, 2.6, spec["text"], size=32, italic=True, anchor="t", line=1.2)
+    if spec.get("label"):                  # بطاقة السؤال (بلا علامة اقتباس كبيرة)
+        qh = spec.get("quote_h", 2.3)
+        box(s, MX, y0, CONTENT_W, qh, name="بطاقة السؤال")
+        textbox(s, MX + 0.4, y0 + 0.15, CONTENT_W - 0.8, 0.4, spec["label"], size=16, bold=True, color=PRIMARY)
+        textbox(s, MX + 0.4, y0 + 0.6, CONTENT_W - 0.8, qh - 0.75, spec["text"], size=spec.get("size", 28),
+                bold=True, italic=spec.get("italic", False), anchor="t", line=1.25)
+    else:
+        textbox(s, MX + 0.6, y0, 1.2, 1.4, "”", size=96, bold=True, color=ACCENT, align="r")
+        textbox(s, MX + 0.6, y0 + 0.9, CONTENT_W - 1.2, 2.6, spec["text"], size=spec.get("size", 32),
+                italic=spec.get("italic", True), anchor="t", line=1.2)
     if spec.get("by"):
         textbox(s, MX + 0.6, y0 + 3.7, CONTENT_W - 1.2, 0.5, "— " + spec["by"], size=18, color=MUTED)
+    if spec.get("items"):
+        ch = spec.get("chip_h", 1.2)
+        chip_row(s, spec["items"], BOTTOM - ch, ch, size=spec.get("chip_size", 22))
     footer(ctx, s)
     set_notes(s, spec.get("notes"), ctx)
     return s
@@ -970,6 +1098,25 @@ def build_qa(ctx, spec):
     return s
 
 
+def decorate(slide, spec):
+    """حقول عامة تُرسم بعد بناء الشريحة: source_line وtag وnumber_label."""
+    if spec.get("source_line"):            # سطر المصدر: نص صغير خافت فوق التذييل
+        textbox(slide, MX, BOTTOM_SOURCE + 0.08, CONTENT_W, 0.34, spec["source_line"], size=12,
+                color=MUTED, anchor="m", name="المصدر")
+    if spec.get("tag"):                    # وسم كهرماني صغير يسار العنوان (مثل «لاحق، استكشافي»)
+        t = spec["tag"]
+        w = min(5.0, 0.6 + 0.11 * len(t))
+        pill(slide, MX, 0.62, w, 0.46, t, ACCENT_SOFT, ACCENT_INK, 14, name="وسم")
+    if spec.get("number_label"):           # رقم نصي بدل رقم الشريحة (الشرائح الاحتياطية)
+        for sh in slide.shapes:
+            if sh.name == "رقم الشريحة":
+                p = sh.text_frame.paragraphs[0]
+                for el in list(p._p):
+                    if el.tag in (qn("a:fld"), qn("a:r")):
+                        p._p.remove(el)
+                add_runs(p, spec["number_label"], 12, MUTED)
+
+
 BUILDERS = {
     "title": build_title, "section": build_section, "bullets": build_bullets, "cards": build_cards,
     "stats": build_stats, "flow": build_flow, "timeline": build_timeline, "two-column": build_two_column,
@@ -1011,11 +1158,15 @@ def main(argv=None):
     cp.language = LANG
     slides = spec["slides"]
     ctx = Ctx(prs, meta, len(slides))
+    global BOTTOM
     for i, sp in enumerate(slides, start=1):
         kind = sp["type"]
         if kind not in BUILDERS:
             raise SystemExit(f"الشريحة {i}: نوع غير معروف {kind!r}")
-        BUILDERS[kind](ctx, sp)
+        BOTTOM = BOTTOM_SOURCE if sp.get("source_line") else BOTTOM_DEFAULT
+        s = BUILDERS[kind](ctx, sp)
+        decorate(s, sp)
+    BOTTOM = BOTTOM_DEFAULT
     prs.save(out)
     print(f"تم: {out} ({len(slides)} شريحة)")
 
