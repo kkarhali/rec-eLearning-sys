@@ -30,7 +30,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **سجل القرارات D-01…D-135** في `.claude/skills/academic-supervisor-basel-alkhatib/references/thesis-context.md`، والـADR في
   `docs/decisions/` (ADR-004 يسود عند التعارض)، والمحاضر في `docs/meetings/`. قاعدة الفريق: لا قرار افتراضي؛ ما لا نص فيه يُحسم
   بمهارة المشرف المحاكى `academic-supervisor-basel-alkhatib`، ويُراجَع بمهارة `peer-reviewer-colleague`.
-  محضر المناقشة التجريبية وتصويباتها في `docs/defense/`، والجلسة الثانية على النسخة المصحّحة وقرارها في `docs/defense/session2/`.
+  محضر المناقشة التجريبية وتصويباتها في `docs/defense/`، والجلسة الثانية على النسخة المصحّحة وقرارها في `docs/defense/session2/`، والثالثة على النسخة الأخيرة وقرارها (4.00، قبول مع تعديلات طفيفة وشرط جديد أ-9) في `docs/defense/session3/`.
 
 ## الفرضيات وقاعدة الحكم (مسجّلة قبل التأكيد)
 
