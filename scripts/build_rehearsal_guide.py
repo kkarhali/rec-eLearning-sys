@@ -55,6 +55,21 @@ def content_slides(content_md: Path) -> dict:
     return out
 
 
+def pandoc_lists(md: str) -> str:
+    """يهيّئ القوائم لـpandoc: سطر فارغ قبل قائمة تلي فقرة، وسطر الجواب «  **ج:**» فقرة ثانية داخل بند السؤال
+    (GitHub يقبل القائمة بلا سطر فارغ، وpandoc يدمجها في الفقرة السابقة)."""
+    out = []
+    for ln in md.split("\n"):
+        prev = out[-1] if out else ""
+        is_item = ln.startswith("- ")
+        if is_item and prev.strip() and not (prev.startswith("- ") or prev.startswith("  ")):
+            out.append("")
+        if ln.startswith("  **ج:**") and prev.strip():
+            out.append("")
+        out.append(ln)
+    return "\n".join(out)
+
+
 def demote(md: str) -> str:
     """يخفض عناوين الجسم درجة واحدة كي تبقى تحت عنوان الشريحة."""
     return re.sub(r"(?m)^(#{1,5}) ", lambda m: "#" + m.group(1) + " ", md)
@@ -92,7 +107,7 @@ def build_md(content_md: Path, prep_md: Path) -> str:
         )
     for title, body in after:
         out.append(f"# {title}\n\n{demote(body)}")
-    return "\n\n".join(out).rstrip() + "\n"
+    return pandoc_lists("\n\n".join(out).rstrip()) + "\n"
 
 
 def main(argv=None) -> int:
